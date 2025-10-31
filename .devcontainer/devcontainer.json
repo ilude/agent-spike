@@ -1,0 +1,77 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "containerEnv": {
+    "HOST_PROJECT_PATH": "${localWorkspaceFolder}",
+    "PROJECT_NAME": "${localWorkspaceFolderBasename}",
+    "PROJECT_PATH": "${containerWorkspaceFolder}"
+  },
+  "build": {
+    "context": "..",
+    "dockerfile": "../Dockerfile",
+    "target": "devcontainer",
+    "args": {
+      "PROJECT_NAME": "${localWorkspaceFolderBasename}",
+      "PROJECT_PATH": "/srv"
+    }
+  },
+  "initializeCommand": "make initialize",
+  "postCreateCommand": "make setup-container",
+  "runArgs": [
+    "--name","${localWorkspaceFolderBasename}_devcontainer",
+    "--hostname","${localWorkspaceFolderBasename}",
+    "--env-file",".devcontainer/.env"
+  ],
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-home,target=/home/anvil,type=volume",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/anvil/.ssh,type=bind,consistency=cached",
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig",
+        "jeff-hykin.better-dockerfile-syntax",
+        "mikestead.dotenv",
+        "ms-azuretools.vscode-docker",
+        "ms-toolsai.jupyter",
+        "ms-vsliveshare.vsliveshare",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.python",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "dev.containers.copyGitConfig": false,
+        "dev.containers.gitCredentialHelperConfigLocation": "system",
+        "files.readonlyFromPermissions": true,
+        "python.analysis.extraPaths": [ "${containerWorkspaceFolder}/src" ],
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfile.windows": "PowerShell",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "icon": "terminal-bash",
+            "args": ["-l"]
+          },
+          "zsh": {
+            "path": "/bin/zsh",
+            "icon": "terminal-linux",
+            "args": ["-l"]
+          },
+          "PowerShell": {
+            "args": ["-nologo"],
+            "icon": "terminal-powershell",
+            "path": "pwsh"
+          }
+        },
+        "terminal.integrated.tabs.description": "",
+        "terminal.integrated.tabs.title": "${local}${separator}${cwdFolder}${separator}${process}",
+        "window.title": "${localWorkspaceFolderBasename} ${process}"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+[project]
+name = "agent-spike"
+version = "0.1.0"
+description = "AI agent spike for exploration"
+requires-python = ">=3.14"
+authors = [
+    {name = "Agent Spike"}
+]
+license = {text = "MIT"}
+keywords = ["agent", "spike"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development",
+]
+dependencies = [
+    "typer>=0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "black>=23.0",
+    "ruff>=0.1",
+    "isort>=5.12",
+    "mypy>=1.0",
+]
+notebook = [
+    "jupyter>=1.0",
+    "ipython>=8.0",
+]
+
+[project.scripts]
+agent-spike = "src.app.cli:app"
+
+[tool.black]
+line-length = 88
+target-version = ["py314"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+select = ["E", "F", "W", "I", "UP"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.14"
+strict = true

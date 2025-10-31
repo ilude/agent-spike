@@ -1,0 +1,52 @@
+
+# Environment variables
+.env
+.env.*
+.install-*
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build, distribution, and packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing outputs
+.pytest_cache/
+.coverage*
+coverage.xml
+.htmlcov/
+
+# Flask instance folder
+instance/
+
+# VS Code history
+.history/
+
+# Specstory tool
+.specstory/
+
+# UV virtual environment
+.venv/
+
+# App-specific ignores
+app/feed_cache
+app/configs/*
+!app/configs/.keep
+app/static/.*-cache
+app/static/assets
+app/.working/
+
+# Notebooks data
+notebooks/data/
+
+# Specstory chat history checkpoint
+.devplanning/**/specstory_history_checkpoint/*.md
+
+# Local test artifacts (screenshots, recordings)
+.artifacts/
