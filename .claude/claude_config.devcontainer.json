@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "docker": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-docker"],
+      "env": {
+        "DOCKER_HOST": "unix:///var/run/docker.sock"
+      }
+    },
+    "youtube": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-youtube"]
+    },
+    "obsidian": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-obsidian"],
+      "env": {
+        "OBSIDIAN_VAULT_PATH": "/workspaces/${localWorkspaceFolderBasename}"
+      }
+    },
+    "ide": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-ide"]
+    }
+  },
+  "description": "MCP servers configuration for devcontainer environment",
+  "notes": [
+    "Docker socket is mounted in devcontainer, so docker server works directly",
+    "YouTube and IDE servers work independently",
+    "Obsidian vault path points to workspace root",
+    "This config is used when Claude Code runs with devcontainer workspace open"
+  ]
+}

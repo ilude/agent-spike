@@ -214,6 +214,12 @@ RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv,sharing=locked \
     chown -R $USER:$USER /usr/local/lib/python*/site-packages/ && \
     chown -R $USER:$USER /usr/local/bin
 
+# Install Claude Code CLI globally and fix npm permissions for non-root user
+RUN npm install -g @anthropic-ai/claude-code && \
+    npm cache clean --force && \
+    chown -R ${USER}:${USER} /usr/local/lib/node_modules && \
+    chown -R ${USER}:${USER} ${HOME}/.npm
+
 
 # Switch to non-root user for development
 USER ${USER}
