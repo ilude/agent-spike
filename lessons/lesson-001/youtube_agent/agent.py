@@ -12,11 +12,12 @@ from .tools import get_transcript as _get_transcript
 load_dotenv()
 
 
-def create_agent(model: str | None = None) -> Agent:
+def create_agent(model: str | None = None, instrument: bool = True) -> Agent:
     """Create and configure the YouTube tagging agent.
 
     Args:
         model: LLM model to use. If None, uses claude-3-5-haiku-20241022
+        instrument: Enable Langfuse/OpenTelemetry instrumentation (default: True)
 
     Returns:
         Configured Pydantic AI agent
@@ -27,6 +28,7 @@ def create_agent(model: str | None = None) -> Agent:
     agent = Agent(
         model,
         system_prompt=TAGGING_SYSTEM_PROMPT,
+        instrument=instrument,  # Enable observability
     )
 
     @agent.tool
