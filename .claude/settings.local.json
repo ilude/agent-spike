@@ -47,7 +47,11 @@
       "Bash(awk '{print \"\"\"\"Lines: \"\"\"\" $1}' wc -w \"$skill\")",
       "Bash(.claude/CHECKPOINT)",
       "Bash(git commit -m \"$(cat <<''EOF''\ndocs: update CLAUDE.md with lesson-003 patterns and comprehensive docs\n\n- Added terminology note (local vs personal ruleset)\n- Updated project overview with multi-agent learning focus\n- Added Quick Start section for first-time users and resuming work\n- Documented lessons structure and dependency management\n- Added API keys and environment setup guidance\n- Updated development commands for lesson-based workflow\n- Moved container/infrastructure to background section\n- Added summary for new Claude sessions\n\nFocus: Better onboarding for AI assistant and human developers\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebFetch(domain:langfuse.com)",
+      "WebFetch(domain:logfire.pydantic.dev)",
+      "Bash(timeout 60 uv run python:*)",
+      "Bash(git check-ignore:*)"
     ],
     "deny": [],
     "ask": []
