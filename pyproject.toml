@@ -90,3 +90,7 @@ lesson-004 = [
     {include-group = "lesson-003"},
     "logfire[pydantic-ai]>=2.0.0",
 ]
+lesson-005 = [
+    # Security guardrails (uses only stdlib, no external dependencies)
+    {include-group = "lesson-004"},
+]
