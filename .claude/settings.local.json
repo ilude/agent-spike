@@ -27,7 +27,7 @@
       "Bash(.venv/Scripts/python.exe:*)",
       "Bash(uv pip install:*)",
       "Bash(uv pip list:*)",
-      "Bash(export PYTHONPATH=.spec/lessons/lesson-003:$PYTHONPATH:*)",
+      "Bash(export PYTHONPATH=lessons/lesson-003:$PYTHONPATH:*)",
       "Bash(PYTHONPATH=. ../../../.venv/Scripts/python.exe:*)",
       "Bash(python:*)",
       "Bash(C:/Projects/Personal/agent-spike/.venv/Scripts/python.exe test_coordinator.py)",

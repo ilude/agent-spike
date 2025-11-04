@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Multi-agent AI learning spike project** for hands-on exploration of building AI agents with Pydantic AI. This is a **learning/experimental repository**, NOT a production application.
 
-**Primary focus**: Progressive lessons in `.spec/lessons/` teaching agent development patterns:
+**Primary focus**: Progressive lessons in `lessons/` teaching agent development patterns:
 - **Lesson 001**: YouTube video tagging agent (YouTube Transcript API + Claude Haiku)
 - **Lesson 002**: Webpage content tagging agent (Docling + Claude Haiku)
 - **Lesson 003**: Multi-agent coordinator/router (pattern-based URL routing)
@@ -23,67 +23,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Claude Haiku for cost-effective prototyping
 
 **Development workflow**:
-- Work directly in `.spec/lessons/` directories
+- Work directly in `lessons/` directories
 - Run code with `uv run python` (handles virtual environments automatically)
 - Each lesson is self-contained with its own agent, CLI, tests, and documentation
 
 **Directory structure**:
 ```
-.spec/                  # "Specification" - learning materials and experiments
-├── lessons/           # Progressive agent-building lessons
-│   ├── lesson-001/    # YouTube tagging agent
-│   ├── lesson-002/    # Webpage tagging agent
-│   ├── lesson-003/    # Multi-agent coordinator
-│   └── ...
-└── STATUS.md          # Current progress, known issues, resume instructions
-src/                   # (Future) Production code would go here (currently empty)
+lessons/               # Progressive agent-building lessons
+├── lesson-001/       # YouTube tagging agent
+├── lesson-002/       # Webpage tagging agent
+├── lesson-003/       # Multi-agent coordinator
+└── ...
+STATUS.md             # Current progress, known issues, resume instructions
+src/                  # (Future) Production code would go here (currently empty)
 ```
 
 ## Quick Start
 
 ### First Time in This Codebase?
 
-1. ✅ **Check current state**: `cat .spec/STATUS.md`
-2. ✅ **Verify lesson structure**: `ls .spec/lessons/`
+1. ✅ **Check current state**: `cat STATUS.md`
+2. ✅ **Verify lesson structure**: `ls lessons/`
 3. ✅ **Install all dependencies**: `uv sync --all-groups`
 4. ✅ **Set up API keys**: Copy `.env` from lesson-001 or create new
    ```bash
-   cd .spec/lessons/lesson-003
+   cd lessons/lesson-003
    cp ../lesson-001/.env .
    ```
 
 ### Resuming Work?
 
 1. ✅ **Check git status**: `git status`
-2. ✅ **Read STATUS.md**: `.spec/STATUS.md`
+2. ✅ **Read STATUS.md**: `STATUS.md`
 3. ✅ **Sync dependencies**: `uv sync --group lesson-XXX`
 4. ✅ **Run existing tests**: Verify environment
    ```bash
-   cd .spec/lessons/lesson-003
+   cd lessons/lesson-003
    uv run python test_router.py
    ```
 
 ### Working on Lessons?
 
 - ✅ **Always use `uv run python`** to execute scripts (not `python` directly)
-- ✅ Each lesson is in `.spec/lessons/lesson-XXX/`
+- ✅ Each lesson is in `lessons/lesson-XXX/`
 - ✅ See "Multi-Agent Learning Lessons" section below for patterns
 
 ## Multi-Agent Learning Lessons
 
-**See `multi-agent-ai-projects` skill for detailed lesson patterns.** That skill auto-activates when working with `.spec/`, `lessons/`, or `STATUS.md`.
+**See `multi-agent-ai-projects` skill for detailed lesson patterns.** That skill auto-activates when working with `lessons/` or `STATUS.md`.
 
 ### Relationship with STATUS.md
 
 **IMPORTANT**: This CLAUDE.md file provides **static patterns and architectural guidance**.
-For **dynamic state, current progress, and next steps**, always check `.spec/STATUS.md` first.
+For **dynamic state, current progress, and next steps**, always check `STATUS.md` first.
 
 - **CLAUDE.md** (this file): How lessons are structured, best practices, commands
 - **STATUS.md**: Which lessons are complete, current phase, known issues, resume instructions
 
 ### Lessons Structure
 
-Each lesson is a self-contained module in `.spec/lessons/lesson-XXX/`:
+Each lesson is a self-contained module in `lessons/lesson-XXX/`:
 
 ```
 lesson-XXX/
@@ -100,7 +99,7 @@ lesson-XXX/
 └── test_*.py              # Test scripts and demos
 ```
 
-**See `.spec/lessons/lesson-001/` or any existing lesson for concrete examples.**
+**See `lessons/lesson-001/` or any existing lesson for concrete examples.**
 
 ### Dependency Management
 
@@ -120,7 +119,7 @@ uv sync --all-groups            # All lessons (recommended)
 
 **See `python-workflow` skill for general Python patterns.** Quick reference for this project:
 ```bash
-cd .spec/lessons/lesson-XXX
+cd lessons/lesson-XXX
 uv run python test_script.py           # Run test scripts
 uv run python demo.py "URL"            # Run demos
 uv run python -m agent_name.cli        # Run CLI (if available)
@@ -132,7 +131,7 @@ Each lesson needs `.env` file with API keys (gitignored, never commit):
 
 ```bash
 # Copy from existing lesson
-cd .spec/lessons/lesson-003
+cd lessons/lesson-003
 cp ../lesson-001/.env .
 
 # Or create new
@@ -172,7 +171,7 @@ uv sync --all-groups                    # All lessons
 uv pip list
 
 # Run lesson CLI (if available)
-cd .spec/lessons/lesson-001
+cd lessons/lesson-001
 uv run python -m youtube_agent.cli analyze "https://youtube.com/..."
 ```
 
@@ -210,7 +209,7 @@ Code quality standards (applies to production code in `src/`):
 ## Summary for New Claude Sessions
 
 1. ✅ **This is a learning project** - Multi-agent AI spike, not production app
-2. ✅ **Work in `.spec/lessons/`** - Each lesson is self-contained
+2. ✅ **Work in `lessons/`** - Each lesson is self-contained
 3. ✅ **Check STATUS.md first** - Current state and progress
 4. ✅ **Use `uv run python`** - Handles virtual environments automatically
 5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything
@@ -226,7 +225,7 @@ Code quality standards (applies to production code in `src/`):
 
 **Container setup**: Multi-stage Dockerfile (base, build-base, production, devcontainer). Two-level Makefile system (root for builds, `.devcontainer/` for dev tasks). Uses uv for fast package management (10-100x faster than pip).
 
-**Current state**: `src/` directory is empty. All working code is in `.spec/lessons/`. The `src/app/cli.py` would become the production CLI entry point (`agent-spike` command) if this project moves to production.
+**Current state**: `src/` directory is empty. All working code is in `lessons/`. The `src/app/cli.py` would become the production CLI entry point (`agent-spike` command) if this project moves to production.
 
 **For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
 

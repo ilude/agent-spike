@@ -1,6 +1,6 @@
 ---
 name: lesson-runner
-description: Run Python code in lesson context with proper uv and venv handling for agent-spike project. Activate when user wants to run tests, demos, or CLI commands for lessons in .spec/lessons/ directories. Project-specific for agent-spike multi-agent learning.
+description: Run Python code in lesson context with proper uv and venv handling for agent-spike project. Activate when user wants to run tests, demos, or CLI commands for lessons in lessons/ directories. Project-specific for agent-spike multi-agent learning.
 ---
 
 # Lesson Runner Skill
@@ -12,7 +12,7 @@ Standard patterns for running lesson code in the agent-spike multi-agent learnin
 This skill activates when:
 - User wants to run test/demo scripts in lessons
 - User wants to execute lesson CLI commands
-- User is working in .spec/lessons/ directories
+- User is working in lessons/ directories
 - User asks "how to run this lesson"
 
 ## Running Lesson Code
@@ -21,7 +21,7 @@ This skill activates when:
 
 **Navigate to lesson directory first:**
 ```bash
-cd .spec/lessons/lesson-XXX
+cd lessons/lesson-XXX
 ```
 
 **Run test scripts:**
@@ -53,8 +53,8 @@ uv run python -m <name>_agent.cli analyze "URL"
 You can also run from project root (uv finds the lesson automatically):
 ```bash
 # From root directory
-uv run python .spec/lessons/lesson-003/demo.py "URL"
-uv run python .spec/lessons/lesson-001/test_agent.py
+uv run python lessons/lesson-003/demo.py "URL"
+uv run python lessons/lesson-001/test_agent.py
 ```
 
 ## Why uv run Works
@@ -93,13 +93,13 @@ uv sync --all-groups              # Install all lessons (recommended)
 uv pip list
 
 # Run specific lesson
-cd .spec/lessons/lesson-001
+cd lessons/lesson-001
 uv run python -m youtube_agent.cli analyze "https://youtube.com/watch?v=..."
 
-cd .spec/lessons/lesson-002
+cd lessons/lesson-002
 uv run python -m webpage_agent.cli analyze "https://github.com/..."
 
-cd .spec/lessons/lesson-003
+cd lessons/lesson-003
 uv run python test_coordinator.py
 ```
 
@@ -123,7 +123,7 @@ uv run python test_coordinator.py
 
 **Most common pattern:**
 ```bash
-cd .spec/lessons/lesson-XXX
+cd lessons/lesson-XXX
 uv run python <script>.py
 ```
 
