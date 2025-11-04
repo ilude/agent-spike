@@ -1,31 +1,36 @@
 # Agent Spike - Current Status
 
 **Last Updated**: 2025-11-04
-**Current Phase**: Multi-agent learning - 4 lessons complete
+**Current Phase**: Multi-agent learning - 6 lessons complete
 
 ## Current State
 
-- 4 lessons complete: YouTube, Webpage, Coordinator, and Observability
+- ✅ **6 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory
 - All agents instrumented with Pydantic Logfire for tracing
-- Console-based observability working (optional cloud dashboard)
-- Tool calls, LLM calls, costs, and latency tracked
-- Ready for security & guardrails (Lesson 005)
+- Security guardrails implemented (input/output validation, rate limiting, PII detection)
+- Memory layer integrated with Mem0 (user preferences, semantic search)
+- Production-ready patterns: observability, security, memory
+- Ready for advanced patterns (streaming, RAG, multi-agent collaboration)
+
+## Recent Completions
+
+**Lesson 005: Security & Guardrails** ✅ COMPLETE
+- Built practical security validators using Python stdlib
+- Input validation: URL safety, prompt injection detection, SQL injection patterns
+- Output validation: PII detection/redaction, XSS filtering
+- Rate limiting: In-memory request throttling with cooldowns
+- 86% URL attack detection, 75% prompt injection detection, 100% PII detection
+- Time: ~45 minutes
+
+**Lesson 006: Memory with Mem0 (Phase 1)** ✅ COMPLETE
+- Mem0 wrapper with simplified API for memory management
+- Semantic search for relevant memories (no exact matches needed)
+- User isolation and metadata support
+- Memory persistence in ~/.mem0/ (Qdrant + SQLite)
+- Phase 1 complete (basics), Phase 2-3 deferred (agent integration)
+- Time: ~1.5 hours (including Windows debugging)
 
 ## What's Next
-
-### Planned Future Lessons
-
-**Lesson 005: Security & Guardrails** (Next up)
-- Guardrails AI integration
-- Input/output validation
-- Rate limiting
-- Estimated time: 45 minutes
-
-**Lesson 006: Long-term Memory with Mem0**
-- Tag standardization
-- User preference learning
-- Cross-session context
-- Estimated time: 60 minutes
 
 ### Additional Lesson Ideas (Future Exploration)
 
