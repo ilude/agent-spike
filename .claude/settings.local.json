@@ -5,7 +5,21 @@
       "Bash(mv:*)",
       "mcp__MCP_DOCKER__get_transcript",
       "Bash(dir \"%APPDATA%\\.claude\")",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "WebFetch(domain:www.youtube.com)",
+      "mcp__MCP_DOCKER__get_video_info",
+      "Bash(python -m venv:*)",
+      "Bash(uv sync:*)",
+      "Bash(where:*)",
+      "Bash(python -m pip:*)",
+      "Bash(uv add:*)",
+      "Bash(uv run python:*)",
+      "WebSearch",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git restore:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: add lessons 001 and 002 for multi-agent system learning\n\nLesson 001: YouTube Video Tagging Agent\n- Fetches YouTube transcripts using youtube-transcript-api\n- Analyzes content with Pydantic AI and Claude Haiku\n- Generates 3-5 relevant tags for read-it-later apps\n- CLI interface with single and interactive modes\n\nLesson 002: Webpage Content Tagging Agent\n- Fetches webpages using Docling (IBM Research)\n- Converts HTML to clean Markdown\n- Strips ads, navigation, and UI elements\n- Reuses 80% of code from Lesson 001\n- 15k character truncation for cost control\n\nProject Structure:\n- Shared .venv in root (saves ~7GB per lesson)\n- Dependencies via pyproject.toml dependency groups\n- Each lesson follows consistent architecture pattern\n- Added STATUS.md for resuming work on different machines\n\nBased on Cole Medin''s \"Learn 90% of Building AI Agents in 30 Minutes\"\nhttps://www.youtube.com/watch?v=i5kwX7jeWL8\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)"
     ],
     "deny": [],
     "ask": []
