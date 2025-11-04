@@ -51,7 +51,9 @@
       "WebFetch(domain:langfuse.com)",
       "WebFetch(domain:logfire.pydantic.dev)",
       "Bash(timeout 60 uv run python:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "WebFetch(domain:ai.pydantic.dev)",
+      "Bash(timeout 30 python:*)"
     ],
     "deny": [],
     "ask": []
