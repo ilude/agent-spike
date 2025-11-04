@@ -94,3 +94,8 @@ lesson-005 = [
     # Security guardrails (uses only stdlib, no external dependencies)
     {include-group = "lesson-004"},
 ]
+lesson-006 = [
+    # Memory with Mem0 (requires OpenAI for embeddings)
+    {include-group = "lesson-005"},
+    "mem0ai>=0.1.13",
+]
