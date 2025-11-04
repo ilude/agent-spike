@@ -47,6 +47,9 @@ lesson-001 = [
 [project.scripts]
 agent-spike = "src.app.cli:app"
 
+[tool.uv]
+package = true
+
 [tool.black]
 line-length = 88
 target-version = ["py314"]
@@ -70,7 +73,15 @@ lesson-001 = [
     "python-dotenv>=1.2.1",
     "rich>=14.2.0",
     "youtube-transcript-api>=1.2.3",
+    "typer>=0.9",
 ]
 lesson-002 = [
     "docling>=2.60.0",
+    "typer>=0.9",
+]
+lesson-003 = [
+    # Coordinator depends on both lesson-001 and lesson-002
+    {include-group = "lesson-001"},
+    {include-group = "lesson-002"},
+    "typer>=0.9",
 ]
