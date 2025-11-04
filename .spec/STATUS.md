@@ -1,7 +1,7 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-03
-**Current Phase**: Multi-agent learning - 2 lessons complete
+**Last Updated**: 2025-11-04
+**Current Phase**: Multi-agent learning - 3 lessons complete
 
 ## Completed Lessons
 
@@ -24,6 +24,17 @@
 - **Code reuse**: 80% from Lesson 001
 - **Time**: ~60 minutes to build
 
+### ✅ Lesson 003: Multi-Agent Coordinator
+- **Location**: `.spec/lessons/lesson-003/`
+- **Status**: Complete and working
+- **Tech**: Pattern-based routing, agent composition
+- **What it does**: Routes any URL to appropriate agent (YouTube or Webpage)
+- **Run**: `cd .spec/lessons/lesson-003 && ../../../.venv/Scripts/python.exe test_coordinator.py`
+- **Key files**: `coordinator_agent/{router.py, agent.py, cli.py}`
+- **Pattern**: Router/Coordinator multi-agent pattern
+- **Code reuse**: 100% reuse of existing agents
+- **Time**: ~75 minutes to build
+
 ## Project Setup (Resume on New Machine)
 
 ### Prerequisites
@@ -41,7 +52,7 @@ cd agent-spike
 python -m pip install uv
 
 # Sync all dependencies
-uv sync --group lesson-001 --group lesson-002
+uv sync --group lesson-001 --group lesson-002 --group lesson-003
 
 # Copy environment variables
 # Create .env files in lesson directories with:
@@ -56,6 +67,10 @@ uv run python -m youtube_agent.cli analyze "https://www.youtube.com/watch?v=i5kw
 # Test Lesson 002
 cd .spec/lessons/lesson-002
 uv run python -m webpage_agent.cli analyze "https://github.com/docling-project/docling"
+
+# Test Lesson 003 (Coordinator)
+cd .spec/lessons/lesson-003
+uv run python test_coordinator.py
 ```
 
 ## Dependencies
@@ -112,17 +127,12 @@ All lessons based on Cole Medin's video:
 
 ### Planned Future Lessons
 
-**Lesson 003: Multi-Agent Coordinator** (Next up)
-- Router agent that decides YouTube vs Webpage
-- Single unified CLI
-- Agent communication patterns
-- Estimated time: 60-75 minutes
-
-**Lesson 004: Observability with Langfuse**
-- Add observability to both agents
-- Track tool calls, costs, latency
-- Debugging and monitoring
-- Estimated time: 45 minutes
+**Lesson 004: Observability with Langfuse** (Next up)
+- Add observability to all three agents
+- Track routing decisions and agent selection
+- Monitor tool calls, costs, latency across multi-agent flows
+- Debugging and monitoring dashboard
+- Estimated time: 60 minutes
 
 **Lesson 005: Security & Guardrails**
 - Guardrails AI integration
@@ -139,16 +149,18 @@ All lessons based on Cole Medin's video:
 ## Notes for Resume
 
 ### Current State
-- 2 independent agents working
-- Both tested and functional
-- Both use same dependencies (shared .venv)
-- Ready to build coordinator (Lesson 003)
+- 3 agents working: YouTube, Webpage, and Coordinator
+- All tested and functional
+- Coordinator successfully routes to specialized agents
+- All use same dependencies (shared .venv)
+- Ready for observability layer (Lesson 004)
 
 ### Known Issues
 - Some JavaScript-heavy websites fail with Docling (returns 404)
   - Example: https://simonwillison.net/... (dynamic routing)
   - Works fine with: GitHub, example.com, static sites
 - Docling includes some navigation in output (handled via prompt instructions)
+- ~~Lesson 003: Path issues~~ - **RESOLVED**: Use `uv run python` from any directory
 
 ### Design Decisions Made
 1. **Shared .venv**: All lessons use root .venv (saves disk space)
@@ -156,6 +168,8 @@ All lessons based on Cole Medin's video:
 3. **15k char limit**: Webpage content truncated for cost control
 4. **HTML only**: Lesson 002 doesn't handle PDFs yet (could add later)
 5. **Claude Haiku default**: Cheap and fast for prototyping
+6. **Pattern-based routing** (Lesson 003): Regex for URL classification (not LLM)
+7. **Direct agent import** (Lesson 003): Composition over complex orchestration
 
 ### File Locations
 - Planning docs: `.spec/lessons/lesson-XXX/*.md`
@@ -170,14 +184,21 @@ All lessons based on Cole Medin's video:
 # Install lesson dependencies
 uv sync --group lesson-001
 uv sync --group lesson-002
+uv sync --group lesson-003
 
 # Run agents
 cd .spec/lessons/lesson-001 && uv run python -m youtube_agent.cli analyze "URL"
 cd .spec/lessons/lesson-002 && uv run python -m webpage_agent.cli analyze "URL"
 
+# Run coordinator (routes automatically)
+cd .spec/lessons/lesson-003 && uv run python test_coordinator.py
+
+# Test router
+cd .spec/lessons/lesson-003 && uv run python test_router.py
+
 # Interactive mode
-uv run python -m youtube_agent.cli interactive
-uv run python -m webpage_agent.cli interactive
+cd .spec/lessons/lesson-001 && uv run python -m youtube_agent.cli interactive
+cd .spec/lessons/lesson-002 && uv run python -m webpage_agent.cli interactive
 
 # Check dependencies
 uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript)"
@@ -186,7 +207,7 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript)"
 ## Git State
 
 - Branch: main
-- Recent commits: Lessons 001 and 002 implementations
-- Uncommitted: This status file
+- Recent commits: Lessons 001, 002, and 003 implementations
+- Uncommitted: Status file updates
 
-**To Resume**: Pull latest, run `uv sync --group lesson-001 --group lesson-002`, create `.env` files
+**To Resume**: Pull latest, run `uv sync --all-groups`, create `.env` files
