@@ -1,7 +1,7 @@
 # Agent Spike - Current Status
 
 **Last Updated**: 2025-11-04
-**Current Phase**: Multi-agent learning - 3 lessons complete
+**Current Phase**: Multi-agent learning - 4 lessons complete
 
 ## Completed Lessons
 
@@ -34,6 +34,18 @@
 - **Pattern**: Router/Coordinator multi-agent pattern
 - **Code reuse**: 100% reuse of existing agents
 - **Time**: ~75 minutes to build
+
+### ✅ Lesson 004: Observability with Pydantic Logfire
+- **Location**: `lessons/lesson-004/`
+- **Status**: Complete and working
+- **Tech**: Pydantic Logfire, OpenTelemetry, console tracing
+- **What it does**: Adds comprehensive observability to all agents (YouTube, Webpage, Coordinator)
+- **Run**: `cd lessons/lesson-004 && uv run python test_observability.py`
+- **Key files**: `observability/{config.py, logfire_wrapper.py}`, instrumented agents
+- **Pattern**: Global instrumentation with per-agent opt-in
+- **What's tracked**: Tool calls, LLM calls, token counts, costs, latency, parent/child traces
+- **Note**: Originally planned for Langfuse, switched to Logfire due to Python 3.14 compatibility
+- **Time**: ~80 minutes to build (including Langfuse detour)
 
 ## Project Setup (Resume on New Machine)
 
@@ -127,14 +139,7 @@ All lessons based on Cole Medin's video:
 
 ### Planned Future Lessons
 
-**Lesson 004: Observability with Langfuse** (Next up)
-- Add observability to all three agents
-- Track routing decisions and agent selection
-- Monitor tool calls, costs, latency across multi-agent flows
-- Debugging and monitoring dashboard
-- Estimated time: 60 minutes
-
-**Lesson 005: Security & Guardrails**
+**Lesson 005: Security & Guardrails** (Next up)
 - Guardrails AI integration
 - Input/output validation
 - Rate limiting
@@ -146,14 +151,46 @@ All lessons based on Cole Medin's video:
 - Cross-session context
 - Estimated time: 60 minutes
 
+### Additional Lesson Ideas (Future Exploration)
+
+#### Core Patterns
+- **Lesson 007: Streaming Responses** - Real-time output for long operations (~45 min)
+- **Lesson 008: Parallel Agent Execution** - Process multiple URLs concurrently (~60 min)
+- **Lesson 009: Structured Output & Validation** - Type-safe responses with Pydantic (~45 min)
+- **Lesson 010: RAG (Retrieval Augmented Generation)** - Knowledge base with semantic search (~90 min)
+
+#### Production & Resilience
+- **Lesson 011: Error Handling & Retry Strategies** - Exponential backoff, circuit breaker (~60 min)
+- **Lesson 012: Human-in-the-Loop** - Approval workflows and confidence scoring (~45 min)
+- **Lesson 013: Cost Optimization** - Model selection, caching strategies (~60 min)
+
+#### Advanced Multi-Agent Patterns
+- **Lesson 014: Sequential Workflows** - Multi-step agent chains (~75 min)
+- **Lesson 015: Planning Agent** - Task decomposition with ReAct pattern (~90 min)
+- **Lesson 016: Agent Collaboration** - Multiple agents with voting/consensus (~75 min)
+- **Lesson 017: Conditional Routing** - LLM-based routing and state machines (~60 min)
+
+#### Evaluation & Testing
+- **Lesson 018: Agent Evaluation Framework** - Golden datasets and metrics (~75 min)
+- **Lesson 019: Prompt Engineering & Iteration** - Systematic optimization (~60 min)
+
+#### Deployment & Integration
+- **Lesson 020: FastAPI Service** - REST API with async endpoints (~90 min)
+- **Lesson 021: Browser Extension Integration** - Chrome extension for real-time tagging (~120 min)
+
+**Recommended Learning Paths:**
+- **Production-Ready**: 004 → 005 → 011 → 013 → 020
+- **Advanced AI Patterns**: 006 → 010 → 015 → 016 → 018
+- **Full-Stack Application**: 020 → 007 → 008 → 021
+
 ## Notes for Resume
 
 ### Current State
-- 3 agents working: YouTube, Webpage, and Coordinator
-- All tested and functional
-- Coordinator successfully routes to specialized agents
-- All use same dependencies (shared .venv)
-- Ready for observability layer (Lesson 004)
+- 4 lessons complete: YouTube, Webpage, Coordinator, and Observability
+- All agents instrumented with Pydantic Logfire for tracing
+- Console-based observability working (optional cloud dashboard)
+- Tool calls, LLM calls, costs, and latency tracked
+- Ready for security & guardrails (Lesson 005)
 
 ### Known Issues
 - Some JavaScript-heavy websites fail with Docling (returns 404)
@@ -170,6 +207,7 @@ All lessons based on Cole Medin's video:
 5. **Claude Haiku default**: Cheap and fast for prototyping
 6. **Pattern-based routing** (Lesson 003): Regex for URL classification (not LLM)
 7. **Direct agent import** (Lesson 003): Composition over complex orchestration
+8. **Pydantic Logfire over Langfuse** (Lesson 004): Langfuse has Python 3.14 compatibility issues, Logfire is native to Pydantic ecosystem
 
 ### File Locations
 - Planning docs: `.spec/lessons/lesson-XXX/*.md`
@@ -185,6 +223,7 @@ All lessons based on Cole Medin's video:
 uv sync --group lesson-001
 uv sync --group lesson-002
 uv sync --group lesson-003
+uv sync --group lesson-004  # Observability
 
 # Run agents
 cd .spec/lessons/lesson-001 && uv run python -m youtube_agent.cli analyze "URL"
@@ -196,12 +235,15 @@ cd .spec/lessons/lesson-003 && uv run python test_coordinator.py
 # Test router
 cd .spec/lessons/lesson-003 && uv run python test_router.py
 
+# Test observability (all agents with tracing)
+cd lessons/lesson-004 && uv run python test_observability.py
+
 # Interactive mode
 cd .spec/lessons/lesson-001 && uv run python -m youtube_agent.cli interactive
 cd .spec/lessons/lesson-002 && uv run python -m webpage_agent.cli interactive
 
 # Check dependencies
-uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript)"
+uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 ```
 
 ## Git State
