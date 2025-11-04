@@ -2,107 +2,234 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Terminology Note**: This is the **local/project ruleset** (specific to this repository). The **personal ruleset** lives in the user's home directory (`~/.claude/CLAUDE.md`) and applies to all projects. This local ruleset takes precedence over personal preferences for project-specific patterns.
+
 ## Project Overview
 
-AI agent spike project for exploration and development. Python-based CLI application using Typer, with a containerized development workflow using Docker/Podman.
+**Multi-agent AI learning spike project** for hands-on exploration of building AI agents with Pydantic AI. This is a **learning/experimental repository**, NOT a production application.
 
-## Development Environment
+**Primary focus**: Progressive lessons in `.spec/lessons/` teaching agent development patterns:
+- **Lesson 001**: YouTube video tagging agent (YouTube Transcript API + Claude Haiku)
+- **Lesson 002**: Webpage content tagging agent (Docling + Claude Haiku)
+- **Lesson 003**: Multi-agent coordinator/router (pattern-based URL routing)
 
-This project uses **devcontainer** for development. The recommended workflow is:
+**Learning source**: Based on Cole Medin's "Learn 90% of Building AI Agents in 30 Minutes" video (https://www.youtube.com/watch?v=i5kwX7jeWL8).
+
+**Tech stack**:
+- Python 3.14
+- Pydantic AI framework
+- uv package manager (not pip)
+- Typer CLIs per lesson
+- Claude Haiku for cost-effective prototyping
+
+**Development workflow**:
+- Work directly in `.spec/lessons/` directories
+- Run code with `uv run python` (handles virtual environments automatically)
+- Each lesson is self-contained with its own agent, CLI, tests, and documentation
+
+**Directory structure**:
+```
+.spec/                  # "Specification" - learning materials and experiments
+├── lessons/           # Progressive agent-building lessons
+│   ├── lesson-001/    # YouTube tagging agent
+│   ├── lesson-002/    # Webpage tagging agent
+│   ├── lesson-003/    # Multi-agent coordinator
+│   └── ...
+└── STATUS.md          # Current progress, known issues, resume instructions
+src/                   # (Future) Production code would go here (currently empty)
+```
+
+## Quick Start
+
+### First Time in This Codebase?
+
+1. ✅ **Check current state**: `cat .spec/STATUS.md`
+2. ✅ **Verify lesson structure**: `ls .spec/lessons/`
+3. ✅ **Install all dependencies**: `uv sync --all-groups`
+4. ✅ **Set up API keys**: Copy `.env` from lesson-001 or create new
+   ```bash
+   cd .spec/lessons/lesson-003
+   cp ../lesson-001/.env .
+   ```
+
+### Resuming Work?
+
+1. ✅ **Check git status**: `git status`
+2. ✅ **Read STATUS.md**: `.spec/STATUS.md`
+3. ✅ **Sync dependencies**: `uv sync --group lesson-XXX`
+4. ✅ **Run existing tests**: Verify environment
+   ```bash
+   cd .spec/lessons/lesson-003
+   uv run python test_router.py
+   ```
+
+### Working on Lessons?
+
+- ✅ **Always use `uv run python`** to execute scripts (not `python` directly)
+- ✅ Each lesson is in `.spec/lessons/lesson-XXX/`
+- ✅ See "Multi-Agent Learning Lessons" section below for patterns
+
+## Multi-Agent Learning Lessons
+
+**See `multi-agent-ai-projects` skill for detailed lesson patterns.** That skill auto-activates when working with `.spec/`, `lessons/`, or `STATUS.md`.
+
+### Relationship with STATUS.md
+
+**IMPORTANT**: This CLAUDE.md file provides **static patterns and architectural guidance**.
+For **dynamic state, current progress, and next steps**, always check `.spec/STATUS.md` first.
+
+- **CLAUDE.md** (this file): How lessons are structured, best practices, commands
+- **STATUS.md**: Which lessons are complete, current phase, known issues, resume instructions
+
+### Lessons Structure
+
+Each lesson is a self-contained module in `.spec/lessons/lesson-XXX/`:
+
+```
+lesson-XXX/
+├── <name>_agent/          # Agent implementation package
+│   ├── __init__.py
+│   ├── agent.py           # Pydantic AI agent setup
+│   ├── tools.py           # Tool implementations
+│   ├── prompts.py         # System prompts
+│   └── cli.py             # Typer CLI (optional)
+├── .env                   # API keys (gitignored, never commit!)
+├── PLAN.md                # Lesson plan and learning objectives
+├── README.md              # Quick reference for the lesson
+├── COMPLETE.md            # Summary of learnings after completion
+└── test_*.py              # Test scripts and demos
+```
+
+**See `.spec/lessons/lesson-001/` or any existing lesson for concrete examples.**
+
+### Dependency Management
+
+**Important**: `pyproject.toml` has a **dual structure** due to migration. Always use **`[dependency-groups]`** (lines 67-81) - these have up-to-date versions and proper uv syntax. Ignore `[project.optional-dependencies]` (legacy format).
+
+**Install lesson dependencies:**
+```bash
+uv sync --group lesson-001      # Single lesson
+uv sync --all-groups            # All lessons (recommended)
+```
+
+**Dependency composition**: Lesson 003 includes lessons 001+002 via `{include-group = "..."}`.
+
+### Python & Virtual Environments
+
+**The golden rule**: Always use `uv run python` - it handles virtual environment detection automatically. FYI: This project has a hybrid .venv structure (lesson-001 has its own, others share root .venv) for historical reasons, but `uv run` handles it transparently.
+
+**See `python-workflow` skill for general Python patterns.** Quick reference for this project:
+```bash
+cd .spec/lessons/lesson-XXX
+uv run python test_script.py           # Run test scripts
+uv run python demo.py "URL"            # Run demos
+uv run python -m agent_name.cli        # Run CLI (if available)
+```
+
+### API Keys and Environment Variables
+
+Each lesson needs `.env` file with API keys (gitignored, never commit):
 
 ```bash
-# Build and enter the devcontainer
-make build-dev
+# Copy from existing lesson
+cd .spec/lessons/lesson-003
+cp ../lesson-001/.env .
+
+# Or create new
+cat > .env << 'EOF'
+ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-proj-...
+DEFAULT_MODEL=claude-3-5-haiku-20241022
+EOF
 ```
 
-The devcontainer is based on Python 3.14 and includes all development tools pre-installed (ruff, black, isort, mypy, pytest).
+**Model selection**: Defaults to Claude Haiku (cheap, fast). Override via `DEFAULT_MODEL` in `.env` or `--model` CLI flag.
 
-## Key Commands
+### Best Practices for Lesson Work
 
-### Testing
-```bash
-# Run all tests
-uv run pytest
+1. ✅ **Always use `uv run python`** for execution (not `python` or manual venv paths)
+2. ✅ **Read STATUS.md first** when resuming work
+3. ✅ **Update STATUS.md** after completing a lesson
+4. ✅ **Install dependencies before running** - `uv sync --group lesson-XXX`
+5. ✅ **Copy API keys** from existing lessons or create new `.env`
+6. ✅ **Run tests first** to verify environment setup
+7. ✅ **Don't reference `.venv` manually** - let uv handle it
+8. ✅ **Keep lessons self-contained** - avoid cross-lesson imports (except lesson-003 coordinator)
 
-# Run tests quietly (less verbose)
-make test
-```
+## Common Development Commands
 
-### Code Quality
-```bash
-# Format code with black and isort
-make format
-
-# Lint code with ruff
-make lint
-```
-
-### Dependencies
-```bash
-# Lock and sync dependencies (including dev)
-uv lock
-uv sync --dev
-```
-
-### Building and Running
+### Most Common (Lesson Work)
 
 ```bash
-# Build production image
-make build
+# Run any Python script in lesson context
+uv run python <script>.py
 
-# Build with optimized caching (BuildX)
-make buildx
+# Install dependencies
+uv sync --group lesson-001              # Single lesson
+uv sync --all-groups                    # All lessons
 
-# Run production container
-make start    # Background
-make up       # Foreground
-make down     # Stop container
+# Check what's installed
+uv pip list
+
+# Run lesson CLI (if available)
+cd .spec/lessons/lesson-001
+uv run python -m youtube_agent.cli analyze "https://youtube.com/..."
 ```
 
-## Architecture
+### Code Quality (Less Common)
 
-### Package Management
-- Uses **uv** (modern Python package manager) instead of pip
-- Dependencies defined in `pyproject.toml`
-- Lock file: `uv.lock`
-
-### Project Structure
-```
-src/
-  app/
-    cli.py          # Typer CLI entrypoint
+```bash
+make format                             # black + isort
+make lint                               # ruff
+make test                               # pytest
 ```
 
-The CLI is registered as `agent-spike` command via `project.scripts` in pyproject.toml.
+### Container Builds (Rarely Needed)
 
-### Container Architecture
-Multi-stage Dockerfile with four stages:
-1. **base**: Python 3.14 slim with uv installed, user setup, entrypoint script
-2. **build-base**: Adds build tools (gcc, cmake, git, etc.)
-3. **production**: Minimal runtime with only necessary dependencies
-4. **devcontainer**: Full development environment with tools (zsh, ripgrep, gh, docker, etc.)
+**Note**: Lessons run directly via `uv run python`. Container builds are for the (future) production app in `src/`.
 
-### Makefile System
-Two-level Makefile structure:
-- Root `Makefile`: Container builds, version management, deployment
-- `.devcontainer/Makefile`: Development tasks (lint, test, format, clean)
+```bash
+make build-dev                          # Build devcontainer
+make build                              # Build production image
+```
 
-The root Makefile includes `.devcontainer/Makefile`, so all dev commands are available from the root.
-
-### Environment Variables
-- Cross-platform OS detection (linux/macos/windows)
-- Container runtime auto-detection (docker/podman)
-- Host IP detection for networking
-- Semantic versioning from git tags
-
-## CLI Entry Point
-
-The main CLI app is in `src/app/cli.py` using Typer. Currently has a single `hello` command. Add new commands by creating functions decorated with `@app.command()`.
+For full command reference, see `.devcontainer/Makefile` and root `Makefile`.
 
 ## Python Configuration
 
-- **Line length**: 88 (black standard)
+Code quality standards (applies to production code in `src/`):
+
+- **Line length**: 88 characters (black standard)
 - **Target version**: Python 3.14
 - **Type checking**: mypy with strict mode enabled
 - **Linting**: ruff with E, F, W, I, UP rules
 - **Import sorting**: isort with black profile
+
+**For lesson code**: These are guidelines, not strict requirements. Focus on learning!
+
+## Summary for New Claude Sessions
+
+1. ✅ **This is a learning project** - Multi-agent AI spike, not production app
+2. ✅ **Work in `.spec/lessons/`** - Each lesson is self-contained
+3. ✅ **Check STATUS.md first** - Current state and progress
+4. ✅ **Use `uv run python`** - Handles virtual environments automatically
+5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything
+6. ✅ **Copy `.env` from lesson-001** - API keys needed for each lesson
+7. ✅ **Container/Docker stuff?** - Background info only (see below)
+8. ✅ **Questions?** - Read the lesson's README.md and COMPLETE.md
+
+---
+
+## Background: Infrastructure & Architecture
+
+**Note**: This infrastructure exists for potential future production deployment, not for daily lesson development. Work directly on host machine with `uv run python`.
+
+**Container setup**: Multi-stage Dockerfile (base, build-base, production, devcontainer). Two-level Makefile system (root for builds, `.devcontainer/` for dev tasks). Uses uv for fast package management (10-100x faster than pip).
+
+**Current state**: `src/` directory is empty. All working code is in `.spec/lessons/`. The `src/app/cli.py` would become the production CLI entry point (`agent-spike` command) if this project moves to production.
+
+**For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
+
+---
+
+Happy learning!
