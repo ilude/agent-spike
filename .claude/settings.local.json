@@ -53,7 +53,13 @@
       "Bash(timeout 60 uv run python:*)",
       "Bash(git check-ignore:*)",
       "WebFetch(domain:ai.pydantic.dev)",
-      "Bash(timeout 30 python:*)"
+      "Bash(timeout 30 python:*)",
+      "WebFetch(domain:docs.mem0.ai)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(timeout 120 uv run:*)",
+      "Bash(source .env)",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []
