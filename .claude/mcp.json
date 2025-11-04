@@ -5,21 +5,6 @@
       "args": ["@modelcontextprotocol/server-docker"],
       "description": "MCP server for Docker operations - knowledge graph management, sequential thinking"
     },
-    "youtube": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-youtube"],
-      "description": "MCP server for YouTube transcript retrieval"
-    },
-    "obsidian": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-obsidian"],
-      "description": "MCP server for Obsidian vault integration"
-    },
-    "ide": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-ide"],
-      "description": "MCP server for IDE integration (VS Code diagnostics, Jupyter notebooks)"
-    }
   },
   "description": "MCP (Model Context Protocol) servers configuration for agent-spike development",
   "notes": [
