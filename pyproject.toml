@@ -85,3 +85,8 @@ lesson-003 = [
     {include-group = "lesson-002"},
     "typer>=0.9",
 ]
+lesson-004 = [
+    # Observability depends on all previous lessons
+    {include-group = "lesson-003"},
+    "logfire[pydantic-ai]>=2.0.0",
+]

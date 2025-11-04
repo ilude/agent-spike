@@ -80,6 +80,15 @@ lesson-003 = [
     { name = "typer" },
     { name = "youtube-transcript-api" },
 ]
+lesson-004 = [
+    { name = "docling" },
+    { name = "logfire" },
+    { name = "pydantic-ai" },
+    { name = "python-dotenv" },
+    { name = "rich" },
+    { name = "typer" },
+    { name = "youtube-transcript-api" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -113,6 +122,15 @@ lesson-002 = [
 ]
 lesson-003 = [
     { name = "docling", specifier = ">=2.60.0" },
+    { name = "pydantic-ai", specifier = ">=1.9.1" },
+    { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "rich", specifier = ">=14.2.0" },
+    { name = "typer", specifier = ">=0.9" },
+    { name = "youtube-transcript-api", specifier = ">=1.2.3" },
+]
+lesson-004 = [
+    { name = "docling", specifier = ">=2.60.0" },
+    { name = "logfire", extras = ["pydantic-ai"], specifier = ">=2.0.0" },
     { name = "pydantic-ai", specifier = ">=1.9.1" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "rich", specifier = ">=14.2.0" },
