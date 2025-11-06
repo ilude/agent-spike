@@ -34,22 +34,6 @@ instance/
 # UV virtual environment
 .venv/
 
-# App-specific ignores
-app/feed_cache
-app/configs/*
-!app/configs/.keep
-app/static/.*-cache
-app/static/assets
-app/.working/
-
-# Notebooks data
-notebooks/data/
-
-# Specstory chat history checkpoint
-.devplanning/**/specstory_history_checkpoint/*.md
-
-# Local test artifacts (screenshots, recordings)
-.artifacts/
 
 # Runtime cache directories (lesson caches, etc.)
 .cache/
