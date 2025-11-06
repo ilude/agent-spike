@@ -1,0 +1,485 @@
+# Agent Spike - Long-Term Vision
+
+**Created**: 2025-11-05
+**Last Updated**: 2025-11-05
+**Status**: Planning & Early Development
+
+---
+
+## Executive Summary
+
+Transform the agent-spike learning project into a **Personal AI Research Assistant and Recommendation Engine** that:
+
+1. **Monitors** news, blogs, videos for topics aligned with user interests
+2. **Analyzes** content to understand relevance to user's projects and problems
+3. **Recommends** content based on preferences and current work
+4. **Suggests applications** of learned concepts to active projects
+5. **Tracks memories** of what was learned, liked, and applied
+
+---
+
+## The Problem
+
+**Information overload**: Too much content (videos, blogs, papers) to manually review.
+
+**Lost connections**: Valuable insights from content aren't systematically connected to active projects or problems.
+
+**Manual curation**: No automated way to filter content by personal preferences and relevance.
+
+**Application gap**: Learning happens, but applying it to existing projects requires manual effort.
+
+---
+
+## The Solution
+
+A multi-agent system that acts as a **personal research assistant**:
+
+### Core Capabilities
+
+1. **Content Ingestion**
+   - Fetch transcripts from YouTube videos
+   - Extract text from blog posts and articles
+   - Parse academic papers and documentation
+   - Store with semantic embeddings for search
+
+2. **Intelligent Analysis**
+   - Tag content with relevant topics
+   - Extract key concepts and techniques
+   - Summarize main points
+   - Rate quality and relevance
+
+3. **Preference Learning**
+   - Track user ratings and feedback
+   - Learn topics of high interest
+   - Understand learning style preferences
+   - Model project goals and challenges
+
+4. **Recommendation Engine**
+   - Semantic search: "Find content about X"
+   - Filter by preferences: "Only highly-rated content"
+   - Context-aware: "Relevant to my current project"
+   - Trend detection: "What's Nate Jones focusing on lately?"
+
+5. **Application Suggester**
+   - "You learned X from video Y, could apply to project Z"
+   - "Technique from blog A solves problem in feature B"
+   - "Similar to what you built in lesson C"
+
+---
+
+## System Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│          Personal Research Assistant System              │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────┐
+│ Content Sources │
+├─────────────────┤
+│ • YouTube       │──┐
+│ • Blogs         │  │
+│ • News          │  │ Ingestion Layer (Lesson 007)
+│ • Papers        │  │
+│ • Podcasts      │──┘
+└─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Cache Manager   │
+│ (Qdrant)        │──── Content storage with embeddings
+│                 │     • Semantic search
+│                 │     • Metadata filtering
+└─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Analysis Layer  │
+├─────────────────┤
+│ • Tagging       │──── Using existing agents (lessons 001-003)
+│ • Summarization │     + Batch processing (Lesson 008)
+│ • Extraction    │
+└─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Memory Layer    │
+│ (Mem0/Qdrant)   │──── User preferences, project context
+│                 │     • Ratings and feedback
+│                 │     • Learning history
+└─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Recommendation  │
+│ Engine          │──── Match content to interests/needs
+│                 │     • Preference-based ranking
+│                 │     • Context-aware filtering
+└─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Application     │
+│ Suggester       │──── Connect learnings to projects
+│                 │     • Pattern matching
+│                 │     • Problem-solution mapping
+└─────────────────┘
+```
+
+---
+
+## Technical Stack
+
+### Core Infrastructure
+- **Vector Database**: Qdrant (semantic search, metadata filtering)
+- **Memory System**: Mem0 (user preferences, conversation history)
+- **Agents**: Pydantic AI (analysis, tagging, summarization)
+- **Batch Processing**: OpenAI Batch API (cost-effective large-scale analysis)
+
+### Content Types
+- **YouTube**: Transcripts via youtube-transcript-api
+- **Webpages**: Markdown via Docling
+- **PDFs**: (Future) Document parsing
+- **Podcasts**: (Future) Audio transcription
+
+### Analysis Capabilities
+- **Tagging**: Multi-label classification
+- **Summarization**: Key points extraction
+- **Concept Extraction**: Identify techniques, patterns, frameworks
+- **Relationship Mapping**: Connect content to projects/problems
+
+---
+
+## Data Models
+
+### Content (Qdrant Collection: "content")
+
+```python
+{
+    "id": "youtube:i5kwX7jeWL8",
+    "vector": [...],  # Semantic embedding of content
+    "payload": {
+        # Content metadata
+        "type": "youtube_video",
+        "source": "Nate Jones",
+        "title": "Learn 90% of AI Agents in 30 Minutes",
+        "url": "https://youtube.com/watch?v=i5kwX7jeWL8",
+        "upload_date": "2024-10-15",
+        "duration_seconds": 1845,
+
+        # Analyzed content
+        "transcript": "...",
+        "tags": ["ai", "agents", "pydantic", "multi-agent"],
+        "summary": "...",
+        "key_concepts": ["tool", "system-prompt", "memory", "llm"],
+
+        # User-specific metadata
+        "my_rating": 5,
+        "watched_date": "2025-11-01",
+        "notes": "Used to build agent-spike project",
+        "importance": "high",
+
+        # Relationships
+        "inspired_projects": ["agent-spike"],
+        "related_content": ["youtube:GTEz5WWbfiw"],
+        "applied_techniques": ["dependency-injection", "caching"],
+        "solved_problems": ["batch-processing-transcripts"]
+    }
+}
+```
+
+### Preferences (Mem0 or Separate Collection)
+
+```python
+{
+    "user_id": "mglenn",
+    "preferences": {
+        "topics": {
+            "multi-agent-systems": {"interest": 5, "expertise": 3},
+            "python": {"interest": 5, "expertise": 4},
+            "prompt-engineering": {"interest": 5, "expertise": 3},
+            "caching-strategies": {"interest": 4, "expertise": 3}
+        },
+        "content_types": {
+            "youtube": {"preference": 5},
+            "technical_blogs": {"preference": 4},
+            "academic_papers": {"preference": 2}
+        },
+        "sources": {
+            "Nate Jones": {"trust": 5, "relevance": 5},
+            "Anthropic Blog": {"trust": 5, "relevance": 4}
+        },
+        "learning_style": "hands-on, project-based"
+    },
+    "projects": {
+        "agent-spike": {
+            "status": "active",
+            "goals": [
+                "learn multi-agent systems",
+                "build research assistant",
+                "explore caching patterns"
+            ],
+            "tech_stack": ["python", "pydantic-ai", "qdrant", "mem0"],
+            "current_challenges": [
+                "batch processing 169 videos",
+                "cost-effective analysis"
+            ]
+        }
+    },
+    "problems": {
+        "scale-video-analysis": {
+            "description": "Analyze 169 videos efficiently",
+            "context": "Nate Jones corpus for research",
+            "potential_solutions": [
+                "batch-processing",
+                "caching",
+                "embeddings",
+                "openai-batch-api"
+            ],
+            "status": "in_progress"
+        }
+    }
+}
+```
+
+---
+
+## Development Strategy
+
+### Philosophy: **Evolve Organically + Build Piece by Piece**
+
+Start with immediate needs (caching, batch processing), let the system grow naturally as requirements emerge.
+
+### Planned Lessons
+
+**✅ Lessons 001-006**: Foundation
+- 001: YouTube tagging
+- 002: Webpage tagging
+- 003: Multi-agent coordinator
+- 004: Observability
+- 005: Security
+- 006: Memory (Mem0)
+
+**🚧 Lesson 007: Cache Manager & Content Ingestion** (In Progress)
+- Dependency injection pattern
+- CacheManager protocol
+- Qdrant implementation
+- Generic CSV ingestion (supports any URL list)
+- Router integration for multi-source content
+
+**📋 Lesson 008: Batch Processing with OpenAI** (Planned)
+- OpenAI Batch API integration
+- Cost optimization (50% savings)
+- Batch job monitoring
+- Result aggregation
+
+**💡 Future Lessons** (As needs emerge)
+- Lesson 009: Recommendation engine basics
+- Lesson 010: Preference learning & feedback loops
+- Lesson 011: Application suggester (connect learnings to projects)
+- Lesson 012: Streaming & real-time updates
+- Lesson 013: Cross-content analysis (themes, trends)
+
+---
+
+## Key Architectural Decisions
+
+### 1. Qdrant for Content Storage
+**Why**: Already installed (Mem0 dependency), excellent semantic search, flexible schema, local-first
+
+**Alternatives considered**:
+- ChromaDB (simpler but less mature, would duplicate vector DB)
+- Neo4j (great for relationships but no native vector search)
+- SQLite (no semantic search)
+
+**Decision**: Single Qdrant collection "content" with type-based metadata
+
+---
+
+### 2. Dependency Injection for Cache
+**Why**: Clean separation of concerns, testable, swappable backends
+
+**Pattern**:
+```python
+def get_transcript(url: str, cache: Optional[CacheManager] = None) -> str:
+    # Tool works with or without cache
+    # No hard dependency on cache implementation
+```
+
+**Benefits**:
+- Lessons work without cache (educational)
+- Production gets caching via injection
+- Easy to test (inject mock cache)
+- Can swap backends without touching tools
+
+---
+
+### 3. Integrated Storage (Mem0 + Qdrant)
+**Why**: Mem0 uses Qdrant as backend - leverage same infrastructure
+
+**Model**:
+- Mem0 → High-level user preferences and memories
+- Direct Qdrant → Content storage with fine-grained control
+
+**Future**: May consolidate to pure Qdrant if Mem0 abstraction becomes limiting
+
+---
+
+### 4. Generic CSV Ingestion
+**Why**: Flexibility to process any content list
+
+**Pattern**:
+- Minimal required fields: `url` (and optionally `title`)
+- Additional CSV columns → stored as metadata
+- Router (lesson-003) determines content type
+- Appropriate agent handles each URL
+
+**Example**:
+```bash
+python ingest_csv.py --csv projects/video-lists/nate_jones_videos.csv
+```
+
+---
+
+## Success Metrics
+
+### Phase 1: Infrastructure (Lessons 007-008)
+- ✅ Can ingest and cache 169+ videos
+- ✅ Batch processing reduces cost by 50%
+- ✅ Semantic search finds relevant content
+- ✅ Metadata filtering works (by date, source, rating)
+
+### Phase 2: Intelligence (Lessons 009-011)
+- ✅ Recommendations match user preferences
+- ✅ System learns from feedback
+- ✅ Can suggest applications to active projects
+- ✅ Identifies patterns across content
+
+### Phase 3: Automation (Future)
+- ✅ Monitors new content from favorite sources
+- ✅ Proactively suggests relevant material
+- ✅ Tracks what was applied where
+- ✅ Generates project-specific insights
+
+---
+
+## Example Use Cases
+
+### Use Case 1: Research a Topic
+```
+User: "Find content about multi-agent orchestration"
+
+System:
+1. Semantic search in Qdrant
+2. Filter by user rating > 3
+3. Rank by relevance + recency
+4. Present top 10 with summaries
+
+Output:
+- Video: "Multi-Agent Coordination" (Nate Jones, 4.5★)
+- Blog: "Agent Orchestration Patterns" (Anthropic, 5★)
+- ...
+```
+
+### Use Case 2: Solve a Problem
+```
+User: "I need to coordinate 3 agents for parallel processing"
+
+System:
+1. Search content for "agent coordination" + "parallel"
+2. Cross-reference with projects (agent-spike)
+3. Check what was already applied
+
+Output:
+- "Video X covered this pattern (15:30 timestamp)"
+- "You applied similar in lesson-003 coordinator"
+- "Suggested approach: Use async/await + gather()"
+- "Related: Lesson-008 batch processing"
+```
+
+### Use Case 3: Discover Patterns
+```
+User: "What has Nate Jones been focusing on lately?"
+
+System:
+1. Filter content by source="Nate Jones"
+2. Sort by upload_date DESC
+3. Aggregate tags from recent videos
+4. Compare to historical topics
+
+Output:
+- "Recent shift: More prompt engineering content"
+- "Emerging topics: Tool-augmented AI, master prompters"
+- "Consistent themes: Practical AI, business applications"
+```
+
+### Use Case 4: Apply Learning
+```
+User: "How can I improve the agent-spike project?"
+
+System:
+1. Load project goals and challenges
+2. Search content for solutions
+3. Match learned techniques to current needs
+
+Output:
+- "Video on streaming responses → Could add to lesson-007"
+- "Blog on cost optimization → OpenAI batch API (lesson-008)"
+- "Pattern: Dependency injection → Already applied in lesson-007!"
+```
+
+---
+
+## Current Status
+
+**Phase**: Foundation building (Lessons 007-008)
+
+**Immediate Goal**:
+- Build cache infrastructure (Lesson 007)
+- Ingest Nate Jones videos (169 transcripts)
+- Batch tag with OpenAI (Lesson 008)
+
+**Next 30 Days**:
+- Complete lesson-007 (CacheManager + ingestion)
+- Complete lesson-008 (batch processing)
+- Have searchable corpus of Nate's content
+- Begin exploring recommendation patterns
+
+**Long-Term** (3-6 months):
+- Full recommendation engine
+- Application suggester
+- Multi-source monitoring
+- Automated research assistant
+
+---
+
+## Open Questions
+
+1. **Memory integration**: How should Mem0 preferences relate to Qdrant content?
+2. **Relationship modeling**: Do we need graph capabilities, or is metadata sufficient?
+3. **Feedback loops**: How to capture user ratings and improve recommendations?
+4. **Automation**: When/how should the system proactively fetch new content?
+5. **Cross-project**: Should this system work across multiple projects, or just agent-spike?
+
+---
+
+## References
+
+### Inspiration
+- **Nate Jones**: "Learn 90% of AI Agents in 30 Minutes" - Foundation for lessons 001-006
+- **Nate Jones**: "The Mental Models of Master Prompters" - Inspired prompt engineering skill
+
+### Technical Resources
+- [Pydantic AI Documentation](https://ai.pydantic.dev/)
+- [Qdrant Documentation](https://qdrant.tech/documentation/)
+- [Mem0 Documentation](https://docs.mem0.ai/)
+- [OpenAI Batch API](https://platform.openai.com/docs/guides/batch)
+
+### Project Files
+- **STATUS.md**: Current progress and lesson completions
+- **CLAUDE.md**: Project-specific development guidelines
+- **~/.claude/CLAUDE.md**: Personal preferences and patterns
+
+---
+
+**Last Updated**: 2025-11-05 - Initial vision documentation
