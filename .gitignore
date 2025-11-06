@@ -50,3 +50,7 @@ notebooks/data/
 
 # Local test artifacts (screenshots, recordings)
 .artifacts/
+
+# Runtime cache directories (lesson caches, etc.)
+.cache/
+**/.cache/
