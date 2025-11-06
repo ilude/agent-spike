@@ -16,14 +16,14 @@ def create_agent(model: str | None = None, instrument: bool = True) -> Agent:
     """Create and configure the YouTube tagging agent.
 
     Args:
-        model: LLM model to use. If None, uses claude-3-5-haiku-20241022
+        model: LLM model to use. If None, uses openai:gpt-5-nano
         instrument: Enable Langfuse/OpenTelemetry instrumentation (default: True)
 
     Returns:
         Configured Pydantic AI agent
     """
     if model is None:
-        model = os.getenv("DEFAULT_MODEL", "claude-3-5-haiku-20241022")
+        model = os.getenv("DEFAULT_MODEL", "openai:gpt-5-nano")
 
     agent = Agent(
         model,
