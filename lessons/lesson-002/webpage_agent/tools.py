@@ -1,10 +1,31 @@
 """Webpage fetching and parsing tools using Docling."""
 
-from typing import Any
+import hashlib
+from typing import Any, Optional, Protocol
 from docling.document_converter import DocumentConverter
 
 
-def fetch_webpage(url: str) -> str:
+class CacheManager(Protocol):
+    """Cache interface for dependency injection.
+
+    Actual implementation will be in lesson-007.
+    This allows tools to optionally use caching without hard dependencies.
+    """
+
+    def get(self, key: str) -> Optional[dict[str, Any]]:
+        """Retrieve cached data by key"""
+        ...
+
+    def set(self, key: str, value: dict[str, Any], metadata: Optional[dict[str, Any]] = None) -> None:
+        """Store data with optional metadata"""
+        ...
+
+    def exists(self, key: str) -> bool:
+        """Check if key exists in cache"""
+        ...
+
+
+def fetch_webpage(url: str, cache: Optional[CacheManager] = None) -> str:
     """Fetch webpage content and convert to clean Markdown.
 
     Uses Docling to:
@@ -16,11 +37,22 @@ def fetch_webpage(url: str) -> str:
 
     Args:
         url: Webpage URL
+        cache: Optional cache manager for storing/retrieving webpage content
 
     Returns:
         Clean Markdown content or error message
     """
     try:
+        # Try cache first if available
+        # Use hash of URL as key since URLs can be very long
+        url_hash = hashlib.sha256(url.encode()).hexdigest()[:16]
+        cache_key = f"webpage:content:{url_hash}"
+
+        if cache and cache.exists(cache_key):
+            cached = cache.get(cache_key)
+            if cached and "markdown" in cached:
+                return cached["markdown"]
+
         # Create converter with default settings
         converter = DocumentConverter()
 
@@ -34,8 +66,23 @@ def fetch_webpage(url: str) -> str:
 
         # Truncate for cost control (15k chars ~= 3750 words)
         max_chars = 15000
+        truncated = False
         if len(markdown) > max_chars:
             markdown = markdown[:max_chars] + "\n\n[Content truncated for analysis...]"
+            truncated = True
+
+        # Store in cache if available
+        if cache:
+            cache.set(
+                cache_key,
+                {
+                    "markdown": markdown,
+                    "url": url,
+                    "length": len(markdown),
+                    "truncated": truncated
+                },
+                metadata={"type": "webpage_content", "source": "docling"}
+            )
 
         return markdown
 
@@ -52,11 +99,12 @@ def fetch_webpage(url: str) -> str:
             return f"ERROR: Failed to fetch page - {error_msg}"
 
 
-def get_page_info(url: str) -> dict[str, Any]:
+def get_page_info(url: str, cache: Optional[CacheManager] = None) -> dict[str, Any]:
     """Get basic information about a webpage URL.
 
     Args:
         url: Webpage URL
+        cache: Optional cache manager for storing/retrieving page info
 
     Returns:
         Dictionary with URL validation info
@@ -65,8 +113,24 @@ def get_page_info(url: str) -> dict[str, Any]:
     if not url.startswith(("http://", "https://")):
         return {"error": "URL must start with http:// or https://"}
 
-    return {
+    # Try cache first if available
+    url_hash = hashlib.sha256(url.encode()).hexdigest()[:16]
+    cache_key = f"webpage:info:{url_hash}"
+
+    if cache and cache.exists(cache_key):
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+    # Create page info
+    info = {
         "url": url,
         "protocol": "https" if url.startswith("https") else "http",
         "note": "Use fetch_webpage() to get content"
     }
+
+    # Store in cache if available
+    if cache:
+        cache.set(cache_key, info, metadata={"type": "webpage_info"})
+
+    return info
