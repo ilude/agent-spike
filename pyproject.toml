@@ -48,7 +48,7 @@ lesson-001 = [
 agent-spike = "src.app.cli:app"
 
 [tool.uv]
-package = true
+package = false  # This is a learning project, not a library to publish
 
 [tool.black]
 line-length = 88
@@ -88,7 +88,7 @@ lesson-003 = [
 lesson-004 = [
     # Observability depends on all previous lessons
     {include-group = "lesson-003"},
-    "logfire[pydantic-ai]>=2.0.0",
+    "logfire>=2.0.0",
 ]
 lesson-005 = [
     # Security guardrails (uses only stdlib, no external dependencies)
@@ -98,4 +98,16 @@ lesson-006 = [
     # Memory with Mem0 (requires OpenAI for embeddings)
     {include-group = "lesson-005"},
     "mem0ai>=0.1.13",
+]
+lesson-007 = [
+    # Cache Manager with Qdrant (vector DB for semantic search)
+    {include-group = "lesson-003"},  # Needs router, youtube, and webpage tools
+    "qdrant-client>=1.7.0",
+    "sentence-transformers>=2.2.0",
+    "tqdm>=4.66.0",
+]
+lesson-008 = [
+    # Batch Processing with OpenAI (50% cost savings)
+    {include-group = "lesson-007"},  # Needs cache manager
+    "openai>=1.54.0",
 ]

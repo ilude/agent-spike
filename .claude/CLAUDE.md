@@ -38,6 +38,8 @@ STATUS.md             # Current progress, known issues, resume instructions
 src/                  # (Future) Production code would go here (currently empty)
 ```
 
+**Long-term vision**: This learning project is evolving toward a **Personal AI Research Assistant and Recommendation Engine**. See `.claude/VISION.md` for the full roadmap and architectural plans.
+
 ## Quick Start
 
 ### First Time in This Codebase?

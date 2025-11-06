@@ -59,7 +59,9 @@
       "WebFetch(domain:github.com)",
       "Bash(timeout 120 uv run:*)",
       "Bash(source .env)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(tree:*)",
+      "Bash(xargs cat:*)"
     ],
     "deny": [],
     "ask": []
