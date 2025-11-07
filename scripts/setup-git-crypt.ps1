@@ -87,17 +87,49 @@ if (Get-Command git-crypt -ErrorAction SilentlyContinue) {
 
 Write-Host "`n=== Setup Complete ===" -ForegroundColor Cyan
 
+# Setup GPG environment for ~/.ssh/gpg keyring
+$defaultGpgHome = "$HOME\.gnupg"
+$sshGpgHome = "$HOME\.ssh\gpg"
+
+# Check if GPG keyring is in ~/.ssh/gpg
+if (Test-Path $sshGpgHome) {
+    Write-Host "`n✓ GPG keyring found in ~/.ssh/gpg" -ForegroundColor Green
+    
+    # Check if junction exists
+    if (-not (Test-Path $defaultGpgHome)) {
+        Write-Host "Creating junction: .gnupg -> .ssh\gpg" -ForegroundColor Yellow
+        New-Item -ItemType Junction -Path $defaultGpgHome -Target $sshGpgHome -Force | Out-Null
+        Write-Host "✓ Junction created" -ForegroundColor Green
+    } elseif ((Get-Item $defaultGpgHome).Attributes -match "ReparsePoint") {
+        Write-Host "✓ Junction already exists: .gnupg -> .ssh\gpg" -ForegroundColor Green
+    } else {
+        Write-Host "⚠ Warning: .gnupg exists but is not a junction to .ssh\gpg" -ForegroundColor Yellow
+        Write-Host "  Your GPG keyring may not sync properly" -ForegroundColor Yellow
+    }
+} elseif (Test-Path $defaultGpgHome) {
+    Write-Host "`n⚠ GPG keyring is in default location (.gnupg)" -ForegroundColor Yellow
+    Write-Host "  Consider running 'make setup-gpg' to move it to ~/.ssh/gpg for syncing" -ForegroundColor White
+}
+
 # Check if git-crypt is available
 if (Get-Command git-crypt -ErrorAction SilentlyContinue) {
     Write-Host "`n✓ All tools ready!" -ForegroundColor Green
-    Write-Host "`nNext steps:" -ForegroundColor White
-    Write-Host "1. Initialize git-crypt:" -ForegroundColor White
-    Write-Host "   git-crypt init" -ForegroundColor Gray
-    Write-Host "2. Configure .gitattributes for files to encrypt:" -ForegroundColor White
-    Write-Host "   echo '.env filter=git-crypt diff=git-crypt' >> .gitattributes" -ForegroundColor Gray
-    Write-Host "3. Export a symmetric key for team sharing:" -ForegroundColor White
-    Write-Host "   git-crypt export-key .git-crypt-key" -ForegroundColor Gray
-    Write-Host "   (Store this key securely, do NOT commit it!)" -ForegroundColor Yellow
+    
+    # Check if in a git-crypt enabled repository
+    if (Test-Path ".git-crypt") {
+        Write-Host "`nThis repository uses git-crypt." -ForegroundColor White
+        Write-Host "To decrypt files, run:" -ForegroundColor White
+        Write-Host "   git-crypt unlock" -ForegroundColor Gray
+        Write-Host "(Your GPG key from ~/.ssh/gpg will be used automatically)" -ForegroundColor Gray
+    } else {
+        Write-Host "`nTo set up git-crypt for a new repository:" -ForegroundColor White
+        Write-Host "1. Initialize git-crypt:" -ForegroundColor White
+        Write-Host "   git-crypt init" -ForegroundColor Gray
+        Write-Host "2. Add your GPG key:" -ForegroundColor White
+        Write-Host "   git-crypt add-gpg-user <KEY-ID>" -ForegroundColor Gray
+        Write-Host "3. Configure .gitattributes for files to encrypt:" -ForegroundColor White
+        Write-Host "   echo '.env filter=git-crypt diff=git-crypt' >> .gitattributes" -ForegroundColor Gray
+    }
 } else {
     Write-Host "`n⚠ GPG installed, but git-crypt needs manual installation" -ForegroundColor Yellow
     Write-Host "See instructions above for git-crypt installation options" -ForegroundColor White
