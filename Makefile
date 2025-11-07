@@ -55,6 +55,25 @@ export HOSTIP DETECTED_OS CONTAINER_RUNTIME SEMANTIC_VERSION
 .env:
 	touch .env
 
+# Setup targets
+.PHONY: setup setup-gpg
+
+setup:
+ifeq ($(DETECTED_OS),windows)
+	@pwsh -ExecutionPolicy Bypass -File scripts/setup-git-crypt.ps1
+else
+	@echo "This setup script is designed for Windows. For Linux/macOS, install manually:"
+	@echo "  Linux: sudo apt install gnupg git-crypt"
+	@echo "  macOS: brew install gnupg git-crypt"
+endif
+
+setup-gpg:
+ifeq ($(DETECTED_OS),windows)
+	@pwsh -ExecutionPolicy Bypass -File scripts/setup-gpg-key.ps1
+else
+	@echo "Run: gpg --full-generate-key"
+endif
+
 # Build targets
 .PHONY: build build-dev start up down logs restart
 
