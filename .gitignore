@@ -1,7 +1,8 @@
 
-# Environment variables
-.env
-.env.*
+# Environment variables (encrypted with git-crypt)
+# .env is now tracked and encrypted - see .gitattributes
+.env.local
+.env.*.local
 .install-*
 
 # Python cache and compiled files
