@@ -4,7 +4,7 @@ export DOCKER_SCAN_SUGGEST := false
 export COMPOSE_DOCKER_CLI_BUILD := 1
 
 # Include development targets if available
--include .devcontainer/Makefile
+#-include .devcontainer/Makefile
 
 ifneq (,$(wildcard .env))
 	include .env
@@ -56,7 +56,7 @@ export HOSTIP DETECTED_OS CONTAINER_RUNTIME SEMANTIC_VERSION
 	touch .env
 
 # Build targets
-.PHONY: build build-dev buildx buildx-dev
+.PHONY: build build-dev start up down logs restart
 
 build: .env
 	$(CONTAINER_RUNTIME) build -t app:prod --target production .
@@ -64,58 +64,15 @@ build: .env
 build-dev: .env
 	$(CONTAINER_RUNTIME) build --target devcontainer -t app .
 
-# BuildX setup and targets (for cross-platform/optimized builds)
-.PHONY: buildx-setup
 
-buildx-setup:
-	@if [ "$(CONTAINER_RUNTIME)" != "docker" ]; then \
-		echo "[buildx] Skipping: buildx requires docker runtime"; \
-		exit 0; \
-	fi
-	@if docker buildx version >/dev/null 2>&1; then \
-		docker buildx ls | grep -q "app-builder" || docker buildx create --name app-builder --use >/dev/null; \
-	else \
-		echo "[buildx] Plugin not available"; \
-	fi
-	@mkdir -p .buildcache
-
-buildx: .env buildx-setup
-	@if [ "$(CONTAINER_RUNTIME)" != "docker" ] || ! docker buildx version >/dev/null 2>&1; then \
-		echo "[buildx] Using standard build"; \
-		$(CONTAINER_RUNTIME) build -t app:prod --target production .; \
-	else \
-		echo "[buildx] Building production with cache"; \
-		docker buildx build \
-			--target production \
-			-t app:prod \
-			--cache-from=type=local,src=.buildcache \
-			--cache-to=type=local,dest=.buildcache,mode=max \
-			--load \
-			.; \
-	fi
-
-buildx-dev: .env buildx-setup
-	@if [ "$(CONTAINER_RUNTIME)" != "docker" ] || ! docker buildx version >/dev/null 2>&1; then \
-		echo "[buildx] Using standard build"; \
-		$(CONTAINER_RUNTIME) build --target devcontainer -t app .; \
-	else \
-		echo "[buildx] Building devcontainer with cache"; \
-		docker buildx build \
-			--target devcontainer \
-			-t app \
-			--cache-from=type=local,src=.buildcache \
-			--cache-to=type=local,dest=.buildcache,mode=max \
-			--load \
-			.; \
-	fi
 
 # Container run targets
-.PHONY: start up down logs restart
+.PHONY: 
 
-start: buildx
+start: build
 	$(CONTAINER_RUNTIME) run --rm -d --name app_prod -p 8000:8000 app:prod
 
-up: buildx
+up: build
 	$(CONTAINER_RUNTIME) run --rm --name app_prod -p 8000:8000 app:prod
 
 down:
@@ -124,7 +81,30 @@ down:
 logs:
 	$(CONTAINER_RUNTIME) logs app_prod -f
 
-restart: buildx down start
+restart: build down start
+
+# Version management
+.PHONY: version bump-patch bump-minor bump-major publish
+
+# Cleanup targets
+.PHONY: clean
+
+clean:
+	@echo "Cleaning Python cache and build artifacts..."
+	find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.pytest_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.ruff_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.mypy_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '*.egg-info' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name 'dist' -not -path './.git/*' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name 'build' -not -path './.git/*' -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name '.coverage' -delete 2>/dev/null || true
+	find . -type f -name '*.pyc' -delete 2>/dev/null || true
+	find . -type f -name '*.pyo' -delete 2>/dev/null || true
+	find . -type f -name '*.pyd' -delete 2>/dev/null || true
+	find . -type f -name '.DS_Store' -delete 2>/dev/null || true
+	uv cache clean 2>/dev/null || true
+	@echo "Cleanup complete"
 
 # Version management
 .PHONY: version bump-patch bump-minor bump-major publish
@@ -162,21 +142,3 @@ bump-major:
 
 publish: bump-patch
 	@git push --all
-
-# Testing targets
-.PHONY: test-if-py-changed
-
-test-if-py-changed:
-	@echo "[tests] Checking for Python changes..."
-	@if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then \
-		changed=$$( (git diff --name-only HEAD; git ls-files --others --exclude-standard) | grep -E '\\.py$$' | sort -u ); \
-		if [ -n "$$changed" ]; then \
-			echo "[tests] Python changes detected, running pytest"; \
-			uv run pytest; \
-		else \
-			echo "[tests] No Python changes detected"; \
-		fi; \
-	else \
-		echo "[tests] Not a git repo"; \
-		uv run pytest; \
-	fi

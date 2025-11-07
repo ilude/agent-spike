@@ -47,11 +47,20 @@ format: uv.lock
 	uv run isort src tests --profile black
 	@echo "Code formatting completed!"
 
-# Clean Python cache files
+# Clean Python cache files and build artifacts
 clean:
-	@echo "Cleaning Python cache files..."
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -delete
-	find . -type d -name "*.egg-info" -exec rm -rf {} +
-	rm -rf .coverage .htmlcov/ .pytest_cache/
-	@echo "Clean completed!"
+	@echo "Cleaning Python cache and build artifacts..."
+	find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.pytest_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.ruff_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '.mypy_cache' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name '*.egg-info' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name 'dist' -not -path './.git/*' -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name 'build' -not -path './.git/*' -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name '.coverage' -delete 2>/dev/null || true
+	find . -type f -name '*.pyc' -delete 2>/dev/null || true
+	find . -type f -name '*.pyo' -delete 2>/dev/null || true
+	find . -type f -name '*.pyd' -delete 2>/dev/null || true
+	find . -type f -name '.DS_Store' -delete 2>/dev/null || true
+	uv cache clean 2>/dev/null || true
+	@echo "✓ Cleanup complete"
