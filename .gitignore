@@ -1,6 +1,7 @@
 
-# Environment variables (encrypted with git-crypt)
-# .env is now tracked and encrypted - see .gitattributes
+# Environment variables (centralized in root .env)
+# Root .env is tracked and encrypted with git-crypt (see .gitattributes)
+# All code uses tools/dotenv.py to load from root .env
 .env.local
 .env.*.local
 .install-*

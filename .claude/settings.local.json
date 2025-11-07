@@ -61,7 +61,9 @@
       "Bash(source .env)",
       "Bash(test:*)",
       "Bash(tree:*)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(make setup:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

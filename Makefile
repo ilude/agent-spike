@@ -6,9 +6,13 @@ export COMPOSE_DOCKER_CLI_BUILD := 1
 # Include development targets
 -include .devcontainer/Makefile
 
+# Include .env if it exists and is not encrypted by git-crypt
+# Skip if file is binary data (encrypted)
 ifneq (,$(wildcard .env))
-	include .env
-	export
+	ifeq (,$(shell file .env 2>/dev/null | grep -q "data" && echo binary))
+		-include .env
+		export
+	endif
 endif
 
 # Cross-platform OS detection
