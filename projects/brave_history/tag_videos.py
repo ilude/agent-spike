@@ -16,10 +16,10 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict, Counter
 
-from dotenv import load_dotenv
 from openai import OpenAI
 
-from youtube_cache import find_env_file, YouTubeCache
+from youtube_cache import YouTubeCache
+from tools.dotenv import load_root_env
 
 # Fix stdout encoding for Windows
 if sys.platform == 'win32':
@@ -56,9 +56,7 @@ class VideoTagger:
     def __init__(self, cache_db_path: str = "channel_cache.db"):
         """Initialize the tagger with OpenAI client and database."""
         # Load .env from git root
-        env_path = find_env_file()
-        if env_path:
-            load_dotenv(env_path)
+        load_root_env()
 
         self.api_key = os.getenv("OPENAI_API_KEY")
         if not self.api_key:

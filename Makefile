@@ -3,8 +3,8 @@ export DOCKER_BUILDKIT := 1
 export DOCKER_SCAN_SUGGEST := false
 export COMPOSE_DOCKER_CLI_BUILD := 1
 
-# Include development targets if available
-#-include .devcontainer/Makefile
+# Include development targets
+-include .devcontainer/Makefile
 
 ifneq (,$(wildcard .env))
 	include .env
@@ -102,12 +102,59 @@ logs:
 
 restart: build down start
 
-# Version management
-.PHONY: version bump-patch bump-minor bump-major publish
+# API Credits Management
+.PHONY: credit
 
-# Cleanup targets
-.PHONY: clean
+credit:
+	@echo "Opening API billing dashboards..."
+	@echo ""
+	@echo "Anthropic (Claude) Usage & Cost:"
+	@echo "  https://console.anthropic.com/workspaces/default/cost"
+	@echo "Anthropic Billing:"
+	@echo "  https://console.anthropic.com/settings/billing"
+	@echo ""
+	@echo "OpenAI Billing:"
+	@echo "  https://platform.openai.com/settings/organization/billing"
+	@echo ""
+ifeq ($(DETECTED_OS),windows)
+	@cmd.exe /c start https://console.anthropic.com/workspaces/default/cost
+	@cmd.exe /c start https://console.anthropic.com/settings/billing
+	@cmd.exe /c start https://platform.openai.com/settings/organization/billing
+else ifeq ($(DETECTED_OS),macos)
+	@open https://console.anthropic.com/workspaces/default/cost
+	@open https://console.anthropic.com/settings/billing
+	@open https://platform.openai.com/settings/organization/billing
+else
+	@xdg-open https://console.anthropic.com/workspaces/default/cost 2>/dev/null || echo "Please open manually"
+	@xdg-open https://console.anthropic.com/settings/billing 2>/dev/null || echo "Please open manually"
+	@xdg-open https://platform.openai.com/settings/organization/billing 2>/dev/null || echo "Please open manually"
+endif
 
+# Install development dependencies
+uv.lock:
+	uv lock
+	uv sync --dev
+
+# Run linting
+lint:
+	@echo "Running ruff check..."
+	uv run ruff check .
+	@echo "Linting completed!"
+
+# Run tests
+test: uv.lock
+	@echo "Running tests..."
+	uv run pytest -q
+
+# Format code with black and isort
+format: uv.lock
+	@echo "Formatting code with black..."
+	uv run black src tests
+	@echo "Organizing imports with isort..."
+	uv run isort src tests --profile black
+	@echo "Code formatting completed!"
+
+# Clean Python cache files and build artifacts
 clean:
 	@echo "Cleaning Python cache and build artifacts..."
 	find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
@@ -123,7 +170,7 @@ clean:
 	find . -type f -name '*.pyd' -delete 2>/dev/null || true
 	find . -type f -name '.DS_Store' -delete 2>/dev/null || true
 	uv cache clean 2>/dev/null || true
-	@echo "Cleanup complete"
+	@echo "✓ Cleanup complete"
 
 # Version management
 .PHONY: version bump-patch bump-minor bump-major publish

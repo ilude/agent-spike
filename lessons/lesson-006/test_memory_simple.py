@@ -25,16 +25,21 @@ if sys.platform == 'win32':
         line_buffering=True
     )
 
+import io
+import os
+import sys
+
 # Add lesson-006 to path
 sys.path.insert(0, os.path.dirname(__file__))
 
 from memory import MemoryClient
+from tools.dotenv import load_root_env
 
 
 def main():
     """Run simple memory operations test."""
     # Load environment variables
-    load_dotenv()
+    load_root_env()
 
     # Check for required API keys
     if not os.getenv("OPENAI_API_KEY"):

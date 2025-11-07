@@ -2,14 +2,14 @@
 
 import os
 from pydantic_ai import Agent, RunContext
-from dotenv import load_dotenv
 
 from .prompts import TAGGING_SYSTEM_PROMPT
 from .tools import get_video_info as _get_video_info
 from .tools import get_transcript as _get_transcript
+from tools.dotenv import load_root_env
 
 
-load_dotenv()
+load_root_env()
 
 
 def create_agent(model: str | None = None, instrument: bool = True) -> Agent:

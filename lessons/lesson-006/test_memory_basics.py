@@ -15,8 +15,6 @@ import io
 import os
 import sys
 
-from dotenv import load_dotenv
-
 # Add lesson-006 to path
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -269,8 +267,10 @@ def cleanup(client: MemoryClient):
 
 def main():
     """Run all tests."""
+    from tools.dotenv import load_root_env
+    
     # Load environment variables
-    load_dotenv()
+    load_root_env()
 
     # Check for required API keys
     if not os.getenv("OPENAI_API_KEY"):

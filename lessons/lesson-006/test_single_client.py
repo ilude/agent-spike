@@ -1,9 +1,10 @@
 """Quick test to verify single client works without file locking."""
 import os
-from dotenv import load_dotenv
-from memory import MemoryClient
 
-load_dotenv()
+from memory import MemoryClient
+from tools.dotenv import load_root_env
+
+load_root_env()
 
 print("Creating MemoryClient...")
 client = MemoryClient()

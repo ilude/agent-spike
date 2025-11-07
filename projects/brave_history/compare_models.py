@@ -13,10 +13,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from dotenv import load_dotenv
 from openai import OpenAI
 
-from youtube_cache import find_env_file
+from tools.dotenv import load_root_env
 
 # Fix stdout encoding for Windows
 if sys.platform == 'win32':
@@ -145,9 +144,7 @@ def save_comparison(db_path: Path, video_id: str, model1: str, tags1: list, mode
 def main():
     """Main comparison function."""
     # Load .env
-    env_path = find_env_file()
-    if env_path:
-        load_dotenv(env_path)
+    load_root_env()
 
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:

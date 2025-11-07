@@ -11,12 +11,13 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from tools.dotenv import load_root_env
+
 # Load environment variables from .env file
-load_dotenv()
+load_root_env()
 
 
 def get_channel_id(youtube: Any, channel_url: str) -> str | None:

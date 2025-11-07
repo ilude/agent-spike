@@ -4,7 +4,6 @@ import asyncio
 import os
 import sys
 from pathlib import Path
-from dotenv import load_dotenv
 
 # Add paths for all lesson modules
 lesson_root = Path(__file__).parent.parent
@@ -12,13 +11,10 @@ sys.path.insert(0, str(lesson_root / "lesson-001"))
 sys.path.insert(0, str(lesson_root / "lesson-002"))
 sys.path.insert(0, str(lesson_root / "lesson-003"))
 
-# Load environment from lesson-004
-lesson_004_env = Path(__file__).parent / ".env"
-if lesson_004_env.exists():
-    load_dotenv(lesson_004_env)
-else:
-    print("Warning: .env file not found in lesson-004/")
-    print("Copy .env.template to .env and add your Langfuse keys")
+from tools.dotenv import load_root_env
+
+# Load environment
+load_root_env()
 
 # Initialize Logfire before importing agents
 from observability import initialize_logfire, get_logfire

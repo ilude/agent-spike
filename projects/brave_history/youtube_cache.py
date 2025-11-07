@@ -11,31 +11,8 @@ import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from dotenv import load_dotenv
 from googleapiclient.discovery import build
-
-
-def find_env_file() -> Path | None:
-    """
-    Search up the directory tree for .git directory, then look for .env in that directory.
-
-    Returns:
-        Path to .env file if found, None otherwise
-    """
-    current = Path(__file__).parent.absolute()
-
-    # Search up the directory tree
-    while current != current.parent:  # Stop at filesystem root
-        git_dir = current / ".git"
-        if git_dir.exists():
-            env_file = current / ".env"
-            if env_file.exists():
-                return env_file
-            return None  # Found .git but no .env
-
-        current = current.parent
-
-    return None  # Never found .git
+from tools.dotenv import load_root_env
 
 
 class YouTubeCache:
@@ -50,9 +27,7 @@ class YouTubeCache:
             api_key: YouTube API key (uses YOUTUBE_API_KEY env var if not provided)
         """
         # Load .env file from git repository root
-        env_path = find_env_file()
-        if env_path:
-            load_dotenv(env_path)
+        load_root_env()
 
         self.cache_db = Path(cache_db_path)
         self.api_key = api_key or os.getenv("YOUTUBE_API_KEY")

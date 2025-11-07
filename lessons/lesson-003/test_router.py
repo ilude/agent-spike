@@ -34,7 +34,7 @@ def test_router():
     else:
         print("Some tests FAILED!")
 
-    return all_passed
+    assert all_passed, "Some URL router tests failed"
 
 
 if __name__ == "__main__":

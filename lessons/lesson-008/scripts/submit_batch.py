@@ -20,13 +20,13 @@ sys.path.insert(0, str(lesson_008_dir))
 sys.path.insert(0, str(lesson_007_dir))
 
 from rich.console import Console
-from dotenv import load_dotenv
 
 from cache import QdrantCache
 from batch import BatchProcessor
+from tools.dotenv import load_root_env
 
 console = Console()
-load_dotenv()
+load_root_env()
 
 
 def main():

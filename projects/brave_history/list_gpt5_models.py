@@ -6,33 +6,14 @@ List available OpenAI GPT-5 models.
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
 from openai import OpenAI
-
-# Find and load .env from git root
-def find_env_file() -> Path | None:
-    """Search up the directory tree for .git directory, then look for .env in that directory."""
-    current = Path(__file__).parent.absolute()
-
-    while current != current.parent:
-        git_dir = current / ".git"
-        if git_dir.exists():
-            env_file = current / ".env"
-            if env_file.exists():
-                return env_file
-            return None
-
-        current = current.parent
-
-    return None
+from tools.dotenv import load_root_env
 
 
 def main():
     """List available GPT-5 models."""
     # Load .env file
-    env_path = find_env_file()
-    if env_path:
-        load_dotenv(env_path)
+    load_root_env()
 
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:

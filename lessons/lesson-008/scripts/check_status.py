@@ -24,13 +24,13 @@ sys.path.insert(0, str(lesson_007_dir))
 from rich.console import Console
 from rich.table import Table
 from rich.live import Live
-from dotenv import load_dotenv
 
 from cache import QdrantCache
 from batch import BatchProcessor
+from tools.dotenv import load_root_env
 
 console = Console()
-load_dotenv()
+load_root_env()
 
 
 def display_status(status_info: dict) -> Table:
