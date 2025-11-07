@@ -3,6 +3,7 @@
 *.key filter=git-crypt diff=git-crypt
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
+projects/brave_history/data/** filter=git-crypt diff=git-crypt
 
 # Handle line endings
 * text=auto

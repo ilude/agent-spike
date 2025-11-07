@@ -34,7 +34,7 @@ def chrome_timestamp_to_datetime(chrome_timestamp: int) -> datetime:
 
 def find_latest_brave_history() -> Path:
     """Find the latest brave_history file in the data directory."""
-    data_dir = Path(__file__).parent.parent / "data"
+    data_dir = Path(__file__).parent / "data"
 
     history_files = sorted(data_dir.glob("brave_history.*.sqlite"), reverse=True)
 

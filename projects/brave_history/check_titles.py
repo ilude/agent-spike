@@ -2,7 +2,14 @@
 import sqlite3
 from pathlib import Path
 
-db_path = Path("../data/brave_history.2025-11-06.sqlite")
+# Use relative data directory - finds the most recent history file
+data_dir = Path(__file__).parent / "data"
+history_files = sorted(data_dir.glob("brave_history.*.sqlite"), reverse=True)
+if not history_files:
+    raise FileNotFoundError(f"No brave_history.*.sqlite files found in {data_dir}")
+db_path = history_files[0]
+print(f"Using history file: {db_path.name}\n")
+
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
