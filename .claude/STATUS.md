@@ -60,6 +60,28 @@
 
 ## What's Next
 
+### Immediate Next Steps
+
+**Claude Code Integration with Existing Data** (Priority)
+- Give Claude Code access to Qdrant cache (transcript data from lesson-007)
+- Use Claude Code's YouTube MCP transcript tool to fetch and insert new transcripts
+- Workflow:
+  1. User asks Claude Code to analyze a YouTube video
+  2. Claude Code checks if transcript exists in Qdrant cache
+  3. If not cached: Use MCP YouTube tool to fetch transcript
+  4. Insert new transcript into Qdrant for future use
+  5. Perform analysis (tagging, summarization, etc.)
+- Benefits:
+  - Leverage existing cached data (49+ videos already cached)
+  - Reduce API calls for previously-processed videos
+  - Build up knowledge base over time
+  - Use MCP tools directly (better than lesson-001's youtube-transcript-api)
+
+**Related files:**
+- Lesson-007: Cache Manager (`lessons/lesson-007/cache_manager/`)
+- Existing Qdrant cache: `projects/data/qdrant/`
+- Video lists: `projects/video-lists/*.csv`
+
 ### Future Capabilities (As Needs Emerge)
 
 #### Core Patterns
