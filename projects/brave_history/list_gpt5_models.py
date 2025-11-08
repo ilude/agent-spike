@@ -4,9 +4,15 @@ List available OpenAI GPT-5 models.
 """
 
 import os
+import sys
 from pathlib import Path
 
 from openai import OpenAI
+
+# Add workspace root to Python path
+workspace_root = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(workspace_root))
+
 from tools.dotenv import load_root_env
 
 
