@@ -65,7 +65,12 @@
       "Bash(make setup:*)",
       "Bash(xargs:*)",
       "Bash(git-crypt status:*)",
-      "Bash(gpg --list-keys:*)"
+      "Bash(gpg --list-keys:*)",
+      "Bash(gpg --export-secret-keys:*)",
+      "Bash(~/.ssh/git-crypt-keys/git-crypt-private-key.asc)",
+      "Bash(gpg:*)",
+      "Bash(~/.ssh/git-crypt-keys/git-crypt-public-key.asc)",
+      "Bash(pwsh -Command \"& { $env:Path += '';C:\\Users\\Mike\\AppData\\Local\\git-crypt''; git-crypt --version }\")"
     ],
     "deny": [],
     "ask": []
