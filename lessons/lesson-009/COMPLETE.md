@@ -65,9 +65,15 @@ From test run:
 ## Code Artifacts
 
 ### Working Files:
+
+**Option 1: Direct Function Calls (Simplest)**
 - `orchestrator_agent/agent_simple.py` - Simplified orchestrator
 - `orchestrator_agent/tools_simple.py` - Direct LLM call tools
-- `test_orchestrator_simple.py` - Working test
+- `test_orchestrator_simple.py` - Working test (~7k tokens for 2 URLs)
+
+**Option 2: Tool-less Sub-Agents (Best Architecture)**
+- `orchestrator_agent/agent_toolless.py` - Coordinator with all tools, tool-less sub-agents
+- `test_orchestrator_toolless.py` - Working test (~20k tokens for 2 URLs)
 
 ### Debug Files:
 - `test_components.py` - Component isolation tests
@@ -82,22 +88,42 @@ Based on findings:
 2. **For Learning**: This lesson demonstrates important limitations of nested agent architectures
 3. **For VISION.md Goals**: The orchestrator pattern is valuable but needs careful implementation
 
+## Two Working Solutions
+
+### Solution 1: Direct Function Calls (Simplest)
+- Import underlying functions, not agents
+- Create temporary tool-less agents for LLM reasoning
+- **Pros**: Simple, proven, works with existing agents
+- **Cons**: Hardcoded per sub-agent type, less modular
+- **Test**: `test_orchestrator_simple.py` - ✅ Passes (~7k tokens)
+
+### Solution 2: Tool-less Sub-Agents (Best Architecture)
+- Coordinator has ALL tools (data fetching + reasoning delegation)
+- Sub-agents are pure LLM reasoning modules (no tools)
+- **Pros**: Clean architecture, scalable, no deadlock risk
+- **Cons**: Requires redesigning sub-agents
+- **Test**: `test_orchestrator_toolless.py` - ✅ Passes (~20k tokens)
+
+**Recommendation**: Use Solution 2 for the orchestrator in `.claude/ideas/orchestrator/` - it's the better long-term architecture.
+
 ## Recommendations
 
 1. **Avoid Nested Agent-with-Tools Calls**: If sub-agents need tools, refactor to:
-   - Direct function calls
-   - Simple LLM-only agents
+   - **Option 1**: Direct function calls with temporary tool-less agents
+   - **Option 2**: Tool-less sub-agents with all tools at coordinator level
    - Separate orchestration from tool execution
 
-2. **Consider Alternatives**:
-   - Message queues for agent coordination
-   - State machines for complex workflows
-   - Direct API composition instead of nested agents
+2. **For `.claude/ideas/orchestrator/` Implementation**:
+   - Use Solution 2 (tool-less sub-agents) architecture
+   - Coordinator controls all data fetching via tools
+   - Sub-agents provide specialized reasoning without tools
+   - IPython stores intermediate results
 
 3. **Testing Strategy**:
    - Always test components in isolation first
    - Create minimal reproductions for debugging
    - Use debug logging liberally in async code
+   - Validate both options before choosing architecture
 
 ## Status: COMPLETE ✓
 
