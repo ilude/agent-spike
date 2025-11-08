@@ -43,12 +43,14 @@ env/
 
 # Projects: Data files - only brave_history/data/brave_history.sqlite is tracked (encrypted)
 # Machine-specific files and temp files are ignored
-projects/data/
+projects/data/*
+!projects/data/qdrant/
 !projects/brave_history/data/
 projects/brave_history/data/brave_history.*.sqlite
 projects/brave_history/data/brave_history.tmp.sqlite
 *.db
 *.sqlite
+!projects/data/qdrant/**/*.sqlite
 !projects/brave_history/data/brave_history.sqlite
 *.sqlite3
 
