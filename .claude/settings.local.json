@@ -76,7 +76,10 @@
       "Bash(\"$LOCALAPPDATA/git-crypt/git-crypt.exe\" --version)",
       "Bash(\"$LOCALAPPDATA/git-crypt/git-crypt.exe\" status)",
       "Bash(pwsh -Command \"& ''$env:LOCALAPPDATA\\git-crypt\\git-crypt.exe'' status 2>&1 | Select-Object -First 5\")",
-      "Bash(pwsh -Command 'git-crypt status 2>&1 | Select-Object -First 5')"
+      "Bash(pwsh -Command 'git-crypt status 2>&1 | Select-Object -First 5')",
+      "Bash(timeout 45 uv run:*)",
+      "Bash(timeout 90 uv run:*)",
+      "Bash(timeout 30 uv run:*)"
     ],
     "deny": [],
     "ask": []
