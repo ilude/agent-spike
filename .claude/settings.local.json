@@ -71,7 +71,12 @@
       "Bash(~/.ssh/git-crypt-keys/git-crypt-private-key.asc)",
       "Bash(gpg:*)",
       "Bash(~/.ssh/git-crypt-keys/git-crypt-public-key.asc)",
-      "Bash(pwsh -Command \"& { $env:Path += '';C:\\Users\\Mike\\AppData\\Local\\git-crypt''; git-crypt --version }\")"
+      "Bash(pwsh -Command \"& { $env:Path += '';C:\\Users\\Mike\\AppData\\Local\\git-crypt''; git-crypt --version }\")",
+      "Bash(git-crypt:*)",
+      "Bash(\"$LOCALAPPDATA/git-crypt/git-crypt.exe\" --version)",
+      "Bash(\"$LOCALAPPDATA/git-crypt/git-crypt.exe\" status)",
+      "Bash(pwsh -Command \"& ''$env:LOCALAPPDATA\\git-crypt\\git-crypt.exe'' status 2>&1 | Select-Object -First 5\")",
+      "Bash(pwsh -Command 'git-crypt status 2>&1 | Select-Object -First 5')"
     ],
     "deny": [],
     "ask": []

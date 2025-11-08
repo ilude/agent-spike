@@ -111,11 +111,28 @@ if (Test-Path $sshGpgHome) {
         Write-Host "✓ Junction already exists: .gnupg -> .ssh\gpg" -ForegroundColor Green
     } else {
         Write-Host "⚠ Warning: .gnupg exists but is not a junction to .ssh\gpg" -ForegroundColor Yellow
-        Write-Host "  Your GPG keyring may not sync properly" -ForegroundColor Yellow
+        Write-Host "  Your GPG keyring may not sync properly across machines" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "To fix this automatically:" -ForegroundColor White
+        Write-Host "  1. Backup .gnupg: cp -r ~/.gnupg ~/.gnupg.backup" -ForegroundColor Gray
+        Write-Host "  2. Delete .gnupg: rm -rf ~/.gnupg" -ForegroundColor Gray
+        Write-Host "  3. Run this script again to create the junction" -ForegroundColor Gray
+        Write-Host ""
+        Write-Host "Or fix manually with PowerShell:" -ForegroundColor White
+        Write-Host "  Remove-Item -Path `"$defaultGpgHome`" -Recurse -Force" -ForegroundColor Gray
+        Write-Host "  New-Item -ItemType Junction -Path `"$defaultGpgHome`" -Target `"$sshGpgHome`"" -ForegroundColor Gray
     }
 } elseif (Test-Path $defaultGpgHome) {
     Write-Host "`n⚠ GPG keyring is in default location (.gnupg)" -ForegroundColor Yellow
-    Write-Host "  Consider running 'make setup-gpg' to move it to ~/.ssh/gpg for syncing" -ForegroundColor White
+    Write-Host "  To enable cross-machine syncing, move it to ~/.ssh/gpg" -ForegroundColor White
+    Write-Host ""
+    Write-Host "To migrate to ~/.ssh/gpg:" -ForegroundColor White
+    Write-Host "  1. Move keyring: mv ~/.gnupg ~/.ssh/gpg" -ForegroundColor Gray
+    Write-Host "  2. Run this script again to create the junction" -ForegroundColor Gray
+    Write-Host ""
+    Write-Host "Or with PowerShell:" -ForegroundColor White
+    Write-Host "  Move-Item -Path `"$defaultGpgHome`" -Destination `"$sshGpgHome`"" -ForegroundColor Gray
+    Write-Host "  New-Item -ItemType Junction -Path `"$defaultGpgHome`" -Target `"$sshGpgHome`"" -ForegroundColor Gray
 }
 
 # Import git-crypt GPG keys if they exist in ~/.ssh/git-crypt-keys/
@@ -155,30 +172,54 @@ if (Test-Path $privateKeyPath) {
     Write-Host "    gpg --export-secret-keys --armor <KEY-ID> > ~/.ssh/git-crypt-keys/git-crypt-private-key.asc" -ForegroundColor Gray
 }
 
-# Check if git-crypt is available
+# Check if git-crypt is available (check both PATH and direct installation)
+$gitCryptAvailable = $false
+$gitCryptCmd = $null
+
 if (Get-Command git-crypt -ErrorAction SilentlyContinue) {
+    $gitCryptAvailable = $true
+    $gitCryptCmd = "git-crypt"
+} elseif (Test-Path "$env:LOCALAPPDATA\git-crypt\git-crypt.exe") {
+    # Binary exists but not in current session PATH
+    $gitCryptAvailable = $true
+    $gitCryptCmd = "$env:LOCALAPPDATA\git-crypt\git-crypt.exe"
+    Write-Host "`n⚠ git-crypt installed but not in current session PATH" -ForegroundColor Yellow
+    Write-Host "  Please restart your shell for full PATH integration" -ForegroundColor White
+    Write-Host "  (Using direct path for now)" -ForegroundColor Gray
+}
+
+if ($gitCryptAvailable) {
     Write-Host "`n✓ All tools ready!" -ForegroundColor Green
 
     # Check if in a git-crypt enabled repository
     if (Test-Path ".git-crypt") {
         Write-Host "`nThis repository uses git-crypt." -ForegroundColor White
 
-        # Check if repository is already unlocked
-        $gitCryptStatus = & git-crypt status 2>&1
-        if ($LASTEXITCODE -eq 0) {
+        # Check if repository is already unlocked by checking for encrypted files
+        $gitCryptStatus = & $gitCryptCmd status 2>&1 | Out-String
+        $hasEncryptedFiles = $gitCryptStatus -match "encrypted:"
+
+        if (-not $hasEncryptedFiles -and $LASTEXITCODE -eq 0) {
             Write-Host "✓ Repository already unlocked" -ForegroundColor Green
         } else {
+            if ($hasEncryptedFiles) {
+                Write-Host "Repository is locked (encrypted files detected)" -ForegroundColor Yellow
+            }
             Write-Host "Attempting to unlock repository..." -ForegroundColor Yellow
 
             try {
-                & git-crypt unlock 2>&1 | Out-Null
+                $unlockOutput = & $gitCryptCmd unlock 2>&1
                 if ($LASTEXITCODE -eq 0) {
                     Write-Host "✓ Repository unlocked successfully!" -ForegroundColor Green
                     Write-Host "  Encrypted files (.env, etc.) are now accessible" -ForegroundColor Gray
                 } else {
                     Write-Host "⚠ Failed to unlock repository" -ForegroundColor Yellow
-                    Write-Host "  You may need to run: git-crypt unlock" -ForegroundColor White
-                    Write-Host "  Ensure your GPG key is properly imported and trusted" -ForegroundColor Gray
+                    Write-Host "  Error: $unlockOutput" -ForegroundColor Gray
+                    Write-Host ""
+                    Write-Host "  Troubleshooting:" -ForegroundColor White
+                    Write-Host "  1. Ensure your GPG key is imported: gpg --list-secret-keys" -ForegroundColor Gray
+                    Write-Host "  2. Check key fingerprint matches: BEF464A08DC846D83764059CAFA2D36EE32CB632" -ForegroundColor Gray
+                    Write-Host "  3. Try manual unlock: git-crypt unlock" -ForegroundColor Gray
                 }
             } catch {
                 Write-Host "⚠ Error unlocking repository: $_" -ForegroundColor Yellow
@@ -195,7 +236,8 @@ if (Get-Command git-crypt -ErrorAction SilentlyContinue) {
         Write-Host "   echo '.env filter=git-crypt diff=git-crypt' >> .gitattributes" -ForegroundColor Gray
     }
 } else {
-    Write-Host "`n⚠ GPG installed, but git-crypt needs manual installation" -ForegroundColor Yellow
-    Write-Host "See instructions above for git-crypt installation options" -ForegroundColor White
+    Write-Host "`n❌ git-crypt installation failed" -ForegroundColor Red
+    Write-Host "See error messages above or try manual installation:" -ForegroundColor White
+    Write-Host "  https://github.com/AGWA/git-crypt/releases" -ForegroundColor Gray
 }
 Write-Host ""
