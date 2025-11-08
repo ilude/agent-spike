@@ -64,6 +64,7 @@
       "Bash(xargs cat:*)",
       "Bash(make setup:*)",
       "Bash(xargs:*)",
+      "Bash(gpg --list-packets:*)",
       "Bash(git-crypt status:*)",
       "Bash(gpg --list-keys:*)",
       "Bash(gpg --export-secret-keys:*)",
