@@ -63,7 +63,9 @@
       "Bash(tree:*)",
       "Bash(xargs cat:*)",
       "Bash(make setup:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(git-crypt status:*)",
+      "Bash(gpg --list-keys:*)"
     ],
     "deny": [],
     "ask": []
