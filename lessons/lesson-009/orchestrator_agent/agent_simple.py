@@ -1,11 +1,11 @@
 """
-Minimal Orchestrator Agent
+Simplified Orchestrator Agent
 
-Coordinates calls to specialized sub-agents (youtube_tagger, webpage_tagger).
+Uses direct LLM calls instead of nested agents to avoid deadlocks.
 """
 
 from pydantic_ai import Agent
-from .tools import call_subagent
+from .tools_simple import call_subagent_simple
 
 # System prompt for orchestrator
 SYSTEM_PROMPT = """You are an orchestrator that coordinates specialized sub-agents.
@@ -16,7 +16,7 @@ Available sub-agents:
 
 When given URLs to process:
 1. Identify which sub-agent to use for each URL
-2. Call call_subagent(agent_name, url) for each URL
+2. Call call_subagent_simple(agent_name, url) for each URL
 3. Collect all results
 4. Summarize the tags found
 
@@ -30,5 +30,5 @@ orchestrator = Agent(
     system_prompt=SYSTEM_PROMPT,
 )
 
-# Register tools
-orchestrator.tool(call_subagent)
+# Register the simplified tool
+orchestrator.tool(call_subagent_simple)

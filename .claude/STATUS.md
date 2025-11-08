@@ -1,12 +1,11 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-07
+**Last Updated**: 2025-11-08
 **Current Phase**: Personal AI Research Assistant - Building infrastructure
 
 ## Current State
 
-- ✅ **8 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing
-- 🚧 **Lesson 009 IN PROGRESS**: Orchestrator experiment (testing if orchestrator pattern provides value over simple coordinator)
+- ✅ **9 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing, Orchestrator
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
 - **Project structure**:
   - `lessons/`: Progressive agent-building lessons (001-009)
@@ -19,6 +18,14 @@
 - Production-ready patterns: observability, security, memory, caching, batch processing
 
 ## Recent Completions
+
+**Lesson 009: Orchestrator Agent** ✅ COMPLETE
+- Built orchestrator that coordinates multiple sub-agents in parallel
+- **Key Learning**: Nested agent-with-tools calls cause deadlocks
+- Solution: Created simplified pattern using direct LLM calls instead of nested agents
+- Successfully processes multiple URLs in parallel with reduced token usage
+- Orchestrator provides value for multi-URL batch processing scenarios
+- Time: ~3 hours (including extensive debugging of nested agent issues)
 
 **Lesson 005: Security & Guardrails** ✅ COMPLETE
 - Built practical security validators using Python stdlib
@@ -52,14 +59,6 @@
 - Ready to tag all cached content at scale
 
 ## What's Next
-
-### In Progress
-
-**🚧 Lesson 009: Orchestrator Experiment** (Testing Hypothesis)
-- Testing if orchestrator pattern provides value over simple coordinator
-- Minimal viable orchestrator with call_subagent() tool
-- Comparing token usage and efficiency vs lesson-003 coordinator
-- Decision point: continue or shelf based on results
 
 ### Future Capabilities (As Needs Emerge)
 
@@ -244,6 +243,17 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 - **Note**: Originally planned for Langfuse, switched to Logfire due to Python 3.14 compatibility
 - **Time**: ~80 minutes to build (including Langfuse detour)
 
+### ✅ Lesson 009: Orchestrator Agent
+- **Location**: `lessons/lesson-009/`
+- **Status**: Complete and working (with simplified approach)
+- **Tech**: Pydantic AI agents with tool-based delegation
+- **What it does**: Orchestrates multiple sub-agents to process multiple URLs in parallel
+- **Run**: `cd lessons/lesson-009 && uv run python test_orchestrator_simple.py`
+- **Key files**: `orchestrator_agent/{agent_simple.py, tools_simple.py}`
+- **Pattern**: Direct LLM calls instead of nested agents (avoids deadlocks)
+- **Key Learning**: Nested agent-with-tools calls create event loop conflicts
+- **Time**: ~3 hours to build (including debugging nested agent issues)
+
 ## Dependencies
 
 All dependencies are in root `pyproject.toml` using dependency groups:
@@ -282,6 +292,10 @@ All dependencies are in root `pyproject.toml` using dependency groups:
 ### lesson-008 group
 - Everything from lesson-007 (cache manager)
 - openai (OpenAI Python SDK for Batch API)
+
+### lesson-009 group
+- Everything from lesson-003 (router, YouTube, webpage tools)
+- openai (for GPT-5 models)
 
 **Note**: `.venv` is in project root (shared across lessons to save ~7GB per lesson)
 

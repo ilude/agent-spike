@@ -39,13 +39,7 @@ def test_orchestrator():
 
     urls = [
         # YouTube videos
-        "https://www.youtube.com/watch?v=D4ImbDGFgIM",  # MCP video from today
         "https://www.youtube.com/watch?v=i5kwX7jeWL8",  # Cole Medin video
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",  # Classic
-
-        # Webpages
-        "https://www.anthropic.com/engineering/code-execution-with-mcp",
-        "https://blog.cloudflare.com/code-mode/",
     ]
 
     print(f"\nProcessing {len(urls)} URLs:")
