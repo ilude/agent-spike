@@ -118,3 +118,8 @@ lesson-008 = [
     {include-group = "lesson-007"},  # Needs cache manager
     "openai>=1.54.0",
 ]
+lesson-009 = [
+    # Minimal Orchestrator (tests orchestration pattern)
+    {include-group = "lesson-003"},  # Needs youtube + webpage sub-agents
+    "openai>=1.54.0",  # For gpt-5-nano
+]

@@ -1,22 +1,22 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-05
+**Last Updated**: 2025-11-07
 **Current Phase**: Personal AI Research Assistant - Building infrastructure
 
 ## Current State
 
-- ✅ **6 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory
-- 🚧 **Lesson 007 IN PROGRESS**: Cache Manager & Content Ingestion
-  - Dependency injection pattern implemented in lessons 001/002
-  - CacheManager protocol defined
-  - QdrantCache implementation complete (semantic search + metadata filtering)
-  - CSV ingestion script ready for batch processing
-  - Ready to test and ingest Nate Jones video corpus (169 videos)
+- ✅ **8 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing
+- 🚧 **Lesson 009 IN PROGRESS**: Orchestrator experiment (testing if orchestrator pattern provides value over simple coordinator)
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
+- **Project structure**:
+  - `lessons/`: Progressive agent-building lessons (001-009)
+  - `projects/data/`: Centralized data storage (Qdrant cache, brave_history backups)
+  - `projects/video-lists/`: CSV files for content ingestion
+  - `tools/`: Shared utilities (dotenv.py for centralized environment config)
 - All agents instrumented with Pydantic Logfire for tracing
 - Security guardrails implemented (input/output validation, rate limiting, PII detection)
 - Memory layer integrated with Mem0 (user preferences, semantic search)
-- Production-ready patterns: observability, security, memory, caching
+- Production-ready patterns: observability, security, memory, caching, batch processing
 
 ## Recent Completions
 
@@ -36,58 +36,59 @@
 - Phase 1 complete (basics), Phase 2-3 deferred (agent integration)
 - Time: ~1.5 hours (including Windows debugging)
 
+**Lesson 007: Cache Manager & Content Ingestion** ✅ COMPLETE
+- Dependency injection pattern for clean architecture
+- CacheManager protocol with QdrantCache implementation
+- Semantic search with sentence-transformers embeddings
+- Generic CSV ingestion script with progress tracking
+- Centralized cache storage in `projects/data/qdrant/`
+- Successfully cached 49+ items from video lists
+
+**Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE
+- OpenAI Batch API integration for 50% cost savings
+- JSONL batch input preparation from cache
+- Batch job submission, monitoring, and result processing
+- 4 CLI scripts (prepare, submit, check, process)
+- Ready to tag all cached content at scale
+
 ## What's Next
 
 ### In Progress
 
-**🚧 Lesson 007: Cache Manager & Content Ingestion** (Testing)
-- ✅ Dependency injection pattern in lessons 001/002
-- ✅ CacheManager protocol and QdrantCache implementation
-- ✅ CSV ingestion script with progress tracking
-- 🚧 Testing with Nate Jones videos (169 transcripts)
-- ⏳ Complete COMPLETE.md with learnings
+**🚧 Lesson 009: Orchestrator Experiment** (Testing Hypothesis)
+- Testing if orchestrator pattern provides value over simple coordinator
+- Minimal viable orchestrator with call_subagent() tool
+- Comparing token usage and efficiency vs lesson-003 coordinator
+- Decision point: continue or shelf based on results
 
-**✅ Lesson 008: Batch Processing with OpenAI** (Complete - Ready to Use)
-- ✅ BatchProcessor class with full workflow
-- ✅ JSONL preparation from cache
-- ✅ Submit, monitor, and download batch jobs
-- ✅ 4 CLI scripts (prepare, submit, check, process)
-- ✅ 50% cost savings vs real-time API
-- Ready to tag all cached content!
-
-### Additional Lesson Ideas (Future Exploration)
+### Future Capabilities (As Needs Emerge)
 
 #### Core Patterns
-- **Lesson 008: Batch Processing with OpenAI** - Cost-effective tagging at scale (~60 min)
-- **Lesson 009: Streaming Responses** - Real-time output for long operations (~45 min)
-- **Lesson 010: Parallel Agent Execution** - Process multiple URLs concurrently (~60 min)
-- **Lesson 011: Structured Output & Validation** - Type-safe responses with Pydantic (~45 min)
-- **Lesson 012: RAG (Retrieval Augmented Generation)** - Knowledge base with semantic search (~90 min)
+- **Streaming Responses** - Real-time output for long operations
+- **Parallel Agent Execution** - Process multiple URLs concurrently
+- **Structured Output & Validation** - Type-safe responses with Pydantic
+- **RAG (Retrieval Augmented Generation)** - Knowledge base with semantic search
 
 #### Production & Resilience
-- **Lesson 013: Error Handling & Retry Strategies** - Exponential backoff, circuit breaker (~60 min)
-- **Lesson 014: Human-in-the-Loop** - Approval workflows and confidence scoring (~45 min)
-- **Lesson 015: Cost Optimization** - Model selection, caching strategies (~60 min)
+- **Error Handling & Retry Strategies** - Exponential backoff, circuit breaker
+- **Human-in-the-Loop** - Approval workflows and confidence scoring
+- **Cost Optimization** - Model selection, caching strategies
 
 #### Advanced Multi-Agent Patterns
-- **Lesson 016: Sequential Workflows** - Multi-step agent chains (~75 min)
-- **Lesson 017: Planning Agent** - Task decomposition with ReAct pattern (~90 min)
-- **Lesson 018: Agent Collaboration** - Multiple agents with voting/consensus (~75 min)
-- **Lesson 019: Conditional Routing** - LLM-based routing and state machines (~60 min)
+- **Sequential Workflows** - Multi-step agent chains
+- **Planning Agent** - Task decomposition with ReAct pattern
+- **Agent Collaboration** - Multiple agents with voting/consensus
+- **Conditional Routing** - LLM-based routing and state machines
 
 #### Evaluation & Testing
-- **Lesson 020: Agent Evaluation Framework** - Golden datasets and metrics (~75 min)
-- **Lesson 021: Prompt Engineering & Iteration** - Systematic optimization (~60 min)
+- **Agent Evaluation Framework** - Golden datasets and metrics
+- **Prompt Engineering & Iteration** - Systematic optimization
 
 #### Deployment & Integration
-- **Lesson 022: FastAPI Service** - REST API with async endpoints (~90 min)
-- **Lesson 023: Browser Extension Integration** - Chrome extension for real-time tagging (~120 min)
+- **FastAPI Service** - REST API with async endpoints
+- **Browser Extension Integration** - Chrome extension for real-time tagging
 
-**Recommended Learning Paths:**
-- **Production-Ready**: 004 → 005 → 007 → 008 → 015 → 022
-- **Advanced AI Patterns**: 006 → 007 → 012 → 017 → 018 → 020
-- **Full-Stack Application**: 007 → 008 → 009 → 022 → 023
-- **Personal Research Assistant**: 007 → 008 → (future recommendation engine lessons)
+**Note**: These capabilities will be built as needs emerge, following the experiment-driven philosophy in `.claude/development-philosophy.md`. No prescriptive roadmap - focus on solving real problems.
 
 ## Project Setup (Resume on New Machine)
 

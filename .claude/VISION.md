@@ -273,12 +273,12 @@ Start with immediate needs (caching, batch processing), let the system grow natu
 - Batch job monitoring
 - Result aggregation
 
-**💡 Future Lessons** (As needs emerge)
-- Lesson 009: Recommendation engine basics
-- Lesson 010: Preference learning & feedback loops
-- Lesson 011: Application suggester (connect learnings to projects)
-- Lesson 012: Streaming & real-time updates
-- Lesson 013: Cross-content analysis (themes, trends)
+**💡 Future Capabilities** (As needs emerge)
+- Recommendation engine basics
+- Preference learning & feedback loops
+- Application suggester (connect learnings to projects)
+- Streaming & real-time updates
+- Cross-content analysis (themes, trends)
 
 ---
 
