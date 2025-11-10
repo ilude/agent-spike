@@ -172,7 +172,24 @@ lesson-007/
 # Run tests
 uv run python test_cache.py
 
-# Ingest CSV
+# Interactive REPL (no quotes needed for URLs!)
+make ingest                                      # From project root
+uv run python lessons/lesson-007/ingest_repl.py # From anywhere
+
+# Scheduled ingestion (rate-limited, 1 video per 15 minutes)
+make ingest-nate                                 # Process Nate Jones videos
+uv run python scheduled_ingest.py videos.csv     # Custom CSV
+
+# Ingest single video
+uv run python ingest_single_video.py "https://youtube.com/watch?v=VIDEO_ID"
+
+# List cached videos
+uv run python list_cached_videos.py
+
+# Verify specific video
+uv run python verify_cached_video.py VIDEO_ID
+
+# Ingest CSV (batch, no rate limiting - legacy)
 uv run python scripts/ingest_csv.py --csv path/to/file.csv
 
 # Ingest with limit (for testing)

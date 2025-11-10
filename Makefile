@@ -106,6 +106,27 @@ logs:
 
 restart: build down start
 
+# Lesson 007: Video Ingestion Tools
+.PHONY: ingest ingest-nate ingest-scheduled injest
+
+ingest:
+	@echo "Starting Hybrid YouTube Video Ingestion REPL + Scheduler..."
+	@echo "Features: Background scheduler + manual ingestion (5 per 15 min)"
+	@echo "Press Ctrl+C to stop (progress is saved)"
+	@echo ""
+	@uv run python lessons/lesson-007/hybrid_ingest_repl.py
+
+ingest-nate:
+	@echo "Starting scheduled ingestion of Nate Jones videos..."
+	@echo "Rate limit: 1 video every 15 minutes"
+	@echo "Press Ctrl+C to stop (progress is saved)"
+	@echo ""
+	@uv run python lessons/lesson-007/scheduled_ingest.py projects/video-lists/nate_jones_videos.csv
+
+ingest-scheduled:
+	@echo "Alias for ingest-nate (scheduled processing only)"
+	@$(MAKE) ingest-nate
+
 # API Credits Management
 .PHONY: credit
 
