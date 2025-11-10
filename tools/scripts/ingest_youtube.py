@@ -22,7 +22,7 @@ sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
 # Import from centralized services
 from tools.services.youtube import get_transcript, extract_video_id
 from tools.services.cache import create_qdrant_cache
-from tools.services.archive import create_local_archive_writer
+from tools.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
 from tools.env_loader import load_root_env
 
 # Import agent from lesson (still experimental)
@@ -31,7 +31,14 @@ from youtube_agent.agent import create_agent
 load_root_env()
 
 
-async def ingest_video(url: str, collection_name: str, archive_writer) -> tuple[bool, str]:
+async def ingest_video(
+    url: str,
+    collection_name: str,
+    archive_writer,
+    source_type: str = "repl_import",
+    channel_id: str = None,
+    channel_name: str = None,
+) -> tuple[bool, str]:
     """Fetch transcript, generate tags, archive, and cache.
 
     Pipeline:
@@ -44,6 +51,9 @@ async def ingest_video(url: str, collection_name: str, archive_writer) -> tuple[
         url: YouTube video URL
         collection_name: Qdrant collection name
         archive_writer: Archive service for storing expensive data
+        source_type: Import source type (single_import, repl_import, bulk_channel, bulk_multi_channel)
+        channel_id: Optional channel ID for bulk imports
+        channel_name: Optional channel name for bulk imports
 
     Returns:
         Tuple of (success: bool, message: str)
@@ -69,11 +79,32 @@ async def ingest_video(url: str, collection_name: str, archive_writer) -> tuple[
             return False, f"ERROR - {transcript}"
 
         # Archive transcript immediately (expensive API call)
+        # Determine recommendation weight based on source type
+        weight_map = {
+            "single_import": 1.0,
+            "repl_import": 1.0,
+            "bulk_channel": 0.5,
+            "bulk_multi_channel": 0.2,
+        }
+
+        import_metadata = ImportMetadata(
+            source_type=source_type,
+            imported_at=datetime.now(),
+            import_method="repl" if source_type == "repl_import" else "cli",
+            channel_context=ChannelContext(
+                channel_id=channel_id,
+                channel_name=channel_name,
+                is_bulk_import=source_type.startswith("bulk_"),
+            ),
+            recommendation_weight=weight_map.get(source_type, 1.0),
+        )
+
         archive_writer.archive_youtube_video(
             video_id=video_id,
             url=url,
             transcript=transcript,
-            metadata={"source": "youtube-transcript-api"}
+            metadata={"source": "youtube-transcript-api"},
+            import_metadata=import_metadata,
         )
 
         # Generate tags
@@ -112,7 +143,15 @@ async def ingest_video(url: str, collection_name: str, archive_writer) -> tuple[
             "source": "youtube-transcript-api",
             "video_id": video_id,
             "tags": tags,
+            # Import tracking for recommendations
+            "source_type": source_type,
+            "recommendation_weight": weight_map.get(source_type, 1.0),
+            "imported_at": datetime.now().isoformat(),
+            "is_bulk_import": source_type.startswith("bulk_"),
         }
+
+        if channel_id:
+            metadata["channel_id"] = channel_id
 
         # Insert into Qdrant
         print(f"  [3/3] Caching in Qdrant...")
@@ -190,6 +229,24 @@ async def process_csv_file(
             reader = csv.DictReader(f)
             videos = list(reader)
 
+        # Detect import type by analyzing channel_id column
+        channel_ids = set()
+        for video in videos:
+            channel_id = video.get('channel_id', '').strip()
+            if channel_id:
+                channel_ids.add(channel_id)
+
+        # Determine source type based on channel count
+        if len(channel_ids) == 0:
+            source_type = "bulk_channel"  # No channel info, assume single channel
+            print(f"[CSV] No channel info - assuming bulk_channel")
+        elif len(channel_ids) == 1:
+            source_type = "bulk_channel"
+            print(f"[CSV] Single channel detected - source_type: bulk_channel (weight: 0.5)")
+        else:
+            source_type = "bulk_multi_channel"
+            print(f"[CSV] Multiple channels detected ({len(channel_ids)}) - source_type: bulk_multi_channel (weight: 0.2)")
+
         total_videos = len(videos)
         print(f"[CSV] Found {total_videos} videos")
 
@@ -230,11 +287,20 @@ async def process_csv_file(
 
             url = video['url']
             title = video.get('title', 'N/A')[:60]
+            channel_id = video.get('channel_id', '').strip() or None
+            channel_name = video.get('channel_name', '').strip() or None
 
             print(f"[{i}/{total_unprocessed}] {title}")
             print(f"  URL: {url}")
 
-            success, message = await ingest_video(url, collection_name, archive_writer)
+            success, message = await ingest_video(
+                url,
+                collection_name,
+                archive_writer,
+                source_type=source_type,
+                channel_id=channel_id,
+                channel_name=channel_name,
+            )
 
             if "SKIPPED" in message:
                 skipped += 1

@@ -27,8 +27,9 @@ sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
 # Import from centralized services
 from tools.services.youtube import get_transcript, extract_video_id
 from tools.services.cache import create_qdrant_cache
-from tools.services.archive import create_local_archive_writer
+from tools.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
 from tools.env_loader import load_root_env
+from datetime import datetime
 
 # Import agent from lesson (still experimental)
 from youtube_agent.agent import create_agent
@@ -105,11 +106,22 @@ async def ingest_single_video(
 
             # Archive transcript
             print("[3/5] Archiving transcript...")
+
+            # Create import metadata for single CLI import
+            import_metadata = ImportMetadata(
+                source_type="single_import",
+                imported_at=datetime.now(),
+                import_method="cli",
+                channel_context=ChannelContext(),
+                recommendation_weight=1.0
+            )
+
             archive.archive_youtube_video(
                 video_id=video_id,
                 url=url,
                 transcript=transcript,
-                metadata={"source": "youtube-transcript-api"}
+                metadata={"source": "youtube-transcript-api"},
+                import_metadata=import_metadata
             )
             print(f"  [OK] Archived to: {archive.config.base_dir}\n")
 
@@ -162,6 +174,11 @@ async def ingest_single_video(
                 "video_id": video_id,
                 "content_style": tags_data.get("content_style"),
                 "difficulty": tags_data.get("difficulty"),
+                # Import tracking for recommendations
+                "source_type": "single_import",
+                "recommendation_weight": 1.0,
+                "imported_at": datetime.now().isoformat(),
+                "is_bulk_import": False,
             }
 
             # Flatten subject_matter for filtering
