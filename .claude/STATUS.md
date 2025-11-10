@@ -62,7 +62,21 @@
 
 ### Immediate Next Steps
 
-**Claude Code Integration with Existing Data** (Priority)
+**Video Ingestion Queue Processing** (In Progress)
+- **Current state**: 38 videos cached out of 459 in queue
+- **Queue location**: `projects/data/queues/pending/nate_jones_videos_12mo.csv`
+- **Command**: `make ingest` (queue-based REPL with background processing)
+- **TODO**: REPL background task should auto-commit queue state changes
+  - When background processor completes, check `git status` for `projects/data/queues/`
+  - If queue files moved (pending → processing → completed), create commit:
+    ```bash
+    git add projects/data/queues/
+    git commit -m "chore: update video ingestion queue state"
+    ```
+  - Prevents queue state from being lost if session crashes
+  - Queue CSV is tracked in git for recovery purposes
+
+**Claude Code Integration with Existing Data** (Next Priority)
 - Give Claude Code access to Qdrant cache (transcript data from lesson-007)
 - Use Claude Code's YouTube MCP transcript tool to fetch and insert new transcripts
 - Workflow:
