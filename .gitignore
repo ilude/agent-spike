@@ -45,10 +45,13 @@ env/
 # Machine-specific files and temp files are ignored
 projects/data/*
 !projects/data/*.csv
+!projects/data/*.py
 !projects/data/qdrant/
 !projects/brave_history/data/
 projects/brave_history/data/brave_history.*.sqlite
 projects/brave_history/data/brave_history.tmp.sqlite
+projects/data/qdrant.*/
+projects/data/qdrant.tmp/
 projects/data/queues/
 *.db
 *.sqlite
