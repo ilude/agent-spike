@@ -86,16 +86,23 @@ archive.add_processing_record(
 **Learning source**: Based on Cole Medin's "Learn 90% of Building AI Agents in 30 Minutes" video (https://www.youtube.com/watch?v=i5kwX7jeWL8).
 
 **Tech stack**:
-- Python 3.14
+- Python 3.14 (pinned via `.python-version`)
 - Pydantic AI framework
 - uv package manager (not pip)
 - Typer CLIs per lesson
 - Claude Haiku for cost-effective prototyping
 
+**Virtual environment setup**:
+- **Single shared `.venv` at project root** (configured as UV workspace)
+- All lessons use the same virtual environment (saves ~7GB per lesson)
+- UV automatically finds the root venv from any subdirectory
+- **NEVER** manually reference `.venv/Scripts/python.exe` paths
+
 **Development workflow**:
 - Work directly in `lessons/` directories
-- Run code with `uv run python` (handles virtual environments automatically)
+- **Always use `uv run python`** (finds root venv automatically from any subdirectory)
 - Each lesson is self-contained with its own agent, CLI, tests, and documentation
+- Run commands from lesson directory: `cd lessons/lesson-XXX && uv run python script.py`
 
 **Directory structure**:
 ```

@@ -52,6 +52,12 @@ agent-spike = "src.app.cli:app"
 [tool.uv]
 package = false  # This is a learning project, not a library to publish
 
+[tool.uv.workspace]
+# Treat project root as single workspace with shared .venv
+# All lessons share dependencies via dependency-groups below
+# This prevents UV from creating per-lesson venvs
+members = []
+
 [tool.black]
 line-length = 88
 target-version = ["py314"]
