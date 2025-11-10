@@ -33,7 +33,7 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 from memory import MemoryClient
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 
 def main():

@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from googleapiclient.discovery import build
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 
 class YouTubeCache:

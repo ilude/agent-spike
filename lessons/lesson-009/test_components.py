@@ -16,7 +16,7 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 # Load environment
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 load_root_env()
 
 # Add lessons to path

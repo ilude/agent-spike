@@ -19,18 +19,18 @@ sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
 
 from youtube_agent.tools import get_transcript, extract_video_id
 from youtube_agent.agent import create_agent
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 from tools.env_loader import load_root_env
 
 load_root_env()
 
 
-async def ingest_video(url: str, cache: QdrantCache) -> tuple[bool, str]:
+async def ingest_video(url: str, cache) -> tuple[bool, str]:
     """Fetch transcript, generate tags, and insert into Qdrant.
 
     Args:
         url: YouTube video URL
-        cache: QdrantCache instance
+        cache instance
 
     Returns:
         Tuple of (success: bool, message: str)
@@ -117,7 +117,7 @@ async def process_csv(
     print()
 
     # Initialize cache
-    cache = QdrantCache(collection_name=collection_name)
+    cache = create_qdrant_cache(collection_name=collection_name)
     print(f"[OK] Connected to Qdrant collection: {collection_name}\n")
 
     # Read CSV

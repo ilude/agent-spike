@@ -15,7 +15,7 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 # Fix stdout encoding for Windows
 if sys.platform == 'win32':

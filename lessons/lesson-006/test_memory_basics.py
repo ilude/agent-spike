@@ -267,7 +267,7 @@ def cleanup(client: MemoryClient):
 
 def main():
     """Run all tests."""
-    from tools.dotenv import load_root_env
+    from tools.env_loader import load_root_env
     
     # Load environment variables
     load_root_env()

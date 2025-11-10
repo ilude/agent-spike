@@ -12,7 +12,7 @@ from pathlib import Path
 # Add parent dirs to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 from rich.console import Console
 
 console = Console()
@@ -23,7 +23,7 @@ def test_basic_operations():
     console.print("\n[bold cyan]Test 1: Basic Operations[/bold cyan]")
 
     # Initialize cache
-    cache = QdrantCache(collection_name="test_basic")
+    cache = create_qdrant_cache(collection_name="test_basic")
 
     # Clear cache to start fresh
     console.print("Clearing cache...")
@@ -66,7 +66,7 @@ def test_semantic_search():
     """Test semantic search capabilities."""
     console.print("\n[bold cyan]Test 2: Semantic Search[/bold cyan]")
 
-    cache = QdrantCache(collection_name="test_search")
+    cache = create_qdrant_cache(collection_name="test_search")
     cache.clear()
 
     # Add test documents
@@ -119,7 +119,7 @@ def test_metadata_filtering():
     """Test metadata filtering."""
     console.print("\n[bold cyan]Test 3: Metadata Filtering[/bold cyan]")
 
-    cache = QdrantCache(collection_name="test_filter")
+    cache = create_qdrant_cache(collection_name="test_filter")
     cache.clear()
 
     # Add documents with different types
@@ -155,7 +155,7 @@ def test_with_lesson_tools():
         console.print("[yellow]⚠ Skipping lesson tools test (lessons not in path)[/yellow]\n")
         return
 
-    cache = QdrantCache(collection_name="test_integration")
+    cache = create_qdrant_cache(collection_name="test_integration")
 
     # Test with a real YouTube URL
     test_url = "https://www.youtube.com/watch?v=i5kwX7jeWL8"

@@ -11,7 +11,7 @@ sys.path.insert(0, str(lesson_root / "lesson-001"))
 sys.path.insert(0, str(lesson_root / "lesson-002"))
 sys.path.insert(0, str(lesson_root / "lesson-003"))
 
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 # Load environment
 load_root_env()

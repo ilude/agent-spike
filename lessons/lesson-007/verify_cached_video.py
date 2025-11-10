@@ -7,7 +7,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 
 
 def verify_video(video_id: str, collection_name: str = "cached_content"):
@@ -21,7 +21,7 @@ def verify_video(video_id: str, collection_name: str = "cached_content"):
     print(f"Collection: {collection_name}\n")
 
     # Initialize cache
-    cache = QdrantCache(collection_name=collection_name)
+    cache = create_qdrant_cache(collection_name=collection_name)
 
     # Check by key
     cache_key = f"youtube:video:{video_id}"

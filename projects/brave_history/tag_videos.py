@@ -19,7 +19,7 @@ from collections import defaultdict, Counter
 from openai import OpenAI
 
 from youtube_cache import YouTubeCache
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 # Fix stdout encoding for Windows
 if sys.platform == 'win32':

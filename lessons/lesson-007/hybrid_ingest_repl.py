@@ -21,7 +21,7 @@ sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
 
 from youtube_agent.tools import get_transcript, extract_video_id
 from youtube_agent.agent import create_agent
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 from tools.env_loader import load_root_env
 
 load_root_env()
@@ -88,7 +88,7 @@ async def ingest_video(url: str, collection_name: str, rate_limiter: RateLimiter
     # Create cache connection only for this operation
     cache = None
     try:
-        cache = QdrantCache(collection_name=collection_name)
+        cache = create_qdrant_cache(collection_name=collection_name)
 
         # Extract video ID
         video_id = extract_video_id(url)
@@ -228,7 +228,7 @@ async def background_scheduler(
             next_video = None
             cache = None
             try:
-                cache = QdrantCache(collection_name=collection_name)
+                cache = create_qdrant_cache(collection_name=collection_name)
                 for video in videos:
                     url = video.get('url', '').strip()
                     if not url:
@@ -384,7 +384,7 @@ async def interactive_repl(
                     # Show cache count
                     cache = None
                     try:
-                        cache = QdrantCache(collection_name=collection_name)
+                        cache = create_qdrant_cache(collection_name=collection_name)
                         videos = cache.filter({"type": "youtube_video"}, limit=1000)
                         print(f"Total cached videos: {len(videos)}")
                     finally:
@@ -396,7 +396,7 @@ async def interactive_repl(
                     print("\nFetching cached videos...")
                     cache = None
                     try:
-                        cache = QdrantCache(collection_name=collection_name)
+                        cache = create_qdrant_cache(collection_name=collection_name)
                         videos = cache.filter({"type": "youtube_video"}, limit=100)
                         if videos:
                             print(f"\nFound {len(videos)} cached videos (showing first 10):")
@@ -414,7 +414,7 @@ async def interactive_repl(
                 elif user_input.lower() == 'count':
                     cache = None
                     try:
-                        cache = QdrantCache(collection_name=collection_name)
+                        cache = create_qdrant_cache(collection_name=collection_name)
                         videos = cache.filter({"type": "youtube_video"}, limit=1000)
                         print(f"\nTotal cached videos: {len(videos)}")
                         print(f"Rate limit status: {rate_limiter.get_status()}\n")

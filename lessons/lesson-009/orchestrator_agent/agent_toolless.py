@@ -19,7 +19,7 @@ sys.path.insert(0, str(lessons_dir))
 sys.path.insert(0, str(lessons_dir / "lesson-001"))
 sys.path.insert(0, str(lessons_dir / "lesson-002"))
 
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 load_root_env()
 
 # Import tool functions (NOT agents)

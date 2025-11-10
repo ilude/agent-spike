@@ -7,7 +7,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 
 
 def list_videos(collection_name: str = "cached_content"):
@@ -20,7 +20,7 @@ def list_videos(collection_name: str = "cached_content"):
     print("=" * 80)
 
     # Initialize cache
-    cache = QdrantCache(collection_name=collection_name)
+    cache = create_qdrant_cache(collection_name=collection_name)
 
     # Get all videos by filtering on type
     videos = cache.filter({"type": "youtube_video"}, limit=100)

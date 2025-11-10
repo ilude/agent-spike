@@ -13,7 +13,7 @@ from openai import OpenAI
 workspace_root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(workspace_root))
 
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 
 def main():

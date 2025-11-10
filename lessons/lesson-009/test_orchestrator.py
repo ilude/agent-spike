@@ -15,7 +15,7 @@ sys.path.insert(0, str(project_root))
 # Load environment variables using centralized utility (only if not already set)
 if not os.getenv('OPENAI_API_KEY'):
     try:
-        from tools.dotenv import load_root_env
+        from tools.env_loader import load_root_env
         load_root_env()
     except UnicodeDecodeError:
         print("Warning: .env file is encrypted (git-crypt)")

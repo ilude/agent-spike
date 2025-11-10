@@ -2,7 +2,7 @@
 import os
 
 from memory import MemoryClient
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 load_root_env()
 

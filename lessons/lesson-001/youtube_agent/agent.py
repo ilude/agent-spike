@@ -6,7 +6,7 @@ from pydantic_ai import Agent, RunContext
 from .prompts import TAGGING_SYSTEM_PROMPT
 from .tools import get_video_info as _get_video_info
 from .tools import get_transcript as _get_transcript
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 
 load_root_env()

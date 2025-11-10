@@ -16,7 +16,7 @@ sys.path.insert(0, str(project_root))
 print("1. Paths set up", flush=True)
 
 # Load env
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 load_root_env()
 print("2. Env loaded", flush=True)
 

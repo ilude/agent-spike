@@ -38,7 +38,7 @@ from rich.console import Console
 from rich.table import Table
 
 # Import cache from lesson-007
-from cache import QdrantCache
+from tools.services.cache import create_qdrant_cache
 
 # Import router from lesson-003
 from coordinator_agent.router import URLRouter, URLType
@@ -75,7 +75,7 @@ def read_csv(csv_path: Path) -> list[dict]:
     return rows
 
 
-def fetch_content(url: str, content_type: str, cache: Optional[QdrantCache] = None) -> Optional[dict]:
+def fetch_content(url: str, content_type: str, cache: Optional[Any] = None) -> Optional[dict]:
     """Fetch content for a URL using appropriate tools.
 
     Args:
@@ -187,7 +187,7 @@ def ingest_csv(
 
     # Initialize cache
     console.print(f"[cyan]Initializing cache (collection: {collection_name})...[/cyan]")
-    cache = QdrantCache(collection_name=collection_name)
+    cache = create_qdrant_cache(collection_name=collection_name)
     console.print(f"[green]Cache initialized. Current count: {cache.count()}[/green]")
 
     # Process each row

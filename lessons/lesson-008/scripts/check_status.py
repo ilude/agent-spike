@@ -27,7 +27,7 @@ from rich.live import Live
 
 from cache import QdrantCache
 from batch import BatchProcessor
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 console = Console()
 load_root_env()
