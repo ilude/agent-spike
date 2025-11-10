@@ -114,37 +114,10 @@ async def reingest_all(collection_name: str = "cached_content", limit: int = Non
                 "difficulty": tags_data.get("difficulty"),
             }
             
-            # Flatten subject_matter
-            for subject in tags_data.get("subject_matter", []):
-                safe_key = subject.replace("-", "_").replace(" ", "_").lower()
-                metadata[f"subject_{safe_key}"] = True
-            
-            # Flatten entities
-            entities = tags_data.get("entities", {})
-            for entity in entities.get("named_things", []):
-                safe_key = entity.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"entity_{safe_key}"] = True
-            
-            for person in entities.get("people", []):
-                safe_key = person.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"person_{safe_key}"] = True
-            
-            for company in entities.get("companies", []):
-                safe_key = company.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"company_{safe_key}"] = True
-            
-            # Flatten references
-            for ref in tags_data.get("references", []):
-                ref_name = ref.get("name", "")
-                ref_type = ref.get("type", "")
-                if ref_name:
-                    safe_key = ref_name.replace(" ", "_").replace("-", "_").lower()
-                    metadata[f"ref_{safe_key}"] = True
-                if ref_type:
-                    metadata[f"ref_type_{ref_type}"] = True
-            
-            # Store full tags as JSON
-            metadata["tags_json"] = json.dumps(tags_data)
+            # Flatten metadata for Qdrant filtering
+            from tools.services.metadata import flatten_video_metadata
+            flattened = flatten_video_metadata(tags_data)
+            metadata.update(flattened)
             
             # Cache it
             cache.set(cache_key, cache_data, metadata=metadata)

@@ -18,23 +18,20 @@ Usage:
 import asyncio
 import sys
 from pathlib import Path
+from datetime import datetime
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
+# Setup script environment
+sys.path.insert(0, str(Path(__file__).parent))  # Add tools/scripts to path
+from script_base import setup_script_environment
+setup_script_environment(needs_agent=True)
 
 # Import from centralized services
 from tools.services.youtube import get_transcript, extract_video_id
 from tools.services.cache import create_qdrant_cache
 from tools.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
-from tools.env_loader import load_root_env
-from datetime import datetime
 
 # Import agent from lesson (still experimental)
 from youtube_agent.agent import create_agent
-
-load_root_env()
 
 
 async def ingest_single_video(
@@ -181,37 +178,10 @@ async def ingest_single_video(
                 "is_bulk_import": False,
             }
 
-            # Flatten subject_matter for filtering
-            for subject in tags_data.get("subject_matter", []):
-                safe_key = subject.replace("-", "_").replace(" ", "_").lower()
-                metadata[f"subject_{safe_key}"] = True
-
-            # Flatten entities for filtering
-            entities = tags_data.get("entities", {})
-            for entity in entities.get("named_things", []):
-                safe_key = entity.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"entity_{safe_key}"] = True
-
-            for person in entities.get("people", []):
-                safe_key = person.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"person_{safe_key}"] = True
-
-            for company in entities.get("companies", []):
-                safe_key = company.replace(" ", "_").replace("-", "_").lower()
-                metadata[f"company_{safe_key}"] = True
-
-            # Flatten references for filtering (by name and type)
-            for ref in tags_data.get("references", []):
-                ref_name = ref.get("name", "")
-                ref_type = ref.get("type", "")
-                if ref_name:
-                    safe_key = ref_name.replace(" ", "_").replace("-", "_").lower()
-                    metadata[f"ref_{safe_key}"] = True
-                if ref_type:
-                    metadata[f"ref_type_{ref_type}"] = True
-
-            # Store full tags as JSON string for retrieval
-            metadata["tags_json"] = json.dumps(tags_data)
+            # Flatten metadata for Qdrant filtering
+            from tools.services.metadata import flatten_video_metadata
+            flattened = flatten_video_metadata(tags_data)
+            metadata.update(flattened)
 
             cache.set(cache_key, cache_data, metadata=metadata)
             print(f"  [OK] Cached with key: {cache_key}\n")

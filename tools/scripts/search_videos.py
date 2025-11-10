@@ -60,35 +60,17 @@ def search_videos(
         print(f"\nFound {len(results)} results:\n")
         print(f"{'='*80}\n")
 
+        from tools.services.display import format_video_display
+
         for i, result in enumerate(results, 1):
-            video_id = result.get('video_id', 'N/A')
-            url = result.get('url', 'N/A')
-            score = result.get('_score', 0)
-            transcript_len = result.get('transcript_length', 0)
-            transcript = result.get('transcript', '')
-
-            # Extract metadata (new structured format or old tags format)
+            # Show summary if available (not in format_video_display)
             metadata = result.get('metadata', {})
-            if metadata:
-                title = metadata.get('title', 'N/A')
-                summary = metadata.get('summary', 'N/A')
-                subject = ', '.join(metadata.get('subject_matter', [])[:3])
-                content_style = metadata.get('content_style', 'N/A')
+            if summary := metadata.get('summary'):
+                summary_preview = f"{summary[:100]}..." if len(summary) > 100 else summary
+                print(format_video_display(result, i, show_score=True))
+                print(f"   Summary: {summary_preview}\n")
             else:
-                # Fallback to old format
-                title = 'N/A'
-                summary = result.get('tags', 'N/A')
-                subject = 'N/A'
-                content_style = 'N/A'
-
-            print(f"{i}. {video_id} (relevance: {score:.3f})")
-            print(f"   URL: {url}")
-            print(f"   Title: {title}")
-            print(f"   Summary: {summary[:100]}..." if len(str(summary)) > 100 else f"   Summary: {summary}")
-            print(f"   Subject: {subject}")
-            print(f"   Style: {content_style}")
-            print(f"   Transcript: {transcript_len:,} characters")
-            print()
+                print(format_video_display(result, i, show_score=True))
 
         print(f"{'='*80}\n")
 

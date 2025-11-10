@@ -30,6 +30,9 @@ class CacheEntry(BaseModel):
     """Complete cache entry including key, value, and metadata.
 
     This model represents a full cache entry as stored in the cache backend.
+
+    Note: Currently not used in practice - scripts use plain dicts instead.
+    Kept for backwards compatibility but may be removed in future.
     """
 
     key: str = Field(..., description="Unique cache key")
@@ -40,33 +43,3 @@ class CacheEntry(BaseModel):
     class Config:
         """Pydantic configuration."""
         arbitrary_types_allowed = True
-
-
-class YouTubeContent(BaseModel):
-    """Structured model for YouTube video content."""
-
-    video_id: str
-    url: str
-    title: Optional[str] = None
-    transcript: str
-    upload_date: Optional[str] = None
-    duration_seconds: Optional[int] = None
-    view_count: Optional[int] = None
-    description: Optional[str] = None
-
-
-class WebpageContent(BaseModel):
-    """Structured model for webpage content."""
-
-    url: str
-    title: Optional[str] = None
-    markdown: str
-    length: int
-    truncated: bool = False
-    fetched_at: datetime = Field(default_factory=datetime.now)
-
-    class Config:
-        """Pydantic configuration."""
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }

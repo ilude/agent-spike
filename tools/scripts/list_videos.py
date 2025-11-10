@@ -51,30 +51,10 @@ def list_videos(collection_name: str = "cached_content", limit: int = 100):
 
         print(f"Found {len(videos)} cached videos (showing first {min(len(videos), limit)}):\n")
 
+        from tools.services.display import format_video_display
+
         for i, video in enumerate(videos[:limit], 1):
-            video_id = video.get('video_id', 'N/A')
-            url = video.get('url', 'N/A')
-            transcript_len = video.get('transcript_length', 0)
-
-            # Extract metadata (new structured format or old tags format)
-            metadata = video.get('metadata', {})
-            if metadata:
-                title = metadata.get('title', 'N/A')
-                subject = ', '.join(metadata.get('subject_matter', [])[:3])
-                content_style = metadata.get('content_style', 'N/A')
-            else:
-                # Fallback to old format
-                title = 'N/A'
-                subject = video.get('tags', 'N/A')
-                content_style = 'N/A'
-
-            print(f"{i}. {video_id}")
-            print(f"   URL: {url}")
-            print(f"   Title: {title}")
-            print(f"   Subject: {subject}")
-            print(f"   Style: {content_style}")
-            print(f"   Transcript: {transcript_len:,} characters")
-            print()
+            print(format_video_display(video, i, show_score=False))
 
         print(f"{'='*80}\n")
 

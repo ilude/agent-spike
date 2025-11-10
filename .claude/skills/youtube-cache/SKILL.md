@@ -114,13 +114,17 @@ make ingest
 ### Delete from Cache
 
 ```bash
+# Delete with confirmation prompt (safe)
 uv run python tools/scripts/delete_video.py VIDEO_ID
 
 # Custom collection
-uv run python tools/scripts/delete_video.py VIDEO_ID my_collection
+uv run python tools/scripts/delete_video.py VIDEO_ID --collection my_collection
+
+# Skip confirmation (use with caution!)
+uv run python tools/scripts/delete_video.py VIDEO_ID --yes
 ```
 
-**Note:** Only deletes from Qdrant cache, NOT from archive.
+**Note:** Only deletes from Qdrant cache, NOT from archive. Always prompts for confirmation unless `--yes` flag is used.
 
 ## Advanced Operations
 
