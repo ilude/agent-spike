@@ -113,25 +113,34 @@ async def ingest_single_video(
             )
             print(f"  [OK] Archived to: {archive.config.base_dir}\n")
 
-            # Generate tags
-            print("[4/5] Generating tags with Claude Haiku...")
+            # Generate structured metadata
+            print("[4/5] Generating metadata with Claude Haiku...")
             agent = create_agent(instrument=False)
 
-            result = await agent.run(
-                f"Analyze this YouTube video transcript and generate 3-5 relevant tags. "
-                f"Return ONLY the tags as a comma-separated list, nothing else.\n\n"
-                f"Transcript:\n{transcript[:15000]}"
-            )
+            # Agent will use the new prompt from prompts.py
+            result = await agent.run(url)
 
-            tags = result.output if hasattr(result, 'output') else str(result)
-            tags = tags.strip()
-            print(f"  [OK] Generated tags: {tags}\n")
+            # Extract structured tags (JSON response)
+            import json
+            tags_output = result.output if hasattr(result, 'output') else str(result)
 
-            # Archive LLM output
+            try:
+                # Parse JSON response
+                tags_data = json.loads(tags_output)
+                print(f"  [OK] Generated metadata:")
+                print(f"      Title: {tags_data.get('title', 'N/A')}")
+                print(f"      Subject: {tags_data.get('subject_matter', [])[:3]}...")
+                print(f"      Style: {tags_data.get('content_style', 'N/A')}\n")
+            except json.JSONDecodeError:
+                # Fallback to old format if JSON parsing fails
+                print(f"  [WARN] Failed to parse JSON, using fallback format\n")
+                tags_data = {"raw_output": tags_output}
+
+            # Archive LLM output (full structured data)
             archive.add_llm_output(
                 video_id=video_id,
-                output_type="tags",
-                output_value=tags,
+                output_type="metadata",
+                output_value=json.dumps(tags_data, indent=2),
                 model="claude-3-5-haiku-20241022",
                 cost_usd=0.001,  # Approximate
             )
@@ -142,16 +151,50 @@ async def ingest_single_video(
                 "video_id": video_id,
                 "url": url,
                 "transcript": transcript,
-                "tags": tags,
                 "transcript_length": len(transcript),
+                "metadata": tags_data,  # Full structured metadata
             }
 
+            # Build flattened metadata for Qdrant filtering
             metadata = {
                 "type": "youtube_video",
                 "source": "youtube-transcript-api",
                 "video_id": video_id,
-                "tags": tags,
+                "content_style": tags_data.get("content_style"),
+                "difficulty": tags_data.get("difficulty"),
             }
+
+            # Flatten subject_matter for filtering
+            for subject in tags_data.get("subject_matter", []):
+                safe_key = subject.replace("-", "_").replace(" ", "_").lower()
+                metadata[f"subject_{safe_key}"] = True
+
+            # Flatten entities for filtering
+            entities = tags_data.get("entities", {})
+            for entity in entities.get("named_things", []):
+                safe_key = entity.replace(" ", "_").replace("-", "_").lower()
+                metadata[f"entity_{safe_key}"] = True
+
+            for person in entities.get("people", []):
+                safe_key = person.replace(" ", "_").replace("-", "_").lower()
+                metadata[f"person_{safe_key}"] = True
+
+            for company in entities.get("companies", []):
+                safe_key = company.replace(" ", "_").replace("-", "_").lower()
+                metadata[f"company_{safe_key}"] = True
+
+            # Flatten references for filtering (by name and type)
+            for ref in tags_data.get("references", []):
+                ref_name = ref.get("name", "")
+                ref_type = ref.get("type", "")
+                if ref_name:
+                    safe_key = ref_name.replace(" ", "_").replace("-", "_").lower()
+                    metadata[f"ref_{safe_key}"] = True
+                if ref_type:
+                    metadata[f"ref_type_{ref_type}"] = True
+
+            # Store full tags as JSON string for retrieval
+            metadata["tags_json"] = json.dumps(tags_data)
 
             cache.set(cache_key, cache_data, metadata=metadata)
             print(f"  [OK] Cached with key: {cache_key}\n")
@@ -161,7 +204,10 @@ async def ingest_single_video(
             print(f"{'='*70}")
             print(f"Video ID: {video_id}")
             print(f"Transcript: {len(transcript):,} characters")
-            print(f"Tags: {tags}")
+            print(f"Title: {tags_data.get('title', 'N/A')}")
+            print(f"Summary: {tags_data.get('summary', 'N/A')}")
+            print(f"Subject Matter: {', '.join(tags_data.get('subject_matter', [])[:5])}")
+            print(f"Content Style: {tags_data.get('content_style', 'N/A')}")
             print(f"Archive: {archive.config.base_dir}")
             print(f"Cache: {collection_name}")
             print(f"{'='*70}\n")
