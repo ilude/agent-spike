@@ -4,13 +4,20 @@
     Install development tools using winget (idempotent)
 
 .DESCRIPTION
-    Installs Git, GNU Make, curl, bun, Docker Desktop, and Python 3.14 using winget.
+    Installs Git, GNU Make, curl, bun, Docker Desktop, Python 3.14, and SQLite CLI Tools using winget.
     Safe to run multiple times - winget will skip already-installed packages.
 
     Git is installed with:
     - Unix tools added to PATH
     - Windows Terminal integration
     - No shell integration (no "Git Bash Here" or "Git GUI Here" context menu entries)
+
+.NOTES
+    Package Manager Strategy:
+    - Use winget if possible (preferred, official Windows package manager)
+    - Fall back to chocolatey only if winget does not have the package you want
+    - Search winget first: winget search <package-name>
+    - If not found, use choco: choco install <package-name>
 
 .EXAMPLE
     .\setup-dev-tools.ps1
@@ -135,7 +142,8 @@ function Install-DevTools {
         @{ Id = "cURL.cURL"; Name = "curl" },
         @{ Id = "Oven-sh.Bun"; Name = "bun" },
         @{ Id = "Docker.DockerDesktop"; Name = "Docker Desktop" },
-        @{ Id = "Python.Python.3.14"; Name = "Python 3.14" }
+        @{ Id = "Python.Python.3.14"; Name = "Python 3.14" },
+        @{ Id = "SQLite.SQLite"; Name = "SQLite CLI Tools" }
     )
 
     $results = @()

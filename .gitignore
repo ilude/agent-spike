@@ -40,20 +40,21 @@ env/
 # Runtime cache directories (lesson caches, etc.)
 .cache/
 **/.cache/
+cached_content/
 
-# Projects: Data files - track archives, qdrant, brave_history, and sync scripts
+# Projects: Data files - track archives, qdrant, brave_history, queues, and sync scripts
 # Machine-specific files and temp files are ignored
 projects/data/*
 !projects/data/*.csv
 !projects/data/*.py
 !projects/data/archive/
 !projects/data/qdrant/
-!projects/brave_history/data/
-projects/brave_history/data/brave_history.*.sqlite
-projects/brave_history/data/brave_history.tmp.sqlite
+!projects/data/queues/
+projects/brave_history/data/*
+!projects/brave_history/data/brave_history.sqlite
 projects/data/qdrant.*/
 projects/data/qdrant.tmp/
-projects/data/queues/
+projects/data/queues/processing/
 *.db
 *.sqlite
 !projects/data/qdrant/**/*.sqlite

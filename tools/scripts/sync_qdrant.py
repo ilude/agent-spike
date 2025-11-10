@@ -267,10 +267,11 @@ def consolidate_qdrant_databases(base_dir: Path) -> None:
 def main():
     """Main sync workflow."""
     # Get paths
-    script_dir = Path(__file__).parent  # projects/data
-    source_dir = script_dir / "qdrant"
+    script_dir = Path(__file__).parent  # tools/scripts
+    data_dir = script_dir.parent.parent / "projects" / "data"
+    source_dir = data_dir / "qdrant"
     machine_name = get_machine_name()
-    backup_dir = script_dir / f"qdrant.{machine_name}"
+    backup_dir = data_dir / f"qdrant.{machine_name}"
 
     # Step 1: Backup local Qdrant storage
     if source_dir.exists():
@@ -279,7 +280,7 @@ def main():
         print("No local Qdrant storage to backup (first time setup)")
 
     # Step 2: Consolidate all Qdrant databases
-    consolidate_qdrant_databases(script_dir)
+    consolidate_qdrant_databases(data_dir)
 
     print("\n[OK] Qdrant sync complete!")
 
