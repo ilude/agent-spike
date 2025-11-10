@@ -26,5 +26,16 @@
       "collection_name": "cached_content",
       "notes": "Migrated from Qdrant"
     }
-  ]
+  ],
+  "import_metadata": {
+    "source_type": "single_import",
+    "imported_at": "2025-11-09T19:23:28.246735",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": false
+    },
+    "recommendation_weight": 1.0
+  }
 }

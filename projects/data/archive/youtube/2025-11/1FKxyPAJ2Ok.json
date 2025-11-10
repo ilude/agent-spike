@@ -18,5 +18,16 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": []
+  "processing_history": [],
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:26:07.104189",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  }
 }
