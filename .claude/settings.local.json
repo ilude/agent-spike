@@ -93,7 +93,8 @@
       "Bash(nbtstat -c:*)",
       "Bash(do echo \"=== Checking $ip ===\")",
       "Bash(nbtstat -A:*)",
-      "Bash(mstsc:*)"
+      "Bash(mstsc:*)",
+      "Bash(.git/hooks/post-merge)"
     ],
     "deny": [],
     "ask": []
