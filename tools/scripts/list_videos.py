@@ -6,12 +6,16 @@ Usage:
     uv run python tools/scripts/list_videos.py
 
     # Custom collection
-    uv run python tools/scripts/list_videos.py my_collection
+    uv run python tools/scripts/list_videos.py --collection my_collection
 
     # Limit results
-    uv run python tools/scripts/list_videos.py cached_content 20
+    uv run python tools/scripts/list_videos.py --limit 20
+
+    # Both
+    uv run python tools/scripts/list_videos.py --collection cached_content --limit 20
 """
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -51,12 +55,25 @@ def list_videos(collection_name: str = "cached_content", limit: int = 100):
             video_id = video.get('video_id', 'N/A')
             url = video.get('url', 'N/A')
             transcript_len = video.get('transcript_length', 0)
-            tags = video.get('tags', 'N/A')
+
+            # Extract metadata (new structured format or old tags format)
+            metadata = video.get('metadata', {})
+            if metadata:
+                title = metadata.get('title', 'N/A')
+                subject = ', '.join(metadata.get('subject_matter', [])[:3])
+                content_style = metadata.get('content_style', 'N/A')
+            else:
+                # Fallback to old format
+                title = 'N/A'
+                subject = video.get('tags', 'N/A')
+                content_style = 'N/A'
 
             print(f"{i}. {video_id}")
             print(f"   URL: {url}")
+            print(f"   Title: {title}")
+            print(f"   Subject: {subject}")
+            print(f"   Style: {content_style}")
             print(f"   Transcript: {transcript_len:,} characters")
-            print(f"   Tags: {tags}")
             print()
 
         print(f"{'='*80}\n")
@@ -67,18 +84,30 @@ def list_videos(collection_name: str = "cached_content", limit: int = 100):
 
 def main():
     """Main entry point."""
-    try:
-        collection_name = sys.argv[1] if len(sys.argv) > 1 else "cached_content"
-        limit = int(sys.argv[2]) if len(sys.argv) > 2 else 100
+    parser = argparse.ArgumentParser(
+        description="List all cached YouTube videos in the Qdrant collection"
+    )
+    parser.add_argument(
+        "--collection",
+        "-c",
+        default="cached_content",
+        help="Qdrant collection name (default: cached_content)"
+    )
+    parser.add_argument(
+        "--limit",
+        "-l",
+        type=int,
+        default=100,
+        help="Maximum number of videos to show (default: 100)"
+    )
 
-        list_videos(collection_name, limit)
+    try:
+        args = parser.parse_args()
+        list_videos(args.collection, args.limit)
 
     except KeyboardInterrupt:
         print("\n\nKeyboard Interrupt Received... Exiting!")
         sys.exit(0)
-    except ValueError:
-        print("Error: Limit must be a number")
-        sys.exit(1)
 
 
 if __name__ == "__main__":

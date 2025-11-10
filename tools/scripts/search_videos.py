@@ -6,12 +6,16 @@ Usage:
     uv run python tools/scripts/search_videos.py "machine learning tutorial"
 
     # Custom collection
-    uv run python tools/scripts/search_videos.py "AI agents" my_collection
+    uv run python tools/scripts/search_videos.py "AI agents" --collection my_collection
 
     # More results
-    uv run python tools/scripts/search_videos.py "python coding" cached_content 20
+    uv run python tools/scripts/search_videos.py "python coding" --limit 20
+
+    # All options
+    uv run python tools/scripts/search_videos.py "MCP protocol" --collection cached_content --limit 10
 """
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -60,39 +64,30 @@ def search_videos(
             video_id = result.get('video_id', 'N/A')
             url = result.get('url', 'N/A')
             score = result.get('_score', 0)
-            tags = result.get('tags', 'N/A')
             transcript_len = result.get('transcript_length', 0)
             transcript = result.get('transcript', '')
 
+            # Extract metadata (new structured format or old tags format)
+            metadata = result.get('metadata', {})
+            if metadata:
+                title = metadata.get('title', 'N/A')
+                summary = metadata.get('summary', 'N/A')
+                subject = ', '.join(metadata.get('subject_matter', [])[:3])
+                content_style = metadata.get('content_style', 'N/A')
+            else:
+                # Fallback to old format
+                title = 'N/A'
+                summary = result.get('tags', 'N/A')
+                subject = 'N/A'
+                content_style = 'N/A'
+
             print(f"{i}. {video_id} (relevance: {score:.3f})")
             print(f"   URL: {url}")
-            print(f"   Tags: {tags}")
+            print(f"   Title: {title}")
+            print(f"   Summary: {summary[:100]}..." if len(str(summary)) > 100 else f"   Summary: {summary}")
+            print(f"   Subject: {subject}")
+            print(f"   Style: {content_style}")
             print(f"   Transcript: {transcript_len:,} characters")
-
-            # Show snippet from transcript
-            if transcript:
-                # Try to find query term in transcript for context
-                query_lower = query.lower()
-                transcript_lower = transcript.lower()
-                idx = transcript_lower.find(query_lower)
-
-                if idx >= 0:
-                    # Show context around query
-                    start = max(0, idx - 100)
-                    end = min(len(transcript), idx + len(query) + 100)
-                    snippet = transcript[start:end]
-                    if start > 0:
-                        snippet = "..." + snippet
-                    if end < len(transcript):
-                        snippet = snippet + "..."
-                    print(f"   Context: {snippet}")
-                else:
-                    # Just show beginning
-                    snippet = transcript[:200]
-                    if len(transcript) > 200:
-                        snippet += "..."
-                    print(f"   Snippet: {snippet}")
-
             print()
 
         print(f"{'='*80}\n")
@@ -103,31 +98,34 @@ def search_videos(
 
 def main():
     """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Semantic search for cached YouTube videos"
+    )
+    parser.add_argument(
+        "query",
+        help="Search query string (e.g., 'machine learning tutorial')"
+    )
+    parser.add_argument(
+        "--collection",
+        "-c",
+        default="cached_content",
+        help="Qdrant collection name (default: cached_content)"
+    )
+    parser.add_argument(
+        "--limit",
+        "-l",
+        type=int,
+        default=10,
+        help="Maximum number of results (default: 10)"
+    )
+
     try:
-        if len(sys.argv) < 2:
-            print("Error: Search query required")
-            print()
-            print("Usage:")
-            print("  uv run python tools/scripts/search_videos.py <query> [collection] [limit]")
-            print()
-            print("Examples:")
-            print("  uv run python tools/scripts/search_videos.py 'machine learning'")
-            print("  uv run python tools/scripts/search_videos.py 'AI agents' my_collection")
-            print("  uv run python tools/scripts/search_videos.py 'python' cached_content 20")
-            sys.exit(1)
-
-        query = sys.argv[1]
-        collection_name = sys.argv[2] if len(sys.argv) > 2 else "cached_content"
-        limit = int(sys.argv[3]) if len(sys.argv) > 3 else 10
-
-        search_videos(query, collection_name, limit)
+        args = parser.parse_args()
+        search_videos(args.query, args.collection, args.limit)
 
     except KeyboardInterrupt:
         print("\n\nKeyboard Interrupt Received... Exiting!")
         sys.exit(0)
-    except ValueError:
-        print("Error: Limit must be a number")
-        sys.exit(1)
 
 
 if __name__ == "__main__":
