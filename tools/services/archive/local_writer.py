@@ -265,6 +265,45 @@ class LocalArchiveWriter:
 
         return self.update(video_id, archive)
 
+    def add_derived_output(
+        self,
+        video_id: str,
+        output_type: str,
+        output_value: str,
+        transformer_version: str,
+        transform_manifest: dict,
+        source_outputs: Optional[list[str]] = None,
+    ) -> Path:
+        """Add derived output to existing archive.
+
+        Args:
+            video_id: YouTube video ID
+            output_type: Type of derived output (e.g., "normalized_metadata_v1")
+            output_value: JSON-serialized output
+            transformer_version: Version of transformer used
+            transform_manifest: Full version manifest for staleness detection
+            source_outputs: List of source output types used (e.g., ["tags"])
+
+        Returns:
+            Path to updated archive file
+
+        Raises:
+            FileNotFoundError: If archive doesn't exist
+        """
+        archive = self.get(video_id)
+        if archive is None:
+            raise FileNotFoundError(f"Archive not found for video_id: {video_id}")
+
+        archive.add_derived_output(
+            output_type=output_type,
+            output_value=output_value,
+            transformer_version=transformer_version,
+            transform_manifest=transform_manifest,
+            source_outputs=source_outputs,
+        )
+
+        return self.update(video_id, archive)
+
     def count(self) -> int:
         """Count total number of archived videos.
 

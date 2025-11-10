@@ -26,6 +26,22 @@ class LLMOutput(BaseModel):
     completion_tokens: Optional[int] = None
 
 
+class DerivedOutput(BaseModel):
+    """Record of derived/computed output from transformations.
+
+    Unlike LLM outputs, derived outputs are computed deterministically from
+    existing data (transformations, normalizations, etc.). They can be
+    regenerated at any time and are version-tracked for staleness detection.
+    """
+
+    output_type: str  # e.g., "normalized_metadata_v1", "qdrant_metadata"
+    output_value: str  # JSON-serialized output
+    generated_at: datetime
+    transformer_version: str  # Version of transformer that produced this
+    transform_manifest: dict  # Full manifest of versions used (for staleness detection)
+    source_outputs: list[str] = Field(default_factory=list)  # Source output_types used (e.g., ["tags"])
+
+
 class ChannelContext(BaseModel):
     """Channel information for bulk imports."""
 
@@ -75,6 +91,9 @@ class YouTubeArchive(BaseModel):
     # LLM-generated outputs
     llm_outputs: list[LLMOutput] = Field(default_factory=list)
 
+    # Derived/computed outputs (transformations, normalizations)
+    derived_outputs: list[DerivedOutput] = Field(default_factory=list)
+
     # Processing history
     processing_history: list[ProcessingRecord] = Field(default_factory=list)
 
@@ -116,9 +135,44 @@ class YouTubeArchive(BaseModel):
             )
         )
 
+    def add_derived_output(
+        self,
+        output_type: str,
+        output_value: str,
+        transformer_version: str,
+        transform_manifest: dict,
+        source_outputs: Optional[list[str]] = None,
+    ) -> None:
+        """Add a derived output record.
+
+        Args:
+            output_type: Type of derived output (e.g., "normalized_metadata_v1")
+            output_value: JSON-serialized output
+            transformer_version: Version of transformer used
+            transform_manifest: Full version manifest for staleness detection
+            source_outputs: List of source output types used (e.g., ["tags"])
+        """
+        self.derived_outputs.append(
+            DerivedOutput(
+                output_type=output_type,
+                output_value=output_value,
+                generated_at=datetime.now(),
+                transformer_version=transformer_version,
+                transform_manifest=transform_manifest,
+                source_outputs=source_outputs or [],
+            )
+        )
+
     def get_latest_output(self, output_type: str) -> Optional[LLMOutput]:
         """Get the most recent LLM output of a specific type."""
         matching = [o for o in self.llm_outputs if o.output_type == output_type]
+        if not matching:
+            return None
+        return max(matching, key=lambda o: o.generated_at)
+
+    def get_latest_derived_output(self, output_type: str) -> Optional[DerivedOutput]:
+        """Get the most recent derived output of a specific type."""
+        matching = [o for o in self.derived_outputs if o.output_type == output_type]
         if not matching:
             return None
         return max(matching, key=lambda o: o.generated_at)
