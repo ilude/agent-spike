@@ -1,12 +1,7 @@
 """Semantic tag retrieval using Qdrant for normalization context."""
 
-import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Set
-
-# Add project root to path for imports
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
 
 from tools.services.cache.qdrant_cache import QdrantCache
 from tools.services.cache.config import CacheConfig

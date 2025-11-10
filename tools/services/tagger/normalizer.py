@@ -1,47 +1,13 @@
 """Two-phase tag normalization agent."""
 
 import json
-import sys
-from pathlib import Path
 from typing import Dict, List, Optional, Set
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-from pydantic import BaseModel
 from pydantic_ai import Agent
 
+from .models import StructuredMetadata, NormalizedMetadata
 from .retriever import SemanticTagRetriever
 from .vocabulary import VocabularyManager
-
-
-class StructuredMetadata(BaseModel):
-    """Structured metadata output from Phase 1."""
-    title: str
-    summary: str
-    subject_matter: List[str]
-    entities: Dict[str, List[str]]
-    techniques_or_concepts: List[str]
-    tools_or_materials: List[str]
-    content_style: Optional[str] = None
-    difficulty: Optional[str] = None
-    key_points: List[str] = []
-    references: List[str] = []
-
-
-class NormalizedMetadata(BaseModel):
-    """Normalized metadata output from Phase 2."""
-    title: str
-    summary: Optional[str] = ""
-    subject_matter: List[str] = []
-    entities: Optional[Dict[str, List[str]]] = {}
-    techniques_or_concepts: List[str] = []
-    tools_or_materials: List[str] = []
-    content_style: Optional[str] = None
-    difficulty: Optional[str] = None
-    key_points: List[str] = []
-    references: List[str] = []
 
 
 class TagNormalizer:

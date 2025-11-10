@@ -407,12 +407,41 @@ To move this to production (`tools/services/tagger/`):
   - Testing & refinement: 1 hour ✅
   - Documentation: 30 min ✅
 
-## Next Steps (Future Lessons or Production)
+## Production Integration (Completed 2025-11-10)
+
+**Status**: ✅ Extracted to `tools/services/tagger/`
+
+The tag normalizer has been productionized and moved to the tools/ directory:
+- Code: `tools/services/tagger/`
+- Tests: `tools/tests/unit/test_tagger_*.py`
+- Lesson-010 now re-exports from tools (backward compatible)
+
+**Service structure**:
+```
+tools/services/tagger/
+├── models.py          # StructuredMetadata, NormalizedMetadata
+├── config.py          # TaggerConfig
+├── vocabulary.py      # VocabularyManager
+├── retriever.py       # SemanticTagRetriever
+├── normalizer.py      # TagNormalizer
+├── cli.py             # CLI commands
+└── __init__.py        # Public API
+```
+
+**Usage from anywhere**:
+```python
+from tools.services.tagger import create_normalizer, create_retriever
+
+normalizer = create_normalizer()
+result = await normalizer.normalize_from_transcript(transcript)
+```
+
+## Next Steps (Future Enhancements)
 
 1. **Improve Phase 2 prompts** to preserve all metadata fields
 2. **Implement evolution tracker** to monitor tag usage and suggest improvements
 3. **Build batch re-tagging script** for production use
-4. **Extract to `tools/services/tagger/`** for integration
+4. **Integrate with `ingest_video.py`** and `reingest_from_archive.py`
 5. **A/B test normalization quality** (with vs without semantic context)
 6. **Analyze tag co-occurrence** for better normalization suggestions
 7. **Build vocabulary management UI** for manual review and consolidation
