@@ -1,25 +1,49 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-08
-**Current Phase**: Personal AI Research Assistant - Building infrastructure
+**Last Updated**: 2025-11-09
+**Current Phase**: Personal AI Research Assistant - Production infrastructure complete
 
 ## Current State
 
 - ✅ **9 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing, Orchestrator
+- ✅ **Service layer extraction**: Production-ready `tools/` structure
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
 - **Project structure**:
   - `lessons/`: Progressive agent-building lessons (001-009)
-  - `projects/data/`: Centralized data storage (Qdrant cache, brave_history backups)
-  - `projects/video-lists/`: CSV files for content ingestion
-  - `tools/`: Shared utilities (dotenv.py for centralized environment config)
-- All agents instrumented with Pydantic Logfire for tracing
-- Security guardrails implemented (input/output validation, rate limiting, PII detection)
-- Memory layer integrated with Mem0 (user preferences, semantic search)
-- Production-ready patterns: observability, security, memory, caching, batch processing
+  - `tools/services/`: Reusable service layer (archive, cache, youtube)
+  - `tools/scripts/`: Production CLI scripts (ingestion, search, verification)
+  - `tools/tests/`: Pytest testing infrastructure (19 tests passing)
+  - `projects/data/`: Centralized data storage (Qdrant cache, archives, queues)
+- **Production features**:
+  - Archive-first strategy (all expensive data saved before processing)
+  - Queue-based ingestion (pending → processing → completed workflow)
+  - Webshare proxy integration (no YouTube API rate limiting)
+  - Protocol-first service design (dependency injection)
+  - Comprehensive test coverage (unit + functional tests)
 
 ## Recent Completions
 
-**Lesson 009: Orchestrator Agent** ✅ COMPLETE
+**Service Layer Extraction** ✅ COMPLETE (2025-11-09)
+- Extracted stable patterns from lessons into reusable `tools/` structure
+- **tools/services/**: Protocol-first service layer with 3 services
+  - `archive/`: LocalArchiveWriter/Reader for expensive data (JSON storage)
+  - `cache/`: QdrantCache + InMemoryCache with CacheManager protocol
+  - `youtube/`: YouTubeTranscriptService with Webshare proxy support
+- **tools/scripts/**: 6 production CLI scripts
+  - `ingest_youtube.py`: Queue-based batch REPL (main ingestion tool)
+  - `ingest_video.py`: Single video ingestion
+  - `list_videos.py`, `verify_video.py`, `search_videos.py`: Cache management
+  - `fetch_channel_videos.py`: YouTube Data API channel scraper
+- **tools/tests/**: Pytest infrastructure with 19 tests
+  - Unit tests for each service
+  - Functional tests with real Qdrant
+  - Shared fixtures and conftest.py
+  - Coverage reporting enabled
+- **All lessons updated**: Now import from centralized services
+- **Key patterns**: Dependency injection, composition over inheritance, lazy imports
+- **Time**: ~4 hours (5-phase refactoring)
+
+**Lesson 009: Orchestrator Agent** ✅ COMPLETE (2025-11-08)
 - Built orchestrator that coordinates multiple sub-agents in parallel
 - **Key Learning**: Nested agent-with-tools calls cause deadlocks
 - Solution: Created simplified pattern using direct LLM calls instead of nested agents
@@ -216,12 +240,21 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 6. **Pattern-based routing** (Lesson 003): Regex for URL classification (not LLM)
 7. **Direct agent import** (Lesson 003): Composition over complex orchestration
 8. **Pydantic Logfire over Langfuse** (Lesson 004): Langfuse has Python 3.14 compatibility issues, Logfire is native to Pydantic ecosystem
+9. **Archive-first strategy**: All expensive data (transcripts, LLM outputs) saved before processing
+10. **Protocol-first services**: typing.Protocol for dependency injection and testability
+11. **Queue-based ingestion**: CSV workflow (pending → processing → completed) for resumable batch processing
+12. **Webshare proxy**: YouTube Transcript API proxy to eliminate rate limiting
+13. **Lazy imports**: Qdrant optional dependency (graceful degradation to InMemoryCache)
 
 ## File Locations
 
 - Lesson code: `lessons/lesson-XXX/`
 - Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
-- This status file: `STATUS.md` (project root)
+- Services: `tools/services/{archive,cache,youtube}/`
+- Scripts: `tools/scripts/` (production CLIs)
+- Tests: `tools/tests/{unit,functional}/`
+- Data: `projects/data/{archive,queues,qdrant}/`
+- This status file: `.claude/STATUS.md`
 - Main config: `pyproject.toml` (project root)
 - Shared .venv: `.venv/` (project root)
 
