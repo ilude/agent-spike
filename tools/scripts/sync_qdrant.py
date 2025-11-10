@@ -282,6 +282,25 @@ def main():
     # Step 2: Consolidate all Qdrant databases
     consolidate_qdrant_databases(data_dir)
 
+    # Step 3: Clean up machine-specific backups after successful consolidation
+    print("\nCleaning up machine-specific backups...")
+    cleaned_count = 0
+    for backup in get_all_qdrant_dirs(data_dir):
+        if backup.name.startswith("qdrant.") and backup != source_dir:
+            try:
+                # Calculate size before removal
+                total_size = sum(f.stat().st_size for f in backup.rglob('*') if f.is_file())
+                size_mb = total_size / (1024 * 1024)
+
+                shutil.rmtree(backup)
+                print(f"  Removed: {backup.name} ({size_mb:.1f} MB)")
+                cleaned_count += 1
+            except Exception as e:
+                print(f"  Warning: Could not remove {backup.name}: {e}")
+
+    if cleaned_count == 0:
+        print("  No backups to clean up")
+
     print("\n[OK] Qdrant sync complete!")
 
 
