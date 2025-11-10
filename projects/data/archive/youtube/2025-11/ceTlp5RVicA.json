@@ -1,0 +1,22 @@
+{
+  "video_id": "ceTlp5RVicA",
+  "url": "https://www.youtube.com/watch?v=ceTlp5RVicA",
+  "fetched_at": "2025-11-09T21:52:07.722122",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "You should not leave the LLM to make the judgment call of which tool to use without guidance. It can choose which tool to use with guidance from you. And that's really important because you're essentially going to need to compose a prompt for the LLM based on the retrieval context it has, the inputs you're giving it, any system instructions or prompt that you have for it, and then whatever uh tool use that it uses, right? And so it's basically going to go through, it's going to read the retrieval, it's going to read the prompt, it's going to select a tool during the run, then it's going to come back with a response and put it wherever you want it to go. It is dependent on your clarity in your prompt and in the retrieval to know what tool to use. If there is ambiguity, you will get unpredictable responses.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"llm-guidance-and-tool-selection\",\n  \"tags\": [\"prompt-engineering\", \"language-model\", \"tool-use\", \"retrieval-augmented-generation\"],\n  \"summary\": \"Explains how to structure prompts and retrieval context to guide an LLM in selecting the appropriate tools and handling ambiguity.\"\n}",
+      "generated_at": "2025-11-09T21:52:16.431117",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

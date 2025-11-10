@@ -1,0 +1,22 @@
+{
+  "video_id": "vxGL8bgKgT4",
+  "url": "https://www.youtube.com/watch?v=vxGL8bgKgT4",
+  "fetched_at": "2025-11-09T23:25:04.033450",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "One, guardrails are layers. They're not switches. You cannot toggle safety on and off with prompt changes. You need a lot of different layers of defense, and you need to be thoughtful about how you have the effect of all of those layers together on the artificial intelligence system. So filtering and retrieval, constraints and prompts, RLHF training, output filtering, maybe human review. All of those are layers and you need to be intentional about using them as part of a defensive structure to keep the AI building trust for your customers, which supports long-term enterprise value and ultimately helps your customers get what they want out of the system. Second, rag amplifies platform risk. If you're building retrieval systems, you're importing all the problems in your data sources. You have to filter before retrieval hits the",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-safety, guardrails, retrieval-augmented-generation, reinforcement-learning-from-human-feedback, data-filtering",
+      "generated_at": "2025-11-09T23:25:13.085144",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

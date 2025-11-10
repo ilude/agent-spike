@@ -1,0 +1,22 @@
+{
+  "video_id": "Q7QLM4wxmAM",
+  "url": "https://www.youtube.com/watch?v=Q7QLM4wxmAM",
+  "fetched_at": "2025-11-09T23:25:22.295725",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Now Grock is enabled with this new system prompt. So toxic content appears on X because it always does. That's not new. The auto rag begins to pull it in and the system rules are different now. There's absolutely no filtering at all going on. The system prompt is instructing Grock to say politically incorrect is fine. So it starts to look at this stuff and say ah it's politically incorrect. That must be fine. There's a prompt engineering failure there. There's no pre-publication review on Grock as anyone who's used X knows. is you can just say at Grock please answer and until yesterday it would it would just automatically answer and they resorted to deleting later as a way of dealing with egregious examples of misinformation. And so Grock began direct posting to the platform and we have a cascade failure situation. Multiple systems failed in sequence and each failure increased the consequences of the subsequent failure.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"grock prompt engineering and cascade failure in ai content moderation\",\n  \"tags\": [\"prompt-engineering\", \"ai-safety\", \"content-moderation\", \"misinformation\"],\n  \"summary\": \"Analysis of how a faulty system prompt caused unfiltered responses and cascading failures in automated content posting on social media.\"\n}",
+      "generated_at": "2025-11-09T23:25:34.195905",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

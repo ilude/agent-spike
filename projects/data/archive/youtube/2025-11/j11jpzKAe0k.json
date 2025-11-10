@@ -1,0 +1,22 @@
+{
+  "video_id": "j11jpzKAe0k",
+  "url": "https://www.youtube.com/watch?v=j11jpzKAe0k",
+  "fetched_at": "2025-11-09T22:21:37.980349",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you're in the age of AI and you're building something, you want to build a side gig, think about your distribution first. What is your distribution advantage? What do you know that other people don't know about your market and where they hang out and what they like and what they don't like and what their pain points are? And are you a member of that community in such a way that they trust you and you're respected and you won't look like you're just scamming people if you talk about a product that you built? That is really really important.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"building-a-side-gig-in-the-age-of-ai\",\n  \"tags\": [\"distribution\", \"side-gig\", \"target-audience\", \"community-trust\"],\n  \"summary\": \"Focus on distribution-first strategy, knowing unique market insights, and building trust within your community when launching an AI-era side project.\"\n}",
+      "generated_at": "2025-11-09T22:21:47.906477",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "cirzwGKqBpI",
+  "url": "https://www.youtube.com/watch?v=cirzwGKqBpI",
+  "fetched_at": "2025-11-09T23:34:34.591474",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I want to leave you with this. Rag is a way to solve some of AI's biggest problems. Hallucination, stale knowledge, lack of memory. It can be started as simple as a few lines of code. And it does scale up to the enterprise scale, although not with 15 lines of code. This is why so many enterprises and businesses are thinking about rag moving toward Brack. It solves problems that are real if implemented well. The tools do exist today. I've mentioned some of them on this video. You have no excuses not to start if you have a problem that fits in the fairly wide rag problem space. Most of us have run across hallucination stale a stale knowledge and memory issues. But if you're going to do it, pick a small use case. Build just a prototype to start. Don't pour the concrete. Measure the impact and eval it. Evaluate it and then learn and iterate.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"rag in ai: retrieval-augmented-generation to tackle hallucinations and memory issues\",\n  \"tags\": [\"retrieval-augmented-generation\", \"ai-hallucinations\", \"knowledge-staleness\", \"memory-augmentation\", \"enterprise-ai\"],\n  \"summary\": \"Explains how retrieval-augmented generation (RAG) helps mitigate AI hallucinations, stale knowledge, and memory problems, and emphasizes starting with a small prototype, measuring impact, and iterating toward practical enterprise solutions.\"\n}",
+      "generated_at": "2025-11-09T23:34:44.515950",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

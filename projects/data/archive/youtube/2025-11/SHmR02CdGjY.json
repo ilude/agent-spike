@@ -1,0 +1,22 @@
+{
+  "video_id": "SHmR02CdGjY",
+  "url": "https://www.youtube.com/watch?v=SHmR02CdGjY",
+  "fetched_at": "2025-11-09T22:58:52.034638",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We need to make sure that we prioritize moving to thinking machines for high leverage, high value activities. Finance sure comes to mind. It seems pretty valuable because when you ask for answers from an LLM, the LLM is trained to be helpful and gives you a perfectly acceptable generic answer because your prompt did not give it the room to do what it does best. your prompt did not give it the room to analyze to actually dig deep. And so what I want to focus on in this video are the principles. I'm going to use finance as a lens because I think it's a high lever high value activity. We all do it one way or another. Whether we're in a budgeting app or whether we're investing or whether we're negotiating compensation, we have to do with money. I want to talk about how you use LLMs for this because it's a lens into how we use them for highv value thinking activities.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-in-finance, large-language-models, decision-support-ai, prompt-engineering",
+      "generated_at": "2025-11-09T22:58:59.387856",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

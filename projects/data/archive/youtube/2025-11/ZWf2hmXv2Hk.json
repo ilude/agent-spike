@@ -1,0 +1,22 @@
+{
+  "video_id": "ZWf2hmXv2Hk",
+  "url": "https://www.youtube.com/watch?v=ZWf2hmXv2Hk",
+  "fetched_at": "2025-11-09T21:47:23.459944",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Imagine a world where there were five different iPhones. And that matters because part of what made the App Store successful was that it was the only game in town. That's not true for Open AAI. It is not the only game in town. Now, I will say anyone at OpenAI is going to come back with a very reasonable response. Nobody else has 800 million users. Well, true, but Google has, I don't know, 400 and change with Gemini and growing fast. And Anthropic arguably has the super premium segment that iPhone traditionally represented because people are choosing to lean in and pay for it, which is part of what Anthropic was leaning into in their marketing this week. Put on your thinking caps. They had popup cafes in New York and San Francisco. People waited in line. They got a thinking cap. And the clear implication was if you're a thinking person, you're picking anthropic, right? So, I think the book has not yet been written on where all of this is going to end up. But developers and builders have an unprecedented set of choices.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai platforms and market competition\",\n  \"tags\": [\"ai-platforms\", \"large-language-models\", \"ai-competition\", \"developer-tools\", \"tech-ecosystems\"],\n  \"summary\": \"Discussion of competing AI platforms (OpenAI, Google Gemini, Anthropic) and how developers navigate a growing AI ecosystem.\"\n}",
+      "generated_at": "2025-11-09T21:47:34.809310",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "OshJvkMYQF4",
+  "url": "https://www.youtube.com/watch?v=OshJvkMYQF4",
+  "fetched_at": "2025-11-09T22:40:13.945094",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "My position is yes, there will be some engineers who don't understand how engineering works that will absolutely lose their roles in the age of AI and frankly many of them probably would have lost their roles previously. One of the interesting things when you work with a lot of different engineers as I have is that you realize how variable the talent mix is across engineers. An engineer at the same level can be worlds apart in terms of actual capability and impact to the business. And anyone who's worked with engineers will tell you the same thing. I had an intern when I worked at Amazon who did more work and delivered more value than senior engineers I knew there. It just was the way it was. He was motivated. He had a great assignment. He was able to get something into production and he did a great job. Needless to say, he got an offer, right? Like the point is that talent is variable. Talent has always been variable.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai and engineering talent: the future of work\",\n  \"tags\": [\"artificial-intelligence\", \"engineering-management\", \"talent-management\", \"future-of-work\", \"software-engineering\"],\n  \"summary\": \"Explores how AI may disrupt engineering roles, the high variability in engineer performance, and the importance of focusing on high-value contributions.\"\n}",
+      "generated_at": "2025-11-09T22:40:24.853112",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

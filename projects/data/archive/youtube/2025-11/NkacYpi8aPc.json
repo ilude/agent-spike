@@ -1,0 +1,22 @@
+{
+  "video_id": "NkacYpi8aPc",
+  "url": "https://www.youtube.com/watch?v=NkacYpi8aPc",
+  "fetched_at": "2025-11-09T22:06:10.096905",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Chat GPT is launching a social network as a standalone app. This is a direct shot across the bow at Meta and Zuck. This product is intended to be old style Facebook, old style Instagram. It is about you and your friends. They are very very sensitive to the accusation that AI is going to produce slop on the internet. They have seen Meta's terrible PR experience with AI girlfriends and boyfriends. They've seen this broad and pervasive impression that people have that AI is wrecking social media. And they want two things out of that. One, they want to make sure that they are perceived as the good guys. And two, they want to make sure that they can show a path for AI being used responsibly.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ChatGPT launches a social network: AI ethics and platform competition\",\n  \"tags\": [\"artificial-intelligence\", \"social-media\", \"ai-ethics\", \"tech-industry\", \"platform-wars\"],\n  \"summary\": \"Analyzes ChatGPT's foray into a standalone social network, the emphasis on responsible AI PR, and the competitive dynamics with Meta.\"\n}",
+      "generated_at": "2025-11-09T22:06:31.675856",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

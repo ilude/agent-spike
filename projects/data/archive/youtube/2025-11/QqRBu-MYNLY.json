@@ -1,0 +1,22 @@
+{
+  "video_id": "QqRBu-MYNLY",
+  "url": "https://www.youtube.com/watch?v=QqRBu-MYNLY",
+  "fetched_at": "2025-11-09T23:21:01.621514",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So I deliberately used Gro 4. I tested it against 03. I tested it against Opus 4. If it was anywhere close to the number one model in the world, it would either be neck andneck with those two other models or it would beat them. It did neither. Instead, it lost. I tested the models twice on different uh scoring rubrics or the same scoring rubric on different model exams. And in each case, Grock 4 scored third. Opus 4 scored second and 03 scored first. I'm not saying that because 03 was perfect. These were intentionally somewhat difficult and none of the models came through without flaws and defects. But Gro 4 was consistently the lowest performing model across the five tasks I just described. And you might wonder, well, what's in the box there? Frankly, the thing that was an issue was explicit formatting. It just could not seem to follow the explicit formatting instructions in the prompt.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-model benchmarking: Grok 4 vs Opus 4 vs 03\",\n  \"tags\": [\"ai-model-evaluation\", \"benchmark-testing\", \"prompt-formatting\", \"language-models\", \"model-comparison\"],\n  \"summary\": \"A comparative analysis of AI language models Grok 4, Opus 4, and 03 across multiple tasks, highlighting Grok 4's underperformance and the impact of explicit prompt formatting on results.\"\n}",
+      "generated_at": "2025-11-09T23:21:11.588449",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

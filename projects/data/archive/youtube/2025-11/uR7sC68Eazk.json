@@ -1,0 +1,30 @@
+{
+  "video_id": "uR7sC68Eazk",
+  "url": "https://www.youtube.com/watch?v=uR7sC68Eazk",
+  "fetched_at": "2025-11-09T19:23:28.136277",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I find a lot of people think they're at this level one chat advisor thing and they think they want agents, but they don't. They actually just want a tool augmented assistant. And when they get one, they're like, \"Oh, wow. I had no idea it could do this.\" Right? It can use Excel. I had no idea. Right? And so this is for a chat that can access data. It can search the web. It can run calculations. It can build assets. It can edit assets. You can save your team dozens of hours a week properly using these. And I'm just going to say this is 10 times, a hundred times, maybe a thousand times easier than an enterprise agentic system to install. It's so much cheaper, it's not even funny. But people sleep on it because it's not an agent. Well, it is an agent. It's an LLM plus tools plus the guidance you give. But people expect agents to be like, you know, this completely autonomous Borgl like thing that goes and and uses tools. Most of the time what most individuals and teams actually benefit from is this like level three tool augmented assistant. If they could properly implement a tool augmented assistant for finance workflows, for marketing workflows, for product workflows, they go so",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "tool-augmented-ai, llm-with-tools, workflow-automation, finance-workflows, marketing-workflows",
+      "generated_at": "2025-11-09T19:23:28.145932",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.155135",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

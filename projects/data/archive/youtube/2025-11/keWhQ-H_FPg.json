@@ -1,0 +1,22 @@
+{
+  "video_id": "keWhQ-H_FPg",
+  "url": "https://www.youtube.com/watch?v=keWhQ-H_FPg",
+  "fetched_at": "2025-11-09T23:11:28.762302",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And so if you think about what's coming up next for OpenAI, the launch of chat JPG5, if you think about the upcoming launch of their open weights model, which they have delayed again, I start to see these kinds of claims from OpenAI in the light of their trust fingerprint. I start to read it and I start to say this is a model maker that values press releases. It values public relations. it will jump to get the PR victory ahead of any kind of request that it gets to hold things back. It moves fast. And so when the International Math Olympiad said, \"Please wait for the students,\" Sam didn't wait and he pushed forward because he had an amazing story to tell and he wanted to be the first in the market and he wanted to beat Google to the story.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"OpenAI PR, ChatGPT-5 hype, and trust fingerprint\",\n  \"tags\": [\"openai\", \"chatgpt-5\", \"public-relations\", \"trust-fingerprint\"],\n  \"summary\": \"Discussion on OpenAI's PR strategy, anticipated ChatGPT-5 launch, delays in open weights, and the concept of a trust fingerprint in market messaging.\"\n}",
+      "generated_at": "2025-11-09T23:11:41.821480",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

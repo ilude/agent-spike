@@ -1,0 +1,22 @@
+{
+  "video_id": "B3L4_O4m6VU",
+  "url": "https://www.youtube.com/watch?v=B3L4_O4m6VU",
+  "fetched_at": "2025-11-09T22:22:17.253807",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I'm calling this the MACE framework. MACE stands for modality, autonomy, complexity, and environment. I think those four things are all dimensions that we need to assess agentic AI tools on, and that we've really lacked the language for assessing them on previously. Let's dive into each of these. Number one, what is the primary modality of this tool? And there's at least five different things you can look at there. Text agents. Examples of that would be Claude, Chat, GPT, Gemini. They generate, they analyze text. Number two, coding agents. Cursor, GitHub, Claude artifacts. Number three, workflow agents. NAN, Zapier, Make, Lang Chain, etc. Number four, research agents like Deep Research or Perplexity. And number five, multimodal agents. Manis falls into that category. There are probably other primary modalities, but you get the idea, right? It's basically what is the primary mode of this agent becomes a relevant",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"MACE framework for assessing agentic AI tools\",\n  \"tags\": [\"mace-framework\", \"ai-modality\", \"ai-autonomy\", \"ai-environment\", \"agentic-ai\"],\n  \"summary\": \"Introduces the MACE framework (modality, autonomy, complexity, environment) for evaluating agentic AI tools across different modalities.\"\n}",
+      "generated_at": "2025-11-09T22:22:28.384276",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "ecuNyswLmyM",
+  "url": "https://www.youtube.com/watch?v=ecuNyswLmyM",
+  "fetched_at": "2025-11-09T23:12:18.768716",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Early May, the letter of intent is signed and the exclusive negotiation window begins. Internal memos at this point leak showing that there's a plan to fold Windsurf into the chat GPT dev suite. This is also when Anthropic is going to start withdrawing Claude from Windsurf causing a lot of bad feelings from the developers using Windsurf. I was a user of Windsurf at the time. I was very unhappy that Claude left, but I get it. If you have something called chat GPT dev suite coming, the last thing you want is to let Claude's output tokens and Claude's data into that environment. Because really what you're doing when you're coding is you have an AI writing code and you have an engineer rewarding that one way or another. Either telling the code output, hey model, great job on the code output, good job, thumbs up. And then you have a reward signal or hey, this didn't work. Can you try it this way? And then you have a correction signal. Both are highly valuable signals if you are in the AI arms race and anthropic did not want those signals going to chat GPT. So OpenAI reportedly agreed to definitive terms with Windsurf around this Chat GPT dev suite idea. May 6th, 2025, a definitive agreement is announced which is a step beyond just the negotiation window and the letter of intent. a step beyond the uh reported price negotiated initially. The $3 billion price was confirmed again. Uh this is a rare case where the price didn't change and Windsurf employees rightly are celebrating at this point. They think they've got it made, but we aren't done yet. Early June, negotiations hit a major snag. Microsoft raises IP concerns under 2023's agreement that OpenAI signed with Microsoft back when OpenAI had many fewer cards than it holds today. Microsoft has rights to all OpenAI tech, including acquisitions, and it looks like Satcha Nadella played his hand. The rumor is that OpenAI did not want to give the IP for Windsurf to Microsoft. There has been, I don't want to call it a divorce. That sounds dramatic. There has been a soft separation between Microsoft and OpenAI. Let's use that term. Very polite. We're all adults here. And there has been a little bit of tension. And this is an example of that tension. Basically, OpenAI has become more powerful in the relationship since the agreement was signed. They're flexing their wings. In this case, they flexed their wings and said, \"You know what? We're acquiring Windsurf and no, Microsoft. We don't want you to have the IP.\" And Satcha basically said, \"Talk to my Microsoft lawyers.\" Which if you've ever talked with Microsoft lawyers, you don't want to do. So at the end of the day, Satcha was right. Microsoft had legal rights. GitHub Copilot directly competes with Windsurf and he was right to worry about it. And Microsoft refused to grant an exception to their IP rights.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"windsurf acquisition and ai-ip tensions\",\n  \"tags\": [\"windsurf\", \"openai\", \"anthropic\", \"ip-rights\", \"microsoft\"],\n  \"summary\": \"A discussion of the Windsurf acquisition by OpenAI, Anthropic's Claude withdrawal, and related IP rights tensions with Microsoft.\"\n}",
+      "generated_at": "2025-11-09T23:12:39.432956",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

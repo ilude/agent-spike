@@ -1,0 +1,22 @@
+{
+  "video_id": "o30pZDPS18c",
+  "url": "https://www.youtube.com/watch?v=o30pZDPS18c",
+  "fetched_at": "2025-11-09T22:42:23.587933",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So, is Sam right? Are we in a bubble? I would actually argue that if he means, are there elements of unfounded hype in AI? Yes, there are. Absolutely. Is there froth? Yes. As a wonderful example, again, just from this week, I could pick any number of a dozen examples. But look at the number of lovable copycats out there. How many companies do you know who have put up a little box saying, \"What do you want to build today?\" The latest one is Air Table. I would not I would not think that Air Table should be doing that, but they've decided to. With any gold rush, you get people rushing in to stake a claim where they think there's gold. And Lovable has demonstrated there's gold in vibe coding. And so now there's a rush there, right? And there's going to be a lot of me too players. Anytime you have value, you have me too players. That doesn't mean it's inherently a bubble no matter what. And I think that people sort of overindexed on that comment and they thought, \"Oh, there's hype players. That means it's a bubble.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Is AI in a bubble? analyzing hype, vibe coding, and copycats\",\n  \"tags\": [\"artificial-intelligence\", \"tech-hype\", \"vibe-coding\", \"startup-culture\", \"copycats\"],\n  \"summary\": \"The video discusses AI hype and whether it signals a bubble, the rise of 'vibe coding', and the surge of copycat startups rushing to claim value in the AI gold rush.\"\n}",
+      "generated_at": "2025-11-09T22:42:35.618121",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

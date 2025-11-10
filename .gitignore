@@ -41,11 +41,12 @@ env/
 .cache/
 **/.cache/
 
-# Projects: Data files - only brave_history/data/brave_history.sqlite is tracked (encrypted)
+# Projects: Data files - track archives, qdrant, brave_history, and sync scripts
 # Machine-specific files and temp files are ignored
 projects/data/*
 !projects/data/*.csv
 !projects/data/*.py
+!projects/data/archive/
 !projects/data/qdrant/
 !projects/brave_history/data/
 projects/brave_history/data/brave_history.*.sqlite

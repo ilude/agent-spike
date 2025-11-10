@@ -1,0 +1,22 @@
+{
+  "video_id": "qAen8OeA0Ss",
+  "url": "https://www.youtube.com/watch?v=qAen8OeA0Ss",
+  "fetched_at": "2025-11-09T21:53:33.827001",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So executives tend to ask me, Nate, which model should we bet on for AI agents? Wrong question, guys. The right question is which architecture delivers the workflows we're looking for. Model advantage lasts maybe a quarter at best. Architectural advantage is something that persists for years. So the principle is this. You want to build model agnostic orchestration that isn't dependent on particular models to execute particular workflows. In particular, you want to make sure that your agents are selected, evaluated, swapped, and combined individually. And you do that based on the architecture and what it demands, the workflows, right? This comes back to your orchestration layer being the competitive bet, not the models. The models are replaceable commodities. You can build a model orchestration layer and that is going to get you much much farther.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Architecture-first orchestration for AI agents\",\n  \"tags\": [\"ai-agents\", \"architecture-first\", \"model-agnostic-orchestration\", \"workflow-automation\"],\n  \"summary\": \"Argues that architecture-driven, model-agnostic orchestration provides a durable competitive advantage for AI agents by focusing on workflows, agent selection, evaluation, and swapping rather than chasing the best model.\"\n}",
+      "generated_at": "2025-11-09T21:53:47.050029",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

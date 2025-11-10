@@ -1,0 +1,22 @@
+{
+  "video_id": "gn9npEpiaNM",
+  "url": "https://www.youtube.com/watch?v=gn9npEpiaNM",
+  "fetched_at": "2025-11-09T22:48:25.545440",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Right now, GPT5 Pro is much much more vulnerable from a security perspective than GPT. And that's not just me saying that. That's widely reported across the security uh publications that matter. They are using adversarial techniques, jailbreaking techniques to test these models. And what they're discovering is GPT5 Pro and the GPT5 family overall don't test well. And by the way, if you're wondering what is the difference between pro and GPT5 thinking, very simply, it's about how much you're turning up the dial on that parallel reasoning. And GPT5 Pro is turned up to 11 like Spinal Tap, right? Like it that's just how it works. When the model is exploring multiple perspectives, adversarial prompts can poison a particular thread and influence the eventual synthesis. Essentially, you have more surface area for the prompts to attack. That's the architectural cost of parallel reasoning.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"GPT5 Pro: security vulnerabilities and adversarial prompts\",\n  \"tags\": [\"ai-security\", \"adversarial-prompting\", \"gpt5\", \"parallel-reasoning\"],\n  \"summary\": \"Explores security vulnerabilities in GPT5 Pro, focusing on adversarial prompts and the trade-off of parallel reasoning.\"\n}",
+      "generated_at": "2025-11-09T22:48:35.630447",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

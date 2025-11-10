@@ -1,0 +1,22 @@
+{
+  "video_id": "Q4g5KXrLRt0",
+  "url": "https://www.youtube.com/watch?v=Q4g5KXrLRt0",
+  "fetched_at": "2025-11-09T22:15:28.281950",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This is the beginning of an entire new arc where we will see AI become more proactive. This is one of the first widely consumer available proactive AI experiences. And I want you to keep that in mind because a lot of the other threads we're following over the course of the last few months point to a 2026 that is more AI proactive versus AI reactive and major model makers are all building in that direction. Let's get to story number two. Microsoft is diversifying co-pilot with anthropic models. And this is really fascinating because Microsoft has been known for leaning in on OpenAI for a while. But as we discovered in the last couple weeks, Microsoft and OpenAI have finalized a new looser partnership format. And it's not super surprising in that context to see Microsoft go for another major model maker as essential to their suite of tools.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI Proactivity: Microsoft Diversifies Copilot with Anthropic Models\",\n  \"tags\": [\"proactive-ai\", \"ai-trends\", \"microsoft-ai\", \"anthropic-models\", \"openai-partnerships\"],\n  \"summary\": \"Explores the shift toward proactive AI and Microsoft's strategy to diversify Copilot with Anthropic models amid evolving industry partnerships.\"\n}",
+      "generated_at": "2025-11-09T22:15:45.869386",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

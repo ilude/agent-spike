@@ -1,0 +1,22 @@
+{
+  "video_id": "dXTxwhyR6mo",
+  "url": "https://www.youtube.com/watch?v=dXTxwhyR6mo",
+  "fetched_at": "2025-11-09T23:39:56.216343",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We discovered with word tovec in 2013 that networks could learn word relationships. The famous example is that a network could learn that king minus man plus woman equals queen. For the first time meaning could emerge from data not rules. And that unlocked a lot of other interesting discoveries. However, we were still limited. Fundamentally we were limited by sequential processing. Everything had to be read one token at a time. Training was slow. These models struggled with long sentences and were generally only interesting to academics. They didn't really hit production for most use cases in the enterprise. Then everything changed in 2017 when the transformer revolution",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"From word2vec to transformers: the NLP revolution\",\n  \"tags\": [\"word-embeddings\", \"word2vec\", \"natural-language-processing\", \"transformers\", \"deep-learning\"],\n  \"summary\": \"Overview of the shift from token-by-token word embeddings to transformer-based NLP models around 2017.\"\n}",
+      "generated_at": "2025-11-09T23:40:08.178014",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

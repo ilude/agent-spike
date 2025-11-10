@@ -1,0 +1,22 @@
+{
+  "video_id": "9huSupCi7Ag",
+  "url": "https://www.youtube.com/watch?v=9huSupCi7Ag",
+  "fetched_at": "2025-11-09T23:45:19.331228",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Look, I get it. Claude code is powerful. It is good at code. They have done something magical there. I strongly suspect it is because there's not the same token constraints that you would have if you installed Claude in another tool like cursor. And because Anthropic can control the whole experience, they can make Claude code work exactly the way they want. It feels a lot like an internal development tool that got out into the wild, which I believe it is. When you think about it that way, what you realize is a little bit of what senior engineers start to realize after time in the discipline. It's not the ability to write the code that is transformative. It's the ability to think about the structure of the project and how to order",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Claude Code and the Power of Internal Development Tools in AI Coding\",\n  \"tags\": [\"ai-coding-tools\", \"software-engineering\", \"code-architecture\", \"programming-principles\", \"internal-tools\"],\n  \"summary\": \"Explores Claude Code, its apparent token handling, and how AI coding tools shift focus from writing code to shaping software project structure and workflow.\"\n}",
+      "generated_at": "2025-11-09T23:45:34.798667",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "Q9ZGa3PzIBQ",
+  "url": "https://www.youtube.com/watch?v=Q9ZGa3PzIBQ",
+  "fetched_at": "2025-11-09T22:05:41.043448",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I've been talking a lot about OpenAI monetizing ads and we have seen them do three things that argue for ads maybe four in the last week. One is starting to hire a head of monetization and ads. That's pretty transparent. Two is launching Pulse for pro users where they actually show you cards. You can see sponsored cards so easily there guys. And then three launching Sora 2. Again a super easy platform for ads. Now the fourth thing they are working with Etsy and Shopify on checkout within chat GPT and so now they would own the whole funnel right well all of this helps to answer the question for all of us about how they are thinking about ads and how they are thinking about maintaining the perceived integrity of the system when you get answers from chat GPT",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"OpenAI monetization and ads strategy: Pulse, Sora 2, and checkout integrations\",\n  \"tags\": [\"openai\", \"ai-advertising\", \"ai-monetization\", \"chatgpt-ecosystem\", \"ecommerce-integration\"],\n  \"summary\": \"Examines OpenAI's approach to monetization through ads, including features like Pulse and Sora 2, and integrations with Etsy and Shopify for checkout in ChatGPT, with notes on maintaining system integrity and user trust.\"\n}",
+      "generated_at": "2025-11-09T22:06:01.594008",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

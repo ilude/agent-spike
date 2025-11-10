@@ -1,0 +1,22 @@
+{
+  "video_id": "Xzyj0XBQJ1k",
+  "url": "https://www.youtube.com/watch?v=Xzyj0XBQJ1k",
+  "fetched_at": "2025-11-09T22:46:53.821589",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And that brings me to the infrastructure cost of using GPT5 Pro. Success with GPT Pro requires a fundamental data restructuring that organizations tend to underestimate. Instead of linear documents that you feed, it would be ideal to feed GPT5 Pro more multi-dimensional data architectures. So if you're doing financial analysis, feed it the core data statements. These are facts, metrics, these are calculations. And then feed it perspectives. Here's a risk lens, what we think could go wrong. Here's a growth lens. What are the opportunities in the space? Here's a competitive lens with our market positioning. Then feed it cross references, temporal cross references, how metrics change over time. Relational, how departments interact. Basically, you need to start thinking of it as giving this multiple thread reasoning agent as much context as you can in a very structured way because each parallel thread will need a coherent data path to",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"GPT5 Pro: multi-dimensional data architectures and parallel-thread reasoning\",\n  \"tags\": [\"artificial-intelligence\", \"data-architecture\", \"financial-analysis\", \"contextual-reasoning\"],\n  \"summary\": \"Discusses restructuring data inputs for GPT5 Pro using core data, perspectives, and cross-references to enable multi-threaded contextual reasoning.\"\n}",
+      "generated_at": "2025-11-09T22:47:04.490475",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

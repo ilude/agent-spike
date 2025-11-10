@@ -1,0 +1,22 @@
+{
+  "video_id": "6dNbZPZ3HQc",
+  "url": "https://www.youtube.com/watch?v=6dNbZPZ3HQc",
+  "fetched_at": "2025-11-09T22:09:45.019859",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Anthropic is betting on our future for the next few years at least being somewhat similar to what we have today. Despite all the big hype and all the big takeaways, they're investing in a world where we will still need powerpoints, where we will still need spreadsheets, where we will still need the ability to run claude code as a human and get something that boots on a dev server. And what they're betting is that what we need is clearer and more professional outputs that we can understand more easily. And that in turn will mean that we take less time on the grunge of our work. Because to be honest, no one wants to trade the grunge of the old way of doing things pre202 where we were just doing everything by hand and get the new way of doing things and it's just AI slop and we're just waiting through that and that's a terrible slog instead. That",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Anthropic bets on a future of AI-enabled professional outputs\",\n  \"tags\": [\"anthropic\", \"artificial-intelligence\", \"claude-ai\", \"future-of-work\", \"ai-tools\"],\n  \"summary\": \"Discussion of Anthropic's vision for AI like Claude to enhance professional workflows while keeping traditional tools intact.\"\n}",
+      "generated_at": "2025-11-09T22:09:59.205641",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

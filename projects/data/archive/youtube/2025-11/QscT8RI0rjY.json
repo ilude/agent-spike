@@ -1,0 +1,22 @@
+{
+  "video_id": "QscT8RI0rjY",
+  "url": "https://www.youtube.com/watch?v=QscT8RI0rjY",
+  "fetched_at": "2025-11-09T22:47:11.514115",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "You're not just paying $200 for access to a smarter model. You're paying for the compute to run multiple reasoning threads at once. And that gives you a clue as to why it's reserved for the smarter model. It's not cheap to run. Every query spawns parallel processes that take real compute resources. The thing is you get an advance on correctness. And so you can look at different sort of tests that show that you know this test 100% on advanced mathematics, right? Or 88.4% on graduate level reasoning, 22% fewer major errors in the bench. Okay, fine. Right? Like I have learned to take the test with a grain of salt. What I'm more interested in is the architecture that leads to correctness because that's what actually gets us where we need to",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"unknown\",\n  \"tags\": [\"artificial-intelligence\", \"parallel-processing\", \"reasoning-architecture\", \"ai-benchmarks\"],\n  \"summary\": \"Discusses how AI models use parallel reasoning and architecture to improve correctness and benchmark performance.\"\n}",
+      "generated_at": "2025-11-09T22:47:24.833681",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

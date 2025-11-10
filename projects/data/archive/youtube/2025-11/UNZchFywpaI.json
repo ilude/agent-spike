@@ -1,0 +1,22 @@
+{
+  "video_id": "UNZchFywpaI",
+  "url": "https://www.youtube.com/watch?v=UNZchFywpaI",
+  "fetched_at": "2025-11-09T22:11:48.222025",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "OpenAI completed a study called GDP VAL this week that actually tests major AI models against economically useful work tasks. Now, before you run away with the wrong headline here, this is not the same as saying it's testing major model makers against economically useful jobs. These are very very limited tasks where the context is prepared by an expert in a neat little package and then an expert prepares a gold standard solution and then the major model makers run their models against the problem space and see how their result compares to that gold standard in a blind evaluation. Fine. It's not real work in the sense that it's not as messy, but it is real work in the sense that the tasks are real and designed by experts in the field. That being said, OpenAI sponsored all of this and set it up and ran it and even they admit that Opus 4.1 from Enthropic is better at doing that kind of economically useful work than any of Chat GPT's models, which is a huge endorsement for Opus 4.1 and the Enthropic team and one that I personally have",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"GDP VAL study: OpenAI evaluates AI models on economically useful work\",\n  \"tags\": [\"openai\", \"ai-evaluation\", \"enthropic\", \"opus-4-1\", \"economically-useful-work\"],\n  \"summary\": \"Discussion of OpenAI's GDP VAL study, its blind evaluation against gold-standard solutions, and comparison with Enthropic's Opus 4.1.\"\n}",
+      "generated_at": "2025-11-09T22:12:05.779344",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

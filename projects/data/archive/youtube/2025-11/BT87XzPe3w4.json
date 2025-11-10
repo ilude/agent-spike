@@ -1,0 +1,22 @@
+{
+  "video_id": "BT87XzPe3w4",
+  "url": "https://www.youtube.com/watch?v=BT87XzPe3w4",
+  "fetched_at": "2025-11-09T22:10:26.982212",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "One of the crosscutting trends here is that the companies that were funded in 2025 are going to be hitting the ground in 2026 and they are going to be fiercely competing for every sales dollar. And so you want to be in a position where you can argue that your product is not only compliant driver one, but driver two is able to show agentic aligned measurable outcomes. If you're deploying an agent in production, if you are selling something that has an agentic element, if you are buying something that has agents included, you want to make it clear why that extra work, that extra token burn, that extra expense is worth it. And the only way I can think to make that really math math, you know, to make 1 plus 1 equal three, is to show that the agent can solve problems that traditional LLM tooling cannot.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-agents, agentic-ai, production-ai, llm-tooling, enterprise-ai",
+      "generated_at": "2025-11-09T22:10:35.316336",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

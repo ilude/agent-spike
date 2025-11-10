@@ -1,0 +1,22 @@
+{
+  "video_id": "rSMz7nIG8V4",
+  "url": "https://www.youtube.com/watch?v=rSMz7nIG8V4",
+  "fetched_at": "2025-11-09T23:41:41.928376",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Job applicants have to demonstrate knowledge and they only can do it by resume because that's what we've always done. And if they can only do it by resume because that's what we've always done, we have no way of knowing if applicants are any good because the stoastic parrots can simulate a resume perfectly. So what do we do? And right now the truth is no one knows. Some of the big companies are coming in and saying come in person. Some of them are coming in and saying do something on a whiteboard. Write something where it's clearly not an AI helping you. At least for now until the AI is in your glasses. The AI is not in my glasses. The point is that we answers for jobs that do not depend on knowledge. We need answers for jobs that do not depend on showing that you have gone to college and know all the things because those things are devoid of meaning. Now.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"hiring-ai-skills-analysis\",\n  \"tags\": [\"skills-based-hiring\", \"resume-evaluation\", \"ai-in-hiring\", \"education-vs-skills\"],\n  \"summary\": \"Discusses the limitations of resumes for assessing applicants, the role of AI in hiring, and the shift toward skills-based evaluation.\"\n}",
+      "generated_at": "2025-11-09T23:41:58.317350",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

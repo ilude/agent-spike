@@ -1,0 +1,22 @@
+{
+  "video_id": "8BsneCFmK1E",
+  "url": "https://www.youtube.com/watch?v=8BsneCFmK1E",
+  "fetched_at": "2025-11-09T23:39:36.504745",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number one, prediction. Just predicting the next word sounds really trivial, but it's not. Fundamentally, if you have scale and if you understand the structure of language, you can encode a vast amount of knowledge. You can build up answers token by token that reflect that structure, that reflect that scale. And you can use model weights, which are conditional probabilities, and they can encode a tremendously dense information set. They can encode long range relationships. They can encode short range relationships. They can talk about grammatical similarities. They can talk about cognates or meaning similarities. They can encode even relationships we don't fully understand. One of the most interesting things about LLMs and weights and encoding is that we have learned more things about language than we expected.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Prediction in Large Language Models: Encoding Language Structure and Knowledge\",\n  \"tags\": [\"large-language-models\", \"natural-language-processing\", \"machine-learning\", \"language-prediction\", \"sequence-modeling\"],\n  \"summary\": \"Explains how LLMs predict the next word, encode vast linguistic knowledge in weights, and capture long- and short-range relationships, grammar, and meaning.\"\n}",
+      "generated_at": "2025-11-09T23:39:48.236301",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

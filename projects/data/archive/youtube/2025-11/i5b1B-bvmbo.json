@@ -1,0 +1,22 @@
+{
+  "video_id": "i5b1B-bvmbo",
+  "url": "https://www.youtube.com/watch?v=i5b1B-bvmbo",
+  "fetched_at": "2025-11-09T22:50:49.914766",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "as we sort of round out this discussion and and start to think a little bit about the wider implications of GPT5 and where we're going over the next year or two and how AI transformation unfolds from here. We have been in an era characterized by model choice. We are not in that era anymore as of August 7th. We are now in an era when the model choice has largely been made for us. And it is the model usage that is going to determine whether organizations survive or perish. Specifically, it's whether organizations are able to quickly understand how to get the most out of the model for specific use cases that tie to their data and their teams. You know those brown bags and those socializing AI wins that you would sort of see happen and maybe they peter out after a month or two. Those really matter now. You need to be in a place where you are rapidly socializing how to use chat GPT5 across your",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-transformation, gpt-5, model-usage, organizational-adoption, ai-use-cases",
+      "generated_at": "2025-11-09T22:50:55.777851",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

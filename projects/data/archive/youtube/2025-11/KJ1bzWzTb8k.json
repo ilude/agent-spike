@@ -1,0 +1,30 @@
+{
+  "video_id": "KJ1bzWzTb8k",
+  "url": "https://www.youtube.com/watch?v=KJ1bzWzTb8k",
+  "fetched_at": "2025-11-09T19:23:28.224331",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "managers are screwing the AI revolution. And I say that as someone who has managed teams and I have great sympathy for the challenges that we're all experiencing right now, but it's true. It's true. And I'm going to I'm going to be really honest. I have talked to a lot of individual contributors and the universal complaint I hear near universal 99% 98% is that they want access to AI tools that will help them do their job better in a really significant way. Like we're talking in some cases for your best performers double or triple their productivity and they can't get it. And they can't get it because the managers are not budgeting for it. And managers will tell me well we can't go to it. It is giving difficulties about security going back up to department heads. Like my boss is just not going to like go for 400 bucks a month per employee. They've never seen that. Managers, senior managers, directors, you guys carry the flag on this. You have to be the ones that explain clearly to your bosses, to the IT department, why we don't live in a traditional software world anymore. software.",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Managers are screwing the AI revolution\",\n  \"tags\": [\"ai-tools\", \"employee-productivity\", \"management-challenges\", \"digital-transformation\"],\n  \"summary\": \"A critique of managerial gatekeeping on AI tools, exploring how access and budgeting impact workforce productivity and digital transformation.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.233315",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.245553",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

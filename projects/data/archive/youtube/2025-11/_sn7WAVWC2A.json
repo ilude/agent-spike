@@ -1,0 +1,22 @@
+{
+  "video_id": "_sn7WAVWC2A",
+  "url": "https://www.youtube.com/watch?v=_sn7WAVWC2A",
+  "fetched_at": "2025-11-09T21:31:11.802349",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I think that one of the things we're really missing is a return to anchoring on a steady sense of the future because AI has felt so uncertain. And one of the things I'm grateful for that I wish people would talk about more is that Andre sees a steady sense of the future. Andre is not panicking. Andre is actually seeing the problem of agents as a really hard one that's going to take a long time to think through and solve properly. I'm looking at it as a builder and saying for this tiny piece of the world where we already have agents, wow, we have a lot we have to do architecturally to build well. But the good news is Andre is saying you've got runway to do that. You can build well now. Continuity over rupture. That is a discipline you can practice.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"untitled-video\",\n  \"tags\": [\"artificial-intelligence\", \"future-planning\", \"long-term-thinking\", \"system-architecture\", \"builder-mindset\"],\n  \"summary\": \"The speaker discusses maintaining a steady vision for AI's future, prioritizing long-term planning and robust system architecture to responsibly develop AI agents.\"\n}",
+      "generated_at": "2025-11-09T21:31:23.517464",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

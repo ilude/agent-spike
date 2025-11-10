@@ -1,0 +1,22 @@
+{
+  "video_id": "Ka3IOeFC2Vg",
+  "url": "https://www.youtube.com/watch?v=Ka3IOeFC2Vg",
+  "fetched_at": "2025-11-09T23:31:11.524959",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Let's go over to the Excel. Let's look at the data analysis piece. Let's say like me, you don't love all those Excel formulas. You can be as simple and as high level as you want. You can say, \"Hey, Copilot, analyze this data.\" And you're in a spreadsheet. You can say, \"Tell me what's interesting. Sales increased 23% year-over-year. July was an anomaly with a 45% spike. The western region is underperforming.\" Honestly, it will give you stuff like that. You might follow up. Hey, why is July so high? Well, and then it will show you what it knows, right? co-pilot might say, \"Hey, column J shows that there's a summer promotion running for July entries.\" And then you can say, \"Great. Okay, create a chart, show monthly trends with a July spike highlighted, and you get a professional chart.\" That entire workflow used to take me an afternoon when I was working through marketing data anomalies. It is now doable in just a couple of",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Using Copilot in Excel for Data Analysis and Visualization\",\n  \"tags\": [\"excel\", \"ai-assistance\", \"data-analysis\", \"data-visualization\"],\n  \"summary\": \"Demonstrates how AI copilots can analyze spreadsheet data in Excel to identify trends, anomalies, and generate professional charts.\"\n}",
+      "generated_at": "2025-11-09T23:31:20.961681",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

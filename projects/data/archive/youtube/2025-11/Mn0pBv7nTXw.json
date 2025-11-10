@@ -1,0 +1,22 @@
+{
+  "video_id": "Mn0pBv7nTXw",
+  "url": "https://www.youtube.com/watch?v=Mn0pBv7nTXw",
+  "fetched_at": "2025-11-09T21:54:55.568358",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This changes the economics of workloads for entire companies. Status reports can be automated. You can have sales decks that are templ templatized with AI customization. You can have board updates that really you're just obsessed with the right message for the people. And you don't have to think about how you get that message into PowerPoint. It's just done. And you in fact have time to take in multiple AI perspectives, think about them, think if they're correct, refine the deck, iterate on the deck in ways that you never had before. And you also have the ability to generate decks on the fly, which has always been a struggle for people. This deck buy tomorrow. Well, now I'm staying up all night, right? Anyone who has worked in business has had that moment. You don't have to stay up all night anymore.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-driven presentation automation: automating decks, reports, and board updates\",\n  \"tags\": [\"ai-in-business\", \"presentation-automation\", \"generative-ai\", \"business-productivity\"],\n  \"summary\": \"Explains how AI can automate corporate communications\u2014status reports, sales decks, and board updates\u2014allowing faster, multi-perspective deck creation and eliminating late-night work.\"\n}",
+      "generated_at": "2025-11-09T21:55:08.447459",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

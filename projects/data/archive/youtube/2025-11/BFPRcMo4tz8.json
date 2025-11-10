@@ -1,0 +1,30 @@
+{
+  "video_id": "BFPRcMo4tz8",
+  "url": "https://www.youtube.com/watch?v=BFPRcMo4tz8",
+  "fetched_at": "2025-11-09T19:23:28.546863",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I've put together six different levels of actual spectrum AI assistance here from the very basic chatbot all the way through to agent. I have had experience working on projects for all of them. I'm dividing it into six because it's easy to remember. We've got handy little labels for each of them so you can remember them and I'm going to give you real examples for each of them. The goal here is for you to come out with a sense of how to shape a solution with AI to a problem so you are not overinvesting. So when your CEO comes and says, you know, I was reading on LinkedIn, this guy Nate was talking about agents. We should do agents. No, no, you should actually think through your problem space. You can share this video with him if he gets if he gets too excited.",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-agents, chatbot, ai-strategy, problem-space-analysis, cost-benefit-analysis",
+      "generated_at": "2025-11-09T19:23:28.555851",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.565587",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

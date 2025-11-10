@@ -1,0 +1,22 @@
+{
+  "video_id": "pz0N6qfwl8E",
+  "url": "https://www.youtube.com/watch?v=pz0N6qfwl8E",
+  "fetched_at": "2025-11-09T22:57:08.556377",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "They know their domain. They're not afraid to use it and deeply wrap it into AI. Number two, they have distribution. They have figured out how to build relationships in the book of business. And this sounds self-fulfilling, but I don't think it is. I think that distribution is one of those things that consultants are able to achieve when they are able to demonstrate disproportionate value even to one customer to start and they generate word of mouth and referral. So distribution does matter as a marker of authenticity and a marker of good work especially if you can maintain and grow that distribution in the age of AI. They are clearly differentiated clearly differentiated from other work and having your own domain helps with that but so does explaining how you engage differently. Otherwise, you're just going to wash into the background of the hundreds of thousands of other AI consultants.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-consultants, domain-expertise, distribution, word-of-mouth, differentiation",
+      "generated_at": "2025-11-09T22:57:14.271347",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

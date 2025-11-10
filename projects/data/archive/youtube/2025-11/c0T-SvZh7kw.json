@@ -1,0 +1,22 @@
+{
+  "video_id": "c0T-SvZh7kw",
+  "url": "https://www.youtube.com/watch?v=c0T-SvZh7kw",
+  "fetched_at": "2025-11-09T23:17:43.342158",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Imagine an agent that allows you to simulate various business timelines and explore them. We often only have the chance for a simple PowerPoint presentation to the board with three options and here's our preferred one. I gives us so much more power to work with and almost none of us are using these agents as reality simulators to think through different timelines in a structured way. In that world, if we did a little structured timeline exploration for a business, we could turn a 10-year market cycle into a 10-hour sim and come back with five or six different 10-hour sims and have a much more useful understanding of where the business was going. In a sense, we're taking all of these timelines that we've had to historically just look the next two or three steps on. We now have the compute to simulate a bunch of those different lines, bring them in and make smarter decisions.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Agent-based simulations for business timeline planning\",\n  \"tags\": [\"business-simulation\", \"scenario-planning\", \"computational-modeling\", \"timeline-simulation\", \"data-driven-decision-making\"],\n  \"summary\": \"Explores using agents to simulate multiple business timelines to improve decision making and strategic planning.\"\n}",
+      "generated_at": "2025-11-09T23:17:53.215523",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

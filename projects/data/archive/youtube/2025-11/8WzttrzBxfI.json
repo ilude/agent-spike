@@ -1,0 +1,22 @@
+{
+  "video_id": "8WzttrzBxfI",
+  "url": "https://www.youtube.com/watch?v=8WzttrzBxfI",
+  "fetched_at": "2025-11-09T22:57:21.982746",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you use the LLM to analyze your refinancing position, you don't get a decision back. All you get back is a set of options with a lot more color, a set of options with a lot more clarity around the details. You have given the LLM a lot of information, maybe your W2s, your 1099 income, whatever you have, right? Your current rate on the house, what you want to do, etc. And you're going to get a lot of options back. And the OM may have an opinion and that may be okay and you may or may not agree but it doesn't give you an answer because you didn't prompt it to be an answer completion machine. And so you have to sit with the uncertainty and the responsibility of the decision. This is the part where the lens zooms back into the wider world. We need to get a lot more comfortable with uncertainty and LLMs. LLMs are wonderful analysis tools. We need to take that analysis, own the decision and own the consequences of that decision.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Using LLMs to Analyze Refinancing: Options, Uncertainty, and Decision-Making\",\n  \"tags\": [\"ai-in-finance\", \"refinancing\", \"personal-finance\", \"decision-making\", \"uncertainty\"],\n  \"summary\": \"A discussion on leveraging large language models to analyze a mortgage refinancing scenario, highlighting how LLMs provide options and details, the inherent uncertainty, and the responsibility of making and owning the final choice.\"\n}",
+      "generated_at": "2025-11-09T22:57:35.862738",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

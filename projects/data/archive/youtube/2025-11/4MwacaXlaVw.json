@@ -1,0 +1,22 @@
+{
+  "video_id": "4MwacaXlaVw",
+  "url": "https://www.youtube.com/watch?v=4MwacaXlaVw",
+  "fetched_at": "2025-11-09T22:40:56.042937",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "AI tools, I would argue, create a multiplier effect for trained engineers more more than they create democratization of code. And I know they democratize code. I know people who have never coded before who are able to do some coding. Now, engineers can do even more. Engineers can compress their expertise to carry architectural intent much more easily than non-engineers because they understand the underlying technical systems. Non-engineers, frankly, when they get the chatbot and they get the ability to vibe code, I've seen them build stuff, but I've also seen them very frequently get just enough rope to hang themselves. Engineers understand those limitations that uh coding brings. They understand how to read code, they understand how the system components work together, and they're able to go faster as a result. If the non-engineers get rope to hang themselves, the engineers get rocket fuel. So the digital divide is shifting very rapidly from who can code to who can engineer.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI tools amplify engineers and shift the digital divide\",\n  \"tags\": [\"ai-tools\", \"engineering\", \"software-engineering\", \"digital-divide\", \"ai-assisted-development\"],\n  \"summary\": \"A discussion on how AI tools boost trained engineers' productivity and reshape the digital divide from who can code to who can engineer.\"\n}",
+      "generated_at": "2025-11-09T22:41:03.497706",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

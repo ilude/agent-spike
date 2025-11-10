@@ -1,0 +1,22 @@
+{
+  "video_id": "aYnALsT0GZU",
+  "url": "https://www.youtube.com/watch?v=aYnALsT0GZU",
+  "fetched_at": "2025-11-09T23:28:39.737222",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Humans are lossy compression functions too. I'll say it again. Humans are lossy compression functions too. Our forgetting and compression is fundamentally similar to what these models do. That is the bet. I don't know that I agree with it. The context window problem suggests this bet might be incorrect. Yes, we forget details, but we maintain coherent mental models. Sure, I can't recite page 50 of the legal document verbatim, but I understand how chapter 20 relates to chapter 1, and I can tell you pretty clearly. LLM, it's not the same, right? research shows they're doing pattern matching. And if they're doing pattern matching, that's not the same as understanding the structure. And if this concept of quadratic complexity really applies, it's it's not just inconvenient.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Humans are lossy compression functions too\",\n  \"tags\": [\"language-models\", \"memory\", \"pattern-recognition\", \"context-window\"],\n  \"summary\": \"Discusses how humans and language models both compress information, the distinction between pattern matching and true understanding, and the implications of context window size and quadratic complexity.\"\n}",
+      "generated_at": "2025-11-09T23:28:56.603270",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

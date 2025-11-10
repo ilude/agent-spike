@@ -1,0 +1,22 @@
+{
+  "video_id": "UjEZNfshxt0",
+  "url": "https://www.youtube.com/watch?v=UjEZNfshxt0",
+  "fetched_at": "2025-11-09T23:08:26.159247",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "as a personal challenge. And so what we are going to work through today is an actual prompt to set up your own digital twin simulation. We have a couple of goals as we work through this prompt. We want to understand first how the prompt functions. It's another one of those system level prompts. So it actually walks through an entire process or flow. It creates a scenario and then it walks you directly through it all in one prompt. and we'll see how it works. The second thing I want to do is I want to show you some of how it works with actual real conversations that I had using that prompt and we'll walk through them. You'll get both a salary negotiation conversation because sometimes we want to game those in advance. Uh and you'll also get a classic like product approval conversation to give you a sense of office politics and how it simulates office politics.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Digital twin prompt for simulating conversations\",\n  \"tags\": [\"digital-twin\", \"prompt-engineering\", \"ai-prompting\", \"conversation-simulation\", \"salary-negotiation\"],\n  \"summary\": \"The video explains a system-level prompt to build a digital twin simulation and demonstrates real conversations, including salary negotiations and product-approval, to illustrate how the prompt drives simulated office interactions.\"\n}",
+      "generated_at": "2025-11-09T23:08:38.290227",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "HP3PKetbTvg",
+  "url": "https://www.youtube.com/watch?v=HP3PKetbTvg",
+  "fetched_at": "2025-11-09T22:59:31.310535",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We need to get a lot more comfortable with uncertainty and LLMs. LLMs are wonderful analysis tools. We need to take that analysis, own the decision, and own the consequences of that decision. That is going to give us much, much better results. It enables us to harness the incredible power for processing tokens that LLMs put at our fingertips and not reduce all of that power down to just one decision. You actually want all of that power on exploring optionality. And the prompts that I've developed for finance as a way of exploring this do just that. And you can get them on the Substack and you can run them yourself and you can see they're designed to unlock analysis for various specific financial scenarios. But I didn't stop there. I thought it really has more bite to it if I actually run a live experiment.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "large-language-models, prompt-engineering, financial-analysis, decision-making, uncertainty",
+      "generated_at": "2025-11-09T22:59:37.902817",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

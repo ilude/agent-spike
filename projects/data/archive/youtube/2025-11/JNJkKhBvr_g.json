@@ -1,0 +1,22 @@
+{
+  "video_id": "JNJkKhBvr_g",
+  "url": "https://www.youtube.com/watch?v=JNJkKhBvr_g",
+  "fetched_at": "2025-11-09T23:26:33.977515",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Despite all these drawbacks, having an AI and a note-taking system is eminently worth it. You want to be in a position where you can just heap things and it will just magically work. I I have been a devoted fan of a product from every called Sparkle for a long time. Sparkle is very simple. All it does is it gets rid of the filing problem, which is a huge deal for me. I am not a good filer. I'm not a good organizer. my local hard drive. Every computer until now has been a complete mess. Sparkle makes that go away. All Sparkle does is it automatically runs on my downloads folder. It automatically characterizes it into a neat series of folders by type of data. That's it. Very simple. Not necessarily.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-powered note-taking and automatic filing with sparkle\",\n  \"tags\": [\"artificial-intelligence\", \"note-taking\", \"file-management\", \"data-organization\", \"productivity\"],\n  \"summary\": \"Discussion of using AI for note-taking and Sparkle to automatically organize downloads into type-based folders for better data management.\"\n}",
+      "generated_at": "2025-11-09T23:26:54.636871",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

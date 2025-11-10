@@ -1,0 +1,22 @@
+{
+  "video_id": "arZHRNp_cPI",
+  "url": "https://www.youtube.com/watch?v=arZHRNp_cPI",
+  "fetched_at": "2025-11-09T22:42:02.855640",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number one, the chatbot use case is indeed getting saturated. This was reported by Sam in like an interview right after the one where he talked about the bubble. In other words, if you're in the chatbot, you're not necessarily going to see tons of tremendous gains anymore, no matter how smart the model gets, because people don't necessarily perceive the progress in the chatbot because the AI is about as good in the chatbot as it's going to get. So famously what Sam said in that conversation was chat GPT6 is coming and memory is going to get better but really the chat use case is kind of saturated. I think he's right. I don't think we have a lot more to gain from the chat use case. Number two, I think we're forgetting that progress is moving to agentic and complicated use case, which is sort of a correlary to the chatbot, right?",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"chatbot-saturation-and-the-shift-to-ai-agents\",\n  \"tags\": [\"ai\", \"chatbots\", \"ai-agents\", \"technology-trends\"],\n  \"summary\": \"Discusses chatbot saturation, perceived progress in chatbots, and the shift toward more complex, agentic AI use cases.\"\n}",
+      "generated_at": "2025-11-09T22:42:13.985682",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

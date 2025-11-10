@@ -1,0 +1,22 @@
+{
+  "video_id": "aSoyZlbtg7A",
+  "url": "https://www.youtube.com/watch?v=aSoyZlbtg7A",
+  "fetched_at": "2025-11-09T23:29:37.892879",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "There is a paradox with containment. When we put export restrictions on another country, we intend to slow progress. But instead, because necessity is the mother of invention, we trigger efficiency breakthroughs. Deepseek achieved GPT4 level performance with 90% less compute. Innovation thrives under pressure consistently. We have 450,000 plus open models on hugging face, open AI models. Anybody can grab them. Researchers from both nations routinely publish together. That is, by the way, a fantastic thing. That is a great thing. Knowledge flows like water across national borders. It flows like the internet. And performance gaps over time are narrowing, not widening.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Containment Paradox: Innovation Under Pressure in AI and Open Models\",\n  \"tags\": [\"ai-innovation\", \"export-controls\", \"open-source-ai\", \"global-research-collaboration\", \"knowledge-transfer\"],\n  \"summary\": \"The video argues that export restrictions can spur efficiency and innovation, highlighting open-source AI models, cross-border collaboration, and narrowing performance gaps.\"\n}",
+      "generated_at": "2025-11-09T23:29:48.287989",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

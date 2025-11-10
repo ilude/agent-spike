@@ -1,0 +1,22 @@
+{
+  "video_id": "aMJWAemVTa8",
+  "url": "https://www.youtube.com/watch?v=aMJWAemVTa8",
+  "fetched_at": "2025-11-09T23:00:53.647690",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Okay, pattern number three. This one is related to tools. It is not going anywhere. You know what the fastest tool to $100 million is? It's not cursor anymore. It's lovable. The vibe coding tool. It is such a big deal that Microsoft launched their own copycat version for GitHub called Spark. I think natural language driven coding or vibe coding. It is in a sense its own pattern. I wanted to give it its own airtime. You prompt in natural language for code generation. You iterate for refinements. It's ideal for prototypes, for scripting, for exploration, and you can honestly build real applications. I know people who have built CRM for small services businesses off of Lovable. I know people who have built small applications that are focused on uh crypto monitoring off of Lovable. The strength is speed. You can get through things very very rapidly.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Pattern number three: vibe coding and natural language driven coding\",\n  \"tags\": [\"ai-code-generation\", \"natural-language-programming\", \"coding-tools\", \"rapid-prototyping\", \"software-development\"],\n  \"summary\": \"Discusses using natural-language prompts for code generation with tools like Lovable (and Microsoft Spark), emphasizing rapid prototyping, scripting, and building real applications.\"\n}",
+      "generated_at": "2025-11-09T23:01:05.364499",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

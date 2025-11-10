@@ -1,0 +1,22 @@
+{
+  "video_id": "C10dATGkljY",
+  "url": "https://www.youtube.com/watch?v=C10dATGkljY",
+  "fetched_at": "2025-11-09T22:16:21.952412",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This gives us a glimpse of do the work assistance, but critically it also is pushing the edges of AI agent autonomy and it's doing so from a Chinese perspective. And what I mean by that is that it is reminding us that the Chinese uh model development evolution continues to push the edges. And if you're like deep in the weeds technically, Kimmy K2 also set a new bar on efficiency for training. You can look up um muon if you want to get deeper on that and you will see a lot on sort of how the K2 model was trained and how efficient they were at training the K2 model. That's just a little sort of nerd sidebar there. But this is really the larger story that that the Chinese companies innovating on AI are pushing the edges forward especially around open-source and they are very very intentionally pushing straight to Aentic. It's sort of a leapfrog motion where they're not just satisfied with LLMs.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"China's AI Open-Source Push: Agent Autonomy and K2 Model Efficiency\",\n  \"tags\": [\"ai-agent-autonomy\", \"open-source-ai\", \"china-ai-development\", \"ai-model-training-efficiency\", \"leapfrog-ai-innovation\"],\n  \"summary\": \"Discussion of how Chinese AI companies push agent autonomy and open-source innovation, highlighting training efficiency with models like K2 and the move beyond traditional LLMs.\"\n}",
+      "generated_at": "2025-11-09T22:16:32.867371",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

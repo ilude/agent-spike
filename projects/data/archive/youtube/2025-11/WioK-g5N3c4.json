@@ -1,0 +1,22 @@
+{
+  "video_id": "WioK-g5N3c4",
+  "url": "https://www.youtube.com/watch?v=WioK-g5N3c4",
+  "fetched_at": "2025-11-09T22:30:05.530450",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "AI agents are not a tickbox. AI agents, if you want to implement them, implement them this way. And so many teams do. AI agents are just a new way of doing software for everybody. And it's possible to do software for everybody. I firmly believe that if you work with your favorite LLM, whether that's Claude or Chad GPT or Gemini or even Grock, you can get to a point where you build this yourself and it builds in line with what I'm suggesting. It's simple. It's composable. it fixes real pain points etc. You don't have to have an engineer to do that but let's recognize that you are doing real engineering work. You are actually building software and this is part of the magic of the AI era. If you're willing to think this way with this kind of clear intent, you too can do the work of building software and you can generate the magic, the real ROI that comes from true automation.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI agents as composable software\",\n  \"tags\": [\"ai-agents\", \"composable-software\", \"ai-in-software-development\", \"automation\"],\n  \"summary\": \"The video argues that AI agents enable building software in a composable, scalable way, emphasizing ROI from automation and the role of large language models in modern software development.\"\n}",
+      "generated_at": "2025-11-09T22:30:16.655205",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

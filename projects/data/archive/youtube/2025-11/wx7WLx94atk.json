@@ -1,0 +1,22 @@
+{
+  "video_id": "wx7WLx94atk",
+  "url": "https://www.youtube.com/watch?v=wx7WLx94atk",
+  "fetched_at": "2025-11-09T23:39:21.992520",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Then everything changed in 2017 when the transformer revolution happened. It was started by the paper attention is all you need which is super famous. I definitely recommend you go check it out. It included the insight that you could use attention weights to show token relationships and that unlocked massive GPU scaling. For the first time you can track long range dependencies across human language. And it turns out that human language has a lot of longrange dependencies. As an example, you know in your heads if you're still watching this that I have been talking about the leadup to chat GPT5 even though I haven't mentioned that in a few paragraphs now. Why is that? Why is that? Because you're human and you can understand longrange dependencies. Until 2017, machines couldn't do",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "transformers, attention-mechanism, long-range-dependencies, natural-language-processing, gpu-scaling",
+      "generated_at": "2025-11-09T23:39:28.004409",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

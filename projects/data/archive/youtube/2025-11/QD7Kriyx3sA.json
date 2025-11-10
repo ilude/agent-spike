@@ -1,0 +1,22 @@
+{
+  "video_id": "QD7Kriyx3sA",
+  "url": "https://www.youtube.com/watch?v=QD7Kriyx3sA",
+  "fetched_at": "2025-11-09T22:13:02.612744",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Kimmy is a Chinese AI company for it's Moonshot AI's model, right? So the Chinese company's named Moonshot and they produced Kimmy K which is a trillion parameter model. It's very very good and it is now available as an agent. It's called okay computer and it was launched on the 24th of September. It allows Kimmy to access its own virtual computer environment with a file system, a browser, and a terminal. And it can autonomously execute complicated multi-step tasks for you. And so it can transform transform chat requests into websites or data dashboards or production documents, what have you. This gives us a glimpse of do the work assistance, but critically it also is pushing the edges of AI agent autonomy. And it's doing so from a Chinese perspective.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Moonshot AI's Kimmy-K: Autonomous AI Agent with a Virtual Computer Environment\",\n  \"tags\": [\"artificial-intelligence\", \"ai-agent\", \"ai-autonomy\", \"moonshot-ai\", \"kimmy-k\"],\n  \"summary\": \"Explores Moonshot AI's Kimmy-K model and its autonomous agent capabilities, including a virtual environment and multi-step task execution from a Chinese perspective.\"\n}",
+      "generated_at": "2025-11-09T22:13:16.030864",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

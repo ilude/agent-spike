@@ -1,0 +1,22 @@
+{
+  "video_id": "pXRpn68UbX4",
+  "url": "https://www.youtube.com/watch?v=pXRpn68UbX4",
+  "fetched_at": "2025-11-09T22:45:53.604858",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This video really focuses on top 10 named user complaints and concerns and what we can do to fix them in Chad GPT 5. I'm all about fixes, right? I'm all about being practical. This is the new default model for something like 700 million people whether we like it or not. And Sam Alman on his Reddit AMA where people came for him with forks, he was very clear. We're not going back. This is the model we have. I think it's a powerful model, but I think it needs, like any model, some working in, some getting to know it. It's like going on a first date. I know that's going to sound weird and creepy, but stick with me, right? Andre Carpathy talked about these as stochastic people spirits. In this sense, you have to teach the stoastic people spirit what you need from it. And there are specific ways you can do that. And so, I'm going to give you the top 10 issues that I've dug up on the internet about chat GPT5. And I'm going to tell you how I think they can be addressed. And we'll go through one at a",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Top 10 user complaints about ChatGPT-5 and how to fix them\",\n  \"tags\": [\"chatgpt-5\", \"large-language-model\", \"ai-safety\", \"prompt-engineering\"],\n  \"summary\": \"A practical overview of common user concerns about ChatGPT-5 and actionable fixes.\"\n}",
+      "generated_at": "2025-11-09T22:46:06.797859",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

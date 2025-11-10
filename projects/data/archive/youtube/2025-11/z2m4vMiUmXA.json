@@ -1,0 +1,22 @@
+{
+  "video_id": "z2m4vMiUmXA",
+  "url": "https://www.youtube.com/watch?v=z2m4vMiUmXA",
+  "fetched_at": "2025-11-09T23:22:19.745198",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I got my start in a job that AI has changed dramatically already, right? I was doing nonprofit grant management. AI can do a lot of the work that I was doing at the push of a button. Then I went over to Oracle eyes store management and conversion optimization. Conversion optimization doesn't exist as a job anymore. AI took it away. And eyes store I mean who has Oracle eyes store anymore? I'm sure there someone's going to come up and say I have Oracle eyesore after this but most people don't. And then I went and did marketing and I looked at marketing attribution systems. Again, another area where AI has taken a lot of the work away. I looked at voice of customer, almost totally automated by AI now. And what's funny as I say all of those things is that even though AI has made huge strides, we still have people who are grant fund managers.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai's impact on jobs across industries (nonprofit to marketing)\",\n  \"tags\": [\"artificial-intelligence\", \"automation\", \"marketing-automation\", \"job-displacement\", \"ai-in-business\"],\n  \"summary\": \"AI has dramatically automated many business tasks\u2014from nonprofit grant management to conversion optimization and marketing attribution\u2014yet human roles like grant fund managers still persist.\"\n}",
+      "generated_at": "2025-11-09T23:22:32.192688",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

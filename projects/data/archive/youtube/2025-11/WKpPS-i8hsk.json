@@ -1,0 +1,22 @@
+{
+  "video_id": "WKpPS-i8hsk",
+  "url": "https://www.youtube.com/watch?v=WKpPS-i8hsk",
+  "fetched_at": "2025-11-09T23:20:23.214684",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Gro 4 heavy is better than Gro 4. But overall, I am sharing this video because I want to counter the hype for overfitting evaluations that I see everywhere. It's really and it's not just the Gro team. It's concerning to me that when OpenAI does this, it's concerning to me when Anthropic does this. It's concerning to me when Google does this. It is not okay to make the evaluations your goal. That's good arts law. If you make something your goal and it's actually a measure, the measure is useless. Well, the measure is useless. No, I would suggest that most of the major model evaluations are functionally useless because they are so studied and because there's so much PR value in getting number What?",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Critique of AI Model Evaluation Hype and Overfitting\",\n  \"tags\": [\"machine-learning\", \"model-evaluation\", \"overfitting\", \"ai-ethics\"],\n  \"summary\": \"A discussion examining how hype around AI model evaluations and promotional PR can distort assessment, arguing that many evaluation metrics are misused or rendered useless.\"\n}",
+      "generated_at": "2025-11-09T23:20:33.643479",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

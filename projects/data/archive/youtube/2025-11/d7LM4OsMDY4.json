@@ -1,0 +1,30 @@
+{
+  "video_id": "d7LM4OsMDY4",
+  "url": "https://www.youtube.com/watch?v=d7LM4OsMDY4",
+  "fetched_at": "2025-11-09T19:23:28.487520",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you're in a building or founding space, you need to be assuming a world next year where intelligence per dollar continues to double every four or five months. And therefore, your margin opportunity is smarter routing. And so you need to think about a core product lever that enables you to route more intelligent that enables you to deliver higher quality at lesser cost with the assumption that models will continue to deliver more capability for cheaper going forward. You also need to think about how you capture distribution with answer engine optimization. You should assume that there the 60% AI search share from Chad GPT the 11% retail conversion rate those are sticking around. You should assume that there's going to be an ad network launched against that. You should assume that if you are not in place with AEO optimized content like structured data, canonical APIs, etc., Uh, you are invisible to the fastest growing e-commerce distribution",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Smart routing and answer-engine optimization for AI-powered ecommerce distribution\",\n  \"tags\": [\"ai-for-ecommerce\", \"answer-engine-optimization\", \"structured-data\", \"ai-search\", \"ecommerce-distribution\"],\n  \"summary\": \"Explores leveraging intelligent routing and AEO to improve ecommerce distribution amid rising AI capabilities and search dominance.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.495681",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.504479",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

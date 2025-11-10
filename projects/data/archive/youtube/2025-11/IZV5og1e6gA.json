@@ -1,0 +1,22 @@
+{
+  "video_id": "IZV5og1e6gA",
+  "url": "https://www.youtube.com/watch?v=IZV5og1e6gA",
+  "fetched_at": "2025-11-09T22:47:35.320515",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We are entering an era of architectural specialization. The next breakthrough and I and I think that people need to get past this idea of bigger models. The next breakthrough may not be a bigger model. It may be how we use reasoning architecture for specific cognitive tasks. Now that we're in the LLM era, we may see more specialization. That would not surprise me. So where do I want to leave you? Intelligence is not the same as utility. GPT5, however you measure it, is a very intelligent model. But its intelligence is not what makes it a success or it's a failure. The key is understanding that intelligence and utility are diverging as we get farther into the LLM era. And it's up to you to figure out if parallel reasoning makes AI smarter for the tasks that you want to accomplish.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Architectural specialization and parallel reasoning in AI (LLM era)\",\n  \"tags\": [\"artificial-intelligence\", \"large-language-models\", \"reasoning-architecture\", \"parallel-reasoning\", \"intelligence-vs-utility\"],\n  \"summary\": \"Explores how AI benefits from specialized reasoning architectures and the distinction between intelligence and utility in the LLM era.\"\n}",
+      "generated_at": "2025-11-09T22:47:50.161690",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

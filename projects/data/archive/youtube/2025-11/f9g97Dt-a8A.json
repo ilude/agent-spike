@@ -1,0 +1,22 @@
+{
+  "video_id": "f9g97Dt-a8A",
+  "url": "https://www.youtube.com/watch?v=f9g97Dt-a8A",
+  "fetched_at": "2025-11-09T23:15:00.491773",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Recently, in the last year or so, they've been able to read Excel. Outputting Excel is still sketchy. If I go to 03 and I say, \"Hey, 03, make me an Excel.\" Doesn't go very well. It doesn't know how to like write formulas down. But the problem is this. There is a difference between being able to build a simple four or five tab spreadsheet, I don't know, a dozen rows of information, a dozen columns of information on each tab, and being able to tackle the multi-,000 row spreadsheet from hell that keeps most marketing teams going. I've had to maintain that spreadsheet. I know what they're like. I would not give that to this tool. It would be like the intern ordering the cupcakes, but worse, because then you don't know how to back up. There is no undo function on what operator is",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai and excel: reading spreadsheets and the limitations of generating excel with ai\",\n  \"tags\": [\"ai-productivity\", \"spreadsheets\", \"excel\", \"data-management\"],\n  \"summary\": \"Discusses AI's ability to read and generate Excel spreadsheets, highlighting challenges with large multi-tab workbooks and issues like lack of undo and unreliable formula writing.\"\n}",
+      "generated_at": "2025-11-09T23:15:14.026094",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

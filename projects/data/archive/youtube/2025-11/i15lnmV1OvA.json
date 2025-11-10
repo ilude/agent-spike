@@ -1,0 +1,22 @@
+{
+  "video_id": "i15lnmV1OvA",
+  "url": "https://www.youtube.com/watch?v=i15lnmV1OvA",
+  "fetched_at": "2025-11-09T23:34:12.767972",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So here's some examples that are kind of when not to use rag. Things you can do to avoid making those kinds of mistakes. Number one, check if the base model knows it or almost knows it. I mentioned that already. Number two, this is more for a personal rag system, but if it's for stories or poems or creative writing, rag just generally doesn't work well because the semantic meaning doesn't work the same way. Number three, if you need it to be super super fast, like gaming system fast, don't bother with a rag. It's not going to work ever. uh because you just have to go and get the data and it takes time. If you have highly volatile data like stock market tickers, don't use a rag. It's not going to ever work. If you have a high maintenance cost and you don't have a really clear benefit, like if it's a small data set, don't use a rag. If you have relatively simple transformations, like basic calculations, basic formatting, there's not a lot to do, don't use a rag. It's not worth it. If it's privacy critical, you have to ensure you can't store user data. And if you do, you're in trouble.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"When Not to Use Retrieval-Augmented Generation (RAG): Speed, Data, and Privacy Considerations\",\n  \"tags\": [\"retrieval-augmented-generation\", \"rag\", \"data-privacy\", \"real-time\"],\n  \"summary\": \"Overview of scenarios where RAG is inappropriate, focusing on speed, volatile data, maintenance costs, simple transformations, and privacy concerns.\"\n}",
+      "generated_at": "2025-11-09T23:34:25.551298",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "NrCz7fXvRSk",
+  "url": "https://www.youtube.com/watch?v=NrCz7fXvRSk",
+  "fetched_at": "2025-11-09T21:50:52.787129",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Think about the corresponding skill sets that will emerge and map them onto this fluency chart. Let me give you an example of that. That can feel really abstract. Think about AI agents. We just had on October 6th a launch of a new kind of agent framework from OpenAI. Well, think about what the fluency types map onto that, right? Like how do those map onto it? Systems thinkers are going to think about how you build not just one agent but multiple agents, how you sustain them within an org. Innovators are going to think about new things you can do with agents. People just understanding LLMs are going to think about what is an intuitive way to get a task done that helps me to express my understanding of LLMs and get real work accomplished. And people who are just starting out are going to scratch their heads and say this this agent thing looks really hard. But you can you can map that whole technical launch onto this capability assessment.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Mapping fluency types to AI agents and agent frameworks\",\n  \"tags\": [\"ai-agents\", \"agent-frameworks\", \"systems-thinking\", \"llm-literacy\"],\n  \"summary\": \"Explains mapping different fluency types onto AI agent frameworks and how organizations can implement and experiment with multi-agent systems and LLMs.\"\n}",
+      "generated_at": "2025-11-09T21:51:07.288799",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

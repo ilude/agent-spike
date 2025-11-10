@@ -1,0 +1,22 @@
+{
+  "video_id": "hQyk0Gv_MG0",
+  "url": "https://www.youtube.com/watch?v=hQyk0Gv_MG0",
+  "fetched_at": "2025-11-09T22:42:44.707580",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And I think there's there's two trends that better explain the full story I've been telling just a bubble. One is AI is demonstrating real value and real use cases. And that is ironically why businesses are leaning in so hard. The story of the 5% isn't getting told. But I've seen it. When organizations get it right, AI is delivering step change gains. It's delivering 10x gains across the business. That is existential. It is worth betting a lot on. It is why the organizations that are failing are going to come back and most of them are going to try again. They can't afford to miss this one. The second one is related to that. We are in a power law game and power law cost and returns show up across AI. That means uh AI is increasing according to a power law. So it's increasing exponentially. I talked about that. It also means you get power law returns from gambling on AI as a",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai value, 10x gains, and power-law growth in business\",\n  \"tags\": [\"ai\", \"ai-adoption\", \"business-ai\", \"power-law\", \"exponential-growth\"],\n  \"summary\": \"Discussion on how AI can deliver 10x gains in organizations and that returns follow a power-law curve, emphasizing adoption and scalability.\"\n}",
+      "generated_at": "2025-11-09T22:42:55.622136",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,30 @@
+{
+  "video_id": "wE84JztBGuU",
+  "url": "https://www.youtube.com/watch?v=wE84JztBGuU",
+  "fetched_at": "2025-11-09T19:23:28.052814",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So when you search how to break into AI in that world, you get one of two extremes. You get let's learn Python in 30 days and become an ML engineer. Lots of lots of that. Or you get a little bit of gatekeeping like you need to be a PhD from Stanford or you need to get into Y Combinator, you need to found your own startup. Both of these are suboptimal because they only apply to a very narrow subsegment of the overall population. If you look at the overall number of people interested in AI roles, not very many of them are going to be learning Python in 30 days. And nobody talks about it as if AI is not a single career path but a but a wild maze of career paths that's developing. And I want to start talking about it like that because that's how it actually is. Right now when people say how do I break into AI, it's sort of like a chef hearing, how do I break into food? I mean that's a pretty general statement. Do you do you want to cook? Do you want to do front of the house? You want to do back of the house? You want to get into investing and owning restaurants? Uh, do you want to just be a taste maker?",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"How to Break into AI: A Maze of Career Paths\",\n  \"tags\": [\"ai-career-paths\", \"career-advice\", \"ai-education\", \"gatekeeping-in-tech\"],\n  \"summary\": \"The video argues that entering AI isn't a single, uniform path but a diverse maze of career options, challenging narrow routes and gatekeeping.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.061370",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.069964",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "s7eT6g9KWsE",
+  "url": "https://www.youtube.com/watch?v=s7eT6g9KWsE",
+  "fetched_at": "2025-11-09T21:51:44.400951",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Let's build a mental model for AI. And this is why this scale is so important. By the way, no one talks like this. Like people tend to give you specific skill sets and and I can do that, too. I'm going to talk about some of the specific skill sets you demonstrate, but you need an overarching perspective on the fluency and competency assessment that you're looking for at this level. And 3 to 5 is all about building mental models. You are starting to understand how LLMs actually work, what they do when they reason, what they do when they don't reason. You're starting to understand that LLMs don't truly know things, that they're not programmed. You're understanding what next token prediction looks like. You have the beginnings of a mental model of what AI can",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Building mental models of AI: understanding large language models and token prediction\",\n  \"tags\": [\"artificial-intelligence\", \"ai-literacy\", \"large-language-models\", \"token-prediction\"],\n  \"summary\": \"This video explains how to build mental models of AI, focusing on how large language models work, why they don't truly 'know' things, and what next-token prediction entails.\"\n}",
+      "generated_at": "2025-11-09T21:51:57.984624",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

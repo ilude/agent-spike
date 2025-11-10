@@ -1,0 +1,22 @@
+{
+  "video_id": "5i1xur1wpkw",
+  "url": "https://www.youtube.com/watch?v=5i1xur1wpkw",
+  "fetched_at": "2025-11-09T22:14:15.011074",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Story number six, Adobe is buying instead of building. Adobe has taken a beating recently in the public markets because their AI products are widely perceived to be missing the mark. And so they announced comprehensive thirdparty model integration across Firefly, embedding what the Luma Ray 3 model for video and adding a bunch more opportunities for model support from Google, OpenAI, Ideog, and others. In other words, Adobe is deliberately importing best-in-class capabilities rather than trying to compete anymore with proprietary Firefly models. This feels a lot like the meta story. Adobee's basically admitting their own AI strategy is dead in the water and they need to bring in other models.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Adobe pivots to third-party AI models instead of building its own Firefly\",\n  \"tags\": [\"ai-integration\", \"third-party-models\", \"adobe\", \"ai-strategy\"],\n  \"summary\": \"An analysis of Adobe adopting external AI models and partnering with other providers, signaling a shift away from proprietary Firefly in favor of broader model integration.\"\n}",
+      "generated_at": "2025-11-09T22:14:25.574283",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

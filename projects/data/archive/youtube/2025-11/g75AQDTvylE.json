@@ -1,0 +1,30 @@
+{
+  "video_id": "g75AQDTvylE",
+  "url": "https://www.youtube.com/watch?v=g75AQDTvylE",
+  "fetched_at": "2025-11-09T19:23:27.986404",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Claude versus Codex, who wins? If you're not familiar with it, Claude and Codex are the premier agents from two of the major model makers. They are in the command line, so it's somewhat scary to people, but they illustrate two competing visions of where agents are going. And I've seen them both, and I've played with them both, and I have a sense of what is actually unfolding in terms of strategy. And I want to lay out how different they are, give you a sense of which one you might want to pick for particular tasks. And then in addition, if you're not a command line person or a terminal person, you're like, \"Oh my god, you know, that's scary.\" Fine. We're going to talk about how those visions actually play out into differing perspectives on non-command agents beyond Claude, beyond Codeex, what other tools are out there, and how are they evolving in line with these visions? Because as you'll see, these are fundamentally different approaches to the most important artificial intelligence question of 2026 and 2027.",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Claude vs Codex: Comparing AI Agents and the Future of Non-Command Interfaces\",\n  \"tags\": [\"ai-agents\", \"claude\", \"codex\", \"command-line\"],\n  \"summary\": \"A comparison of Claude and Codex AI agents, exploring differing visions for agent design, the role of command-line interfaces, and how non-command AI tools may evolve into 2026\u20132027.\"\n}",
+      "generated_at": "2025-11-09T19:23:27.994937",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.003087",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

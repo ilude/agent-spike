@@ -1,0 +1,22 @@
+{
+  "video_id": "CO-yJ55GkuA",
+  "url": "https://www.youtube.com/watch?v=CO-yJ55GkuA",
+  "fetched_at": "2025-11-09T22:10:46.229761",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "There are talent implications for the kind of world we're talking about. And if you're building for the team, a lot of people are asking me, where are the engineers? Where are the architects? What does that look like? I also want to ask you about the next level of team. As you're thinking about your budgeting, don't just think about architects. Don't just think about engineers. Think about implementation. What does it take to invest in training? What does it take to invest in implementation specialists? What does it take to invest in your culture so that you have the right AI champions on the team, not necessarily just engineers and architects, who can drive the business forward. This is one of the biggest misses most businesses had in 2025. It's one of the reasons why that infamous MIT study showed up with a 95% fail rate. There's talent issues at every single business I consult at. take the talent more seriously next",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-adoption, talent-management, implementation-training, organizational-change, digital-transformation",
+      "generated_at": "2025-11-09T22:10:55.558512",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

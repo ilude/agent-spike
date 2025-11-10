@@ -1,0 +1,22 @@
+{
+  "video_id": "PZI5uC2BzPg",
+  "url": "https://www.youtube.com/watch?v=PZI5uC2BzPg",
+  "fetched_at": "2025-11-09T22:51:19.832592",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We're asking the AI to come back with more in-depth analysis that it really wasn't possible to do before. And so instead of thinking of AI as a text output generator, which so many teams do, we're asking AI to think more multimodally. We're asking AI to take advantage of the maths and the code that it's able to do and actually put that at the service of our teams, even if we're not in engineering. And that's why training teams to think in artifacts really helps.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"untitled video\",\n  \"tags\": [\"multimodal-ai\", \"ai-in-workflows\", \"artifact-based-learning\", \"ai-augmented-teams\", \"computational-thinking\"],\n  \"summary\": \"The video argues for using AI in a multimodal, artifact-focused way to enhance team workflows by leveraging AI's maths and code capabilities, not just text generation.\"\n}",
+      "generated_at": "2025-11-09T22:51:31.022003",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

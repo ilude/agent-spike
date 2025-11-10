@@ -1,0 +1,22 @@
+{
+  "video_id": "WRVCNiCtybQ",
+  "url": "https://www.youtube.com/watch?v=WRVCNiCtybQ",
+  "fetched_at": "2025-11-09T23:42:52.149456",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Prompts are thinking tools. They are thinking tools that you give to a thinking machine. They're not really delegation tools. They structure your thought as much as the AI's. Chad GPT5 should not replace your thinking. It should amplify it. That's something I emphasize over and over on this channel. Number two, good prompts teach by directionality. You learn how the model thinks while you teach it how you think. This is actually symbiosis. You are learning how to work with the model and the model is learning how you think. Welcome to the weird new world we live in. Number three, specificity is liberating. It's counterintuitive, but the tighter your constraints, the more specific you are about your output, the more you're going to be able to get what you want in your creative vision.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "prompt-engineering, thinking-tools, ai-symbiosis, specificity",
+      "generated_at": "2025-11-09T23:43:00.080130",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

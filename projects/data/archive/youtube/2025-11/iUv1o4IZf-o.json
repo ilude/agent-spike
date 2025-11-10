@@ -1,0 +1,22 @@
+{
+  "video_id": "iUv1o4IZf-o",
+  "url": "https://www.youtube.com/watch?v=iUv1o4IZf-o",
+  "fetched_at": "2025-11-09T21:50:00.573824",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "you you are all about to have kind of like Luke Skywalker the ability to build your own lightsaber which is super cool but please be careful to build it right. Please be careful because the consequences are an insecure agent that generates production workloads that nobody has monitored or nobody has watched over, nobody's able to maintain when you're out and that generates ultimately organizational vulnerabilities. And as much as Chad GPT is going to lean on the safety guardrails, which are cool, it's not enough. It's organization's job to design agentic policies that actually scale. It's team's jobs to design agentic policies for teams that work for the whole team, not just the individual. And as an individual, it is your job to build the most scalable and sustainable agent you can. And that is what these principles are designed to do. Good luck with all the power you're about to be given.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Designing scalable agentic policies for AI teams\",\n  \"tags\": [\"ai-safety\", \"agentic-policies\", \"ai-governance\", \"scalable-ai\", \"responsible-ai\"],\n  \"summary\": \"Explores how organizations and teams should design scalable, policy-driven AI agents to prevent insecure workloads and maintain safety beyond guardrails.\"\n}",
+      "generated_at": "2025-11-09T21:50:14.970784",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

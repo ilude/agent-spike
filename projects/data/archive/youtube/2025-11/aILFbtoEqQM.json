@@ -1,0 +1,22 @@
+{
+  "video_id": "aILFbtoEqQM",
+  "url": "https://www.youtube.com/watch?v=aILFbtoEqQM",
+  "fetched_at": "2025-11-09T23:30:22.629686",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Something like 90% of the Fortune 500 has copilot. 90%. That's why this is such an important video. That's why I've taken my time on it. It's got to be correct. Microsoft's own data though shows that most people aren't using the full capability set of Copilot. Now look, if you're not using the full capability set of Microsoft Word, which I know I don't, that's okay. It's Microsoft Word. It's there to help you type stuff. But if you're not using the full capability set of co-pilot, it's a big deal because co-pilot is literally intelligence on tap. And so if your workforce isn't using it, if your teams don't feel good about using it for things that are more than email, you're the ones missing out. Companies are literally paying for a Ferrari and they are driving it to the grocery store in first gear. That is what is going on with Copilot.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Copilot in the enterprise: unlocking full capabilities for productivity\",\n  \"tags\": [\"ai-productivity\", \"enterprise-ai\", \"microsoft-copilot\", \"ai-adoption\"],\n  \"summary\": \"Explains how Fortune 500 companies use Copilot and why leveraging its full feature set is crucial for boosting enterprise productivity.\"\n}",
+      "generated_at": "2025-11-09T23:30:37.550593",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

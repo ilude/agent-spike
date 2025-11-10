@@ -1,0 +1,22 @@
+{
+  "video_id": "UuKGMv3hncA",
+  "url": "https://www.youtube.com/watch?v=UuKGMv3hncA",
+  "fetched_at": "2025-11-09T22:44:57.475858",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number three, model drift and mismatch. So old workflows produce different outputs after migration to chat GPT5. That is somewhat inevitable. I would suggest if you've been running workflows in production that you I I hope that you have been keeping track of your prompts that you have been versioning your prompts and that when you have a new model that is responding differently with outputs because drift is inevitable with new models. any new model would have produced drift.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"managing-model-drift-and-prompt-versioning-during-model-migration\",\n  \"tags\": [\"model-drift\", \"prompt-versioning\", \"workflow-migration\", \"ai-operations\"],\n  \"summary\": \"Discussion on model drift and the importance of versioning prompts when migrating workflows to newer AI models like GPT-5.\"\n}",
+      "generated_at": "2025-11-09T22:45:07.433506",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

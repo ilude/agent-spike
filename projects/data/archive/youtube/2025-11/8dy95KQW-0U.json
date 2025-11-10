@@ -1,0 +1,22 @@
+{
+  "video_id": "8dy95KQW-0U",
+  "url": "https://www.youtube.com/watch?v=8dy95KQW-0U",
+  "fetched_at": "2025-11-09T22:19:04.454342",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "this moment you have a chance to build software that would not be possible to build two years ago, one year ago. And what I mean by that is that software has been a hammer instead of a scalpel for a long, long time. We now have the ability to treat software like a scalpel. And so we can carve out these micro niches and build really sustainable side businesses where we are the authority on that particular tiny corner of the universe for that particular kind of customized software. It has never been possible before.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Software as a scalpel: carving micro-niches into side businesses\",\n  \"tags\": [\"software-development\", \"scalpel-vs-hammer\", \"micro-niches\", \"side-business\"],\n  \"summary\": \"Explains how software can be used like a scalpel to carve out micro-niches and create sustainable side businesses.\"\n}",
+      "generated_at": "2025-11-09T22:19:17.452097",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

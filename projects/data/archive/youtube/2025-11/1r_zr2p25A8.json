@@ -1,0 +1,22 @@
+{
+  "video_id": "1r_zr2p25A8",
+  "url": "https://www.youtube.com/watch?v=1r_zr2p25A8",
+  "fetched_at": "2025-11-09T22:17:25.773983",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Now we actually have failures that are harder to detect. AI can fail by hallucinating. AI can fail by drifting. It can still be functional but be completely wrong. This is not a failure mode we're used to. We need intelligent failure detection. We need the ability to monitor reasoning quality, not just system health. And how you measure that is going to depend on the kind of inference you want to build into your agentic system. But you got to measure it. You've got to be able to detect failures that occur that are not just catastrophic program didn't launch failures. And you have to build your system not from the perspective of what would happen if the whole thing went down, but from the perspective of how can the system work well if it's difficult to detect a degradation in reasoning quality. You need to assume that you are moving from a fail fast world to a subtle failure world where the failure is going to be hard to detect. And so you need to think a lot about how you monitor quality in that",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"intelligent-failure-detection-in-ai\",\n  \"tags\": [\"ai-safety\", \"ai-hallucination\", \"model-drift\", \"monitoring-ai\", \"inference-quality\"],\n  \"summary\": \"Discusses non-catastrophic AI failures like hallucinations and drift, and argues for monitoring reasoning quality and intelligent failure detection.\"\n}",
+      "generated_at": "2025-11-09T22:17:36.681173",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

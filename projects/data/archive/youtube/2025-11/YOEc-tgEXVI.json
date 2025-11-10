@@ -1,0 +1,22 @@
+{
+  "video_id": "YOEc-tgEXVI",
+  "url": "https://www.youtube.com/watch?v=YOEc-tgEXVI",
+  "fetched_at": "2025-11-09T23:18:22.805400",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "July 14th, Monday, Cognition Labs, the makers of Devon, announced an acquisition of the remaining parts of Windsurf. This includes their IP, their product, their trademark, their brand, their training data, and all remaining 250 employees. The key difference here is there is 100% employee financial participation, full vesting, acceleration, and wave cliffs. In other words, Cognition Labs saw what Google did and said, \"We have an opportunity to step in as the good guy here. We can be the good guy. We will acquire Windsurf. We will bring everybody aboard. It doesn't matter whether you vested or not. If you've worked less than a year or not, which by the way, when you're in a startup and it's hiring like on a power law like this, most of your employees by definition are less than a year in because you're hiring so fast. So, I would expect for most of these employees, waving the cliff was a big deal. Essentially, Cognition Labs makes them whole where Google screwed them over. And it's a nice move for them because they're basically saying, \"We have an agentic developer in Devon. Now we have tools for development environment in windsurf.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Cognition Labs acquires Windsurf: 100% employee vesting and Devon integration\",\n  \"tags\": [\"startup\", \"acquisition\", \"employee-vesting\", \"equity-compensation\"],\n  \"summary\": \"Explains Cognition Labs' acquisition of Windsurf, detailing 100% employee financial participation, full vesting with acceleration, and implications for startup equity and developer tooling.\"\n}",
+      "generated_at": "2025-11-09T23:18:38.054016",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

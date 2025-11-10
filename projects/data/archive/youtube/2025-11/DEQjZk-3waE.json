@@ -1,0 +1,22 @@
+{
+  "video_id": "DEQjZk-3waE",
+  "url": "https://www.youtube.com/watch?v=DEQjZk-3waE",
+  "fetched_at": "2025-11-09T22:45:14.791658",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I'm going to keep exploring how chat GPT5 works because this is a model that is incredibly important in the world right now because it's now the only model that hundreds of millions of people are using every week and it is a complex model to use. My early impressions are that this takes more effort and more thinking and more deliberate intention to use really really well even if the default feels kind of smart to some people. So the default may feel cold but it can feel kind of smart enough to some people and I've seen that in my comments as well. If you want to use it for extraordinary work, which this model is capable of, I've tested it. It does incredible work. And I will do some more demos later this week that sort of show that you need to be ready to put in extra work versus what you would have had to do with 03 or with 03 Pro or with Cloud4 Opus. And you might be like, is it worth it? Is the extra work worth it? The answer is yes.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"exploring how chat gpt5 works\",\n  \"tags\": [\"artificial-intelligence\", \"chat-gpt\", \"gpt-5\", \"ai-productivity\", \"ai-usage-strategies\"],\n  \"summary\": \"Discusses the complexity of GPT-5, the extra effort required to use it effectively, and its potential for high-quality outputs, with upcoming demos.\"\n}",
+      "generated_at": "2025-11-09T22:45:27.985383",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

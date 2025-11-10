@@ -1,0 +1,22 @@
+{
+  "video_id": "c6kJQ7L-0BM",
+  "url": "https://www.youtube.com/watch?v=c6kJQ7L-0BM",
+  "fetched_at": "2025-11-09T23:19:09.019664",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The third thing I want to call out is that we are going to see more and more agents in code. And again, that is a cutting edge tip of the spear for where we will see them other places. The reason code is leading the way here is because code is easy to reward. Code runs or it doesn't. It's easy for model makers to figure out whether their code worked or it didn't. And that's true for development environments. It's true if you launch your own agent or recently launched their own model that codes. Uh and it's true if you have an agent that runs on code. All of the stuff we're seeing in the development environment now, this whole conversation around wind surf is an early indicator of where the rest of the industry is going because it's an easier problem for AI to solve. When you think about the next 12 to 15 to 18 months, even acquiring windsurf means more work on agents in code. It means the agentic agenda for lack of a better term. Not that it's a secret cabal, but the agentic goal of like getting AI agents with tools and policy and guidance to actually do important coding work that is moving forward.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"unknown\",\n  \"tags\": [\"ai-agents\", \"automated-coding\", \"development-environments\", \"tool-use\", \"agent-tools\"],\n  \"summary\": \"This video discusses AI agents in code, the push to give agents tooling and policy to perform coding tasks, and windsurf as an industry indicator.\"\n}",
+      "generated_at": "2025-11-09T23:19:23.491862",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

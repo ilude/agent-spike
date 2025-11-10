@@ -1,0 +1,22 @@
+{
+  "video_id": "_aTm4BrPiK4",
+  "url": "https://www.youtube.com/watch?v=_aTm4BrPiK4",
+  "fetched_at": "2025-11-09T22:43:06.132506",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "progress is demonstrabably continuing at exponential rates. We have in any benchmark that is not saturated is showing continued strong gains. I think my favorite is MER right now because it just doesn't have a top. All it does is it measures how long a task takes a good human and then it says can an AI do it 50% of the time. Now, I'm the first one to say 50% is a low bar, but at least it's a consistent bar. And we keep showing exponential gains on that as a use cases get stronger. And we're not bottoming out. That's not slowing down. We keep doubling every few months. Number fourth, we are still underallocated on chips. In in the same interviews that got blown up around the world around AI and bubbles, Sam admitted he could release a smarter model, but he lacks the chips to do it. Anthropic is also famously underallocated on chips. Everyone's using them for coding and they just can't get enough chips.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "artificial-intelligence, ai-benchmarks, chip-shortage, ai-industry-trends",
+      "generated_at": "2025-11-09T22:43:11.638161",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

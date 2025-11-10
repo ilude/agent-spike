@@ -1,0 +1,22 @@
+{
+  "video_id": "M0NMEeaYcs4",
+  "url": "https://www.youtube.com/watch?v=M0NMEeaYcs4",
+  "fetched_at": "2025-11-09T23:22:40.722574",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And I share that because that feels like that's a conversation many of us who are interested in AI, who are passionate about AI need to be having with those around us. I see the poll results. I see that AI is not trusted. There are a lot of joshes in this world. It makes sense that they may not trust AI. I don't blame them. It's kind of rational. But in that world, we have to be the ones, we who are interested in AI have to be the ones who are able to sit down and invite a conversation about how all of our dreams are changing because of AI. That's not something that anybody is immune to. And so besides telling Josh's story, I'll tell my own story a little bit. I got my start in a job that AI has changed dramatically already, right? I was doing nonprofit grant management.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI, Trust, and Transformation: A Personal Story in Nonprofit Work\",\n  \"tags\": [\"ai\", \"trust-in-ai\", \"ai-in-workplace\", \"nonprofit-sector\"],\n  \"summary\": \"The speaker discusses why AI trust matters, the need to talk openly about AI's impact, and shares a personal experience of how AI is changing nonprofit grant management.\"\n}",
+      "generated_at": "2025-11-09T23:22:53.087634",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

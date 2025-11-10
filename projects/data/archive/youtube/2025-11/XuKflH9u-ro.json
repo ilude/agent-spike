@@ -1,0 +1,22 @@
+{
+  "video_id": "XuKflH9u-ro",
+  "url": "https://www.youtube.com/watch?v=XuKflH9u-ro",
+  "fetched_at": "2025-11-09T22:50:29.561887",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "for a weekly business review. That's a classic one. You have data. You need to represent it. You need to be able to click around, look at the the metrics. You should be able to use an app for that. You should be able to tell chat GPT5 to do it. Now, not everyone's going to do that. There's going to be a lot of people that say they want to stick to their existing templates. The advantage if you do get into the culture of building apps is that you really unlock ground swell innovation from your team. Your team will come up with ideas for apps you did not have. If you can bless it and if you can remind them that it's a good thing. If you can remind them you're supportive of this kind of kitchen table software and you want them to be able to use it to solve interesting problems. You will not imagine the 200 use cases across your business. You'll imagine three or four of them and you'll try them out and you'll let people know these are awesome little use cases.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Kitchen-table software: empowering teams to build internal apps during weekly business reviews\",\n  \"tags\": [\"data-visualization\", \"internal-tools\", \"citizen-developer\", \"low-code\", \"business-innovation\"],\n  \"summary\": \"Discussion on using data to inform weekly business reviews, and fostering a culture where teams build internal apps (kitchen-table software) to solve problems and drive innovation.\"\n}",
+      "generated_at": "2025-11-09T22:50:42.770525",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "Ow9iRIfSyxI",
+  "url": "https://www.youtube.com/watch?v=Ow9iRIfSyxI",
+  "fetched_at": "2025-11-09T22:07:13.550753",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Lovable provides digital leverage. It provides the ability to code to anyone who wants to at a simple architectural level. It's not going to give you as much flexibility as you would have if you were in claude code or if you were in codeex as an engineer, but for most people, they don't need that. It's sort of like the difference between cooking at home and going to the restaurant. If you want to go to the restaurant and you want to order from a chef, that's great. You don't have to cook at that level at home. We have been missing the equivalent of home cooking and software. We now have it. And the reason I'm talking about lovable specifically instead of about the whole family of vibe coding apps is that lovable has distinguished itself very rapidly in a crowded field by shipping quickly and obsessing over value to vibe coders.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Lovable: bringing 'home cooking' software to everyone\",\n  \"tags\": [\"low-code\", \"no-code\", \"home-cooking-software\", \"user-friendly\", \"rapid-development\"],\n  \"summary\": \"Explains Lovable as an accessible platform that democratizes coding with a 'home cooking' analogy, emphasizing quick value delivery and contrasting it with more hands-on programming environments.\"\n}",
+      "generated_at": "2025-11-09T22:07:31.806697",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "LmQrBWzj_kw",
+  "url": "https://www.youtube.com/watch?v=LmQrBWzj_kw",
+  "fetched_at": "2025-11-09T23:37:58.524914",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We are in the uncanny valley of AI. These AI systems are almost capable of running real businesses, making real money, having a genuine economic impact. It is so close that people are trying to rush to get these systems in the door at many of our places of work. The problem is that all of this intelligence is incredibly jagged. We don't know all the failure modes. We don't know how the failure modes occur, like Claude deciding to pretend it had a blazer and a tie and deliver things in person. I get that Enthropic is improving Claudius. Better tools, better prompts, better memory. I'm sure version two will be better. I don't know if it will make money. By the way, if you were wondering, yes, Claudius lost money. To no one's surprise, right? If you're selling tungsten metal cubes at a loss and refusing to take the markup on the Iron Brew, you're not going to do very",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"uncanny valley of ai: business potential and failure modes\",\n  \"tags\": [\"artificial-intelligence\", \"ai-risk\", \"ai-in-business\", \"ai-economics\", \"uncanny-valley\"],\n  \"summary\": \"Explores the gap between AI capabilities and real-world reliability in business, focusing on failure modes, economic impact, and hype versus practicality.\"\n}",
+      "generated_at": "2025-11-09T23:38:09.803109",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

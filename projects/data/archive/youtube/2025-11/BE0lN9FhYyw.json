@@ -1,0 +1,22 @@
+{
+  "video_id": "BE0lN9FhYyw",
+  "url": "https://www.youtube.com/watch?v=BE0lN9FhYyw",
+  "fetched_at": "2025-11-09T21:57:58.662222",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If I were designing a curriculum for teams, and I get asked this, so I'm going to share right here with you what I would say. If I were asked to design an upskilling curriculum for teams, I would start by working through use cases with them. Where are the pain points in the team's existing workflow? Engineers, product managers, sales, whatever it is, where are the pain points where we see lots and lots of manual cycles and not a lot of results? like you just grind on it. Great. Thank you. That is a candidate for talking about AI. And then we start to ground the whole day, the whole time we have together in actually talking through how AI can unlock that for you. And that makes it tangible. It immediately goes from the silly two or threeline prompts like I've been tearing apart here into something that is useful for your use",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Designing an AI-powered upskilling curriculum for teams\",\n  \"tags\": [\"ai-training\", \"upskilling\", \"team-workflows\", \"ai-use-cases\", \"workflow-automation\"],\n  \"summary\": \"Explores designing a team upskilling curriculum by identifying workflow pain points and showing how AI can unlock tangible improvements.\"\n}",
+      "generated_at": "2025-11-09T21:58:12.994879",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

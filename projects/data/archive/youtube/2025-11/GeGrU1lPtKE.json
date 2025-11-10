@@ -1,0 +1,22 @@
+{
+  "video_id": "GeGrU1lPtKE",
+  "url": "https://www.youtube.com/watch?v=GeGrU1lPtKE",
+  "fetched_at": "2025-11-09T22:58:28.794588",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "LLMs are not financial adviserss. I'm not a financial adviser. I am here to help you reframe how you think about LLMs and get you into an analysis space. When you look at the prompts, I want you to think about the prompts as tools for analysis. How do you take a tool that starts with here are the relevant inputs? Here is your role. Here is the silent reflection I want you to do. hidden chain of thought so that you can understand what the task is, whether you have all the inputs, etc. Here is the output I want. Here is the success criteria. Here is your fallback or rejection criteria. All of these things, put them together into a structured prompt around a particular decision around whether or not you should sell your stock if you become one of those employees that get a stock event, right? Like it's a specific decision event, you can craft a prompt for it. Buy a house, you can craft a prompt for it. Start a new job. You can craft a prompt for",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"LLMs as analysis tools: structured prompts for decision-making\",\n  \"tags\": [\"large-language-models\", \"prompt-design\", \"chain-of-thought\", \"decision-making\"],\n  \"summary\": \"Explains how to frame prompts for LLMs as analytical tools, detailing inputs, roles, reflective steps, outputs, success and rejection criteria, and applying this approach to decision scenarios.\"\n}",
+      "generated_at": "2025-11-09T22:58:41.493544",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

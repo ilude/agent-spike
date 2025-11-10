@@ -1,0 +1,22 @@
+{
+  "video_id": "TdMklFHmie0",
+  "url": "https://www.youtube.com/watch?v=TdMklFHmie0",
+  "fetched_at": "2025-11-09T22:08:23.293854",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "It's a model that really wants to cut through the noise and it's a model that is able to give you some backbone and I think that's somewhat related to its ability to check its work. It has a sense of rightness. It has a sense of what works and what doesn't. And when it doesn't feel like something is correct, it says so. And so, one of the subtler things that I've seen come out that you will also see is that this model has some opinions on what is correct and what is incorrect, whether you're saying it or whether the model is saying it. And that makes the model less like a hyperactive squirrel on aderall and more like a thoughtful colleague. A colleague that has opinions, a colleague that can be persuaded, but a colleague that will also push back sometimes and say, \"I don't think that's quite correct.\" And that is a very tough balance to strike. And if Claude has been able to strike that balance with this new model, it is a very good sign for us because it helps us to have a more professional relationship with AI. I",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai models as thoughtful colleagues: alignment and human-ai interaction\",\n  \"tags\": [\"ai-alignment\", \"human-ai-interaction\", \"ai-safety\", \"machine-learning\"],\n  \"summary\": \"Explores how a sophisticated AI model evaluates its own outputs, demonstrates a sense of rightness, offers corrections, and fosters a professional, opinionated yet persuadable relationship with humans.\"\n}",
+      "generated_at": "2025-11-09T22:08:36.056316",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

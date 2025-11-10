@@ -1,0 +1,22 @@
+{
+  "video_id": "fd7hvE0EG_c",
+  "url": "https://www.youtube.com/watch?v=fd7hvE0EG_c",
+  "fetched_at": "2025-11-09T23:15:23.023339",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Can this agent mode go rogue? The answer is yes. And Sam Alman himself warned about it. He said, \"I would not use this for email triage because someone, and he tweeted this on Maine, someone could write an email to me with a prompt that agent mode would read when it opened the email and that prompt would hijack agent mode.\" That is a new form of prompt injection. That is a new form of attack, an email as a prompt injection attack. Well, if we weren't thinking it before, Sam, we're sure thinking it now. Thanks for giving everybody the idea there. He's right. That is absolutely a way you could prompt inject and hack these operator mode agents. And the challenge is you can do that with other websites, too. You can put text at lower contrast that humans are not going to notice that an agent might notice.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "prompt-injection, ai-safety, ai-agents, cybersecurity",
+      "generated_at": "2025-11-09T23:15:37.274867",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

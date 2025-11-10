@@ -1,0 +1,22 @@
+{
+  "video_id": "XTdtZsJyllw",
+  "url": "https://www.youtube.com/watch?v=XTdtZsJyllw",
+  "fetched_at": "2025-11-09T22:30:25.576143",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I want to map out how to get from that honeymoon phase where you install an you you you start to build your first node. You start to see data flowing across the screen. It feels so cool. It works. You feel like you've unlocked superpowers. You want to build 10 more of them. I want to get you accelerated through the trough of disillusionment where you have to add error handling. You have to add conditional logic. That's even more nodes. The edge cases pile up. You tell yourself it's manageable, but the clean workflow looks like, I don't know, the subway map of Manhattan. It looks like like ridiculous, like a pile of spaghetti. At a certain point, if you are serious and you are only using the nodes and dragging and dropping, you are going to get to a point where you have 12 workflows and 6 633 nodes and it fails at 2 a.m. You're spending three hours debugging it and you feel like you are in hell.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "workflow-automation, node-based-programming, data-pipelines, visual-programming, low-code",
+      "generated_at": "2025-11-09T22:30:35.599437",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

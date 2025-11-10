@@ -1,0 +1,22 @@
+{
+  "video_id": "14LOP5RRjYY",
+  "url": "https://www.youtube.com/watch?v=14LOP5RRjYY",
+  "fetched_at": "2025-11-09T22:37:28.156458",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "in is simultaneously one of the best, most accessible, and most dangerous tools I have seen for building AI agents. It's accessible in the sense that you can just start right now. You don't even have to listen to this video. It's dangerous in the sense that I see time after time after time in real world situations where I talk with people passionate about agents that NAD is the thing that burned them out because it was so accessible they felt like they could be non-programmers and not pay attention to good engineering principles. Please recognize that you are building real software and follow good principles. Make sure you emphasize simplicity. Separate concerns. Focus on maintainability. Focus on readability. Get your documentation done. Work with an LLM. Solve a problem that's well bounded.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"untitled video about AI agents and software engineering\",\n  \"tags\": [\"ai-agents\", \"ai-safety\", \"software-engineering\", \"documentation\", \"maintainability\"],\n  \"summary\": \"The speaker discusses how AI agent tools can be both highly accessible and dangerous, emphasizing solid engineering principles, documentation, readability, and maintainability when building AI systems.\"\n}",
+      "generated_at": "2025-11-09T22:37:59.415194",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

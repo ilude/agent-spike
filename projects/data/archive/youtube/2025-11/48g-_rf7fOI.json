@@ -1,0 +1,22 @@
+{
+  "video_id": "48g-_rf7fOI",
+  "url": "https://www.youtube.com/watch?v=48g-_rf7fOI",
+  "fetched_at": "2025-11-09T22:04:46.155758",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Chat GPT launched an absolutely terrible resource for prompting and I think it deserves more attention because we need to talk about how bad AI education is today. They're terrible prompts, guys. They're like one or two line prompts that are extremely generic. We need to help people to understand principles that can scale. If you're going to give people simple prompts, maybe that's all right as long as they understand one, this is just the start and you need to do better. And two, this is how it ties to your workflow and moves things forward. And three, these are the principles that scale with it. Like if they had taken the time to say from their own best practices, if OpenAI had taken the time to say it's really important to establish context for the prompt, having a goal for the prompt is important. Look how we're doing that even in a simple prompt, right? Like that's helpful. That helps you to internalize these principles. If you don't do that, you're going to be stuck thinking that you understand prompting and AI and you're going to get left behind in 2026. We don't want that. We need better prompt education.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Critique of current prompting resources and the need for scalable prompt principles\",\n  \"tags\": [\"prompt-engineering\", \"ai-education\", \"prompt-principles\", \"workflow-integration\"],\n  \"summary\": \"A critique of existing AI prompting guidance and a call for scalable principles that emphasize context, clear goals, and integration with workflow.\"\n}",
+      "generated_at": "2025-11-09T22:05:01.934839",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

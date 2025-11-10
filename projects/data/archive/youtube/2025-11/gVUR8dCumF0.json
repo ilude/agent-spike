@@ -1,0 +1,22 @@
+{
+  "video_id": "gVUR8dCumF0",
+  "url": "https://www.youtube.com/watch?v=gVUR8dCumF0",
+  "fetched_at": "2025-11-09T23:01:59.314502",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number one, codebase mapping and onboarding. You might not think of that as a development pattern, but it really is. You can use AI to quickly understand existing code bases. You can generate maps or summaries or graphs for onboarding or legacy dives. This is especially useful if you have an existing codebase obviously and if you want to bring someone in on your team quickly. You can treat AI output as sort of a starting point for further refinement. In this context, this can accelerate onboarding very rapidly for new builders. It can extract highle context really quickly and it's very useful uh for people who are non-engineers to get to know a codebase. I've actually written some prompts that are designed to help you get to know a particular coding pattern that you're using. Very similar very similar process.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-assisted-codebase-analysis, codebase-mapping, onboarding, prompt-engineering",
+      "generated_at": "2025-11-09T23:02:08.185038",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

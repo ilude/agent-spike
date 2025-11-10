@@ -1,0 +1,22 @@
+{
+  "video_id": "WMyoA-7It6o",
+  "url": "https://www.youtube.com/watch?v=WMyoA-7It6o",
+  "fetched_at": "2025-11-09T22:09:16.394319",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I had to yell at chat GPT5 just yesterday because I asked it for an outline with three elements and it came back with seven and I said you didn't put the time in on the three I asked you and you and you're just so hyper excited that you came back with with a bunch of extra and that's a tiny little story and it's not isolated only to chat GPT5 slop is a threat to our ability to realize the gains of AI workflows and AI productivity and so one of the things I'm excited about is that there's some clarity in the work produced by this model that I think enables us to get back to creating really useful pieces of work, whether they're code or spreadsheets or powerpoints or what have you, and then focusing on whether they're right and then iterating if they're not. And that becomes a workflow that I can get excited about because it's less sloppy and it fits into how teams already make decisions.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai workflows and productivity: reducing sloppy ai-generated outputs\",\n  \"tags\": [\"ai-workflows\", \"ai-productivity\", \"prompt-engineering\", \"team-collaboration\"],\n  \"summary\": \"Explores reducing AI-generated sloppiness and integrating clear, iterative outputs into team decision-making for improved productivity.\"\n}",
+      "generated_at": "2025-11-09T22:09:32.239129",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "YAy2a8xtOTc",
+  "url": "https://www.youtube.com/watch?v=YAy2a8xtOTc",
+  "fetched_at": "2025-11-09T23:31:55.249647",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This is one of those things that I keep emphasizing with AI. Just try it. You will learn if you are willing to try. If you're with teams and you're trying to sort of not teams the software, teams the people like people teams, let your team try it. Celebrate the wins your team is getting with co-pilot. Encourage your team by showing them that you value their time saved. And you will not just pile more work on. You will not just tell them you must not be that good at your job because you did it that fast. you'll actually celebrate the win. Okay, here's the reality. I'm going to go right back to the beginning. The CTO wrote me and was like, they're only using email, 6,000 person company. These companies are are using 10% of a six-figure investment in some cases, whereas the ones that are using it fully, they're getting or more return on investment. The swing that I see here is insane.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai adoption and roi in the enterprise\",\n  \"tags\": [\"ai-adoption\", \"enterprise-ai\", \"ai-in-the-workplace\", \"ai-roi\", \"change-management\"],\n  \"summary\": \"Discussion on leveraging AI copilots in organizations to boost productivity, drive time savings, and achieve ROI through broad team adoption and effective change management.\"\n}",
+      "generated_at": "2025-11-09T23:32:13.963978",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

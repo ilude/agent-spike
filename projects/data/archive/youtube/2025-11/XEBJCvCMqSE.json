@@ -1,0 +1,22 @@
+{
+  "video_id": "XEBJCvCMqSE",
+  "url": "https://www.youtube.com/watch?v=XEBJCvCMqSE",
+  "fetched_at": "2025-11-09T22:39:33.806572",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The reality is that we we have to recognize that engineering is what enables us to take this wild world where LLMs can speak language and where they're probabilistic and where they can bring intelligence to bear. Engineers help wrestle that into an operational stable production system. They help to bring observability to those systems. They help to debug those systems. They help to figure out the energy and compute footprint that's appropriate for those systems. And engineers ultimately are cultural architects. They help us to design workflows that preserve human judgment. They help us to build interfaces that make AI reasoning inspectable. They help us to prevent automation bias and skill atrophy if they're designing systems well. Ultimately, they help us maintain dignity because they can build systems that have to admit ignorance. Engineers have more responsibility now, not",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Engineering AI Systems and Responsible Deployment\",\n  \"tags\": [\"engineering\", \"ai-systems\", \"human-in-the-loop\", \"responsible-ai\", \"model-interpretability\"],\n  \"summary\": \"Discussion on how engineers shape production-ready, observable AI systems that preserve human judgment, prevent automation bias, and ensure responsible, transparent AI.\"\n}",
+      "generated_at": "2025-11-09T22:39:44.667541",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

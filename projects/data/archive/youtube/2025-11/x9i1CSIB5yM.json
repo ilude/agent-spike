@@ -1,0 +1,22 @@
+{
+  "video_id": "x9i1CSIB5yM",
+  "url": "https://www.youtube.com/watch?v=x9i1CSIB5yM",
+  "fetched_at": "2025-11-09T22:59:46.636071",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Pattern four, AI augmented debugging and testing. You want to make sure that you are pasting your actual error traces and communicating clearly what's wrong. That you are being very specific and prescriptive about how the system will get to root cause about the kind of suggested fix you will accept in line with your house rules. And you should apply fixes cautiously, especially in production databases. Pattern five, AI assisted code reviews. You want to be in a place where you can prompt for review of the code and then constrain the review to just the space you want looked at. Keep in mind, humans will have to do a second pass, but you can use a tool like Devon to go and get a lot done quickly.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-augmented-debugging-and-ai-assisted-code-reviews\",\n  \"tags\": [\"ai-assisted-code-review\", \"ai-augmented-debugging\", \"debugging\", \"code-review\", \"software-development-automation\"],\n  \"summary\": \"Overview of AI-powered patterns for debugging, testing, and code reviews, emphasizing precise error traces, root-cause analysis, safe production fixes, and constrained automation.\"\n}",
+      "generated_at": "2025-11-09T22:59:59.828840",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

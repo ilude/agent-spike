@@ -1,0 +1,22 @@
+{
+  "video_id": "ax4WXElE0ik",
+  "url": "https://www.youtube.com/watch?v=ax4WXElE0ik",
+  "fetched_at": "2025-11-09T23:24:18.190595",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Based on the evidence that I've been able to see, XAI seems to be making direct edits to production prompts via GitHub. Staging environment, Canary deployments, feature flags, sort of a slow roll out to see how the effect goes. Nope. Apparently, push it to main YOLO and let it rip. Just think about that for a second. This is a system that can reach hundreds of millions of users. And they're treating the prompts more like a personal blog that they can hotfix, which they had to do after the fiasco on the ETH. As far as I can tell, what they're doing here violates the principles of modern production software deployment. You need version control on your deployments. You need rollback procedures. You need a testing pipeline. You need a review process. Code and prompting are increasingly the same thing. Prompting is code. It needs to be treated as",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"prompting as code: xai deployment practices and the need for version control\",\n  \"tags\": [\"prompt-engineering\", \"xai\", \"software-deployment\", \"version-control\", \"canary-deployments\"],\n  \"summary\": \"Discusses treating prompts as code and advocates for proper deployment workflows (versioning, testing, rollback) in large-scale AI systems.\"\n}",
+      "generated_at": "2025-11-09T23:24:28.430544",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

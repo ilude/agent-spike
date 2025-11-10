@@ -1,0 +1,22 @@
+{
+  "video_id": "yMcdvFAl3v8",
+  "url": "https://www.youtube.com/watch?v=yMcdvFAl3v8",
+  "fetched_at": "2025-11-09T23:42:29.378215",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number two, text is currency. Current models handle over a 100,000 tokens, 200,000 tokens. GPT5, we don't know what the published specs will be, but it is not unreasonable to think that we are headed toward a future with millions of tokens by the end of the year. Start getting into the habit of front-loading rich context. Instead of a two sentence description, if you're an operator, if you're just chatting in the chat window, get into the habit of doing a lot of context loading, putting the documents in, putting your full statement, your full emotions, your full thinking in your full voice statement. If you're using voice, load up that context, full situation, constraints, history, and I say full context for operators, but that's just as true if you're running production prompts, too. You want to be in a position where you can take full advantage of that context window because these models are actually built more and more to handle reasoning at the hundreds of thousands of tokens and potentially up to millions of tokens window shortly. So, think about what you're putting in",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"text is currency: front-loading rich context in large language models\",\n  \"tags\": [\"large-language-models\", \"context-window\", \"prompt-engineering\", \"token-length\"],\n  \"summary\": \"Explains how future AI models will handle enormous token windows and why loading rich, full-context information improves reasoning in prompts and production workflows.\"\n}",
+      "generated_at": "2025-11-09T23:42:45.438162",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

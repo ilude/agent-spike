@@ -1,0 +1,22 @@
+{
+  "video_id": "eO7oFS6SV4E",
+  "url": "https://www.youtube.com/watch?v=eO7oFS6SV4E",
+  "fetched_at": "2025-11-09T22:39:14.033504",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "AI makes it so trivial to ship failure at scale. As I said, systems will now accept paragraphs of instructions from the open internet. The attack vectors are so high. Model rot can corrupt systems without any warning at all. The reality is that we we have to recognize that engineering is what enables us to take this wild world where LLMs can speak language and where they're probabilistic and where they can bring intelligence to bear. Engineers help wrestle that into an operational stable production system. They help to bring observability to those systems. They help to debug those systems. They help to figure out the energy and compute footprint that's appropriate for those systems. And engineers ultimately are cultural architects. They help us to design workflows that preserve human judgment. They help us to build interfaces that make AI reasoning inspectable. They help us to prevent automation bias and and skill atrophy if they're designing systems",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Engineering AI systems: observability, safety, and human judgment\",\n  \"tags\": [\"ai-safety\", \"system-design\", \"observability\", \"human-in-the-loop\"],\n  \"summary\": \"Explores how engineers design, monitor, and govern AI systems to maintain stability, safety, and human oversight.\"\n}",
+      "generated_at": "2025-11-09T22:39:24.138030",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

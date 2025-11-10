@@ -1,0 +1,22 @@
+{
+  "video_id": "SBeKkPqpXvI",
+  "url": "https://www.youtube.com/watch?v=SBeKkPqpXvI",
+  "fetched_at": "2025-11-10T00:40:30.549094",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Google is not to be outdone they just dropped Google Flash 2.0 right in the middle of uh open ai's 12 days of open AI it's a brand new model from Google it's in the Gemini family it's called Gemini 2.0 you can access it either through their chat or what I recommend is say you're a developer and get into their Google AI Studio to access it much more powerful stuff in there in particular one of the things I'm really excited about is the ability of the system to talk to you while it looks at your screen and what I found was really interesting is Gemini is a totally different model and so what I could do is I could say hey Gemini look at my code editor look at what I've got here look at what I'm building this is what I'm trying to do and I could mix in like talking with it it tolerates interruptions well it tolerates slang well and putting text in so I ended up having a five minute conversation with Gemini where I said this is what I'm trying to do these are my limitations this is the text I have thinking about what's going on what do you think a good prompt would be to get started with wind surf or with cursor on a llm driven landing page because that's like a nice vanilla like way to start and see how the interaction modality works like you just tell it to to work on a landing page and see how it does it did great it was amazing I was able to have an actual back and forth conversation that felt really fluent with Gemini Gemini was able to produce a really good prompt and then Gemini is able to see and monitor changes that are taking place in my screen as I run the prompt and you know what was even cooler Gemini notices proactively when my screen changes so it was looking at my development environment and when I ran the command I didn't tell it anything it noticed I'd run the command it looked at the difference it correctly read it and it said this is what I noticed and we continued our conversation it was literally like a developer was looking over my shoulder and we were having a conversation and that matches with the test benchmarks we see for Gemini 2.0 it tests really well with coding up there with Sonet 3.5 so if you're curious about what it looks like when llms become part of our conversational interface part of our workflow we start to stack them together into composite tool sets that enable new kinds of productivity I feel like I just saw the future I can chat with one llm have it looking at my screen at what I'm doing with another llm we can have a conversation and what it all adds up to is I feel like I'm working with multiple partners on a project even though it's me and a laptop and I am going much faster and debugging more easily as a result so check out Gemini flash it's really really cool you can find it in the Google AI Studio or you can get it into the chat bot I'm going to link the uh blog post from Google in this YouTube description I'm having a lot of fun with it it just dropped a couple hours ago would' be curious to see what you're using it for there you go very very exciting Google introduces Gemini 2.0 I can't wait this is a it's a wild week open AI is next it's like this battle of the heavy weights cheers",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Google Gemini 2.0 for developers: Gemini Flash 2.0, AI Studio, and screen-aware LLM collaboration\",\n  \"tags\": [\"google-gemini-2\", \"ai-pair-programming\", \"developer-tools\", \"conversational-ai\"],\n  \"summary\": \"Overview of Google Gemini 2.0's capabilities, focusing on screen-aware LLM interactions, conversational prompts, and how it enhances developer productivity in AI-assisted workflows.\"\n}",
+      "generated_at": "2025-11-10T00:40:48.710867",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

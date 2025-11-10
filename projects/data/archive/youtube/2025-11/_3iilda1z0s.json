@@ -1,0 +1,22 @@
+{
+  "video_id": "_3iilda1z0s",
+  "url": "https://www.youtube.com/watch?v=_3iilda1z0s",
+  "fetched_at": "2025-11-09T23:44:14.577850",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "It's not the ability to write the code that is transformative. It's the ability to think about the structure of the project and how to order it that's useful. I do not claim to be a fantastically experienced senior engineer. My background is different. I am a hacky scrappy founder producty kind of person. Definitely more of a generalist with a strong technical bent. But I know enough about coding and I know enough about project management to see that claude code is so much more than a coding tool. And we misunderstand it when we think about it just as a coding tool.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Understanding Claude Code: It's More Than a Coding Tool\",\n  \"tags\": [\"software-engineering\", \"software-architecture\", \"project-management\", \"ai-tools\", \"coding-tools\"],\n  \"summary\": \"A discussion of how the real value in software development lies in structuring and ordering a project, with Claude Code framed as a broader tool beyond just writing code.\"\n}",
+      "generated_at": "2025-11-09T23:44:26.229490",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

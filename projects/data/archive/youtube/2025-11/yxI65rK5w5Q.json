@@ -1,0 +1,22 @@
+{
+  "video_id": "yxI65rK5w5Q",
+  "url": "https://www.youtube.com/watch?v=yxI65rK5w5Q",
+  "fetched_at": "2025-11-09T22:19:30.786190",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The third major skill that entrepreneurs bring to the table or must bring to the table now that they didn't have to bring before. You need to know in a very fine grained way where value lies in your product. You know how I said software was a blunt hammer before? Like when you buy Salesforce, Salesforce might be really crappy in a lot of different spots, but because it has existing distribution relationships with a lot of big companies, the buyer doesn't really care and so it doesn't get better. It's different in the micro niches I'm talking",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Understanding value in product and micro-niches for entrepreneurs\",\n  \"tags\": [\"entrepreneurship\", \"value-proposition\", \"micro-niches\", \"b2b-sales\"],\n  \"summary\": \"Discusses how entrepreneurs should identify where value lies in their product, the difference between broad software and micro-niches, and how distribution relationships shape buyer decisions.\"\n}",
+      "generated_at": "2025-11-09T22:19:39.622940",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

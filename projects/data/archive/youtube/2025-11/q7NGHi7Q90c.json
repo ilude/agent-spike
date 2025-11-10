@@ -1,0 +1,22 @@
+{
+  "video_id": "q7NGHi7Q90c",
+  "url": "https://www.youtube.com/watch?v=q7NGHi7Q90c",
+  "fetched_at": "2025-11-09T22:56:49.001133",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "You cannot be a general AI consultant. You need to be a specific one. Even if you have multiple expertise levels, multiple domains you can play in. It is stronger to have three or four specific offerings around AI that you're good at than to just make it one general offering. It also gives you more pricing power and more opportunity to earn the right to win because you are going to be able to say you want to talk about SEO in the age of AI have a whole thing for that. I know SEO. I've known SEO for a decade. These are the 15 principles I'm laying out in the new world. This is how we're going to do SEO in the age of AI. This is how we're going to protect your search traffic. This is how we're going to get you sort of situated with large language models, etc. It's the specificity that helps you",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Why AI consultants should specialize with niche offerings\",\n  \"tags\": [\"ai-consulting\", \"seo-in-ai\", \"niche-offerings\", \"specialization\"],\n  \"summary\": \"Advocates for AI consultants to focus on a few specific offerings to gain pricing power and improve competitiveness, using SEO in the AI era as an example.\"\n}",
+      "generated_at": "2025-11-09T22:56:59.826694",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

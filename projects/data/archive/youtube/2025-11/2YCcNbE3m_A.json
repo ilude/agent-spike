@@ -1,0 +1,22 @@
+{
+  "video_id": "2YCcNbE3m_A",
+  "url": "https://www.youtube.com/watch?v=2YCcNbE3m_A",
+  "fetched_at": "2025-11-09T23:39:00.053815",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number two, the transformer engine. Every token computes relevance to all other tokens. That's really key. Query vectors are going to measure similarity between different keys, create a weighted average of values, and different attention heads are going to find different patterns. What all of that adds up to is different perspectives on the pattern making in text mathematically and that adds nonlinear depth. So you can stack different layers of heads up to 60 plus and get a very complex capture of dependencies which is a fancy technical way of saying a complex highfidelity picture of a human text. You can understand the meanings inside it which is why if you ask an AI to read a text and give you a sense of the literary meanings this is why it understands it. Transformer architecture is why Opus 4 can understand Hemingway.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"transformer-engine-and-attention-explained\",\n  \"tags\": [\"transformer-architecture\", \"attention-mechanisms\", \"self-attention\", \"natural-language-processing\", \"deep-learning\"],\n  \"summary\": \"Explains how transformer attention works with queries, keys, values, and multi-head mechanisms to model complex patterns in text.\"\n}",
+      "generated_at": "2025-11-09T23:39:14.716004",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

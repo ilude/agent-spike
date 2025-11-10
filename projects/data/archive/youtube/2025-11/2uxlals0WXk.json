@@ -1,0 +1,22 @@
+{
+  "video_id": "2uxlals0WXk",
+  "url": "https://www.youtube.com/watch?v=2uxlals0WXk",
+  "fetched_at": "2025-11-09T23:11:01.628257",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And I think one of the things that makes the tech community that is too bullish on AI unloved and incredibly annoying to other people is the sense from the rest of the world that they just think AI is the way forward. I saw Flame Wars on X which well that's where you go right that's what you get. But I saw Flame Wars on X where people in tech were basically saying none of you get it. This is the way AI is going to run the world. None of you deserve jobs. AI is just going to do all your jobs for you. One, that's not a way to make friends and that's not a way to, you know, get your technology adopted and two, it's not even reasonable. We are in a world where it may be possible that AI has a gold on the International Math Olympiad, but also can't really play Mario Kart properly. My kids may be better at Mario Kart than AI right",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "artificial-intelligence, ai-skepticism, future-of-work, tech-community, ai-hype",
+      "generated_at": "2025-11-09T23:11:19.254218",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

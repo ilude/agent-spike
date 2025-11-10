@@ -1,0 +1,22 @@
+{
+  "video_id": "U2-o_spjit4",
+  "url": "https://www.youtube.com/watch?v=U2-o_spjit4",
+  "fetched_at": "2025-11-09T23:11:49.098467",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Early June negotiations hit a major snag. Microsoft raises IP concerns. Under 2023's agreement that OpenAI signed with Microsoft back when OpenAI had many fewer cards than it holds today. Microsoft has rights to all OpenAI tech, including acquisitions. And it looks like Satcha Nadella played his hand. The rumor is that OpenAI did not want to give the IP for Windinsurf to Microsoft. There has been I don't want to call it a divorce that sounds dramatic. There has been a soft separation between Microsoft and OpenAI. Let's use that term. Very polite. We're all adults here. And there has been a little bit of tension and this is an example of that tension. Basically, OpenAI has become more powerful in the relationship since the agreement was signed. They're flexing their wings. In this case, they flexed their wings and said, \"You know what? We're acquiring Windsurf and no Microsoft. We don't want you to have the IP.\" And Satcha basically said, \"Talk to my Microsoft lawyers.\" Which if you've ever talked with Microsoft lawyers, you don't want to do. So, at the end of the day, Satcha was right. Microsoft had legal rights. GitHub Copilot directly competes with Windsurf and he was right to worry about it. And Microsoft refused to grant an exception to their IP rights. June 3, an Enthropic formally restricts Windsurf's claude access. This is during the OpenAI exclusivity period and they are probably doing it to sort of see if they can scotch the deal in addition to uh in addition to the token impact that I discussed earlier. Um, as Jared Kaplan put it, it would be odd for us to sell Claude to Open AI. That's that's exactly sort of the frame that I made, but it's it's much more succinct. So this forces winurf users to migrate to competitors. Now you have a deal that isn't done yet and you have users leaving the platform. Enthropic is quietly happy uh because OpenAI is kind of getting screwed on this deal. Mid to late June, things begin to unravel. OpenAI desperately attempts to restructure the deal. The wind surfboard begins to get worried about losing enterprise and government contracts as their core product starts to collapse because Claude is starting to pull out. Claude is, if you don't know, one of the best coding agents out there. The deal is effectively stalled. It's not publicly dead, and there's a difference there. July 11th, that was this Friday, 7 a.m. Pacific, the OpenAI exclusivity period officially expires. No renewal is announced and the deal is confirmed to be under review, which is code for in trouble. By the morning, news breaks that the Open AI deal has collapsed. Microsoft's IP issues are cited as the primary cause. Although if you look into it and you look at Anthropic's power move, I would argue that's also a contributing factor.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"OpenAI-Microsoft deal collapses over IP rights amid Windsurf and Claude tensions\",\n  \"tags\": [\"openai-microsoft-deal\", \"ip-rights\", \"anthropic-claude\", \"windsurf-ai\", \"ai-licensing\"],\n  \"summary\": \"An analysis of the OpenAI-Microsoft negotiations, IP-rights disputes, and the Windsurf/Claude dynamic that led to the deal's collapse.\"\n}",
+      "generated_at": "2025-11-09T23:12:09.823328",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

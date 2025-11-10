@@ -1,0 +1,22 @@
+{
+  "video_id": "TBTb_KxiRfc",
+  "url": "https://www.youtube.com/watch?v=TBTb_KxiRfc",
+  "fetched_at": "2025-11-09T23:10:35.447827",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "reports jumped over the weekend that as big as the $200 million pay package was that Mark Zuckerberg offered and that was accepted by someone to come to Meta, I think that was the biggest headline. I think they all vary between 10 and $200 million, which is just generational wealth, right? It's incredible. Apparently, at least 10 researchers at OpenAI turned down, the rumor goes, $300 million paychecks. $300 million. That is more than most professional athletes make. That is show Otani money. if you're a baseball fan. So, the reason I'm calling this out is that this is part of Meta's playbook. If you're looking at the trust fingerprint for Meta, they are very heavily into spending money to catch up aggressively and making sure that they can back up their demos. Even if their demos were in the move fast, breakthrough, break things spirit initially.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Meta Pay Packages and OpenAI Salaries: The Tech Talent War\",\n  \"tags\": [\"tech-salaries\", \"big-tech-culture\", \"talent-acquisition\", \"openai\"],\n  \"summary\": \"Examines massive compensation offers in tech, Meta's aggressive recruitment tactics, and high salaries at OpenAI.\"\n}",
+      "generated_at": "2025-11-09T23:10:53.325572",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

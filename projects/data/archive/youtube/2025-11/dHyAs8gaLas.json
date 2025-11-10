@@ -1,0 +1,22 @@
+{
+  "video_id": "dHyAs8gaLas",
+  "url": "https://www.youtube.com/watch?v=dHyAs8gaLas",
+  "fetched_at": "2025-11-09T22:45:37.379217",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you really care about controlling exactly which model you get every single time, you have only a couple of options. You can either go to the API or you can hit the drop-down and you have you don't have 10 models of choices. You have if you're if you're a pro user, you have chat GPT5 pro and you have chat GBT5 thinking and you have chat GBT5. The options degrade from there down to plus and free users. And so you have less and less choice and have to rely more on the prompting I gave you for router where you're prompting think hard. This is an issue that they are going to address with more customization.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Choosing AI models: API access, UI options, and customization\",\n  \"tags\": [\"ai-models\", \"model-selection\", \"prompt-engineering\", \"subscription-plans\", \"api-access\"],\n  \"summary\": \"Discussion on selecting AI models via API or UI, how different user tiers limit choices, and the potential for future customization.\"\n}",
+      "generated_at": "2025-11-09T22:45:46.328014",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

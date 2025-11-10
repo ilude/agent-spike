@@ -1,0 +1,22 @@
+{
+  "video_id": "IVBYighRHY4",
+  "url": "https://www.youtube.com/watch?v=IVBYighRHY4",
+  "fetched_at": "2025-11-09T23:20:45.201809",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "On the other hand, for tasks that had very straightforward structure, like, hey, do a JSON extraction, Grock did okay, Grock can sort of do tasks that are narrowly constrained, and that's something I found anecdotally working with Grock for as well. I asked Grock for to do some writing for me outside the test environment, and what I found was the writing is not very creative. It's like the temperature's been turned down on the model, but it's very fast. The output is very consistent, and it has a reasonably high token output. It probably has a higher token output in real world settings than claude. I think the thing that bothers me is that if you're going to call something the number one model, you should have the flexibility to do more than just these narrowly defined tasks, more than just JSON extraction.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "json-extraction, language-model-performance, model-flexibility, creative-writing",
+      "generated_at": "2025-11-09T23:20:54.378772",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

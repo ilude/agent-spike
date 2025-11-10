@@ -1,0 +1,22 @@
+{
+  "video_id": "HqAPHNpoLf4",
+  "url": "https://www.youtube.com/watch?v=HqAPHNpoLf4",
+  "fetched_at": "2025-11-09T21:54:20.187903",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I think that we reached a productivity baseline with Opus 4.1 for people who care about work. It is possible to be productive not just in conversation but with docs and sheets and code and deck in Opus 4.1 which was Claude's previous model. Now with this model we don't just go from being productive to perfect. We go from being productive to decisioning. And this gets at the heart of what I've been saying this entire time. This model sets you up to focus your time on making decisions that matter because the work it produces is really clear. And that's true in the chat as much as it's true in any output format that you want to select. That's what I'm excited about because it feels like we're moving from a worker's buddy that works alongside you and gets you okay drafts to a more professional colleague that is designed to help set you up to save time and make really smart decisions.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "productivity, ai-assistant, decision-making, workflow-optimization",
+      "generated_at": "2025-11-09T21:54:26.914076",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

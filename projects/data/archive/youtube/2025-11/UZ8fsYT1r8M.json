@@ -1,0 +1,22 @@
+{
+  "video_id": "UZ8fsYT1r8M",
+  "url": "https://www.youtube.com/watch?v=UZ8fsYT1r8M",
+  "fetched_at": "2025-11-09T23:21:18.784599",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I am really tired of models overfitting to eval. So when we have exams that are supposed to be like humanity's last exam that are supposed to be good measures of model evaluation and quality, it's goodart's law all over again. As soon as you make that a goal for a model maker to hit, they will overfit to the data. And I got to say, Grock 4, as hard as the team has worked, is looking like a terribly overfitted model. A model that is much lower in real world quality than we actually see in all of these reported benchmarks.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Goodhart's law and overfitting in model evaluation\",\n  \"tags\": [\"machine-learning\", \"model-evaluation\", \"overfitting\", \"goodharts-law\", \"benchmarks\"],\n  \"summary\": \"Discussion of how optimizing ML models for evaluation metrics leads to overfitting (Goodhart's law), highlighting the gap between benchmark performance and real-world quality, with reference to Grok 4.\"\n}",
+      "generated_at": "2025-11-09T23:21:30.456283",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "hP6awSIbMWk",
+  "url": "https://www.youtube.com/watch?v=hP6awSIbMWk",
+  "fetched_at": "2025-11-09T23:41:22.293084",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And I want to suggest to you that actually LLMs are not super great at learning right now and the model makers know it. Right now, no LLM really fundamentally learns after it is released. Now, are they working on that problem? Yes, they're working on that problem, but that's a lot to work on. And it is fair to describe it as one of the weak spots in the jagged intelligence of AI right now. Number four, intent horizon. The capacity to maintain coherent goals. I've mentioned this on this channel before. I think it's a really big one. I don't know why it's not getting called out more. I don't care if your AI can go from three hours to seven hours. It's nice. It's helpful for tactical tasks, but it's not a gamecher. We need very long-term thinking, and that requires systems that are on that are not just instantiated and amnesiac when they appear, which is what Andre Carpathy described in his Y Combinator talk last week, that they're they just have no previous memory. They're just instantiated and here's the chat. That is a fundamental",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"llms: learning after deployment, memory, and long-term intent\",\n  \"tags\": [\"artificial-intelligence\", \"large-language-models\", \"ai-memory\", \"long-term-planning\"],\n  \"summary\": \"Discusses limitations of large language models such as lack of continual learning, memory issues, and the challenge of maintaining long-term goals.\"\n}",
+      "generated_at": "2025-11-09T23:41:35.018903",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

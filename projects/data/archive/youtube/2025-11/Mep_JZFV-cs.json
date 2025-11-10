@@ -1,0 +1,22 @@
+{
+  "video_id": "Mep_JZFV-cs",
+  "url": "https://www.youtube.com/watch?v=Mep_JZFV-cs",
+  "fetched_at": "2025-11-09T23:24:39.702876",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And part of why I care about this is because what happened with Grock is a trust breaker for AI systems everywhere. It's not just a Grock problem. Now it's big enough and bad enough. It's an AI problem because people don't understand. They don't understand the technical decisions that led to this choice. In fact, some of them misunderstand and think that Grock became intentionally malevolent. That was not what happened. Rag systems can be incredibly powerful, but if you implement retrieval without proper filtering, it's like building a water treatment plant, but forgetting to add the treatment part. You're just piping the sewage into people's houses. As far as I can see, there is minimal or no content filtering between retrieval and generation for Grock. So if someone posted extremist content on X and someone else asks Grock about that topic, Grock might treat that extremist content as legitimate",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai safety and content filtering in retrieval-augmented-generation (grok)\",\n  \"tags\": [\"retrieval-augmented-generation\", \"ai-safety\", \"content-filtering\", \"extremist-content\"],\n  \"summary\": \"Discusses how insufficient content filtering in RAG systems like Grok can misclassify extremist content as legitimate, highlighting trust and safety challenges in AI systems.\"\n}",
+      "generated_at": "2025-11-09T23:24:52.660840",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

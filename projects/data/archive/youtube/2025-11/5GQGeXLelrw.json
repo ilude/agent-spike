@@ -1,0 +1,22 @@
+{
+  "video_id": "5GQGeXLelrw",
+  "url": "https://www.youtube.com/watch?v=5GQGeXLelrw",
+  "fetched_at": "2025-11-09T22:53:51.340495",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "There is a frog boiling in the pot problem around media reaction right now and I'm putting in this at the end because media reaction isn't the most important thing but I am including it because I think the way we think about the evolving intelligence curve does matter. We're living through a historical moment. This model is a significant step forward in the way we interact with AI. It is closer to interacting with us as a thought partner and I think the reduction in hallucinations helps there. I think the work done on stuff like medical where it's high value helps there. I think the work done on improving writing helps there. People are going to feel like they can trust this model more. People are going to feel like it's right more and they will be correct about that. If you compare that to the flashbang that came when chat GPT entered the scene in the first place or the stunning jump to chat GPT4 which may be hard to remember but it was there or the jump to 03 reasoning. People I think are assuming that it will feel the same way with shed GPT5.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"The evolving intelligence curve: AI progress, trust, and applications\",\n  \"tags\": [\"artificial-intelligence\", \"ai-hallucinations\", \"human-ai-interaction\", \"ai-writing\", \"ai-medical-applications\"],\n  \"summary\": \"Explores AI progress, the shift toward thought-partner interactions, reduced hallucinations, and applications in writing and medicine, with reflections on public perception and past AI milestones.\"\n}",
+      "generated_at": "2025-11-09T22:54:11.345296",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

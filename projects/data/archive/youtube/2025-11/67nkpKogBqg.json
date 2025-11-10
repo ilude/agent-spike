@@ -1,0 +1,22 @@
+{
+  "video_id": "67nkpKogBqg",
+  "url": "https://www.youtube.com/watch?v=67nkpKogBqg",
+  "fetched_at": "2025-11-09T23:36:40.721501",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And this is where I want to underline again my thesis for where general intelligence is falling down right now is that AI is good at individual skills but real jobs and real work that humans do is not an individual skill set question. It is a bundle secured by glue work deeply interacted and entangled with other people's roles. And AI does not have enough context and does not have enough reinforcement learning. does not have enough training data or anything to get at that piece of the work, the glue work. And so my encouragement to you if you were worried about AGI is to remember Project Vend. Remember Claude loses money on a vending machine. And remember that even if people talk a big game about AI, no one has an answer to this kind of problem. to why Claude went off the rails to why memory problems are not yet solved.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-general-intelligence-and-glue-work\",\n  \"tags\": [\"artificial-intelligence\", \"general-intelligence\", \"ai-safety\", \"human-ai-collaboration\"],\n  \"summary\": \"Explores why AI's strengths in isolated tasks don't translate to complex, collaborative work, highlighting the need for glue work and the limitations of memory and reinforcement learning in current systems.\"\n}",
+      "generated_at": "2025-11-09T23:36:57.560187",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "AbOM7IGIWoU",
+  "url": "https://www.youtube.com/watch?v=AbOM7IGIWoU",
+  "fetched_at": "2025-11-09T22:20:48.764653",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And so you should instead be thinking about the kinds of pain points that persist regardless of the intelligence of the model. What are the things that people struggle with where a smarter model wouldn't fix it? So as an example, if you are solving a painoint for someone and it's a coordination problem between multiple strands of software or multiple parts of their day or physical and digital, that is not something that more intelligence necessarily makes go away. Another example, if you are solving a painoint for someone and it bridges the uh physical world and the digital world. So you're providing a physical service mediated digitally or ordered digitally. That's not necessarily something that more intelligence makes goes it doesn't more intelligence doesn't fix that. Another example, if you are focused on providing a digital service, but the digital service is predicated on your user feeling like they got stuck in a way that isn't tied to immediate answers. That is a very powerful place to solve for it.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai limitations and persistent user pain points\",\n  \"tags\": [\"ai-limitations\", \"design-thinking\", \"product-design\", \"user-experience\", \"pain-points\"],\n  \"summary\": \"Examines why smarter AI doesn't solve certain user pain points, including cross-system coordination, physical-digital bridging, and experiences where users feel stuck rather than receiving immediate answers.\"\n}",
+      "generated_at": "2025-11-09T22:21:03.002307",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

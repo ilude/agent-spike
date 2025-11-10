@@ -1,0 +1,22 @@
+{
+  "video_id": "8fztJv-7bF4",
+  "url": "https://www.youtube.com/watch?v=8fztJv-7bF4",
+  "fetched_at": "2025-11-09T22:53:33.966583",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This test is the thing that showed me that this model cares more about how you drive it than any other model previously because I ran this same test on clawed code. I ran it on 03. I ran it on 03 Pro and I ran it on chat GPT5 and not just one chat GPT5 either. I ran it on chat GPT5 vanilla. I ran it on chat GPT telling it in the prompt to think hard. I ran it on chat GPT5 clicking the button think hard and I even ran it on chat GPT pro and you know what you would not believe at GPT5 vanilla with no think hard got the lowest score of the lot. It was lower than 03. It was lower than 03 pro. It was lower than cloud code and all the other chat GPT5 responses. In other words, that GPT5 was both the best and the worst response in the",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "artificial-intelligence, language-models, prompt-engineering, model-benchmark",
+      "generated_at": "2025-11-09T22:53:44.121694",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

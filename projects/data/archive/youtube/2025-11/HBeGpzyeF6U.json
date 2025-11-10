@@ -1,0 +1,22 @@
+{
+  "video_id": "HBeGpzyeF6U",
+  "url": "https://www.youtube.com/watch?v=HBeGpzyeF6U",
+  "fetched_at": "2025-11-09T23:27:27.859238",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And a needle in the haststack test is kind of what it sounds like. You stick like one random fact in the middle of a gigantic block of text and you test to see if the model can find it. The problem is this is all done under a very controlled environment and it does not measure the ability of an LL to synthesize between multiple pieces of specific context which by the way is exactly what you need it to do to do higher level thinking. It is what humans are able to do when they read a book. Granted, we don't memorize every part of the book we read, but we don't have the problem of saying, you know what, the book I'm reading right now, I remember it less well than the book that I read four years ago. We have the opposite problem. But with LLMs, it's the it's the other",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "large-language-models, ai-evaluation, context-integration, reasoning",
+      "generated_at": "2025-11-09T23:27:40.065513",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

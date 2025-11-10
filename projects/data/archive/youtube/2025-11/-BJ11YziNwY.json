@@ -1,0 +1,22 @@
+{
+  "video_id": "-BJ11YziNwY",
+  "url": "https://www.youtube.com/watch?v=-BJ11YziNwY",
+  "fetched_at": "2025-11-09T22:36:34.508732",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So the first truth to understand if you're in this bucket is that NAND has a visual workflow builder that genuinely democratizes automation. And that's part of why people gravitate to it. For the first time, it is really genuinely possible and this does work for non-programmers to build sophisticated AI agents just by dragging and dropping little nodes into a little tree. The second truth, which I've already hinted at, is that the same visual builder is a complexity trap. It has killed so many NADN implementations. So, ironically, the very feature that makes you want to use it is the feature that becomes unmaintainable at scale. But, but worry not, I'm going to give you a way through. I want to map out how to get from that honeymoon phase where you install it. You you you start to build your first node. You start to see data flowing across the screen. It feels so cool. It works. You feel like you've unlocked superpowers. You want to build 10 more of",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"visual workflow builders for AI automation: democratization and complexity\",\n  \"tags\": [\"no-code\", \"visual-programming\", \"ai-agents\", \"workflow-automation\"],\n  \"summary\": \"Explores how visual, drag-and-drop workflow builders enable non-programmers to create AI agents, while highlighting scalability challenges and strategies to avoid creeping complexity.\"\n}",
+      "generated_at": "2025-11-09T22:36:41.776730",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

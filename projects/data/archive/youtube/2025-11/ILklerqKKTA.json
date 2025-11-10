@@ -1,0 +1,22 @@
+{
+  "video_id": "ILklerqKKTA",
+  "url": "https://www.youtube.com/watch?v=ILklerqKKTA",
+  "fetched_at": "2025-11-09T23:02:16.172250",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Now, I'm not saying and I don't believe in a future where all of us will only build our own apps and we won't ever buy apps from each other. I don't think that's true. Cooking has been around for a long time. We have kitchens. We cook, but we still go out to restaurants. We still Door Dash. In the same way, we're still going to buy software. But I think knowing how to cook and knowing how to build are equivalently useful skills. And actually, knowing how to code is not more difficult than knowing how to cook now. It's it's become much simpler thanks to artificial intelligence. And so if you are listening to this and you have never tried building, this is my plea to you. I want you to not be left behind. I want you to be able to try. And that is why I have taken the time to break out these these tools and these leaders examples into discrete, specific, durable patterns. And if you are building, the durable patterns are pretty helpful, too. Because one of the things I hear from people who build is that it's hard to keep up. Everything changes. These durable patterns aren't going to",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Artificial intelligence and durable design patterns in programming\",\n  \"tags\": [\"artificial-intelligence\", \"coding\", \"design-patterns\", \"software-development\"],\n  \"summary\": \"A discussion on how AI lowers the barrier to coding, the analogy between cooking and building software, and the importance of durable design patterns in modern programming.\"\n}",
+      "generated_at": "2025-11-09T23:02:30.969680",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

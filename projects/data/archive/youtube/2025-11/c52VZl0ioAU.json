@@ -1,0 +1,22 @@
+{
+  "video_id": "c52VZl0ioAU",
+  "url": "https://www.youtube.com/watch?v=c52VZl0ioAU",
+  "fetched_at": "2025-11-09T23:27:48.344406",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "How do we expect them to maintain understanding across a lifetime of experience, particularly when they're not getting better at this? This is not a new issue. I am not telling you about something that did not exist when Chad GPT launched and now it does. I'm telling you about something that hasn't gotten solved. This is a limitation of our architectures that is partly a function of physics. One of the things that Google engineers have observed is that it is incredibly computationally intensive to use the full 1 million token context window. I don't know if you know this, but context scales quadratically. In other words, as you burn more tokens, if you if you send more tokens through, it's a quadratic equation that scales to the power of four in order to process those tokens.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"The Context Window Challenge in Large Language Models\",\n  \"tags\": [\"artificial-intelligence\", \"large-language-models\", \"context-window\", \"scaling-laws\"],\n  \"summary\": \"Explores how large language models struggle to maintain understanding over long sequences due to context window limits and quadratic scaling of token processing.\"\n}",
+      "generated_at": "2025-11-09T23:28:09.268495",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

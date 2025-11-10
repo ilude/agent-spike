@@ -1,0 +1,22 @@
+{
+  "video_id": "zflSgEBQ2AE",
+  "url": "https://www.youtube.com/watch?v=zflSgEBQ2AE",
+  "fetched_at": "2025-11-09T23:37:34.951659",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And so one of the things I want to call out is that if you are worried about losing your job to AI, remember AI cannot run a vending machine. It cannot successfully do the series of coordinated tasks to run a vending machine profitably. It loses money. Even if it can do those individual tasks really well, it can write a nice email to to the good people at Undone to check check the store. It can write a nice email to order new inventory. It can locate Dutch chocolate milk, which it did. It can get nice tungsten metal cubes. It did so many of these tasks, frankly, better than most human vending machine managers. I know of zero human vending machine managers that would bother to get Dutch chocolate milk for one vending machine. Zero. Let alone tungsten metal cubes. Did a phenomenal job at that. That did not mean that individual task capacity was enough to run the business",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai can't run a vending machine\",\n  \"tags\": [\"artificial-intelligence\", \"automation\", \"vending-machine\", \"business-automation\", \"ai-limitations\"],\n  \"summary\": \"The video argues that AI, despite handling individual tasks well, cannot coordinate all necessary operations to profitably run a real-world vending-machine business.\"\n}",
+      "generated_at": "2025-11-09T23:37:46.797644",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

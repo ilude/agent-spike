@@ -1,0 +1,22 @@
+{
+  "video_id": "slTArhGhulo",
+  "url": "https://www.youtube.com/watch?v=slTArhGhulo",
+  "fetched_at": "2025-11-09T23:35:53.679853",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Rag is currently a roughly2 billion dollar market, although that's exploding so fast it's hard to measure. It is on track for $40 billion plus by 2035. So many enterprises use rag. The loose running number is around 80% and they use it over fine-tuning because they perceive it as easier. So fine-tuning a model is perceived as more difficult, at least right now. And those that are engaging with AI, 73% of them say that they need real time data access. By the way, if you're wondering where am I making up these statistics from, I have a list of links in my Substack that you can go and follow up to find all of the actual stories that underly this. So as an example of a success story, LinkedIn had a significant reduction in support ticket resolution time because of rag. Because rag enabled them to know their",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Retrieval-Augmented Generation (RAG): Market Growth, Real-Time Data, and Use Cases\",\n  \"tags\": [\"rag\", \"retrieval-augmented-generation\", \"ai-market-trends\", \"enterprise-ai\"],\n  \"summary\": \"Explores the rapid growth of RAG, its adoption over fine-tuning, the demand for real-time data access, and a LinkedIn use case.\"\n}",
+      "generated_at": "2025-11-09T23:36:04.817843",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

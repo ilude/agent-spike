@@ -1,0 +1,30 @@
+{
+  "video_id": "3C2oZpoQ8ro",
+  "url": "https://www.youtube.com/watch?v=3C2oZpoQ8ro",
+  "fetched_at": "2025-11-09T19:23:27.960791",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Send this video to your manager. Tell your manager, \"Watch this. This is a problem for us. I can't get the budgeting I need to do my work.\" And if you're in leadership, this has got to be a call to action for you. You cannot look at traditional software budgeting the same way. This is not traditional software. I don't care if you call it agentic software. I don't care what the hype term is, but you've got to shift the way you budget for work and you've got to invest in your best employees so they can deliver this 2, three, four, 5x impact over the next couple years. So that is my challenge to you. We are we are not in old software land anymore. We are in new software land and there are new rules and there are new budgets and you have to invest in your team at a different level. Good luck.",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Rethinking software budgeting and investing in people\",\n  \"tags\": [\"software-budgeting\", \"leadership\", \"organizational-change\", \"employee-development\", \"enterprise-software\"],\n  \"summary\": \"Advocates shifting from traditional software budgets to investing in top employees to unlock large 2x-5x impact.\"\n}",
+      "generated_at": "2025-11-09T19:23:27.972400",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:27.985213",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

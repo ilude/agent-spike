@@ -1,0 +1,22 @@
+{
+  "video_id": "Z6CQ3-HoAJo",
+  "url": "https://www.youtube.com/watch?v=Z6CQ3-HoAJo",
+  "fetched_at": "2025-11-09T23:14:33.065353",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The assistant that I find ideal is the one that I touch daily because it's quick, it helps with simple tasks, it's accurate, and I don't have to babysit it. And this agent isn't any of those things. In fact, it's kind of doubling down on the framework that was problematic about operator. You have to babysit it. It takes a long time. It thinks a lot. It has more arms and legs now. It can connect to more stuff. It'll connect to Google Drive. It'll connect to Excel. It will do it. It legitimately has more capabilities. But the fundamental frame of you must babysit it, it's going to take a while, it has a lot of guard rail, so you have to intervene a lot. Hasn't changed. It's not different than it was. And I think that those those requirements are problematic enough that this is not going to be a widely adopted tool",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-assistant, ai-guardrails, human-in-the-loop, productivity-tools, task-automation",
+      "generated_at": "2025-11-09T23:14:52.197818",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "Y78OPk_mp3s",
+  "url": "https://www.youtube.com/watch?v=Y78OPk_mp3s",
+  "fetched_at": "2025-11-09T23:43:07.397942",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "What are the things we can think about with Chad GPT5 that we know from publicly released statements that we can then infer back into prompts that are useful even with today's model with claude 4 with Gro 3 with Gemini 2.5 Pro with the 03 and 03 Pro models I'm going to suggest a few ideas for you number one extreme specificity is a focusing mechanism these models are so big GPT5 will handle even more complex constraints if you master precise specifications now if If you can specify word counts, if you can specify formats, if you can specify requirements by number, if you can use XML tags in some cases, that specificity does not overwhelm these models. It actually helps you to focus them in ways that are useful. Number two, text is currency.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Chad GPT5 prompts and model capabilities\",\n  \"tags\": [\"prompt-engineering\", \"large-language-models\", \"prompt-design\", \"text-as-currency\"],\n  \"summary\": \"The video discusses using extreme specificity in prompts to steer large language models (including GPT-5-era models) and highlights that text can function as a valuable input currency.\"\n}",
+      "generated_at": "2025-11-09T23:43:21.899512",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

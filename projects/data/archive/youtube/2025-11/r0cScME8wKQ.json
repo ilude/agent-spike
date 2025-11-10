@@ -1,0 +1,22 @@
+{
+  "video_id": "r0cScME8wKQ",
+  "url": "https://www.youtube.com/watch?v=r0cScME8wKQ",
+  "fetched_at": "2025-11-09T23:30:46.455709",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Take take a task like a blog post. Let's say you're you know back in Nate's former chair. You're you're a marketer. We need to write a blog post about sustainable packaging. You can just say, \"Hey, give me five trends in sustainable packaging. Give me a sentence each. Okay, great. Now create a detailed outline for a thousandword article. Okay, great. Write the first paragraph. Help me see your hook. Okay, let's twe twe tweak it. Tweak it. Okay, now I like it. Write section one. Write section two.\" You're going to be done with that blog post in 15 minutes versus two hours. Traditionally, it's a huge savings for SEO type document creation. I will hasten to add it is extremely good at document creation, which may lead you to think it is extremely good at strategy. Those are different things. If you want a good strategic partner, that is not the workflow to go through. You still need to bring your brain if you were doing strategic thinking.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-assisted blog-post drafting: fast content creation vs strategic thinking\",\n  \"tags\": [\"ai-writing-tools\", \"content-creation\", \"blog-writing\", \"marketing-strategy\", \"seo\"],\n  \"summary\": \"Explains using AI to quickly draft blog posts and outlines the distinction between AI-assisted workflow and true strategic thinking in marketing.\"\n}",
+      "generated_at": "2025-11-09T23:31:00.281945",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

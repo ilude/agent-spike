@@ -1,0 +1,22 @@
+{
+  "video_id": "TBXoNaEqT6c",
+  "url": "https://www.youtube.com/watch?v=TBXoNaEqT6c",
+  "fetched_at": "2025-11-09T23:43:28.989438",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number four. Number four. Ha. Structured output is a baseline. So stop asking just for thoughts. Demand scorecards. Ask for matrices. Ask for tables if you're in 03. I'm just kidding. It will give you tables anyway. Ask for phased plans. Ask for structured outputs in your document. Whatever it is. The more specificity you give in the output, the more it's going to give you what you are looking for. I don't think this is necessarily new. We've started to talk about this for a while, but we haven't put it in the context of GPT5. GPT5 is going to reinforce the value of those best practice prompt architectures. Let's look at prompt designs. You need to have an interrogative principle. The best prompts expect the model to ask questions. I would assume GPT5 will take some of what OpenAI practiced in deep research and we'll ask questions.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"gpt-5 prompt design and structured outputs\",\n  \"tags\": [\"prompt-engineering\", \"gpt-5\", \"structured-output\", \"prompt-design\"],\n  \"summary\": \"Explores how structured outputs and interrogative prompting improve GPT-5 performance, advocating for scorecards, matrices, tables, and phased plans to elicit precise results.\"\n}",
+      "generated_at": "2025-11-09T23:43:47.097568",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

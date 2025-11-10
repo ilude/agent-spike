@@ -1,0 +1,22 @@
+{
+  "video_id": "FxBCjEvN248",
+  "url": "https://www.youtube.com/watch?v=FxBCjEvN248",
+  "fetched_at": "2025-11-09T23:23:39.317481",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So where do you go from here? I want to suggest that we go back to what has made startups an attractive place to work for people who build for a long time. It's actually not the risk. It's a little bit of the equity and the upside. Let's not kid ourselves. But it's the passion for the problem space. That is what distinguishes people who stay in startups. That is what distinguishes people who stay in tech. They are passionate about solving a particular problem with technical leverage. And if you don't have that, it doesn't matter if you're an engineer, like you have to be passionate about the problem space. If you don't have that passion, it is going to be difficult for you to stand out. And I've seen over and over again, if you do have that passion, you find a way in a door by hook or by crook.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "startups, tech-careers, problem-solving, startup-culture, career-advice",
+      "generated_at": "2025-11-09T23:23:46.129454",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

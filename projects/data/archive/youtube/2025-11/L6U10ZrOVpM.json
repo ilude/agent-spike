@@ -1,0 +1,22 @@
+{
+  "video_id": "L6U10ZrOVpM",
+  "url": "https://www.youtube.com/watch?v=L6U10ZrOVpM",
+  "fetched_at": "2025-11-09T22:49:23.362512",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Number one, rollouts for chat GPT5 are going to be different from rollouts for anything else because of the way they've made it one model. And so when we think about it from that frame, certain implications fall out that are new and different based on previous AI rollouts for orgs. First, you have to tell people how to prompt and access the power behind the model. That's why I called out think hard. Second, it can tackle big, gnarly, data heavy problems in the chat the way it never could before. You have to be responsible for the data you put in, for making it clean. You have to be responsible for teaching people to prompt it well. And you have to be responsible for reminding people that it does that work best when you invoke those tools by demanding artifacts, by demanding proof of work, by demanding that it actually shows how it did the work. Not that you tell it how to, but that you demand the artifacts that shows that it did the work. And that's a that's a fine distinction, but it's important to emphasize because telling it how to that doesn't matter. But saying, \"I want you to show me the greater you use.\" Well, that's actually helpful.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-rollouts-for-chatgpt-5-prompting-and-artifacts\",\n  \"tags\": [\"ai-rollout-strategy\", \"prompt-engineering\", \"data-quality\", \"output-verification\"],\n  \"summary\": \"Discussion on GPT-5 rollout differences for a single-model AI, emphasizing prompting mastery, data hygiene, and the need to require artifacts or proof of work to verify the model's outputs.\"\n}",
+      "generated_at": "2025-11-09T22:49:36.105887",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "pB_BtyHjzKE",
+  "url": "https://www.youtube.com/watch?v=pB_BtyHjzKE",
+  "fetched_at": "2025-11-09T23:38:39.806563",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I now want to give you the 11 people that I think will give you the most signal versus noise that I can find anywhere on the internet for AI. Number one, probably haven't heard of him, Simon Willis. He co-created Django, the language. He coined the term prompt injection. He writes phenomenal blog posts and he has a ton of them, like over 1300. He's built LLM command line tools and he's absolutely an authoritative resource. Ethan Mullik is number two. He is tremendously influential on AI. He wrote a book on it. He's a Wharton professor and he has been tremendously clear about describing the impact of AI on both academia and",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "Please provide the YouTube video URL so I can fetch the metadata and transcript to generate accurate tags.",
+      "generated_at": "2025-11-09T23:38:51.202935",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

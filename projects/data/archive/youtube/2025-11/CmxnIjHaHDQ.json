@@ -1,0 +1,22 @@
+{
+  "video_id": "CmxnIjHaHDQ",
+  "url": "https://www.youtube.com/watch?v=CmxnIjHaHDQ",
+  "fetched_at": "2025-11-09T23:00:33.360082",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Sub agents enable multi- aent workflows like opponent processors or parallel task agents and this allows you to build promptbased setups that are quite complex. Now if you can get into responsible manual orchestration of these sub agents and give them separate rules and give them separate tasks you can do incredible incredible things. You can have one agent that's expanding your pre your your PRD. You can have another agent architecting. You can have a third agent building etc. It is really really important though to follow these principles as you apply it because sub agents essentially just accelerate you. They don't actually give you different capabilities. They just enable you to go faster if you're applying these principles successfully. And so I want to go through these six again and make sure you really understand them. I don't want you to be confused by the tool mentioned. I want you to think about the principles.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"sub agents and multi-agent workflows\",\n  \"tags\": [\"multi-agent-systems\", \"prompt-engineering\", \"workflow-automation\", \"parallel-processing\"],\n  \"summary\": \"Discussion on how sub-agents enable complex multi-agent workflows and the importance of responsible orchestration and principles.\"\n}",
+      "generated_at": "2025-11-09T23:00:44.686689",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

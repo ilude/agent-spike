@@ -1,0 +1,22 @@
+{
+  "video_id": "gHfZkXz6hOc",
+  "url": "https://www.youtube.com/watch?v=gHfZkXz6hOc",
+  "fetched_at": "2025-11-09T22:04:15.430345",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Every department is full of those kinds of opportunities and the gap is our ability to understand how quickly AI is scaling and how much capability we have on the table. Most managers have no idea how much AI opportunity there is in their space. Like I look at it when I come in and I'm like 80 or 90% of the AI opportunity is untouched. You guys are sitting here talking about, you know, how Copilot can do this and that or how chat GPT can do this and that. Great. I'm glad you're chatting with chat GPT. I'm glad you're using Copilot for your emails. Have you thought in workflows? Have you thought about the impact your team is delivering and worked back from that into your pain points? No. Well, maybe we should start with that and then get into training. And so yes, when I build prompts, when I think about what teams need, I think about how to build prompts that are going to be supportive of workflows.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Identifying Untapped AI Opportunities Through Workflows\",\n  \"tags\": [\"ai-adoption\", \"workflow-automation\", \"prompt-engineering\", \"enterprise-ai\"],\n  \"summary\": \"Explains how organizations underestimate AI opportunities, emphasizing workflow design and prompts to scale AI impact beyond basic tools like Copilot and ChatGPT.\"\n}",
+      "generated_at": "2025-11-09T22:04:36.548803",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

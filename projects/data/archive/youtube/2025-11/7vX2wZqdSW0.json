@@ -1,0 +1,22 @@
+{
+  "video_id": "7vX2wZqdSW0",
+  "url": "https://www.youtube.com/watch?v=7vX2wZqdSW0",
+  "fetched_at": "2025-11-09T22:56:10.424235",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The last thing that I want to call out is templatization. And this is something that, you know, we have gone after for a long time. If if you've ever done consulting, people talk about templatizing your services all the time. The difference with AI is that AI enables you to do much much more interesting things with templates. Prompts can be living templates. Templates can be extended through prompting at the end of the end of the engagement surface with the client. templates themselves become more customized and distinct service offerings because AI makes it so easy to extend tokens to the value chain that the customer is bringing. This is reflective of the fact that software itself is changing. Software can be more customized now because it is so cheap to write code. Similarly, consulting can be more focused on individual customers than was practical before and still utilize the power of templates because it's cheaper to customize those templates Down.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "templatization, ai-enabled-templates, living-prompts, customized-services",
+      "generated_at": "2025-11-09T22:56:18.547035",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

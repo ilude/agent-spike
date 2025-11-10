@@ -1,0 +1,22 @@
+{
+  "video_id": "5-zOidxXYmQ",
+  "url": "https://www.youtube.com/watch?v=5-zOidxXYmQ",
+  "fetched_at": "2025-11-09T22:53:11.195474",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I'm also going to call out that they were right that it's a better writer. I've spent a lot of time talking about data analysis. I've talked about coding. The model's writing is the best I've ever seen from Chad GPT. I loved's writing. I thought it was a great writer. Chad GPT5 is at least as good and strikes me as slightly better with cadence and pros. It's clear. It still tends to over anchor to the recency of the prompt. So if you give it a prompt, it tends to like glom onto that and you may have issues with framing when you're trying to write. So again, it rewards clarity of intent, but it is a really really thoughtful writer and it writes with pros that is not horrific to read, which is kind of nice. I will also say it's a good reader. actually fed it an essay in handwriting and it was able to quickly declode the handwriting, decode the separate set of handwriting for edits and generate its own coherent thinking around the essay.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ChatGPT5: improved writing quality and handwriting decoding\",\n  \"tags\": [\"ai-writing\", \"chatgpt\", \"natural-language-generation\", \"handwriting-recognition\", \"prompt-engineering\"],\n  \"summary\": \"The video discusses ChatGPT's enhanced writing quality and cadence, its sensitivity to prompt framing, and its ability to decode handwriting for edits and coherent analysis.\"\n}",
+      "generated_at": "2025-11-09T22:53:21.866226",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

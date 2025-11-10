@@ -1,0 +1,22 @@
+{
+  "video_id": "qqKf3YhU-lA",
+  "url": "https://www.youtube.com/watch?v=qqKf3YhU-lA",
+  "fetched_at": "2025-11-09T23:15:44.253827",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I don't see a ton of progress on those very hard problems in this particular release. And I'm not saying it's not better. I think Excel is a significant enough skill gain that I would have released it too if I was working on this project. It's a big deal. A lot of the western world runs on Excel. A lot of the whole world runs on Excel. Let's just be honest. And so yeah, it's worth releasing if it can help with like even 15 20% of your Excel work. Really what OpenAI is doing is they are engaged in a decadel long project. That's a guess, but like a long-term project to build the world's most powerful generalpurpose AI agent that can navigate our computers the way Tesla is building cars to navigate the streets. To do that, they have to get us to let this agent mode use our computers a lot. They have to get it out in the",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"OpenAI's long-term goal: a general-purpose AI agent and the role of Excel\",\n  \"tags\": [\"openai\", \"ai-agent\", \"excel\", \"general-purpose-ai\"],\n  \"summary\": \"Discusses the significance of Excel and OpenAI's long-term plan to develop a general-purpose AI agent capable of navigating computers.\"\n}",
+      "generated_at": "2025-11-09T23:15:55.166532",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

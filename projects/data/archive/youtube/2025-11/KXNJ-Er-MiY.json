@@ -1,0 +1,22 @@
+{
+  "video_id": "KXNJ-Er-MiY",
+  "url": "https://www.youtube.com/watch?v=KXNJ-Er-MiY",
+  "fetched_at": "2025-11-09T23:35:37.789259",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "A lot of the fancy work that companies do to keep context windows open a long time basically revolves down to this fancy memory management. This is one of the reasons why OpenAI feels like it has a larger context window even though it doesn't. They don't exactly reveal what they do, but basically they do some fancy work with memory management to keep the conversation flowing longer. Whereas Claude has a pretty hard memory cap and they aren't keeping the conversation longer with a technique like this right now at least. And so you'll run into the you've run out of memory on Claude really fast. And what's fascinating is people think that means that Claude has shorter context windows and shorter memory, but that's not true. OpenAI is fooling you with fancier memory management.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Memory management tricks and context windows in AI models: OpenAI vs Claude\",\n  \"tags\": [\"memory-management\", \"context-window\", \"openai\", \"claude-ai\", \"large-language-models\"],\n  \"summary\": \"The video discusses how AI models extend their usable context by advanced memory management, comparing OpenAI and Claude's approaches.\"\n}",
+      "generated_at": "2025-11-09T23:35:44.986282",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

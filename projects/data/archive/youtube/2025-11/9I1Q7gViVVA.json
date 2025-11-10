@@ -1,0 +1,22 @@
+{
+  "video_id": "9I1Q7gViVVA",
+  "url": "https://www.youtube.com/watch?v=9I1Q7gViVVA",
+  "fetched_at": "2025-11-09T23:17:22.572359",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So, just as we defined AI agents that are doers, as LLMs and tools and guidance, I'm going to tell you that if you want to use agents as modelers, you add one thing more. You have agents that are LLMs with tools and guidance in a simulated world. That's the last part. And that's why the simulation matters so much with the warehouse that Jensen introduced. Every other example we have of model building simulates the world. Now, it might not be like a 3D video game world simulation. It might be a simulation that models the relevant constraints of the world in text in words. That can happen too. And all you have to do, like we we do this all the time, there are prompts that will set up your LLM to act as an agent within a reality simulator. And all you're doing is telling the agent to act in a certain way with this policy and guidance given these constraints around the",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Using AI Agents as Modelers in Reality Simulators\",\n  \"tags\": [\"ai-agents\", \"large-language-models\", \"simulation\", \"world-modeling\", \"prompt-engineering\"],\n  \"summary\": \"Discussion of configuring LLM-based agents with tools and guidance to operate inside simulated environments for model-building tasks.\"\n}",
+      "generated_at": "2025-11-09T23:17:33.822246",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

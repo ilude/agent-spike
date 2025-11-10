@@ -1,0 +1,22 @@
+{
+  "video_id": "SfcPjQgn1Ro",
+  "url": "https://www.youtube.com/watch?v=SfcPjQgn1Ro",
+  "fetched_at": "2025-11-09T23:33:24.439181",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "product can then take that analysis that you get from marketing. Maybe you throw a chart in there, right? Copilot can help with that. And it can then say, \"Hey, can you help me prioritize these feedback themes? How do they align to our existing roadmap?\" And it can invoke like roadmap. dox and it can put them together and they can say, \"Hey, this could slot in here. This could slot in here.\" That creative streamlining is something that PMs have historically been very frustrated by because it means revisiting a road map and changing it all the time. This makes some of that pain easier. It means that marketing has more of a voice with product. It is one of the advanced workflows that ultimately pays for itself not just in sort of the time and alignment and lack of frustration but in the right feature getting built for customers more often. Is it perfect? No. RPM still going to argue about the road map 100%. But it gives you a sense of what Copilot can do beyond just help me with my",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"copilot-assisted product-management workflows\",\n  \"tags\": [\"product-management\", \"ai-for-product-management\", \"roadmap-prioritization\", \"marketing-product-collaboration\"],\n  \"summary\": \"Explores how an AI copilot can streamline product management by prioritizing feedback and aligning roadmaps with marketing input to deliver the right features.\"\n}",
+      "generated_at": "2025-11-09T23:33:37.736985",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

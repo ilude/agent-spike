@@ -1,0 +1,22 @@
+{
+  "video_id": "2VmyJu5bbNY",
+  "url": "https://www.youtube.com/watch?v=2VmyJu5bbNY",
+  "fetched_at": "2025-11-09T23:37:08.375852",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The point here is not whether or not AI can sell snacks. It's that this is an incredibly clean, controlled experiment that measures whether an AI has a lot of the basic glue work capabilities that people have to demonstrate in the real world to do real economic work. And AI is failing at that right now. That doesn't mean it will always fail. That doesn't mean that they're not actively working on improving it. That doesn't mean that Anthropic was wrong to publish this or share it. They did the whole industry a huge favor. Again, I'm going to say I think this is the most useful test for artificial general intelligence I think I've seen. It's simple. It's clean. It's repeatable. I want 03 to run a vending machine. I want to see if 03 Pro can do it better. I am not sure we have any model out there now that can successfully run a vending machine. I'm just going to put that stake in the ground. I think we will have one that can run a vending machine pretty",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI Vending Machine AGI Test\",\n  \"tags\": [\"artificial-general-intelligence\", \"ai-testing\", \"vending-machine\", \"ai-research\", \"anthropic\"],\n  \"summary\": \"A discussion of a clean, repeatable experiment to evaluate AI's ability to perform real-world, glue-work tasks, using a vending-machine scenario to probe progress toward artificial general intelligence.\"\n}",
+      "generated_at": "2025-11-09T23:37:24.072128",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

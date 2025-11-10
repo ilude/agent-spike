@@ -1,0 +1,22 @@
+{
+  "video_id": "JY2Wgf4LOwc",
+  "url": "https://www.youtube.com/watch?v=JY2Wgf4LOwc",
+  "fetched_at": "2025-11-09T23:19:33.635747",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "There has been an implicit contract in the valley where founders are in it for the long haul with their companies. If that starts to break down because the AI salary pressures are so insane that it is better to be an employee than to be a founder at a major R&D firm like Google for AI. We have cracks in the Silicon Valley ecosystem. It does not sit well with me that a founder would be rewarded for walking away from their startup and leaving their employees in the lurch. So, as much as I agree with Gurgaly that on paper is better than the outcome the company could have had, I don't think it is a good thing that builds trust in the ecosystem long term. I think it's negative for the ecosystem. I don't think Google did a service to the valley",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "silicon-valley, startup-ecosystem, ai-talent-market, founder-employee-dynamics",
+      "generated_at": "2025-11-09T23:19:40.658660",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

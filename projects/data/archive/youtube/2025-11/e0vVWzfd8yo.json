@@ -1,0 +1,22 @@
+{
+  "video_id": "e0vVWzfd8yo",
+  "url": "https://www.youtube.com/watch?v=e0vVWzfd8yo",
+  "fetched_at": "2025-11-09T22:52:32.239426",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I think that we are living through an ongoing intelligence evolution and none of us know where it's all going to end up or top out. And to me, this feels roughly in line with the ongoing intelligence explosion. And we will see more updates in chat GPT6. And we will see more updates from Gemini. And we'll see more updates from Claude. Claude talked about it already. We'll see more from Grock. Enjoy this step in the new intelligence explosion. Don't overindex on whether you personally think this is the best model in the world or not. Figure out if it's useful to you. Use it well. If it's not useful to you, another model's going to come along next week that will be. Like, that's the world we're living in. It's an incredible world. and look at the overall trajectory.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"unknown\",\n  \"tags\": [\"artificial-intelligence\", \"ai-trends\", \"intelligence-explosion\", \"future-of-technology\"],\n  \"summary\": \"A discussion of the ongoing AI intelligence explosion and rapid updates across major models, emphasizing usefulness and future progress.\"\n}",
+      "generated_at": "2025-11-09T22:53:02.478243",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

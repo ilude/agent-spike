@@ -1,0 +1,22 @@
+{
+  "video_id": "djjyV9pQI5w",
+  "url": "https://www.youtube.com/watch?v=djjyV9pQI5w",
+  "fetched_at": "2025-11-09T22:44:35.365105",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you ask for JSON and you just say please return JSON. For whatever reason, chat GPT5 doesn't always do that. Sometimes it does, sometimes it's invalid JSON objects. I would recommend that you ask specifically for structured outputs with JSON schema. And if you use JSON a lot, I would recommend getting into custom instructions with it and actually specifying what you're looking for. It's not that the system doesn't know it. It's that for whatever reason, each every model has flavors and tweaks. This model in early testing has had some issue with JSON objects. Now, that's not for every single one. This was specifically in some of the smaller versions of GPT5. GPT5 Mini had this issue. And so, you might also switch to a different model. That's going to feel like a very coding specific tip, but we use these models for a lot of things and coding is one of",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"untitled-video-about-json-outputs-in-ai-models\",\n  \"tags\": [\"json-outputs\", \"structured-outputs\", \"custom-instructions\", \"language-models\"],\n  \"summary\": \"Discussion on reliability of JSON outputs from language models, using structured outputs with JSON schema, and the role of custom instructions and model variants in prompting.\"\n}",
+      "generated_at": "2025-11-09T22:44:50.163570",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

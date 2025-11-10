@@ -1,0 +1,22 @@
+{
+  "video_id": "hxqR2M7_4ds",
+  "url": "https://www.youtube.com/watch?v=hxqR2M7_4ds",
+  "fetched_at": "2025-11-09T23:44:53.399248",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Here's cloud code. It's just another chatbot. It happens to live in a terminal and I can talk to it. Maybe that gets you over the fear if you're not an engineer. If you are an engineer, I would encourage you when you're sharing about your cloud code projects. Yes, talk about how amazing Claude is where it illustrates the token burn and it's really smart at actually executing what you want and it has a high follow through. You can talk about the caveats and the drawbacks in certain situations. It is unfortunate that you can't see the code that you're writing. Right? I'm not saying it replaces everything, but also mention if you're an engineer or you're a regular user of claude code that this is not just a coding agent. It is more than that. is effectively a general purpose agent that lives in your terminal.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"claude-code: terminal-based general-purpose AI agent\",\n  \"tags\": [\"terminal-chatbot\", \"ai-assistant\", \"coding-assistant\", \"cloud-computing\"],\n  \"summary\": \"Discussion of Claude Code as a terminal-based general-purpose AI agent for coding and interaction, highlighting capabilities, limitations, and use cases.\"\n}",
+      "generated_at": "2025-11-09T23:45:07.811465",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

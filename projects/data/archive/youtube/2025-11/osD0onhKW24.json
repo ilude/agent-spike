@@ -1,0 +1,22 @@
+{
+  "video_id": "osD0onhKW24",
+  "url": "https://www.youtube.com/watch?v=osD0onhKW24",
+  "fetched_at": "2025-11-09T21:57:11.989992",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "if you guys would share ways you are using Excel and if you guys would talk specifically about what that speed up feels like when you're using it well versus the speed up you get from using AI for words because I continue to come back to this idea that AI for words was huge. It was like a 10 or 100x speed up, but the potential with Excel is a thousandx because of how complex these numeric structures are. They're not lists of numbers. They're complicated multi-heet, hundreds of formula, multi-ellular structure messes. And now we can finally deal with them. So that's why I'm excited for AI for Excel, for leveraging numbers and going farther in",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "excel, ai-in-spreadsheets, data-analysis, spreadsheet-automation",
+      "generated_at": "2025-11-09T21:57:20.513232",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

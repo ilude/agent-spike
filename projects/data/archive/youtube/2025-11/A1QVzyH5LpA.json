@@ -1,0 +1,22 @@
+{
+  "video_id": "A1QVzyH5LpA",
+  "url": "https://www.youtube.com/watch?v=A1QVzyH5LpA",
+  "fetched_at": "2025-11-09T21:55:15.559178",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The larger lesson for PowerPoint is that unlike producing text, unlike producing numbers in Excel, now PowerPoint is really finicky with AI, but it is production ready if you know how to think in systems. In a sense, PowerPoints are the result of narratives of conflict over data. And what you are doing is you are exposing the data processing logic that you always needed to do, but it was in your head. And now you have to express your intent clearly and get it into PowerPoint. This means you can now systematically generate enterprise PowerPoint decks full stop. not maybe with the right prompt eti at scale you can generate enterprise powerpoint decks with quality that pass executive",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"powerpoint-ai-systems-thinking\",\n  \"tags\": [\"powerpoint\", \"ai\", \"data-storytelling\", \"enterprise-decks\", \"presentation-design\"],\n  \"summary\": \"This video explains how to leverage AI with PowerPoint to generate enterprise decks by externalizing data-processing logic and crafting narratives around data.\"\n}",
+      "generated_at": "2025-11-09T21:55:28.972839",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

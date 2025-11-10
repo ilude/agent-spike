@@ -1,0 +1,22 @@
+{
+  "video_id": "7dXzHqjV4dk",
+  "url": "https://www.youtube.com/watch?v=7dXzHqjV4dk",
+  "fetched_at": "2025-11-09T23:28:18.481174",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The problem is this. Fundamentally, when the transformer reads that context, it does not read it as a structure. It reads it as a string of tokens. And so larger structures within the document within the codebase can get lost. And that is why agentic search is picking up versus just semantic rag for context windows for code bases. And by context window in this case, like rag is obviously not the context window. Oh, it's like part of the context engineering that you're doing for the codebase. The point is having a search function can beat just semantic meaning for code bases because there's so much structure in code bases. And that is just one example of where we can go wrong when we assume that context windows just as vanilla fill the prompt and add the doc context windows work. They don't necessarily work",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "transformers, retrieval-augmented-generation, codebases, context-windows",
+      "generated_at": "2025-11-09T23:28:27.881468",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

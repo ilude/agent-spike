@@ -1,0 +1,22 @@
+{
+  "video_id": "LGyCCejDmMY",
+  "url": "https://www.youtube.com/watch?v=LGyCCejDmMY",
+  "fetched_at": "2025-11-09T23:46:22.170694",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "This is not a cheating tool. This is an agentic, proactive tool that layers across all of your apps. But it's brilliant. It's brilliant to categorize it as a cheating tool because that's one word that is high impact, that is emotional, that divides generations, that sort of taps into this sense of of we deserve this and we're not going to get it that I hear from so many of my friends and colleagues who are Gen Z. And so I and that's not me talking like I I get it, right? But the marketing is designed to hit that button emotionally as as a marketer who has sat in the marketing chair. That's extremely deliberate. And Roy is a little bit honest about that in some of his interviews. So if you're going to talk about Clo, you need to separate the marketing piece from the product piece. You need to understand that what A16Z really invested in is the product piece. They",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Marketing vs Product in AI Tools: A16Z Investment and Gen Z Perspectives\",\n  \"tags\": [\"ai-tools\", \"product-vs-marketing\", \"generational-marketing\", \"venture-capital\"],\n  \"summary\": \"Examines the distinction between marketing rhetoric and the actual product in an AI agent tool, with notes on A16Z's investment focus and Gen Z perspectives on tech.\"\n}",
+      "generated_at": "2025-11-09T23:46:34.353315",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

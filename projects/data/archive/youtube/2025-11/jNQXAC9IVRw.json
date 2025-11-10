@@ -1,0 +1,29 @@
+{
+  "video_id": "jNQXAC9IVRw",
+  "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+  "fetched_at": "2025-11-09T19:49:07.003928",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "All right, so here we are, in front of the\nelephants the cool thing about these guys is that they\nhave really... really really long trunks and that's cool (baaaaaaaaaaahhh!!) and that's pretty much all there is to\nsay",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"elephants and trunks\",\n  \"tags\": [\"elephants\", \"wildlife\", \"nature\", \"zoology\"],\n  \"summary\": \"A short video observation focusing on elephants and their notably long trunks, highlighting basic wildlife characteristics.\"\n}",
+      "generated_at": "2025-11-09T19:49:28.117409",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:49:29.281387",
+      "collection_name": "cached_content",
+      "notes": "Full transcript embedding"
+    }
+  ]
+}

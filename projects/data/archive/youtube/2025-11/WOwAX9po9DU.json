@@ -1,0 +1,22 @@
+{
+  "video_id": "WOwAX9po9DU",
+  "url": "https://www.youtube.com/watch?v=WOwAX9po9DU",
+  "fetched_at": "2025-11-09T22:56:31.483194",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And I find that this is where a lot of consultants, whether they're established or whether they're new, go astray. They tend to say, \"We're going to zero in on AI. All we do is AI.\" But AI is it's hard to put your fingers on. I've talked about that already in this video. It's a general purpose technology. You can do it with development. You can do it with process change. You can do it with a dozen other things in the consulting world, marketing, etc. You need to pick a particular domain that you can own. You need to pick a particular domain where if you have an opinion on how AI agents should be deployed in that domain, you you should be believed. You have authority there. You have a decade of experience. That is part of why when I speak about product and AI, I tend to have very strong opinions because I did product management for a long long time. When I speak about founding an AI, I tend to have opinions because I have found it before, etc.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"unknown\",\n  \"tags\": [\"ai-in-consulting\", \"domain-expertise\", \"ai-deployment\", \"product-management\", \"ai-strategy\"],\n  \"summary\": \"Discusses why consultants should focus on a specific domain to apply AI effectively, leveraging domain expertise and product-management experience to shape AI deployment and strategy.\"\n}",
+      "generated_at": "2025-11-09T22:56:42.210484",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "IR-0wJaFGJg",
+  "url": "https://www.youtube.com/watch?v=IR-0wJaFGJg",
+  "fetched_at": "2025-11-09T23:47:52.313795",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And in fact, the f the fact that they're doing that, right? The fact that they are telling a story that isn't real at root because you can't just plug agents in like USB. Like you can't just plug them in without modification from any from any source whatsoever and stick them into data and just expect it all to magically work. It does not work that way. And if you sell that vision, what you are selling is the reason why so many enterprise companies are walking away from AI after an investment and why so many enterprise AI projects don't launch. It's because of advice like this. And so part of why I am punching up on McKenzie a little bit is I need people who have seuite and board ears to tell the truth about building AI, to tell the truth about how complex AI systems are. That yes, there is a power law of payoffs. If you invest and you get true AI agentic systems and you can implement them at the enterprise level there there is big money on the",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"The Reality of AI in Enterprise: From Promises to Implementation\",\n  \"tags\": [\"enterprise-ai\", \"ai-agents\", \"data-integration\", \"ai-implementation\"],\n  \"summary\": \"A critique of hype around AI agents in enterprise settings and the challenges of integrating and implementing complex AI systems at scale.\"\n}",
+      "generated_at": "2025-11-09T23:48:03.991502",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

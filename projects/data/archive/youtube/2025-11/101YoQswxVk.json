@@ -1,0 +1,22 @@
+{
+  "video_id": "101YoQswxVk",
+  "url": "https://www.youtube.com/watch?v=101YoQswxVk",
+  "fetched_at": "2025-11-09T23:33:03.187251",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "sales to implementation. Let me give you an example here. Sale can sales can create a deal summary using co-pilot and it can say extract all technical requirements from this contract so our engineering team can understand it. Copilot will go through it will extract the technical requirements. I would recommend reading it again just to make sure. But it's going to give you a technical summary and engineering will then get a clean requirements list. Engineering can then use copilot to say hey can you create an implementation timeline based on these requirements? engineering in most cases will look at that implementation timeline, swear at it, go to lunch, come back, have a beer, and then write the actual one down. But I find even if you're upset with a co-pilot estimate, it still moves the ball forward because it gets you off the blank page.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-copilots-for-requirements-extraction-and-implementation-planning\",\n  \"tags\": [\"ai-copilot\", \"requirements-engineering\", \"contract-analysis\", \"project-planning\"],\n  \"summary\": \"Explains how an AI copilot can extract technical requirements from a contract and help engineering create an implementation timeline to move projects forward.\"\n}",
+      "generated_at": "2025-11-09T23:33:15.750052",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

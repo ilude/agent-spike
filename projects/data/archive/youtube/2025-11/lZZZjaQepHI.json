@@ -1,0 +1,22 @@
+{
+  "video_id": "lZZZjaQepHI",
+  "url": "https://www.youtube.com/watch?v=lZZZjaQepHI",
+  "fetched_at": "2025-11-09T23:47:30.487374",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "and they have too much jaggedness in their intelligence to be good at enough of everything to be trusted with highle tasks at this point. Instead, we should be building our software for the assumption that humans will need to be validators in the loop that AI can generate and human needs to validate. And we need to think about software as a design problem from that perspective. And he suggests there's two ways to make this easy. One is pretty obvious. Make the the checking responsible validation loop as easy as you possibly can. That's software 101. But the second is a little bit more controversial. Andre suggests putting the LLM on a short leash, deliberately constraining AI generation so that you don't have so much AI generation that you overwhelm evaluators. An example of this would be the AI generating hundreds of different ad variants, but the human only being able to validate 10 of them. Well, what's the point? You're just wasting energy at that point. And I appreciate his honesty on that",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"human-in-the-loop: constraining ai generation for validators\",\n  \"tags\": [\"ai-safety\", \"human-in-the-loop\", \"large-language-model\", \"software-design\", \"ai-generated-content\"],\n  \"summary\": \"Discussion on designing software to keep humans in the validation loop and strategies to constrain AI output to avoid overwhelming evaluators.\"\n}",
+      "generated_at": "2025-11-09T23:47:42.641838",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "ehmuyDGx1xA",
+  "url": "https://www.youtube.com/watch?v=ehmuyDGx1xA",
+  "fetched_at": "2025-11-09T21:48:01.192690",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I think it's important not just for whether you pick claude or codeex which we'll get into. It's also important for how we think about how we want to collaborate with AI going forward because we have to kind of pick a vision that we want to sign up for and it leaks into the rest of the Asian ecosystem. So if you want to pick Claude, you're sort of voting for a future where you want to collaborate with AI almost like a peer and you want to be able to give your claude a number of different tasks to go after during the day and it will pick up the tools it needs and it will go get them done and come back. That is very broadly the vision that we are starting to see come together from Anthropic. On the other hand, if you are someone who's like no really I need to build production systems. I need to make sure I have exactly what I need for this agent. Cannot fool around with did the clawed code come back with the right eight pages of analysis or not. It must be correct every time. I want for lack of a better term more deterministic intelligence. Fine. That's fine. At that point, you need to sign up with codeex. But your aentic vision of the future.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-collaboration, ai-agents, deterministic-ai, ai-in-production",
+      "generated_at": "2025-11-09T21:48:12.634240",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "kXpHgR7u5n4",
+  "url": "https://www.youtube.com/watch?v=kXpHgR7u5n4",
+  "fetched_at": "2025-11-09T21:53:11.633677",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "If you deeply understand the regulatory environment around real estate acquisition in particular state, whatever your expertise is, build vertical specific orchestration frameworks, embed the domain expertise inside the workflow as much as you can, but keep it out of the model because then you can swap the model in and the model will learn your verticals, compliance, terminology, decision patterns, etc. from the tools, from the context, from the orchestration layer and be able to operate. And so for example, a legal compliance framework might understand privilege. A healthcare memory system might understand consent in a certain way. Manufacturing agents can understand equipment history. You get the idea. But critically, these require the ability to call in that context, not to assume the model has it built",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Domain-aware AI workflows for regulatory real estate acquisition\",\n  \"tags\": [\"domain-knowledge\", \"workflow-orchestration\", \"regulatory-compliance\", \"real-estate-regulation\", \"vertical-ai\"],\n  \"summary\": \"Explains how embedding domain expertise in the workflow/orchestration layer enables regulatory-compliant real estate acquisition AI, allowing the model to be swapped while context stays in the orchestration layer.\"\n}",
+      "generated_at": "2025-11-09T21:53:26.428499",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

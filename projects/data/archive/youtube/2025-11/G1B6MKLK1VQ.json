@@ -1,0 +1,22 @@
+{
+  "video_id": "G1B6MKLK1VQ",
+  "url": "https://www.youtube.com/watch?v=G1B6MKLK1VQ",
+  "fetched_at": "2025-11-09T23:16:41.292473",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "What is my rash question is now getting answered by Google AI. That that probably should scare you a little bit. It scares me a little bit, but that's what's happening. I want to talk about how content architecture needs to change because this world is changing quickly. Yes, chat GPT may have 1 or 2% or whatever it is a small singledigit number share of traffic for search but that traffic is very high intent very sophisticated very focused on high consideration project projects products purchases byfunnel this content architecture strategy that I'm going to outline works for Google and sort of positioning yourself for that Google AI answer which is de facto now the first position in search. It also works for surfacing you as a brand, whether that's your personal brand or your company brand in chat GPT answers as",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Content Architecture for AI-Driven Search and Branding\",\n  \"tags\": [\"ai-in-search\", \"content-architecture\", \"seo-strategy\", \"brand-positioning\", \"google-ai\"],\n  \"summary\": \"Discussion on how AI-powered search (Google AI and ChatGPT) reshapes search intent and how to adapt content strategy and branding for AI-generated answers.\"\n}",
+      "generated_at": "2025-11-09T23:16:54.664814",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

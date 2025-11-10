@@ -1,0 +1,22 @@
+{
+  "video_id": "0wANWwCYHpU",
+  "url": "https://www.youtube.com/watch?v=0wANWwCYHpU",
+  "fetched_at": "2025-11-09T23:32:25.008031",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "People have been so primed by the news to be afraid of AI stealing your job that they won't listen to anything else until you address it. And that must come from the leadership team and preferably from the CEO. And by the way, there's not a ton of evidence that AI is actually stealing jobs in aggregate right now. The it's not just me saying that. Ethan Mollik is one of the best known AI uh academics out there. He studied AI extensively. He tweeted as recently as like early July 2025 that there was just not much evidence that AI is actually responsible for significant job attrition. Isolated instances or expectations changing for job roles 100% changing job descriptions. Yes. scaling up, hiring for AI specific roles.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai and jobs: leadership perspective on automation and employment\",\n  \"tags\": [\"ai-and-jobs\", \"job-displacement\", \"future-of-work\", \"leadership-perspective\", \"ai-adoption\"],\n  \"summary\": \"Discussion on whether AI is driving job loss, citing limited evidence of aggregate disruption and emphasizing leadership communication and evolving job roles.\"\n}",
+      "generated_at": "2025-11-09T23:32:36.143676",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

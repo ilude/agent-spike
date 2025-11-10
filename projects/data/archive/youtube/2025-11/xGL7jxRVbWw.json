@@ -1,0 +1,22 @@
+{
+  "video_id": "xGL7jxRVbWw",
+  "url": "https://www.youtube.com/watch?v=xGL7jxRVbWw",
+  "fetched_at": "2025-11-09T21:49:44.825417",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The first thing to think about with your agent use case, it's funny. Is it worth it? And I say that because a lot of times people have this funny radar when they start with agents where they pick the use case that isn't worth it. I have seen over and over that people think, well, this is new. This is experimental. I don't want to wreck anything. Let me try something that isn't too serious. That's a problem. And that's a problem because you won't take it seriously. The rest of the org won't take it seriously. and you're not really going to have the time and energy to prioritize it in a work context. And if you do, you're not going to care about whether it worked or not. So, please pick a problem that matters. Have some courage. Pick a problem that you actually really would like some a magenta help on. That's my first hard one tip for",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-agents, use-case-selection, organizational-buy-in, project-prioritization",
+      "generated_at": "2025-11-09T21:49:53.553467",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

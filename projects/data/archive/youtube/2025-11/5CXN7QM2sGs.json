@@ -1,0 +1,22 @@
+{
+  "video_id": "5CXN7QM2sGs",
+  "url": "https://www.youtube.com/watch?v=5CXN7QM2sGs",
+  "fetched_at": "2025-11-09T22:25:01.973587",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "I want to suggest that we have at least six different categories, practical categories of AI agents out there today that sort of fit within this broader spectrum of use cases. The first one, it's the simplest, right? The conversational generators. Uh, Chad, GBT, Claude, and Gemini all come to mind. Deep Seek comes to mind. You use them when you need highquality text generation back fundamentally. The second class is coding assistance. when you need to write code and you have a feedback loop for it depending on how you configure it. Cloud code is a great example here. Cursor does this, wind surf does this, etc. You can't use these when you need sort of broader system orchestration unless you're going to configure them specially. And so I think that the exception to a lot of this is cloud code because it's such a malleable tool. And so that's why it appears in a couple of these. But I think that code assistant is the good vanilla or generic use case for cloud",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-agents, conversational-ai, coding-assistance, code-generation",
+      "generated_at": "2025-11-09T22:25:09.512188",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

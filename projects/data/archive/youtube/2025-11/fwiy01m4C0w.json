@@ -1,0 +1,22 @@
+{
+  "video_id": "fwiy01m4C0w",
+  "url": "https://www.youtube.com/watch?v=fwiy01m4C0w",
+  "fetched_at": "2025-11-09T22:20:09.211278",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "You can build custom software for a specific tiny audience. If your audience loves to take notes and they have a particular way of taking notes and you've always had a note-taking system and you wanted to share it with the world, well, you can do that now. If you wanted to build a fantasy football software that you have never been able to find before, you can do that now. If you wanted to build some kind of special event planning software that you would never have been able to get in the market, well, you can do that now. These micro markets exist, but no one has been building software for them because software is such a blunt instrument because it was so expensive. By moving from natural language to code, we now have the ability to treat software like a scalpel. And so we can carve out these micro niches and build really sustainable side businesses where we are the authority on that particular tiny corner of the universe.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"From natural language to code: building software for micro markets\",\n  \"tags\": [\"micro-markets\", \"niche-software\", \"custom-software\", \"software-development\", \"entrepreneurship\"],\n  \"summary\": \"The video argues for targeting tiny, specific audiences by shifting from natural language to code, enabling niche, scalable software offerings.\"\n}",
+      "generated_at": "2025-11-09T22:20:19.406905",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

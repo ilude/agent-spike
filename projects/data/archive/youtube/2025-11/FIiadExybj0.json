@@ -1,0 +1,22 @@
+{
+  "video_id": "FIiadExybj0",
+  "url": "https://www.youtube.com/watch?v=FIiadExybj0",
+  "fetched_at": "2025-11-09T22:43:21.244922",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We are in a power law game and power law costs and returns show up across AI. That means uh AI is increasing according to a power law. So it's increasing exponentially. I talked about that. It also means you get power law returns from gambling on AI as a business. And I gambling is probably the wrong word. Betting on AI as a business. Essentially, if you invest in something and there's a power law return, it's rational to invest more than you usually would. And we've seen that pattern play off across companies investing in AI, but also across model makers. model makers investing a billion dollars in AI talent or whatever it is as Zuck did, model makers investing a huge amount in chips. All of that is a way of saying we think there's disproportionate returns on AI and we are going to keep investing very very heavily in order to harvest those returns.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Power-Law Returns in AI Investments\",\n  \"tags\": [\"power-law\", \"investing-in-ai\", \"ai-economics\", \"venture-capital\"],\n  \"summary\": \"Discusses how power-law dynamics create exponential growth in AI and drive outsized investments in AI talent, infrastructure, and models.\"\n}",
+      "generated_at": "2025-11-09T22:43:29.827464",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

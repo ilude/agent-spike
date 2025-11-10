@@ -1,0 +1,22 @@
+{
+  "video_id": "cg_3fFAQUbk",
+  "url": "https://www.youtube.com/watch?v=cg_3fFAQUbk",
+  "fetched_at": "2025-11-09T23:41:04.869989",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We need answers for jobs that do not depend on showing that you have gone to college and know all the things because those things are devoid of meaning now. And so we have to rethink from the ground up what makes a human job interesting and worth doing and meaningful. And it doesn't make it easier to do that if all around us everyone is shouting about AI taking away jobs. It is much more productive to sit there and actually ask yourself, well, what do we know about what AI is good at? And what do we know about what AI is architecturally maybe not so great at? And if we know what those things are, can we start to get a sense of where our skills might lie in the future?",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Rethinking jobs in the age of AI\",\n  \"tags\": [\"ai-and-work\", \"future-of-work\", \"human-skills\", \"ai-capabilities\"],\n  \"summary\": \"A discussion on how AI changes the job landscape, what AI excels at versus where human skills matter, and how to rethink meaningful work in the future.\"\n}",
+      "generated_at": "2025-11-09T23:41:15.168013",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

@@ -1,0 +1,22 @@
+{
+  "video_id": "DQMf4LeFEEg",
+  "url": "https://www.youtube.com/watch?v=DQMf4LeFEEg",
+  "fetched_at": "2025-11-09T22:39:53.710389",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The third one, the third law, if you can't explain why it failed, you haven't owned the system. Again, we've emphasized accountability with engineering, but it is more important now. AI systems are entering regulated spaces, spaces where they have to be able to explain what happened. Human responsibility requires us to own the explanation, the accountability, and where the buck stops. If you can't explain what happened in your system to a very smart non-engineer, then you probably don't really understand your own system and you probably didn't really engineer it. And so these three laws are actually designed to fit together. They're designed to be three pieces of the engineering life cycle, the new engineering life cycle in the age of AI. Number one is specification. what we promise when we build a system, how we write contracts that stick regardless of probabilistic systems. That's the invariant piece. Number two is verification or measurement. How we prove that we delivered something in production. And number three is accountability or explanations. How you take ownership of outcomes.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai engineering lifecycle: specification, verification, accountability\",\n  \"tags\": [\"ai-ethics\", \"explainable-ai\", \"accountability\", \"engineering-life-cycle\", \"ai-governance\"],\n  \"summary\": \"Discussion of three laws for AI engineering\u2014specification, verification, and accountability\u2014emphasizing explainability and ownership of outcomes in regulated AI systems.\"\n}",
+      "generated_at": "2025-11-09T22:40:03.156188",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

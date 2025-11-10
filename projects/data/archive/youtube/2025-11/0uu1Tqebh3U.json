@@ -1,0 +1,22 @@
+{
+  "video_id": "0uu1Tqebh3U",
+  "url": "https://www.youtube.com/watch?v=0uu1Tqebh3U",
+  "fetched_at": "2025-11-09T21:56:24.421613",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "To me, what has launched in the last 2 weeks has the same leverage and power for numbers as the launch of the pocket calculator. That's how big a deal it is. And we're sleeping on it because most people either don't have the Claude Max plan, haven't really sat down and thought about prompting the co-pilot AI for Excel, or they just don't have the time to come up with these complicated prompts, and they've always done it this way, and so they're just always going to do it. Let me challenge you. It is worth it to go a little bit differently, to try a new prompt, to adjust one of my prompts if it saves you that much time. If it saves you a dozen hours this month, the Claude Max plan is probably worth the money because you're going to spend that amount of time, right? Like your your time has some value to",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai prompts for excel: save hours with claude max\",\n  \"tags\": [\"ai-for-spreadsheets\", \"excel-automation\", \"prompt-engineering\", \"productivity-tools\", \"time-savings\"],\n  \"summary\": \"The video argues that using Claude Max and AI prompts for Excel can dramatically increase efficiency and save significant time.\"\n}",
+      "generated_at": "2025-11-09T21:56:38.164890",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

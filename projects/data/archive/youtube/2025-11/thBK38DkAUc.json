@@ -1,0 +1,30 @@
+{
+  "video_id": "thBK38DkAUc",
+  "url": "https://www.youtube.com/watch?v=thBK38DkAUc",
+  "fetched_at": "2025-11-09T19:23:28.390423",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "We are living in a world where the cost of intelligence really is going to zero and it gives individuals an immense amount of agency to choose your own adventure. Your ability to form intent and go after something with clarity, focus and dedication has never had more leverage because the intelligence is going to get better and better and cheaper and cheaper. We are in a world where you can teach yourself any skill you want with the help of AI in just a few months. And so it's going to be on individuals to go after what they want. And the ability is not going to be evenly distributed. What I'm finding is that even though everyone has access to these models, very few folks are making the most of them. And so the willingness to jump on and make the most of not just frontier models but potentially cheaper next generation models that are adjacent to the frontier. The willingness to understand these strategic constraints and think about the opportunities that you have. That is rare and we're probably one of the few that is paying attention to the strategic themes in AI right",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"The cost of intelligence going to zero and AI strategy\",\n  \"tags\": [\"artificial-intelligence\", \"frontier-models\", \"self-directed-learning\", \"strategic-thinking\"],\n  \"summary\": \"This video argues that affordable AI enables individuals to teach themselves new skills quickly and stresses the importance of strategic use of frontier models.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.399308",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.408262",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

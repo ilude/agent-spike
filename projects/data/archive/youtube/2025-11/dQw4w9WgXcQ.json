@@ -1,0 +1,29 @@
+{
+  "video_id": "dQw4w9WgXcQ",
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "fetched_at": "2025-11-09T19:24:56.896212",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "[\u266a\u266a\u266a] \u266a We're no strangers to love \u266a \u266a You know the rules\nand so do I \u266a \u266a A full commitment's\nwhat I'm thinking of \u266a \u266a You wouldn't get this\nfrom any other guy \u266a \u266a I just wanna tell you\nhow I'm feeling \u266a \u266a Gotta make you understand \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a \u266a We've known each other\nfor so long \u266a \u266a Your heart's been aching\nbut you're too shy to say it \u266a \u266a Inside we both know\nwhat's been going \u266a \u266a We know the game\nand we're gonna play it \u266a \u266a And if you ask me\nhow I'm feeling \u266a \u266a Don't tell me\nyou're too blind to see \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a \u266a (Ooh, give you up) \u266a \u266a (Ooh, give you up) \u266a \u266a Never gonna give,\nnever gonna give \u266a \u266a (Give you up) \u266a \u266a Never gonna give,\nnever gonna give \u266a \u266a (Give you up) \u266a \u266a We've known each other\nfor so long \u266a \u266a Your heart's been aching\nbut you're too shy to say it \u266a \u266a Inside we both know\nwhat's been going \u266a \u266a We know the game\nand we're gonna play it \u266a \u266a I just wanna tell you\nhow I'm feeling \u266a \u266a Gotta make you understand \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a \u266a Never gonna give you up \u266a \u266a Never gonna let you down \u266a \u266a Never gonna run around\nand desert you \u266a \u266a Never gonna make you cry \u266a \u266a Never gonna say goodbye \u266a \u266a Never gonna tell a lie\nand hurt you \u266a",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Rick Astley - Never Gonna Give You Up (lyrics)\",\n  \"tags\": [\"music-lyrics\", \"80s-pop\", \"rickroll\", \"internet-meme\"],\n  \"summary\": \"A karaoke-style rendition of the 1987 pop song 'Never Gonna Give You Up' by Rick Astley, featuring the full chorus and verses.\"\n}",
+      "generated_at": "2025-11-09T19:25:16.506864",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:25:17.872990",
+      "collection_name": "cached_content",
+      "notes": "Full transcript embedding"
+    }
+  ]
+}

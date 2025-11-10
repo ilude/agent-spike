@@ -1,0 +1,22 @@
+{
+  "video_id": "M7zArb6XKwQ",
+  "url": "https://www.youtube.com/watch?v=M7zArb6XKwQ",
+  "fetched_at": "2025-11-09T23:16:25.625197",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Another thing that I think people overlook is that they don't think about their brands as entities. They don't think about aligning their brands into a single entity. And I'll explain what I mean by that. You want to audit your top 20 brand mention using Google's natural language API. You want to create a single source of truth description document for your brand. You need to send update requests to any site with an outdated description because your goal is to give a single brand entity statement consistent representation across the web so it maximizes the odds you'll appear in something like a Google summary in the correct way. And focus on the five highest authority sites mentioning you. This is not new either. Obviously, you focus on high authority sites. The the key is to make sure the exact same roughly 50word company description or brand description is everywhere because again you are implanting that into the LLM's parameters.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "brand-audit, brand-consistency, entity-branding, online-brand-presence, knowledge-panel",
+      "generated_at": "2025-11-09T23:16:33.179532",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

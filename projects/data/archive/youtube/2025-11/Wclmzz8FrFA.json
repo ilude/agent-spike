@@ -1,0 +1,22 @@
+{
+  "video_id": "Wclmzz8FrFA",
+  "url": "https://www.youtube.com/watch?v=Wclmzz8FrFA",
+  "fetched_at": "2025-11-09T23:47:03.996200",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The agentic mesh is a word salad that has no empirical grounding. It doesn't have the builder's touch. And that is what makes that presentation so concerning because I've seen over and over again as someone in sort of the product engineering side of things when you have a CEO come in fresh off a report like that and he's like this should just work. The McKenzie guys say that they can build an agentic mesh and you can plug any model in without additional work. Why don't we use uh you know Mistl small or why don't we use GPT 3.5 Turbo because McKenzie mentioned it. Both of those are in the presentation by the way. And the tech teams roll their eyes because they're like these are ancient models. They're tiny. It relies on this assumption of edge computing that hasn't sustained very well because larger models just show sustained gains in intelligence that smaller models aren't matching. That's one of the big surprises of 2025 is that edge computing for models is not working as well as people thought it would yet. That makes a CEO sleep well at night. It is not true.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"critique of agentic mesh and edge-model deployment\",\n  \"tags\": [\"ai-implementation\", \"edge-computing\", \"large-language-models\", \"product-management\", \"ai-critique\"],\n  \"summary\": \"A critical discussion of the 'agentic mesh' concept, evaluating empirical grounding, model choices, and the viability of edge computing for large AI models in 2025.\"\n}",
+      "generated_at": "2025-11-09T23:47:18.398206",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

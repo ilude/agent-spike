@@ -1,0 +1,22 @@
+{
+  "video_id": "wV4VtT2Ds9k",
+  "url": "https://www.youtube.com/watch?v=wV4VtT2Ds9k",
+  "fetched_at": "2025-11-09T23:18:47.002084",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Because at the end of the day, if you are a model maker and you believe good models will get better over time, you should be able to eat more and more of workflows over time just by delivering good models and you can do something like I don't know clawed code which is frankly just a terminal and compete with cursor, you're going to eat some of these tools for lunch over time and you kind of don't care. And so we are seeing this tectonic struggle between the toolmakers that are trying to build on top of this model maker tech and the model makers who are really incentivized to grab as much territory as they can. Modelm makers hold the cards here as you saw with Claude cutting off access to Windsurf but they don't hold all the cards. And so one of the things that's super interesting about this dynamic is that it's sort of a 2/3 one-/-ird situation where you might say that 2/3 of the power sits with the modelmakers, but the tool layer has a third of the Power.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Model Makers vs Tool Makers in AI: Power Dynamics\",\n  \"tags\": [\"ai-ecosystem\", \"ai-models\", \"model-makers\", \"tool-makers\", \"artificial-intelligence\"],\n  \"summary\": \"Explores the power dynamics between AI model developers and tool builders and how access and control shape the AI landscape.\"\n}",
+      "generated_at": "2025-11-09T23:19:00.492852",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

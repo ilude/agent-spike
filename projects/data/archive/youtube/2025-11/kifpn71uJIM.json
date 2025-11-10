@@ -1,0 +1,22 @@
+{
+  "video_id": "kifpn71uJIM",
+  "url": "https://www.youtube.com/watch?v=kifpn71uJIM",
+  "fetched_at": "2025-11-09T22:36:03.320718",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Identify one process. It needs to be painful. It needs to be frequent. It needs to be really well-defined with good edges. Automate it all the way. Run it. Obsess over it. Learn what breaks. Fix the breaks. Only when it's mature, sustainable, well doumented do you move to the next process. The typical failure pattern I see is the opposite. Teams don't clearly define the pain. They don't know where the edges are. They had a seminar and the seminar said use AI agents and they got all excited and they try to automate everything at once. They build giant sprawling workflows and it touches multiple systems and it looks incredible and on day one it all works and they have a CEO announcement and they're creating dependencies they don't understand and when something breaks and it always breaks plan for it to break. They can't isolate the problem because nobody can read the map anymore. Because everyone's on to the next project.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "process-automation, ai-agents, systems-integration, risk-management",
+      "generated_at": "2025-11-09T22:36:11.752558",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

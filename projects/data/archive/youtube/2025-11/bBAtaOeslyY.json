@@ -1,0 +1,22 @@
+{
+  "video_id": "bBAtaOeslyY",
+  "url": "https://www.youtube.com/watch?v=bBAtaOeslyY",
+  "fetched_at": "2025-11-09T21:58:24.560143",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "They encourage the assumption that we only need to pretend that this is regular software we have to adopt. I can go get the prompt pack from OpenAI. I can roll it out as a manager to my sales team or my engineering team or my product team and I'm done and we can move on and it's just it's a oneanddone thing. AI is on an exponential curve. This is a case of getting onto a moving train. You are either going to lean all the way in and you are going to learn fast and you are going to scale up quickly in your skills and keep leaning in or you're going to get left behind. And if you learn two or three lines in a prompt and you think you've got it, you're in the left behind contingent.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai adoption and prompt-learning urgency\",\n  \"tags\": [\"ai-adoption\", \"prompt-engineering\", \"generative-ai\", \"future-of-work\"],\n  \"summary\": \"Explores rapid, exponential AI growth and the imperative for organizations and individuals to adopt and deepen prompt-based skills rather than treating AI as a one-off deployment.\"\n}",
+      "generated_at": "2025-11-09T21:58:39.594012",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

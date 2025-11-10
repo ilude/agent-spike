@@ -1,0 +1,22 @@
+{
+  "video_id": "rjRtw6Hk8nk",
+  "url": "https://www.youtube.com/watch?v=rjRtw6Hk8nk",
+  "fetched_at": "2025-11-09T23:22:02.188100",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And the thing that AI enables us to do in this world that has been hard at every other point in human history is it enables us to dream differently. It gives us more flexibility on our dreaming. It gives us the ability to stretch our wings in new areas very easily. It's an incredible teaching tool. Yes. It's also a tool that enables us to practice our skills confidently. We can practice our interview skills if that's what we're working on. We can practice our coding skills if that's what we're working on. We can get someone to help us read a new book and learn a new skill set from that book. If you want to learn the why machines learn textbook by Anneil right here, you can do that. You can literally take a picture of a complicated diagram that you don't understand and you can get AI to help you learn it. And that's just one example. I know that Red Bull gives you wings as trademarked. I know we can't say AI gives you wings, but that's the vibe.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"How AI Enables Flexible Learning and Skill Practice\",\n  \"tags\": [\"artificial-intelligence\", \"machine-learning\", \"edtech\", \"learning-tools\", \"ai-assisted-learning\"],\n  \"summary\": \"The video discusses AI as a transformative teaching tool that enables flexible dreaming, skill practice, and new ways of learning from books and diagrams.\"\n}",
+      "generated_at": "2025-11-09T23:22:11.547017",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

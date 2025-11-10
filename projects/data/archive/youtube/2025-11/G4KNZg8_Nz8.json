@@ -1,0 +1,22 @@
+{
+  "video_id": "G4KNZg8_Nz8",
+  "url": "https://www.youtube.com/watch?v=G4KNZg8_Nz8",
+  "fetched_at": "2025-11-09T23:44:35.095255",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "And the only thing stopping people from using it, I think, is the fear of using a terminal. And I think it will help if you think about the terminal as effectively a chatbot that can talk to the files on your computer. That's really it. And I know that there are ways that you can sort of MCP your way other places as well. And that's great. And I know that Claude Code can go out and search the internet. I had it do that during part of the conversation. But if you just think about it from a simple perspective as you know what here's cloud code it's just another chatbot it happens to live in a terminal and I can talk to it. Maybe that gets you over the fear if you're not an engineer.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "terminal, command-line, ai-assistant, chatbots",
+      "generated_at": "2025-11-09T23:44:46.042588",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

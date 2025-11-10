@@ -1,0 +1,22 @@
+{
+  "video_id": "KfIInXj317A",
+  "url": "https://www.youtube.com/watch?v=KfIInXj317A",
+  "fetched_at": "2025-11-09T23:34:54.623215",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Now if we look to the future and what's going to happen, I think there's some clear writing on the wall. One, the models are going to get more agentic and smarter. That means rag is going to become more and more agentic search rag, more and more agentic search plus mcp rag, and they are going to make active progress on the memory side. Which leads you to ask me, well, heck, if they're going to get the memory figured out, why are we using rag? And my answer to you is rag is a way of talking with data that has a little bit of stability, a widespread good topic diffusion, and that you can actually query against that data in a way that enriches current conversations. You actually would not want to populate a magical 10 million token working memory with your entire wiki of your company anyway because it would just make your answers dirty. What you want is retriever augmented generation sometime because it gives you a precise picture of a larger data set that is relevant to your query.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"unknown\",\n  \"tags\": [\"artificial-intelligence\", \"retrieval-augmented-generation\", \"memory-augmented-ai\", \"ai-research-trends\"],\n  \"summary\": \"Discussion on how AI models will become more agentic, the role of RAG in querying data, and the move toward memory-enhanced data retrieval.\"\n}",
+      "generated_at": "2025-11-09T23:35:10.731537",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

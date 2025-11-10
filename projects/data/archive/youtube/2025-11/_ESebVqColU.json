@@ -1,0 +1,30 @@
+{
+  "video_id": "_ESebVqColU",
+  "url": "https://www.youtube.com/watch?v=_ESebVqColU",
+  "fetched_at": "2025-11-09T19:23:28.180116",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "The state of AI report is finally out. This is an annual report from Airst Street Capital with Nathan Benich at the lead. It's been published for the last eight years. Every time it comes out, it shifts the industry. I'm going to go through and I'm going to summarize the 313 slides in just a few minutes so that you get the TLDDR. So, first things first, the takeaway is that the model IQ contest is over and the infrastructure wars are just beginning. So the thesis is fundamentally we have been pushing and pushing and pushing to make incrementally smarter models. But now what really matters is systems specifically three compounding forces that drive those systems. The capability to cost curve, the distribution question, and the physical infrastructure question. We're going to get to all three of those, but the thesis of this entire 313 slide report is that those three drivers are going to matter more in terms of practical AI than just model IQ. And so the winners in the race are going to be the ones that can route computational work to the cheapest capable model rather than just defaulting to Frontier or Smart IQ options.",
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"the-state-of-ai-report-infrastructure-wars-and-systems\",\n  \"tags\": [\"ai-infrastructure\", \"ai-trends\", \"infrastructure-wars\", \"compute-cost-curve\", \"ai-system-design\"],\n  \"summary\": \"Recap of the state-of-ai report highlighting move from model IQ to system-level drivers: cost curves, distribution, and physical infrastructure, with emphasis on routing compute to the cheapest capable model.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.189181",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.199707",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

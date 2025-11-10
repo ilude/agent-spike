@@ -1,0 +1,22 @@
+{
+  "video_id": "fL5MQJZMQT0",
+  "url": "https://www.youtube.com/watch?v=fL5MQJZMQT0",
+  "fetched_at": "2025-11-09T23:32:45.724788",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "Right? Let's say you're in premeating prep. You type into co-pilot, I have a client meeting about project X in an hour. Give me an agenda. I want status update. I want challenges. I want next steps. It's going to spit out an agenda with time limits and give you a sense of those time limits. And then you're going to say, \"Hey, what questions should I ask to understand the concerns that that the client is going to uh express a little bit better?\" And it's going to spit out questions that you can actually dig into. You can get co-pilot with teams in a live meeting. And so you can say, \"What have we discussed so far?\" if you joined late and co-pilot will give you an update without you interrupting Betty and saying hey Betty what are you know what are we talking about you've all been there right like somebody joins the Zoom or somebody joins the team's meeting you know 6 minutes 8 minutes late and like they're a highly paid important person and so they get the update and everybody has to sit there and let you know the update happen you know you can just ask co-pilot for it",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-powered meeting copilots for agendas and live updates\",\n  \"tags\": [\"ai-assisted-meetings\", \"agenda-generation\", \"meeting-management\", \"team-collaboration\"],\n  \"summary\": \"An AI assistant is shown creating meeting agendas, key questions, and live updates to streamline client and team meetings.\"\n}",
+      "generated_at": "2025-11-09T23:32:54.502167",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

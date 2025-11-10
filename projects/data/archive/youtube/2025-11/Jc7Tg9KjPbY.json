@@ -1,0 +1,22 @@
+{
+  "video_id": "Jc7Tg9KjPbY",
+  "url": "https://www.youtube.com/watch?v=Jc7Tg9KjPbY",
+  "fetched_at": "2025-11-09T21:49:02.760740",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "You notice by the way these are not job specific. I am not giving you the fluency levels for engineers and then the fluency levels for for PMS. Do you know why? It's because I have a strong conviction that AI is a generalist skill set and we are probably teaching it wrong if we dive too deep into verticals without that generalist conceptual foundation. And we really haven't had that. And that's what I'm setting out to do here. I think it's great if you understand how to build with Langmith as a developer, but I don't think that's the only kind of AI learning and grounding you need. And I think that we're missing this piece here, this sort of general approach to skill sets and fluency. And I think having a common understanding here will be helpful.",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI as a Generalist Skill Set: Building a Cross-Disciplinary Foundation\",\n  \"tags\": [\"artificial-intelligence\", \"ai-generalist\", \"skills-fluency\", \"cross-disciplinary-learning\"],\n  \"summary\": \"The speaker argues that AI is a generalist skill set and should be taught with a broad, cross-domain foundation rather than focusing on verticals.\"\n}",
+      "generated_at": "2025-11-09T21:49:16.377317",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}

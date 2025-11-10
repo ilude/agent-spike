@@ -1,0 +1,22 @@
+{
+  "video_id": "LPZEwCFFwMQ",
+  "url": "https://www.youtube.com/watch?v=LPZEwCFFwMQ",
+  "fetched_at": "2025-11-09T22:48:05.502349",
+  "source": "youtube-transcript-api",
+  "raw_transcript": "So be aware of that. You may not want to use it for coding. Creative writing, you have to have a narrative with a particular singular voice. I would not use GPT5 Pro for this. And I don't know of many people who are, so this feels like an easy one. But you're going to get maybe some really coherent, thoughtful plot feedback from this model, plot architecture, where it's going to give you its solution to a particular plot problem, but it's not going to make the bold creative choice. It's not going to write in a particular voice. That is not really what this model does. Conversation. And this is a really important LLM use case. A lot of the LLM use cases that we see in production are conversational use cases. This is not a model for conversation. One, it takes a long time. And two, human dialogue needs consistency and personality. If it feels robotic, which GPT5 Pro is going to feel robotic. If it doesn't feel sequential, if it if it jumps around, humans aren't going to like",
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"GPT-5 Pro limitations: not ideal for creative writing or conversation\",\n  \"tags\": [\"large-language-models\", \"creative-writing\", \"conversational-ai\", \"ai-model-limitations\"],\n  \"summary\": \"The video discusses GPT-5 Pro's limitations for creative writing and conversational use, noting it can offer coherent plot feedback but lacks bold creative voice and consistent, natural dialogue.\"\n}",
+      "generated_at": "2025-11-09T22:48:17.887779",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "processing_history": []
+}
