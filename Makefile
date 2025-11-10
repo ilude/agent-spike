@@ -107,25 +107,27 @@ logs:
 restart: build down start
 
 # Lesson 007: Video Ingestion Tools
-.PHONY: ingest ingest-nate ingest-scheduled injest
+.PHONY: ingest ingest-old
 
 ingest:
-	@echo "Starting Hybrid YouTube Video Ingestion REPL + Scheduler..."
-	@echo "Features: Background scheduler + manual ingestion (5 per 15 min)"
+	@echo "Starting YouTube Video Queue Ingestion REPL..."
+	@echo "Features:"
+	@echo "  - Queue-based processing (all CSVs in pending/ directory)"
+	@echo "  - Workflow: pending/ -> processing/ -> completed/"
+	@echo "  - Manual ingestion (instant, no rate limit)"
+	@echo "  - Webshare proxy enabled (no rate limiting)"
+	@echo "  - Archive-first pipeline (all expensive data saved)"
+	@echo ""
+	@echo "Queue: projects/data/queues/pending/"
 	@echo "Press Ctrl+C to stop (progress is saved)"
+	@echo ""
+	@uv run python tools/scripts/ingest_youtube.py
+
+ingest-old:
+	@echo "Starting OLD Hybrid REPL (rate limited)..."
+	@echo "Note: Use 'make ingest' for the new fast version"
 	@echo ""
 	@uv run python lessons/lesson-007/hybrid_ingest_repl.py
-
-ingest-nate:
-	@echo "Starting scheduled ingestion of Nate Jones videos..."
-	@echo "Rate limit: 1 video every 15 minutes"
-	@echo "Press Ctrl+C to stop (progress is saved)"
-	@echo ""
-	@uv run python lessons/lesson-007/scheduled_ingest.py projects/video-lists/nate_jones_videos.csv
-
-ingest-scheduled:
-	@echo "Alias for ingest-nate (scheduled processing only)"
-	@$(MAKE) ingest-nate
 
 # API Credits Management
 .PHONY: credit
@@ -168,8 +170,8 @@ lint:
 
 # Run tests
 test: uv.lock
-	@echo "Running tests..."
-	uv run pytest -q
+	@echo "Running tests with coverage..."
+	uv run pytest tools/tests/ --cov=tools --cov-report=term-missing --cov-report=html -v
 
 # Format code with black and isort
 format: uv.lock
