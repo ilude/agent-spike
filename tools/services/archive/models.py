@@ -1,7 +1,7 @@
 """Pydantic models for archive data structures."""
 
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Literal
 from pydantic import BaseModel, Field
 
 
@@ -26,6 +26,28 @@ class LLMOutput(BaseModel):
     completion_tokens: Optional[int] = None
 
 
+class ChannelContext(BaseModel):
+    """Channel information for bulk imports."""
+
+    channel_id: Optional[str] = None
+    channel_name: Optional[str] = None
+    is_bulk_import: bool = False
+
+
+class ImportMetadata(BaseModel):
+    """Metadata about how this video was imported.
+
+    Tracks import source and recommendation weight for future recommendation engine.
+    See .claude/IMPORT_METADATA.md for full documentation.
+    """
+
+    source_type: Literal["single_import", "repl_import", "bulk_channel", "bulk_multi_channel"]
+    imported_at: datetime
+    import_method: Literal["cli", "repl", "scheduled"]
+    channel_context: ChannelContext = Field(default_factory=ChannelContext)
+    recommendation_weight: float  # 1.0 for single/repl, 0.5 for bulk_channel, 0.2 for bulk_multi_channel
+
+
 class YouTubeArchive(BaseModel):
     """Immutable archive of YouTube video data.
 
@@ -34,6 +56,7 @@ class YouTubeArchive(BaseModel):
     - YouTube metadata (API call or scraping)
     - LLM-generated outputs (costs money)
     - Processing history (what we've done with this data)
+    - Import metadata (for recommendation weighting)
     """
 
     # Identity
@@ -41,6 +64,9 @@ class YouTubeArchive(BaseModel):
     url: str
     fetched_at: datetime
     source: str = "youtube-transcript-api"
+
+    # Import tracking (for recommendations)
+    import_metadata: Optional[ImportMetadata] = None
 
     # Raw data (what cost time/money to fetch)
     raw_transcript: str

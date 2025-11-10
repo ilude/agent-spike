@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 from .config import ArchiveConfig
-from .models import YouTubeArchive
+from .models import YouTubeArchive, ImportMetadata
 
 
 class LocalArchiveWriter:
@@ -70,6 +70,7 @@ class LocalArchiveWriter:
         url: str,
         transcript: str,
         metadata: Optional[dict] = None,
+        import_metadata: Optional[ImportMetadata] = None,
     ) -> Path:
         """Archive YouTube video data.
 
@@ -78,6 +79,7 @@ class LocalArchiveWriter:
             url: Full YouTube URL
             transcript: Raw transcript text
             metadata: Optional YouTube metadata
+            import_metadata: Optional import tracking metadata for recommendations
 
         Returns:
             Path to archive file
@@ -89,6 +91,7 @@ class LocalArchiveWriter:
             fetched_at=datetime.now(),
             raw_transcript=transcript,
             youtube_metadata=metadata or {},
+            import_metadata=import_metadata,
         )
 
         # Get archive path

@@ -15,7 +15,7 @@ Example usage:
     >>> archive = LocalArchiveWriter(config)
 """
 
-from .models import YouTubeArchive, LLMOutput, ProcessingRecord
+from .models import YouTubeArchive, LLMOutput, ProcessingRecord, ImportMetadata, ChannelContext
 from .protocols import ArchiveWriter, ArchiveReader
 from .config import ArchiveConfig
 from .local_writer import LocalArchiveWriter, create_local_archive_writer
@@ -26,6 +26,8 @@ __all__ = [
     "YouTubeArchive",
     "LLMOutput",
     "ProcessingRecord",
+    "ImportMetadata",
+    "ChannelContext",
     # Protocols
     "ArchiveWriter",
     "ArchiveReader",
