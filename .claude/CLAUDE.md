@@ -6,6 +6,67 @@ Technical Approach: Challenge assumptions, point out potential issues, and ask t
 
 **Terminology Note**: This is the **local/project ruleset** (specific to this repository). The **personal ruleset** lives in the user's home directory (`~/.claude/CLAUDE.md`) and applies to all projects. This local ruleset takes precedence over personal preferences for project-specific patterns.
 
+## Data Archiving Strategy
+
+**CRITICAL RULE**: Archive anything that costs time or money to fetch BEFORE processing it.
+
+**What to archive:**
+- ✅ External API calls (YouTube transcripts, web scraping, etc.)
+- ✅ LLM outputs (tags, summaries, classifications)
+- ✅ Rate-limited operations
+- ✅ Data that might need reprocessing later
+
+**Why archive first:**
+- Enables experimentation without re-fetching (avoid rate limits)
+- Protects against data loss (API changes, deleted content)
+- Tracks LLM costs over time
+- Allows migration between storage systems (Qdrant → Pinecone, etc.)
+- Supports reprocessing with different strategies (chunking, embeddings, etc.)
+
+**Archive location:** `projects/data/archive/` (organized by source and month)
+
+**Service pattern:** Use `ArchiveWriter` dependency injection in all ingest pipelines.
+
+**Pipeline order:**
+1. Fetch expensive data (transcript, webpage, etc.) → **Archive immediately**
+2. Generate LLM outputs (tags, summaries) → **Archive immediately**
+3. Process/embed/cache → Derived data (can be rebuilt from archives)
+
+**Implementation:** See `lessons/lesson-007/archive/` for the archive service.
+
+**Example usage:**
+```python
+from archive import LocalArchiveWriter
+
+archive = LocalArchiveWriter()
+
+# Archive transcript (rate-limited API call)
+archive.archive_youtube_video(
+    video_id=video_id,
+    url=url,
+    transcript=transcript,
+    metadata={"source": "youtube-transcript-api"},
+)
+
+# Archive LLM output (costs money)
+archive.add_llm_output(
+    video_id=video_id,
+    output_type="tags",
+    output_value=tags,
+    model="claude-3-5-haiku-20241022",
+    cost_usd=0.0012,
+)
+
+# Track processing versions
+archive.add_processing_record(
+    video_id=video_id,
+    version="v1_full_embed",
+    collection_name="cached_content",
+)
+```
+
+**Future design decisions:** Always ask: "Does this cost time/money to fetch?" → If yes, archive it first.
+
 ## Project Overview
 
 **Multi-agent AI learning spike project** for hands-on exploration of building AI agents with Pydantic AI. This is a **learning/experimental repository**, NOT a production application.
