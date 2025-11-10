@@ -216,7 +216,6 @@ lesson-008/
 │   └── process_results.py       # Download & process results
 ├── PLAN.md                      # Detailed learning plan
 ├── README.md                    # This file
-├── test_batch.py                # Test suite
 └── .env                         # API keys (gitignored)
 ```
 

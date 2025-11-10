@@ -24,7 +24,7 @@ A **Webpage Content Tagging Agent** that fetches HTML pages, converts them to cl
 
 ```bash
 # Single webpage analysis
-cd .spec/lessons/lesson-002
+cd lessons/lesson-002
 uv run python -m webpage_agent.cli analyze "https://example.com/article"
 
 # Interactive mode

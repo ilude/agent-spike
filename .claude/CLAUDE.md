@@ -238,7 +238,7 @@ Code quality standards (applies to production code in `src/`):
 ## Summary for New Claude Sessions
 
 1. ✅ **This is a learning project** - Multi-agent AI spike, not production app
-2. ✅ **Work in `lessons/`** - 8 lessons total, 001-006 complete
+2. ✅ **Work in `lessons/`** - 9 lessons total, all complete (001-009)
 3. ✅ **Check STATUS.md first** - Current state and progress
 4. ✅ **Use `uv run python`** - Handles virtual environments automatically
 5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything

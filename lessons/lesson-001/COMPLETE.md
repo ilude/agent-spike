@@ -23,7 +23,7 @@ A fully functional **YouTube Video Tagging Agent** that analyzes video transcrip
 
 ```bash
 # Single video analysis
-cd .spec/lessons/lesson-001
+cd lessons/lesson-001
 uv run python -m youtube_agent.cli analyze "YOUTUBE_URL"
 
 # Interactive mode
