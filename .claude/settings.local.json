@@ -103,7 +103,8 @@
       "Bash(if test:*)",
       "Bash(then echo \"Lesson $i:\")",
       "Bash(else echo \"Lesson $i: NOT FOUND\")",
-      "Bash(do echo \"=== $script ===\")"
+      "Bash(do echo \"=== $script ===\")",
+      "Bash(pytest:*)"
     ],
     "deny": [],
     "ask": []

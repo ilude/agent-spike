@@ -3,6 +3,23 @@
 **Version**: 0.1.0
 **Date**: 2025-01-07
 
+> **⚠️ WARNING - KNOWN ISSUES**
+>
+> This architecture document contains patterns that will cause event loop deadlocks when implemented with Pydantic AI.
+>
+> **Critical Issue**: Nested agent calls from within tool functions create asyncio deadlocks. See `.claude/ideas/nested-agent-deadlock.md` for detailed analysis and solutions discovered during Lesson-009.
+>
+> **Status**: Architecture needs updating to reflect lesson-009 learnings before implementation.
+>
+> **Key Changes Needed**:
+> - Remove nested agent invocations from tool functions
+> - Use message-passing or result callbacks instead
+> - See EXAMPLES.md in future/ directory for outdated patterns
+>
+> **Related Files**:
+> - Speculative implementation docs moved to `future/` subdirectory
+> - Keep this as strategic vision, but validate patterns before implementing
+
 ## System Architecture
 
 ### High-Level Overview
