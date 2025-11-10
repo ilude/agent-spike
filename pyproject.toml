@@ -113,6 +113,7 @@ lesson-007 = [
     "qdrant-client>=1.7.0",
     "sentence-transformers>=2.2.0",
     "tqdm>=4.66.0",
+    "google-api-python-client>=2.0.0",  # For fetch_channel_videos.py
 ]
 lesson-008 = [
     # Batch Processing with OpenAI (50% cost savings)

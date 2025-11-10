@@ -7,7 +7,17 @@ Usage:
 """
 
 import sys
+import io
 from pathlib import Path
+
+# Fix Windows console encoding for Unicode characters
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(
+        sys.stdout.buffer,
+        encoding='utf-8',
+        errors='replace',
+        line_buffering=True
+    )
 
 # Add parent dirs to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
