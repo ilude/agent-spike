@@ -280,6 +280,16 @@ Start with immediate needs (caching, batch processing), let the system grow natu
 - Streaming & real-time updates
 - Cross-content analysis (themes, trends)
 
+**🎯 Judgment & Self-Improvement** (Long-term)
+- Outcome tracking for learned capabilities
+- Non-goals enforcement (scope control)
+- Bottleneck detection and optimization
+- Strategic sequencing (thin-slice value)
+- Calibration loops (learn from experience)
+- Context profiling (recognize patterns)
+
+**See**: [Judgment Integration](ideas/orchestrator/JUDGMENT-INTEGRATION.md) for detailed analysis
+
 ---
 
 ## Key Architectural Decisions
@@ -355,11 +365,23 @@ python ingest_csv.py --csv projects/video-lists/nate_jones_videos.csv
 - ✅ Can suggest applications to active projects
 - ✅ Identifies patterns across content
 
-### Phase 3: Automation (Future)
-- ✅ Monitors new content from favorite sources
-- ✅ Proactively suggests relevant material
-- ✅ Tracks what was applied where
-- ✅ Generates project-specific insights
+### Phase 3: Judgment Infrastructure (Post-011)
+- ✅ Outcome tracking: Measure success rate, time/cost savings
+- ✅ Non-goals registry: Explicit scope control during planning
+- ✅ Bottleneck detection: Identify performance constraints
+- ✅ Token efficiency: 98%+ reduction vs. traditional approaches
+
+### Phase 4: Strategic Planning (Future)
+- ✅ Thin-slice sequencing: MVP → Full feature progression
+- ✅ Feasibility scoring: Estimate time/cost/risk before execution
+- ✅ Context profiling: Recognize similar situations
+- ✅ Planning accuracy: Within 30% of actual outcomes
+
+### Phase 5: Self-Improvement (Long-term)
+- ✅ Calibration loops: Adjust predictions based on outcomes
+- ✅ Pattern recognition: "This is like X, which succeeded with Y"
+- ✅ Compounding value: Track cumulative time/cost savings
+- ✅ Measurable improvement: 15%+ success rate increase over 6 months
 
 ---
 
@@ -455,11 +477,19 @@ Output:
 
 ## Open Questions
 
+### Infrastructure & Architecture
 1. **Memory integration**: How should Mem0 preferences relate to Qdrant content?
 2. **Relationship modeling**: Do we need graph capabilities, or is metadata sufficient?
 3. **Feedback loops**: How to capture user ratings and improve recommendations?
 4. **Automation**: When/how should the system proactively fetch new content?
 5. **Cross-project**: Should this system work across multiple projects, or just agent-spike?
+
+### Judgment & Self-Improvement
+6. **Judgment agent scope**: Separate agent for planning vs. integrated into coordinator?
+7. **User approval**: Auto-execute judgment recommendations or require approval?
+8. **Calibration data**: How many outcomes needed before predictions are reliable?
+9. **Non-goal evolution**: Is changing non-goals failure (scope creep) or learning (priorities shifted)?
+10. **Model selection**: Use Sonnet for judgment quality or Haiku for cost efficiency?
 
 ---
 
@@ -468,6 +498,7 @@ Output:
 ### Inspiration
 - **Nate Jones**: "Learn 90% of AI Agents in 30 Minutes" - Foundation for lessons 001-006
 - **Nate Jones**: "The Mental Models of Master Prompters" - Inspired prompt engineering skill
+- **Nate Jones**: "Judgment Merchants in the Age of AI" - Framework for self-improving systems (see [Judgment Integration](ideas/orchestrator/JUDGMENT-INTEGRATION.md))
 
 ### Technical Resources
 - [Pydantic AI Documentation](https://ai.pydantic.dev/)
@@ -479,7 +510,9 @@ Output:
 - **STATUS.md**: Current progress and lesson completions
 - **CLAUDE.md**: Project-specific development guidelines
 - **~/.claude/CLAUDE.md**: Personal preferences and patterns
+- **ideas/orchestrator/**: Self-evolving orchestrator design documents
+  - **JUDGMENT-INTEGRATION.md**: Framework for building self-improving systems with judgment principles
 
 ---
 
-**Last Updated**: 2025-11-05 - Initial vision documentation
+**Last Updated**: 2025-01-10 - Added judgment integration framework to long-term roadmap
