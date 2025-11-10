@@ -3,9 +3,11 @@
 import asyncio
 from pathlib import Path
 
-from tag_normalizer.normalizer import create_normalizer
-from tag_normalizer.retriever import create_retriever
-from tag_normalizer.vocabulary import load_vocabulary
+from tools.services.tagger import (
+    create_normalizer,
+    create_retriever,
+    VocabularyManager,
+)
 
 
 async def test_normalizer():
@@ -13,8 +15,9 @@ async def test_normalizer():
     print("=== Setting up normalizer ===")
 
     # Load vocabulary
-    vocab_path = Path(__file__).parent / "data" / "seed_vocabulary_v1.json"
-    vocabulary = load_vocabulary(vocab_path)
+    vocab_path = Path(__file__).parent.parent.parent.parent / "lessons" / "lesson-010" / "data" / "seed_vocabulary_v1.json"
+    vocabulary = VocabularyManager(vocab_path)
+    vocabulary.load()
     print(f"Loaded vocabulary: {len(vocabulary.seed_tags)} tags")
 
     # Create retriever

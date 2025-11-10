@@ -1,6 +1,6 @@
 """Test semantic tag retriever."""
 
-from tag_normalizer.retriever import create_retriever
+from tools.services.tagger import create_retriever
 
 
 def test_retriever():
