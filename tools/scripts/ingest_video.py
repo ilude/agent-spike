@@ -1,0 +1,224 @@
+#!/usr/bin/env python
+"""Ingest a single YouTube video with transcript and tags.
+
+This script fetches a video transcript, generates tags, and stores everything
+in both the archive (JSON) and cache (Qdrant) for fast retrieval.
+
+Usage:
+    # Single video
+    uv run python tools/scripts/ingest_video.py "https://youtube.com/watch?v=..."
+
+    # With custom collection
+    uv run python tools/scripts/ingest_video.py "https://youtube.com/watch?v=..." my_collection
+
+    # Just show what would be done (dry run)
+    uv run python tools/scripts/ingest_video.py "https://youtube.com/watch?v=..." --dry-run
+"""
+
+import asyncio
+import sys
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
+
+# Import from centralized services
+from tools.services.youtube import get_transcript, extract_video_id
+from tools.services.cache import create_qdrant_cache
+from tools.services.archive import create_local_archive_writer
+from tools.env_loader import load_root_env
+
+# Import agent from lesson (still experimental)
+from youtube_agent.agent import create_agent
+
+load_root_env()
+
+
+async def ingest_single_video(
+    url: str,
+    collection_name: str = "cached_content",
+    dry_run: bool = False
+) -> tuple[bool, str]:
+    """Ingest a single YouTube video.
+
+    Pipeline:
+    1. Check if already cached (skip if exists)
+    2. Fetch transcript -> Archive immediately
+    3. Generate tags (LLM) -> Archive immediately
+    4. Cache result in Qdrant
+
+    Args:
+        url: YouTube video URL
+        collection_name: Qdrant collection name
+        dry_run: If True, only show what would be done
+
+    Returns:
+        Tuple of (success: bool, message: str)
+    """
+    try:
+        # Extract video ID
+        video_id = extract_video_id(url)
+        cache_key = f"youtube:video:{video_id}"
+
+        print(f"\n{'='*70}")
+        print(f"Ingesting Video")
+        print(f"{'='*70}")
+        print(f"Video ID: {video_id}")
+        print(f"URL: {url}")
+        print(f"Collection: {collection_name}")
+        print(f"Dry Run: {dry_run}")
+        print(f"{'='*70}\n")
+
+        # Initialize services
+        cache = create_qdrant_cache(collection_name=collection_name)
+        archive = create_local_archive_writer()
+
+        try:
+            # Check if already cached
+            print("[1/5] Checking cache...")
+            if cache.exists(cache_key):
+                print(f"  [SKIP] Video already cached: {video_id}\n")
+                cached = cache.get(cache_key)
+                if cached:
+                    print(f"  Transcript: {cached.get('transcript_length', 0):,} chars")
+                    print(f"  Tags: {cached.get('tags', 'N/A')}")
+                return True, "Already cached"
+
+            print(f"  [OK] Video not in cache, proceeding...\n")
+
+            # Fetch transcript
+            print("[2/5] Fetching transcript (via Webshare proxy)...")
+            transcript = get_transcript(url, cache=None)
+
+            if "ERROR:" in transcript:
+                return False, f"Transcript fetch failed: {transcript}"
+
+            print(f"  [OK] Fetched {len(transcript):,} characters\n")
+
+            if dry_run:
+                print("[DRY RUN] Would archive transcript and generate tags")
+                print(f"  Archive path: projects/data/archive/YYYY-MM/{video_id}.json")
+                print(f"  Cache key: {cache_key}")
+                return True, "Dry run complete (no changes made)"
+
+            # Archive transcript
+            print("[3/5] Archiving transcript...")
+            archive.archive_youtube_video(
+                video_id=video_id,
+                url=url,
+                transcript=transcript,
+                metadata={"source": "youtube-transcript-api"}
+            )
+            print(f"  [OK] Archived to: {archive.config.base_dir}\n")
+
+            # Generate tags
+            print("[4/5] Generating tags with Claude Haiku...")
+            agent = create_agent(instrument=False)
+
+            result = await agent.run(
+                f"Analyze this YouTube video transcript and generate 3-5 relevant tags. "
+                f"Return ONLY the tags as a comma-separated list, nothing else.\n\n"
+                f"Transcript:\n{transcript[:15000]}"
+            )
+
+            tags = result.output if hasattr(result, 'output') else str(result)
+            tags = tags.strip()
+            print(f"  [OK] Generated tags: {tags}\n")
+
+            # Archive LLM output
+            archive.add_llm_output(
+                video_id=video_id,
+                output_type="tags",
+                output_value=tags,
+                model="claude-3-5-haiku-20241022",
+                cost_usd=0.001,  # Approximate
+            )
+
+            # Cache result
+            print("[5/5] Caching in Qdrant...")
+            cache_data = {
+                "video_id": video_id,
+                "url": url,
+                "transcript": transcript,
+                "tags": tags,
+                "transcript_length": len(transcript),
+            }
+
+            metadata = {
+                "type": "youtube_video",
+                "source": "youtube-transcript-api",
+                "video_id": video_id,
+                "tags": tags,
+            }
+
+            cache.set(cache_key, cache_data, metadata=metadata)
+            print(f"  [OK] Cached with key: {cache_key}\n")
+
+            print(f"{'='*70}")
+            print(f"SUCCESS!")
+            print(f"{'='*70}")
+            print(f"Video ID: {video_id}")
+            print(f"Transcript: {len(transcript):,} characters")
+            print(f"Tags: {tags}")
+            print(f"Archive: {archive.config.base_dir}")
+            print(f"Cache: {collection_name}")
+            print(f"{'='*70}\n")
+
+            return True, f"Ingested {video_id} successfully"
+
+        finally:
+            cache.close()
+
+    except ValueError as e:
+        return False, f"Invalid URL: {e}"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return False, f"Error: {type(e).__name__}: {e}"
+
+
+async def main():
+    """Main entry point."""
+    try:
+        if len(sys.argv) < 2:
+            print("Error: YouTube URL required")
+            print()
+            print("Usage:")
+            print("  uv run python tools/scripts/ingest_video.py <url> [collection_name] [--dry-run]")
+            print()
+            print("Examples:")
+            print("  uv run python tools/scripts/ingest_video.py 'https://youtube.com/watch?v=dQw4w9WgXcQ'")
+            print("  uv run python tools/scripts/ingest_video.py 'https://youtube.com/watch?v=dQw4w9WgXcQ' my_videos")
+            print("  uv run python tools/scripts/ingest_video.py 'https://youtube.com/watch?v=dQw4w9WgXcQ' --dry-run")
+            sys.exit(1)
+
+        url = sys.argv[1]
+
+        # Check for flags
+        dry_run = "--dry-run" in sys.argv or "-n" in sys.argv
+
+        # Get collection name (skip flags)
+        collection_name = "cached_content"
+        for arg in sys.argv[2:]:
+            if not arg.startswith("-"):
+                collection_name = arg
+                break
+
+        success, message = await ingest_single_video(url, collection_name, dry_run)
+
+        if not success:
+            print(f"\n[ERROR] {message}\n")
+            sys.exit(1)
+
+    except (KeyboardInterrupt, asyncio.CancelledError):
+        print("\n\nKeyboard Interrupt Received... Exiting!")
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass  # Clean exit - already handled in main()

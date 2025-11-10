@@ -14,7 +14,7 @@ from typing import Any
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from tools.dotenv import load_root_env
+from tools.env_loader import load_root_env
 
 # Load environment variables from .env file
 load_root_env()
@@ -216,6 +216,31 @@ def save_to_csv(videos: list[dict[str, Any]], filename: str) -> None:
 
 def main() -> None:
     """Main function to fetch and save YouTube videos."""
+    import argparse
+
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description="Fetch YouTube channel videos and export to CSV queue"
+    )
+    parser.add_argument(
+        "channel_url",
+        nargs="?",
+        default="https://www.youtube.com/@NateBJones/videos",
+        help="YouTube channel URL (default: NateBJones)"
+    )
+    parser.add_argument(
+        "-o", "--output",
+        help="Output CSV filename (auto-generated from channel name if not provided)"
+    )
+    parser.add_argument(
+        "-m", "--months",
+        type=int,
+        default=12,
+        help="Number of months to look back (default: 12)"
+    )
+
+    args = parser.parse_args()
+
     # Load API key from environment
     api_key = os.getenv("YOUTUBE_API_KEY")
     if not api_key:
@@ -223,43 +248,62 @@ def main() -> None:
         print("Please create a .env file with your YouTube Data API v3 key:")
         print("  YOUTUBE_API_KEY=your_api_key_here")
         return
-    
+
+    # Determine output file
+    if args.output:
+        output_filename = args.output
+    else:
+        # Extract channel name from URL
+        # @NateBJones -> nate_b_jones_videos.csv
+        if "@" in args.channel_url:
+            username = args.channel_url.split("@")[1].split("/")[0]
+            output_filename = f"{username.lower().replace('-', '_')}_videos.csv"
+        else:
+            print("Error: Could not extract channel name from URL")
+            print("Please use -o to specify output filename")
+            return
+
+    # Output to queue directory
+    queue_dir = Path(__file__).parent.parent.parent / "projects" / "data" / "queues" / "pending"
+    queue_dir.mkdir(parents=True, exist_ok=True)
+    output_file = queue_dir / output_filename
+
     # Configuration
-    channel_url = "https://www.youtube.com/@NateBJones/videos"
-    output_file = "nate_jones_videos.csv"
-    months_back = 12
-    
-    # Calculate cutoff date (12 months ago)
+    channel_url = args.channel_url
+    months_back = args.months
+
+    # Calculate cutoff date
     cutoff_date = datetime.now() - timedelta(days=months_back * 30)
-    
+
     print(f"Fetching videos from: {channel_url}")
     print(f"Cutoff date: {cutoff_date.strftime('%Y-%m-%d')}")
-    
+
     # Build YouTube API client
     youtube = build("youtube", "v3", developerKey=api_key)
-    
+
     # Get channel ID
     print("Looking up channel ID...")
     channel_id = get_channel_id(youtube, channel_url)
     if not channel_id:
         print("Could not find channel. Please check the URL.")
         return
-    
+
     print(f"Found channel ID: {channel_id}")
-    
+
     # Fetch videos
     print("Fetching videos...")
     videos = get_channel_videos(youtube, channel_id, cutoff_date)
-    
+
     if not videos:
         print("No videos found in the specified time range.")
         return
-    
+
     print(f"Found {len(videos)} videos from the last {months_back} months.")
-    
+
     # Save to CSV
-    save_to_csv(videos, output_file)
-    print(f"\nDone! Check {output_file}")
+    save_to_csv(videos, str(output_file))
+    print(f"\nDone! CSV queued at: {output_file}")
+    print(f"Run the ingestion REPL to process: make ingest")
 
 
 if __name__ == "__main__":
