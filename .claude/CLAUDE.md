@@ -67,6 +67,8 @@ archive.add_processing_record(
 
 **Future design decisions:** Always ask: "Does this cost time/money to fetch?" → If yes, archive it first.
 
+**Reprocessing archives:** See `~/.claude/skills/archive-reprocessing/` skill for the version-tracked reprocessing system (applies transformations to existing archives with incremental processing).
+
 ## Project Overview
 
 **Multi-agent AI learning spike project** for hands-on exploration of building AI agents with Pydantic AI. This is a **learning/experimental repository**, NOT a production application.
