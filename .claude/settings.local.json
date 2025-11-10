@@ -96,7 +96,14 @@
       "Bash(mstsc:*)",
       "Bash(.git/hooks/post-merge)",
       "Bash(sqlite3:*)",
-      "Bash(choco list:*)"
+      "Bash(choco list:*)",
+      "Bash(do echo \"Lesson $i:\")",
+      "Bash(PYTHONPATH=. python:*)",
+      "Bash(do dir_path=\"lesson-$i\")",
+      "Bash(if test:*)",
+      "Bash(then echo \"Lesson $i:\")",
+      "Bash(else echo \"Lesson $i: NOT FOUND\")",
+      "Bash(do echo \"=== $script ===\")"
     ],
     "deny": [],
     "ask": []
