@@ -215,7 +215,7 @@ class VideoTagger:
 def main():
     """Main function."""
     try:
-        cache_db = Path(__file__).parent / "channel_cache.db"
+        cache_db = Path(__file__).parent.parent / "data" / "brave_history" / "channel_cache.db"
         tagger = VideoTagger(cache_db_path=str(cache_db))
         tagger.tag_videos()
     except ValueError as e:

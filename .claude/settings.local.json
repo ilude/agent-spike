@@ -94,7 +94,9 @@
       "Bash(do echo \"=== Checking $ip ===\")",
       "Bash(nbtstat -A:*)",
       "Bash(mstsc:*)",
-      "Bash(.git/hooks/post-merge)"
+      "Bash(.git/hooks/post-merge)",
+      "Bash(sqlite3:*)",
+      "Bash(choco list:*)"
     ],
     "deny": [],
     "ask": []

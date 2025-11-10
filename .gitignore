@@ -50,15 +50,16 @@ projects/data/*
 !projects/data/archive/
 !projects/data/qdrant/
 !projects/data/queues/
-projects/brave_history/data/*
-!projects/brave_history/data/brave_history.sqlite
+!projects/data/brave_history/
+projects/data/brave_history/*
+!projects/data/brave_history/.sync_state
 projects/data/qdrant.*/
 projects/data/qdrant.tmp/
 projects/data/queues/processing/
 *.db
 *.sqlite
 !projects/data/qdrant/**/*.sqlite
-!projects/brave_history/data/brave_history.sqlite
+!projects/data/brave_history/brave_history.sqlite
 *.sqlite3
 
 # IDE
