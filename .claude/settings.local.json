@@ -82,7 +82,18 @@
       "Bash(timeout 30 uv run:*)",
       "Bash(gpgconf:*)",
       "Bash(cp:*)",
-      "Bash(PYTHONPATH=. timeout 30 uv run python:*)"
+      "Bash(PYTHONPATH=. timeout 30 uv run python:*)",
+      "Bash(ipconfig:*)",
+      "Bash(ping:*)",
+      "Bash(nslookup:*)",
+      "Bash(arp:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $ip ===\")",
+      "Bash(pwsh -Command:*)",
+      "Bash(nbtstat -c:*)",
+      "Bash(do echo \"=== Checking $ip ===\")",
+      "Bash(nbtstat -A:*)",
+      "Bash(mstsc:*)"
     ],
     "deny": [],
     "ask": []
