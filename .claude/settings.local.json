@@ -80,7 +80,9 @@
       "Bash(timeout 45 uv run:*)",
       "Bash(timeout 90 uv run:*)",
       "Bash(timeout 30 uv run:*)",
-      "Bash(gpgconf:*)"
+      "Bash(gpgconf:*)",
+      "Bash(cp:*)",
+      "Bash(PYTHONPATH=. timeout 30 uv run python:*)"
     ],
     "deny": [],
     "ask": []
