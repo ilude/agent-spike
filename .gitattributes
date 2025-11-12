@@ -3,6 +3,8 @@
 *.key filter=git-crypt diff=git-crypt
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
+# Corrected path: actual committed location is projects/data/brave_history/** (previous pattern was reversed)
+projects/data/brave_history/** filter=git-crypt diff=git-crypt
 projects/brave_history/data/** filter=git-crypt diff=git-crypt
 
 # Handle line endings
