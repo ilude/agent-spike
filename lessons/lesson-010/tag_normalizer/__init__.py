@@ -7,9 +7,11 @@ Kept for backward compatibility with lesson-010 scripts.
 import sys
 from pathlib import Path
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment()
 
 # Re-export everything from the production service
 from tools.services.tagger import (

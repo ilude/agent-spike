@@ -24,15 +24,13 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Setup script environment
+sys.path.insert(0, str(Path(__file__).parent))
+from script_base import setup_script_environment
+project_root = setup_script_environment()
 
 from tools.services.archive import YouTubeArchive
 from tools.scripts.lib.reprocessing_pipeline import BaseReprocessingPipeline, ConsoleHooks
-from tools.env_loader import load_root_env
-
-load_root_env()
 
 
 class NormalizedTagsReprocessor(BaseReprocessingPipeline):

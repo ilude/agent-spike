@@ -10,7 +10,7 @@ import sys
 import io
 from pathlib import Path
 
-# Fix Windows console encoding for Unicode characters
+# Fix Windows console encoding for Unicode characters (must be before imports)
 if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(
         sys.stdout.buffer,
@@ -19,8 +19,12 @@ if sys.platform == 'win32':
         line_buffering=True
     )
 
-# Add parent dirs to path
+# Bootstrap: Add project root to path so we can import lessons.lesson_base
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+
+setup_lesson_environment()
 
 from tools.services.cache import create_qdrant_cache
 from rich.console import Console

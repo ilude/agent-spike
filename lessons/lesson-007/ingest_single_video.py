@@ -1,21 +1,21 @@
 """Ingest a single YouTube video with transcript and tags into Qdrant cache."""
 
-import asyncio
 import sys
 from pathlib import Path
 
-# Add project root and lesson-001 to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
+# Bootstrap: Add project root to path so we can import lessons.lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+
+setup_lesson_environment(lessons=["lesson-001"])
+
+import asyncio
 
 from youtube_agent.tools import get_transcript, extract_video_id
 from youtube_agent.agent import create_agent
 from tools.services.cache import create_qdrant_cache
 from tools.services.archive import create_local_archive_writer
-from tools.env_loader import load_root_env
-
-load_root_env()
 
 
 async def ingest_video(url: str, collection_name: str = "cached_content"):

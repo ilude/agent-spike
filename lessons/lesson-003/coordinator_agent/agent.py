@@ -5,10 +5,11 @@ import sys
 from pathlib import Path
 from typing import Dict, Any
 
-# Add parent directory to path to import sibling lesson modules
-lesson_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(lesson_root / "lesson-001"))
-sys.path.insert(0, str(lesson_root / "lesson-002"))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
 from youtube_agent.agent import analyze_video
 from webpage_agent.agent import analyze_webpage

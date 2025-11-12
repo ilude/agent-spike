@@ -14,9 +14,13 @@ Run with: uv run python test_memory_basics.py
 import io
 import os
 import sys
+from pathlib import Path
 
-# Add lesson-006 to path
-sys.path.insert(0, os.path.dirname(__file__))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment()
 
 # Fix Windows console UTF-8 encoding for emoji support
 if sys.platform == 'win32':

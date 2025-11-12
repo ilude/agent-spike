@@ -10,9 +10,12 @@ Run with: uv run python export_qdrant_to_archive.py
 import sys
 from pathlib import Path
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Bootstrap: Add project root to path so we can import lessons.lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+
+setup_lesson_environment()
 
 from tools.services.cache import create_qdrant_cache
 from archive import LocalArchiveWriter

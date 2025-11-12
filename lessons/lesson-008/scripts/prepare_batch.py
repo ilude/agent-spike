@@ -13,12 +13,11 @@ import os
 from pathlib import Path
 import argparse
 
-# Add parent directories to path
-lesson_008_dir = Path(__file__).parent.parent
-lesson_007_dir = lesson_008_dir.parent / "lesson-007"
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-sys.path.insert(0, str(lesson_008_dir))
-sys.path.insert(0, str(lesson_007_dir))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-007", "lesson-008"])
 
 from rich.console import Console
 

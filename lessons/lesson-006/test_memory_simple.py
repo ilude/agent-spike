@@ -14,6 +14,7 @@ Run with: uv run python test_memory_simple.py
 import io
 import os
 import sys
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Fix Windows console UTF-8 encoding
@@ -25,12 +26,11 @@ if sys.platform == 'win32':
         line_buffering=True
     )
 
-import io
-import os
-import sys
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Add lesson-006 to path
-sys.path.insert(0, os.path.dirname(__file__))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment()
 
 from memory import MemoryClient
 from tools.env_loader import load_root_env

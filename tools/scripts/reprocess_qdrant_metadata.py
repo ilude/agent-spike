@@ -19,9 +19,10 @@ import json
 import sys
 from pathlib import Path
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Setup script environment
+sys.path.insert(0, str(Path(__file__).parent))
+from script_base import setup_script_environment
+setup_script_environment(load_env=False)
 
 from tools.services.archive import YouTubeArchive
 from tools.scripts.lib.reprocessing_pipeline import BaseReprocessingPipeline, ConsoleHooks

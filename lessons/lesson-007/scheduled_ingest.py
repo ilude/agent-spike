@@ -5,24 +5,24 @@ Automatically skips videos that are already cached.
 Exits gracefully on rate limit errors.
 """
 
+import sys
+from pathlib import Path
+
+# Bootstrap: Add project root to path so we can import lessons.lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+
+project_root = setup_lesson_environment(lessons=["lesson-001"])
+
 import asyncio
 import csv
-import sys
 import time
-from pathlib import Path
 from datetime import datetime
-
-# Add project root and lesson-001 to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / "lessons" / "lesson-001"))
 
 from youtube_agent.tools import get_transcript, extract_video_id
 from youtube_agent.agent import create_agent
 from tools.services.cache import create_qdrant_cache
-from tools.env_loader import load_root_env
-
-load_root_env()
 
 
 async def ingest_video(url: str, cache) -> tuple[bool, str]:

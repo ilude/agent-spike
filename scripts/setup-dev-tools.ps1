@@ -29,6 +29,31 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+#==============================================================================
+# PACKAGE CONFIGURATION
+#==============================================================================
+# Define packages to install via winget
+$PACKAGES = @(
+    @{
+        Id = "Git.Git"
+        Name = "Git"
+        # Unix tools in PATH + no context menu entries
+        # PathOption=CmdTools: Git + Unix tools in PATH
+        # COMPONENTS: Exclude ext\shellhere and ext\guihere to disable context menu
+        CustomParams = "/VERYSILENT /NORESTART /NOCANCEL /SP- /o:PathOption=CmdTools /COMPONENTS=`"icons,gitlfs,assoc,assoc_sh,autoupdate,windowsterminal`""
+    },
+    @{ Id = "GnuWin32.Make"; Name = "GNU Make" },
+    @{ Id = "cURL.cURL"; Name = "curl" },
+    @{ Id = "Oven-sh.Bun"; Name = "bun" },
+    @{ Id = "Docker.DockerDesktop"; Name = "Docker Desktop" },
+    @{ Id = "Python.Python.3.14"; Name = "Python 3.14" },
+    @{ Id = "SQLite.SQLite"; Name = "SQLite CLI Tools" }
+)
+
+#==============================================================================
+# HELPER FUNCTIONS
+#==============================================================================
+
 # Color output helpers
 function Write-Step {
     param([string]$Message)
@@ -128,26 +153,9 @@ function Install-DevTools {
     Write-Success "winget is available"
     Write-Host ""
 
-    # Define packages to install
-    $packages = @(
-        @{
-            Id = "Git.Git"
-            Name = "Git"
-            # Unix tools in PATH + no context menu entries
-            # PathOption=CmdTools: Git + Unix tools in PATH
-            # COMPONENTS: Exclude ext\shellhere and ext\guihere to disable context menu
-            CustomParams = "/VERYSILENT /NORESTART /NOCANCEL /SP- /o:PathOption=CmdTools /COMPONENTS=`"icons,gitlfs,assoc,assoc_sh,autoupdate,windowsterminal`""
-        },
-        @{ Id = "GnuWin32.Make"; Name = "GNU Make" },
-        @{ Id = "cURL.cURL"; Name = "curl" },
-        @{ Id = "Oven-sh.Bun"; Name = "bun" },
-        @{ Id = "Docker.DockerDesktop"; Name = "Docker Desktop" },
-        @{ Id = "Python.Python.3.14"; Name = "Python 3.14" },
-        @{ Id = "SQLite.SQLite"; Name = "SQLite CLI Tools" }
-    )
-
+    # Install packages
     $results = @()
-    foreach ($pkg in $packages) {
+    foreach ($pkg in $PACKAGES) {
         if ($pkg.CustomParams) {
             $success = Install-WingetPackage -PackageId $pkg.Id -DisplayName $pkg.Name -CustomParams $pkg.CustomParams
         }

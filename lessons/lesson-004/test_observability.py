@@ -5,16 +5,11 @@ import os
 import sys
 from pathlib import Path
 
-# Add paths for all lesson modules
-lesson_root = Path(__file__).parent.parent
-sys.path.insert(0, str(lesson_root / "lesson-001"))
-sys.path.insert(0, str(lesson_root / "lesson-002"))
-sys.path.insert(0, str(lesson_root / "lesson-003"))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from tools.env_loader import load_root_env
-
-# Load environment
-load_root_env()
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002", "lesson-003"])
 
 # Initialize Logfire before importing agents
 from observability import initialize_logfire, get_logfire

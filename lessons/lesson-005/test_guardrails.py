@@ -3,8 +3,11 @@
 import sys
 from pathlib import Path
 
-# Add guardrails to path
-sys.path.insert(0, str(Path(__file__).parent))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment()
 
 from guardrails import (
     validate_url_safe,

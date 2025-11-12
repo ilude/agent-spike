@@ -9,24 +9,14 @@ from pathlib import Path
 
 print("Imports done")
 
-# Add project root
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-print("Path setup done")
+# Setup lesson environment
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
-# Load env
-from tools.env_loader import load_root_env
-load_root_env()
-
-print("Env loaded")
-
-# Add lessons
-lessons_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(lessons_dir))
-sys.path.insert(0, str(lessons_dir / "lesson-001"))
-sys.path.insert(0, str(lessons_dir / "lesson-002"))
-
+print("Environment setup done")
 print("About to import orchestrator...")
 
 from orchestrator_agent import orchestrator

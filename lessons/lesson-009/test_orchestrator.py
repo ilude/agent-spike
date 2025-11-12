@@ -5,27 +5,8 @@ Compares orchestrator (lesson-009) with coordinator (lesson-003)
 """
 
 import sys
-import os
-from pathlib import Path
-
-# Add project root to path for tools import
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-# Load environment variables using centralized utility (only if not already set)
-if not os.getenv('OPENAI_API_KEY'):
-    try:
-        from tools.env_loader import load_root_env
-        load_root_env()
-    except UnicodeDecodeError:
-        print("Warning: .env file is encrypted (git-crypt)")
-        print("Please unlock repo with: git-crypt unlock")
-        print("Or set OPENAI_API_KEY environment variable")
-        sys.exit(1)
-
-# Add lessons to path
-lessons_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(lessons_dir))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
 from orchestrator_agent import orchestrator
 

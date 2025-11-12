@@ -7,13 +7,11 @@ from typing import Dict, Any
 import sys
 from pathlib import Path
 
-# Add lessons to path so we can import sub-agents
-lessons_dir = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(lessons_dir))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-# Add individual lesson directories to path for importing agents
-sys.path.insert(0, str(lessons_dir / "lesson-001"))
-sys.path.insert(0, str(lessons_dir / "lesson-002"))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
 # Create sub-agents once globally (following Pydantic AI best practices)
 from youtube_agent.agent import create_agent as create_youtube_agent

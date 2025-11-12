@@ -4,20 +4,10 @@ Test calling subagent directly to isolate the hang
 print("TEST START", flush=True)
 
 import sys
-from pathlib import Path
-
-# Setup paths
-lessons_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(lessons_dir))
-sys.path.insert(0, str(lessons_dir / "lesson-001"))
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001"])
 
 print("1. Paths set up", flush=True)
-
-# Load env
-from tools.env_loader import load_root_env
-load_root_env()
 print("2. Env loaded", flush=True)
 
 # Try importing the YouTube agent module

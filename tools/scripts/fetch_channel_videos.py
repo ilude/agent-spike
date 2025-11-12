@@ -12,17 +12,13 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Setup script environment
+sys.path.insert(0, str(Path(__file__).parent))
+from script_base import setup_script_environment
+setup_script_environment()
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
-from tools.env_loader import load_root_env
-
-# Load environment variables from .env file
-load_root_env()
 
 
 def get_channel_id(youtube: Any, channel_url: str) -> str | None:

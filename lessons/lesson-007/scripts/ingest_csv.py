@@ -22,16 +22,11 @@ from pathlib import Path
 from typing import Optional
 import argparse
 
-# Add parent directories to path for imports
-lesson_007_dir = Path(__file__).parent.parent
-lesson_003_dir = lesson_007_dir.parent / "lesson-003"
-lesson_001_dir = lesson_007_dir.parent / "lesson-001"
-lesson_002_dir = lesson_007_dir.parent / "lesson-002"
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-sys.path.insert(0, str(lesson_007_dir))
-sys.path.insert(0, str(lesson_003_dir))
-sys.path.insert(0, str(lesson_001_dir))
-sys.path.insert(0, str(lesson_002_dir))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002", "lesson-003", "lesson-007"])
 
 from tqdm import tqdm
 from rich.console import Console

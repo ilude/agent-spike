@@ -21,23 +21,21 @@ Usage:
     uv run python tools/scripts/add_retroactive_metadata.py --skip-archives
 """
 
-import sys
 import csv
 import json
+import sys
 from pathlib import Path
 from datetime import datetime
 from typing import Set
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Setup script environment
+sys.path.insert(0, str(Path(__file__).parent))
+from script_base import setup_script_environment
+project_root = setup_script_environment()
 
 from tools.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
 from tools.services.cache import create_qdrant_cache
 from tools.services.youtube import extract_video_id
-from tools.env_loader import load_root_env
-
-load_root_env()
 
 
 def load_bulk_channel_video_ids(csv_path: Path) -> Set[str]:

@@ -8,14 +8,11 @@ import sys
 import os
 from pathlib import Path
 
-# Add project root for imports
-lessons_dir = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(lessons_dir))
-sys.path.insert(0, str(lessons_dir / "lesson-001"))
-sys.path.insert(0, str(lessons_dir / "lesson-002"))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from tools.env_loader import load_root_env
-load_root_env()
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
 
 async def call_subagent_simple(ctx: RunContext, agent_name: str, url: str) -> Dict[str, Any]:

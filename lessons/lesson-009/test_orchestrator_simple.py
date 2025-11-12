@@ -5,19 +5,8 @@ print("TEST START", flush=True)
 
 import asyncio
 import sys
-from pathlib import Path
-
-# Setup paths
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-from tools.env_loader import load_root_env
-load_root_env()
-
-lessons_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(lessons_dir))
-sys.path.insert(0, str(lessons_dir / "lesson-001"))
-sys.path.insert(0, str(lessons_dir / "lesson-002"))
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment(lessons=["lesson-001", "lesson-002"])
 
 print("Importing simplified orchestrator...", flush=True)
 from orchestrator_agent.agent_simple import orchestrator

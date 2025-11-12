@@ -104,7 +104,14 @@
       "Bash(then echo \"Lesson $i:\")",
       "Bash(else echo \"Lesson $i: NOT FOUND\")",
       "Bash(do echo \"=== $script ===\")",
-      "Bash(pytest:*)"
+      "Bash(pytest:*)",
+      "Bash(PYTHONPATH=../.. uv run python:*)",
+      "Bash(uv venv:*)",
+      "Bash(uv --version:*)",
+      "Bash(uv python list:*)",
+      "Bash(rm:*)",
+      "Bash(do grep -l \"from script_base import setup_script_environment\" \"tools/scripts/$f\")",
+      "Bash(do echo \"=== Checking $file ===\")"
     ],
     "deny": [],
     "ask": []

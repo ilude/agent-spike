@@ -11,9 +11,11 @@ from rich.console import Console
 from rich.table import Table
 from rich import print as rprint
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Bootstrap to import lesson_base
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from lessons.lesson_base import setup_lesson_environment
+setup_lesson_environment()
 
 from tools.services.archive.local_reader import LocalArchiveReader
 from tools.services.archive.config import ArchiveConfig
