@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node / Bun
+node_modules/
+.pnpm-store/
+bun.lockb
+
+# Build outputs
+web/dist/
+web/.svelte-kit/
+web/node_modules/.vite/
+
+# Logs
+logs/*.log
+*.log
+
+# Process tracking
+.backend.pid
+.frontend.pid
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

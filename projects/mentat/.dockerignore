@@ -1,0 +1,71 @@
+# Mentat Backend .dockerignore
+# Excludes files from Docker build context
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.egg-info
+dist/
+build/
+
+# Virtual environments
+.venv
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+*.pid
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Docker files (don't need to copy these into image)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Frontend (not needed for backend)
+web/node_modules/
+web/dist/
+web/.svelte-kit/
+
+# Test files
+tests/
+*.test.py
+test_*.py
+
+# Coverage
+.coverage
+htmlcov/
+.tox/
+
+# Environment files (loaded via env_file in compose)
+.env
+.env.*
+!.env.example

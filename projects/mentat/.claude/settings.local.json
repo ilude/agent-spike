@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat:*)",
+      "Bash(taskkill //F //PID 23564)",
+      "Bash(tasklist:*)",
+      "Bash(powershell.exe -Command \"Stop-Process -Id 23564 -Force\")",
+      "Bash(curl:*)",
+      "Bash(docker compose build:*)",
+      "Bash(docker compose:*)",
+      "Bash(bunx sv create:*)",
+      "Bash(bun add:*)",
+      "Bash([ -f .claude/CLAUDE.md ])"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
