@@ -6,6 +6,10 @@ Technical Approach: Challenge assumptions, point out potential issues, and ask t
 
 **Terminology Note**: This is the **local/project ruleset** (specific to this repository). The **personal ruleset** lives in the user's home directory (`~/.claude/CLAUDE.md`) and applies to all projects. This local ruleset takes precedence over personal preferences for project-specific patterns.
 
+## Session Context Management
+
+enable-session-commits: true
+
 ## Data Archiving Strategy
 
 **CRITICAL RULE**: Archive anything that costs time or money to fetch BEFORE processing it.

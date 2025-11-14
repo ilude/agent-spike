@@ -6,6 +6,9 @@
 .env.*.local
 .install-*
 
+# Claude Code local settings (machine-specific preferences)
+.claude/settings.local.json
+
 # Python cache and compiled files
 __pycache__/
 *.py[cod]
