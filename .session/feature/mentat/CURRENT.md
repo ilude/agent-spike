@@ -1,33 +1,36 @@
 # Quick Resume
 
-Last: 2025-01-14 04:30
+Last: 2025-01-14 05:00
 
 ## Right Now
-Implementing timestamp support for video links - all code changes complete, ready to commit and re-ingest videos
+Timestamp support implementation complete - code committed, partial archive update done, waiting for OpenAI API access to complete indexing
 
 ## Last 5 Done
-1. ✅ Updated frontend to generate URLs with &t= parameter (10 seconds before relevant part)
-2. ✅ Updated RAG endpoint to include timestamp in sources
-3. ✅ Updated indexing script to track chunk timestamps
-4. ✅ Updated archive writer to store timed transcripts
-5. ✅ Updated YouTubeTranscriptService to fetch timed transcripts
+1. ✅ Committed all timestamp support code (3 commits pushed)
+2. ✅ Updated 35/472 archives with timed transcripts
+3. ✅ Created update_archives_with_timestamps.py script
+4. ✅ Attempted Qdrant re-indexing (failed on OpenAI 403)
+5. ✅ Documented blockers and next steps in STATUS.md
 
 ## In Progress
-- Run /snapshot mentat (completing now)
+None - blocked on API access
 
 ## Paused
 None
 
 ## Tests
-Not run yet - need to re-ingest videos to test timestamp functionality
+Not run yet - indexing incomplete due to OpenAI API 403 error
 
 ## Blockers
-None
+**OpenAI Embeddings API**: Getting 403 permission denied error when trying to create embeddings for Qdrant indexing. Need to check:
+- API key permissions
+- Account status
+- Rate limits
 
 ## Next 3
-1. Commit and push all timestamp support code changes
-2. Run re-ingest script to re-index all videos with timestamps
-3. Final commit and push after re-ingest completes
+1. Investigate OpenAI API 403 error (check key, account, limits)
+2. Re-run indexing script: `uv run python projects/mentat/scripts/index_videos.py`
+3. Test timestamp functionality in frontend with timestamped videos
 
 ---
 Details → STATUS.md

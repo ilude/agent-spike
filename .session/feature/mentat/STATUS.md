@@ -143,3 +143,18 @@ Files:
 - projects/mentat/scripts/index_videos.py (lines 67-118: chunk_timed_transcript, 200-256: timed chunking)
 - projects/mentat/api/main.py (lines 459-468: timestamp in sources)
 - projects/mentat/frontend/src/routes/chat/+page.svelte (lines 80-87: URL with timestamp)
+
+---
+
+## 2025-01-14 05:00 - Archive Update (Partial)
+✅ Updated 35/472 archives with timed transcripts
+✅ Created update_archives_with_timestamps.py script
+❌ Remaining 437 archives blocked by YouTube rate limiting
+❌ Qdrant re-indexing failed with OpenAI 403 error
+Next: Re-run indexing when API access restored
+Blocker: OpenAI embeddings API returning 403 permission denied
+
+Notes:
+- System handles mixed archive formats gracefully
+- 35 videos will have timestamped links, rest will link to video start
+- Need to investigate OpenAI API permissions for embeddings
