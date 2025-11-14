@@ -26,12 +26,38 @@ export class MentatAPI {
 	}
 
 	/**
+	 * Fetch available models from backend
+	 * @returns {Promise<{models: Array}>}
+	 */
+	async fetchModels() {
+		const res = await fetch(`${this.baseURL}/models`);
+		if (!res.ok) {
+			throw new Error(`Failed to fetch models: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a random question based on indexed video content
+	 * @returns {Promise<{question: string}>}
+	 */
+	async getRandomQuestion() {
+		const res = await fetch(`${this.baseURL}/random-question`);
+		if (!res.ok) {
+			throw new Error(`Failed to fetch random question: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
 	 * Create WebSocket connection for chat
+	 * @param {boolean} useRAG - Whether to use RAG endpoint
 	 * @returns {WebSocket}
 	 */
-	connectWebSocket() {
+	connectWebSocket(useRAG = false) {
 		const wsURL = this.baseURL.replace('http://', 'ws://').replace('https://', 'wss://');
-		return new WebSocket(`${wsURL}/ws/chat`);
+		const endpoint = useRAG ? '/ws/rag-chat' : '/ws/chat';
+		return new WebSocket(`${wsURL}${endpoint}`);
 	}
 }
 

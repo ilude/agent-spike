@@ -1,6 +1,11 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
+  import { browser } from '$app/environment';
   import { api } from '$lib/api.js';
+  import { marked } from 'marked';
+  import DOMPurify from 'dompurify';
+  import hljs from 'highlight.js';
+  import 'highlight.js/styles/atom-one-dark.css';
 
   let messages = [];
   let input = '';
@@ -9,11 +14,174 @@
   let error = '';
   let currentResponse = '';
   let isStreaming = false;
+  let useRAG = true; // Enable RAG by default
+  let inputField; // Reference to textarea for focus management
+  let selectedModel = 'moonshotai/kimi-k2:free'; // Default model
+  let availableModels = [];
+  let modelsLoading = true;
+  let reconnectTimeout = null; // Track reconnection timeout to prevent stacking
+  let markedConfigured = false; // Track if marked has been configured
+  let tooltipVisible = false;
+  let tooltipContent = { description: '', tags: [] };
+  let tooltipPosition = { x: 0, y: 0 };
+  let storageInitialized = false; // Track if we've restored from storage
+  let messageQueue = []; // Queue for messages sent while streaming
+
+  // Storage version - increment when message format changes
+  const STORAGE_VERSION = 6;
+
+  // Configure marked once (browser-only)
+  function configureMarked() {
+    if (!browser || markedConfigured) return;
+
+    marked.setOptions({
+      async: false,
+      breaks: true, // Convert \n to <br>
+      gfm: true, // GitHub Flavored Markdown
+      highlight: function(code, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(code, { language: lang }).value;
+          } catch (e) {
+            console.error('Highlight error:', e);
+          }
+        }
+        return hljs.highlightAuto(code).value;
+      }
+    });
+
+    markedConfigured = true;
+  }
+
+  // Render markdown with sanitization (browser-only)
+  function renderMarkdown(text) {
+    if (!browser) return text; // Return plain text during SSR
+
+    configureMarked(); // Ensure marked is configured
+    const html = marked.parse(text);
+    return DOMPurify.sanitize(html);
+  }
+
+  // Process inline video citations
+  function renderWithInlineCitations(content, sources) {
+    if (!browser || !sources || sources.length === 0) {
+      return renderMarkdown(content);
+    }
+
+    // Render markdown first
+    let html = renderMarkdown(content);
+
+    // Replace each video title with clickable link
+    sources.forEach((source, index) => {
+      const title = source.video_title;
+      // Create a regex to find the exact title (case-insensitive, with optional quotes)
+      const regex = new RegExp(`(['"]?)${title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\1`, 'gi');
+
+      // Build URL with optional timestamp
+      let videoUrl = source.url;
+      if (source.start_time !== undefined && source.start_time !== null) {
+        // Subtract 10 seconds to give context before the relevant part
+        const timestamp = Math.max(0, Math.floor(source.start_time - 10));
+        // Add timestamp to URL (YouTube uses &t=123s format)
+        videoUrl = `${source.url}&t=${timestamp}s`;
+      }
+
+      // Replace with link that has data attributes for tooltip
+      const replacement = `<a href="${videoUrl}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-video-link"
+        data-source-index="${index}"
+        data-video-description="${(source.description || '').replace(/"/g, '&quot;')}"
+        data-video-tags="${(source.tags || []).join(', ')}">${title}</a>`;
+
+      html = html.replace(regex, replacement);
+    });
+
+    return html;
+  }
+
+  // Handle hover over inline video links
+  function handleInlineLinkHover(event) {
+    const target = event.target;
+
+    // Check if hovering over an inline video link (check target and parents)
+    let linkElement = null;
+    if (target.classList && target.classList.contains('inline-video-link')) {
+      linkElement = target;
+    } else if (target.closest && target.closest('.inline-video-link')) {
+      linkElement = target.closest('.inline-video-link');
+    }
+
+    if (linkElement) {
+      const description = linkElement.getAttribute('data-video-description') || 'No description available';
+      const tagsStr = linkElement.getAttribute('data-video-tags') || '';
+      const tags = tagsStr ? tagsStr.split(', ') : [];
+
+      showTooltip(event, description, tags);
+    } else {
+      hideTooltip();
+    }
+  }
+
+  // Tooltip functions
+  function showTooltip(event, description, tags) {
+    tooltipContent = { description, tags };
+
+    // Calculate initial position
+    let x = event.clientX + 10;
+    let y = event.clientY + 10;
+
+    // Tooltip max-width is 400px, estimate height at ~100px
+    const tooltipWidth = 400;
+    const tooltipHeight = 100;
+
+    // Check right edge - flip to left of cursor if too close to right edge
+    if (x + tooltipWidth > window.innerWidth) {
+      x = event.clientX - tooltipWidth - 10;
+    }
+
+    // Check bottom edge - flip above cursor if too close to bottom
+    if (y + tooltipHeight > window.innerHeight) {
+      y = event.clientY - tooltipHeight - 10;
+    }
+
+    // Ensure tooltip doesn't go off left edge
+    if (x < 0) {
+      x = 10;
+    }
+
+    // Ensure tooltip doesn't go off top edge
+    if (y < 0) {
+      y = 10;
+    }
+
+    tooltipPosition = { x, y };
+    tooltipVisible = true;
+  }
+
+  function hideTooltip() {
+    tooltipVisible = false;
+  }
 
   function connectWebSocket() {
-    ws = api.connectWebSocket();
+    // Set disconnected state immediately
+    connected = false;
+
+    ws = api.connectWebSocket(useRAG);
+
+    // Connection timeout - if not connected within 5 seconds, consider it failed
+    const connectionTimeout = setTimeout(() => {
+      if (ws && ws.readyState !== WebSocket.OPEN) {
+        console.error('WebSocket connection timeout');
+        connected = false;
+        error = 'Connection timeout. Is the backend running?';
+        ws.close();
+      }
+    }, 5000);
 
     ws.onopen = () => {
+      clearTimeout(connectionTimeout);
       connected = true;
       error = '';
       console.log('WebSocket connected');
@@ -34,15 +202,18 @@
               role: 'assistant',
               content: currentResponse.trim(),
               sources: data.sources || [],
-              timestamp: new Date()
+              timestamp: new Date(),
+              id: crypto.randomUUID()
             }];
             currentResponse = '';
           }
           isStreaming = false;
+          processQueue(); // Process next queued message if any
         } else if (data.type === 'error') {
           error = data.content;
           isStreaming = false;
           currentResponse = '';
+          processQueue(); // Process next queued message if any
         }
       } catch (e) {
         console.error('Failed to parse WebSocket message:', e);
@@ -51,16 +222,19 @@
     };
 
     ws.onerror = (e) => {
+      clearTimeout(connectionTimeout);
       console.error('WebSocket error:', e);
       error = 'Connection error. Is the backend running?';
       connected = false;
     };
 
     ws.onclose = () => {
+      clearTimeout(connectionTimeout);
       connected = false;
       console.log('WebSocket disconnected');
       // Auto-reconnect after 2 seconds
-      setTimeout(() => {
+      if (reconnectTimeout) clearTimeout(reconnectTimeout); // Clear pending reconnect
+      reconnectTimeout = setTimeout(() => {
         if (!connected) {
           console.log('Attempting to reconnect...');
           connectWebSocket();
@@ -70,23 +244,76 @@
   }
 
   function send() {
-    if (!input.trim() || !connected || isStreaming) return;
+    if (!input.trim() || !connected) return;
 
     const userMessage = input.trim();
     input = '';
+    if (browser) sessionStorage.removeItem('mentat_draft'); // Clear saved draft after sending
+
+    // If currently streaming, queue the message
+    if (isStreaming) {
+      messageQueue = [...messageQueue, userMessage];
+      // Add user message to chat immediately (queued indicator could be added here)
+      messages = [...messages, {
+        role: 'user',
+        content: userMessage,
+        timestamp: new Date(),
+        id: crypto.randomUUID()
+      }];
+
+      // Return focus to input field
+      if (inputField) {
+        inputField.focus();
+      }
+      return;
+    }
 
     // Add user message to chat
     messages = [...messages, {
       role: 'user',
       content: userMessage,
-      timestamp: new Date()
+      timestamp: new Date(),
+      id: crypto.randomUUID()
     }];
 
-    // Send to backend
-    ws.send(JSON.stringify({ message: userMessage }));
+    // Send to backend with selected model
+    ws.send(JSON.stringify({
+      message: userMessage,
+      model: selectedModel
+    }));
     isStreaming = true;
     currentResponse = '';
     error = '';
+
+    // Return focus to input field
+    if (inputField) {
+      inputField.focus();
+    }
+  }
+
+  // Process next message in queue
+  function processQueue() {
+    if (messageQueue.length === 0 || !connected) return;
+
+    const nextMessage = messageQueue[0];
+    messageQueue = messageQueue.slice(1);
+
+    // Send to backend with selected model
+    ws.send(JSON.stringify({
+      message: nextMessage,
+      model: selectedModel
+    }));
+    isStreaming = true;
+    currentResponse = '';
+    error = '';
+  }
+
+  function retry(message) {
+    if (!connected || isStreaming) return;
+
+    // Populate input field with original message content and auto-send
+    input = message.content;
+    send();
   }
 
   function handleKeyPress(event) {
@@ -96,33 +323,232 @@
     }
   }
 
-  onMount(() => {
+  function handleModelChange(event) {
+    selectedModel = event.target.value;
+    localStorage.setItem('mentat_model', selectedModel);
+  }
+
+  function clearChat() {
+    messages = [];
+    currentResponse = '';
+    sessionStorage.removeItem('mentat_messages');
+    sessionStorage.removeItem('mentat_current_response');
+  }
+
+  async function generateRandomQuestion() {
+    try {
+      const response = await api.getRandomQuestion();
+      input = response.question;
+
+      // Focus the input field
+      if (inputField) {
+        inputField.focus();
+      }
+    } catch (error) {
+      console.error('Failed to generate random question:', error);
+      // Fallback to a default question
+      input = "What are the best practices for prompt engineering?";
+
+      if (inputField) {
+        inputField.focus();
+      }
+    }
+  }
+
+  onMount(async () => {
+    // Load saved model preference from localStorage
+    const savedModel = localStorage.getItem('mentat_model');
+    if (savedModel) {
+      selectedModel = savedModel;
+    }
+
+    // Fetch available models
+    try {
+      const response = await api.fetchModels();
+      availableModels = response.models || [];
+      modelsLoading = false;
+
+      // Validate saved model still exists
+      if (savedModel && !availableModels.some(m => m.id === savedModel)) {
+        selectedModel = 'moonshotai/kimi-k2:free';
+        localStorage.setItem('mentat_model', selectedModel);
+      }
+    } catch (e) {
+      console.error('Failed to fetch models:', e);
+      modelsLoading = false;
+      // Use fallback model
+      availableModels = [
+        {
+          id: 'moonshotai/kimi-k2:free',
+          name: 'Moonshot Kimi K2 (Free)',
+          is_free: true
+        }
+      ];
+    }
+
+    // Restore saved draft, messages, and current response from sessionStorage (only in browser)
+    if (browser) {
+      // Check storage version - clear old data if version mismatch
+      const savedVersion = sessionStorage.getItem('mentat_storage_version');
+      if (savedVersion !== String(STORAGE_VERSION)) {
+        console.log('Storage version mismatch, clearing old messages');
+        sessionStorage.removeItem('mentat_messages');
+        sessionStorage.removeItem('mentat_current_response');
+        sessionStorage.setItem('mentat_storage_version', String(STORAGE_VERSION));
+      }
+
+      const savedDraft = sessionStorage.getItem('mentat_draft');
+      if (savedDraft) {
+        input = savedDraft;
+      }
+
+      // Restore saved messages
+      const savedMessages = sessionStorage.getItem('mentat_messages');
+      if (savedMessages) {
+        try {
+          const parsed = JSON.parse(savedMessages);
+          // Restore Date objects from timestamps
+          messages = parsed.map(msg => ({
+            ...msg,
+            timestamp: new Date(msg.timestamp)
+          }));
+        } catch (e) {
+          console.error('Failed to restore messages:', e);
+          messages = [];
+        }
+      }
+
+      // Restore current streaming response if any
+      const savedResponse = sessionStorage.getItem('mentat_current_response');
+      if (savedResponse) {
+        currentResponse = savedResponse;
+      }
+
+      // Mark storage as initialized to enable reactive saving
+      storageInitialized = true;
+    }
+
     connectWebSocket();
+    // Focus input field after a short delay to ensure it's rendered
+    setTimeout(() => {
+      if (inputField) {
+        inputField.focus();
+      }
+    }, 100);
   });
 
   onDestroy(() => {
     if (ws) {
       ws.close();
     }
+    if (reconnectTimeout) {
+      clearTimeout(reconnectTimeout); // Prevent orphaned timeouts
+    }
   });
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom after messages update
+  async function scrollToBottom() {
+    await tick(); // Wait for DOM to update
+    const messagesDiv = document.querySelector('.messages');
+    if (messagesDiv) {
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  }
+
   $: if (messages.length > 0 || currentResponse) {
-    setTimeout(() => {
-      const messagesDiv = document.querySelector('.messages');
-      if (messagesDiv) {
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      }
-    }, 50);
+    scrollToBottom();
+  }
+
+  // Save messages to sessionStorage whenever they change (only in browser after initialization)
+  $: if (browser && storageInitialized && messages !== undefined) {
+    if (messages.length > 0) {
+      sessionStorage.setItem('mentat_messages', JSON.stringify(messages));
+    } else {
+      sessionStorage.removeItem('mentat_messages');
+    }
+  }
+
+  // Save current streaming response to sessionStorage (only in browser after initialization)
+  $: if (browser && storageInitialized && currentResponse !== undefined) {
+    if (currentResponse.trim()) {
+      sessionStorage.setItem('mentat_current_response', currentResponse);
+    } else {
+      sessionStorage.removeItem('mentat_current_response');
+    }
+  }
+
+  // Save input draft to sessionStorage whenever it changes (only in browser after initialization)
+  $: if (browser && storageInitialized && input !== undefined) {
+    if (input.trim()) {
+      sessionStorage.setItem('mentat_draft', input);
+    } else {
+      sessionStorage.removeItem('mentat_draft');
+    }
   }
 </script>
 
 <main>
   <header>
-    <h1>Mentat</h1>
-    <div class="status">
-      <span class="indicator" class:connected></span>
-      {connected ? 'Connected' : 'Disconnected'}
+    <div class="header-content">
+      <h1>Mentat</h1>
+      <div class="controls">
+        <label class="toggle">
+          <input
+            type="checkbox"
+            bind:checked={useRAG}
+            on:change={() => {
+              if (ws) ws.close();
+              connectWebSocket();
+            }}
+          />
+          <span class="toggle-label">
+            RAG Mode {useRAG ? 'ON' : 'OFF'}
+          </span>
+        </label>
+
+        <div class="model-selector">
+          <label for="model-select" class="model-label">Model:</label>
+          <select
+            id="model-select"
+            bind:value={selectedModel}
+            on:change={handleModelChange}
+            disabled={modelsLoading || isStreaming}
+          >
+            {#if modelsLoading}
+              <option>Loading models...</option>
+            {:else}
+              <!-- Group free models -->
+              <optgroup label="Free Models">
+                {#each availableModels.filter(m => m.is_free) as model}
+                  <option value={model.id}>
+                    {model.name}
+                  </option>
+                {/each}
+              </optgroup>
+
+              <!-- Group paid models -->
+              {#if availableModels.some(m => !m.is_free)}
+                <optgroup label="Paid Models">
+                  {#each availableModels.filter(m => !m.is_free) as model}
+                    <option value={model.id}>
+                      {model.name}
+                    </option>
+                  {/each}
+                </optgroup>
+              {/if}
+            {/if}
+          </select>
+        </div>
+
+        <button class="clear-btn" on:click={clearChat} title="Clear chat history">
+          Clear
+        </button>
+
+        <div class="status">
+          <span class="indicator" class:connected></span>
+          {connected ? 'Connected' : 'Disconnected'}
+        </div>
+      </div>
     </div>
   </header>
 
@@ -135,27 +561,40 @@
 
   <div class="messages">
     {#each messages as msg}
-      <div class="message message-{msg.role}">
-        <div class="message-header">
-          <strong>{msg.role === 'user' ? 'You' : 'Mentat'}</strong>
-          <span class="timestamp">{msg.timestamp.toLocaleTimeString()}</span>
-        </div>
-        <div class="message-content">{msg.content}</div>
-        {#if msg.sources && msg.sources.length > 0}
-          <div class="sources">
-            <em>Sources:</em> {msg.sources.join(', ')}
+      <div class="message-wrapper message-wrapper-{msg.role}">
+        <div class="message message-{msg.role}">
+          <div
+            class="message-content"
+            on:mousemove={handleInlineLinkHover}
+            on:mouseleave={hideTooltip}
+          >
+            {@html renderWithInlineCitations(msg.content, msg.sources)}
           </div>
-        {/if}
+        </div>
+        <div class="message-metadata">
+          <span class="timestamp">{msg.timestamp.toLocaleTimeString()}</span>
+          {#if msg.role === 'user'}
+            <button
+              class="retry-btn"
+              on:click={() => retry(msg)}
+              disabled={!connected}
+              title="Retry this message"
+            >
+              ↻
+            </button>
+          {/if}
+        </div>
       </div>
     {/each}
 
     {#if currentResponse}
-      <div class="message message-assistant streaming">
-        <div class="message-header">
-          <strong>Mentat</strong>
+      <div class="message-wrapper message-wrapper-assistant">
+        <div class="message message-assistant streaming">
+          <div class="message-content">{@html renderMarkdown(currentResponse)}</div>
+        </div>
+        <div class="message-metadata">
           <span class="typing-indicator">typing...</span>
         </div>
-        <div class="message-content">{currentResponse}</div>
       </div>
     {/if}
 
@@ -169,26 +608,51 @@
   </div>
 
   <div class="input-area">
-    <textarea
-      bind:value={input}
-      on:keypress={handleKeyPress}
-      disabled={!connected || isStreaming}
-      placeholder={connected ? "Ask Mentat..." : "Connecting..."}
-      rows="2"
-    ></textarea>
-    <button
-      on:click={send}
-      disabled={!connected || isStreaming || !input.trim()}
-    >
-      {isStreaming ? 'Sending...' : 'Send'}
-    </button>
+    <div class="input-content">
+      <button
+        class="random-question-btn"
+        on:click={generateRandomQuestion}
+        disabled={!connected}
+        title="Generate random question"
+      >
+        🎲
+      </button>
+      <textarea
+        bind:this={inputField}
+        bind:value={input}
+        on:keypress={handleKeyPress}
+        disabled={!connected}
+        placeholder={connected ? "Ask Mentat..." : "Connecting..."}
+        rows="2"
+      ></textarea>
+      <button
+        on:click={send}
+        disabled={!connected || !input.trim()}
+      >
+        Send
+      </button>
+    </div>
   </div>
 </main>
 
+<!-- Custom Tooltip -->
+{#if tooltipVisible}
+  <div
+    class="custom-tooltip"
+    style="left: {tooltipPosition.x}px; top: {tooltipPosition.y}px;"
+  >
+    <div class="tooltip-description">{tooltipContent.description}</div>
+    {#if tooltipContent.tags && tooltipContent.tags.length > 0}
+      <div class="tooltip-tags">
+        {tooltipContent.tags.join(', ')}
+      </div>
+    {/if}
+  </div>
+{/if}
+
 <style>
   main {
-    max-width: 900px;
-    margin: 0 auto;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -196,17 +660,143 @@
 
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
     border-bottom: 1px solid #2a2a2a;
     background: #1a1a1a;
+    width: 100%;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
   }
 
   h1 {
     margin: 0;
     font-size: 1.5rem;
     color: #3b82f6;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle input[type="checkbox"] {
+    appearance: none;
+    width: 44px;
+    height: 24px;
+    background: #2a2a2a;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .toggle input[type="checkbox"]:checked {
+    background: #3b82f6;
+  }
+
+  .toggle input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s;
+  }
+
+  .toggle input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+  }
+
+  .toggle-label {
+    font-size: 0.875rem;
+    color: #e5e5e5;
+    font-weight: 500;
+  }
+
+  .model-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .model-label {
+    font-size: 0.875rem;
+    color: #888;
+    font-weight: 500;
+  }
+
+  .model-selector select {
+    padding: 0.4rem 0.75rem;
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    min-width: 200px;
+  }
+
+  .model-selector select:hover:not(:disabled) {
+    border-color: #3b82f6;
+  }
+
+  .model-selector select:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .model-selector select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .model-selector select option {
+    background: #0a0a0a;
+    color: #e5e5e5;
+  }
+
+  .model-selector select optgroup {
+    background: #1a1a1a;
+    color: #3b82f6;
+    font-weight: 600;
+  }
+
+  .clear-btn {
+    padding: 0.4rem 0.75rem;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-btn:hover {
+    background: #3a3a3a;
+    border-color: #ef4444;
+    color: #ef4444;
   }
 
   .status {
@@ -256,7 +846,11 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.1rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 
   .welcome {
@@ -280,37 +874,56 @@
   }
 
   .message {
-    max-width: 75%;
-    padding: 1rem;
+    padding: 0.1rem 1rem;
     border-radius: 0.75rem;
     background: #1a1a1a;
     border: 1px solid #2a2a2a;
+    width: 100%;
   }
 
   .message-user {
-    align-self: flex-end;
     background: #1e3a8a;
     border-color: #1e40af;
   }
 
   .message-assistant {
-    align-self: flex-start;
+    background: #1a1a1a;
   }
 
   .message-assistant.streaming {
     border-color: #3b82f6;
   }
 
-  .message-header {
+  /* Message wrapper contains both message box and metadata */
+  .message-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+  }
+
+  .message-wrapper-user {
+    align-self: flex-end;
+  }
+
+  .message-wrapper-assistant {
+    align-self: flex-start;
+  }
+
+  /* Metadata row (timestamp + retry button) */
+  .message-metadata {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
+    margin-top: 0.025rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    min-height: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
 
-  .message-header strong {
-    color: #3b82f6;
+  .message-wrapper:hover .message-metadata {
+    opacity: 1;
   }
 
   .timestamp {
@@ -324,26 +937,275 @@
     font-style: italic;
   }
 
+  .retry-btn {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .retry-btn:hover:not(:disabled) {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .retry-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
   .message-content {
-    white-space: pre-wrap;
+    white-space: normal;
     word-wrap: break-word;
+    line-height: 1.6;
+  }
+
+  /* Markdown styling */
+  .message-content p {
+    margin: 0.75rem 0;
+  }
+
+  .message-content p:first-child {
+    margin-top: 0;
+  }
+
+  .message-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .message-content code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.875em;
+  }
+
+  .message-content pre {
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+  }
+
+  .message-content pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
-  .sources {
-    margin-top: 0.75rem;
+  .message-content a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+
+  .message-content a:hover {
+    text-decoration: underline;
+  }
+
+  .message-content ul,
+  .message-content ol {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .message-content li {
+    margin: 0.25rem 0;
+  }
+
+  .message-content blockquote {
+    margin: 0.75rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid #3b82f6;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  .message-content table {
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    width: 100%;
+  }
+
+  .message-content th,
+  .message-content td {
+    border: 1px solid #2a2a2a;
+    padding: 0.5rem;
+    text-align: left;
+  }
+
+  .message-content th {
+    background: rgba(59, 130, 246, 0.1);
+    font-weight: 600;
+  }
+
+  .message-content h1,
+  .message-content h2,
+  .message-content h3,
+  .message-content h4,
+  .message-content h5,
+  .message-content h6 {
+    margin: 1rem 0 0.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .message-content h1:first-child,
+  .message-content h2:first-child,
+  .message-content h3:first-child {
+    margin-top: 0;
+  }
+
+  .message-content h1 { font-size: 1.5rem; }
+  .message-content h2 { font-size: 1.3rem; }
+  .message-content h3 { font-size: 1.1rem; }
+  .message-content h4 { font-size: 1rem; }
+
+  .message-content strong {
+    font-weight: 600;
+  }
+
+  .message-content em {
+    font-style: italic;
+  }
+
+  .message-content hr {
+    border: none;
+    border-top: 1px solid #2a2a2a;
+    margin: 1rem 0;
+  }
+
+  /* Video Sources - New Card Design */
+  .video-sources {
+    margin-top: 1rem;
     padding-top: 0.75rem;
     border-top: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .video-item {
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .video-item:hover {
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  .video-title {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .video-title:hover {
+    text-decoration: underline;
+  }
+
+  .video-description {
+    color: #666;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    padding-right: 2rem;
+  }
+
+  /* Gradient fade effect on description */
+  .video-description::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    background: linear-gradient(to right, transparent, #1a1a1a);
+    pointer-events: none;
+  }
+
+  /* Missing description fallback (old cached messages) */
+  .video-description-missing {
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  /* Inline Video Citation Links */
+  .message-content :global(.inline-video-link) {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dotted #3b82f6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .message-content :global(.inline-video-link:hover) {
+    color: #60a5fa;
+    border-bottom-color: #60a5fa;
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  /* Custom Tooltip Styles */
+  .custom-tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: #2a2a2a;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    padding: 0.75rem;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  .tooltip-description {
+    color: #e0e0e0;
     font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .tooltip-tags {
     color: #888;
+    font-size: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #3a3a3a;
   }
 
   .input-area {
     padding: 1rem 2rem;
     border-top: 1px solid #2a2a2a;
     background: #1a1a1a;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-content {
     display: flex;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 900px;
   }
 
   textarea {
@@ -388,5 +1250,24 @@
   button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  .random-question-btn {
+    padding: 0.75rem;
+    min-width: auto;
+    width: 48px;
+    height: 48px;
+    background: #2a2a2a;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .random-question-btn:hover:not(:disabled) {
+    background: #3a3a3a;
+    transform: rotate(15deg);
+    transition: all 0.2s ease;
   }
 </style>

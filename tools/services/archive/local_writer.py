@@ -71,6 +71,7 @@ class LocalArchiveWriter:
         transcript: str,
         metadata: Optional[dict] = None,
         import_metadata: Optional[ImportMetadata] = None,
+        timed_transcript: Optional[list[dict]] = None,
     ) -> Path:
         """Archive YouTube video data.
 
@@ -80,6 +81,7 @@ class LocalArchiveWriter:
             transcript: Raw transcript text
             metadata: Optional YouTube metadata
             import_metadata: Optional import tracking metadata for recommendations
+            timed_transcript: Optional timed transcript data [{"text": str, "start": float, "duration": float}, ...]
 
         Returns:
             Path to archive file
@@ -90,6 +92,7 @@ class LocalArchiveWriter:
             url=url,
             fetched_at=datetime.now(),
             raw_transcript=transcript,
+            timed_transcript=timed_transcript,
             youtube_metadata=metadata or {},
             import_metadata=import_metadata,
         )

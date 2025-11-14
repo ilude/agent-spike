@@ -98,6 +98,42 @@ class YouTubeTranscriptService:
 
         return full_text
 
+    def fetch_timed_transcript(
+        self, video_id: str, languages: Optional[list[str]] = None
+    ) -> list[dict]:
+        """Fetch transcript with timestamps for a YouTube video.
+
+        Args:
+            video_id: YouTube video ID (11 characters)
+            languages: Preferred transcript languages (default: ['en'])
+
+        Returns:
+            List of transcript segments with timestamps:
+            [{"text": str, "start": float, "duration": float}, ...]
+
+        Raises:
+            TranscriptsDisabled: If transcripts are disabled for the video
+            NoTranscriptFound: If no transcript found in requested languages
+            Exception: For other errors (network, parsing, etc.)
+        """
+        if languages is None:
+            languages = ["en"]
+
+        # Create API instance with or without proxy config
+        if self._proxy_configured:
+            api = YouTubeTranscriptApi(proxy_config=self.proxy_config)
+        else:
+            api = YouTubeTranscriptApi()
+
+        # Fetch transcript
+        fetched = api.fetch(video_id, languages=languages)
+
+        # Return snippets with timestamps
+        return [
+            {"text": snippet.text, "start": snippet.start, "duration": snippet.duration}
+            for snippet in fetched.snippets
+        ]
+
     def fetch_transcript_safe(
         self,
         video_id: str,

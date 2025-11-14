@@ -86,6 +86,7 @@ class YouTubeArchive(BaseModel):
 
     # Raw data (what cost time/money to fetch)
     raw_transcript: str
+    timed_transcript: Optional[list[dict]] = None  # [{"text": str, "start": float, "duration": float}, ...]
     youtube_metadata: dict = Field(default_factory=dict)  # title, upload_date, channel, etc.
 
     # LLM-generated outputs

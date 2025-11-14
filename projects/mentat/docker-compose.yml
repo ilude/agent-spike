@@ -27,6 +27,18 @@ services:
       start_period: 40s
     restart: unless-stopped
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: mentat-qdrant
+    ports:
+      - "6333:6333"  # REST API
+      - "6334:6334"  # gRPC (optional)
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - mentat_network
+    restart: unless-stopped
+
   frontend:
     build:
       context: ./frontend
@@ -57,6 +69,8 @@ volumes:
   frontend_node_modules:
     driver: local
   frontend_svelte_kit:
+    driver: local
+  qdrant_data:
     driver: local
 
 networks:
