@@ -29,5 +29,1627 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "Anthropic is showing us their strategy",
+      "start": 0.24,
+      "duration": 4.559
+    },
+    {
+      "text": "for Claude in broad daylight and",
+      "start": 2.639,
+      "duration": 4.16
+    },
+    {
+      "text": "everyone's obsessed with the Chad GPT",
+      "start": 4.799,
+      "duration": 3.521
+    },
+    {
+      "text": "launch. But look at what they've",
+      "start": 6.799,
+      "duration": 2.88
+    },
+    {
+      "text": "released in the last few weeks. They",
+      "start": 8.32,
+      "duration": 4.48
+    },
+    {
+      "text": "released Claude Opus 4.1. It's a 0.1",
+      "start": 9.679,
+      "duration": 4.401
+    },
+    {
+      "text": "release. No one's going to pay",
+      "start": 12.8,
+      "duration": 3.039
+    },
+    {
+      "text": "attention, right? But it delivered",
+      "start": 14.08,
+      "duration": 3.68
+    },
+    {
+      "text": "meaningful improvements that I can feel",
+      "start": 15.839,
+      "duration": 4.481
+    },
+    {
+      "text": "every day in Agentic Tasks. It gets",
+      "start": 17.76,
+      "duration": 4.96
+    },
+    {
+      "text": "better at realworld coding. And keep in",
+      "start": 20.32,
+      "duration": 3.84
+    },
+    {
+      "text": "mind, and this will be a through line",
+      "start": 22.72,
+      "duration": 4.24
+    },
+    {
+      "text": "throughout this, anthropic is really",
+      "start": 24.16,
+      "duration": 4.959
+    },
+    {
+      "text": "good at code. And we'll get into why and",
+      "start": 26.96,
+      "duration": 4.159
+    },
+    {
+      "text": "why they picked that later on here. Now,",
+      "start": 29.119,
+      "duration": 4.001
+    },
+    {
+      "text": "it tests well, right? It gets 74 and a",
+      "start": 31.119,
+      "duration": 4.241
+    },
+    {
+      "text": "half% on Sweetbench, which is the bench",
+      "start": 33.12,
+      "duration": 4.4
+    },
+    {
+      "text": "for software engineering tasks. And it's",
+      "start": 35.36,
+      "duration": 3.68
+    },
+    {
+      "text": "especially good at large codebase",
+      "start": 37.52,
+      "duration": 2.96
+    },
+    {
+      "text": "navigation, finding the right",
+      "start": 39.04,
+      "duration": 3.199
+    },
+    {
+      "text": "corrections, not making unnecessary",
+      "start": 40.48,
+      "duration": 3.52
+    },
+    {
+      "text": "changes, the things that are making",
+      "start": 42.239,
+      "duration": 3.84
+    },
+    {
+      "text": "agents more useful. Essentially, they",
+      "start": 44.0,
+      "duration": 4.719
+    },
+    {
+      "text": "roll it out. Unlike with the GPT5",
+      "start": 46.079,
+      "duration": 4.48
+    },
+    {
+      "text": "rollout, which was very rocky,",
+      "start": 48.719,
+      "duration": 3.601
+    },
+    {
+      "text": "Anthropic's roll out is pretty chill.",
+      "start": 50.559,
+      "duration": 4.48
+    },
+    {
+      "text": "But we're not done yet. August 12th,",
+      "start": 52.32,
+      "duration": 5.36
+    },
+    {
+      "text": "just a few days later, they roll out a",
+      "start": 55.039,
+      "duration": 5.601
+    },
+    {
+      "text": "million token context window for Sonnet.",
+      "start": 57.68,
+      "duration": 5.679
+    },
+    {
+      "text": "Huge. And Opus 4.1 will support it now,",
+      "start": 60.64,
+      "duration": 5.92
+    },
+    {
+      "text": "too. It's more than double the previous",
+      "start": 63.359,
+      "duration": 5.601
+    },
+    {
+      "text": "sort of flagship AI token window. Now, I",
+      "start": 66.56,
+      "duration": 4.0
+    },
+    {
+      "text": "grant you there are some token windows",
+      "start": 68.96,
+      "duration": 4.0
+    },
+    {
+      "text": "that are even bigger than that that have",
+      "start": 70.56,
+      "duration": 4.559
+    },
+    {
+      "text": "kind of fallen by the wayside. So we've",
+      "start": 72.96,
+      "duration": 4.56
+    },
+    {
+      "text": "heard mentions of 2 million token",
+      "start": 75.119,
+      "duration": 4.801
+    },
+    {
+      "text": "windows for example out of llama hasn't",
+      "start": 77.52,
+      "duration": 5.04
+    },
+    {
+      "text": "gone very far. This is a and this is",
+      "start": 79.92,
+      "duration": 5.6
+    },
+    {
+      "text": "what I emphasize. This is a usable 1",
+      "start": 82.56,
+      "duration": 5.12
+    },
+    {
+      "text": "million token window. Now is it perfect?",
+      "start": 85.52,
+      "duration": 4.72
+    },
+    {
+      "text": "Is the recall perfect? No. There is no",
+      "start": 87.68,
+      "duration": 4.96
+    },
+    {
+      "text": "AI system that has perfect recall in a",
+      "start": 90.24,
+      "duration": 6.16
+    },
+    {
+      "text": "million token window. But it is usable",
+      "start": 92.64,
+      "duration": 5.76
+    },
+    {
+      "text": "and it enables you to put more of the",
+      "start": 96.4,
+      "duration": 4.48
+    },
+    {
+      "text": "codebase into consideration for sonnet",
+      "start": 98.4,
+      "duration": 4.719
+    },
+    {
+      "text": "and opus which matters with complex code",
+      "start": 100.88,
+      "duration": 4.0
+    },
+    {
+      "text": "bases. So it's like, you know, a",
+      "start": 103.119,
+      "duration": 4.561
+    },
+    {
+      "text": "75,000line codebase. It can fit inside",
+      "start": 104.88,
+      "duration": 4.64
+    },
+    {
+      "text": "the context window for a conversation",
+      "start": 107.68,
+      "duration": 4.479
+    },
+    {
+      "text": "now. And so you can put all of that in",
+      "start": 109.52,
+      "duration": 6.559
+    },
+    {
+      "text": "front of Opus 4.1 and ask it to think",
+      "start": 112.159,
+      "duration": 6.0
+    },
+    {
+      "text": "through and solve the problem. You see",
+      "start": 116.079,
+      "duration": 4.0
+    },
+    {
+      "text": "how these are starting to build. They",
+      "start": 118.159,
+      "duration": 3.841
+    },
+    {
+      "text": "release an Aentic agent. They",
+      "start": 120.079,
+      "duration": 4.0
+    },
+    {
+      "text": "immediately upgrade the context window",
+      "start": 122.0,
+      "duration": 4.479
+    },
+    {
+      "text": "to make that agent more useful. But",
+      "start": 124.079,
+      "duration": 4.24
+    },
+    {
+      "text": "we're not done yet. Now they're going to",
+      "start": 126.479,
+      "duration": 3.601
+    },
+    {
+      "text": "keep building the capability. Also,",
+      "start": 128.319,
+      "duration": 4.56
+    },
+    {
+      "text": "August 12th, they release an ondemand",
+      "start": 130.08,
+      "duration": 5.12
+    },
+    {
+      "text": "memory system because you may want",
+      "start": 132.879,
+      "duration": 4.801
+    },
+    {
+      "text": "Claude to selectively remember from past",
+      "start": 135.2,
+      "duration": 4.24
+    },
+    {
+      "text": "conversations. So, you can search",
+      "start": 137.68,
+      "duration": 3.279
+    },
+    {
+      "text": "through past conversations. I've talked",
+      "start": 139.44,
+      "duration": 3.519
+    },
+    {
+      "text": "about this before. And you can generate",
+      "start": 140.959,
+      "duration": 4.241
+    },
+    {
+      "text": "a piece of context from those past",
+      "start": 142.959,
+      "duration": 4.081
+    },
+    {
+      "text": "conversations. That's like a wedge of",
+      "start": 145.2,
+      "duration": 3.2
+    },
+    {
+      "text": "context to add to your current",
+      "start": 147.04,
+      "duration": 3.76
+    },
+    {
+      "text": "conversation. It's not like chat GPT. It",
+      "start": 148.4,
+      "duration": 4.559
+    },
+    {
+      "text": "doesn't keep static memory. You have to",
+      "start": 150.8,
+      "duration": 5.12
+    },
+    {
+      "text": "use your prompt to angle the context in",
+      "start": 152.959,
+      "duration": 4.721
+    },
+    {
+      "text": "the memory. Again, it underlines how",
+      "start": 155.92,
+      "duration": 4.24
+    },
+    {
+      "text": "important prompt engineering is. I never",
+      "start": 157.68,
+      "duration": 4.559
+    },
+    {
+      "text": "expected prompt engineering to be such a",
+      "start": 160.16,
+      "duration": 4.0
+    },
+    {
+      "text": "durable skill set two years ago, but it",
+      "start": 162.239,
+      "duration": 4.161
+    },
+    {
+      "text": "keeps getting more and more and more",
+      "start": 164.16,
+      "duration": 4.32
+    },
+    {
+      "text": "important. But we keep going. We're not",
+      "start": 166.4,
+      "duration": 3.76
+    },
+    {
+      "text": "done yet. You know what else has been",
+      "start": 168.48,
+      "duration": 3.92
+    },
+    {
+      "text": "happening in the background? Claude code",
+      "start": 170.16,
+      "duration": 4.64
+    },
+    {
+      "text": "has been getting better. Claude code can",
+      "start": 172.4,
+      "duration": 5.44
+    },
+    {
+      "text": "now run servers and manage longunning",
+      "start": 174.8,
+      "duration": 5.04
+    },
+    {
+      "text": "tasks in the background. It can start a",
+      "start": 177.84,
+      "duration": 3.84
+    },
+    {
+      "text": "dev server. It can run persistent test",
+      "start": 179.84,
+      "duration": 4.399
+    },
+    {
+      "text": "suites. It can perform builds on its",
+      "start": 181.68,
+      "duration": 4.16
+    },
+    {
+      "text": "own. And you can just check in with it.",
+      "start": 184.239,
+      "duration": 5.121
+    },
+    {
+      "text": "Now claude code also has learning modes.",
+      "start": 185.84,
+      "duration": 6.08
+    },
+    {
+      "text": "It basically is going to give you",
+      "start": 189.36,
+      "duration": 5.04
+    },
+    {
+      "text": "different output options depending on",
+      "start": 191.92,
+      "duration": 4.0
+    },
+    {
+      "text": "what you want from cla code. You can",
+      "start": 194.4,
+      "duration": 3.28
+    },
+    {
+      "text": "have explanatory mode where claude",
+      "start": 195.92,
+      "duration": 4.239
+    },
+    {
+      "text": "narrates its choices, explains what and",
+      "start": 197.68,
+      "duration": 4.4
+    },
+    {
+      "text": "why as it edits, it commits, it runs",
+      "start": 200.159,
+      "duration": 3.841
+    },
+    {
+      "text": "tools. This makes debugging and code",
+      "start": 202.08,
+      "duration": 3.2
+    },
+    {
+      "text": "review easier. It also helps you to",
+      "start": 204.0,
+      "duration": 2.56
+    },
+    {
+      "text": "learn if you're new to development.",
+      "start": 205.28,
+      "duration": 3.599
+    },
+    {
+      "text": "Claude also has learning mode. It's a",
+      "start": 206.56,
+      "duration": 4.08
+    },
+    {
+      "text": "more active educational style where",
+      "start": 208.879,
+      "duration": 3.681
+    },
+    {
+      "text": "Claude prompts you to code pieces",
+      "start": 210.64,
+      "duration": 4.64
+    },
+    {
+      "text": "yourself and guides you by asking",
+      "start": 212.56,
+      "duration": 4.64
+    },
+    {
+      "text": "questions rather than prescribing. So,",
+      "start": 215.28,
+      "duration": 4.0
+    },
+    {
+      "text": "it builds human skills alongside",
+      "start": 217.2,
+      "duration": 3.759
+    },
+    {
+      "text": "automation. These are now rolled out to",
+      "start": 219.28,
+      "duration": 3.84
+    },
+    {
+      "text": "claude code users and we're still not",
+      "start": 220.959,
+      "duration": 5.441
+    },
+    {
+      "text": "done. I know quietly. While GPT5 rolled",
+      "start": 223.12,
+      "duration": 5.44
+    },
+    {
+      "text": "out, Enthropic has released all of this",
+      "start": 226.4,
+      "duration": 3.759
+    },
+    {
+      "text": "stuff. We're going to find the through",
+      "start": 228.56,
+      "duration": 3.44
+    },
+    {
+      "text": "line. They've released hooks and event",
+      "start": 230.159,
+      "duration": 3.681
+    },
+    {
+      "text": "system management. So you can be cloud",
+      "start": 232.0,
+      "duration": 3.92
+    },
+    {
+      "text": "can be configured with custom hooks like",
+      "start": 233.84,
+      "duration": 3.759
+    },
+    {
+      "text": "shell commands or scripts that run",
+      "start": 235.92,
+      "duration": 3.679
+    },
+    {
+      "text": "before or after a tooling event. They",
+      "start": 237.599,
+      "duration": 4.241
+    },
+    {
+      "text": "released sub aent systems which was a",
+      "start": 239.599,
+      "duration": 3.84
+    },
+    {
+      "text": "big deal at least in my corner of the",
+      "start": 241.84,
+      "duration": 3.2
+    },
+    {
+      "text": "world where you can add support for",
+      "start": 243.439,
+      "duration": 4.08
+    },
+    {
+      "text": "model personalities or roles inside",
+      "start": 245.04,
+      "duration": 4.559
+    },
+    {
+      "text": "claude and mentions so you can have",
+      "start": 247.519,
+      "duration": 4.08
+    },
+    {
+      "text": "multi- aent collaborative workflows in",
+      "start": 249.599,
+      "duration": 4.401
+    },
+    {
+      "text": "the same project. And they've even",
+      "start": 251.599,
+      "duration": 6.48
+    },
+    {
+      "text": "released a micro compact mode which",
+      "start": 254.0,
+      "duration": 5.44
+    },
+    {
+      "text": "didn't get a lot of attention but it's",
+      "start": 258.079,
+      "duration": 3.521
+    },
+    {
+      "text": "super interesting. It lets users clear",
+      "start": 259.44,
+      "duration": 4.8
+    },
+    {
+      "text": "old tool calls to manage an extended",
+      "start": 261.6,
+      "duration": 4.64
+    },
+    {
+      "text": "session life so that you don't have to",
+      "start": 264.24,
+      "duration": 3.92
+    },
+    {
+      "text": "sort of clear the entire work surface.",
+      "start": 266.24,
+      "duration": 3.6
+    },
+    {
+      "text": "It's like you can organize your tools as",
+      "start": 268.16,
+      "duration": 4.319
+    },
+    {
+      "text": "you go. Users can also now connect",
+      "start": 269.84,
+      "duration": 4.72
+    },
+    {
+      "text": "Claude code to live services like",
+      "start": 272.479,
+      "duration": 4.72
+    },
+    {
+      "text": "Apollo's MCP servers. Claude is aware of",
+      "start": 274.56,
+      "duration": 4.8
+    },
+    {
+      "text": "persistent context from these servers.",
+      "start": 277.199,
+      "duration": 3.761
+    },
+    {
+      "text": "So that can handle stuff like",
+      "start": 279.36,
+      "duration": 3.76
+    },
+    {
+      "text": "registration, health checks, using them",
+      "start": 280.96,
+      "duration": 3.84
+    },
+    {
+      "text": "with encoding workflows, things that you",
+      "start": 283.12,
+      "duration": 3.92
+    },
+    {
+      "text": "need for persistent state. and updated",
+      "start": 284.8,
+      "duration": 4.24
+    },
+    {
+      "text": "API capabilities mean Claude can",
+      "start": 287.04,
+      "duration": 4.48
+    },
+    {
+      "text": "persist, cache, and resume complex",
+      "start": 289.04,
+      "duration": 4.96
+    },
+    {
+      "text": "workflows. In other words, all of this",
+      "start": 291.52,
+      "duration": 6.08
+    },
+    {
+      "text": "stuff put together makes Claude a much",
+      "start": 294.0,
+      "duration": 6.72
+    },
+    {
+      "text": "more dependable agentic partner in",
+      "start": 297.6,
+      "duration": 5.28
+    },
+    {
+      "text": "development. And in addition, and this",
+      "start": 300.72,
+      "duration": 3.68
+    },
+    {
+      "text": "is the piece that a lot of people aren't",
+      "start": 302.88,
+      "duration": 3.759
+    },
+    {
+      "text": "really quite seeing, this this is the",
+      "start": 304.4,
+      "duration": 5.359
+    },
+    {
+      "text": "thin end of the wedge for Claude code",
+      "start": 306.639,
+      "duration": 6.961
+    },
+    {
+      "text": "and Claude itself to become your work",
+      "start": 309.759,
+      "duration": 5.761
+    },
+    {
+      "text": "surface of choice because that's of",
+      "start": 313.6,
+      "duration": 3.68
+    },
+    {
+      "text": "course the holy grail. That is actually",
+      "start": 315.52,
+      "duration": 5.36
+    },
+    {
+      "text": "what chat GPT5 was aiming to do was to",
+      "start": 317.28,
+      "duration": 6.16
+    },
+    {
+      "text": "become a work surface of choice and to",
+      "start": 320.88,
+      "duration": 5.2
+    },
+    {
+      "text": "lay the foundations for that with office",
+      "start": 323.44,
+      "duration": 5.68
+    },
+    {
+      "text": "workers everywhere. They want to replace",
+      "start": 326.08,
+      "duration": 4.64
+    },
+    {
+      "text": "Windows and the Windows suite. Very",
+      "start": 329.12,
+      "duration": 4.24
+    },
+    {
+      "text": "simply, very Claude is actually making",
+      "start": 330.72,
+      "duration": 5.28
+    },
+    {
+      "text": "arguably a smarter play for that exact",
+      "start": 333.36,
+      "duration": 6.24
+    },
+    {
+      "text": "same prize by obsessively focusing on",
+      "start": 336.0,
+      "duration": 6.8
+    },
+    {
+      "text": "code first. Now, you might wonder why",
+      "start": 339.6,
+      "duration": 5.439
+    },
+    {
+      "text": "code? What is it about code that makes",
+      "start": 342.8,
+      "duration": 4.959
+    },
+    {
+      "text": "this really, really interesting? Code",
+      "start": 345.039,
+      "duration": 6.081
+    },
+    {
+      "text": "works because it's verifiable and it's a",
+      "start": 347.759,
+      "duration": 5.44
+    },
+    {
+      "text": "high leverage environment. So, code",
+      "start": 351.12,
+      "duration": 4.32
+    },
+    {
+      "text": "provides immediate feedback loops,",
+      "start": 353.199,
+      "duration": 4.481
+    },
+    {
+      "text": "tests, errors, builds. It provides",
+      "start": 355.44,
+      "duration": 4.4
+    },
+    {
+      "text": "objective validation of the agent",
+      "start": 357.68,
+      "duration": 3.92
+    },
+    {
+      "text": "output. Anthropic can push the",
+      "start": 359.84,
+      "duration": 3.76
+    },
+    {
+      "text": "boundaries of agentic autonomy knowing",
+      "start": 361.6,
+      "duration": 3.76
+    },
+    {
+      "text": "that mistakes are detectable and",
+      "start": 363.6,
+      "duration": 5.039
+    },
+    {
+      "text": "correctable. And code is also extremely",
+      "start": 365.36,
+      "duration": 6.72
+    },
+    {
+      "text": "high leverage from a work perspective.",
+      "start": 368.639,
+      "duration": 6.56
+    },
+    {
+      "text": "The companies that adopt claude code and",
+      "start": 372.08,
+      "duration": 6.559
+    },
+    {
+      "text": "the clawed coding agents are companies",
+      "start": 375.199,
+      "duration": 6.881
+    },
+    {
+      "text": "that you want to have as logos when you",
+      "start": 378.639,
+      "duration": 5.601
+    },
+    {
+      "text": "are driving broader adoption of claude.",
+      "start": 382.08,
+      "duration": 3.839
+    },
+    {
+      "text": "These are forward-thinking early",
+      "start": 384.24,
+      "duration": 4.239
+    },
+    {
+      "text": "adoption companies with big logos that",
+      "start": 385.919,
+      "duration": 3.921
+    },
+    {
+      "text": "people are going to find sexy and",
+      "start": 388.479,
+      "duration": 3.84
+    },
+    {
+      "text": "attractive. These are tech companies,",
+      "start": 389.84,
+      "duration": 4.24
+    },
+    {
+      "text": "right? Tech companies have a lot of",
+      "start": 392.319,
+      "duration": 5.201
+    },
+    {
+      "text": "engineers. Focusing on coding gives them",
+      "start": 394.08,
+      "duration": 5.28
+    },
+    {
+      "text": "a lot of leverage with these tech",
+      "start": 397.52,
+      "duration": 4.16
+    },
+    {
+      "text": "companies and they in turn get a lot of",
+      "start": 399.36,
+      "duration": 5.679
+    },
+    {
+      "text": "feedback from looking at loops that are",
+      "start": 401.68,
+      "duration": 5.84
+    },
+    {
+      "text": "run by code bases other than their own.",
+      "start": 405.039,
+      "duration": 4.081
+    },
+    {
+      "text": "And so one of the really interesting",
+      "start": 407.52,
+      "duration": 4.239
+    },
+    {
+      "text": "things is even if it's anonymized, even",
+      "start": 409.12,
+      "duration": 4.88
+    },
+    {
+      "text": "if nobody's stealing anybody's code,",
+      "start": 411.759,
+      "duration": 6.0
+    },
+    {
+      "text": "Claude is still getting feedback from",
+      "start": 414.0,
+      "duration": 5.84
+    },
+    {
+      "text": "thousands of tech companies across",
+      "start": 417.759,
+      "duration": 4.401
+    },
+    {
+      "text": "Silicon Valley and using that to make",
+      "start": 419.84,
+      "duration": 4.16
+    },
+    {
+      "text": "their coding agent even better. This is",
+      "start": 422.16,
+      "duration": 3.52
+    },
+    {
+      "text": "a case where winners keep winning.",
+      "start": 424.0,
+      "duration": 3.759
+    },
+    {
+      "text": "Software development is also extremely",
+      "start": 425.68,
+      "duration": 4.239
+    },
+    {
+      "text": "iterative and requires nuanced reasoning",
+      "start": 427.759,
+      "duration": 4.401
+    },
+    {
+      "text": "and persistence to work well. If they",
+      "start": 429.919,
+      "duration": 4.641
+    },
+    {
+      "text": "can tackle those challenges early,",
+      "start": 432.16,
+      "duration": 4.319
+    },
+    {
+      "text": "anthropics agents are going to be more",
+      "start": 434.56,
+      "duration": 5.039
+    },
+    {
+      "text": "robust, more contextaware, and have",
+      "start": 436.479,
+      "duration": 5.601
+    },
+    {
+      "text": "workflow orchestration skills that will",
+      "start": 439.599,
+      "duration": 4.401
+    },
+    {
+      "text": "be applicable beyond a programming.",
+      "start": 442.08,
+      "duration": 3.679
+    },
+    {
+      "text": "Again, this is part of the deliberate",
+      "start": 444.0,
+      "duration": 4.56
+    },
+    {
+      "text": "play on Enthropic's part. Finally, once",
+      "start": 445.759,
+      "duration": 5.44
+    },
+    {
+      "text": "agents excel at code, they can quickly",
+      "start": 448.56,
+      "duration": 5.759
+    },
+    {
+      "text": "run to adjacent tasks that go with code",
+      "start": 451.199,
+      "duration": 5.28
+    },
+    {
+      "text": "like documentation, parsing, project",
+      "start": 454.319,
+      "duration": 5.361
+    },
+    {
+      "text": "management, automating workflows, even",
+      "start": 456.479,
+      "duration": 5.84
+    },
+    {
+      "text": "non-technical problem solving like ad",
+      "start": 459.68,
+      "duration": 5.2
+    },
+    {
+      "text": "optimization. And what's interesting is",
+      "start": 462.319,
+      "duration": 5.6
+    },
+    {
+      "text": "that internally that is exactly what is",
+      "start": 464.88,
+      "duration": 5.039
+    },
+    {
+      "text": "happening at Enthropic. Enthropic talks",
+      "start": 467.919,
+      "duration": 3.921
+    },
+    {
+      "text": "about this. Their marketing team uses",
+      "start": 469.919,
+      "duration": 4.081
+    },
+    {
+      "text": "claude code. Their legal department uses",
+      "start": 471.84,
+      "duration": 5.52
+    },
+    {
+      "text": "cla code. They named it Claude code. It",
+      "start": 474.0,
+      "duration": 6.16
+    },
+    {
+      "text": "was just a Trojan horse for Claude",
+      "start": 477.36,
+      "duration": 5.44
+    },
+    {
+      "text": "agent. This is a general purpose agent",
+      "start": 480.16,
+      "duration": 5.52
+    },
+    {
+      "text": "and each of the releases over the last",
+      "start": 482.8,
+      "duration": 6.16
+    },
+    {
+      "text": "few weeks have been building up that",
+      "start": 485.68,
+      "duration": 5.68
+    },
+    {
+      "text": "Agentic approach. Look at the way they",
+      "start": 488.96,
+      "duration": 4.16
+    },
+    {
+      "text": "focused on Agentic capabilities with",
+      "start": 491.36,
+      "duration": 4.399
+    },
+    {
+      "text": "Opus 4.1. You need that for everything",
+      "start": 493.12,
+      "duration": 4.4
+    },
+    {
+      "text": "else. Look at the way they focused on a",
+      "start": 495.759,
+      "duration": 4.321
+    },
+    {
+      "text": "usable 1 million token context window.",
+      "start": 497.52,
+      "duration": 4.32
+    },
+    {
+      "text": "You need that for everything else. Look",
+      "start": 500.08,
+      "duration": 3.519
+    },
+    {
+      "text": "at the way they did memory on demand.",
+      "start": 501.84,
+      "duration": 3.919
+    },
+    {
+      "text": "that enables you to cultivate more",
+      "start": 503.599,
+      "duration": 4.401
+    },
+    {
+      "text": "accurate tool calls without loading up",
+      "start": 505.759,
+      "duration": 3.681
+    },
+    {
+      "text": "the context window with a bunch of",
+      "start": 508.0,
+      "duration": 3.52
+    },
+    {
+      "text": "extraneous information. Look at the way",
+      "start": 509.44,
+      "duration": 4.88
+    },
+    {
+      "text": "they focused heavily on the ability of",
+      "start": 511.52,
+      "duration": 7.04
+    },
+    {
+      "text": "clawed code to manage persistent states",
+      "start": 514.32,
+      "duration": 6.959
+    },
+    {
+      "text": "and take independent action. If you want",
+      "start": 518.56,
+      "duration": 4.32
+    },
+    {
+      "text": "to ladder up all the technical stuff",
+      "start": 521.279,
+      "duration": 4.161
+    },
+    {
+      "text": "like running servers, being able to",
+      "start": 522.88,
+      "duration": 4.8
+    },
+    {
+      "text": "explain what you're doing, being able to",
+      "start": 525.44,
+      "duration": 4.88
+    },
+    {
+      "text": "teach you, expanding hooks and event",
+      "start": 527.68,
+      "duration": 4.96
+    },
+    {
+      "text": "system management for tool calls. This",
+      "start": 530.32,
+      "duration": 4.56
+    },
+    {
+      "text": "is not just stuff that you need to know",
+      "start": 532.64,
+      "duration": 4.72
+    },
+    {
+      "text": "how to do for development. Although that",
+      "start": 534.88,
+      "duration": 6.32
+    },
+    {
+      "text": "is true, it is a quality of stateful",
+      "start": 537.36,
+      "duration": 6.32
+    },
+    {
+      "text": "work that you need to do any kind of",
+      "start": 541.2,
+      "duration": 5.6
+    },
+    {
+      "text": "agentic assistance for humans. If humans",
+      "start": 543.68,
+      "duration": 6.24
+    },
+    {
+      "text": "want a useful assistant, it would look a",
+      "start": 546.8,
+      "duration": 4.88
+    },
+    {
+      "text": "lot like this. It just might not do",
+      "start": 549.92,
+      "duration": 3.84
+    },
+    {
+      "text": "coding. And that is the secret of Claude",
+      "start": 551.68,
+      "duration": 4.56
+    },
+    {
+      "text": "code. You might want a useful assistant",
+      "start": 553.76,
+      "duration": 4.32
+    },
+    {
+      "text": "that explains things, that teaches you",
+      "start": 556.24,
+      "duration": 3.76
+    },
+    {
+      "text": "things, that helps you to learn. You may",
+      "start": 558.08,
+      "duration": 4.96
+    },
+    {
+      "text": "want a useful assistant that helps you",
+      "start": 560.0,
+      "duration": 5.92
+    },
+    {
+      "text": "to take action autonomously on your ad",
+      "start": 563.04,
+      "duration": 5.68
+    },
+    {
+      "text": "network. You may want a useful assistant",
+      "start": 565.92,
+      "duration": 5.52
+    },
+    {
+      "text": "that can process an entire piece of long",
+      "start": 568.72,
+      "duration": 5.119
+    },
+    {
+      "text": "context about a contract you're",
+      "start": 571.44,
+      "duration": 4.56
+    },
+    {
+      "text": "reviewing and can give you really useful",
+      "start": 573.839,
+      "duration": 4.241
+    },
+    {
+      "text": "feedback. You may want a stateful",
+      "start": 576.0,
+      "duration": 3.92
+    },
+    {
+      "text": "assistant that remembers the last",
+      "start": 578.08,
+      "duration": 4.48
+    },
+    {
+      "text": "conversation you had or that remembers a",
+      "start": 579.92,
+      "duration": 4.96
+    },
+    {
+      "text": "live feed to an MCP server for something",
+      "start": 582.56,
+      "duration": 4.08
+    },
+    {
+      "text": "you want to keep track of like add",
+      "start": 584.88,
+      "duration": 4.079
+    },
+    {
+      "text": "updates and can process that in real",
+      "start": 586.64,
+      "duration": 4.4
+    },
+    {
+      "text": "time and take action. All of these",
+      "start": 588.959,
+      "duration": 4.801
+    },
+    {
+      "text": "things are on the horizon thanks to",
+      "start": 591.04,
+      "duration": 5.12
+    },
+    {
+      "text": "today's updates. Even though today's",
+      "start": 593.76,
+      "duration": 5.199
+    },
+    {
+      "text": "updates, the last few weeks updates are",
+      "start": 596.16,
+      "duration": 5.84
+    },
+    {
+      "text": "framed in terms of code. Code is the",
+      "start": 598.959,
+      "duration": 5.921
+    },
+    {
+      "text": "Trojan horse. Code is what Anthropic is",
+      "start": 602.0,
+      "duration": 5.44
+    },
+    {
+      "text": "choosing to use as the wedge into the",
+      "start": 604.88,
+      "duration": 4.56
+    },
+    {
+      "text": "workplace. And what's beautiful about",
+      "start": 607.44,
+      "duration": 4.16
+    },
+    {
+      "text": "that flywheel is because they're",
+      "start": 609.44,
+      "duration": 4.32
+    },
+    {
+      "text": "attracting tech companies with code.",
+      "start": 611.6,
+      "duration": 4.16
+    },
+    {
+      "text": "They are attracting early adopters who",
+      "start": 613.76,
+      "duration": 5.519
+    },
+    {
+      "text": "will also be willing to try clawed code",
+      "start": 615.76,
+      "duration": 5.44
+    },
+    {
+      "text": "elsewhere more quickly. Early adopters",
+      "start": 619.279,
+      "duration": 4.24
+    },
+    {
+      "text": "by nature are more fluid. They are more",
+      "start": 621.2,
+      "duration": 4.639
+    },
+    {
+      "text": "willing to try new things. They're more",
+      "start": 623.519,
+      "duration": 4.961
+    },
+    {
+      "text": "willing to try clawed code with marketer",
+      "start": 625.839,
+      "duration": 4.56
+    },
+    {
+      "text": "seats, with product management seats,",
+      "start": 628.48,
+      "duration": 3.84
+    },
+    {
+      "text": "with customer success seats, and see if",
+      "start": 630.399,
+      "duration": 3.921
+    },
+    {
+      "text": "that general purpose agent is useful.",
+      "start": 632.32,
+      "duration": 3.519
+    },
+    {
+      "text": "And all of that feeds the virtuous",
+      "start": 634.32,
+      "duration": 4.24
+    },
+    {
+      "text": "flywheel for Anthropic. And so, while",
+      "start": 635.839,
+      "duration": 5.68
+    },
+    {
+      "text": "Chad GPT5 was having a rocky week,",
+      "start": 638.56,
+      "duration": 6.399
+    },
+    {
+      "text": "Anthropic had frankly a power week. They",
+      "start": 641.519,
+      "duration": 5.521
+    },
+    {
+      "text": "were able to release a bunch of pinpoint",
+      "start": 644.959,
+      "duration": 4.081
+    },
+    {
+      "text": "updates that underline that provide",
+      "start": 647.04,
+      "duration": 6.0
+    },
+    {
+      "text": "dotted line connects to their longterm",
+      "start": 649.04,
+      "duration": 6.64
+    },
+    {
+      "text": "strategy of capturing the workplace. And",
+      "start": 653.04,
+      "duration": 5.84
+    },
+    {
+      "text": "if you were to handicap the race for the",
+      "start": 655.68,
+      "duration": 5.52
+    },
+    {
+      "text": "workplace right now, I would say",
+      "start": 658.88,
+      "duration": 4.32
+    },
+    {
+      "text": "Anthropic is clearly in the lead.",
+      "start": 661.2,
+      "duration": 5.12
+    },
+    {
+      "text": "Anthropic is more likely to be in the",
+      "start": 663.2,
+      "duration": 5.759
+    },
+    {
+      "text": "workplace of the future than OpenAI.",
+      "start": 666.32,
+      "duration": 5.36
+    },
+    {
+      "text": "Despite OpenAI's ubiquity, despite the",
+      "start": 668.959,
+      "duration": 6.161
+    },
+    {
+      "text": "fact that OpenAI has an edge in raw user",
+      "start": 671.68,
+      "duration": 6.08
+    },
+    {
+      "text": "count, we already know that Anthropic",
+      "start": 675.12,
+      "duration": 4.48
+    },
+    {
+      "text": "punches above its weight on enterprise",
+      "start": 677.76,
+      "duration": 4.319
+    },
+    {
+      "text": "contracts. There are already anecdotes",
+      "start": 679.6,
+      "duration": 4.0
+    },
+    {
+      "text": "postGPT5",
+      "start": 682.079,
+      "duration": 4.32
+    },
+    {
+      "text": "of companies letting go of their GPT5",
+      "start": 683.6,
+      "duration": 4.64
+    },
+    {
+      "text": "contracts because they like what they",
+      "start": 686.399,
+      "duration": 3.521
+    },
+    {
+      "text": "get with Cloud Code. None of this",
+      "start": 688.24,
+      "duration": 4.159
+    },
+    {
+      "text": "suggests that Chat GPT will not remain",
+      "start": 689.92,
+      "duration": 5.44
+    },
+    {
+      "text": "the most iconic global brand for AI out",
+      "start": 692.399,
+      "duration": 5.921
+    },
+    {
+      "text": "there. I think they have handily won the",
+      "start": 695.36,
+      "duration": 4.8
+    },
+    {
+      "text": "consumer race, but that doesn't mean",
+      "start": 698.32,
+      "duration": 3.44
+    },
+    {
+      "text": "they automatically get the enterprise",
+      "start": 700.16,
+      "duration": 4.0
+    },
+    {
+      "text": "race and Anthropic has figured that out.",
+      "start": 701.76,
+      "duration": 4.8
+    },
+    {
+      "text": "Keep looking at future releases with",
+      "start": 704.16,
+      "duration": 5.2
+    },
+    {
+      "text": "clawed code. Keep watching how Anthropic",
+      "start": 706.56,
+      "duration": 5.279
+    },
+    {
+      "text": "ships. They ship frequently. They don't",
+      "start": 709.36,
+      "duration": 4.8
+    },
+    {
+      "text": "necessarily do a big fanfare about it,",
+      "start": 711.839,
+      "duration": 4.721
+    },
+    {
+      "text": "but every single ship lines up",
+      "start": 714.16,
+      "duration": 4.88
+    },
+    {
+      "text": "strategically toward that larger goal of",
+      "start": 716.56,
+      "duration": 4.959
+    },
+    {
+      "text": "capturing the workplace. And Claude Code",
+      "start": 719.04,
+      "duration": 5.039
+    },
+    {
+      "text": "is the agent they're using to get that",
+      "start": 721.519,
+      "duration": 4.401
+    },
+    {
+      "text": "job done. I'm very impressed with what",
+      "start": 724.079,
+      "duration": 4.081
+    },
+    {
+      "text": "Anthropic has been shipping lately and I",
+      "start": 725.92,
+      "duration": 4.8
+    },
+    {
+      "text": "am enjoying what I'm enjoying the",
+      "start": 728.16,
+      "duration": 4.479
+    },
+    {
+      "text": "polish. I'm enjoying the fact that they",
+      "start": 730.72,
+      "duration": 4.0
+    },
+    {
+      "text": "launch and there's not a big blowback.",
+      "start": 732.639,
+      "duration": 4.401
+    },
+    {
+      "text": "It's quiet. It's consistent. They just",
+      "start": 734.72,
+      "duration": 4.799
+    },
+    {
+      "text": "launch it and it works. It's great. I",
+      "start": 737.04,
+      "duration": 4.799
+    },
+    {
+      "text": "can see why companies are saying we're",
+      "start": 739.519,
+      "duration": 3.681
+    },
+    {
+      "text": "just going to pick Claude. There's less",
+      "start": 741.839,
+      "duration": 3.601
+    },
+    {
+      "text": "drama. It's just easier. It codes. And",
+      "start": 743.2,
+      "duration": 3.759
+    },
+    {
+      "text": "hey, by the way, we can also let our",
+      "start": 745.44,
+      "duration": 3.76
+    },
+    {
+      "text": "other teams use it. That's a really good",
+      "start": 746.959,
+      "duration": 4.161
+    },
+    {
+      "text": "play for the workplace. So, hats off to",
+      "start": 749.2,
+      "duration": 3.52
+    },
+    {
+      "text": "the anthropic team. Well done, guys.",
+      "start": 751.12,
+      "duration": 4.56
+    },
+    {
+      "text": "Looking forward to what you ship",
+      "start": 752.72,
+      "duration": 2.96
+    }
+  ]
 }

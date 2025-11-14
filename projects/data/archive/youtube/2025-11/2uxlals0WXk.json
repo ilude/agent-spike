@@ -29,5 +29,117 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "And I think one of the things that makes",
+      "start": 0.08,
+      "duration": 3.839
+    },
+    {
+      "text": "the tech community that is too bullish",
+      "start": 1.68,
+      "duration": 5.84
+    },
+    {
+      "text": "on AI unloved and incredibly annoying to",
+      "start": 3.919,
+      "duration": 6.64
+    },
+    {
+      "text": "other people is the sense from the rest",
+      "start": 7.52,
+      "duration": 5.199
+    },
+    {
+      "text": "of the world that they just think AI is",
+      "start": 10.559,
+      "duration": 4.881
+    },
+    {
+      "text": "the way forward. I saw Flame Wars on X",
+      "start": 12.719,
+      "duration": 4.241
+    },
+    {
+      "text": "which well that's where you go right",
+      "start": 15.44,
+      "duration": 3.2
+    },
+    {
+      "text": "that's what you get. But I saw Flame",
+      "start": 16.96,
+      "duration": 3.84
+    },
+    {
+      "text": "Wars on X where people in tech were",
+      "start": 18.64,
+      "duration": 4.559
+    },
+    {
+      "text": "basically saying none of you get it.",
+      "start": 20.8,
+      "duration": 4.239
+    },
+    {
+      "text": "This is the way AI is going to run the",
+      "start": 23.199,
+      "duration": 4.4
+    },
+    {
+      "text": "world. None of you deserve jobs. AI is",
+      "start": 25.039,
+      "duration": 4.24
+    },
+    {
+      "text": "just going to do all your jobs for you.",
+      "start": 27.599,
+      "duration": 3.121
+    },
+    {
+      "text": "One, that's not a way to make friends",
+      "start": 29.279,
+      "duration": 3.201
+    },
+    {
+      "text": "and that's not a way to, you know, get",
+      "start": 30.72,
+      "duration": 4.32
+    },
+    {
+      "text": "your technology adopted and two, it's",
+      "start": 32.48,
+      "duration": 4.8
+    },
+    {
+      "text": "not even reasonable. We are in a world",
+      "start": 35.04,
+      "duration": 4.8
+    },
+    {
+      "text": "where it may be possible that AI has a",
+      "start": 37.28,
+      "duration": 4.4
+    },
+    {
+      "text": "gold on the International Math Olympiad,",
+      "start": 39.84,
+      "duration": 3.84
+    },
+    {
+      "text": "but also can't really play Mario Kart",
+      "start": 41.68,
+      "duration": 4.399
+    },
+    {
+      "text": "properly. My kids may be better at Mario",
+      "start": 43.68,
+      "duration": 5.28
+    },
+    {
+      "text": "Kart than AI right",
+      "start": 46.079,
+      "duration": 2.881
+    }
+  ]
 }

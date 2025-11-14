@@ -29,5 +29,1332 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "What if transformer-based models were",
+      "start": 0.08,
+      "duration": 5.6
+    },
+    {
+      "text": "universal learning machines? We had an",
+      "start": 3.04,
+      "duration": 5.12
+    },
+    {
+      "text": "interesting taste of that today with a",
+      "start": 5.68,
+      "duration": 5.6
+    },
+    {
+      "text": "little tweet from Gautam Kadia at",
+      "start": 8.16,
+      "duration": 5.04
+    },
+    {
+      "text": "Stripe. I want to go into it because I",
+      "start": 11.28,
+      "duration": 4.479
+    },
+    {
+      "text": "think it has profoundly disruptive",
+      "start": 13.2,
+      "duration": 4.8
+    },
+    {
+      "text": "implications for the industry. We're",
+      "start": 15.759,
+      "duration": 4.841
+    },
+    {
+      "text": "used to thinking of transformers as",
+      "start": 18.0,
+      "duration": 5.279
+    },
+    {
+      "text": "languagebased. The transformer reads all",
+      "start": 20.6,
+      "duration": 4.599
+    },
+    {
+      "text": "my books and it's a large language model",
+      "start": 23.279,
+      "duration": 3.361
+    },
+    {
+      "text": "transformer and it comes back with",
+      "start": 25.199,
+      "duration": 3.441
+    },
+    {
+      "text": "English or Croatian. Well, actually",
+      "start": 26.64,
+      "duration": 3.44
+    },
+    {
+      "text": "that's a bit of a joke because they",
+      "start": 28.64,
+      "duration": 3.28
+    },
+    {
+      "text": "don't speak Croatian in some cases",
+      "start": 30.08,
+      "duration": 5.36
+    },
+    {
+      "text": "because Croatians uh hit decline on so",
+      "start": 31.92,
+      "duration": 5.28
+    },
+    {
+      "text": "many of their responses. It's a little",
+      "start": 35.44,
+      "duration": 4.4
+    },
+    {
+      "text": "sidebar, but it is possible to get",
+      "start": 37.2,
+      "duration": 4.48
+    },
+    {
+      "text": "models to substantially change their",
+      "start": 39.84,
+      "duration": 4.879
+    },
+    {
+      "text": "trained behavior if enough users hit a",
+      "start": 41.68,
+      "duration": 4.64
+    },
+    {
+      "text": "negative feedback button. And in this",
+      "start": 44.719,
+      "duration": 3.441
+    },
+    {
+      "text": "case, you can look it up. There's an",
+      "start": 46.32,
+      "duration": 3.2
+    },
+    {
+      "text": "actual story where a model stopped",
+      "start": 48.16,
+      "duration": 3.84
+    },
+    {
+      "text": "speaking Croatia Croatian because",
+      "start": 49.52,
+      "duration": 4.48
+    },
+    {
+      "text": "Croatians didn't like the responses so",
+      "start": 52.0,
+      "duration": 4.399
+    },
+    {
+      "text": "much. But that being said, that's your",
+      "start": 54.0,
+      "duration": 4.68
+    },
+    {
+      "text": "humor for the day. Let's get back to",
+      "start": 56.399,
+      "duration": 6.201
+    },
+    {
+      "text": "Stripe. TLDDR. Stripe built a",
+      "start": 58.68,
+      "duration": 6.36
+    },
+    {
+      "text": "transformer-based learning model to",
+      "start": 62.6,
+      "duration": 4.36
+    },
+    {
+      "text": "detect fraud and it worked really really",
+      "start": 65.04,
+      "duration": 4.399
+    },
+    {
+      "text": "well. So for context, if you work in the",
+      "start": 66.96,
+      "duration": 3.4
+    },
+    {
+      "text": "payment",
+      "start": 69.439,
+      "duration": 4.0
+    },
+    {
+      "text": "space, machine learning is nothing new.",
+      "start": 70.36,
+      "duration": 4.92
+    },
+    {
+      "text": "Um, and machine learning models trained",
+      "start": 73.439,
+      "duration": 3.841
+    },
+    {
+      "text": "to detect fraud are nothing new. I used",
+      "start": 75.28,
+      "duration": 4.08
+    },
+    {
+      "text": "to work in payments myself. We use",
+      "start": 77.28,
+      "duration": 4.479
+    },
+    {
+      "text": "things like payment method, zip code,",
+      "start": 79.36,
+      "duration": 4.799
+    },
+    {
+      "text": "lots and lots of other features of the",
+      "start": 81.759,
+      "duration": 6.441
+    },
+    {
+      "text": "payment to improve the ability to detect",
+      "start": 84.159,
+      "duration": 7.521
+    },
+    {
+      "text": "fraud. And these are basically adding",
+      "start": 88.2,
+      "duration": 5.72
+    },
+    {
+      "text": "feature by feature by feature effects",
+      "start": 91.68,
+      "duration": 5.36
+    },
+    {
+      "text": "that basically work to maximize the odds",
+      "start": 93.92,
+      "duration": 4.4
+    },
+    {
+      "text": "that someone who's a legitimate",
+      "start": 97.04,
+      "duration": 2.96
+    },
+    {
+      "text": "purchaser can get through and obviously",
+      "start": 98.32,
+      "duration": 3.479
+    },
+    {
+      "text": "minimize fraudulent",
+      "start": 100.0,
+      "duration": 4.28
+    },
+    {
+      "text": "transactions. But at the end of the",
+      "start": 101.799,
+      "duration": 4.761
+    },
+    {
+      "text": "day, everything is driven around the",
+      "start": 104.28,
+      "duration": 5.479
+    },
+    {
+      "text": "future. Everything requires very",
+      "start": 106.56,
+      "duration": 5.12
+    },
+    {
+      "text": "specific training in classical machine",
+      "start": 109.759,
+      "duration": 4.801
+    },
+    {
+      "text": "learning to implement. And so each model",
+      "start": 111.68,
+      "duration": 4.96
+    },
+    {
+      "text": "has to think about authorization and",
+      "start": 114.56,
+      "duration": 3.879
+    },
+    {
+      "text": "fraud and disputes",
+      "start": 116.64,
+      "duration": 3.839
+    },
+    {
+      "text": "separately. And so the question that",
+      "start": 118.439,
+      "duration": 4.921
+    },
+    {
+      "text": "Stripe asked themselves was looking at",
+      "start": 120.479,
+      "duration": 4.801
+    },
+    {
+      "text": "how transformer architectures actually",
+      "start": 123.36,
+      "duration": 3.52
+    },
+    {
+      "text": "work. They're very generalized, right?",
+      "start": 125.28,
+      "duration": 3.679
+    },
+    {
+      "text": "They look across very wide swaths of",
+      "start": 126.88,
+      "duration": 6.32
+    },
+    {
+      "text": "data. Would an LLM approach work? And to",
+      "start": 128.959,
+      "duration": 8.521
+    },
+    {
+      "text": "be honest, it's I'm frankly I was",
+      "start": 133.2,
+      "duration": 6.72
+    },
+    {
+      "text": "skeptical. Like when I looked at this, I",
+      "start": 137.48,
+      "duration": 5.16
+    },
+    {
+      "text": "was like, \"No way this actually worked.\"",
+      "start": 139.92,
+      "duration": 4.959
+    },
+    {
+      "text": "Because I didn't assume that payments",
+      "start": 142.64,
+      "duration": 4.64
+    },
+    {
+      "text": "were like language. Language has a",
+      "start": 144.879,
+      "duration": 4.881
+    },
+    {
+      "text": "grammar to it, right? Language has a",
+      "start": 147.28,
+      "duration": 5.76
+    },
+    {
+      "text": "sequence and it has rules. Well, what",
+      "start": 149.76,
+      "duration": 5.68
+    },
+    {
+      "text": "Stripe is discovering here is that",
+      "start": 153.04,
+      "duration": 5.68
+    },
+    {
+      "text": "payments do, too. Payments have some",
+      "start": 155.44,
+      "duration": 6.56
+    },
+    {
+      "text": "structural similarities to grammar.",
+      "start": 158.72,
+      "duration": 6.32
+    },
+    {
+      "text": "Now, there are things that that aren't",
+      "start": 162.0,
+      "duration": 5.519
+    },
+    {
+      "text": "the same. Uh there's many fewer tokens,",
+      "start": 165.04,
+      "duration": 5.839
+    },
+    {
+      "text": "for instance. Um the the principles that",
+      "start": 167.519,
+      "duration": 5.521
+    },
+    {
+      "text": "organize payments are not really like as",
+      "start": 170.879,
+      "duration": 4.521
+    },
+    {
+      "text": "rich as they are in linguistic",
+      "start": 173.04,
+      "duration": 6.32
+    },
+    {
+      "text": "grammar. Does it work? Apparently, yes.",
+      "start": 175.4,
+      "duration": 6.4
+    },
+    {
+      "text": "Uh so what Stripe did is they built a",
+      "start": 179.36,
+      "duration": 5.76
+    },
+    {
+      "text": "self-supervised network. It embeds",
+      "start": 181.8,
+      "duration": 5.519
+    },
+    {
+      "text": "vectors for every",
+      "start": 185.12,
+      "duration": 5.039
+    },
+    {
+      "text": "transaction. It's trained on at Stripe",
+      "start": 187.319,
+      "duration": 4.361
+    },
+    {
+      "text": "scale, right? So it's trained at the",
+      "start": 190.159,
+      "duration": 4.841
+    },
+    {
+      "text": "scale of tens of billions of",
+      "start": 191.68,
+      "duration": 6.16
+    },
+    {
+      "text": "transactions. Um, and it takes all of",
+      "start": 195.0,
+      "duration": 4.599
+    },
+    {
+      "text": "the key signals for a particular",
+      "start": 197.84,
+      "duration": 3.84
+    },
+    {
+      "text": "transaction and it distills it into a",
+      "start": 199.599,
+      "duration": 3.0
+    },
+    {
+      "text": "single",
+      "start": 201.68,
+      "duration": 4.4
+    },
+    {
+      "text": "embedding which means that you have a",
+      "start": 202.599,
+      "duration": 6.041
+    },
+    {
+      "text": "huge distribution of tens of billions of",
+      "start": 206.08,
+      "duration": 4.48
+    },
+    {
+      "text": "payments in vector space, right?",
+      "start": 208.64,
+      "duration": 3.679
+    },
+    {
+      "text": "Highdimensional vector space, which is a",
+      "start": 210.56,
+      "duration": 3.28
+    },
+    {
+      "text": "concept if you know large language",
+      "start": 212.319,
+      "duration": 3.041
+    },
+    {
+      "text": "models that you're very familiar with.",
+      "start": 213.84,
+      "duration": 3.08
+    },
+    {
+      "text": "And if you don't know large language",
+      "start": 215.36,
+      "duration": 3.599
+    },
+    {
+      "text": "models, I don't know, go read about it",
+      "start": 216.92,
+      "duration": 5.16
+    },
+    {
+      "text": "on the Substack. Uh, but the location of",
+      "start": 218.959,
+      "duration": 5.681
+    },
+    {
+      "text": "the embedding ends up capturing rich",
+      "start": 222.08,
+      "duration": 3.92
+    },
+    {
+      "text": "data the way the location of an",
+      "start": 224.64,
+      "duration": 3.12
+    },
+    {
+      "text": "embedding for a word captures rich data",
+      "start": 226.0,
+      "duration": 3.76
+    },
+    {
+      "text": "with LLMs. And that's what got my head",
+      "start": 227.76,
+      "duration": 4.0
+    },
+    {
+      "text": "spinning because it means that it's a",
+      "start": 229.76,
+      "duration": 4.08
+    },
+    {
+      "text": "generalized learning tool in a way that",
+      "start": 231.76,
+      "duration": 4.88
+    },
+    {
+      "text": "even I hadn't realized. And so",
+      "start": 233.84,
+      "duration": 4.959
+    },
+    {
+      "text": "basically, Stripe figured out that",
+      "start": 236.64,
+      "duration": 4.159
+    },
+    {
+      "text": "payments relate to each other in",
+      "start": 238.799,
+      "duration": 5.121
+    },
+    {
+      "text": "unexpected ways that transformers are",
+      "start": 240.799,
+      "duration": 6.321
+    },
+    {
+      "text": "able to articulate and understand better",
+      "start": 243.92,
+      "duration": 4.72
+    },
+    {
+      "text": "than classical machine learning",
+      "start": 247.12,
+      "duration": 4.28
+    },
+    {
+      "text": "techniques. and better than",
+      "start": 248.64,
+      "duration": 6.319
+    },
+    {
+      "text": "humans. And so payments that share",
+      "start": 251.4,
+      "duration": 5.399
+    },
+    {
+      "text": "similarities tend to nest next to each",
+      "start": 254.959,
+      "duration": 3.8
+    },
+    {
+      "text": "other in highdimensional vector",
+      "start": 256.799,
+      "duration": 6.321
+    },
+    {
+      "text": "space. And those that you know have even",
+      "start": 258.759,
+      "duration": 5.72
+    },
+    {
+      "text": "more similarities. Maybe they're from",
+      "start": 263.12,
+      "duration": 2.88
+    },
+    {
+      "text": "the same bank, maybe they're from the",
+      "start": 264.479,
+      "duration": 3.041
+    },
+    {
+      "text": "same email address, maybe they're from",
+      "start": 266.0,
+      "duration": 3.759
+    },
+    {
+      "text": "the same credit card number. Those nest",
+      "start": 267.52,
+      "duration": 4.399
+    },
+    {
+      "text": "even closer together.",
+      "start": 269.759,
+      "duration": 4.88
+    },
+    {
+      "text": "And what's fascinating about that is it",
+      "start": 271.919,
+      "duration": 4.681
+    },
+    {
+      "text": "lets you start to consider the",
+      "start": 274.639,
+      "duration": 3.641
+    },
+    {
+      "text": "relationships",
+      "start": 276.6,
+      "duration": 4.2
+    },
+    {
+      "text": "between payment structures in",
+      "start": 278.28,
+      "duration": 5.52
+    },
+    {
+      "text": "highdimensional space as potential fraud",
+      "start": 280.8,
+      "duration": 6.72
+    },
+    {
+      "text": "vectors. And so you can spot adversarial",
+      "start": 283.8,
+      "duration": 6.08
+    },
+    {
+      "text": "patterns and fraud techniques much more",
+      "start": 287.52,
+      "duration": 5.04
+    },
+    {
+      "text": "accurately. and previously like it's if",
+      "start": 289.88,
+      "duration": 4.44
+    },
+    {
+      "text": "you work in payments you know this",
+      "start": 292.56,
+      "duration": 3.68
+    },
+    {
+      "text": "there's an arms race that goes on that's",
+      "start": 294.32,
+      "duration": 4.04
+    },
+    {
+      "text": "silent every single day between",
+      "start": 296.24,
+      "duration": 4.239
+    },
+    {
+      "text": "fraudsters and legitimate payment",
+      "start": 298.36,
+      "duration": 3.48
+    },
+    {
+      "text": "providers where the payment providers",
+      "start": 300.479,
+      "duration": 3.121
+    },
+    {
+      "text": "are the front line of defense and",
+      "start": 301.84,
+      "duration": 4.0
+    },
+    {
+      "text": "fraudsters are trying to run fraudulent",
+      "start": 303.6,
+      "duration": 5.36
+    },
+    {
+      "text": "payments through the system and every",
+      "start": 305.84,
+      "duration": 5.52
+    },
+    {
+      "text": "day the fraudsters wake up and it's like",
+      "start": 308.96,
+      "duration": 5.04
+    },
+    {
+      "text": "uh wy coyote and the roadrunner",
+      "start": 311.36,
+      "duration": 4.2
+    },
+    {
+      "text": "everybody's trying to get a little bit",
+      "start": 314.0,
+      "duration": 4.0
+    },
+    {
+      "text": "faster and so this is a significant",
+      "start": 315.56,
+      "duration": 4.199
+    },
+    {
+      "text": "development in this arms race because it",
+      "start": 318.0,
+      "duration": 3.039
+    },
+    {
+      "text": "means that you can start to look at",
+      "start": 319.759,
+      "duration": 4.081
+    },
+    {
+      "text": "relational patterns and attack vectors",
+      "start": 321.039,
+      "duration": 4.961
+    },
+    {
+      "text": "that would not appear in traditional",
+      "start": 323.84,
+      "duration": 3.84
+    },
+    {
+      "text": "machine learning techniques that look at",
+      "start": 326.0,
+      "duration": 3.919
+    },
+    {
+      "text": "individual success",
+      "start": 327.68,
+      "duration": 5.28
+    },
+    {
+      "text": "uh goals or individual that optimize",
+      "start": 329.919,
+      "duration": 5.361
+    },
+    {
+      "text": "against individual transaction patterns.",
+      "start": 332.96,
+      "duration": 3.84
+    },
+    {
+      "text": "So for example, if you're optimizing",
+      "start": 335.28,
+      "duration": 3.28
+    },
+    {
+      "text": "around fraudulent patterns at login,",
+      "start": 336.8,
+      "duration": 3.44
+    },
+    {
+      "text": "you're not optimizing at the same time",
+      "start": 338.56,
+      "duration": 3.6
+    },
+    {
+      "text": "around fraudulent patterns at checkout",
+      "start": 340.24,
+      "duration": 5.92
+    },
+    {
+      "text": "or fraudulent patterns um with a",
+      "start": 342.16,
+      "duration": 6.16
+    },
+    {
+      "text": "particular",
+      "start": 346.16,
+      "duration": 4.8
+    },
+    {
+      "text": "uh presentation of payment method. So",
+      "start": 348.32,
+      "duration": 3.92
+    },
+    {
+      "text": "machine learning is sort of like a",
+      "start": 350.96,
+      "duration": 4.079
+    },
+    {
+      "text": "scalpel and LLMs which are machine",
+      "start": 352.24,
+      "duration": 4.08
+    },
+    {
+      "text": "learning but it's a different kind of",
+      "start": 355.039,
+      "duration": 3.121
+    },
+    {
+      "text": "learning architecture are much more",
+      "start": 356.32,
+      "duration": 3.56
+    },
+    {
+      "text": "generalized and they allow you to",
+      "start": 358.16,
+      "duration": 4.08
+    },
+    {
+      "text": "capture relationships between these",
+      "start": 359.88,
+      "duration": 4.2
+    },
+    {
+      "text": "patterns like what if someone has a",
+      "start": 362.24,
+      "duration": 3.84
+    },
+    {
+      "text": "certain pattern of login that then",
+      "start": 364.08,
+      "duration": 4.08
+    },
+    {
+      "text": "relates to a certain zip code that then",
+      "start": 366.08,
+      "duration": 3.92
+    },
+    {
+      "text": "relates to a certain payment method.",
+      "start": 368.16,
+      "duration": 3.759
+    },
+    {
+      "text": "Traditional machine learning techniques",
+      "start": 370.0,
+      "duration": 4.0
+    },
+    {
+      "text": "don't do a good job capturing that stuff",
+      "start": 371.919,
+      "duration": 3.521
+    },
+    {
+      "text": "and if you're at scale you can't",
+      "start": 374.0,
+      "duration": 3.039
+    },
+    {
+      "text": "necessarily pull that out individually",
+      "start": 375.44,
+      "duration": 2.759
+    },
+    {
+      "text": "by hand",
+      "start": 377.039,
+      "duration": 4.0
+    },
+    {
+      "text": "either. And so another example that",
+      "start": 378.199,
+      "duration": 5.241
+    },
+    {
+      "text": "Stripe actually gave was card testing.",
+      "start": 381.039,
+      "duration": 4.241
+    },
+    {
+      "text": "So with traditional machine learning",
+      "start": 383.44,
+      "duration": 3.44
+    },
+    {
+      "text": "approaches",
+      "start": 385.28,
+      "duration": 3.28
+    },
+    {
+      "text": "um you know where you engineer a new",
+      "start": 386.88,
+      "duration": 3.84
+    },
+    {
+      "text": "feature, you label attack patterns, you",
+      "start": 388.56,
+      "duration": 5.4
+    },
+    {
+      "text": "retrain models, you can reduce card",
+      "start": 390.72,
+      "duration": 6.56
+    },
+    {
+      "text": "testing a fair bit. You they said they",
+      "start": 393.96,
+      "duration": 6.2
+    },
+    {
+      "text": "reduce it at stripe by 80%. But the most",
+      "start": 397.28,
+      "duration": 5.68
+    },
+    {
+      "text": "sophisticated card testers still hide",
+      "start": 400.16,
+      "duration": 5.28
+    },
+    {
+      "text": "attack patterns in large company payment",
+      "start": 402.96,
+      "duration": 4.72
+    },
+    {
+      "text": "volumes and it makes it very very",
+      "start": 405.44,
+      "duration": 6.52
+    },
+    {
+      "text": "difficult to spot. But with a",
+      "start": 407.68,
+      "duration": 7.519
+    },
+    {
+      "text": "classifier that ingests the embeddings",
+      "start": 411.96,
+      "duration": 5.72
+    },
+    {
+      "text": "from the foundation model, you can",
+      "start": 415.199,
+      "duration": 5.601
+    },
+    {
+      "text": "predict if a particular traffic slice is",
+      "start": 417.68,
+      "duration": 4.799
+    },
+    {
+      "text": "going to be under attack. A particular",
+      "start": 420.8,
+      "duration": 3.36
+    },
+    {
+      "text": "traffic slice from a from a large",
+      "start": 422.479,
+      "duration": 4.081
+    },
+    {
+      "text": "company. which means you can leverage",
+      "start": 424.16,
+      "duration": 4.8
+    },
+    {
+      "text": "transformers to detect patterns in",
+      "start": 426.56,
+      "duration": 5.24
+    },
+    {
+      "text": "transaction sequences like their",
+      "start": 428.96,
+      "duration": 5.2
+    },
+    {
+      "text": "sentences and this can be done according",
+      "start": 431.8,
+      "duration": 4.44
+    },
+    {
+      "text": "to Stripe in real time so that you can",
+      "start": 434.16,
+      "duration": 4.4
+    },
+    {
+      "text": "block attacks before they hit",
+      "start": 436.24,
+      "duration": 4.48
+    },
+    {
+      "text": "businesses.",
+      "start": 438.56,
+      "duration": 5.24
+    },
+    {
+      "text": "So what they're saying is this",
+      "start": 440.72,
+      "duration": 6.879
+    },
+    {
+      "text": "particular model improved the detection",
+      "start": 443.8,
+      "duration": 7.119
+    },
+    {
+      "text": "rate for card testing attacks on large",
+      "start": 447.599,
+      "duration": 8.521
+    },
+    {
+      "text": "users from 59% to 97%",
+      "start": 450.919,
+      "duration": 8.441
+    },
+    {
+      "text": "overnight. Instant impact on Stripe's",
+      "start": 456.12,
+      "duration": 5.359
+    },
+    {
+      "text": "largest",
+      "start": 459.36,
+      "duration": 4.64
+    },
+    {
+      "text": "customers. And then they go on to say",
+      "start": 461.479,
+      "duration": 4.201
+    },
+    {
+      "text": "the real power of this is we can apply",
+      "start": 464.0,
+      "duration": 3.28
+    },
+    {
+      "text": "these same embeddings elsewhere. This is",
+      "start": 465.68,
+      "duration": 3.12
+    },
+    {
+      "text": "a foundation model. We're going to apply",
+      "start": 467.28,
+      "duration": 3.52
+    },
+    {
+      "text": "it to disputes. we're going to apply it",
+      "start": 468.8,
+      "duration": 2.76
+    },
+    {
+      "text": "to",
+      "start": 470.8,
+      "duration": 4.16
+    },
+    {
+      "text": "authorizations. Um, and then they call",
+      "start": 471.56,
+      "duration": 4.919
+    },
+    {
+      "text": "out the obvious to me, which is that",
+      "start": 474.96,
+      "duration": 3.76
+    },
+    {
+      "text": "payments have semantic meaning, like",
+      "start": 476.479,
+      "duration": 5.201
+    },
+    {
+      "text": "words in a sentence, right? If you make",
+      "start": 478.72,
+      "duration": 4.879
+    },
+    {
+      "text": "a payment, it has sequential",
+      "start": 481.68,
+      "duration": 4.12
+    },
+    {
+      "text": "dependencies and latent feature",
+      "start": 483.599,
+      "duration": 5.121
+    },
+    {
+      "text": "interactions that are not captured by",
+      "start": 485.8,
+      "duration": 4.6
+    },
+    {
+      "text": "manually listing features, which is",
+      "start": 488.72,
+      "duration": 3.12
+    },
+    {
+      "text": "exactly what transformers get at.",
+      "start": 490.4,
+      "duration": 3.199
+    },
+    {
+      "text": "Transformers get at hidden grammar,",
+      "start": 491.84,
+      "duration": 3.12
+    },
+    {
+      "text": "things that we don't know how to",
+      "start": 493.599,
+      "duration": 3.681
+    },
+    {
+      "text": "describe that describe English or",
+      "start": 494.96,
+      "duration": 4.16
+    },
+    {
+      "text": "describe another language. Transformers",
+      "start": 497.28,
+      "duration": 4.08
+    },
+    {
+      "text": "are very good at getting it.",
+      "start": 499.12,
+      "duration": 3.0
+    },
+    {
+      "text": "And",
+      "start": 501.36,
+      "duration": 3.44
+    },
+    {
+      "text": "so when I think about that and this is",
+      "start": 502.12,
+      "duration": 5.0
+    },
+    {
+      "text": "where I want to close.",
+      "start": 504.8,
+      "duration": 4.88
+    },
+    {
+      "text": "Fundamentally what Stripe has done is",
+      "start": 507.12,
+      "duration": 8.24
+    },
+    {
+      "text": "they have shown the way to disrupt a an",
+      "start": 509.68,
+      "duration": 7.599
+    },
+    {
+      "text": "industry that has used machine learning,",
+      "start": 515.36,
+      "duration": 3.44
+    },
+    {
+      "text": "that has used AI, that has lots of",
+      "start": 517.279,
+      "duration": 3.361
+    },
+    {
+      "text": "engineers, that is super bright, that is",
+      "start": 518.8,
+      "duration": 3.919
+    },
+    {
+      "text": "super focused on a particular problem",
+      "start": 520.64,
+      "duration": 4.4
+    },
+    {
+      "text": "and just completely upend it overnight",
+      "start": 522.719,
+      "duration": 4.641
+    },
+    {
+      "text": "by building a new foundation model based",
+      "start": 525.04,
+      "duration": 6.08
+    },
+    {
+      "text": "on transformers because they figured out",
+      "start": 527.36,
+      "duration": 5.0
+    },
+    {
+      "text": "that",
+      "start": 531.12,
+      "duration": 3.6
+    },
+    {
+      "text": "transformers are universal learning",
+      "start": 532.36,
+      "duration": 4.479
+    },
+    {
+      "text": "models. And so I want to ask the",
+      "start": 534.72,
+      "duration": 5.04
+    },
+    {
+      "text": "question, what other spaces are",
+      "start": 536.839,
+      "duration": 5.401
+    },
+    {
+      "text": "vulnerable to disruption if we thought",
+      "start": 539.76,
+      "duration": 5.12
+    },
+    {
+      "text": "about them as places where transformers",
+      "start": 542.24,
+      "duration": 4.279
+    },
+    {
+      "text": "could usefully",
+      "start": 544.88,
+      "duration": 5.12
+    },
+    {
+      "text": "learn? Do healthc care billing cycles",
+      "start": 546.519,
+      "duration": 6.801
+    },
+    {
+      "text": "have semantic meaning? I bet they",
+      "start": 550.0,
+      "duration": 6.24
+    },
+    {
+      "text": "do. Do treatment patterns and hospitals",
+      "start": 553.32,
+      "duration": 4.36
+    },
+    {
+      "text": "have semantic meaning? I know I'm",
+      "start": 556.24,
+      "duration": 3.039
+    },
+    {
+      "text": "zeroing in on on healthcare. That's",
+      "start": 557.68,
+      "duration": 4.32
+    },
+    {
+      "text": "where my head is at today, but that's",
+      "start": 559.279,
+      "duration": 6.321
+    },
+    {
+      "text": "that's just one example. Obviously, if",
+      "start": 562.0,
+      "duration": 5.519
+    },
+    {
+      "text": "Strike can do this part for fintech, you",
+      "start": 565.6,
+      "duration": 3.44
+    },
+    {
+      "text": "can see it on the stock side with Robin",
+      "start": 567.519,
+      "duration": 4.161
+    },
+    {
+      "text": "Hood relatively easily. What about",
+      "start": 569.04,
+      "duration": 4.96
+    },
+    {
+      "text": "education? Does a student's grade",
+      "start": 571.68,
+      "duration": 4.56
+    },
+    {
+      "text": "patterns through a particular school",
+      "start": 574.0,
+      "duration": 4.6
+    },
+    {
+      "text": "trajectory have semantic",
+      "start": 576.24,
+      "duration": 6.08
+    },
+    {
+      "text": "meaning? What about, I don't know,",
+      "start": 578.6,
+      "duration": 7.799
+    },
+    {
+      "text": "marketing? Do your leads, tracks, and or",
+      "start": 582.32,
+      "duration": 6.4
+    },
+    {
+      "text": "contacts through a particular pattern",
+      "start": 586.399,
+      "duration": 4.721
+    },
+    {
+      "text": "through the buyunnel? Does the buyunnel",
+      "start": 588.72,
+      "duration": 4.799
+    },
+    {
+      "text": "have semantic meaning? You see where I'm",
+      "start": 591.12,
+      "duration": 5.0
+    },
+    {
+      "text": "going here? Basically, ask yourself the",
+      "start": 593.519,
+      "duration": 5.841
+    },
+    {
+      "text": "question, what has semantic meaning in",
+      "start": 596.12,
+      "duration": 6.12
+    },
+    {
+      "text": "your world that you thought maybe is",
+      "start": 599.36,
+      "duration": 5.44
+    },
+    {
+      "text": "best mapped through traditional methods?",
+      "start": 602.24,
+      "duration": 4.32
+    },
+    {
+      "text": "Maybe it's not. Maybe it needs a",
+      "start": 604.8,
+      "duration": 3.44
+    },
+    {
+      "text": "transformer model and we just haven't",
+      "start": 606.56,
+      "duration": 4.16
+    },
+    {
+      "text": "built one yet. Which suggests that if",
+      "start": 608.24,
+      "duration": 6.4
+    },
+    {
+      "text": "there is a way to easily build new",
+      "start": 610.72,
+      "duration": 6.4
+    },
+    {
+      "text": "foundational models for these spaces,",
+      "start": 614.64,
+      "duration": 4.4
+    },
+    {
+      "text": "there's huge breakthroughs around the",
+      "start": 617.12,
+      "duration": 4.8
+    },
+    {
+      "text": "corner. So, think about it. What in your",
+      "start": 619.04,
+      "duration": 5.84
+    },
+    {
+      "text": "space is learnable by transformers that",
+      "start": 621.92,
+      "duration": 5.84
+    },
+    {
+      "text": "we haven't thought about",
+      "start": 624.88,
+      "duration": 2.88
+    }
+  ]
 }

@@ -29,5 +29,1512 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": []
+  "processing_history": [],
+  "timed_transcript": [
+    {
+      "text": "Over the last year, MCP has really",
+      "start": 0.16,
+      "duration": 4.0
+    },
+    {
+      "text": "become the go-to way for us to connect",
+      "start": 2.159,
+      "duration": 4.561
+    },
+    {
+      "text": "our agents to our tools and data. But as",
+      "start": 4.16,
+      "duration": 4.96
+    },
+    {
+      "text": "the protocol has gained popularity, it's",
+      "start": 6.72,
+      "duration": 4.32
+    },
+    {
+      "text": "also become more and more obvious that",
+      "start": 9.12,
+      "duration": 4.639
+    },
+    {
+      "text": "we have a major flaw with the protocol.",
+      "start": 11.04,
+      "duration": 5.12
+    },
+    {
+      "text": "It is all about token consumption and",
+      "start": 13.759,
+      "duration": 5.36
+    },
+    {
+      "text": "context rot, which are very much hot",
+      "start": 16.16,
+      "duration": 5.76
+    },
+    {
+      "text": "topics right now. And Enthropic admitted",
+      "start": 19.119,
+      "duration": 4.561
+    },
+    {
+      "text": "to this problem themselves, and they",
+      "start": 21.92,
+      "duration": 3.68
+    },
+    {
+      "text": "literally built the protocol. So they",
+      "start": 23.68,
+      "duration": 4.4
+    },
+    {
+      "text": "published this blog post recently",
+      "start": 25.6,
+      "duration": 4.8
+    },
+    {
+      "text": "covering the main issue with MCP and",
+      "start": 28.08,
+      "duration": 4.159
+    },
+    {
+      "text": "then their proposed solution to build",
+      "start": 30.4,
+      "duration": 3.999
+    },
+    {
+      "text": "more efficient agents. That's what I",
+      "start": 32.239,
+      "duration": 4.0
+    },
+    {
+      "text": "want to cover with you today in a very",
+      "start": 34.399,
+      "duration": 3.441
+    },
+    {
+      "text": "practical way. So this video is going to",
+      "start": 36.239,
+      "duration": 3.761
+    },
+    {
+      "text": "be a quick breakdown. I'm going to do it",
+      "start": 37.84,
+      "duration": 4.239
+    },
+    {
+      "text": "very clearly for you. I want to cover",
+      "start": 40.0,
+      "duration": 5.04
+    },
+    {
+      "text": "the problem we have with MCP with a full",
+      "start": 42.079,
+      "duration": 5.121
+    },
+    {
+      "text": "example. Then we'll get into the",
+      "start": 45.04,
+      "duration": 3.839
+    },
+    {
+      "text": "proposed solution. And I really think",
+      "start": 47.2,
+      "duration": 3.839
+    },
+    {
+      "text": "that this is powerful stuff. And then I",
+      "start": 48.879,
+      "duration": 3.761
+    },
+    {
+      "text": "know I'm being a little cheeky here",
+      "start": 51.039,
+      "duration": 3.68
+    },
+    {
+      "text": "hiding this, but I want to cover the",
+      "start": 52.64,
+      "duration": 5.2
+    },
+    {
+      "text": "final question. Is this the end of MCP",
+      "start": 54.719,
+      "duration": 5.441
+    },
+    {
+      "text": "as we know it? The problem with MCP",
+      "start": 57.84,
+      "duration": 4.559
+    },
+    {
+      "text": "servers is that they are incredibly",
+      "start": 60.16,
+      "duration": 4.319
+    },
+    {
+      "text": "token inefficient and rigid. And",
+      "start": 62.399,
+      "duration": 4.001
+    },
+    {
+      "text": "starting with the token inefficiency.",
+      "start": 64.479,
+      "duration": 3.68
+    },
+    {
+      "text": "We've got a really nice diagram in the",
+      "start": 66.4,
+      "duration": 3.6
+    },
+    {
+      "text": "anthropic article that I want to show",
+      "start": 68.159,
+      "duration": 4.081
+    },
+    {
+      "text": "you quick. So every single tool",
+      "start": 70.0,
+      "duration": 4.4
+    },
+    {
+      "text": "definition like the when and the Y for",
+      "start": 72.24,
+      "duration": 4.4
+    },
+    {
+      "text": "the tool and the parameters and also",
+      "start": 74.4,
+      "duration": 4.8
+    },
+    {
+      "text": "every single time we leverage the tool",
+      "start": 76.64,
+      "duration": 4.479
+    },
+    {
+      "text": "both are going to fill our context",
+      "start": 79.2,
+      "duration": 3.68
+    },
+    {
+      "text": "window. And so the more capabilities we",
+      "start": 81.119,
+      "duration": 4.0
+    },
+    {
+      "text": "give our agent the more we are going to",
+      "start": 82.88,
+      "duration": 4.72
+    },
+    {
+      "text": "bloat its context. And I've got a scary",
+      "start": 85.119,
+      "duration": 4.32
+    },
+    {
+      "text": "example just to show you how quickly",
+      "start": 87.6,
+      "duration": 4.32
+    },
+    {
+      "text": "this can get seriously out of hand. Cuz",
+      "start": 89.439,
+      "duration": 4.401
+    },
+    {
+      "text": "right here I just have five very",
+      "start": 91.92,
+      "duration": 5.199
+    },
+    {
+      "text": "standard MCP servers for AI coding. And",
+      "start": 93.84,
+      "duration": 5.04
+    },
+    {
+      "text": "I've used these all a lot in the past,",
+      "start": 97.119,
+      "duration": 4.401
+    },
+    {
+      "text": "but I would never, and I repeat, never",
+      "start": 98.88,
+      "duration": 5.44
+    },
+    {
+      "text": "use them all in the same session with my",
+      "start": 101.52,
+      "duration": 4.639
+    },
+    {
+      "text": "coding assistant because they each take",
+      "start": 104.32,
+      "duration": 4.64
+    },
+    {
+      "text": "thousands of tokens just to describe",
+      "start": 106.159,
+      "duration": 5.441
+    },
+    {
+      "text": "their capabilities to the AI agent. And",
+      "start": 108.96,
+      "duration": 4.64
+    },
+    {
+      "text": "so these tokens are consumed at the",
+      "start": 111.6,
+      "duration": 3.68
+    },
+    {
+      "text": "start of a conversation before we even",
+      "start": 113.6,
+      "duration": 4.24
+    },
+    {
+      "text": "send our first message. And sure, modern",
+      "start": 115.28,
+      "duration": 5.839
+    },
+    {
+      "text": "LLMs can handle this many tokens. But",
+      "start": 117.84,
+      "duration": 5.919
+    },
+    {
+      "text": "just because the LLM can fit the tokens",
+      "start": 121.119,
+      "duration": 4.0
+    },
+    {
+      "text": "doesn't mean it can handle it",
+      "start": 123.759,
+      "duration": 3.841
+    },
+    {
+      "text": "gracefully. If we try to give this many",
+      "start": 125.119,
+      "duration": 4.241
+    },
+    {
+      "text": "tools to our coding assistant right out",
+      "start": 127.6,
+      "duration": 3.12
+    },
+    {
+      "text": "the gate, we're going to completely",
+      "start": 129.36,
+      "duration": 3.36
+    },
+    {
+      "text": "overwhelm it and make it feel like we're",
+      "start": 130.72,
+      "duration": 4.64
+    },
+    {
+      "text": "back in the stone age in 2022 running",
+      "start": 132.72,
+      "duration": 5.519
+    },
+    {
+      "text": "our LLMs with GPT 3.5. And I've been",
+      "start": 135.36,
+      "duration": 4.32
+    },
+    {
+      "text": "there. I've built agents back then. I",
+      "start": 138.239,
+      "duration": 2.881
+    },
+    {
+      "text": "know how they could only handle a couple",
+      "start": 139.68,
+      "duration": 3.04
+    },
+    {
+      "text": "of tools back then. And so, it's a lot",
+      "start": 141.12,
+      "duration": 3.839
+    },
+    {
+      "text": "better now, but still, this is way too",
+      "start": 142.72,
+      "duration": 4.08
+    },
+    {
+      "text": "much. And I'll prove to you that it",
+      "start": 144.959,
+      "duration": 3.841
+    },
+    {
+      "text": "really is this bad. It's actually",
+      "start": 146.8,
+      "duration": 3.36
+    },
+    {
+      "text": "bonkers. So, I'll go to my coding",
+      "start": 148.8,
+      "duration": 3.04
+    },
+    {
+      "text": "assistant. I have all the same servers",
+      "start": 150.16,
+      "duration": 3.68
+    },
+    {
+      "text": "connected. I'll go inside of Cloud Code",
+      "start": 151.84,
+      "duration": 4.08
+    },
+    {
+      "text": "now. And then I'll run slashcontext to",
+      "start": 153.84,
+      "duration": 3.92
+    },
+    {
+      "text": "show me how many tokens each of my",
+      "start": 155.92,
+      "duration": 3.92
+    },
+    {
+      "text": "capabilities are taking. And wow, look",
+      "start": 157.76,
+      "duration": 4.4
+    },
+    {
+      "text": "at this. We have a ton of tools here.",
+      "start": 159.84,
+      "duration": 5.36
+    },
+    {
+      "text": "And overall, the MCP tools alone are",
+      "start": 162.16,
+      "duration": 5.28
+    },
+    {
+      "text": "taking 97,000",
+      "start": 165.2,
+      "duration": 5.36
+    },
+    {
+      "text": "tokens. That is 48% of the context",
+      "start": 167.44,
+      "duration": 5.76
+    },
+    {
+      "text": "available for Claude Sonnet 4.5. And",
+      "start": 170.56,
+      "duration": 4.72
+    },
+    {
+      "text": "even if you have an LLM that can take 1",
+      "start": 173.2,
+      "duration": 3.679
+    },
+    {
+      "text": "million or 2 million tokens, this is",
+      "start": 175.28,
+      "duration": 3.679
+    },
+    {
+      "text": "still just going to overwhelm with",
+      "start": 176.879,
+      "duration": 4.161
+    },
+    {
+      "text": "capabilities. Okay, so that really",
+      "start": 178.959,
+      "duration": 4.241
+    },
+    {
+      "text": "sucks. So the big question now is what",
+      "start": 181.04,
+      "duration": 4.0
+    },
+    {
+      "text": "is the solution to this? What if I do",
+      "start": 183.2,
+      "duration": 3.679
+    },
+    {
+      "text": "want all these capabilities given to my",
+      "start": 185.04,
+      "duration": 4.4
+    },
+    {
+      "text": "agent at the exact same time? Well, what",
+      "start": 186.879,
+      "duration": 4.561
+    },
+    {
+      "text": "we need to consider here is that we need",
+      "start": 189.44,
+      "duration": 3.84
+    },
+    {
+      "text": "a way to give these capabilities to our",
+      "start": 191.44,
+      "duration": 3.84
+    },
+    {
+      "text": "agent but only when they need to",
+      "start": 193.28,
+      "duration": 3.84
+    },
+    {
+      "text": "leverage them. So we want more of a real",
+      "start": 195.28,
+      "duration": 3.52
+    },
+    {
+      "text": "time discovery of the tools that are",
+      "start": 197.12,
+      "duration": 3.92
+    },
+    {
+      "text": "available only loading in the content",
+      "start": 198.8,
+      "duration": 4.079
+    },
+    {
+      "text": "and the context of the specific",
+      "start": 201.04,
+      "duration": 4.16
+    },
+    {
+      "text": "capabilities when we want to use them.",
+      "start": 202.879,
+      "duration": 5.041
+    },
+    {
+      "text": "So real time discovery or even creating",
+      "start": 205.2,
+      "duration": 4.8
+    },
+    {
+      "text": "the capabilities on the fly. This is",
+      "start": 207.92,
+      "duration": 4.239
+    },
+    {
+      "text": "code execution what Anthropic talks",
+      "start": 210.0,
+      "duration": 4.08
+    },
+    {
+      "text": "about a lot in the article. We'll come",
+      "start": 212.159,
+      "duration": 4.08
+    },
+    {
+      "text": "back to this in a second. So, first",
+      "start": 214.08,
+      "duration": 4.799
+    },
+    {
+      "text": "think about this. Most MCP servers are",
+      "start": 216.239,
+      "duration": 4.961
+    },
+    {
+      "text": "really just API wrappers for agents.",
+      "start": 218.879,
+      "duration": 4.561
+    },
+    {
+      "text": "Like with my open source project archon,",
+      "start": 221.2,
+      "duration": 3.84
+    },
+    {
+      "text": "just to give you an example, but a lot",
+      "start": 223.44,
+      "duration": 3.12
+    },
+    {
+      "text": "of them work like this is we have all",
+      "start": 225.04,
+      "duration": 3.279
+    },
+    {
+      "text": "these API endpoints to work with our",
+      "start": 226.56,
+      "duration": 3.36
+    },
+    {
+      "text": "knowledge and our projects and our",
+      "start": 228.319,
+      "duration": 4.0
+    },
+    {
+      "text": "tasks. And the code for the MCP server",
+      "start": 229.92,
+      "duration": 4.879
+    },
+    {
+      "text": "itself, there's not actually much to it",
+      "start": 232.319,
+      "duration": 4.241
+    },
+    {
+      "text": "because it's just an instruction set to",
+      "start": 234.799,
+      "duration": 3.52
+    },
+    {
+      "text": "the agent. Here's a couple of functions",
+      "start": 236.56,
+      "duration": 4.16
+    },
+    {
+      "text": "you can call to interact with our API",
+      "start": 238.319,
+      "duration": 4.881
+    },
+    {
+      "text": "endpoints. And so the big question here,",
+      "start": 240.72,
+      "duration": 4.4
+    },
+    {
+      "text": "let me zoom in on this. What if we just",
+      "start": 243.2,
+      "duration": 3.84
+    },
+    {
+      "text": "allowed the agent to write the code",
+      "start": 245.12,
+      "duration": 4.24
+    },
+    {
+      "text": "directly to interact with the Archon API",
+      "start": 247.04,
+      "duration": 4.16
+    },
+    {
+      "text": "endpoints instead of having the MCP",
+      "start": 249.36,
+      "duration": 4.0
+    },
+    {
+      "text": "server as the middleman that is loading",
+      "start": 251.2,
+      "duration": 4.319
+    },
+    {
+      "text": "dozens of tools up front. So, not only",
+      "start": 253.36,
+      "duration": 4.559
+    },
+    {
+      "text": "is this going to be way less tokens, but",
+      "start": 255.519,
+      "duration": 3.521
+    },
+    {
+      "text": "it's also going to be a lot more",
+      "start": 257.919,
+      "duration": 2.961
+    },
+    {
+      "text": "flexible because the agent gets to",
+      "start": 259.04,
+      "duration": 4.48
+    },
+    {
+      "text": "decide how to interact with our API",
+      "start": 260.88,
+      "duration": 4.96
+    },
+    {
+      "text": "instead of the MCP kind of forcing these",
+      "start": 263.52,
+      "duration": 5.04
+    },
+    {
+      "text": "specific tools. Plus, the agent can save",
+      "start": 265.84,
+      "duration": 5.28
+    },
+    {
+      "text": "the generated code to reuse later. So,",
+      "start": 268.56,
+      "duration": 4.48
+    },
+    {
+      "text": "at first, the AI agent will generate the",
+      "start": 271.12,
+      "duration": 4.079
+    },
+    {
+      "text": "scripts on demand and then maybe even",
+      "start": 273.04,
+      "duration": 4.08
+    },
+    {
+      "text": "some instructions for how to use those",
+      "start": 275.199,
+      "duration": 3.521
+    },
+    {
+      "text": "going forward. This is very related to",
+      "start": 277.12,
+      "duration": 3.92
+    },
+    {
+      "text": "Claude skills that we'll talk about in a",
+      "start": 278.72,
+      "duration": 3.919
+    },
+    {
+      "text": "second. And then when the agent needs to",
+      "start": 281.04,
+      "duration": 3.28
+    },
+    {
+      "text": "leverage the capabilities later, it'll",
+      "start": 282.639,
+      "duration": 4.081
+    },
+    {
+      "text": "load the instruction set plus the code",
+      "start": 284.32,
+      "duration": 4.72
+    },
+    {
+      "text": "context and execute it. But it's only",
+      "start": 286.72,
+      "duration": 4.56
+    },
+    {
+      "text": "going to be doing this when it needs to.",
+      "start": 289.04,
+      "duration": 3.84
+    },
+    {
+      "text": "And so going back to our Enthropic",
+      "start": 291.28,
+      "duration": 3.6
+    },
+    {
+      "text": "article, instead of all the MCP servers",
+      "start": 292.88,
+      "duration": 3.84
+    },
+    {
+      "text": "being loaded right up front, we have",
+      "start": 294.88,
+      "duration": 3.52
+    },
+    {
+      "text": "something kind of like this. It's a",
+      "start": 296.72,
+      "duration": 3.36
+    },
+    {
+      "text": "folder that the agent can search through",
+      "start": 298.4,
+      "duration": 3.359
+    },
+    {
+      "text": "in real time, discovering the",
+      "start": 300.08,
+      "duration": 4.0
+    },
+    {
+      "text": "capabilities as it needs. Like maybe it",
+      "start": 301.759,
+      "duration": 3.841
+    },
+    {
+      "text": "decides I should be doing something with",
+      "start": 304.08,
+      "duration": 3.36
+    },
+    {
+      "text": "Google Drive now. And so it'll look at",
+      "start": 305.6,
+      "duration": 3.76
+    },
+    {
+      "text": "this highle file to see the capabilities",
+      "start": 307.44,
+      "duration": 3.68
+    },
+    {
+      "text": "there. And then maybe it'll load the",
+      "start": 309.36,
+      "duration": 3.92
+    },
+    {
+      "text": "code specifically to get a document. So",
+      "start": 311.12,
+      "duration": 3.919
+    },
+    {
+      "text": "it can look kind of something like this.",
+      "start": 313.28,
+      "duration": 3.04
+    },
+    {
+      "text": "The sort of thing that would be loaded",
+      "start": 315.039,
+      "duration": 3.521
+    },
+    {
+      "text": "right away with MCP, but now we're only",
+      "start": 316.32,
+      "duration": 3.92
+    },
+    {
+      "text": "calling this once we want to do things",
+      "start": 318.56,
+      "duration": 3.28
+    },
+    {
+      "text": "related to Google Drive. That's all just",
+      "start": 320.24,
+      "duration": 4.0
+    },
+    {
+      "text": "based off of the user query. So the user",
+      "start": 321.84,
+      "duration": 4.16
+    },
+    {
+      "text": "says something related to Google Drive.",
+      "start": 324.24,
+      "duration": 3.36
+    },
+    {
+      "text": "Then we know we should load in these",
+      "start": 326.0,
+      "duration": 3.919
+    },
+    {
+      "text": "capabilities. and having agents write",
+      "start": 327.6,
+      "duration": 4.319
+    },
+    {
+      "text": "code to create their capabilities,",
+      "start": 329.919,
+      "duration": 3.921
+    },
+    {
+      "text": "reusing code, like that all makes a lot",
+      "start": 331.919,
+      "duration": 4.961
+    },
+    {
+      "text": "of sense because the LLMs these days are",
+      "start": 333.84,
+      "duration": 4.639
+    },
+    {
+      "text": "really good at writing code and",
+      "start": 336.88,
+      "duration": 3.28
+    },
+    {
+      "text": "developers should take advantage of this",
+      "start": 338.479,
+      "duration": 4.241
+    },
+    {
+      "text": "to build agents that interact with MCP",
+      "start": 340.16,
+      "duration": 5.44
+    },
+    {
+      "text": "servers or just API endpoints a lot more",
+      "start": 342.72,
+      "duration": 4.479
+    },
+    {
+      "text": "efficiently. And when we think about",
+      "start": 345.6,
+      "duration": 3.68
+    },
+    {
+      "text": "giving our agent the ability to execute",
+      "start": 347.199,
+      "duration": 4.401
+    },
+    {
+      "text": "code and reuse code, it's not really",
+      "start": 349.28,
+      "duration": 4.08
+    },
+    {
+      "text": "obvious how to do that. I mean, that's",
+      "start": 351.6,
+      "duration": 3.439
+    },
+    {
+      "text": "one of the benefits of MCP. It's just",
+      "start": 353.36,
+      "duration": 4.08
+    },
+    {
+      "text": "really easy to plug the MCP servers in",
+      "start": 355.039,
+      "duration": 3.841
+    },
+    {
+      "text": "and instantly give these new",
+      "start": 357.44,
+      "duration": 3.759
+    },
+    {
+      "text": "capabilities to our agents. But that is",
+      "start": 358.88,
+      "duration": 4.48
+    },
+    {
+      "text": "where agent skills comes in. Enthropic",
+      "start": 361.199,
+      "duration": 3.921
+    },
+    {
+      "text": "released this pretty recently and it",
+      "start": 363.36,
+      "duration": 4.399
+    },
+    {
+      "text": "does embody the solution that we have to",
+      "start": 365.12,
+      "duration": 5.199
+    },
+    {
+      "text": "the MCP problem because it gives us and",
+      "start": 367.759,
+      "duration": 4.88
+    },
+    {
+      "text": "our AI agents the ability to generate",
+      "start": 370.319,
+      "duration": 3.921
+    },
+    {
+      "text": "these scripts to do things like interact",
+      "start": 372.639,
+      "duration": 4.081
+    },
+    {
+      "text": "with our API endpoints and generate",
+      "start": 374.24,
+      "duration": 4.56
+    },
+    {
+      "text": "instructions for how to use these",
+      "start": 376.72,
+      "duration": 4.56
+    },
+    {
+      "text": "scripts or create code on the fly. So",
+      "start": 378.8,
+      "duration": 5.44
+    },
+    {
+      "text": "code execution at its finest. And this",
+      "start": 381.28,
+      "duration": 5.12
+    },
+    {
+      "text": "is fantastic because the description for",
+      "start": 384.24,
+      "duration": 4.16
+    },
+    {
+      "text": "this skill, this little bit of text",
+      "start": 386.4,
+      "duration": 3.519
+    },
+    {
+      "text": "right here is the only thing that is",
+      "start": 388.4,
+      "duration": 3.84
+    },
+    {
+      "text": "given to our AI agent at the start of a",
+      "start": 389.919,
+      "duration": 4.241
+    },
+    {
+      "text": "conversation. So instead of thousands of",
+      "start": 392.24,
+      "duration": 3.92
+    },
+    {
+      "text": "tokens defining tools and MCP",
+      "start": 394.16,
+      "duration": 4.0
+    },
+    {
+      "text": "instructions, we just have a couple of",
+      "start": 396.16,
+      "duration": 4.0
+    },
+    {
+      "text": "sentences here. And then when the agent",
+      "start": 398.16,
+      "duration": 4.24
+    },
+    {
+      "text": "decides it wants to leverage the skill,",
+      "start": 400.16,
+      "duration": 4.159
+    },
+    {
+      "text": "then we load the full instruction set",
+      "start": 402.4,
+      "duration": 3.68
+    },
+    {
+      "text": "and the code that we want to execute.",
+      "start": 404.319,
+      "duration": 3.44
+    },
+    {
+      "text": "And it doesn't even have to load all the",
+      "start": 406.08,
+      "duration": 3.2
+    },
+    {
+      "text": "code, by the way. It can't just describe",
+      "start": 407.759,
+      "duration": 3.201
+    },
+    {
+      "text": "like here are the functions you can call",
+      "start": 409.28,
+      "duration": 4.08
+    },
+    {
+      "text": "and here's how you call them. And so",
+      "start": 410.96,
+      "duration": 5.76
+    },
+    {
+      "text": "this is very very token efficient like 2",
+      "start": 413.36,
+      "duration": 6.399
+    },
+    {
+      "text": "to 3% of the token usage compared to MCP",
+      "start": 416.72,
+      "duration": 4.879
+    },
+    {
+      "text": "at the start of a conversation. So let",
+      "start": 419.759,
+      "duration": 3.28
+    },
+    {
+      "text": "me know in the comments if you want me",
+      "start": 421.599,
+      "duration": 3.361
+    },
+    {
+      "text": "to cover cla skills in a dedicated",
+      "start": 423.039,
+      "duration": 3.761
+    },
+    {
+      "text": "video. There is so much to go over here",
+      "start": 424.96,
+      "duration": 3.92
+    },
+    {
+      "text": "and it's so powerful and right now this",
+      "start": 426.8,
+      "duration": 4.48
+    },
+    {
+      "text": "is just in the anthropic ecosystem. But",
+      "start": 428.88,
+      "duration": 4.319
+    },
+    {
+      "text": "I think it's going to go way beyond that",
+      "start": 431.28,
+      "duration": 4.24
+    },
+    {
+      "text": "very quickly here just like MCP did",
+      "start": 433.199,
+      "duration": 4.0
+    },
+    {
+      "text": "because we can have dozens of skills",
+      "start": 435.52,
+      "duration": 3.679
+    },
+    {
+      "text": "given to our agents at the same time",
+      "start": 437.199,
+      "duration": 4.321
+    },
+    {
+      "text": "since it's a fraction of the token cost",
+      "start": 439.199,
+      "duration": 5.12
+    },
+    {
+      "text": "upfront compared to MCP. And I don't",
+      "start": 441.52,
+      "duration": 4.48
+    },
+    {
+      "text": "know if you noticed this yet, but the",
+      "start": 444.319,
+      "duration": 3.681
+    },
+    {
+      "text": "skill that I'm using here as an example",
+      "start": 446.0,
+      "duration": 4.639
+    },
+    {
+      "text": "is the one for Archon, my very own open-",
+      "start": 448.0,
+      "duration": 4.4
+    },
+    {
+      "text": "source project. So, I took the Archon",
+      "start": 450.639,
+      "duration": 4.4
+    },
+    {
+      "text": "MCP server, transformed it into a skill",
+      "start": 452.4,
+      "duration": 4.799
+    },
+    {
+      "text": "to prove to myself and to you that we",
+      "start": 455.039,
+      "duration": 4.401
+    },
+    {
+      "text": "have all the same functionality, and now",
+      "start": 457.199,
+      "duration": 4.161
+    },
+    {
+      "text": "it is way more token efficient and",
+      "start": 459.44,
+      "duration": 3.92
+    },
+    {
+      "text": "honestly flexible because the coding",
+      "start": 461.36,
+      "duration": 3.679
+    },
+    {
+      "text": "assistant can now generate its own code",
+      "start": 463.36,
+      "duration": 3.76
+    },
+    {
+      "text": "to interact with the Archon API. It is",
+      "start": 465.039,
+      "duration": 3.761
+    },
+    {
+      "text": "fantastic. And so now we can pair this",
+      "start": 467.12,
+      "duration": 3.919
+    },
+    {
+      "text": "with a ton of other different skills and",
+      "start": 468.8,
+      "duration": 4.16
+    },
+    {
+      "text": "not worry about getting to that 90,000",
+      "start": 471.039,
+      "duration": 3.6
+    },
+    {
+      "text": "tokens up front. Oh, and by the way,",
+      "start": 472.96,
+      "duration": 3.12
+    },
+    {
+      "text": "I'll link to this in the description",
+      "start": 474.639,
+      "duration": 3.68
+    },
+    {
+      "text": "with the Archon skill. I did a full",
+      "start": 476.08,
+      "duration": 3.839
+    },
+    {
+      "text": "demonstration of this in the Dynamus",
+      "start": 478.319,
+      "duration": 3.28
+    },
+    {
+      "text": "community and so I I proved it out like",
+      "start": 479.919,
+      "duration": 3.84
+    },
+    {
+      "text": "this works as well as the MCP server and",
+      "start": 481.599,
+      "duration": 3.921
+    },
+    {
+      "text": "it takes just a couple of hundred tokens",
+      "start": 483.759,
+      "duration": 3.201
+    },
+    {
+      "text": "up front so you can try this out for",
+      "start": 485.52,
+      "duration": 3.2
+    },
+    {
+      "text": "yourself if you want. So the last",
+      "start": 486.96,
+      "duration": 3.679
+    },
+    {
+      "text": "question you're probably asking yourself",
+      "start": 488.72,
+      "duration": 4.64
+    },
+    {
+      "text": "is is this the end of MCP? I mean the",
+      "start": 490.639,
+      "duration": 4.56
+    },
+    {
+      "text": "picture that I laid out here is looking",
+      "start": 493.36,
+      "duration": 4.559
+    },
+    {
+      "text": "pretty grim. But my short answer is no.",
+      "start": 495.199,
+      "duration": 4.801
+    },
+    {
+      "text": "This is definitely not the end. And the",
+      "start": 497.919,
+      "duration": 4.0
+    },
+    {
+      "text": "reason for this is MCP is actually",
+      "start": 500.0,
+      "duration": 3.52
+    },
+    {
+      "text": "pretty great because what you see is",
+      "start": 501.919,
+      "duration": 3.28
+    },
+    {
+      "text": "what you get. And what I mean by that is",
+      "start": 503.52,
+      "duration": 4.0
+    },
+    {
+      "text": "when I build an MCP server, I define the",
+      "start": 505.199,
+      "duration": 4.641
+    },
+    {
+      "text": "tools that people leverage when they're",
+      "start": 507.52,
+      "duration": 4.959
+    },
+    {
+      "text": "using my service through MCP. And so I",
+      "start": 509.84,
+      "duration": 4.4
+    },
+    {
+      "text": "have a lot more control and",
+      "start": 512.479,
+      "duration": 4.24
+    },
+    {
+      "text": "predictability. So code execution is",
+      "start": 514.24,
+      "duration": 4.719
+    },
+    {
+      "text": "flexible and very efficient like we saw,",
+      "start": 516.719,
+      "duration": 4.32
+    },
+    {
+      "text": "but it's also risky and complicated.",
+      "start": 518.959,
+      "duration": 3.281
+    },
+    {
+      "text": "There's a lot of security",
+      "start": 521.039,
+      "duration": 3.201
+    },
+    {
+      "text": "considerations. We have to think about a",
+      "start": 522.24,
+      "duration": 4.08
+    },
+    {
+      "text": "code sandbox environment that also makes",
+      "start": 524.24,
+      "duration": 4.159
+    },
+    {
+      "text": "it more complicated. And so there is",
+      "start": 526.32,
+      "duration": 3.76
+    },
+    {
+      "text": "really a big trade-off here between",
+      "start": 528.399,
+      "duration": 4.961
+    },
+    {
+      "text": "control and flexibility. And so for MCP",
+      "start": 530.08,
+      "duration": 5.52
+    },
+    {
+      "text": "servers, we get to control how the agent",
+      "start": 533.36,
+      "duration": 3.84
+    },
+    {
+      "text": "leverages the tools because it's not",
+      "start": 535.6,
+      "duration": 3.76
+    },
+    {
+      "text": "generating arbitrary code. More control",
+      "start": 537.2,
+      "duration": 3.68
+    },
+    {
+      "text": "for things like credential setup, like",
+      "start": 539.36,
+      "duration": 2.64
+    },
+    {
+      "text": "how do you even manage environment",
+      "start": 540.88,
+      "duration": 2.48
+    },
+    {
+      "text": "variables in skills? I don't think",
+      "start": 542.0,
+      "duration": 3.279
+    },
+    {
+      "text": "that's figured out yet. And there's less",
+      "start": 543.36,
+      "duration": 4.24
+    },
+    {
+      "text": "risk of capabilities being missed. So if",
+      "start": 545.279,
+      "duration": 4.56
+    },
+    {
+      "text": "you're totally overwhelmed LLM, yes, it",
+      "start": 547.6,
+      "duration": 4.48
+    },
+    {
+      "text": "will still miss capabilities, but in",
+      "start": 549.839,
+      "duration": 3.761
+    },
+    {
+      "text": "general, since everything is given up",
+      "start": 552.08,
+      "duration": 3.68
+    },
+    {
+      "text": "front, there is no search and discovery",
+      "start": 553.6,
+      "duration": 3.84
+    },
+    {
+      "text": "like with code execution or skills, and",
+      "start": 555.76,
+      "duration": 4.56
+    },
+    {
+      "text": "so it'll miss things less. But then for",
+      "start": 557.44,
+      "duration": 4.64
+    },
+    {
+      "text": "this side of the coin, we got the",
+      "start": 560.32,
+      "duration": 3.92
+    },
+    {
+      "text": "flexibility here. So we can have dozens",
+      "start": 562.08,
+      "duration": 4.08
+    },
+    {
+      "text": "of capabilities available to our agent",
+      "start": 564.24,
+      "duration": 3.52
+    },
+    {
+      "text": "because we're not overwhelming with",
+      "start": 566.16,
+      "duration": 3.76
+    },
+    {
+      "text": "context. We have our instructions for",
+      "start": 567.76,
+      "duration": 4.48
+    },
+    {
+      "text": "how we reuse code or generate code and",
+      "start": 569.92,
+      "duration": 3.84
+    },
+    {
+      "text": "the capabilities like the scripts that",
+      "start": 572.24,
+      "duration": 3.76
+    },
+    {
+      "text": "we want to reuse loaded only when we",
+      "start": 573.76,
+      "duration": 3.759
+    },
+    {
+      "text": "need it. And then also our agent can",
+      "start": 576.0,
+      "duration": 3.279
+    },
+    {
+      "text": "also define workflows that are fit for",
+      "start": 577.519,
+      "duration": 3.601
+    },
+    {
+      "text": "the task like combining different API",
+      "start": 579.279,
+      "duration": 4.24
+    },
+    {
+      "text": "calls together. It's very flexible in",
+      "start": 581.12,
+      "duration": 3.76
+    },
+    {
+      "text": "that way. So when you're thinking about",
+      "start": 583.519,
+      "duration": 3.281
+    },
+    {
+      "text": "adding capabilities to your agents, I",
+      "start": 584.88,
+      "duration": 3.92
+    },
+    {
+      "text": "want you to think about this trade-off.",
+      "start": 586.8,
+      "duration": 3.92
+    },
+    {
+      "text": "But honestly, I think flexibility is",
+      "start": 588.8,
+      "duration": 4.32
+    },
+    {
+      "text": "going to win over control more and more",
+      "start": 590.72,
+      "duration": 4.239
+    },
+    {
+      "text": "over time because LLMs keep getting more",
+      "start": 593.12,
+      "duration": 3.6
+    },
+    {
+      "text": "powerful. So, we trust them more with",
+      "start": 594.959,
+      "duration": 3.921
+    },
+    {
+      "text": "code execution, searching, and",
+      "start": 596.72,
+      "duration": 4.559
+    },
+    {
+      "text": "discovering capabilities. And AI agents",
+      "start": 598.88,
+      "duration": 4.24
+    },
+    {
+      "text": "are meant to be autonomous after all.",
+      "start": 601.279,
+      "duration": 2.881
+    },
+    {
+      "text": "So, we're just making them more",
+      "start": 603.12,
+      "duration": 4.0
+    },
+    {
+      "text": "autonomous by upping the flexibility.",
+      "start": 604.16,
+      "duration": 4.32
+    },
+    {
+      "text": "And so, that's everything that I have",
+      "start": 607.12,
+      "duration": 3.12
+    },
+    {
+      "text": "for you here with the problem with MCP",
+      "start": 608.48,
+      "duration": 3.6
+    },
+    {
+      "text": "and the solution with skills and code",
+      "start": 610.24,
+      "duration": 4.08
+    },
+    {
+      "text": "execution. If you appreciated this video",
+      "start": 612.08,
+      "duration": 3.439
+    },
+    {
+      "text": "and you're looking forward to more",
+      "start": 614.32,
+      "duration": 3.92
+    },
+    {
+      "text": "things on AI agents and AI coding, I",
+      "start": 615.519,
+      "duration": 4.161
+    },
+    {
+      "text": "would really appreciate a like and a",
+      "start": 618.24,
+      "duration": 3.839
+    },
+    {
+      "text": "subscribe.",
+      "start": 619.68,
+      "duration": 2.399
+    }
+  ]
 }

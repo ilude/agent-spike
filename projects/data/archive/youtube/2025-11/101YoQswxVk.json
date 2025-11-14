@@ -29,5 +29,122 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "sales to implementation. Let me give you",
+      "start": 0.16,
+      "duration": 3.519
+    },
+    {
+      "text": "an example here. Sale can sales can",
+      "start": 2.0,
+      "duration": 3.92
+    },
+    {
+      "text": "create a deal summary using co-pilot and",
+      "start": 3.679,
+      "duration": 4.001
+    },
+    {
+      "text": "it can say extract all technical",
+      "start": 5.92,
+      "duration": 3.84
+    },
+    {
+      "text": "requirements from this contract so our",
+      "start": 7.68,
+      "duration": 3.52
+    },
+    {
+      "text": "engineering team can understand it.",
+      "start": 9.76,
+      "duration": 3.12
+    },
+    {
+      "text": "Copilot will go through it will extract",
+      "start": 11.2,
+      "duration": 3.2
+    },
+    {
+      "text": "the technical requirements. I would",
+      "start": 12.88,
+      "duration": 2.959
+    },
+    {
+      "text": "recommend reading it again just to make",
+      "start": 14.4,
+      "duration": 2.799
+    },
+    {
+      "text": "sure. But it's going to give you a",
+      "start": 15.839,
+      "duration": 2.881
+    },
+    {
+      "text": "technical summary and engineering will",
+      "start": 17.199,
+      "duration": 3.361
+    },
+    {
+      "text": "then get a clean requirements list.",
+      "start": 18.72,
+      "duration": 3.92
+    },
+    {
+      "text": "Engineering can then use copilot to say",
+      "start": 20.56,
+      "duration": 4.0
+    },
+    {
+      "text": "hey can you create an implementation",
+      "start": 22.64,
+      "duration": 3.76
+    },
+    {
+      "text": "timeline based on these requirements?",
+      "start": 24.56,
+      "duration": 3.44
+    },
+    {
+      "text": "engineering in most cases will look at",
+      "start": 26.4,
+      "duration": 3.36
+    },
+    {
+      "text": "that implementation timeline, swear at",
+      "start": 28.0,
+      "duration": 4.8
+    },
+    {
+      "text": "it, go to lunch, come back, have a beer,",
+      "start": 29.76,
+      "duration": 5.04
+    },
+    {
+      "text": "and then write the actual one down. But",
+      "start": 32.8,
+      "duration": 3.68
+    },
+    {
+      "text": "I find even if you're upset with a",
+      "start": 34.8,
+      "duration": 3.759
+    },
+    {
+      "text": "co-pilot estimate, it still moves the",
+      "start": 36.48,
+      "duration": 3.759
+    },
+    {
+      "text": "ball forward because it gets you off the",
+      "start": 38.559,
+      "duration": 4.16
+    },
+    {
+      "text": "blank page.",
+      "start": 40.239,
+      "duration": 2.48
+    }
+  ]
 }

@@ -29,5 +29,827 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "Chad GPT is firing back at Deep seek and",
+      "start": 0.0,
+      "duration": 3.84
+    },
+    {
+      "text": "you know what you do when you're a",
+      "start": 2.76,
+      "duration": 2.72
+    },
+    {
+      "text": "product team and these are hard models",
+      "start": 3.84,
+      "duration": 3.2
+    },
+    {
+      "text": "to build and you can't just magically",
+      "start": 5.48,
+      "duration": 3.96
+    },
+    {
+      "text": "build another model or change everything",
+      "start": 7.04,
+      "duration": 5.36
+    },
+    {
+      "text": "all in a dime you respond with the thing",
+      "start": 9.44,
+      "duration": 5.88
+    },
+    {
+      "text": "you originally planned but you position",
+      "start": 12.4,
+      "duration": 5.08
+    },
+    {
+      "text": "it a little differently and they",
+      "start": 15.32,
+      "duration": 4.959
+    },
+    {
+      "text": "originally planned open AI did to",
+      "start": 17.48,
+      "duration": 5.76
+    },
+    {
+      "text": "release 03 Mini at the end of this month",
+      "start": 20.279,
+      "duration": 5.08
+    },
+    {
+      "text": "the heavy heavy heavy rumor is that it",
+      "start": 23.24,
+      "duration": 4.16
+    },
+    {
+      "text": "is today if they follow their usual",
+      "start": 25.359,
+      "duration": 3.521
+    },
+    {
+      "text": "practice it will be at 10:00 a.m.",
+      "start": 27.4,
+      "duration": 3.4
+    },
+    {
+      "text": "Pacific and about 4 half",
+      "start": 28.88,
+      "duration": 7.96
+    },
+    {
+      "text": "hours and if they do that you will see",
+      "start": 30.8,
+      "duration": 9.759
+    },
+    {
+      "text": "that 03 mini is going to be positioned",
+      "start": 36.84,
+      "duration": 5.6
+    },
+    {
+      "text": "versus deep seek they probably won't",
+      "start": 40.559,
+      "duration": 3.32
+    },
+    {
+      "text": "name deep seek on the call but it will",
+      "start": 42.44,
+      "duration": 2.24
+    },
+    {
+      "text": "be",
+      "start": 43.879,
+      "duration": 4.761
+    },
+    {
+      "text": "positioned as an amazing option even for",
+      "start": 44.68,
+      "duration": 7.199
+    },
+    {
+      "text": "free users they've changed that it was",
+      "start": 48.64,
+      "duration": 5.079
+    },
+    {
+      "text": "going to be available for plus users on",
+      "start": 51.879,
+      "duration": 4.36
+    },
+    {
+      "text": "a very limited basis but deep seek has",
+      "start": 53.719,
+      "duration": 5.16
+    },
+    {
+      "text": "upended the value chain with their free",
+      "start": 56.239,
+      "duration": 4.84
+    },
+    {
+      "text": "tier and so going to push that reasoning",
+      "start": 58.879,
+      "duration": 5.121
+    },
+    {
+      "text": "model down and even free tier users are",
+      "start": 61.079,
+      "duration": 4.44
+    },
+    {
+      "text": "going to get it this is a model that is",
+      "start": 64.0,
+      "duration": 4.479
+    },
+    {
+      "text": "supposed to be better than 01 so if",
+      "start": 65.519,
+      "duration": 6.001
+    },
+    {
+      "text": "we're right if what Sam mman has",
+      "start": 68.479,
+      "duration": 4.761
+    },
+    {
+      "text": "literally said is",
+      "start": 71.52,
+      "duration": 5.04
+    },
+    {
+      "text": "true then free tier users will have",
+      "start": 73.24,
+      "duration": 6.6
+    },
+    {
+      "text": "access to a better faster model with a",
+      "start": 76.56,
+      "duration": 5.68
+    },
+    {
+      "text": "100 messages a",
+      "start": 79.84,
+      "duration": 4.959
+    },
+    {
+      "text": "day and they still won't have a",
+      "start": 82.24,
+      "duration": 5.16
+    },
+    {
+      "text": "one I don't know this is why they need",
+      "start": 84.799,
+      "duration": 3.841
+    },
+    {
+      "text": "to get their business model and their",
+      "start": 87.4,
+      "duration": 2.719
+    },
+    {
+      "text": "pricing and packaging figured out",
+      "start": 88.64,
+      "duration": 2.72
+    },
+    {
+      "text": "because this is a",
+      "start": 90.119,
+      "duration": 3.921
+    },
+    {
+      "text": "mess but the point is they're nervous",
+      "start": 91.36,
+      "duration": 4.6
+    },
+    {
+      "text": "enough to change the availability for 03",
+      "start": 94.04,
+      "duration": 3.52
+    },
+    {
+      "text": "mini they know they're going to burn",
+      "start": 95.96,
+      "duration": 3.36
+    },
+    {
+      "text": "some cash as people use it but they need",
+      "start": 97.56,
+      "duration": 3.32
+    },
+    {
+      "text": "to get that market share back and win",
+      "start": 99.32,
+      "duration": 3.6
+    },
+    {
+      "text": "the Mind share of people who are running",
+      "start": 100.88,
+      "duration": 4.72
+    },
+    {
+      "text": "to deep seek that's kind of that",
+      "start": 102.92,
+      "duration": 5.239
+    },
+    {
+      "text": "strategy at the same time Sam has a very",
+      "start": 105.6,
+      "duration": 4.68
+    },
+    {
+      "text": "busy day on what's next he is in",
+      "start": 108.159,
+      "duration": 4.721
+    },
+    {
+      "text": "Washington DC uh I don't know how he's",
+      "start": 110.28,
+      "duration": 4.199
+    },
+    {
+      "text": "getting there because Reagan is closed",
+      "start": 112.88,
+      "duration": 5.48
+    },
+    {
+      "text": "which that's really bad um but he's in",
+      "start": 114.479,
+      "duration": 7.161
+    },
+    {
+      "text": "DC doing a briefing and the briefing is",
+      "start": 118.36,
+      "duration": 6.0
+    },
+    {
+      "text": "on rumor has it and this is this is",
+      "start": 121.64,
+      "duration": 4.56
+    },
+    {
+      "text": "there are rumors that I feel good about",
+      "start": 124.36,
+      "duration": 3.8
+    },
+    {
+      "text": "like 03 mini coming out in the next day",
+      "start": 126.2,
+      "duration": 3.839
+    },
+    {
+      "text": "or so and there are rumors that I'm like",
+      "start": 128.16,
+      "duration": 3.52
+    },
+    {
+      "text": "this is extremely sketchy but like",
+      "start": 130.039,
+      "duration": 3.041
+    },
+    {
+      "text": "there's probably some information in",
+      "start": 131.68,
+      "duration": 3.44
+    },
+    {
+      "text": "here somewhere this is in that latter",
+      "start": 133.08,
+      "duration": 3.84
+    },
+    {
+      "text": "category it's extremely sketchy but",
+      "start": 135.12,
+      "duration": 3.04
+    },
+    {
+      "text": "there's probably some information in",
+      "start": 136.92,
+      "duration": 3.599
+    },
+    {
+      "text": "here somewhere the rumor is that it is",
+      "start": 138.16,
+      "duration": 4.439
+    },
+    {
+      "text": "not 03 that he's in town to talk about",
+      "start": 140.519,
+      "duration": 3.481
+    },
+    {
+      "text": "that's too close to production it's",
+      "start": 142.599,
+      "duration": 3.28
+    },
+    {
+      "text": "something farther out but within the",
+      "start": 144.0,
+      "duration": 5.239
+    },
+    {
+      "text": "first half of the year uh 04 has been",
+      "start": 145.879,
+      "duration": 6.08
+    },
+    {
+      "text": "bandid around uh by some of the rumor",
+      "start": 149.239,
+      "duration": 6.36
+    },
+    {
+      "text": "vultures that might be it the point is",
+      "start": 151.959,
+      "duration": 5.92
+    },
+    {
+      "text": "that he feels like it has enough",
+      "start": 155.599,
+      "duration": 4.601
+    },
+    {
+      "text": "National Security implications which",
+      "start": 157.879,
+      "duration": 5.64
+    },
+    {
+      "text": "means Reed it's really really good that",
+      "start": 160.2,
+      "duration": 4.88
+    },
+    {
+      "text": "it's worth going to Washington to talk",
+      "start": 163.519,
+      "duration": 4.841
+    },
+    {
+      "text": "about one other tidbit on 03 again these",
+      "start": 165.08,
+      "duration": 5.6
+    },
+    {
+      "text": "guys cannot name their models for the",
+      "start": 168.36,
+      "duration": 4.12
+    },
+    {
+      "text": "life of them could you tell me the",
+      "start": 170.68,
+      "duration": 3.88
+    },
+    {
+      "text": "difference between 03 mini and 03 I",
+      "start": 172.48,
+      "duration": 5.08
+    },
+    {
+      "text": "would assume 03 mini is smaller as a",
+      "start": 174.56,
+      "duration": 5.72
+    },
+    {
+      "text": "model but that doesn't explain why it's",
+      "start": 177.56,
+      "duration": 4.319
+    },
+    {
+      "text": "faster",
+      "start": 180.28,
+      "duration": 5.2
+    },
+    {
+      "text": "automatically anyway 03 mini is fast 03",
+      "start": 181.879,
+      "duration": 5.561
+    },
+    {
+      "text": "mini is smarter than 01",
+      "start": 185.48,
+      "duration": 4.679
+    },
+    {
+      "text": "apparently um and",
+      "start": 187.44,
+      "duration": 6.04
+    },
+    {
+      "text": "03 was tested as part of the new",
+      "start": 190.159,
+      "duration": 6.521
+    },
+    {
+      "text": "international AI safety report and the",
+      "start": 193.48,
+      "duration": 4.759
+    },
+    {
+      "text": "results are just",
+      "start": 196.68,
+      "duration": 4.479
+    },
+    {
+      "text": "bonkers the test results got submitted",
+      "start": 198.239,
+      "duration": 3.92
+    },
+    {
+      "text": "and",
+      "start": 201.159,
+      "duration": 5.44
+    },
+    {
+      "text": "it's O 01 has changed the game in the",
+      "start": 202.159,
+      "duration": 6.321
+    },
+    {
+      "text": "fall I know it seems a long way away and",
+      "start": 206.599,
+      "duration": 3.681
+    },
+    {
+      "text": "there are people who are like oh R1 is",
+      "start": 208.48,
+      "duration": 3.36
+    },
+    {
+      "text": "better than o1 which for the record I've",
+      "start": 210.28,
+      "duration": 2.84
+    },
+    {
+      "text": "played with them both I don't think it",
+      "start": 211.84,
+      "duration": 4.759
+    },
+    {
+      "text": "is um but whether even if you believe",
+      "start": 213.12,
+      "duration": 6.52
+    },
+    {
+      "text": "that 03 is just Bonkers good in the test",
+      "start": 216.599,
+      "duration": 5.321
+    },
+    {
+      "text": "results and it's it's not 03 mini",
+      "start": 219.64,
+      "duration": 4.36
+    },
+    {
+      "text": "they've got to pick a different name or",
+      "start": 221.92,
+      "duration": 4.64
+    },
+    {
+      "text": "something they won't but they they ought",
+      "start": 224.0,
+      "duration": 5.72
+    },
+    {
+      "text": "to when we get our hands on that it",
+      "start": 226.56,
+      "duration": 5.56
+    },
+    {
+      "text": "looks like it's a model that is going to",
+      "start": 229.72,
+      "duration": 6.32
+    },
+    {
+      "text": "be better than all but the top few",
+      "start": 232.12,
+      "duration": 6.64
+    },
+    {
+      "text": "experts in the world at a wide range of",
+      "start": 236.04,
+      "duration": 4.68
+    },
+    {
+      "text": "fields",
+      "start": 238.76,
+      "duration": 7.16
+    },
+    {
+      "text": "and even 01 Pro isn't testing as well",
+      "start": 240.72,
+      "duration": 7.04
+    },
+    {
+      "text": "it's it's just remarkable like I'm",
+      "start": 245.92,
+      "duration": 5.48
+    },
+    {
+      "text": "really excited for 03 and 03 Pro so we",
+      "start": 247.76,
+      "duration": 6.24
+    },
+    {
+      "text": "will see that is down the road as far as",
+      "start": 251.4,
+      "duration": 4.88
+    },
+    {
+      "text": "I know they're not releasing 03 and 03",
+      "start": 254.0,
+      "duration": 5.04
+    },
+    {
+      "text": "Pro today I believe it is only 03 mini",
+      "start": 256.28,
+      "duration": 5.44
+    },
+    {
+      "text": "because 03 mini is a smaller model it's",
+      "start": 259.04,
+      "duration": 5.56
+    },
+    {
+      "text": "easier to complete safety training and",
+      "start": 261.72,
+      "duration": 5.52
+    },
+    {
+      "text": "yes it is a smaller model",
+      "start": 264.6,
+      "duration": 5.52
+    },
+    {
+      "text": "and that is",
+      "start": 267.24,
+      "duration": 4.48
+    },
+    {
+      "text": "that is one of those things that I wish",
+      "start": 270.12,
+      "duration": 3.079
+    },
+    {
+      "text": "that they would think about less to be",
+      "start": 271.72,
+      "duration": 3.039
+    },
+    {
+      "text": "honest with you because from a consumer",
+      "start": 273.199,
+      "duration": 3.201
+    },
+    {
+      "text": "perspective I don't care how much",
+      "start": 274.759,
+      "duration": 4.681
+    },
+    {
+      "text": "imaginary space your model takes up what",
+      "start": 276.4,
+      "duration": 7.0
+    },
+    {
+      "text": "I care about is the capabilities of the",
+      "start": 279.44,
+      "duration": 6.72
+    },
+    {
+      "text": "model what what can it actually do for",
+      "start": 283.4,
+      "duration": 5.0
+    },
+    {
+      "text": "me what can it do now that it couldn't",
+      "start": 286.16,
+      "duration": 3.96
+    },
+    {
+      "text": "do before and we have done a terrible",
+      "start": 288.4,
+      "duration": 4.12
+    },
+    {
+      "text": "job explaining to people how that works",
+      "start": 290.12,
+      "duration": 6.32
+    },
+    {
+      "text": "I actually wrote up a substack it's free",
+      "start": 292.52,
+      "duration": 8.76
+    },
+    {
+      "text": "on the um on the substack talking about",
+      "start": 296.44,
+      "duration": 7.199
+    },
+    {
+      "text": "how we don't understand the evals and",
+      "start": 301.28,
+      "duration": 6.199
+    },
+    {
+      "text": "the acronyms like ime and uh GP QA and",
+      "start": 303.639,
+      "duration": 6.521
+    },
+    {
+      "text": "like I did like what are these tests you",
+      "start": 307.479,
+      "duration": 4.881
+    },
+    {
+      "text": "have this little like no did this and",
+      "start": 310.16,
+      "duration": 4.36
+    },
+    {
+      "text": "this on the GP QA Diamond test and I'm",
+      "start": 312.36,
+      "duration": 4.679
+    },
+    {
+      "text": "like what what is that mean so I went",
+      "start": 314.52,
+      "duration": 3.84
+    },
+    {
+      "text": "and looked at the tests and I",
+      "start": 317.039,
+      "duration": 2.841
+    },
+    {
+      "text": "screenshotted them and I wrote about",
+      "start": 318.36,
+      "duration": 2.72
+    },
+    {
+      "text": "them and I kind of went through all of",
+      "start": 319.88,
+      "duration": 2.759
+    },
+    {
+      "text": "them I even looked at Humanity's last",
+      "start": 321.08,
+      "duration": 4.399
+    },
+    {
+      "text": "exam which just came out I think it's",
+      "start": 322.639,
+      "duration": 6.601
+    },
+    {
+      "text": "worth taking a look at because we need",
+      "start": 325.479,
+      "duration": 5.881
+    },
+    {
+      "text": "to understand as humans how we're",
+      "start": 329.24,
+      "duration": 4.399
+    },
+    {
+      "text": "measuring these things and understand",
+      "start": 331.36,
+      "duration": 3.959
+    },
+    {
+      "text": "how we're not measuring them like if I",
+      "start": 333.639,
+      "duration": 3.84
+    },
+    {
+      "text": "looked at it and I did there's a lot of",
+      "start": 335.319,
+      "duration": 4.88
+    },
+    {
+      "text": "math there's some real world",
+      "start": 337.479,
+      "duration": 5.72
+    },
+    {
+      "text": "coding there's some literature stuff on",
+      "start": 340.199,
+      "duration": 4.641
+    },
+    {
+      "text": "Humanity's last exam which they do the",
+      "start": 343.199,
+      "duration": 3.041
+    },
+    {
+      "text": "worst",
+      "start": 344.84,
+      "duration": 3.12
+    },
+    {
+      "text": "on",
+      "start": 346.24,
+      "duration": 4.16
+    },
+    {
+      "text": "but by and",
+      "start": 347.96,
+      "duration": 6.64
+    },
+    {
+      "text": "large we have no tests for the things we",
+      "start": 350.4,
+      "duration": 6.84
+    },
+    {
+      "text": "tend to use AI for every day and I think",
+      "start": 354.6,
+      "duration": 4.159
+    },
+    {
+      "text": "there is a gap there and I don't know",
+      "start": 357.24,
+      "duration": 3.2
+    },
+    {
+      "text": "how to fix it",
+      "start": 358.759,
+      "duration": 3.401
+    },
+    {
+      "text": "but I think that if we had a test that",
+      "start": 360.44,
+      "duration": 4.84
+    },
+    {
+      "text": "was more understandable to people it",
+      "start": 362.16,
+      "duration": 5.64
+    },
+    {
+      "text": "might help them figure out what AI can",
+      "start": 365.28,
+      "duration": 5.12
+    },
+    {
+      "text": "do and how AI performance differences",
+      "start": 367.8,
+      "duration": 5.6
+    },
+    {
+      "text": "are meaningful so something to think",
+      "start": 370.4,
+      "duration": 4.12
+    },
+    {
+      "text": "about I don't think we've solved that",
+      "start": 373.4,
+      "duration": 2.4
+    },
+    {
+      "text": "one but I think it's part of the problem",
+      "start": 374.52,
+      "duration": 2.679
+    },
+    {
+      "text": "it's part of why people don't understand",
+      "start": 375.8,
+      "duration": 3.64
+    },
+    {
+      "text": "what AI does and when a new model like",
+      "start": 377.199,
+      "duration": 3.881
+    },
+    {
+      "text": "deep deep sea comes along they're like",
+      "start": 379.44,
+      "duration": 3.56
+    },
+    {
+      "text": "what is this this is amazing or this is",
+      "start": 381.08,
+      "duration": 4.16
+    },
+    {
+      "text": "terrible but it's mostly like their",
+      "start": 383.0,
+      "duration": 4.16
+    },
+    {
+      "text": "priors their prior assumptions shaping",
+      "start": 385.24,
+      "duration": 3.399
+    },
+    {
+      "text": "that rather than just sort of rigorously",
+      "start": 387.16,
+      "duration": 4.56
+    },
+    {
+      "text": "thinking about what it can do y",
+      "start": 388.639,
+      "duration": 3.081
+    }
+  ]
 }

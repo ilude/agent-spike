@@ -29,5 +29,122 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "Number two, the transformer engine.",
+      "start": 0.16,
+      "duration": 5.199
+    },
+    {
+      "text": "Every token computes relevance to all",
+      "start": 2.159,
+      "duration": 5.6
+    },
+    {
+      "text": "other tokens. That's really key. Query",
+      "start": 5.359,
+      "duration": 4.561
+    },
+    {
+      "text": "vectors are going to measure similarity",
+      "start": 7.759,
+      "duration": 4.241
+    },
+    {
+      "text": "between different keys, create a",
+      "start": 9.92,
+      "duration": 3.679
+    },
+    {
+      "text": "weighted average of values, and",
+      "start": 12.0,
+      "duration": 2.96
+    },
+    {
+      "text": "different attention heads are going to",
+      "start": 13.599,
+      "duration": 3.121
+    },
+    {
+      "text": "find different patterns. What all of",
+      "start": 14.96,
+      "duration": 4.079
+    },
+    {
+      "text": "that adds up to is different",
+      "start": 16.72,
+      "duration": 4.719
+    },
+    {
+      "text": "perspectives on the pattern making in",
+      "start": 19.039,
+      "duration": 5.121
+    },
+    {
+      "text": "text mathematically and that adds",
+      "start": 21.439,
+      "duration": 5.201
+    },
+    {
+      "text": "nonlinear depth. So you can stack",
+      "start": 24.16,
+      "duration": 5.439
+    },
+    {
+      "text": "different layers of heads up to 60 plus",
+      "start": 26.64,
+      "duration": 5.599
+    },
+    {
+      "text": "and get a very complex capture of",
+      "start": 29.599,
+      "duration": 5.12
+    },
+    {
+      "text": "dependencies which is a fancy technical",
+      "start": 32.239,
+      "duration": 5.041
+    },
+    {
+      "text": "way of saying a complex highfidelity",
+      "start": 34.719,
+      "duration": 5.601
+    },
+    {
+      "text": "picture of a human text. You can",
+      "start": 37.28,
+      "duration": 5.119
+    },
+    {
+      "text": "understand the meanings inside it which",
+      "start": 40.32,
+      "duration": 6.239
+    },
+    {
+      "text": "is why if you ask an AI to read a text",
+      "start": 42.399,
+      "duration": 6.16
+    },
+    {
+      "text": "and give you a sense of the literary",
+      "start": 46.559,
+      "duration": 4.561
+    },
+    {
+      "text": "meanings this is why it understands it.",
+      "start": 48.559,
+      "duration": 6.0
+    },
+    {
+      "text": "Transformer architecture is why Opus 4",
+      "start": 51.12,
+      "duration": 7.04
+    },
+    {
+      "text": "can understand Hemingway.",
+      "start": 54.559,
+      "duration": 3.601
+    }
+  ]
 }

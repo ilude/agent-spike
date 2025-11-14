@@ -29,5 +29,737 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "so the internet was full over the",
+      "start": 0.04,
+      "duration": 3.96
+    },
+    {
+      "text": "weekend of reports that Microsoft was",
+      "start": 1.599,
+      "duration": 5.32
+    },
+    {
+      "text": "somehow delaying data center spend uh in",
+      "start": 4.0,
+      "duration": 4.639
+    },
+    {
+      "text": "other words that their 80 billion was",
+      "start": 6.919,
+      "duration": 3.64
+    },
+    {
+      "text": "not going to be the 80 billion they said",
+      "start": 8.639,
+      "duration": 3.721
+    },
+    {
+      "text": "they'd spend on AI there were rumors",
+      "start": 10.559,
+      "duration": 3.2
+    },
+    {
+      "text": "that a couple of data centers were",
+      "start": 12.36,
+      "duration": 5.24
+    },
+    {
+      "text": "pushed back Etc well this morning right",
+      "start": 13.759,
+      "duration": 5.841
+    },
+    {
+      "text": "when the markets open Microsoft got very",
+      "start": 17.6,
+      "duration": 3.439
+    },
+    {
+      "text": "clear and they said we're not changing",
+      "start": 19.6,
+      "duration": 3.96
+    },
+    {
+      "text": "our overall 80 billion spend Target you",
+      "start": 21.039,
+      "duration": 4.201
+    },
+    {
+      "text": "shouldn't interpret it that",
+      "start": 23.56,
+      "duration": 4.719
+    },
+    {
+      "text": "way we may be quote unquote readjusting",
+      "start": 25.24,
+      "duration": 5.64
+    },
+    {
+      "text": "things now readjusting would make sense",
+      "start": 28.279,
+      "duration": 6.96
+    },
+    {
+      "text": "because open AI is rumored to be moving",
+      "start": 30.88,
+      "duration": 7.199
+    },
+    {
+      "text": "to the soft Bank Oracle stack and not",
+      "start": 35.239,
+      "duration": 4.681
+    },
+    {
+      "text": "really rumored at this point I think if",
+      "start": 38.079,
+      "duration": 3.521
+    },
+    {
+      "text": "you have a presidential press conference",
+      "start": 39.92,
+      "duration": 5.319
+    },
+    {
+      "text": "it's more than a rumor uh and at the end",
+      "start": 41.6,
+      "duration": 5.72
+    },
+    {
+      "text": "of the day they're the largest tenant",
+      "start": 45.239,
+      "duration": 5.201
+    },
+    {
+      "text": "for Microsoft's Azure AI stack right now",
+      "start": 47.32,
+      "duration": 4.68
+    },
+    {
+      "text": "and so if they start to move that's",
+      "start": 50.44,
+      "duration": 3.88
+    },
+    {
+      "text": "going to change and readjust investment",
+      "start": 52.0,
+      "duration": 6.0
+    },
+    {
+      "text": "plans in a private research note I saw",
+      "start": 54.32,
+      "duration": 5.96
+    },
+    {
+      "text": "that it was Kenosha Wisconsin and",
+      "start": 58.0,
+      "duration": 4.68
+    },
+    {
+      "text": "Atlanta Georgia that are the ones that",
+      "start": 60.28,
+      "duration": 4.04
+    },
+    {
+      "text": "they're thinking about moving delaying",
+      "start": 62.68,
+      "duration": 4.04
+    },
+    {
+      "text": "adjusting Etc we will have to see how",
+      "start": 64.32,
+      "duration": 3.64
+    },
+    {
+      "text": "that plays out but the point is",
+      "start": 66.72,
+      "duration": 4.32
+    },
+    {
+      "text": "Microsoft was very keen to put uh paid",
+      "start": 67.96,
+      "duration": 5.6
+    },
+    {
+      "text": "to the rumors and say no no no no we're",
+      "start": 71.04,
+      "duration": 4.399
+    },
+    {
+      "text": "still spending $80 billion on AI this",
+      "start": 73.56,
+      "duration": 3.76
+    },
+    {
+      "text": "year which is adjusting it right",
+      "start": 75.439,
+      "duration": 3.921
+    },
+    {
+      "text": "adjusting it as our largest tenant",
+      "start": 77.32,
+      "duration": 4.759
+    },
+    {
+      "text": "leaves now at the same time over the",
+      "start": 79.36,
+      "duration": 5.079
+    },
+    {
+      "text": "weekend Nvidia made sure that they",
+      "start": 82.079,
+      "duration": 4.201
+    },
+    {
+      "text": "leaked that they were full up on chips",
+      "start": 84.439,
+      "duration": 3.481
+    },
+    {
+      "text": "and in fact that the blackw chip",
+      "start": 86.28,
+      "duration": 4.36
+    },
+    {
+      "text": "architecture their most current one",
+      "start": 87.92,
+      "duration": 5.04
+    },
+    {
+      "text": "is full up on orders all the way through",
+      "start": 90.64,
+      "duration": 5.0
+    },
+    {
+      "text": "2025 and they're also rapidly filling up",
+      "start": 92.96,
+      "duration": 5.64
+    },
+    {
+      "text": "2026 and so they're broadcasting that",
+      "start": 95.64,
+      "duration": 5.24
+    },
+    {
+      "text": "this whole rumored deep seek effect is",
+      "start": 98.6,
+      "duration": 4.559
+    },
+    {
+      "text": "also nothing people still need compute",
+      "start": 100.88,
+      "duration": 4.4
+    },
+    {
+      "text": "to scale and that's really not",
+      "start": 103.159,
+      "duration": 4.64
+    },
+    {
+      "text": "surprising to me like at the end of the",
+      "start": 105.28,
+      "duration": 7.24
+    },
+    {
+      "text": "day if after deep seek is released China",
+      "start": 107.799,
+      "duration": 7.161
+    },
+    {
+      "text": "announces a massive massive",
+      "start": 112.52,
+      "duration": 4.279
+    },
+    {
+      "text": "multi-billion dollar infrastructure",
+      "start": 114.96,
+      "duration": 5.28
+    },
+    {
+      "text": "spend they don't have a magic secret key",
+      "start": 116.799,
+      "duration": 5.521
+    },
+    {
+      "text": "that enables them to scale AI without",
+      "start": 120.24,
+      "duration": 4.199
+    },
+    {
+      "text": "spending on computers it doesn't exist",
+      "start": 122.32,
+      "duration": 5.159
+    },
+    {
+      "text": "it's not a thing uh and so yeah of",
+      "start": 124.439,
+      "duration": 4.281
+    },
+    {
+      "text": "course people are going to spend on it",
+      "start": 127.479,
+      "duration": 2.4
+    },
+    {
+      "text": "and the reason they're going to spend on",
+      "start": 128.72,
+      "duration": 3.12
+    },
+    {
+      "text": "it is that the value is still there and",
+      "start": 129.879,
+      "duration": 4.921
+    },
+    {
+      "text": "I know that SAA nadela went on a podcast",
+      "start": 131.84,
+      "duration": 5.8
+    },
+    {
+      "text": "with dwares and said I he wants to see",
+      "start": 134.8,
+      "duration": 5.04
+    },
+    {
+      "text": "AI do economically useful",
+      "start": 137.64,
+      "duration": 5.28
+    },
+    {
+      "text": "work I I I think he set the bar really",
+      "start": 139.84,
+      "duration": 5.36
+    },
+    {
+      "text": "weird there because if he's asking for",
+      "start": 142.92,
+      "duration": 4.56
+    },
+    {
+      "text": "like 10% GDP growth he's basically",
+      "start": 145.2,
+      "duration": 4.759
+    },
+    {
+      "text": "ignoring the effects that we see today",
+      "start": 147.48,
+      "duration": 4.479
+    },
+    {
+      "text": "which is workers reporting significant",
+      "start": 149.959,
+      "duration": 3.521
+    },
+    {
+      "text": "improvements in productivity when they",
+      "start": 151.959,
+      "duration": 3.441
+    },
+    {
+      "text": "are allowed to use",
+      "start": 153.48,
+      "duration": 5.56
+    },
+    {
+      "text": "AI so why sleep on that right like why",
+      "start": 155.4,
+      "duration": 5.28
+    },
+    {
+      "text": "not go after that and that's where a lot",
+      "start": 159.04,
+      "duration": 3.32
+    },
+    {
+      "text": "of the people who are focused on",
+      "start": 160.68,
+      "duration": 3.32
+    },
+    {
+      "text": "building an AI are thinking about it's",
+      "start": 162.36,
+      "duration": 3.2
+    },
+    {
+      "text": "like how do we get teams effective with",
+      "start": 164.0,
+      "duration": 3.2
+    },
+    {
+      "text": "AI how do we get individuals effective",
+      "start": 165.56,
+      "duration": 4.56
+    },
+    {
+      "text": "with AI um and that's where we see a lot",
+      "start": 167.2,
+      "duration": 4.119
+    },
+    {
+      "text": "of the gains and I think that's",
+      "start": 170.12,
+      "duration": 3.759
+    },
+    {
+      "text": "interesting because if you're trying to",
+      "start": 171.319,
+      "duration": 5.801
+    },
+    {
+      "text": "build AI out right now it may be a",
+      "start": 173.879,
+      "duration": 5.241
+    },
+    {
+      "text": "little bit premature to assume that you",
+      "start": 177.12,
+      "duration": 3.759
+    },
+    {
+      "text": "can build AI out to the point where you",
+      "start": 179.12,
+      "duration": 3.88
+    },
+    {
+      "text": "can just replace someone's job haven't",
+      "start": 180.879,
+      "duration": 3.961
+    },
+    {
+      "text": "seen that go well in fact Clara had that",
+      "start": 183.0,
+      "duration": 6.44
+    },
+    {
+      "text": "go very very badly last week uh but I",
+      "start": 184.84,
+      "duration": 7.56
+    },
+    {
+      "text": "have seen lots of productivity gains",
+      "start": 189.44,
+      "duration": 5.12
+    },
+    {
+      "text": "from existing workers getting augmented",
+      "start": 192.4,
+      "duration": 5.36
+    },
+    {
+      "text": "with AI that is a very real thing and",
+      "start": 194.56,
+      "duration": 4.959
+    },
+    {
+      "text": "whether or not Microsoft wants to pay",
+      "start": 197.76,
+      "duration": 3.92
+    },
+    {
+      "text": "attention to it is a different thing",
+      "start": 199.519,
+      "duration": 3.481
+    },
+    {
+      "text": "they have different customers right they",
+      "start": 201.68,
+      "duration": 3.04
+    },
+    {
+      "text": "don't have consumers they don't have",
+      "start": 203.0,
+      "duration": 3.92
+    },
+    {
+      "text": "individuals or teams I realize the irony",
+      "start": 204.72,
+      "duration": 3.879
+    },
+    {
+      "text": "of that statement uh they have",
+      "start": 206.92,
+      "duration": 3.879
+    },
+    {
+      "text": "Enterprises ENT Rises are who they work",
+      "start": 208.599,
+      "duration": 4.441
+    },
+    {
+      "text": "with and so they're going to move at the",
+      "start": 210.799,
+      "duration": 3.72
+    },
+    {
+      "text": "pace of the Enterprise and if their",
+      "start": 213.04,
+      "duration": 3.6
+    },
+    {
+      "text": "biggest Enterprise client open AI walks",
+      "start": 214.519,
+      "duration": 3.761
+    },
+    {
+      "text": "away they they're going to adjust their",
+      "start": 216.64,
+      "duration": 3.239
+    },
+    {
+      "text": "data center spend that just kind of",
+      "start": 218.28,
+      "duration": 3.28
+    },
+    {
+      "text": "makes sense even if it's overall 80",
+      "start": 219.879,
+      "duration": 3.72
+    },
+    {
+      "text": "billion they're going to rearrange it a",
+      "start": 221.56,
+      "duration": 5.08
+    },
+    {
+      "text": "little bit it's like salary caps in the",
+      "start": 223.599,
+      "duration": 4.72
+    },
+    {
+      "text": "National Football League you rearrange",
+      "start": 226.64,
+      "duration": 2.76
+    },
+    {
+      "text": "things a little",
+      "start": 228.319,
+      "duration": 4.92
+    },
+    {
+      "text": "bit so that's the story and I think that",
+      "start": 229.4,
+      "duration": 6.96
+    },
+    {
+      "text": "I find it very interesting there's a",
+      "start": 233.239,
+      "duration": 5.56
+    },
+    {
+      "text": "whole class of people that whenever a",
+      "start": 236.36,
+      "duration": 5.519
+    },
+    {
+      "text": "CEO says something that is",
+      "start": 238.799,
+      "duration": 5.321
+    },
+    {
+      "text": "remotely I don't know thoughtfully",
+      "start": 241.879,
+      "duration": 4.36
+    },
+    {
+      "text": "critical of AI they assume that this",
+      "start": 244.12,
+      "duration": 3.959
+    },
+    {
+      "text": "means that the the top of the quote",
+      "start": 246.239,
+      "duration": 3.961
+    },
+    {
+      "text": "unquote bubble is in and AI is doomed",
+      "start": 248.079,
+      "duration": 3.44
+    },
+    {
+      "text": "etc",
+      "start": 250.2,
+      "duration": 3.56
+    },
+    {
+      "text": "etc and and I think you should be able",
+      "start": 251.519,
+      "duration": 4.041
+    },
+    {
+      "text": "to have a conversation where SAA can",
+      "start": 253.76,
+      "duration": 3.4
+    },
+    {
+      "text": "make a point and say hey I'm really",
+      "start": 255.56,
+      "duration": 4.88
+    },
+    {
+      "text": "focused on economically useful work and",
+      "start": 257.16,
+      "duration": 5.2
+    },
+    {
+      "text": "even if I disagree with sort of the way",
+      "start": 260.44,
+      "duration": 3.96
+    },
+    {
+      "text": "he's playing that set of cards that he",
+      "start": 262.36,
+      "duration": 5.88
+    },
+    {
+      "text": "has that's his call and he's fair to",
+      "start": 264.4,
+      "duration": 5.639
+    },
+    {
+      "text": "call out that economically useful work",
+      "start": 268.24,
+      "duration": 4.0
+    },
+    {
+      "text": "is a good bar and we can have the",
+      "start": 270.039,
+      "duration": 3.72
+    },
+    {
+      "text": "conversation without making big",
+      "start": 272.24,
+      "duration": 2.959
+    },
+    {
+      "text": "assumptions about it and I think that",
+      "start": 273.759,
+      "duration": 3.321
+    },
+    {
+      "text": "one of the things that Microsoft is",
+      "start": 275.199,
+      "duration": 4.28
+    },
+    {
+      "text": "realizing is that the hype in the system",
+      "start": 277.08,
+      "duration": 4.88
+    },
+    {
+      "text": "is really around",
+      "start": 279.479,
+      "duration": 5.44
+    },
+    {
+      "text": "arguments over whether or not we are in",
+      "start": 281.96,
+      "duration": 7.079
+    },
+    {
+      "text": "a bubble and that's not super relevant",
+      "start": 284.919,
+      "duration": 5.321
+    },
+    {
+      "text": "if you're actually talking about",
+      "start": 289.039,
+      "duration": 3.241
+    },
+    {
+      "text": "meaningful investment over time and",
+      "start": 290.24,
+      "duration": 3.44
+    },
+    {
+      "text": "that's why the serious players are",
+      "start": 292.28,
+      "duration": 3.08
+    },
+    {
+      "text": "talking very clearly in the markets",
+      "start": 293.68,
+      "duration": 3.84
+    },
+    {
+      "text": "today and saying we are investing over",
+      "start": 295.36,
+      "duration": 5.6
+    },
+    {
+      "text": "time stop it so",
+      "start": 297.52,
+      "duration": 5.08
+    },
+    {
+      "text": "by the way ironically if you're one of",
+      "start": 300.96,
+      "duration": 2.679
+    },
+    {
+      "text": "those people who thinks we're in a",
+      "start": 302.6,
+      "duration": 2.48
+    },
+    {
+      "text": "bubble you know what one of the classic",
+      "start": 303.639,
+      "duration": 4.881
+    },
+    {
+      "text": "signs of a bubble is it's not this it's",
+      "start": 305.08,
+      "duration": 4.88
+    },
+    {
+      "text": "not people arguing about whether we're",
+      "start": 308.52,
+      "duration": 3.679
+    },
+    {
+      "text": "in a bubble it's when everybody gives up",
+      "start": 309.96,
+      "duration": 4.6
+    },
+    {
+      "text": "and everybody agrees that whatever we",
+      "start": 312.199,
+      "duration": 4.681
+    },
+    {
+      "text": "have going is the greatest thing ever",
+      "start": 314.56,
+      "duration": 3.72
+    },
+    {
+      "text": "that's what happened during the famous",
+      "start": 316.88,
+      "duration": 3.4
+    },
+    {
+      "text": "tulip crash 400 years",
+      "start": 318.28,
+      "duration": 5.639
+    },
+    {
+      "text": "ago yeah so we are not in a bubble by",
+      "start": 320.28,
+      "duration": 5.16
+    },
+    {
+      "text": "definition because all of you are",
+      "start": 323.919,
+      "duration": 4.881
+    },
+    {
+      "text": "arguing about it cheers yes it's that",
+      "start": 325.44,
+      "duration": 5.759
+    },
+    {
+      "text": "cult",
+      "start": 328.8,
+      "duration": 2.399
+    }
+  ]
 }

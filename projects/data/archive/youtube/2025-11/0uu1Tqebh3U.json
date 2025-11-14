@@ -29,5 +29,112 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "To me, what has launched in the last 2",
+      "start": 0.08,
+      "duration": 5.92
+    },
+    {
+      "text": "weeks has the same leverage and power",
+      "start": 3.12,
+      "duration": 5.2
+    },
+    {
+      "text": "for numbers as the launch of the pocket",
+      "start": 6.0,
+      "duration": 4.639
+    },
+    {
+      "text": "calculator. That's how big a deal it is.",
+      "start": 8.32,
+      "duration": 4.319
+    },
+    {
+      "text": "And we're sleeping on it because most",
+      "start": 10.639,
+      "duration": 3.601
+    },
+    {
+      "text": "people either don't have the Claude Max",
+      "start": 12.639,
+      "duration": 3.2
+    },
+    {
+      "text": "plan, haven't really sat down and",
+      "start": 14.24,
+      "duration": 3.6
+    },
+    {
+      "text": "thought about prompting the co-pilot AI",
+      "start": 15.839,
+      "duration": 4.721
+    },
+    {
+      "text": "for Excel, or they just don't have the",
+      "start": 17.84,
+      "duration": 4.16
+    },
+    {
+      "text": "time to come up with these complicated",
+      "start": 20.56,
+      "duration": 2.799
+    },
+    {
+      "text": "prompts, and they've always done it this",
+      "start": 22.0,
+      "duration": 2.56
+    },
+    {
+      "text": "way, and so they're just always going to",
+      "start": 23.359,
+      "duration": 4.16
+    },
+    {
+      "text": "do it. Let me challenge you. It is worth",
+      "start": 24.56,
+      "duration": 5.039
+    },
+    {
+      "text": "it to go a little bit differently, to",
+      "start": 27.519,
+      "duration": 3.84
+    },
+    {
+      "text": "try a new prompt, to adjust one of my",
+      "start": 29.599,
+      "duration": 4.401
+    },
+    {
+      "text": "prompts if it saves you that much time.",
+      "start": 31.359,
+      "duration": 4.801
+    },
+    {
+      "text": "If it saves you a dozen hours this",
+      "start": 34.0,
+      "duration": 4.48
+    },
+    {
+      "text": "month, the Claude Max plan is probably",
+      "start": 36.16,
+      "duration": 4.399
+    },
+    {
+      "text": "worth the money because you're going to",
+      "start": 38.48,
+      "duration": 4.32
+    },
+    {
+      "text": "spend that amount of time, right? Like",
+      "start": 40.559,
+      "duration": 5.921
+    },
+    {
+      "text": "your your time has some value to",
+      "start": 42.8,
+      "duration": 3.68
+    }
+  ]
 }

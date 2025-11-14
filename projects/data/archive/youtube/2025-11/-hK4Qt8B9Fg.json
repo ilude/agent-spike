@@ -29,5 +29,2057 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "All right, let's get right to it. What",
+      "start": 0.08,
+      "duration": 3.76
+    },
+    {
+      "text": "were the AI stories that mattered the",
+      "start": 1.6,
+      "duration": 4.159
+    },
+    {
+      "text": "most this week? And new this week, I'm",
+      "start": 3.84,
+      "duration": 3.68
+    },
+    {
+      "text": "going to put in the post a special",
+      "start": 5.759,
+      "duration": 4.88
+    },
+    {
+      "text": "prompt for you to grab the implications",
+      "start": 7.52,
+      "duration": 5.039
+    },
+    {
+      "text": "of these stories depending on your",
+      "start": 10.639,
+      "duration": 3.761
+    },
+    {
+      "text": "company, your role, your domain of",
+      "start": 12.559,
+      "duration": 2.881
+    },
+    {
+      "text": "interest. You're going to be able to go",
+      "start": 14.4,
+      "duration": 3.2
+    },
+    {
+      "text": "like a step deeper with that. Story",
+      "start": 15.44,
+      "duration": 4.72
+    },
+    {
+      "text": "number one, Open AI is going proactive.",
+      "start": 17.6,
+      "duration": 4.64
+    },
+    {
+      "text": "And this has a lot of pull out thread",
+      "start": 20.16,
+      "duration": 4.08
+    },
+    {
+      "text": "implications I want to get at briefly.",
+      "start": 22.24,
+      "duration": 4.4
+    },
+    {
+      "text": "The launch is called Pulse, and it",
+      "start": 24.24,
+      "duration": 5.6
+    },
+    {
+      "text": "offers proactive AI assistance based on",
+      "start": 26.64,
+      "duration": 5.68
+    },
+    {
+      "text": "what you most recently talked about. So,",
+      "start": 29.84,
+      "duration": 4.559
+    },
+    {
+      "text": "think of it as sort of like an Instagram",
+      "start": 32.32,
+      "duration": 4.64
+    },
+    {
+      "text": "stories reel, but it's tuned to your",
+      "start": 34.399,
+      "duration": 4.881
+    },
+    {
+      "text": "previous chats, specifically very recent",
+      "start": 36.96,
+      "duration": 4.48
+    },
+    {
+      "text": "chats, like the last day or two. It's",
+      "start": 39.28,
+      "duration": 4.64
+    },
+    {
+      "text": "available to pro users initially. I've",
+      "start": 41.44,
+      "duration": 4.48
+    },
+    {
+      "text": "tried it out, and what I've found is",
+      "start": 43.92,
+      "duration": 4.72
+    },
+    {
+      "text": "that it's a very, very seamless, almost",
+      "start": 45.92,
+      "duration": 5.76
+    },
+    {
+      "text": "eerily relevant experience. It changes",
+      "start": 48.64,
+      "duration": 4.8
+    },
+    {
+      "text": "my behavior in some interesting ways",
+      "start": 51.68,
+      "duration": 3.84
+    },
+    {
+      "text": "though because it's pushing me now to",
+      "start": 53.44,
+      "duration": 4.959
+    },
+    {
+      "text": "start to have conversations a day or two",
+      "start": 55.52,
+      "duration": 5.039
+    },
+    {
+      "text": "in advance of when I think I need to",
+      "start": 58.399,
+      "duration": 4.561
+    },
+    {
+      "text": "have them to plan for work so that I",
+      "start": 60.559,
+      "duration": 4.801
+    },
+    {
+      "text": "give pulse a chance to work overnight",
+      "start": 62.96,
+      "duration": 4.96
+    },
+    {
+      "text": "and give me interesting insights the",
+      "start": 65.36,
+      "duration": 4.32
+    },
+    {
+      "text": "morning when I actually have to do the",
+      "start": 67.92,
+      "duration": 4.32
+    },
+    {
+      "text": "work. It's always a good sign when a",
+      "start": 69.68,
+      "duration": 4.24
+    },
+    {
+      "text": "product launch is so impactful it",
+      "start": 72.24,
+      "duration": 3.44
+    },
+    {
+      "text": "immediately changes your workflow. And",
+      "start": 73.92,
+      "duration": 3.519
+    },
+    {
+      "text": "that's what I found here. But the",
+      "start": 75.68,
+      "duration": 4.16
+    },
+    {
+      "text": "implications go beyond sort of prouser",
+      "start": 77.439,
+      "duration": 6.0
+    },
+    {
+      "text": "availability. What you see with pulse is",
+      "start": 79.84,
+      "duration": 6.88
+    },
+    {
+      "text": "chat GPT investing fairly transparently",
+      "start": 83.439,
+      "duration": 5.841
+    },
+    {
+      "text": "in an ad surface. It was always going to",
+      "start": 86.72,
+      "duration": 5.039
+    },
+    {
+      "text": "be challenging for chat GPT to keep an",
+      "start": 89.28,
+      "duration": 5.6
+    },
+    {
+      "text": "aura of objectivity in individual",
+      "start": 91.759,
+      "duration": 5.601
+    },
+    {
+      "text": "conversations that users initiate. It",
+      "start": 94.88,
+      "duration": 5.68
+    },
+    {
+      "text": "will be much easier to position ads",
+      "start": 97.36,
+      "duration": 5.92
+    },
+    {
+      "text": "inside Pulse because Pulse is already",
+      "start": 100.56,
+      "duration": 5.36
+    },
+    {
+      "text": "proactive. Pulse is already an",
+      "start": 103.28,
+      "duration": 4.4
+    },
+    {
+      "text": "experience that you didn't necessarily",
+      "start": 105.92,
+      "duration": 4.32
+    },
+    {
+      "text": "ask for but chat GPT is offering to you.",
+      "start": 107.68,
+      "duration": 4.479
+    },
+    {
+      "text": "So if they slide in a card in that sort",
+      "start": 110.24,
+      "duration": 4.0
+    },
+    {
+      "text": "of Pulse format and the card is",
+      "start": 112.159,
+      "duration": 4.24
+    },
+    {
+      "text": "sponsored, you can just ignore it if you",
+      "start": 114.24,
+      "duration": 3.68
+    },
+    {
+      "text": "don't want it. Right? It's a very simple",
+      "start": 116.399,
+      "duration": 4.0
+    },
+    {
+      "text": "ad experience. And of course at the same",
+      "start": 117.92,
+      "duration": 4.64
+    },
+    {
+      "text": "time as they launch Pulse, we notice",
+      "start": 120.399,
+      "duration": 5.281
+    },
+    {
+      "text": "that OpenAI has opened up a ads",
+      "start": 122.56,
+      "duration": 6.08
+    },
+    {
+      "text": "monetization role at ChatGpt. So",
+      "start": 125.68,
+      "duration": 4.48
+    },
+    {
+      "text": "something is coming there on the ads",
+      "start": 128.64,
+      "duration": 3.52
+    },
+    {
+      "text": "front and Pulse seems to be related to",
+      "start": 130.16,
+      "duration": 4.24
+    },
+    {
+      "text": "it. We will have to kind of put a pin in",
+      "start": 132.16,
+      "duration": 3.92
+    },
+    {
+      "text": "that and stay tuned to see where they go",
+      "start": 134.4,
+      "duration": 3.6
+    },
+    {
+      "text": "with that. One final implication I want",
+      "start": 136.08,
+      "duration": 4.239
+    },
+    {
+      "text": "to call out on the pulse story. This is",
+      "start": 138.0,
+      "duration": 6.239
+    },
+    {
+      "text": "the beginning of an entire new arc where",
+      "start": 140.319,
+      "duration": 6.481
+    },
+    {
+      "text": "we will see AI become more proactive.",
+      "start": 144.239,
+      "duration": 4.801
+    },
+    {
+      "text": "This is one of the first widely consumer",
+      "start": 146.8,
+      "duration": 5.92
+    },
+    {
+      "text": "available proactive AI experiences. And",
+      "start": 149.04,
+      "duration": 5.44
+    },
+    {
+      "text": "I want you to keep that in mind because",
+      "start": 152.72,
+      "duration": 3.44
+    },
+    {
+      "text": "a lot of the other threads we're",
+      "start": 154.48,
+      "duration": 3.68
+    },
+    {
+      "text": "following over the course of the last",
+      "start": 156.16,
+      "duration": 5.68
+    },
+    {
+      "text": "few months point to a 2026 that is more",
+      "start": 158.16,
+      "duration": 6.48
+    },
+    {
+      "text": "AI proactive versus AI reactive and",
+      "start": 161.84,
+      "duration": 4.96
+    },
+    {
+      "text": "major model makers are all building in",
+      "start": 164.64,
+      "duration": 4.0
+    },
+    {
+      "text": "that direction. Let's get to story",
+      "start": 166.8,
+      "duration": 4.64
+    },
+    {
+      "text": "number two. Microsoft is diversifying",
+      "start": 168.64,
+      "duration": 5.92
+    },
+    {
+      "text": "co-pilot with anthropic models. And this",
+      "start": 171.44,
+      "duration": 5.6
+    },
+    {
+      "text": "is really fascinating because Microsoft",
+      "start": 174.56,
+      "duration": 4.8
+    },
+    {
+      "text": "has been known for leaning in on OpenAI",
+      "start": 177.04,
+      "duration": 4.24
+    },
+    {
+      "text": "for a while. But as we discovered in the",
+      "start": 179.36,
+      "duration": 4.32
+    },
+    {
+      "text": "last couple weeks, Microsoft and OpenAI",
+      "start": 181.28,
+      "duration": 5.039
+    },
+    {
+      "text": "have finalized a new looser partnership",
+      "start": 183.68,
+      "duration": 4.8
+    },
+    {
+      "text": "format. And it's not super surprising in",
+      "start": 186.319,
+      "duration": 6.481
+    },
+    {
+      "text": "that context to see Microsoft go for",
+      "start": 188.48,
+      "duration": 6.88
+    },
+    {
+      "text": "another major model maker as essential",
+      "start": 192.8,
+      "duration": 4.56
+    },
+    {
+      "text": "to their suite of tools. And I think",
+      "start": 195.36,
+      "duration": 4.0
+    },
+    {
+      "text": "it's the right call because if you look",
+      "start": 197.36,
+      "duration": 4.56
+    },
+    {
+      "text": "at how Anthropic actually performs, how",
+      "start": 199.36,
+      "duration": 7.04
+    },
+    {
+      "text": "Claude Opus 4.1 specifically performs on",
+      "start": 201.92,
+      "duration": 8.319
+    },
+    {
+      "text": "work that co-pilot people do, slides,",
+      "start": 206.4,
+      "duration": 6.24
+    },
+    {
+      "text": "sheets, looking at docs, that's work",
+      "start": 210.239,
+      "duration": 5.201
+    },
+    {
+      "text": "Opus 4.1 does very well. It's not just",
+      "start": 212.64,
+      "duration": 5.12
+    },
+    {
+      "text": "me saying that. Ironically, it's Chad",
+      "start": 215.44,
+      "duration": 5.2
+    },
+    {
+      "text": "GPT saying that, too. Open AAI completed",
+      "start": 217.76,
+      "duration": 6.64
+    },
+    {
+      "text": "a study called GDP val this week that",
+      "start": 220.64,
+      "duration": 7.04
+    },
+    {
+      "text": "actually tests major AI models against",
+      "start": 224.4,
+      "duration": 5.68
+    },
+    {
+      "text": "economically useful work tasks. Now,",
+      "start": 227.68,
+      "duration": 4.16
+    },
+    {
+      "text": "before you run away with the wrong",
+      "start": 230.08,
+      "duration": 4.32
+    },
+    {
+      "text": "headline here, this is not the same as",
+      "start": 231.84,
+      "duration": 5.039
+    },
+    {
+      "text": "saying it's testing major model makers",
+      "start": 234.4,
+      "duration": 5.36
+    },
+    {
+      "text": "against economically useful jobs. These",
+      "start": 236.879,
+      "duration": 5.36
+    },
+    {
+      "text": "are very very limited tasks where the",
+      "start": 239.76,
+      "duration": 4.559
+    },
+    {
+      "text": "context is prepared by an expert in a",
+      "start": 242.239,
+      "duration": 4.08
+    },
+    {
+      "text": "neat little package and then an expert",
+      "start": 244.319,
+      "duration": 4.321
+    },
+    {
+      "text": "prepares a gold standard solution and",
+      "start": 246.319,
+      "duration": 4.48
+    },
+    {
+      "text": "then the major model makers run their",
+      "start": 248.64,
+      "duration": 4.56
+    },
+    {
+      "text": "models against the problem space and see",
+      "start": 250.799,
+      "duration": 4.321
+    },
+    {
+      "text": "how their result compares to that gold",
+      "start": 253.2,
+      "duration": 4.48
+    },
+    {
+      "text": "standard in a blind evaluation. Fine.",
+      "start": 255.12,
+      "duration": 4.32
+    },
+    {
+      "text": "It's not real work in the sense that",
+      "start": 257.68,
+      "duration": 3.76
+    },
+    {
+      "text": "it's not as messy, but it is real work",
+      "start": 259.44,
+      "duration": 3.759
+    },
+    {
+      "text": "in the sense that the tasks are real and",
+      "start": 261.44,
+      "duration": 3.6
+    },
+    {
+      "text": "designed by experts in the field. That",
+      "start": 263.199,
+      "duration": 4.081
+    },
+    {
+      "text": "being said, OpenAI sponsored all of this",
+      "start": 265.04,
+      "duration": 5.439
+    },
+    {
+      "text": "and set it up and ran it and even they",
+      "start": 267.28,
+      "duration": 6.639
+    },
+    {
+      "text": "admit that Opus 4.1 from Anthropic is",
+      "start": 270.479,
+      "duration": 5.28
+    },
+    {
+      "text": "better at doing that kind of",
+      "start": 273.919,
+      "duration": 4.321
+    },
+    {
+      "text": "economically useful work than any of",
+      "start": 275.759,
+      "duration": 5.041
+    },
+    {
+      "text": "Chat GPT's models, which is a huge",
+      "start": 278.24,
+      "duration": 4.399
+    },
+    {
+      "text": "endorsement for Opus 4.1 and the",
+      "start": 280.8,
+      "duration": 3.92
+    },
+    {
+      "text": "Anthropic team and one that I personally",
+      "start": 282.639,
+      "duration": 4.56
+    },
+    {
+      "text": "have found correct. Like I prefer Opus",
+      "start": 284.72,
+      "duration": 5.919
+    },
+    {
+      "text": "4.1 for preparing a slide deck, for",
+      "start": 287.199,
+      "duration": 5.521
+    },
+    {
+      "text": "creating a a spreadsheet. it is just",
+      "start": 290.639,
+      "duration": 4.081
+    },
+    {
+      "text": "much more useful than the chat GPT",
+      "start": 292.72,
+      "duration": 4.32
+    },
+    {
+      "text": "models at this point. And so it's not",
+      "start": 294.72,
+      "duration": 4.24
+    },
+    {
+      "text": "surprising to see Microsoft pulling the",
+      "start": 297.04,
+      "duration": 3.76
+    },
+    {
+      "text": "anthropic models into Copilot as they",
+      "start": 298.96,
+      "duration": 4.239
+    },
+    {
+      "text": "evaluate that. There are heavy rumors",
+      "start": 300.8,
+      "duration": 4.24
+    },
+    {
+      "text": "that this is going to get even better",
+      "start": 303.199,
+      "duration": 5.601
+    },
+    {
+      "text": "shortly as we suspect that Anthropic is",
+      "start": 305.04,
+      "duration": 6.32
+    },
+    {
+      "text": "on the verge of releasing something like",
+      "start": 308.8,
+      "duration": 4.8
+    },
+    {
+      "text": "a 4.5 version of Opus, which would",
+      "start": 311.36,
+      "duration": 4.399
+    },
+    {
+      "text": "presumably be a step forward here. So",
+      "start": 313.6,
+      "duration": 3.68
+    },
+    {
+      "text": "stay tuned for that. That may be coming",
+      "start": 315.759,
+      "duration": 3.201
+    },
+    {
+      "text": "in the next couple of weeks. We will",
+      "start": 317.28,
+      "duration": 4.96
+    },
+    {
+      "text": "have to see. Story number three, Meta is",
+      "start": 318.96,
+      "duration": 6.16
+    },
+    {
+      "text": "exploring a Gemini partnership for ad",
+      "start": 322.24,
+      "duration": 4.56
+    },
+    {
+      "text": "targeting. So Meta is in early",
+      "start": 325.12,
+      "duration": 3.2
+    },
+    {
+      "text": "discussions with Google Cloud about",
+      "start": 326.8,
+      "duration": 3.52
+    },
+    {
+      "text": "integrating Google's Gemini AI models",
+      "start": 328.32,
+      "duration": 4.48
+    },
+    {
+      "text": "into Meta's ad operations. And Meta",
+      "start": 330.32,
+      "duration": 4.48
+    },
+    {
+      "text": "employees have explored how Gemini's",
+      "start": 332.8,
+      "duration": 4.48
+    },
+    {
+      "text": "multimodal capabilities like Nano Banana",
+      "start": 334.8,
+      "duration": 4.64
+    },
+    {
+      "text": "could refine algorithms that match ads",
+      "start": 337.28,
+      "duration": 4.0
+    },
+    {
+      "text": "to users on Facebook and Instagram. So",
+      "start": 339.44,
+      "duration": 3.36
+    },
+    {
+      "text": "basically, can you take the sort of",
+      "start": 341.28,
+      "duration": 4.56
+    },
+    {
+      "text": "Facebook, Instagram, social algorithm",
+      "start": 342.8,
+      "duration": 5.2
+    },
+    {
+      "text": "secret sauce that Meta has and marry it",
+      "start": 345.84,
+      "duration": 4.4
+    },
+    {
+      "text": "to the image generation capabilities",
+      "start": 348.0,
+      "duration": 3.68
+    },
+    {
+      "text": "potentially or the text generation",
+      "start": 350.24,
+      "duration": 4.88
+    },
+    {
+      "text": "capabilities that Gemini has. This is a",
+      "start": 351.68,
+      "duration": 6.72
+    },
+    {
+      "text": "huge step back for Zuckerberg and Meta.",
+      "start": 355.12,
+      "duration": 5.12
+    },
+    {
+      "text": "And I know you might not have expected",
+      "start": 358.4,
+      "duration": 4.079
+    },
+    {
+      "text": "me to say that, but hear me out. They",
+      "start": 360.24,
+      "duration": 4.64
+    },
+    {
+      "text": "have invested an enormous amount of",
+      "start": 362.479,
+      "duration": 5.041
+    },
+    {
+      "text": "money in their own AI. Zuck just got",
+      "start": 364.88,
+      "duration": 4.72
+    },
+    {
+      "text": "done making headlines for the largest",
+      "start": 367.52,
+      "duration": 4.799
+    },
+    {
+      "text": "pay packages in history for his AI team",
+      "start": 369.6,
+      "duration": 4.719
+    },
+    {
+      "text": "and then very publicly lost about a half",
+      "start": 372.319,
+      "duration": 3.921
+    },
+    {
+      "text": "a dozen researchers who stayed briefly",
+      "start": 374.319,
+      "duration": 4.961
+    },
+    {
+      "text": "at Meta and left for undisclosed reasons",
+      "start": 376.24,
+      "duration": 5.12
+    },
+    {
+      "text": "but everyone guesses the culture. In",
+      "start": 379.28,
+      "duration": 4.56
+    },
+    {
+      "text": "this situation, Zuck is having to admit",
+      "start": 381.36,
+      "duration": 5.36
+    },
+    {
+      "text": "that Llama, his own homebuilt model, is",
+      "start": 383.84,
+      "duration": 6.479
+    },
+    {
+      "text": "just not good enough for this task and",
+      "start": 386.72,
+      "duration": 5.44
+    },
+    {
+      "text": "he's having to go to Google. This",
+      "start": 390.319,
+      "duration": 4.401
+    },
+    {
+      "text": "underlines how the race for AI has",
+      "start": 392.16,
+      "duration": 5.2
+    },
+    {
+      "text": "narrowed over the last year or so. A",
+      "start": 394.72,
+      "duration": 4.16
+    },
+    {
+      "text": "year or two ago, Llama would have been",
+      "start": 397.36,
+      "duration": 3.119
+    },
+    {
+      "text": "right in the race with the top leaders.",
+      "start": 398.88,
+      "duration": 3.84
+    },
+    {
+      "text": "It's just not now. It's just not. And",
+      "start": 400.479,
+      "duration": 5.121
+    },
+    {
+      "text": "the race has narrowed really to Google",
+      "start": 402.72,
+      "duration": 5.84
+    },
+    {
+      "text": "and OpenAI and Anthropic. And I know",
+      "start": 405.6,
+      "duration": 5.12
+    },
+    {
+      "text": "Grock is really trying, but like Llama's",
+      "start": 408.56,
+      "duration": 3.919
+    },
+    {
+      "text": "not even in the conversation. And even",
+      "start": 410.72,
+      "duration": 3.52
+    },
+    {
+      "text": "Meta is admitting that. And that is the",
+      "start": 412.479,
+      "duration": 4.801
+    },
+    {
+      "text": "undercurrent here. And that is a really",
+      "start": 414.24,
+      "duration": 5.679
+    },
+    {
+      "text": "big question mark for Meta because Zuck",
+      "start": 417.28,
+      "duration": 4.96
+    },
+    {
+      "text": "has not publicly suggested he's walking",
+      "start": 419.919,
+      "duration": 4.801
+    },
+    {
+      "text": "back his big dollar investments in AI",
+      "start": 422.24,
+      "duration": 4.56
+    },
+    {
+      "text": "for the future. He's still planning to",
+      "start": 424.72,
+      "duration": 4.24
+    },
+    {
+      "text": "spend hundreds of billions over the next",
+      "start": 426.8,
+      "duration": 4.239
+    },
+    {
+      "text": "few years on AI. Where is that money",
+      "start": 428.96,
+      "duration": 3.6
+    },
+    {
+      "text": "going to go? What do they anticipate? Is",
+      "start": 431.039,
+      "duration": 3.28
+    },
+    {
+      "text": "this a story sort of like Apple's",
+      "start": 432.56,
+      "duration": 3.039
+    },
+    {
+      "text": "chipset story where they're going to",
+      "start": 434.319,
+      "duration": 2.961
+    },
+    {
+      "text": "spend a vast amount of money trying to",
+      "start": 435.599,
+      "duration": 3.361
+    },
+    {
+      "text": "catch up and build their own chipsets",
+      "start": 437.28,
+      "duration": 4.24
+    },
+    {
+      "text": "and eventually they do? Or is it a story",
+      "start": 438.96,
+      "duration": 4.16
+    },
+    {
+      "text": "where Meta is going to invest this money",
+      "start": 441.52,
+      "duration": 3.36
+    },
+    {
+      "text": "and then gradually kind of roll it back",
+      "start": 443.12,
+      "duration": 3.68
+    },
+    {
+      "text": "as they realize they can't catch up? We",
+      "start": 444.88,
+      "duration": 3.36
+    },
+    {
+      "text": "don't know where that's going to go yet,",
+      "start": 446.8,
+      "duration": 3.839
+    },
+    {
+      "text": "but for now, it looks like Meta is not",
+      "start": 448.24,
+      "duration": 4.64
+    },
+    {
+      "text": "in the driver's seat, even in their own",
+      "start": 450.639,
+      "duration": 5.441
+    },
+    {
+      "text": "business, on AI. Story number four, Open",
+      "start": 452.88,
+      "duration": 6.879
+    },
+    {
+      "text": "AAI is continuing to make headlines for",
+      "start": 456.08,
+      "duration": 6.32
+    },
+    {
+      "text": "how much they are spending on data",
+      "start": 459.759,
+      "duration": 5.44
+    },
+    {
+      "text": "centers. They are aggressively building",
+      "start": 462.4,
+      "duration": 5.76
+    },
+    {
+      "text": "capacity in ways that sort of it boggles",
+      "start": 465.199,
+      "duration": 4.801
+    },
+    {
+      "text": "the mind, right? the number the the the",
+      "start": 468.16,
+      "duration": 3.92
+    },
+    {
+      "text": "size of the numbers involved in terms of",
+      "start": 470.0,
+      "duration": 4.16
+    },
+    {
+      "text": "power generation, in terms of dollars.",
+      "start": 472.08,
+      "duration": 5.92
+    },
+    {
+      "text": "We are now over $400 billion in",
+      "start": 474.16,
+      "duration": 6.24
+    },
+    {
+      "text": "investment over three years in the",
+      "start": 478.0,
+      "duration": 4.24
+    },
+    {
+      "text": "Stargate project, which is their sort of",
+      "start": 480.4,
+      "duration": 4.32
+    },
+    {
+      "text": "flagship project. And they announced",
+      "start": 482.24,
+      "duration": 5.6
+    },
+    {
+      "text": "with Oracle five new AI data centers as",
+      "start": 484.72,
+      "duration": 4.879
+    },
+    {
+      "text": "a part of the Stargate project. What",
+      "start": 487.84,
+      "duration": 3.28
+    },
+    {
+      "text": "this is suggesting to me is that not",
+      "start": 489.599,
+      "duration": 3.44
+    },
+    {
+      "text": "only is Stargate not just a headline,",
+      "start": 491.12,
+      "duration": 4.96
+    },
+    {
+      "text": "Stargate is an umbrella term for the 3",
+      "start": 493.039,
+      "duration": 6.16
+    },
+    {
+      "text": "to 5year vision that OpenAI has for a",
+      "start": 496.08,
+      "duration": 6.0
+    },
+    {
+      "text": "massive X or so scale up in compute",
+      "start": 499.199,
+      "duration": 4.961
+    },
+    {
+      "text": "versus present state, maybe more than",
+      "start": 502.08,
+      "duration": 3.839
+    },
+    {
+      "text": "100x scale up in compute when it's all",
+      "start": 504.16,
+      "duration": 4.24
+    },
+    {
+      "text": "done. And they are not having trouble",
+      "start": 505.919,
+      "duration": 4.4
+    },
+    {
+      "text": "attracting the investment they need to",
+      "start": 508.4,
+      "duration": 3.44
+    },
+    {
+      "text": "get there. In fact, some of the stories",
+      "start": 510.319,
+      "duration": 3.361
+    },
+    {
+      "text": "over the last few weeks around Oracle's",
+      "start": 511.84,
+      "duration": 4.319
+    },
+    {
+      "text": "investment in OpenAI, around Nvidia's",
+      "start": 513.68,
+      "duration": 4.08
+    },
+    {
+      "text": "investment in OpenAI, this week around",
+      "start": 516.159,
+      "duration": 4.0
+    },
+    {
+      "text": "SoftBank leaning in on financing for",
+      "start": 517.76,
+      "duration": 5.199
+    },
+    {
+      "text": "Stargate, it all adds up to Saman being",
+      "start": 520.159,
+      "duration": 5.12
+    },
+    {
+      "text": "able to attract the capital he needs to",
+      "start": 522.959,
+      "duration": 4.481
+    },
+    {
+      "text": "get this power generation vision done.",
+      "start": 525.279,
+      "duration": 5.12
+    },
+    {
+      "text": "And his vision goes beyond just building",
+      "start": 527.44,
+      "duration": 5.76
+    },
+    {
+      "text": "stuff. He wants to get to a point where",
+      "start": 530.399,
+      "duration": 5.041
+    },
+    {
+      "text": "construction of additional capacity for",
+      "start": 533.2,
+      "duration": 4.4
+    },
+    {
+      "text": "AI is fully autonomous. And there was a",
+      "start": 535.44,
+      "duration": 4.24
+    },
+    {
+      "text": "blog post about that that while it's",
+      "start": 537.6,
+      "duration": 4.239
+    },
+    {
+      "text": "aspirational is important to consider.",
+      "start": 539.68,
+      "duration": 6.4
+    },
+    {
+      "text": "Sam expects that he will be able to have",
+      "start": 541.839,
+      "duration": 7.68
+    },
+    {
+      "text": "in 3 to 5 years entirely autonomous data",
+      "start": 546.08,
+      "duration": 5.28
+    },
+    {
+      "text": "center production. So robots will put",
+      "start": 549.519,
+      "duration": 3.601
+    },
+    {
+      "text": "the data centers together. Robots will",
+      "start": 551.36,
+      "duration": 2.8
+    },
+    {
+      "text": "bring the chips in. There will be",
+      "start": 553.12,
+      "duration": 3.2
+    },
+    {
+      "text": "robotic chip fabs and they will be able",
+      "start": 554.16,
+      "duration": 3.92
+    },
+    {
+      "text": "to autonomously stand up new data",
+      "start": 556.32,
+      "duration": 3.68
+    },
+    {
+      "text": "centers to match the capacity needs of",
+      "start": 558.08,
+      "duration": 4.56
+    },
+    {
+      "text": "AI. You would only do this if you were",
+      "start": 560.0,
+      "duration": 5.36
+    },
+    {
+      "text": "expecting not just a 100x gain in demand",
+      "start": 562.64,
+      "duration": 5.44
+    },
+    {
+      "text": "for AI, but a thousand or text gain. And",
+      "start": 565.36,
+      "duration": 4.8
+    },
+    {
+      "text": "so Sam's vision is predictably",
+      "start": 568.08,
+      "duration": 4.319
+    },
+    {
+      "text": "incredibly grand. And that blog post",
+      "start": 570.16,
+      "duration": 4.32
+    },
+    {
+      "text": "gives us a sense of why these other",
+      "start": 572.399,
+      "duration": 3.841
+    },
+    {
+      "text": "companies are willing to put so much",
+      "start": 574.48,
+      "duration": 3.919
+    },
+    {
+      "text": "skin in the game, so many dollars to",
+      "start": 576.24,
+      "duration": 4.24
+    },
+    {
+      "text": "scale up on the data center side. What",
+      "start": 578.399,
+      "duration": 3.841
+    },
+    {
+      "text": "this suggests is that the demand story",
+      "start": 580.48,
+      "duration": 4.0
+    },
+    {
+      "text": "for AI remains intact and that we are",
+      "start": 582.24,
+      "duration": 3.84
+    },
+    {
+      "text": "going to continue to see aggressive",
+      "start": 584.48,
+      "duration": 3.52
+    },
+    {
+      "text": "buildout. Let's get to story number",
+      "start": 586.08,
+      "duration": 6.16
+    },
+    {
+      "text": "five. Kimmy is a Chinese AI company for",
+      "start": 588.0,
+      "duration": 6.399
+    },
+    {
+      "text": "it's Moonshot AI's model right so the",
+      "start": 592.24,
+      "duration": 3.68
+    },
+    {
+      "text": "Chinese company's named Moonshot and",
+      "start": 594.399,
+      "duration": 3.12
+    },
+    {
+      "text": "they produced Kimmy K which is a",
+      "start": 595.92,
+      "duration": 4.08
+    },
+    {
+      "text": "trillion parameter model it's very very",
+      "start": 597.519,
+      "duration": 6.241
+    },
+    {
+      "text": "good and it is now available as an agent",
+      "start": 600.0,
+      "duration": 5.839
+    },
+    {
+      "text": "it's called okay computer and it was",
+      "start": 603.76,
+      "duration": 4.4
+    },
+    {
+      "text": "launched on the 24th of September it",
+      "start": 605.839,
+      "duration": 5.761
+    },
+    {
+      "text": "allows Kimmy to access its own virtual",
+      "start": 608.16,
+      "duration": 5.919
+    },
+    {
+      "text": "computer environment with a file system",
+      "start": 611.6,
+      "duration": 4.32
+    },
+    {
+      "text": "a browser and a terminal and it can",
+      "start": 614.079,
+      "duration": 3.76
+    },
+    {
+      "text": "autonomously execute complicated",
+      "start": 615.92,
+      "duration": 4.56
+    },
+    {
+      "text": "multi-step tasks for you and so it can",
+      "start": 617.839,
+      "duration": 4.721
+    },
+    {
+      "text": "transform transform chat requests into",
+      "start": 620.48,
+      "duration": 4.08
+    },
+    {
+      "text": "websites or data dashboards or",
+      "start": 622.56,
+      "duration": 4.24
+    },
+    {
+      "text": "production documents what have you. This",
+      "start": 624.56,
+      "duration": 4.08
+    },
+    {
+      "text": "gives us a glimpse of do the work",
+      "start": 626.8,
+      "duration": 4.88
+    },
+    {
+      "text": "assistance but critically it also is",
+      "start": 628.64,
+      "duration": 5.6
+    },
+    {
+      "text": "pushing the edges of AI agent autonomy",
+      "start": 631.68,
+      "duration": 6.159
+    },
+    {
+      "text": "and it's doing so from a Chinese",
+      "start": 634.24,
+      "duration": 5.599
+    },
+    {
+      "text": "perspective and what I mean by that is",
+      "start": 637.839,
+      "duration": 4.801
+    },
+    {
+      "text": "that it is reminding us that the Chinese",
+      "start": 639.839,
+      "duration": 5.841
+    },
+    {
+      "text": "uh model development evolution continues",
+      "start": 642.64,
+      "duration": 5.6
+    },
+    {
+      "text": "to push the edges and if you're like",
+      "start": 645.68,
+      "duration": 4.88
+    },
+    {
+      "text": "deep in the weeds technically Kimmy K2",
+      "start": 648.24,
+      "duration": 5.44
+    },
+    {
+      "text": "also set a new bar on efficiency for",
+      "start": 650.56,
+      "duration": 6.399
+    },
+    {
+      "text": "training you can look up um mu nuon if",
+      "start": 653.68,
+      "duration": 5.12
+    },
+    {
+      "text": "you want to get deeper on that and you",
+      "start": 656.959,
+      "duration": 4.401
+    },
+    {
+      "text": "will see a lot on sort of how the K2",
+      "start": 658.8,
+      "duration": 4.64
+    },
+    {
+      "text": "model was trained and how efficient they",
+      "start": 661.36,
+      "duration": 3.84
+    },
+    {
+      "text": "were at training the K2 model. That's",
+      "start": 663.44,
+      "duration": 3.839
+    },
+    {
+      "text": "just a little sort of nerd sidebar",
+      "start": 665.2,
+      "duration": 4.0
+    },
+    {
+      "text": "there. But this is really the larger",
+      "start": 667.279,
+      "duration": 5.12
+    },
+    {
+      "text": "story that that the Chinese companies",
+      "start": 669.2,
+      "duration": 6.96
+    },
+    {
+      "text": "innovating on AI are pushing the edges",
+      "start": 672.399,
+      "duration": 5.921
+    },
+    {
+      "text": "forward especially around open-source",
+      "start": 676.16,
+      "duration": 4.16
+    },
+    {
+      "text": "and they are very very intentionally",
+      "start": 678.32,
+      "duration": 4.4
+    },
+    {
+      "text": "pushing straight to Agentic. It's sort",
+      "start": 680.32,
+      "duration": 4.16
+    },
+    {
+      "text": "of a leapfrog motion where they're not",
+      "start": 682.72,
+      "duration": 3.52
+    },
+    {
+      "text": "just satisfied with LLMs, they're going",
+      "start": 684.48,
+      "duration": 4.32
+    },
+    {
+      "text": "to push into advanced AI agent",
+      "start": 686.24,
+      "duration": 5.12
+    },
+    {
+      "text": "capabilities. And while US enterprises",
+      "start": 688.8,
+      "duration": 4.479
+    },
+    {
+      "text": "and European enterprises may have enough",
+      "start": 691.36,
+      "duration": 4.32
+    },
+    {
+      "text": "data concerns to say, you know what, we",
+      "start": 693.279,
+      "duration": 5.601
+    },
+    {
+      "text": "don't trust a Chinese hosted Kimmy K2 to",
+      "start": 695.68,
+      "duration": 5.52
+    },
+    {
+      "text": "do okay computer agent mode for us.",
+      "start": 698.88,
+      "duration": 3.92
+    },
+    {
+      "text": "Individuals will not have those",
+      "start": 701.2,
+      "duration": 3.52
+    },
+    {
+      "text": "constraints and if the product",
+      "start": 702.8,
+      "duration": 4.159
+    },
+    {
+      "text": "experience is smooth and useful,",
+      "start": 704.72,
+      "duration": 3.6
+    },
+    {
+      "text": "individuals are going to start using",
+      "start": 706.959,
+      "duration": 4.401
+    },
+    {
+      "text": "this. So I look at okay computer as both",
+      "start": 708.32,
+      "duration": 5.84
+    },
+    {
+      "text": "a push on agent mode for the industry as",
+      "start": 711.36,
+      "duration": 4.479
+    },
+    {
+      "text": "a whole and you'll see us companies",
+      "start": 714.16,
+      "duration": 4.239
+    },
+    {
+      "text": "start to follow suit. I also look at it",
+      "start": 715.839,
+      "duration": 5.281
+    },
+    {
+      "text": "as a directly useful tool for",
+      "start": 718.399,
+      "duration": 4.321
+    },
+    {
+      "text": "individuals and potentially some small",
+      "start": 721.12,
+      "duration": 2.88
+    },
+    {
+      "text": "businesses that aren't too worried about",
+      "start": 722.72,
+      "duration": 3.359
+    },
+    {
+      "text": "the data side right now. Story number",
+      "start": 724.0,
+      "duration": 4.72
+    },
+    {
+      "text": "six, Adobe is buying instead of",
+      "start": 726.079,
+      "duration": 4.88
+    },
+    {
+      "text": "building. Adobe has taken a beating",
+      "start": 728.72,
+      "duration": 4.16
+    },
+    {
+      "text": "recently in the public markets because",
+      "start": 730.959,
+      "duration": 3.921
+    },
+    {
+      "text": "their AI products are widely perceived",
+      "start": 732.88,
+      "duration": 4.48
+    },
+    {
+      "text": "to be missing the mark. And so they",
+      "start": 734.88,
+      "duration": 4.72
+    },
+    {
+      "text": "announced comprehensive thirdparty model",
+      "start": 737.36,
+      "duration": 5.2
+    },
+    {
+      "text": "integration across Firefly, embedding",
+      "start": 739.6,
+      "duration": 6.0
+    },
+    {
+      "text": "what the Luma Ray 3 model for video and",
+      "start": 742.56,
+      "duration": 6.399
+    },
+    {
+      "text": "adding a bunch more opportunities for",
+      "start": 745.6,
+      "duration": 6.16
+    },
+    {
+      "text": "model support from Google, OpenAI,",
+      "start": 748.959,
+      "duration": 5.281
+    },
+    {
+      "text": "Ideog, and others. In other words, Adobe",
+      "start": 751.76,
+      "duration": 4.879
+    },
+    {
+      "text": "is deliberately importing best-in-class",
+      "start": 754.24,
+      "duration": 4.0
+    },
+    {
+      "text": "capabilities rather than trying to",
+      "start": 756.639,
+      "duration": 3.841
+    },
+    {
+      "text": "compete anymore with proprietary Firefly",
+      "start": 758.24,
+      "duration": 4.48
+    },
+    {
+      "text": "models. This feels a lot like the meta",
+      "start": 760.48,
+      "duration": 4.4
+    },
+    {
+      "text": "story. Adobee's basically admitting",
+      "start": 762.72,
+      "duration": 4.559
+    },
+    {
+      "text": "their own AI strategy is dead in the",
+      "start": 764.88,
+      "duration": 5.36
+    },
+    {
+      "text": "water and they need to bring in other",
+      "start": 767.279,
+      "duration": 6.321
+    },
+    {
+      "text": "models. Now the implication here is that",
+      "start": 770.24,
+      "duration": 6.56
+    },
+    {
+      "text": "Adobe is going to eat margin to do that.",
+      "start": 773.6,
+      "duration": 5.76
+    },
+    {
+      "text": "Notion very publicly has said during the",
+      "start": 776.8,
+      "duration": 4.96
+    },
+    {
+      "text": "notion 3.0 rollout which also happened",
+      "start": 779.36,
+      "duration": 4.719
+    },
+    {
+      "text": "this week that they were eating their",
+      "start": 781.76,
+      "duration": 4.879
+    },
+    {
+      "text": "own margin and that they were costing",
+      "start": 784.079,
+      "duration": 4.641
+    },
+    {
+      "text": "their gross margin about 10 percentage",
+      "start": 786.639,
+      "duration": 4.401
+    },
+    {
+      "text": "points to roll out AI. So they went from",
+      "start": 788.72,
+      "duration": 5.04
+    },
+    {
+      "text": "90% gross margins to 80% gross margins",
+      "start": 791.04,
+      "duration": 4.479
+    },
+    {
+      "text": "as a business to deliver AI",
+      "start": 793.76,
+      "duration": 3.12
+    },
+    {
+      "text": "functionality, but they felt it was",
+      "start": 795.519,
+      "duration": 2.961
+    },
+    {
+      "text": "worth it for the long-term value of the",
+      "start": 796.88,
+      "duration": 3.28
+    },
+    {
+      "text": "business. Adobe hasn't revealed their",
+      "start": 798.48,
+      "duration": 4.159
+    },
+    {
+      "text": "gross margins, of course, but I suspect",
+      "start": 800.16,
+      "duration": 4.72
+    },
+    {
+      "text": "that is the kind of impact they're going",
+      "start": 802.639,
+      "duration": 4.801
+    },
+    {
+      "text": "to have when they actually bring in",
+      "start": 804.88,
+      "duration": 4.56
+    },
+    {
+      "text": "these third-party services and start to",
+      "start": 807.44,
+      "duration": 3.44
+    },
+    {
+      "text": "pay for them and start to essentially",
+      "start": 809.44,
+      "duration": 3.839
+    },
+    {
+      "text": "have the brains of Adobe Firefly and",
+      "start": 810.88,
+      "duration": 4.959
+    },
+    {
+      "text": "other tools built by other people. So",
+      "start": 813.279,
+      "duration": 4.641
+    },
+    {
+      "text": "this is a story where even traditional",
+      "start": 815.839,
+      "duration": 4.881
+    },
+    {
+      "text": "SAS companies are starting to have to",
+      "start": 817.92,
+      "duration": 6.08
+    },
+    {
+      "text": "let other models in the door because",
+      "start": 820.72,
+      "duration": 4.96
+    },
+    {
+      "text": "it's just too expensive to compete on",
+      "start": 824.0,
+      "duration": 3.68
+    },
+    {
+      "text": "the model side directly. Very, very",
+      "start": 825.68,
+      "duration": 3.52
+    },
+    {
+      "text": "interesting implications here for other",
+      "start": 827.68,
+      "duration": 3.2
+    },
+    {
+      "text": "businesses that need intelligence.",
+      "start": 829.2,
+      "duration": 3.6
+    },
+    {
+      "text": "Finally, story number seven. California",
+      "start": 830.88,
+      "duration": 4.72
+    },
+    {
+      "text": "is advancing AI safety legislation. So,",
+      "start": 832.8,
+      "duration": 4.56
+    },
+    {
+      "text": "California's legislature passed Senate",
+      "start": 835.6,
+      "duration": 4.239
+    },
+    {
+      "text": "Bill 53, which requires major AI",
+      "start": 837.36,
+      "duration": 5.2
+    },
+    {
+      "text": "developers to publicly disclose disclose",
+      "start": 839.839,
+      "duration": 4.8
+    },
+    {
+      "text": "safety and security protocols and",
+      "start": 842.56,
+      "duration": 3.76
+    },
+    {
+      "text": "establishes whistleblower protections",
+      "start": 844.639,
+      "duration": 3.76
+    },
+    {
+      "text": "and incident reporting. It also creates",
+      "start": 846.32,
+      "duration": 4.079
+    },
+    {
+      "text": "Cal compute, which is a public computing",
+      "start": 848.399,
+      "duration": 4.321
+    },
+    {
+      "text": "cluster for AI research. The reason this",
+      "start": 850.399,
+      "duration": 4.161
+    },
+    {
+      "text": "matters is because the major model",
+      "start": 852.72,
+      "duration": 3.52
+    },
+    {
+      "text": "makers are all based in California and",
+      "start": 854.56,
+      "duration": 3.519
+    },
+    {
+      "text": "because California is such a large and",
+      "start": 856.24,
+      "duration": 3.92
+    },
+    {
+      "text": "influential state in the federal system.",
+      "start": 858.079,
+      "duration": 5.2
+    },
+    {
+      "text": "And so I would expect that we will see",
+      "start": 860.16,
+      "duration": 5.2
+    },
+    {
+      "text": "actual implemented AI safety and",
+      "start": 863.279,
+      "duration": 4.321
+    },
+    {
+      "text": "transparency requirements at Anthropic,",
+      "start": 865.36,
+      "duration": 4.0
+    },
+    {
+      "text": "at OpenAI, both of which are based in",
+      "start": 867.6,
+      "duration": 3.599
+    },
+    {
+      "text": "San Francisco and at Google, also based",
+      "start": 869.36,
+      "duration": 4.0
+    },
+    {
+      "text": "in San Francisco. And we are going to",
+      "start": 871.199,
+      "duration": 4.801
+    },
+    {
+      "text": "start to see public disclosure and",
+      "start": 873.36,
+      "duration": 4.4
+    },
+    {
+      "text": "discussion around what that means and",
+      "start": 876.0,
+      "duration": 4.0
+    },
+    {
+      "text": "probably implications for other states",
+      "start": 877.76,
+      "duration": 4.4
+    },
+    {
+      "text": "that may be looking at AI safety.",
+      "start": 880.0,
+      "duration": 5.36
+    },
+    {
+      "text": "California is setting the bar for the",
+      "start": 882.16,
+      "duration": 6.479
+    },
+    {
+      "text": "nation as a whole here, but it is also",
+      "start": 885.36,
+      "duration": 5.52
+    },
+    {
+      "text": "directly impacting the daily operations",
+      "start": 888.639,
+      "duration": 3.921
+    },
+    {
+      "text": "of the biggest model makers on the",
+      "start": 890.88,
+      "duration": 4.079
+    },
+    {
+      "text": "planet. And so if we're looking ahead at",
+      "start": 892.56,
+      "duration": 4.16
+    },
+    {
+      "text": "national AI safety legislation,",
+      "start": 894.959,
+      "duration": 4.401
+    },
+    {
+      "text": "California is showing a sort of way to",
+      "start": 896.72,
+      "duration": 5.2
+    },
+    {
+      "text": "go there, a direction to head in. But",
+      "start": 899.36,
+      "duration": 7.12
+    },
+    {
+      "text": "it's also going to require companies to",
+      "start": 901.92,
+      "duration": 6.8
+    },
+    {
+      "text": "change their behavior immediately. Now,",
+      "start": 906.48,
+      "duration": 4.08
+    },
+    {
+      "text": "OpenAI has said they're neutral on this.",
+      "start": 908.72,
+      "duration": 3.52
+    },
+    {
+      "text": "They don't have an opinion. Anthropic",
+      "start": 910.56,
+      "duration": 3.519
+    },
+    {
+      "text": "has endorsed the bill publicly and",
+      "start": 912.24,
+      "duration": 4.0
+    },
+    {
+      "text": "Google hasn't really given a signal that",
+      "start": 914.079,
+      "duration": 4.161
+    },
+    {
+      "text": "I've been able to find. Regardless, once",
+      "start": 916.24,
+      "duration": 4.32
+    },
+    {
+      "text": "this is signed, these model makers will",
+      "start": 918.24,
+      "duration": 4.08
+    },
+    {
+      "text": "have to comply. They will have to start",
+      "start": 920.56,
+      "duration": 3.76
+    },
+    {
+      "text": "to show that they have safety and",
+      "start": 922.32,
+      "duration": 3.84
+    },
+    {
+      "text": "security protocols in line with Senate",
+      "start": 924.32,
+      "duration": 3.44
+    },
+    {
+      "text": "Bill 53. They will have to show that",
+      "start": 926.16,
+      "duration": 2.96
+    },
+    {
+      "text": "they have whistleblower protections.",
+      "start": 927.76,
+      "duration": 3.519
+    },
+    {
+      "text": "There will be new compliance loads. This",
+      "start": 929.12,
+      "duration": 4.159
+    },
+    {
+      "text": "has implications for companies",
+      "start": 931.279,
+      "duration": 4.161
+    },
+    {
+      "text": "purchasing from those model makers, too.",
+      "start": 933.279,
+      "duration": 4.961
+    },
+    {
+      "text": "And that's not been figured out yet. So,",
+      "start": 935.44,
+      "duration": 4.48
+    },
+    {
+      "text": "stay tuned for more there. But I wanted",
+      "start": 938.24,
+      "duration": 3.839
+    },
+    {
+      "text": "to call out that that's a landmark in",
+      "start": 939.92,
+      "duration": 4.479
+    },
+    {
+      "text": "the US on AI safety legislation and one",
+      "start": 942.079,
+      "duration": 4.641
+    },
+    {
+      "text": "to watch. As I noted, you can get more",
+      "start": 944.399,
+      "duration": 4.641
+    },
+    {
+      "text": "implications on each of these stories in",
+      "start": 946.72,
+      "duration": 3.679
+    },
+    {
+      "text": "the prompt that I prepared for you in",
+      "start": 949.04,
+      "duration": 5.52
+    },
+    {
+      "text": "the post. Have a great week. Cheers.",
+      "start": 950.399,
+      "duration": 4.161
+    }
+  ]
 }

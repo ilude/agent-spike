@@ -29,5 +29,147 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "The best response in the SAT was chat",
+      "start": 0.16,
+      "duration": 6.48
+    },
+    {
+      "text": "GPT5 with the think hard button pushed",
+      "start": 2.48,
+      "duration": 8.079
+    },
+    {
+      "text": "closely followed by chat GPT5 with think",
+      "start": 6.64,
+      "duration": 6.72
+    },
+    {
+      "text": "hard typed in the prompt box. In other",
+      "start": 10.559,
+      "duration": 5.04
+    },
+    {
+      "text": "words, part of your job with this model",
+      "start": 13.36,
+      "duration": 3.919
+    },
+    {
+      "text": "and part of what I'm going to be doing",
+      "start": 15.599,
+      "duration": 4.961
+    },
+    {
+      "text": "in the coming days is digging into when",
+      "start": 17.279,
+      "duration": 6.321
+    },
+    {
+      "text": "and how you prompt these models for the",
+      "start": 20.56,
+      "duration": 5.28
+    },
+    {
+      "text": "kind of task that you have in front of",
+      "start": 23.6,
+      "duration": 4.48
+    },
+    {
+      "text": "you. These people who say that prompting",
+      "start": 25.84,
+      "duration": 4.24
+    },
+    {
+      "text": "doesn't matter have not played with this",
+      "start": 28.08,
+      "duration": 4.08
+    },
+    {
+      "text": "model. This is getting harder and harder",
+      "start": 30.08,
+      "duration": 3.84
+    },
+    {
+      "text": "and harder to prompt. It is getting",
+      "start": 32.16,
+      "duration": 4.079
+    },
+    {
+      "text": "trickier to prompt. Yes, if you are",
+      "start": 33.92,
+      "duration": 4.08
+    },
+    {
+      "text": "doing casual work and you just want to",
+      "start": 36.239,
+      "duration": 3.681
+    },
+    {
+      "text": "gesture vaguely at a piece of work and",
+      "start": 38.0,
+      "duration": 3.52
+    },
+    {
+      "text": "you're not too worried about it, it has",
+      "start": 39.92,
+      "duration": 3.6
+    },
+    {
+      "text": "never been easier to prompt. That is",
+      "start": 41.52,
+      "duration": 3.76
+    },
+    {
+      "text": "true. It has never been easier to say,",
+      "start": 43.52,
+      "duration": 3.44
+    },
+    {
+      "text": "\"I want an itinerary for Japan.\" And",
+      "start": 45.28,
+      "duration": 3.439
+    },
+    {
+      "text": "just gesture vaguely at it. It will come",
+      "start": 46.96,
+      "duration": 3.52
+    },
+    {
+      "text": "up with something. So, that part is",
+      "start": 48.719,
+      "duration": 4.241
+    },
+    {
+      "text": "easy. But getting really complex work",
+      "start": 50.48,
+      "duration": 4.399
+    },
+    {
+      "text": "done, doing something like what I gave",
+      "start": 52.96,
+      "duration": 4.239
+    },
+    {
+      "text": "it where correctness matters, accuracy",
+      "start": 54.879,
+      "duration": 4.241
+    },
+    {
+      "text": "matters, the documents don't agree. It's",
+      "start": 57.199,
+      "duration": 4.801
+    },
+    {
+      "text": "a very complex context window. That",
+      "start": 59.12,
+      "duration": 5.36
+    },
+    {
+      "text": "takes",
+      "start": 62.0,
+      "duration": 2.48
+    }
+  ]
 }

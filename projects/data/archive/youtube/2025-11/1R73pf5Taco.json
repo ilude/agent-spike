@@ -29,5 +29,1737 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "Steve Jobs built a priesthood for",
+      "start": 0.08,
+      "duration": 4.96
+    },
+    {
+      "text": "computing and that priesthood is",
+      "start": 3.04,
+      "duration": 4.719
+    },
+    {
+      "text": "becoming irrelevant in the age of AI.",
+      "start": 5.04,
+      "duration": 4.479
+    },
+    {
+      "text": "That's my central thesis. I want to",
+      "start": 7.759,
+      "duration": 4.161
+    },
+    {
+      "text": "introduce to you the idea that Steve",
+      "start": 9.519,
+      "duration": 5.04
+    },
+    {
+      "text": "Jobs's entire vision for Apple was",
+      "start": 11.92,
+      "duration": 5.04
+    },
+    {
+      "text": "something that was uniquely suited to",
+      "start": 14.559,
+      "duration": 5.681
+    },
+    {
+      "text": "driving rapid adoption of computing by",
+      "start": 16.96,
+      "duration": 5.76
+    },
+    {
+      "text": "the world. And that the attributes that",
+      "start": 20.24,
+      "duration": 5.119
+    },
+    {
+      "text": "made Apple successful, the DNA that",
+      "start": 22.72,
+      "duration": 5.28
+    },
+    {
+      "text": "Steve Jobs inculcated into Apple that is",
+      "start": 25.359,
+      "duration": 5.281
+    },
+    {
+      "text": "alive and well under Tim Cook, it",
+      "start": 28.0,
+      "duration": 4.48
+    },
+    {
+      "text": "doesn't work in the age of AI. In fact,",
+      "start": 30.64,
+      "duration": 4.96
+    },
+    {
+      "text": "it's counterproductive in the age of AI.",
+      "start": 32.48,
+      "duration": 5.28
+    },
+    {
+      "text": "And I'm going to explain why. And this",
+      "start": 35.6,
+      "duration": 4.56
+    },
+    {
+      "text": "matters because this is one of the most",
+      "start": 37.76,
+      "duration": 4.479
+    },
+    {
+      "text": "valuable companies in the world. A lot",
+      "start": 40.16,
+      "duration": 3.919
+    },
+    {
+      "text": "of people's retirements accounts, the",
+      "start": 42.239,
+      "duration": 4.16
+    },
+    {
+      "text": "entire stock market, Apple is so big,",
+      "start": 44.079,
+      "duration": 4.561
+    },
+    {
+      "text": "it's almost too big to fail. If Apple",
+      "start": 46.399,
+      "duration": 4.721
+    },
+    {
+      "text": "doesn't get AI right, all of us will",
+      "start": 48.64,
+      "duration": 4.16
+    },
+    {
+      "text": "feel the difference. And I want to",
+      "start": 51.12,
+      "duration": 3.119
+    },
+    {
+      "text": "explain why Apple's at risk of doing",
+      "start": 52.8,
+      "duration": 3.919
+    },
+    {
+      "text": "that despite the recent news that they",
+      "start": 54.239,
+      "duration": 4.401
+    },
+    {
+      "text": "are competing heavily in the AI space.",
+      "start": 56.719,
+      "duration": 3.441
+    },
+    {
+      "text": "I'm aware of it. I've read it. We'll get",
+      "start": 58.64,
+      "duration": 4.96
+    },
+    {
+      "text": "into it. Here is why they are almost",
+      "start": 60.16,
+      "duration": 6.4
+    },
+    {
+      "text": "inevitably programmed not to win.",
+      "start": 63.6,
+      "duration": 5.04
+    },
+    {
+      "text": "Culture is so powerful as a shaping",
+      "start": 66.56,
+      "duration": 4.48
+    },
+    {
+      "text": "force for companies. It is part of why",
+      "start": 68.64,
+      "duration": 4.32
+    },
+    {
+      "text": "Apple is struggling. Let's dive into",
+      "start": 71.04,
+      "duration": 4.8
+    },
+    {
+      "text": "why. First, what worked about Apple back",
+      "start": 72.96,
+      "duration": 5.6
+    },
+    {
+      "text": "in the '9s? Steve Jobs had a central",
+      "start": 75.84,
+      "duration": 6.0
+    },
+    {
+      "text": "insight. He believed that part of what",
+      "start": 78.56,
+      "duration": 6.4
+    },
+    {
+      "text": "made computers complicated for people",
+      "start": 81.84,
+      "duration": 5.44
+    },
+    {
+      "text": "was that they were uncontrolled. They",
+      "start": 84.96,
+      "duration": 5.199
+    },
+    {
+      "text": "were a nerdy, techy, configurable,",
+      "start": 87.28,
+      "duration": 5.28
+    },
+    {
+      "text": "complicated experience. He believed",
+      "start": 90.159,
+      "duration": 4.561
+    },
+    {
+      "text": "controlling the entire experience of",
+      "start": 92.56,
+      "duration": 4.64
+    },
+    {
+      "text": "computing would liberate users from",
+      "start": 94.72,
+      "duration": 4.719
+    },
+    {
+      "text": "complexity. Apple's designers would",
+      "start": 97.2,
+      "duration": 4.32
+    },
+    {
+      "text": "perfect everything in secret. They would",
+      "start": 99.439,
+      "duration": 4.64
+    },
+    {
+      "text": "ship polished products that users didn't",
+      "start": 101.52,
+      "duration": 4.0
+    },
+    {
+      "text": "know they needed, but they were so",
+      "start": 104.079,
+      "duration": 3.441
+    },
+    {
+      "text": "beautiful. They were so simple to use.",
+      "start": 105.52,
+      "duration": 5.919
+    },
+    {
+      "text": "They solved problems so perfectly",
+      "start": 107.52,
+      "duration": 5.52
+    },
+    {
+      "text": "that everyone would immediately want",
+      "start": 111.439,
+      "duration": 4.561
+    },
+    {
+      "text": "one. I am old enough to remember when a",
+      "start": 113.04,
+      "duration": 4.719
+    },
+    {
+      "text": "lot of the Apple products first came",
+      "start": 116.0,
+      "duration": 3.759
+    },
+    {
+      "text": "out, including the ones that are in the",
+      "start": 117.759,
+      "duration": 3.921
+    },
+    {
+      "text": "museums now. Yes, there are Apple",
+      "start": 119.759,
+      "duration": 4.0
+    },
+    {
+      "text": "products in museums. They have all had",
+      "start": 121.68,
+      "duration": 4.16
+    },
+    {
+      "text": "that aspect under Steve Jobs. And",
+      "start": 123.759,
+      "duration": 4.0
+    },
+    {
+      "text": "frankly, Tim Cook has tried to continue",
+      "start": 125.84,
+      "duration": 4.0
+    },
+    {
+      "text": "that with the Apple Watch and more",
+      "start": 127.759,
+      "duration": 4.321
+    },
+    {
+      "text": "recently with the Vision Pro. polished",
+      "start": 129.84,
+      "duration": 4.16
+    },
+    {
+      "text": "products, what users don't know they",
+      "start": 132.08,
+      "duration": 5.12
+    },
+    {
+      "text": "need, perfected endlessly in secret",
+      "start": 134.0,
+      "duration": 7.12
+    },
+    {
+      "text": "until every aspect shines like a jewel.",
+      "start": 137.2,
+      "duration": 6.24
+    },
+    {
+      "text": "Now, you can rightfully complain that it",
+      "start": 141.12,
+      "duration": 4.8
+    },
+    {
+      "text": "hasn't been the same since Steve left. I",
+      "start": 143.44,
+      "duration": 4.24
+    },
+    {
+      "text": "think that's kind of reasonable. Steve",
+      "start": 145.92,
+      "duration": 4.48
+    },
+    {
+      "text": "was one of the most prolific inventors",
+      "start": 147.68,
+      "duration": 5.04
+    },
+    {
+      "text": "that we have ever seen. And so, it would",
+      "start": 150.4,
+      "duration": 4.08
+    },
+    {
+      "text": "be a hard act to follow. And I think Tim",
+      "start": 152.72,
+      "duration": 4.239
+    },
+    {
+      "text": "knows that. But the DNA that Steve left",
+      "start": 154.48,
+      "duration": 5.759
+    },
+    {
+      "text": "the company, what I've described remains",
+      "start": 156.959,
+      "duration": 6.881
+    },
+    {
+      "text": "true. Apple obsesses over perfecting",
+      "start": 160.239,
+      "duration": 6.161
+    },
+    {
+      "text": "experiences in secret. The good",
+      "start": 163.84,
+      "duration": 5.28
+    },
+    {
+      "text": "engineers at Apple never ever leave. So,",
+      "start": 166.4,
+      "duration": 4.88
+    },
+    {
+      "text": "how does that work in the age of AI?",
+      "start": 169.12,
+      "duration": 5.44
+    },
+    {
+      "text": "What about the age of AI doesn't connect",
+      "start": 171.28,
+      "duration": 5.2
+    },
+    {
+      "text": "with Apple's culture? I'm going to give",
+      "start": 174.56,
+      "duration": 3.759
+    },
+    {
+      "text": "you a few, but I bet you can think of",
+      "start": 176.48,
+      "duration": 3.68
+    },
+    {
+      "text": "some of them as well. I bet this is not",
+      "start": 178.319,
+      "duration": 4.64
+    },
+    {
+      "text": "too surprising. Number one, the age of",
+      "start": 180.16,
+      "duration": 6.24
+    },
+    {
+      "text": "AI is a messy age. This is not a world",
+      "start": 182.959,
+      "duration": 5.2
+    },
+    {
+      "text": "where you can be deterministic and",
+      "start": 186.4,
+      "duration": 4.96
+    },
+    {
+      "text": "polished. Inherently with token",
+      "start": 188.159,
+      "duration": 6.481
+    },
+    {
+      "text": "architectures you have probabilistic",
+      "start": 191.36,
+      "duration": 6.0
+    },
+    {
+      "text": "system behavior. You have an",
+      "start": 194.64,
+      "duration": 5.12
+    },
+    {
+      "text": "unpredictability in the response. You",
+      "start": 197.36,
+      "duration": 4.48
+    },
+    {
+      "text": "cannot nail it down so it is perfect",
+      "start": 199.76,
+      "duration": 4.08
+    },
+    {
+      "text": "every time. One of the things I like to",
+      "start": 201.84,
+      "duration": 5.039
+    },
+    {
+      "text": "emphasize with quality assurance with QA",
+      "start": 203.84,
+      "duration": 4.56
+    },
+    {
+      "text": "is that we are in the midst of a",
+      "start": 206.879,
+      "duration": 4.321
+    },
+    {
+      "text": "profound shift where before most of QA",
+      "start": 208.4,
+      "duration": 5.759
+    },
+    {
+      "text": "energy was around polishing software",
+      "start": 211.2,
+      "duration": 6.24
+    },
+    {
+      "text": "before it launched very Applelike. Now,",
+      "start": 214.159,
+      "duration": 6.561
+    },
+    {
+      "text": "most of QA energy is around making sure",
+      "start": 217.44,
+      "duration": 5.04
+    },
+    {
+      "text": "that we can sustain the quality of",
+      "start": 220.72,
+      "duration": 3.599
+    },
+    {
+      "text": "software in production. Or at least it",
+      "start": 222.48,
+      "duration": 3.36
+    },
+    {
+      "text": "should be. We're not there yet, but I",
+      "start": 224.319,
+      "duration": 3.361
+    },
+    {
+      "text": "think that's where it's going. Why?",
+      "start": 225.84,
+      "duration": 4.64
+    },
+    {
+      "text": "Because production software is living",
+      "start": 227.68,
+      "duration": 6.32
+    },
+    {
+      "text": "now. It's messy. It's complicated. Look",
+      "start": 230.48,
+      "duration": 5.679
+    },
+    {
+      "text": "no further than the release of Chat",
+      "start": 234.0,
+      "duration": 4.72
+    },
+    {
+      "text": "GPT5. Let me ask you a very simple",
+      "start": 236.159,
+      "duration": 5.521
+    },
+    {
+      "text": "question. Would Apple have ever let that",
+      "start": 238.72,
+      "duration": 5.68
+    },
+    {
+      "text": "out the door? Would Apple have ever let",
+      "start": 241.68,
+      "duration": 5.04
+    },
+    {
+      "text": "that kind of chart mishap happen on a",
+      "start": 244.4,
+      "duration": 5.68
+    },
+    {
+      "text": "live stream? Would Apple have ever let",
+      "start": 246.72,
+      "duration": 6.56
+    },
+    {
+      "text": "out a product that immediately had to be",
+      "start": 250.08,
+      "duration": 5.359
+    },
+    {
+      "text": "kind of halfway rolled back and had the",
+      "start": 253.28,
+      "duration": 4.56
+    },
+    {
+      "text": "old product renewed and had obvious",
+      "start": 255.439,
+      "duration": 4.961
+    },
+    {
+      "text": "server outages in the first day. No,",
+      "start": 257.84,
+      "duration": 4.4
+    },
+    {
+      "text": "Apple would never have done that, but",
+      "start": 260.4,
+      "duration": 5.04
+    },
+    {
+      "text": "OpenAI did. And OpenAI in just a decade",
+      "start": 262.24,
+      "duration": 5.12
+    },
+    {
+      "text": "has gone to become a $300 billion",
+      "start": 265.44,
+      "duration": 3.44
+    },
+    {
+      "text": "company. Now, granted, that's not as",
+      "start": 267.36,
+      "duration": 3.44
+    },
+    {
+      "text": "valuable as Apple yet, but the point is",
+      "start": 268.88,
+      "duration": 4.8
+    },
+    {
+      "text": "the trajectory. The point is that the",
+      "start": 270.8,
+      "duration": 5.76
+    },
+    {
+      "text": "fundamental incentives and levers that",
+      "start": 273.68,
+      "duration": 6.4
+    },
+    {
+      "text": "Steve correctly identified in the age of",
+      "start": 276.56,
+      "duration": 6.96
+    },
+    {
+      "text": "computing do not set Apple up with the",
+      "start": 280.08,
+      "duration": 6.16
+    },
+    {
+      "text": "culture to compete in the age of AI.",
+      "start": 283.52,
+      "duration": 5.52
+    },
+    {
+      "text": "Users in the age of computers found",
+      "start": 286.24,
+      "duration": 5.92
+    },
+    {
+      "text": "computers not obviously useful. They",
+      "start": 289.04,
+      "duration": 5.12
+    },
+    {
+      "text": "were nerdy. They were complicated. You",
+      "start": 292.16,
+      "duration": 4.08
+    },
+    {
+      "text": "didn't obviously need them. I know for",
+      "start": 294.16,
+      "duration": 3.759
+    },
+    {
+      "text": "folks who are younger listening and",
+      "start": 296.24,
+      "duration": 3.92
+    },
+    {
+      "text": "watching this, that seems insane. I",
+      "start": 297.919,
+      "duration": 3.681
+    },
+    {
+      "text": "recognize that my kids feel the same",
+      "start": 300.16,
+      "duration": 4.72
+    },
+    {
+      "text": "way, but it was true. I remember growing",
+      "start": 301.6,
+      "duration": 6.08
+    },
+    {
+      "text": "up when nobody had a computer except a",
+      "start": 304.88,
+      "duration": 4.64
+    },
+    {
+      "text": "couple of nerds and it wasn't considered",
+      "start": 307.68,
+      "duration": 3.44
+    },
+    {
+      "text": "necessary. I remember when people",
+      "start": 309.52,
+      "duration": 3.36
+    },
+    {
+      "text": "gradually decided that computers were",
+      "start": 311.12,
+      "duration": 3.519
+    },
+    {
+      "text": "necessary and Best Buy became a big",
+      "start": 312.88,
+      "duration": 4.0
+    },
+    {
+      "text": "thing. I remember the same transition",
+      "start": 314.639,
+      "duration": 4.56
+    },
+    {
+      "text": "with cell phones. Apple was able to",
+      "start": 316.88,
+      "duration": 4.24
+    },
+    {
+      "text": "leverage both of those big transitions,",
+      "start": 319.199,
+      "duration": 3.84
+    },
+    {
+      "text": "the transition to the PC and the",
+      "start": 321.12,
+      "duration": 3.84
+    },
+    {
+      "text": "transition to the cell phone, because",
+      "start": 323.039,
+      "duration": 5.521
+    },
+    {
+      "text": "both of them needed Apple polish and",
+      "start": 324.96,
+      "duration": 7.76
+    },
+    {
+      "text": "perfection to become obviously desirable",
+      "start": 328.56,
+      "duration": 6.56
+    },
+    {
+      "text": "status symbols that solved problems in",
+      "start": 332.72,
+      "duration": 4.479
+    },
+    {
+      "text": "ways that were so simple and obvious",
+      "start": 335.12,
+      "duration": 4.32
+    },
+    {
+      "text": "anyone could do it. It's not just that",
+      "start": 337.199,
+      "duration": 4.321
+    },
+    {
+      "text": "the iPhone has become a status symbol.",
+      "start": 339.44,
+      "duration": 3.84
+    },
+    {
+      "text": "Arguably, it's less of a status symbol",
+      "start": 341.52,
+      "duration": 3.679
+    },
+    {
+      "text": "because it's so ubiquitous now. it's",
+      "start": 343.28,
+      "duration": 4.16
+    },
+    {
+      "text": "that it solves problems by creating a",
+      "start": 345.199,
+      "duration": 4.161
+    },
+    {
+      "text": "walled garden and a polished experience.",
+      "start": 347.44,
+      "duration": 4.24
+    },
+    {
+      "text": "In a messy AI world, you can't do that.",
+      "start": 349.36,
+      "duration": 5.2
+    },
+    {
+      "text": "And I will go farther. I will say the",
+      "start": 351.68,
+      "duration": 6.0
+    },
+    {
+      "text": "reason the messy AI world is working",
+      "start": 354.56,
+      "duration": 5.68
+    },
+    {
+      "text": "well and gaining adoption and the reason",
+      "start": 357.68,
+      "duration": 5.92
+    },
+    {
+      "text": "that LLMs as a whole have gone to a",
+      "start": 360.24,
+      "duration": 5.84
+    },
+    {
+      "text": "billion users already in just two or",
+      "start": 363.6,
+      "duration": 4.0
+    },
+    {
+      "text": "three years, much faster than the",
+      "start": 366.08,
+      "duration": 3.679
+    },
+    {
+      "text": "adoption of the iPhone, is because",
+      "start": 367.6,
+      "duration": 6.159
+    },
+    {
+      "text": "unlike with computers, AI is obviously",
+      "start": 369.759,
+      "duration": 7.201
+    },
+    {
+      "text": "useful. AI is not hm I wonder if it's",
+      "start": 373.759,
+      "duration": 5.201
+    },
+    {
+      "text": "interesting or useful. It is a",
+      "start": 376.96,
+      "duration": 4.32
+    },
+    {
+      "text": "generalpurpose technology that is",
+      "start": 378.96,
+      "duration": 4.88
+    },
+    {
+      "text": "incredibly and obviously useful and",
+      "start": 381.28,
+      "duration": 4.4
+    },
+    {
+      "text": "people don't have to wonder. And it's",
+      "start": 383.84,
+      "duration": 4.24
+    },
+    {
+      "text": "incredibly and obviously useful to an",
+      "start": 385.68,
+      "duration": 4.48
+    },
+    {
+      "text": "eighth of the world's population. Now,",
+      "start": 388.08,
+      "duration": 3.92
+    },
+    {
+      "text": "now we don't all use it the same way.",
+      "start": 390.16,
+      "duration": 3.28
+    },
+    {
+      "text": "Some of us use it with really fancy",
+      "start": 392.0,
+      "duration": 2.96
+    },
+    {
+      "text": "prompts and agents and automation",
+      "start": 393.44,
+      "duration": 3.599
+    },
+    {
+      "text": "workflows. Some of us use it to tell our",
+      "start": 394.96,
+      "duration": 4.4
+    },
+    {
+      "text": "kids bedtime stories. Some of it use it",
+      "start": 397.039,
+      "duration": 4.241
+    },
+    {
+      "text": "some of us use it as an AI girlfriend.",
+      "start": 399.36,
+      "duration": 4.16
+    },
+    {
+      "text": "Some of us use it for just chatting",
+      "start": 401.28,
+      "duration": 3.52
+    },
+    {
+      "text": "about the day and coming up with",
+      "start": 403.52,
+      "duration": 4.16
+    },
+    {
+      "text": "recipes. We have a wide range of uses",
+      "start": 404.8,
+      "duration": 4.56
+    },
+    {
+      "text": "which makes sense if it's a general",
+      "start": 407.68,
+      "duration": 3.68
+    },
+    {
+      "text": "purpose technology. But the point is",
+      "start": 409.36,
+      "duration": 5.36
+    },
+    {
+      "text": "that it's useful in a way that is clear",
+      "start": 411.36,
+      "duration": 5.6
+    },
+    {
+      "text": "and clean enough on the surface and that",
+      "start": 414.72,
+      "duration": 4.8
+    },
+    {
+      "text": "is immediately validating enough that we",
+      "start": 416.96,
+      "duration": 4.239
+    },
+    {
+      "text": "don't have to have a perfect interface",
+      "start": 419.52,
+      "duration": 3.679
+    },
+    {
+      "text": "or perfect product to make it work. I",
+      "start": 421.199,
+      "duration": 4.161
+    },
+    {
+      "text": "would argue with you and I actually I",
+      "start": 423.199,
+      "duration": 3.681
+    },
+    {
+      "text": "don't know that you'd argue back. The",
+      "start": 425.36,
+      "duration": 3.679
+    },
+    {
+      "text": "chatbot is not a perfect product. I've",
+      "start": 426.88,
+      "duration": 4.08
+    },
+    {
+      "text": "had the head of chat GPT in an interview",
+      "start": 429.039,
+      "duration": 4.401
+    },
+    {
+      "text": "say so. It's what took off. It's what",
+      "start": 430.96,
+      "duration": 4.72
+    },
+    {
+      "text": "went viral. It's not particularly a",
+      "start": 433.44,
+      "duration": 4.479
+    },
+    {
+      "text": "great interface, but the value of the",
+      "start": 435.68,
+      "duration": 4.56
+    },
+    {
+      "text": "intelligence was so incredibly high it",
+      "start": 437.919,
+      "duration": 4.801
+    },
+    {
+      "text": "didn't matter. That all of that is",
+      "start": 440.24,
+      "duration": 5.92
+    },
+    {
+      "text": "contra the DNA of Apple. Apple was built",
+      "start": 442.72,
+      "duration": 6.4
+    },
+    {
+      "text": "for a world where the the obvious value",
+      "start": 446.16,
+      "duration": 4.96
+    },
+    {
+      "text": "wasn't obvious. Where the value of",
+      "start": 449.12,
+      "duration": 4.0
+    },
+    {
+      "text": "computing was hard and they had to make",
+      "start": 451.12,
+      "duration": 4.88
+    },
+    {
+      "text": "it make it possible, make it visible.",
+      "start": 453.12,
+      "duration": 4.56
+    },
+    {
+      "text": "Not anymore.",
+      "start": 456.0,
+      "duration": 4.319
+    },
+    {
+      "text": "Not anymore. The value is right there.",
+      "start": 457.68,
+      "duration": 4.16
+    },
+    {
+      "text": "And Apple doesn't know what to do with",
+      "start": 460.319,
+      "duration": 3.521
+    },
+    {
+      "text": "that. And that is why we see the news",
+      "start": 461.84,
+      "duration": 3.919
+    },
+    {
+      "text": "that Apple is going back to the well.",
+      "start": 463.84,
+      "duration": 3.199
+    },
+    {
+      "text": "They're going back to Steve Jobs.",
+      "start": 465.759,
+      "duration": 3.361
+    },
+    {
+      "text": "They're going back to their DNA and they",
+      "start": 467.039,
+      "duration": 4.081
+    },
+    {
+      "text": "are building a device. That's what Apple",
+      "start": 469.12,
+      "duration": 3.44
+    },
+    {
+      "text": "does. They do hardware. They build",
+      "start": 471.12,
+      "duration": 2.88
+    },
+    {
+      "text": "devices. They're going to build a",
+      "start": 472.56,
+      "duration": 2.88
+    },
+    {
+      "text": "tabletop device, right? It's going to be",
+      "start": 474.0,
+      "duration": 4.96
+    },
+    {
+      "text": "an AI device in 2027.",
+      "start": 475.44,
+      "duration": 5.599
+    },
+    {
+      "text": "Do you know how fast AI is going? You've",
+      "start": 478.96,
+      "duration": 3.6
+    },
+    {
+      "text": "got to if you listen to this this",
+      "start": 481.039,
+      "duration": 3.361
+    },
+    {
+      "text": "podcast, right? Like like you you all",
+      "start": 482.56,
+      "duration": 4.639
+    },
+    {
+      "text": "know like it's incredibly fast. We may",
+      "start": 484.4,
+      "duration": 5.44
+    },
+    {
+      "text": "be at chat GPT7",
+      "start": 487.199,
+      "duration": 4.801
+    },
+    {
+      "text": "by the time this device comes out.",
+      "start": 489.84,
+      "duration": 4.479
+    },
+    {
+      "text": "OpenAI will have had time to work with",
+      "start": 492.0,
+      "duration": 4.319
+    },
+    {
+      "text": "Joonyi Iive and come out with their own",
+      "start": 494.319,
+      "duration": 4.081
+    },
+    {
+      "text": "hardware device. They will not be",
+      "start": 496.319,
+      "duration": 4.641
+    },
+    {
+      "text": "blocked by the same obsessive DNA. They",
+      "start": 498.4,
+      "duration": 5.199
+    },
+    {
+      "text": "will be able to release. And so what",
+      "start": 500.96,
+      "duration": 6.079
+    },
+    {
+      "text": "Apple is doing is cultivating",
+      "start": 503.599,
+      "duration": 6.561
+    },
+    {
+      "text": "an old habit and failing to recognize",
+      "start": 507.039,
+      "duration": 4.961
+    },
+    {
+      "text": "that the world has changed around them.",
+      "start": 510.16,
+      "duration": 4.319
+    },
+    {
+      "text": "They are having trouble attracting AI",
+      "start": 512.0,
+      "duration": 4.8
+    },
+    {
+      "text": "talent because the world has changed",
+      "start": 514.479,
+      "duration": 5.68
+    },
+    {
+      "text": "around them. The world is okay with",
+      "start": 516.8,
+      "duration": 5.52
+    },
+    {
+      "text": "messiness now because the utility is",
+      "start": 520.159,
+      "duration": 5.12
+    },
+    {
+      "text": "obvious. The world is okay with an open",
+      "start": 522.32,
+      "duration": 5.199
+    },
+    {
+      "text": "ecosystem with competitive AI models",
+      "start": 525.279,
+      "duration": 4.321
+    },
+    {
+      "text": "with using multiple models at once.",
+      "start": 527.519,
+      "duration": 3.681
+    },
+    {
+      "text": "Apple was built for a world where you",
+      "start": 529.6,
+      "duration": 2.88
+    },
+    {
+      "text": "picked your computer and you stuck with",
+      "start": 531.2,
+      "duration": 3.68
+    },
+    {
+      "text": "it. It was Windows versus Mac. I got to",
+      "start": 532.48,
+      "duration": 4.96
+    },
+    {
+      "text": "tell you, I use Open AI and I use Claude",
+      "start": 534.88,
+      "duration": 5.36
+    },
+    {
+      "text": "and I use Gemini and I will use Grock. I",
+      "start": 537.44,
+      "duration": 4.399
+    },
+    {
+      "text": "use a lot of different models. I'm not",
+      "start": 540.24,
+      "duration": 4.159
+    },
+    {
+      "text": "loyal to one. And you know, for a lot of",
+      "start": 541.839,
+      "duration": 4.481
+    },
+    {
+      "text": "people, chat GPT is the default. I don't",
+      "start": 544.399,
+      "duration": 3.761
+    },
+    {
+      "text": "want to gloss that over. But just",
+      "start": 546.32,
+      "duration": 3.519
+    },
+    {
+      "text": "because it's the default doesn't mean",
+      "start": 548.16,
+      "duration": 3.52
+    },
+    {
+      "text": "it's impossible to use other things and",
+      "start": 549.839,
+      "duration": 3.281
+    },
+    {
+      "text": "doesn't mean that a substantial portion",
+      "start": 551.68,
+      "duration": 3.279
+    },
+    {
+      "text": "of power users aren't using a bunch of",
+      "start": 553.12,
+      "duration": 3.44
+    },
+    {
+      "text": "different models. We live in a",
+      "start": 554.959,
+      "duration": 4.241
+    },
+    {
+      "text": "multimodel world. And in particular, the",
+      "start": 556.56,
+      "duration": 4.48
+    },
+    {
+      "text": "models are close to parody and it's",
+      "start": 559.2,
+      "duration": 3.68
+    },
+    {
+      "text": "become very obvious that the future is",
+      "start": 561.04,
+      "duration": 4.239
+    },
+    {
+      "text": "going to be multimodel. Apple's not",
+      "start": 562.88,
+      "duration": 5.76
+    },
+    {
+      "text": "built for a world where that technology",
+      "start": 565.279,
+      "duration": 6.081
+    },
+    {
+      "text": "is so ubiquitous and spreads. so easily",
+      "start": 568.64,
+      "duration": 4.48
+    },
+    {
+      "text": "that we can have phenomenal open- source",
+      "start": 571.36,
+      "duration": 3.599
+    },
+    {
+      "text": "models and there just is no point in",
+      "start": 573.12,
+      "duration": 4.159
+    },
+    {
+      "text": "having a walled garden LLM. It just it",
+      "start": 574.959,
+      "duration": 3.841
+    },
+    {
+      "text": "doesn't work well. It's not going to",
+      "start": 577.279,
+      "duration": 3.841
+    },
+    {
+      "text": "sustain, especially given Apple's",
+      "start": 578.8,
+      "duration": 4.0
+    },
+    {
+      "text": "obsession with polish and release",
+      "start": 581.12,
+      "duration": 5.12
+    },
+    {
+      "text": "cadence. Siri is still terrible and",
+      "start": 582.8,
+      "duration": 5.52
+    },
+    {
+      "text": "Apple's on this very long time horizon",
+      "start": 586.24,
+      "duration": 4.64
+    },
+    {
+      "text": "to make Siri better. And it won't matter",
+      "start": 588.32,
+      "duration": 4.32
+    },
+    {
+      "text": "because everyone is transitioning to",
+      "start": 590.88,
+      "duration": 4.32
+    },
+    {
+      "text": "talking with chat GPT in the meantime.",
+      "start": 592.64,
+      "duration": 4.879
+    },
+    {
+      "text": "The voice experience is moving on",
+      "start": 595.2,
+      "duration": 5.04
+    },
+    {
+      "text": "without Apple. And Apple just cannot get",
+      "start": 597.519,
+      "duration": 5.921
+    },
+    {
+      "text": "past the obsession with perfection that",
+      "start": 600.24,
+      "duration": 5.599
+    },
+    {
+      "text": "worked in the age of computing. That is",
+      "start": 603.44,
+      "duration": 6.48
+    },
+    {
+      "text": "the core insight that Tim needs to shift",
+      "start": 605.839,
+      "duration": 6.321
+    },
+    {
+      "text": "to move Apple forward. And I care. I",
+      "start": 609.92,
+      "duration": 4.159
+    },
+    {
+      "text": "like Apple. Look, I'm recording this on",
+      "start": 612.16,
+      "duration": 4.16
+    },
+    {
+      "text": "a Mac. I have an iPhone. I think that",
+      "start": 614.079,
+      "duration": 4.961
+    },
+    {
+      "text": "Apple's simplification vision has been",
+      "start": 616.32,
+      "duration": 5.6
+    },
+    {
+      "text": "powerful for computing. And frankly, a",
+      "start": 619.04,
+      "duration": 4.32
+    },
+    {
+      "text": "lot of the development work that is",
+      "start": 621.92,
+      "duration": 2.96
+    },
+    {
+      "text": "building the age of AI is happening",
+      "start": 623.36,
+      "duration": 3.2
+    },
+    {
+      "text": "through engineers who prefer to work on",
+      "start": 624.88,
+      "duration": 4.56
+    },
+    {
+      "text": "Mac. Mac still has a place in the hearts",
+      "start": 626.56,
+      "duration": 5.2
+    },
+    {
+      "text": "of many people working on the AI",
+      "start": 629.44,
+      "duration": 4.639
+    },
+    {
+      "text": "revolution. But because of this",
+      "start": 631.76,
+      "duration": 5.92
+    },
+    {
+      "text": "perfection with polish and perfection,",
+      "start": 634.079,
+      "duration": 5.361
+    },
+    {
+      "text": "because of this obsession with getting",
+      "start": 637.68,
+      "duration": 4.48
+    },
+    {
+      "text": "it right, we have a situation where",
+      "start": 639.44,
+      "duration": 4.56
+    },
+    {
+      "text": "Apple is at risk of becoming the",
+      "start": 642.16,
+      "duration": 5.04
+    },
+    {
+      "text": "wallpaper. Apple is at risk of becoming",
+      "start": 644.0,
+      "duration": 6.48
+    },
+    {
+      "text": "IBM, Windows, the very thing Steve Jobs",
+      "start": 647.2,
+      "duration": 5.68
+    },
+    {
+      "text": "didn't want to see happen to his",
+      "start": 650.48,
+      "duration": 5.12
+    },
+    {
+      "text": "company. Apple is going to become",
+      "start": 652.88,
+      "duration": 4.32
+    },
+    {
+      "text": "irrelevant. Not necessarily",
+      "start": 655.6,
+      "duration": 4.64
+    },
+    {
+      "text": "unprofitable, not necessarily tiny, but",
+      "start": 657.2,
+      "duration": 4.72
+    },
+    {
+      "text": "largely irrelevant from a value",
+      "start": 660.24,
+      "duration": 4.56
+    },
+    {
+      "text": "perspective because value is moving from",
+      "start": 661.92,
+      "duration": 5.2
+    },
+    {
+      "text": "do you have an incredible computer that",
+      "start": 664.8,
+      "duration": 4.96
+    },
+    {
+      "text": "helps you do things to do you have the",
+      "start": 667.12,
+      "duration": 4.48
+    },
+    {
+      "text": "intelligence at your fingertips to get",
+      "start": 669.76,
+      "duration": 3.44
+    },
+    {
+      "text": "where you want to go? And for some",
+      "start": 671.6,
+      "duration": 3.12
+    },
+    {
+      "text": "people that's the recipes and for some",
+      "start": 673.2,
+      "duration": 3.199
+    },
+    {
+      "text": "people that's building code. And you'll",
+      "start": 674.72,
+      "duration": 3.44
+    },
+    {
+      "text": "come up with your own uses. And there",
+      "start": 676.399,
+      "duration": 3.841
+    },
+    {
+      "text": "will be a whole portfolio of trillion",
+      "start": 678.16,
+      "duration": 4.16
+    },
+    {
+      "text": "dollar companies built off of that idea.",
+      "start": 680.24,
+      "duration": 4.48
+    },
+    {
+      "text": "But Apple is not setting itself up to be",
+      "start": 682.32,
+      "duration": 3.92
+    },
+    {
+      "text": "one of those trillion dollar AI",
+      "start": 684.72,
+      "duration": 3.359
+    },
+    {
+      "text": "companies. They're setting themselves up",
+      "start": 686.24,
+      "duration": 3.52
+    },
+    {
+      "text": "to be the wallpaper in the AI",
+      "start": 688.079,
+      "duration": 3.841
+    },
+    {
+      "text": "revolution. And the more their plans",
+      "start": 689.76,
+      "duration": 4.56
+    },
+    {
+      "text": "leak, the more it reinforces that they",
+      "start": 691.92,
+      "duration": 4.88
+    },
+    {
+      "text": "have not made the cultural change that",
+      "start": 694.32,
+      "duration": 5.36
+    },
+    {
+      "text": "they need to. Apple intelligence remains",
+      "start": 696.8,
+      "duration": 6.159
+    },
+    {
+      "text": "in limited beta. They just they they",
+      "start": 699.68,
+      "duration": 6.08
+    },
+    {
+      "text": "cannot get past the polish piece and",
+      "start": 702.959,
+      "duration": 5.041
+    },
+    {
+      "text": "they're not going to because large",
+      "start": 705.76,
+      "duration": 4.48
+    },
+    {
+      "text": "language models are imperfect and the",
+      "start": 708.0,
+      "duration": 4.16
+    },
+    {
+      "text": "labs recognize that and they're public",
+      "start": 710.24,
+      "duration": 3.44
+    },
+    {
+      "text": "about how they're fixing it and public",
+      "start": 712.16,
+      "duration": 2.96
+    },
+    {
+      "text": "about how they're addressing it and they",
+      "start": 713.68,
+      "duration": 3.44
+    },
+    {
+      "text": "release quickly and they iterate. That",
+      "start": 715.12,
+      "duration": 4.159
+    },
+    {
+      "text": "is the future in the age of intelligence",
+      "start": 717.12,
+      "duration": 5.12
+    },
+    {
+      "text": "and Apple is just constitutionally",
+      "start": 719.279,
+      "duration": 6.0
+    },
+    {
+      "text": "unable to adjust to that. I hope it",
+      "start": 722.24,
+      "duration": 5.36
+    },
+    {
+      "text": "changes. I have seen cultural change at",
+      "start": 725.279,
+      "duration": 4.961
+    },
+    {
+      "text": "companies, but a culture change this big",
+      "start": 727.6,
+      "duration": 5.2
+    },
+    {
+      "text": "at a company this influential, we have",
+      "start": 730.24,
+      "duration": 5.52
+    },
+    {
+      "text": "not seen that. If Apple really changes",
+      "start": 732.8,
+      "duration": 6.08
+    },
+    {
+      "text": "and embraces an AI first mindset, that's",
+      "start": 735.76,
+      "duration": 5.36
+    },
+    {
+      "text": "a big deal. That's a really, really big",
+      "start": 738.88,
+      "duration": 4.48
+    },
+    {
+      "text": "deal. So, this is my love letter to",
+      "start": 741.12,
+      "duration": 4.0
+    },
+    {
+      "text": "Apple. This is my appeal to the",
+      "start": 743.36,
+      "duration": 4.0
+    },
+    {
+      "text": "priesthood of computing. Please",
+      "start": 745.12,
+      "duration": 4.88
+    },
+    {
+      "text": "recognize that the world has changed.",
+      "start": 747.36,
+      "duration": 5.2
+    },
+    {
+      "text": "recognize that the the obsession with",
+      "start": 750.0,
+      "duration": 4.48
+    },
+    {
+      "text": "detail, the obsession with perfection,",
+      "start": 752.56,
+      "duration": 3.839
+    },
+    {
+      "text": "the quality of computing and simple",
+      "start": 754.48,
+      "duration": 3.76
+    },
+    {
+      "text": "solutions, the things that got you",
+      "start": 756.399,
+      "duration": 4.721
+    },
+    {
+      "text": "adoption and love for the Mac and for",
+      "start": 758.24,
+      "duration": 5.36
+    },
+    {
+      "text": "the iPhone, those are not things that",
+      "start": 761.12,
+      "duration": 5.279
+    },
+    {
+      "text": "work in the same way. Now, we have a",
+      "start": 763.6,
+      "duration": 4.96
+    },
+    {
+      "text": "technology that everyone is adopting",
+      "start": 766.399,
+      "duration": 4.721
+    },
+    {
+      "text": "even though it's messy. You will not win",
+      "start": 768.56,
+      "duration": 4.959
+    },
+    {
+      "text": "by waiting years to polish it. You have",
+      "start": 771.12,
+      "duration": 5.04
+    },
+    {
+      "text": "got to ship. You've got to ship. And I",
+      "start": 773.519,
+      "duration": 5.281
+    },
+    {
+      "text": "know that's not the same way Steve Jobs",
+      "start": 776.16,
+      "duration": 4.32
+    },
+    {
+      "text": "taught the company, but you've got to",
+      "start": 778.8,
+      "duration": 3.44
+    },
+    {
+      "text": "ship. Otherwise, you're you're going to",
+      "start": 780.48,
+      "duration": 3.84
+    },
+    {
+      "text": "risk leaving yourself behind the most",
+      "start": 782.24,
+      "duration": 3.76
+    },
+    {
+      "text": "important revolution we've seen in our",
+      "start": 784.32,
+      "duration": 3.12
+    },
+    {
+      "text": "lifetimes. Otherwise, you're going to",
+      "start": 786.0,
+      "duration": 3.36
+    },
+    {
+      "text": "miss the biggest general purpose",
+      "start": 787.44,
+      "duration": 3.92
+    },
+    {
+      "text": "technology wave that we're going to see.",
+      "start": 789.36,
+      "duration": 3.279
+    },
+    {
+      "text": "And that's what Apple's looking like",
+      "start": 791.36,
+      "duration": 2.719
+    },
+    {
+      "text": "they're doing right now. I hope it",
+      "start": 792.639,
+      "duration": 3.2
+    },
+    {
+      "text": "changes, but everything I see out of",
+      "start": 794.079,
+      "duration": 3.44
+    },
+    {
+      "text": "Apple suggests that it's not. And that's",
+      "start": 795.839,
+      "duration": 3.841
+    },
+    {
+      "text": "why it's it's built into the DNA. Well,",
+      "start": 797.519,
+      "duration": 4.0
+    },
+    {
+      "text": "best of luck. I'll keep using my iPhone",
+      "start": 799.68,
+      "duration": 4.159
+    },
+    {
+      "text": "in the meantime.",
+      "start": 801.519,
+      "duration": 2.32
+    }
+  ]
 }

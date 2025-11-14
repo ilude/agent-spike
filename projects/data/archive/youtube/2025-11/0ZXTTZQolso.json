@@ -29,5 +29,902 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "the story of the year is Google and",
+      "start": 0.08,
+      "duration": 4.759
+    },
+    {
+      "text": "their AI catchup everything else is",
+      "start": 2.24,
+      "duration": 3.679
+    },
+    {
+      "text": "second",
+      "start": 4.839,
+      "duration": 3.68
+    },
+    {
+      "text": "place Google started the year as it has",
+      "start": 5.919,
+      "duration": 6.68
+    },
+    {
+      "text": "been in 2024 I did not spend much time",
+      "start": 8.519,
+      "duration": 6.2
+    },
+    {
+      "text": "talking about what Google was doing",
+      "start": 12.599,
+      "duration": 4.76
+    },
+    {
+      "text": "because Google was not doing very much",
+      "start": 14.719,
+      "duration": 5.48
+    },
+    {
+      "text": "open AI was the story openi was",
+      "start": 17.359,
+      "duration": 4.801
+    },
+    {
+      "text": "launching stuff anthropic was launching",
+      "start": 20.199,
+      "duration": 5.0
+    },
+    {
+      "text": "stuff AWS was launching stuff at",
+      "start": 22.16,
+      "duration": 6.24
+    },
+    {
+      "text": "reinvent and now Google has come and",
+      "start": 25.199,
+      "duration": 4.84
+    },
+    {
+      "text": "trumped all of that in a matter of a",
+      "start": 28.4,
+      "duration": 4.76
+    },
+    {
+      "text": "couple weeks and I just blown away this",
+      "start": 30.039,
+      "duration": 5.481
+    },
+    {
+      "text": "was supposed to be open ai's 12 days of",
+      "start": 33.16,
+      "duration": 5.12
+    },
+    {
+      "text": "open AI they wanted to take Center Stage",
+      "start": 35.52,
+      "duration": 6.08
+    },
+    {
+      "text": "here they so far have really failed even",
+      "start": 38.28,
+      "duration": 4.92
+    },
+    {
+      "text": "though they dropped 01 which is an",
+      "start": 41.6,
+      "duration": 5.799
+    },
+    {
+      "text": "incredibly powerful reasoning agent well",
+      "start": 43.2,
+      "duration": 5.92
+    },
+    {
+      "text": "not quite an agent right it's an",
+      "start": 47.399,
+      "duration": 4.521
+    },
+    {
+      "text": "incredibly powerful reasoning llm and it",
+      "start": 49.12,
+      "duration": 4.279
+    },
+    {
+      "text": "will probably be an agent as soon as",
+      "start": 51.92,
+      "duration": 2.68
+    },
+    {
+      "text": "they integrate it into an agent",
+      "start": 53.399,
+      "duration": 4.68
+    },
+    {
+      "text": "framework in January but for now they're",
+      "start": 54.6,
+      "duration": 5.479
+    },
+    {
+      "text": "not the center of attention I want to go",
+      "start": 58.079,
+      "duration": 5.16
+    },
+    {
+      "text": "through nine releases that Google has",
+      "start": 60.079,
+      "duration": 6.161
+    },
+    {
+      "text": "launched in just the last few days",
+      "start": 63.239,
+      "duration": 6.001
+    },
+    {
+      "text": "because I want you to remember how much",
+      "start": 66.24,
+      "duration": 5.199
+    },
+    {
+      "text": "Google is shipping to change the",
+      "start": 69.24,
+      "duration": 4.879
+    },
+    {
+      "text": "narrative that Google needs to catch up",
+      "start": 71.439,
+      "duration": 4.601
+    },
+    {
+      "text": "number one Google shipped a new language",
+      "start": 74.119,
+      "duration": 4.36
+    },
+    {
+      "text": "model Gemini 2.0 it's absolutely",
+      "start": 76.04,
+      "duration": 3.92
+    },
+    {
+      "text": "incredible it is a state-of-the-art",
+      "start": 78.479,
+      "duration": 3.921
+    },
+    {
+      "text": "language model it's incredibly fast it",
+      "start": 79.96,
+      "duration": 6.28
+    },
+    {
+      "text": "is so fast they are having to ask the",
+      "start": 82.4,
+      "duration": 6.64
+    },
+    {
+      "text": "flash model to slow down people are",
+      "start": 86.24,
+      "duration": 4.839
+    },
+    {
+      "text": "writing into Google saying this whole",
+      "start": 89.04,
+      "duration": 3.84
+    },
+    {
+      "text": "idea of streaming text is breaking",
+      "start": 91.079,
+      "duration": 5.161
+    },
+    {
+      "text": "because Google Gemini 2.0 flash is too",
+      "start": 92.88,
+      "duration": 5.36
+    },
+    {
+      "text": "fast it's too",
+      "start": 96.24,
+      "duration": 4.44
+    },
+    {
+      "text": "fast imagine asking your product to slow",
+      "start": 98.24,
+      "duration": 4.879
+    },
+    {
+      "text": "down I've never had that happen they",
+      "start": 100.68,
+      "duration": 4.36
+    },
+    {
+      "text": "launched Willow a Quantum ship that",
+      "start": 103.119,
+      "duration": 4.241
+    },
+    {
+      "text": "shows error reduction as you add cubits",
+      "start": 105.04,
+      "duration": 4.679
+    },
+    {
+      "text": "which is an absolutely massive",
+      "start": 107.36,
+      "duration": 5.359
+    },
+    {
+      "text": "development they launched video FX that",
+      "start": 109.719,
+      "duration": 7.76
+    },
+    {
+      "text": "was just yesterday video FX is hands",
+      "start": 112.719,
+      "duration": 7.68
+    },
+    {
+      "text": "down better than Sora right now",
+      "start": 117.479,
+      "duration": 4.64
+    },
+    {
+      "text": "and people are being shy about that but",
+      "start": 120.399,
+      "duration": 4.481
+    },
+    {
+      "text": "I won't be because I have seen the video",
+      "start": 122.119,
+      "duration": 4.96
+    },
+    {
+      "text": "comparison if you pick the correct",
+      "start": 124.88,
+      "duration": 4.519
+    },
+    {
+      "text": "prompt a prompt that requires multiple",
+      "start": 127.079,
+      "duration": 4.601
+    },
+    {
+      "text": "parts of the video to work in parallel",
+      "start": 129.399,
+      "duration": 6.081
+    },
+    {
+      "text": "like a real world model does it is clear",
+      "start": 131.68,
+      "duration": 5.4
+    },
+    {
+      "text": "which one actually understands the real",
+      "start": 135.48,
+      "duration": 4.0
+    },
+    {
+      "text": "world and can produce good video better",
+      "start": 137.08,
+      "duration": 5.12
+    },
+    {
+      "text": "and it's video FX they also call the",
+      "start": 139.48,
+      "duration": 5.24
+    },
+    {
+      "text": "model itself V2 ve2 so if you see that",
+      "start": 142.2,
+      "duration": 4.44
+    },
+    {
+      "text": "floating around it's the same model",
+      "start": 144.72,
+      "duration": 5.36
+    },
+    {
+      "text": "here's an example prompt that I saw",
+      "start": 146.64,
+      "duration": 6.28
+    },
+    {
+      "text": "a chef cutting a piece of steak with",
+      "start": 150.08,
+      "duration": 5.159
+    },
+    {
+      "text": "steam rising from the piece of steak",
+      "start": 152.92,
+      "duration": 4.84
+    },
+    {
+      "text": "sounds simple easy to describe but if",
+      "start": 155.239,
+      "duration": 5.201
+    },
+    {
+      "text": "you have to visualize that with a video",
+      "start": 157.76,
+      "duration": 4.04
+    },
+    {
+      "text": "you have to have the knife moving",
+      "start": 160.44,
+      "duration": 2.879
+    },
+    {
+      "text": "correctly through the meat the texture",
+      "start": 161.8,
+      "duration": 3.04
+    },
+    {
+      "text": "needs to feel right so the knife is",
+      "start": 163.319,
+      "duration": 4.0
+    },
+    {
+      "text": "cutting appropriately not too easily you",
+      "start": 164.84,
+      "duration": 4.52
+    },
+    {
+      "text": "have to have the piece of meat moving",
+      "start": 167.319,
+      "duration": 4.28
+    },
+    {
+      "text": "just jiggling slightly in the right way",
+      "start": 169.36,
+      "duration": 4.36
+    },
+    {
+      "text": "in parallel with the knife as you saw at",
+      "start": 171.599,
+      "duration": 4.28
+    },
+    {
+      "text": "it you have to have the steam rising",
+      "start": 173.72,
+      "duration": 4.48
+    },
+    {
+      "text": "from the right parts of the meat clearly",
+      "start": 175.879,
+      "duration": 3.561
+    },
+    {
+      "text": "you have to have the hand working",
+      "start": 178.2,
+      "duration": 4.72
+    },
+    {
+      "text": "correctly with the knife there's a lot",
+      "start": 179.44,
+      "duration": 8.6
+    },
+    {
+      "text": "the only one I saw that worked was video",
+      "start": 182.92,
+      "duration": 7.8
+    },
+    {
+      "text": "FX and look that was just release number",
+      "start": 188.04,
+      "duration": 6.72
+    },
+    {
+      "text": "three there's nine of these image FX",
+      "start": 190.72,
+      "duration": 5.439
+    },
+    {
+      "text": "it's a mid Journey killer it's a mid",
+      "start": 194.76,
+      "duration": 2.759
+    },
+    {
+      "text": "Journey killer and you know it is",
+      "start": 196.159,
+      "duration": 2.761
+    },
+    {
+      "text": "because mid Journey's founder went on",
+      "start": 197.519,
+      "duration": 3.481
+    },
+    {
+      "text": "Twitter and got very depressed and",
+      "start": 198.92,
+      "duration": 3.56
+    },
+    {
+      "text": "defensive about how he thinks he's",
+      "start": 201.0,
+      "duration": 3.519
+    },
+    {
+      "text": "running a great company which by the way",
+      "start": 202.48,
+      "duration": 4.2
+    },
+    {
+      "text": "I love Med journey I still use M journey",
+      "start": 204.519,
+      "duration": 3.881
+    },
+    {
+      "text": "I do think it's a great product so",
+      "start": 206.68,
+      "duration": 4.479
+    },
+    {
+      "text": "nothing against M Journey but for casual",
+      "start": 208.4,
+      "duration": 4.68
+    },
+    {
+      "text": "users who want to generate",
+      "start": 211.159,
+      "duration": 5.521
+    },
+    {
+      "text": "images the tools that Google is",
+      "start": 213.08,
+      "duration": 6.32
+    },
+    {
+      "text": "launching are just not even close like",
+      "start": 216.68,
+      "duration": 3.88
+    },
+    {
+      "text": "they're so much easier you don't have to",
+      "start": 219.4,
+      "duration": 3.16
+    },
+    {
+      "text": "go to a Discord with image FX you just",
+      "start": 220.56,
+      "duration": 4.759
+    },
+    {
+      "text": "go to Google labs and you start playing",
+      "start": 222.56,
+      "duration": 4.56
+    },
+    {
+      "text": "around and you type and you see images",
+      "start": 225.319,
+      "duration": 3.241
+    },
+    {
+      "text": "it's what it should",
+      "start": 227.12,
+      "duration": 3.92
+    },
+    {
+      "text": "be and I'm not even getting to whisk",
+      "start": 228.56,
+      "duration": 4.399
+    },
+    {
+      "text": "whisk wasn't on my list of nine whisk is",
+      "start": 231.04,
+      "duration": 4.119
+    },
+    {
+      "text": "a cute little play toy for kids where",
+      "start": 232.959,
+      "duration": 3.721
+    },
+    {
+      "text": "you upload a couple of photos and you",
+      "start": 235.159,
+      "duration": 2.72
+    },
+    {
+      "text": "put them together and you can make like",
+      "start": 236.68,
+      "duration": 2.839
+    },
+    {
+      "text": "a sticker looking thing right like they",
+      "start": 237.879,
+      "duration": 3.321
+    },
+    {
+      "text": "just threw that out there like hey we've",
+      "start": 239.519,
+      "duration": 3.041
+    },
+    {
+      "text": "also got",
+      "start": 241.2,
+      "duration": 3.44
+    },
+    {
+      "text": "this music",
+      "start": 242.56,
+      "duration": 4.72
+    },
+    {
+      "text": "FX there's also a DJ product that they",
+      "start": 244.64,
+      "duration": 4.2
+    },
+    {
+      "text": "dropped I haven't even had time to play",
+      "start": 247.28,
+      "duration": 3.44
+    },
+    {
+      "text": "with it it's like what I do to play with",
+      "start": 248.84,
+      "duration": 3.44
+    },
+    {
+      "text": "AI stuff and Google's launching so much",
+      "start": 250.72,
+      "duration": 3.96
+    },
+    {
+      "text": "I don't even have time for it deep",
+      "start": 252.28,
+      "duration": 4.56
+    },
+    {
+      "text": "research absolutely incredible I do wish",
+      "start": 254.68,
+      "duration": 3.6
+    },
+    {
+      "text": "they would increase the token limit on",
+      "start": 256.84,
+      "duration": 4.679
+    },
+    {
+      "text": "this it will survey so many different",
+      "start": 258.28,
+      "duration": 5.0
+    },
+    {
+      "text": "sites in a short period of time it it",
+      "start": 261.519,
+      "duration": 5.081
+    },
+    {
+      "text": "literally Cuts research Time by tens of",
+      "start": 263.28,
+      "duration": 5.4
+    },
+    {
+      "text": "hours it's like a 10x saver on Research",
+      "start": 266.6,
+      "duration": 3.64
+    },
+    {
+      "text": "it's accurate citation is going to",
+      "start": 268.68,
+      "duration": 3.519
+    },
+    {
+      "text": "transform Academia in",
+      "start": 270.24,
+      "duration": 4.76
+    },
+    {
+      "text": "2025 and the only thing stopping it from",
+      "start": 272.199,
+      "duration": 4.241
+    },
+    {
+      "text": "being a complete Banger is that it",
+      "start": 275.0,
+      "duration": 3.68
+    },
+    {
+      "text": "limits you to about five pages of output",
+      "start": 276.44,
+      "duration": 4.36
+    },
+    {
+      "text": "I think they're going to fix that it's",
+      "start": 278.68,
+      "duration": 3.2
+    },
+    {
+      "text": "it's",
+      "start": 280.8,
+      "duration": 3.16
+    },
+    {
+      "text": "amazing that was the feature that made",
+      "start": 281.88,
+      "duration": 4.84
+    },
+    {
+      "text": "me sign right back up for a paid Gemini",
+      "start": 283.96,
+      "duration": 5.32
+    },
+    {
+      "text": "subscription I needed the Deep research",
+      "start": 286.72,
+      "duration": 4.96
+    },
+    {
+      "text": "notebook LM plus so they launched",
+      "start": 289.28,
+      "duration": 4.08
+    },
+    {
+      "text": "notebook LM now they're refining it new",
+      "start": 291.68,
+      "duration": 3.92
+    },
+    {
+      "text": "interface chance to talk with the host",
+      "start": 293.36,
+      "duration": 3.6
+    },
+    {
+      "text": "notebook LM",
+      "start": 295.6,
+      "duration": 3.599
+    },
+    {
+      "text": "plus they're they're not just shipping",
+      "start": 296.96,
+      "duration": 3.56
+    },
+    {
+      "text": "and forgetting anymore they're actually",
+      "start": 299.199,
+      "duration": 3.121
+    },
+    {
+      "text": "shipping",
+      "start": 300.52,
+      "duration": 3.48
+    },
+    {
+      "text": "improvements",
+      "start": 302.32,
+      "duration": 5.48
+    },
+    {
+      "text": "Astra so Astra is a situationally aware",
+      "start": 304.0,
+      "duration": 6.4
+    },
+    {
+      "text": "AI agent where you can go in and say Hey",
+      "start": 307.8,
+      "duration": 3.8
+    },
+    {
+      "text": "you talk to your phone you talk to your",
+      "start": 310.4,
+      "duration": 4.0
+    },
+    {
+      "text": "Google pixel and say hey uh what are",
+      "start": 311.6,
+      "duration": 4.08
+    },
+    {
+      "text": "what are the lanterns hanging on the",
+      "start": 314.4,
+      "duration": 4.239
+    },
+    {
+      "text": "temple up there and as will answer or",
+      "start": 315.68,
+      "duration": 5.72
+    },
+    {
+      "text": "hey what does this sign say in Japanese",
+      "start": 318.639,
+      "duration": 5.241
+    },
+    {
+      "text": "uh I'm going to the train station and it",
+      "start": 321.4,
+      "duration": 3.639
+    },
+    {
+      "text": "will tell you if it's going to the train",
+      "start": 323.88,
+      "duration": 2.84
+    },
+    {
+      "text": "station or not that's what Astra is for",
+      "start": 325.039,
+      "duration": 3.081
+    },
+    {
+      "text": "it's that sort of situationally aware",
+      "start": 326.72,
+      "duration": 2.599
+    },
+    {
+      "text": "look through the camera tell you what's",
+      "start": 328.12,
+      "duration": 2.76
+    },
+    {
+      "text": "going on",
+      "start": 329.319,
+      "duration": 5.0
+    },
+    {
+      "text": "by the way Gemini is using Astra I think",
+      "start": 330.88,
+      "duration": 5.36
+    },
+    {
+      "text": "with the uh live streaming feature where",
+      "start": 334.319,
+      "duration": 3.561
+    },
+    {
+      "text": "it live streams off your laptop or off",
+      "start": 336.24,
+      "duration": 2.76
+    },
+    {
+      "text": "your phone and you can actually see",
+      "start": 337.88,
+      "duration": 3.12
+    },
+    {
+      "text": "what's going on and talk to Gemini very",
+      "start": 339.0,
+      "duration": 4.16
+    },
+    {
+      "text": "similar thing so it launched Astra",
+      "start": 341.0,
+      "duration": 3.6
+    },
+    {
+      "text": "that's for consumers and then it also",
+      "start": 343.16,
+      "duration": 3.56
+    },
+    {
+      "text": "launched Mariner which is agentic",
+      "start": 344.6,
+      "duration": 4.039
+    },
+    {
+      "text": "browsing like book my tickets when I",
+      "start": 346.72,
+      "duration": 3.479
+    },
+    {
+      "text": "take my next",
+      "start": 348.639,
+      "duration": 5.041
+    },
+    {
+      "text": "trip all of that in the space of just a",
+      "start": 350.199,
+      "duration": 6.961
+    },
+    {
+      "text": "few days Google is back and I think that",
+      "start": 353.68,
+      "duration": 4.519
+    },
+    {
+      "text": "one of the things that's going to be a",
+      "start": 357.16,
+      "duration": 3.92
+    },
+    {
+      "text": "major storyline in 202",
+      "start": 358.199,
+      "duration": 6.521
+    },
+    {
+      "text": "is with Google's momentum where it is",
+      "start": 361.08,
+      "duration": 5.239
+    },
+    {
+      "text": "are the capital reserves that Google",
+      "start": 364.72,
+      "duration": 3.36
+    },
+    {
+      "text": "brings to the table enough to enable it",
+      "start": 366.319,
+      "duration": 3.961
+    },
+    {
+      "text": "to win the market in 2025 in a way that",
+      "start": 368.08,
+      "duration": 5.16
+    },
+    {
+      "text": "open AI has been unable to do they",
+      "start": 370.28,
+      "duration": 4.84
+    },
+    {
+      "text": "haven't raised the funds for their GPT 6",
+      "start": 373.24,
+      "duration": 3.359
+    },
+    {
+      "text": "training run they are rumored to be",
+      "start": 375.12,
+      "duration": 4.0
+    },
+    {
+      "text": "having trouble doing that if they run",
+      "start": 376.599,
+      "duration": 4.081
+    },
+    {
+      "text": "into funding",
+      "start": 379.12,
+      "duration": 4.56
+    },
+    {
+      "text": "issues that could have ramifications for",
+      "start": 380.68,
+      "duration": 4.639
+    },
+    {
+      "text": "Microsoft's whole position in the AI",
+      "start": 383.68,
+      "duration": 3.28
+    },
+    {
+      "text": "space it's really really interesting it",
+      "start": 385.319,
+      "duration": 3.081
+    },
+    {
+      "text": "doesn't mean Microsoft is done by any",
+      "start": 386.96,
+      "duration": 3.4
+    },
+    {
+      "text": "means don't count them out",
+      "start": 388.4,
+      "duration": 4.56
+    },
+    {
+      "text": "but Google is shipping in a way that",
+      "start": 390.36,
+      "duration": 4.36
+    },
+    {
+      "text": "none of the other major players",
+      "start": 392.96,
+      "duration": 4.92
+    },
+    {
+      "text": "are so congrats whoever whoever's",
+      "start": 394.72,
+      "duration": 5.68
+    },
+    {
+      "text": "shipping at Google well done very",
+      "start": 397.88,
+      "duration": 4.64
+    },
+    {
+      "text": "excited love the quality um and I'm",
+      "start": 400.4,
+      "duration": 5.72
+    },
+    {
+      "text": "excited to see what's ahead cheers",
+      "start": 402.52,
+      "duration": 3.6
+    }
+  ]
 }

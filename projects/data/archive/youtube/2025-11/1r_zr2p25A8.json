@@ -29,5 +29,142 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "Now we actually have failures that are",
+      "start": 0.16,
+      "duration": 4.8
+    },
+    {
+      "text": "harder to detect. AI can fail by",
+      "start": 2.56,
+      "duration": 4.799
+    },
+    {
+      "text": "hallucinating. AI can fail by drifting.",
+      "start": 4.96,
+      "duration": 4.88
+    },
+    {
+      "text": "It can still be functional but be",
+      "start": 7.359,
+      "duration": 4.881
+    },
+    {
+      "text": "completely wrong. This is not a failure",
+      "start": 9.84,
+      "duration": 4.879
+    },
+    {
+      "text": "mode we're used to. We need intelligent",
+      "start": 12.24,
+      "duration": 4.72
+    },
+    {
+      "text": "failure detection. We need the ability",
+      "start": 14.719,
+      "duration": 4.961
+    },
+    {
+      "text": "to monitor reasoning quality, not just",
+      "start": 16.96,
+      "duration": 4.96
+    },
+    {
+      "text": "system health. And how you measure that",
+      "start": 19.68,
+      "duration": 3.839
+    },
+    {
+      "text": "is going to depend on the kind of",
+      "start": 21.92,
+      "duration": 3.439
+    },
+    {
+      "text": "inference you want to build into your",
+      "start": 23.519,
+      "duration": 4.0
+    },
+    {
+      "text": "agentic system. But you got to measure",
+      "start": 25.359,
+      "duration": 5.201
+    },
+    {
+      "text": "it. You've got to be able to detect",
+      "start": 27.519,
+      "duration": 5.601
+    },
+    {
+      "text": "failures that occur that are not just",
+      "start": 30.56,
+      "duration": 4.64
+    },
+    {
+      "text": "catastrophic program didn't launch",
+      "start": 33.12,
+      "duration": 4.4
+    },
+    {
+      "text": "failures. And you have to build your",
+      "start": 35.2,
+      "duration": 4.879
+    },
+    {
+      "text": "system not from the perspective of what",
+      "start": 37.52,
+      "duration": 4.16
+    },
+    {
+      "text": "would happen if the whole thing went",
+      "start": 40.079,
+      "duration": 3.921
+    },
+    {
+      "text": "down, but from the perspective of how",
+      "start": 41.68,
+      "duration": 4.64
+    },
+    {
+      "text": "can the system work well if it's",
+      "start": 44.0,
+      "duration": 4.96
+    },
+    {
+      "text": "difficult to detect a degradation in",
+      "start": 46.32,
+      "duration": 5.44
+    },
+    {
+      "text": "reasoning quality. You need to assume",
+      "start": 48.96,
+      "duration": 6.72
+    },
+    {
+      "text": "that you are moving from a fail fast",
+      "start": 51.76,
+      "duration": 6.799
+    },
+    {
+      "text": "world to a subtle failure world where",
+      "start": 55.68,
+      "duration": 4.879
+    },
+    {
+      "text": "the failure is going to be hard to",
+      "start": 58.559,
+      "duration": 4.241
+    },
+    {
+      "text": "detect. And so you need to think a lot",
+      "start": 60.559,
+      "duration": 6.081
+    },
+    {
+      "text": "about how you monitor quality in that",
+      "start": 62.8,
+      "duration": 3.84
+    }
+  ]
 }

@@ -29,5 +29,117 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "in is simultaneously one of the best,",
+      "start": 0.24,
+      "duration": 4.72
+    },
+    {
+      "text": "most accessible, and most dangerous",
+      "start": 2.639,
+      "duration": 4.16
+    },
+    {
+      "text": "tools I have seen for building AI",
+      "start": 4.96,
+      "duration": 3.92
+    },
+    {
+      "text": "agents. It's accessible in the sense",
+      "start": 6.799,
+      "duration": 3.441
+    },
+    {
+      "text": "that you can just start right now. You",
+      "start": 8.88,
+      "duration": 2.639
+    },
+    {
+      "text": "don't even have to listen to this video.",
+      "start": 10.24,
+      "duration": 3.04
+    },
+    {
+      "text": "It's dangerous in the sense that I see",
+      "start": 11.519,
+      "duration": 3.761
+    },
+    {
+      "text": "time after time after time in real world",
+      "start": 13.28,
+      "duration": 3.68
+    },
+    {
+      "text": "situations where I talk with people",
+      "start": 15.28,
+      "duration": 3.68
+    },
+    {
+      "text": "passionate about agents that NAD is the",
+      "start": 16.96,
+      "duration": 4.239
+    },
+    {
+      "text": "thing that burned them out because it",
+      "start": 18.96,
+      "duration": 3.92
+    },
+    {
+      "text": "was so accessible they felt like they",
+      "start": 21.199,
+      "duration": 3.361
+    },
+    {
+      "text": "could be non-programmers and not pay",
+      "start": 22.88,
+      "duration": 2.8
+    },
+    {
+      "text": "attention to good engineering",
+      "start": 24.56,
+      "duration": 4.479
+    },
+    {
+      "text": "principles. Please recognize that you",
+      "start": 25.68,
+      "duration": 6.559
+    },
+    {
+      "text": "are building real software and follow",
+      "start": 29.039,
+      "duration": 5.68
+    },
+    {
+      "text": "good principles. Make sure you emphasize",
+      "start": 32.239,
+      "duration": 5.441
+    },
+    {
+      "text": "simplicity. Separate concerns. Focus on",
+      "start": 34.719,
+      "duration": 5.201
+    },
+    {
+      "text": "maintainability. Focus on readability.",
+      "start": 37.68,
+      "duration": 4.08
+    },
+    {
+      "text": "Get your documentation done. Work with",
+      "start": 39.92,
+      "duration": 4.0
+    },
+    {
+      "text": "an LLM. Solve a problem that's well",
+      "start": 41.76,
+      "duration": 4.319
+    },
+    {
+      "text": "bounded.",
+      "start": 43.92,
+      "duration": 2.159
+    }
+  ]
 }

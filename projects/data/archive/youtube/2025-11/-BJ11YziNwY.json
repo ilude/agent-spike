@@ -29,5 +29,137 @@
       "is_bulk_import": true
     },
     "recommendation_weight": 0.5
-  }
+  },
+  "timed_transcript": [
+    {
+      "text": "So the first truth to understand if",
+      "start": 0.08,
+      "duration": 4.64
+    },
+    {
+      "text": "you're in this bucket is that NAND has a",
+      "start": 1.839,
+      "duration": 5.52
+    },
+    {
+      "text": "visual workflow builder that genuinely",
+      "start": 4.72,
+      "duration": 4.879
+    },
+    {
+      "text": "democratizes automation. And that's part",
+      "start": 7.359,
+      "duration": 4.881
+    },
+    {
+      "text": "of why people gravitate to it. For the",
+      "start": 9.599,
+      "duration": 4.561
+    },
+    {
+      "text": "first time, it is really genuinely",
+      "start": 12.24,
+      "duration": 3.84
+    },
+    {
+      "text": "possible and this does work for",
+      "start": 14.16,
+      "duration": 4.4
+    },
+    {
+      "text": "non-programmers to build sophisticated",
+      "start": 16.08,
+      "duration": 4.56
+    },
+    {
+      "text": "AI agents just by dragging and dropping",
+      "start": 18.56,
+      "duration": 3.84
+    },
+    {
+      "text": "little nodes into a little tree. The",
+      "start": 20.64,
+      "duration": 3.6
+    },
+    {
+      "text": "second truth, which I've already hinted",
+      "start": 22.4,
+      "duration": 4.56
+    },
+    {
+      "text": "at, is that the same visual builder is a",
+      "start": 24.24,
+      "duration": 6.24
+    },
+    {
+      "text": "complexity trap. It has killed so many",
+      "start": 26.96,
+      "duration": 6.48
+    },
+    {
+      "text": "NADN implementations. So, ironically,",
+      "start": 30.48,
+      "duration": 4.8
+    },
+    {
+      "text": "the very feature that makes you want to",
+      "start": 33.44,
+      "duration": 4.08
+    },
+    {
+      "text": "use it is the feature that becomes",
+      "start": 35.28,
+      "duration": 4.4
+    },
+    {
+      "text": "unmaintainable at scale. But, but worry",
+      "start": 37.52,
+      "duration": 4.0
+    },
+    {
+      "text": "not, I'm going to give you a way",
+      "start": 39.68,
+      "duration": 4.48
+    },
+    {
+      "text": "through. I want to map out how to get",
+      "start": 41.52,
+      "duration": 4.24
+    },
+    {
+      "text": "from that honeymoon phase where you",
+      "start": 44.16,
+      "duration": 3.68
+    },
+    {
+      "text": "install it. You you you start to build",
+      "start": 45.76,
+      "duration": 4.319
+    },
+    {
+      "text": "your first node. You start to see data",
+      "start": 47.84,
+      "duration": 4.16
+    },
+    {
+      "text": "flowing across the screen. It feels so",
+      "start": 50.079,
+      "duration": 3.841
+    },
+    {
+      "text": "cool. It works. You feel like you've",
+      "start": 52.0,
+      "duration": 3.52
+    },
+    {
+      "text": "unlocked superpowers. You want to build",
+      "start": 53.92,
+      "duration": 4.159
+    },
+    {
+      "text": "10 more of",
+      "start": 55.52,
+      "duration": 2.559
+    }
+  ]
 }
