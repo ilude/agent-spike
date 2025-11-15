@@ -6,10 +6,15 @@ Reads all archived videos, fetches timed transcripts, and updates the archive fi
 import json
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Add project root to path
 project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
+
+# Load environment variables
+env_path = project_root / ".env"
+load_dotenv(env_path)
 
 from tools.services.youtube import YouTubeTranscriptService
 
@@ -26,6 +31,13 @@ def update_archives():
     print(f"Found {len(json_files)} video archives")
 
     transcript_service = YouTubeTranscriptService()
+
+    # Show proxy configuration
+    proxy_info = transcript_service.get_proxy_info()
+    print(f"Proxy configured: {proxy_info['proxy_configured']}")
+    if proxy_info['proxy_configured'] == 'True':
+        print(f"  Using proxy: {proxy_info['proxy_host']} (user: {proxy_info['proxy_username']})")
+    print()
     success_count = 0
     skip_count = 0
     error_count = 0
