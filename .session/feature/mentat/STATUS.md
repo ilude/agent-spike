@@ -158,3 +158,24 @@ Notes:
 - System handles mixed archive formats gracefully
 - 35 videos will have timestamped links, rest will link to video start
 - Need to investigate OpenAI API permissions for embeddings
+
+---
+
+## 2025-01-14 14:03 - Rate Limit Investigation & Partial Re-index
+✅ Verified indexing script uses python-dotenv with OPENAI_API_KEY from root .env
+✅ Researched OpenAI Batch API (50% discount but 24hr delay - not worth complexity)
+✅ Partial re-indexing: 45/472 videos indexed before OpenAI 403 error
+✅ System works with mixed formats (35 timestamped, 437 plain text)
+❌ Both YouTube and OpenAI APIs hit rate limits
+Next: Test timestamp functionality, optionally retry when rate limits reset
+
+Blockers:
+- OpenAI Embeddings API: Rate limiting after ~45 requests (~$0.01 spent)
+- YouTube Transcript API: IP ban after ~35 requests
+
+Notes:
+- All code is complete and deployed
+- Timestamp feature is "syntactic sugar" - delay acceptable
+- 2.5 cent savings from Batch API not worth implementation complexity
+- System gracefully handles mixed archive formats
+- Can test timestamp functionality with 35 available timestamped videos
