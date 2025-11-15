@@ -1,0 +1,57 @@
+{
+  "statistics": {
+    "total_skills": 13,
+    "skills_activated": 33,
+    "missed_activations": 3,
+    "messages_analyzed": 202,
+    "files_touched": 5690
+  },
+  "suggestions": [
+    {
+      "skill_name": "archive-reprocessing",
+      "skill_path": "C:\\Users\\mglenn\\.claude\\skills\\archive-reprocessing\\SKILL.md",
+      "description": "Flexible, version-tracked reprocessing system for archive transformations using design patterns (Strategy, Template Method, Observer). Activate when working with tools/scripts/lib/, reprocessing scripts, transform versions, archive transformations, metadata transformers, or incremental processing workflows.",
+      "evidence": "C:\\Users\\mglenn\\.claude\\tools\\flaresolverr-mcp\\requirements.txt",
+      "evidence_type": "file",
+      "line_number": 0,
+      "current_triggers": [
+        "tools[/\\\\]",
+        "tools[/\\\\]"
+      ],
+      "confidence": "high",
+      "suggested_triggers": [
+        "Working with `C:\\/Users/` directory"
+      ]
+    },
+    {
+      "skill_name": "python-workflow",
+      "skill_path": "C:\\Users\\mglenn\\.claude\\skills\\python-workflow\\SKILL.md",
+      "description": "Python project workflow guidelines including package management (uv, pip, poetry), virtual environment handling, and Python code style preferences. Activate when working with Python files (.py), Python projects, pyproject.toml, requirements.txt, setup.py, uv commands, pip, virtual environments, pytest, or any Python-specific tooling and development tasks.",
+      "evidence": "C:\\Users\\mglenn\\.claude\\tools\\flaresolverr-mcp\\server.py",
+      "evidence_type": "file",
+      "line_number": 0,
+      "current_triggers": [
+        "\\.py$"
+      ],
+      "confidence": "high",
+      "suggested_triggers": [
+        "Working with `C:\\/Users/` directory"
+      ]
+    },
+    {
+      "skill_name": "testing-workflow",
+      "skill_path": "C:\\Users\\mglenn\\.claude\\skills\\testing-workflow\\SKILL.md",
+      "description": "Python testing workflow patterns with pytest. Activate when working with pytest, test files (test_*.py), test directories, code quality tools, coverage reports, or testing tasks. Includes zero-warnings policy, targeted testing during development, mocking patterns, and fixture usage.\nlocation: user",
+      "evidence": "C:\\Users\\mglenn\\.claude\\tools\\flaresolverr-mcp\\server.py",
+      "evidence_type": "file",
+      "line_number": 0,
+      "current_triggers": [
+        "\\.py$"
+      ],
+      "confidence": "high",
+      "suggested_triggers": [
+        "Working with `C:\\/Users/` directory"
+      ]
+    }
+  ]
+}
