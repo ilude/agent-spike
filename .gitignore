@@ -57,6 +57,7 @@ projects/data/*
 projects/data/brave_history/*.tmp.sqlite
 projects/data/brave_history/brave_history.*.sqlite
 !projects/data/brave_history/.sync_state
+!projects/data/brave_history/channel_cache.db
 projects/data/qdrant.*/
 projects/data/qdrant.tmp/
 projects/data/queues/processing/
