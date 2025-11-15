@@ -235,3 +235,24 @@ bump-major:
 
 publish: bump-patch
 	@git push --all
+
+# Brave History Sync
+.PHONY: brave-sync brave-full-sync
+
+brave-sync:
+	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@echo -e "\033[1;33m  Brave History Sync (incremental)\033[0m"
+	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@mkdir -p projects/data/brave_history
+	@uv run python -c "from tools.scripts.brave_history.copy_brave_history import safe_incremental_sync; from pathlib import Path; safe_incremental_sync(Path('projects/data/brave_history'))"
+	@echo -e "\033[0;32m✓ Brave history incremental sync complete\033[0m"
+	@echo "Consolidated DB: projects/data/brave_history/brave_history.sqlite"
+
+brave-full-sync:
+	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@echo -e "\033[1;33m  Brave History Full Sync\033[0m"
+	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@mkdir -p projects/data/brave_history
+	@uv run python -c "from tools.scripts.brave_history.copy_brave_history import copy_brave_history, consolidate_history_files; from pathlib import Path; d=Path('projects/data/brave_history'); copy_brave_history(d); consolidate_history_files(d)"
+	@echo -e "\033[0;32m✓ Brave history full sync complete\033[0m"
+	@echo "Consolidated DB: projects/data/brave_history/brave_history.sqlite"
