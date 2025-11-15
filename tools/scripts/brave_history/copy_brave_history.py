@@ -556,10 +556,48 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
     update_sync_state(data_dir)
 
 
-if __name__ == "__main__":
-    copy_brave_history()
-    
-    # Consolidate all machine files into single database
-    data_dir = Path("data")
-    if data_dir.exists():
-        consolidate_history_files(data_dir)
+def _build_cli_parser():
+    """Build the argparse CLI parser.
+
+    Exposes two modes:
+    1. Full sync (default) – copies current Brave history and consolidates all machine files.
+    2. Incremental sync – uses `safe_incremental_sync` with timestamp heuristics and integrity checks.
+
+    The destination directory defaults to `data/` to preserve existing behavior, but the Makefile
+    can override with `projects/data/brave_history` for project-scoped storage.
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Brave history synchronization utility")
+    parser.add_argument(
+        "--incremental",
+        action="store_true",
+        help="Perform incremental sync (safe heuristic mode)."
+    )
+    parser.add_argument(
+        "--dest",
+        type=Path,
+        default=Path("data"),
+        help="Destination directory for history databases (default: ./data)"
+    )
+    return parser
+
+
+def main():  # pragma: no cover - thin CLI wrapper
+    parser = _build_cli_parser()
+    args = parser.parse_args()
+
+    dest: Path = args.dest
+
+    if args.incremental:
+        # Incremental sync with protective logic
+        safe_incremental_sync(dest)
+    else:
+        # Original behavior: copy then consolidate all machine-specific files
+        copy_brave_history(dest)
+        if dest.exists():
+            consolidate_history_files(dest)
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()
