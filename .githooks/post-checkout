@@ -26,22 +26,26 @@ if [ "$3" = "1" ]; then
         echo ""
         echo -e "${GREEN}Running Brave history update...${NC}"
         cd projects/brave_history
-        python copy_brave_history.py
+        if command -v uv >/dev/null 2>&1; then
+            uv run python copy_brave_history.py
+        else
+            python copy_brave_history.py
+        fi
         
         if [ $? -eq 0 ]; then
             echo ""
             echo -e "${GREEN}✓ History updated successfully!${NC}"
             echo "  You can commit the updated brave_history.sqlite if desired:"
-            echo "  ${YELLOW}git add projects/brave_history/data/brave_history.sqlite${NC}"
-            echo "  ${YELLOW}git commit -m 'chore: update consolidated Brave history'${NC}"
+            echo -e "  ${YELLOW}git add projects/data/brave_history/brave_history.sqlite${NC}"
+            echo -e "  ${YELLOW}git commit -m 'chore: update consolidated Brave history'${NC}"
         else
             echo -e "${YELLOW}⚠ Update failed. See errors above.${NC}"
         fi
         
         cd ../..
     else
-        echo "Skipped. You can run this manually anytime:"
-        echo "  ${YELLOW}cd projects/brave_history && python copy_brave_history.py${NC}"
+    echo "Skipped. You can run this manually anytime:"
+    echo -e "  ${YELLOW}cd projects/brave_history && python copy_brave_history.py${NC}"
     fi
     
     echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

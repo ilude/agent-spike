@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Post-merge hook to prompt user to update Brave history after pull
+# Post-merge hook to automatically update Brave history after pull (no prompts)
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -11,35 +11,30 @@ echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━�
 echo -e "${YELLOW}  Brave History Sync${NC}"
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo "Repository updated! Would you like to update the Brave history database?"
-echo "This will:"
-echo "  • Copy your current Brave history to data/brave_history.HOSTNAME.sqlite"
-echo "  • Merge with pulled changes in data/brave_history.sqlite"
-echo "  • Deduplicate records across machines"
-echo ""
-read -p "Update Brave history? (y/N): " -n 1 -r
-echo ""
+echo -e "${YELLOW}Repository updated! Running Brave history update...${NC}"
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ""
-    echo -e "${GREEN}Running Brave history update...${NC}"
+# Run from repo root; switch into tool dir
+(
+    set -e
     cd projects/brave_history
-    python copy_brave_history.py
-    
-    if [ $? -eq 0 ]; then
-        echo ""
-        echo -e "${GREEN}✓ History updated successfully!${NC}"
-        echo "  You can commit the updated brave_history.sqlite if desired:"
-        echo "  ${YELLOW}git add projects/brave_history/data/brave_history.sqlite${NC}"
-        echo "  ${YELLOW}git commit -m 'chore: update consolidated Brave history'${NC}"
+    # Prefer uv if available to ensure the right environment
+    if command -v uv >/dev/null 2>&1; then
+        uv run python copy_brave_history.py
     else
-        echo -e "${YELLOW}⚠ Update failed. See errors above.${NC}"
+        python copy_brave_history.py
     fi
-    
-    cd ../..
+)
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN}✓ History updated successfully!${NC}"
+    echo "  You can commit the updated consolidated database if desired:"
+    echo -e "  ${YELLOW}git add projects/data/brave_history/brave_history.sqlite${NC}"
+    echo -e "  ${YELLOW}git commit -m 'chore: update consolidated Brave history'${NC}"
 else
-    echo "Skipped. You can run this manually anytime:"
-    echo "  ${YELLOW}cd projects/brave_history && python copy_brave_history.py${NC}"
+    echo -e "${YELLOW}⚠ Update failed. See errors above.${NC}"
+    echo -e "  ${YELLOW}Tip:${NC} try running manually:"
+    echo -e "  ${YELLOW}cd projects/brave_history && python copy_brave_history.py${NC}"
 fi
 
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

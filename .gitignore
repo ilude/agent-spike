@@ -65,6 +65,9 @@ projects/data/queues/processing/
 !projects/data/brave_history/brave_history.sqlite
 *.sqlite3
 
+# Local helper used during history rewrites; keep out of git
+.git-filter-repo.py
+
 # IDE
 .vscode/
 .idea/
