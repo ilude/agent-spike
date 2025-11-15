@@ -239,20 +239,29 @@ publish: bump-patch
 # Brave History Sync
 .PHONY: brave-sync brave-full-sync
 
+# Simple, portable colors (may be ignored by some shells)
+YELLOW := \033[1;33m
+GREEN  := \033[0;32m
+NC     := \033[0m
+# Use ASCII separators to avoid mojibake on Windows code pages
+SEPARATOR := ==============================================================
+
+
 brave-sync:
-	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-	@echo -e "\033[1;33m  Brave History Sync (incremental)\033[0m"
-	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@printf "$(YELLOW)$(SEPARATOR)$(NC)\n"
+	@printf "$(YELLOW)  Brave History Sync (incremental)$(NC)\n"
+	@printf "$(YELLOW)$(SEPARATOR)$(NC)\n"
 	@mkdir -p projects/data/brave_history
 	@uv run python -c "from tools.scripts.brave_history.copy_brave_history import safe_incremental_sync; from pathlib import Path; safe_incremental_sync(Path('projects/data/brave_history'))"
-	@echo -e "\033[0;32m✓ Brave history incremental sync complete\033[0m"
-	@echo "Consolidated DB: projects/data/brave_history/brave_history.sqlite"
+	@printf "$(GREEN)✓ Brave history incremental sync complete$(NC)\n"
+	@printf "Consolidated DB: projects/data/brave_history/brave_history.sqlite\n"
+
 
 brave-full-sync:
-	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-	@echo -e "\033[1;33m  Brave History Full Sync\033[0m"
-	@echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+	@printf "$(YELLOW)$(SEPARATOR)$(NC)\n"
+	@printf "$(YELLOW)  Brave History Full Sync$(NC)\n"
+	@printf "$(YELLOW)$(SEPARATOR)$(NC)\n"
 	@mkdir -p projects/data/brave_history
 	@uv run python -c "from tools.scripts.brave_history.copy_brave_history import copy_brave_history, consolidate_history_files; from pathlib import Path; d=Path('projects/data/brave_history'); copy_brave_history(d); consolidate_history_files(d)"
-	@echo -e "\033[0;32m✓ Brave history full sync complete\033[0m"
-	@echo "Consolidated DB: projects/data/brave_history/brave_history.sqlite"
+	@printf "$(GREEN)✓ Brave history full sync complete$(NC)\n"
+	@printf "Consolidated DB: projects/data/brave_history/brave_history.sqlite\n"
