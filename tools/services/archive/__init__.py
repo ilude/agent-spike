@@ -20,6 +20,7 @@ from .protocols import ArchiveWriter, ArchiveReader
 from .config import ArchiveConfig
 from .local_writer import LocalArchiveWriter, create_local_archive_writer
 from .local_reader import LocalArchiveReader, create_local_archive_reader
+from .manager import ArchiveManager, create_archive_manager
 
 __all__ = [
     # Models
@@ -36,7 +37,9 @@ __all__ = [
     # Implementations
     "LocalArchiveWriter",
     "LocalArchiveReader",
+    "ArchiveManager",
     # Factories
     "create_local_archive_writer",
     "create_local_archive_reader",
+    "create_archive_manager",
 ]
