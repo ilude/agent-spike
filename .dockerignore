@@ -1,3 +1,64 @@
-app/config
-app/archive
-app/.working
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml
+.htmlcov/
+.tox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.history/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Data directories (large, not needed in container build)
+projects/data/qdrant*/
+projects/data/n8n/
+projects/data/archive/
+projects/data/brave_history/
+projects/data/queues/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+metadata_update.log
+
+# Cache
+.cache/
+**/.cache/
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Session files
+.session/
+
+# Development files
+.specstory/
+.env.local
+.env.*.local
