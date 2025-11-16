@@ -69,6 +69,20 @@ notebook = [
 ]
 
 [package.dev-dependencies]
+api = [
+    { name = "docling" },
+    { name = "fastapi" },
+    { name = "google-api-python-client" },
+    { name = "pydantic-ai" },
+    { name = "python-dotenv" },
+    { name = "qdrant-client" },
+    { name = "rich" },
+    { name = "sentence-transformers" },
+    { name = "tqdm" },
+    { name = "typer" },
+    { name = "uvicorn", extra = ["standard"] },
+    { name = "youtube-transcript-api" },
+]
 lesson-001 = [
     { name = "pydantic-ai" },
     { name = "python-dotenv" },
@@ -178,6 +192,20 @@ requires-dist = [
 provides-extras = ["dev", "notebook", "lesson-001"]
 
 [package.metadata.requires-dev]
+api = [
+    { name = "docling", specifier = ">=2.60.0" },
+    { name = "fastapi", specifier = ">=0.109.0" },
+    { name = "google-api-python-client", specifier = ">=2.0.0" },
+    { name = "pydantic-ai", specifier = ">=1.9.1" },
+    { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "qdrant-client", specifier = ">=1.7.0" },
+    { name = "rich", specifier = ">=14.2.0" },
+    { name = "sentence-transformers", specifier = ">=2.2.0" },
+    { name = "tqdm", specifier = ">=4.66.0" },
+    { name = "typer", specifier = ">=0.9" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.27.0" },
+    { name = "youtube-transcript-api", specifier = ">=1.2.3" },
+]
 lesson-001 = [
     { name = "pydantic-ai", specifier = ">=1.9.1" },
     { name = "python-dotenv", specifier = ">=1.2.1" },

@@ -137,3 +137,10 @@ lesson-009 = [
     {include-group = "lesson-003"},  # Needs youtube + webpage sub-agents
     "openai>=1.54.0",  # For gpt-5-nano
 ]
+api = [
+    # FastAPI service for N8N integration
+    {include-group = "lesson-001"},  # YouTube agent
+    {include-group = "lesson-007"},  # Cache manager
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+]
