@@ -2,6 +2,12 @@ FROM python:3.14-slim
 
 WORKDIR /app
 
+# Install system dependencies for building Python packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install uv package manager
 RUN pip install --no-cache-dir uv
 

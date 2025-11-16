@@ -61,9 +61,21 @@ async def analyze_video(request: AnalyzeVideoRequest):
                     )
 
         # Use lesson-001 agent for analysis
-        from lessons.lesson_001.youtube_agent.agent import analyze_video as agent_analyze
+        import sys
+
+        # Add lessons directory to path
+        lessons_path = Path(__file__).parent.parent.parent / "lessons" / "lesson-001"
+        sys.path.insert(0, str(lessons_path))
+
+        from youtube_agent.agent import analyze_video as agent_analyze
 
         result = await agent_analyze(str(request.url))
+
+        # Parse the string result (agent returns raw text, not structured data)
+        # For now, return the full output as summary with empty tags
+        # TODO: Update agent to return structured data or parse the output
+        tags = []
+        summary = result if isinstance(result, str) else str(result)
 
         # Archive the results
         if not cached:
@@ -77,8 +89,8 @@ async def analyze_video(request: AnalyzeVideoRequest):
         # Return response
         return AnalyzeVideoResponse(
             video_id=video_id,
-            tags=result.get("tags", []),
-            summary=result.get("summary", ""),
+            tags=tags,
+            summary=summary,
             metadata=metadata,
             cached=cached,
         )
