@@ -3,9 +3,94 @@
   "url": "https://www.youtube.com/watch?v=48g-_rf7fOI",
   "fetched_at": "2025-11-09T22:04:46.155758",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:04:46.155758",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "Chat GPT launched an absolutely terrible resource for prompting and I think it deserves more attention because we need to talk about how bad AI education is today. They're terrible prompts, guys. They're like one or two line prompts that are extremely generic. We need to help people to understand principles that can scale. If you're going to give people simple prompts, maybe that's all right as long as they understand one, this is just the start and you need to do better. And two, this is how it ties to your workflow and moves things forward. And three, these are the principles that scale with it. Like if they had taken the time to say from their own best practices, if OpenAI had taken the time to say it's really important to establish context for the prompt, having a goal for the prompt is important. Look how we're doing that even in a simple prompt, right? Like that's helpful. That helps you to internalize these principles. If you don't do that, you're going to be stuck thinking that you understand prompting and AI and you're going to get left behind in 2026. We don't want that. We need better prompt education.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "48g-_rf7fOI",
+    "title": "Why AI education needs a rehaul! #openai #prompting #promptengineering #contextengineering #chatgpt",
+    "description": "What is the deal with OpenAI\u2019s prompt pack for teams? \n200 prompts that are supposed to be grab-n-go for teams. The reality is a lot more complicated, and it has real implications for teams and how organizations adopt AI in 2025 (and 2026).\n\nIn this video, I share the inside scoop on why prompt education must match the pace of LLMs and real work:\n\u2022 Why one-line prompts trap teams in AI\u2019s messy middle\n\u2022 How to ground prompt engineering in real workflow pain\n\u2022 What hands-on work showed about GPT-5 vs Claude\n\u2022 Where managers should start: use cases, tool use, upskilling\n\nTeams that treat LLMs as workflow engines\u2014not search\u2014will move faster, but shallow training will leave them behind.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-10T21:00:04Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M1S",
+    "duration_seconds": 61,
+    "view_count": 2976,
+    "like_count": 143,
+    "comment_count": 4,
+    "tags": [
+      "AI strategy",
+      "LLMs",
+      "prompt engineering",
+      "future of work",
+      "automation at work",
+      "upskilling with AI",
+      "GPT-5",
+      "Claude",
+      "OpenAI",
+      "Copilot",
+      "engineering teams",
+      "product managers",
+      "sales teams",
+      "GDPR compliance",
+      "CCPA compliance",
+      "Excel workflows",
+      "PowerPoint slides",
+      "Slack workflows",
+      "AI strategy for teams",
+      "LLMs in workflows",
+      "prompt engineering for execs"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/48g-_rf7fOI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/48g-_rf7fOI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/48g-_rf7fOI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/48g-_rf7fOI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/48g-_rf7fOI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:01.296449",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.196885"
   },
   "llm_outputs": [
     {
@@ -18,16 +103,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:04:46.155758",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

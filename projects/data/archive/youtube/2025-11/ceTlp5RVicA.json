@@ -3,9 +3,77 @@
   "url": "https://www.youtube.com/watch?v=ceTlp5RVicA",
   "fetched_at": "2025-11-09T21:52:07.722122",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:52:07.722122",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "You should not leave the LLM to make the judgment call of which tool to use without guidance. It can choose which tool to use with guidance from you. And that's really important because you're essentially going to need to compose a prompt for the LLM based on the retrieval context it has, the inputs you're giving it, any system instructions or prompt that you have for it, and then whatever uh tool use that it uses, right? And so it's basically going to go through, it's going to read the retrieval, it's going to read the prompt, it's going to select a tool during the run, then it's going to come back with a response and put it wherever you want it to go. It is dependent on your clarity in your prompt and in the retrieval to know what tool to use. If there is ambiguity, you will get unpredictable responses.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "ceTlp5RVicA",
+    "title": "Key to Guiding LLMs: What You Need to Know #ai #aiagent #aiforbusiness #chatgpt #openai",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat\u2019s the real story with OpenAI\u2019s new Agent Builder? (Likely launching today)\n\nThe launch story seems to be \u201cpoint-and-click agents make everyone a builder\u201d \u2014 but the reality is a lot trickier.\n\nIn this video, I share the inside scoop on the new Agent Builder (leakded) plus, my hard-won principles on building reliable AI agents at production standards:\n\n\u2022 Why drag-and-drop agents change org behavior and security reviews.\n\u2022 How outcome-first design and proof of correctness prevent failures.\n\u2022 What \u201cdumb, deterministic\u201d multi-agent chains beat smart monoliths.\n\u2022 Where MCP tool choices, catalogs, and token burn go wrong.\n\nTakeaway: teams that adopt outcome-first, minimal-intelligence agents with tight prompts, structured retrieval, and a small, clear MCP tool dictionary will ship safely\u2014everyone else risks ambiguity, cost, and ungoverned workflows.\n\nChapters\n00:00 Introduction to OpenAI\u2019s Agent Builder\n02:42 Building Agents: Key Considerations\n05:40 Designing for Outcomes and Predictability\n08:10 Tool Choice and Management in Agent Building\n10:28 Organizational Standards for Agent Builds\n13:07 Final Thoughts on Agent Design and Best Practices\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-18T21:00:44Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 2297,
+    "like_count": 99,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ceTlp5RVicA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ceTlp5RVicA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ceTlp5RVicA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ceTlp5RVicA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ceTlp5RVicA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:53.755406",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.593367"
   },
   "llm_outputs": [
     {
@@ -18,16 +86,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T21:52:07.722122",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

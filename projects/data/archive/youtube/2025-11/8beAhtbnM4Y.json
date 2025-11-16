@@ -3,9 +3,78 @@
   "url": "https://www.youtube.com/watch?v=8beAhtbnM4Y",
   "fetched_at": "2025-11-09T23:46:05.021553",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:46:05.021553",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "We got a bit of a road map today for the future of copyright cases in AI, which is something that I've been following really closely. I want to give you an outline of the ruling and then a look at where we stand on the legal challenges to AI right now. So, first this R ruling, it was by Judge William Alup and it was handed down in the case of Barts versus Anthropic. It validates AI training as fair use, but it condemns the piracy that enables it. And I want to spend a little bit of time here because Judge Alup was very precise and careful in the ruling. It's not as clear as saying this is a win for anthropic and AI companies because it enables fair use in AI. I would say if you want to think about how to frame this, it's sort of a Solomon's choice. It splits the baby. Yes, training Claude on millions of books does constitute fair use. But critically, Anthropic's choice to download those same books from pirate sites, which it did for earlier versions of Claude does not get a free pass. That distinction matters because it fundamentally shapes how AI companies must think about data acquisition going forward. So, the judge's reasoning, and this is really key to me, he does describe AI training as quintessentially transformative. Everyone reads texts and then writes new texts. also writes to make anyone pay specifically and I'm reading from his judgment here to make anyone pay specifically for the use of a book each time they read it each time they recall it from memory each time they later draw upon it when writing new things in new ways would be unthinkable I think Judge Alip gets that part right I think that is exactly what I've been worried that judges will not see and I find that incredibly encouraging that Judge Alip understands that AI is a transformative technology a transforms the text it's trained on. And this forms a conceptual foundation that I think other AI companies will be able to use when talking about how they do their work. Now, this is where the anthropic story gets interesting because after building their initial models on pirated content from Library Genesis and other places, dubious sources, the company made a deliberate shift in 2024. They hired Tim Tom Tom sorry Tom Turvy the former head of Google's book scanning project and Tom's mandate was to legally obtain all the books in the world. Can you imagine? I got to say as someone with a library that is my dream job. Tom, if you ever get tired of your job at Anthropic, please let me know. I would love to have the job of getting all the books in the world. Anyway, Anthropic spent millions of dollars, a significant percentage of the share of its total training costs for the new Sonnet and Opus models, purchasing physical books, many of them secondhand, which they then proceeded to slice from their bindings and scan into digital format. Yes, the physical books were destroyed, but the digital copies were ruled as legitimate fair use because Anthropic acquired the books legitimately. So the pivot for anthropic from using piracy to purchasing reveals a critical principle that I think other judges are likely to follow. AI companies can afford to do this right. Not all of them choose to do so. And the court does note the financial capability because if you can afford to purchase later then you could have purchased earlier. And judge also writes that using purchased books later quote will not absolve it of liability for the theft but may affect the extent of statutory damages. The judge saw that Anthropic had the money all along. So what does this mean for authors? I know authors in my life. In fact, arguably I am an author on Substack, right? Uh and I know that AI reads my stuff. Anyway, I think this ruling offers a glimmer of hope. Fundamentally, part of what authors have needed is some sense that companies cannot just scrape and steal work. There needs to be a sense of being willing to pay the going rate for the work in order to use it. So even if AI constitutes fair use, and authors may or may not agree that that's legitimate. That's fine. Everyone can sort of have different opinions and it's not certainly settled yet just with one ruling. It's still a step forward for authors that the court expects AI companies to pay for the work. It establishes something that is closer to a sustainable equilibrium. Companies must pay for access, support the creative economy and authors can benefit from AI tools if they choose to do so. Now, there are other open lawsuits out there, right? Multiple lawsuits against open AI. There's Kadre versus Meta, the lawsuit for Training Llama on Books 3, which is a data set that Anthropic also used that's pirated that now has an interesting precedent. And then there's visual AI companies that may use ALUB's transformative use reasoning to argue that image generation models are really the same thing as the text side and its fair use there. So the question for me is where do we go from here? Will we see courts adopt ALP's framework going forward? Will we see other sort of precedents and standards of judgment emerge? I think one of the things that I'm aware of is, you know, ALIP writes in the Northern District of California. It's not the whole country. We're seeing circuit splits on related AI issues. For example, the Ninth Circuit has used an actual knowledge requirement for contributory infringement and the second circuit has used a reason to know. That's a big difference when we're talking about platforms that host AI tools and it affects the sort of extent of liability that AI platforms will have in situations like this. Long and the short of it is this is a step forward in terms of providing legal clarity. I really appreciate Judge Alup's willingness to talk about the transformative value of AI and not just call it copying. I think that's a correct interpretation of what AI does. I think expecting AI companies to pay for what they train on is completely reasonable and we'll have to see where the story goes from here. Still, a little bit of clarity from the judiciary is a step forward. We'll take the win for today, won't we? All right. Cheers, guys.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "8beAhtbnM4Y",
+    "title": "Anthropic AI Copyright Ruling is a BIG Deal: Fair Use Wins, Piracy Loses",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Validation of Fair Use for Training: Judge William Alsup concluded that using entire books to train large language models is \u201cquintessentially transformative,\u201d placing it under fair-use protection.\n 2. Piracy Still Infringes: The ruling simultaneously holds Anthropic liable for downloading books from pirate sites, underscoring that how data is acquired remains critical.\n 3. Pay-to-Play Data Acquisition: Alsup stresses that well-funded AI firms can\u2014and must\u2014buy the content they train on, reshaping future data-sourcing economics.\n 4. Compliance Playbook Emerges: Anthropic\u2019s 2024 pivot to purchasing, slicing, and scanning thousands of books now stands as the model for lawful AI training pipelines.\n 5. Momentum for Creators\u2019 Rights: By separating fair use from piracy, the decision gives authors leverage to demand payment while still allowing transformative innovation.\n 6. Precedent with Ripple Effects: The reasoning could influence pending suits over LLaMA-3, OpenAI, and even visual-AI models, though circuit splits mean more fights ahead.\n\nQuotes\n\u201cWe just got the Solomon\u2019s-choice ruling that lets AI train\u2014but only if it pays its way.\u201d\n\u201cTraining on a book is fair use; acquiring that book from LibGen is still theft.\u201d\n\u201cAI companies can afford to do it right\u2014the court just told them they have to.\u201d\n\nSummary\nJudge William Alsup\u2019s decision in Bartz v. Anthropic sets a vital precedent for AI copyright. He found that training large language models on entire books is \u201cquintessentially transformative\u201d and squarely within fair use, yet condemned Anthropic\u2019s earlier reliance on pirated copies. I explain why this split ruling matters: it forces well-funded labs to pay for data, gives authors new leverage, and builds a doctrine future courts can extend to other text and image cases. It\u2019s only one district-court opinion and circuit splits persist, but today\u2019s clarity shows AI can innovate without defaulting to wholesale piracy. Authors finally have bargaining power.\n\nKeywords\nAI copyright, fair use, Bartz v. Anthropic, William Alsup, Anthropic, piracy, data acquisition, transformative use, Library Genesis, authors, lawsuits, OpenAI, Meta, LLaMA-3, image generation, circuit split",
+    "published_at": "2025-06-25T00:11:35Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT6M3S",
+    "duration_seconds": 363,
+    "view_count": 12338,
+    "like_count": 454,
+    "comment_count": 99,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/8beAhtbnM4Y/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/8beAhtbnM4Y/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/8beAhtbnM4Y/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/8beAhtbnM4Y/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/8beAhtbnM4Y/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:19.642343",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:13.391813"
   },
   "llm_outputs": [
     {
@@ -18,16 +87,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:46:05.021553",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

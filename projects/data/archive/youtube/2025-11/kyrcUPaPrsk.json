@@ -3,10 +3,98 @@
   "url": "https://www.youtube.com/watch?v=kyrcUPaPrsk",
   "fetched_at": "2025-11-09T19:23:28.526526",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.526526",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "We have a supply explosion of AI content and it is an AI slop issue across every business I talk to. Every single one, they're like, \"What do we do with AI slop?\" We have product managers producing PRDs that are not good. We have marketers who are producing marketing copy and it's not good. But we managers or frankly any individual who wants to know they're actually writing well with AI, we don't know what to do. How do we know that what we're shipping is good quality? It's not about did the AI help. We're past that point. The AI is helping. It is about is the quality output good and we humans don't have the time to assess all of it because AI is so good at producing it. So we are in a world now where marketers have gone from can I write a blog post today to I could stamp out 50 and now you have to ask yourself can I assess the 50 that have been produced? Are they actually good? Are they brand aligned? Is the content right? Etc. And you know what people are doing for that? They're using their eyes or they're skipping it because there hasn't really been a good quality gate.",
+  "timed_transcript": null,
   "youtube_metadata": {
     "source": "exported_from_qdrant",
-    "original_collection": "cached_content"
+    "original_collection": "cached_content",
+    "video_id": "kyrcUPaPrsk",
+    "title": "Why AI content quality is your biggest problem #ai #aislop #productivity #workbetter #openai #llm",
+    "description": "My site: https://natebjones.com\nThe Story: https://natesnewsletter.substack.com/p/i-built-a-20-prompt-set-to-kill-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nAI slop is a massive issue, but we're attacking it wrong.\nThe usual story is that \u201cAI makes people lazy,\u201d or \"we should all learn to write better,\" but the reality is that our attention ratio is shifting, and we have to deploy AI as an asset to help us focus human attention.\n\nIn this video, I share the inside scoop on how to detect and fix low-quality AI output:\n\u2022 Why every team now faces an AI slop problem\n\u2022 How to build robust prompts that act as quality filters\n\u2022 What a real \u201canti-slop machine\u201d looks like in practice\n\u2022 Where managers should focus their 2 % of human attention\n\nChapters\n00:00 The AI Content Explosion and Quality Concerns\n02:36 Leveraging AI for Quality Control\n05:28 Creating Effective Prompts for Evaluation\n08:05 Building a Feedback Loop to Combat AI Slop\n10:46 Raising the Quality Bar in AI Outputs\n\nIf you\u2019re drowning in AI-generated work, this is how to raise the quality bar\u2014and make AI your quality control layer instead of your problem.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-28T21:00:59Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M5S",
+    "duration_seconds": 65,
+    "view_count": 5966,
+    "like_count": 192,
+    "comment_count": 13,
+    "tags": [
+      "AI slop",
+      "LLM quality",
+      "prompt engineering",
+      "AI strategy",
+      "automation at work",
+      "large language models",
+      "Claude",
+      "GPT-5",
+      "AI content",
+      "AI writing quality",
+      "PRD evaluation",
+      "marketing copy",
+      "AI agents",
+      "AI feedback loops",
+      "business automation",
+      "AI for managers",
+      "quality control with AI",
+      "AI workflow design",
+      "AI strategy for teams"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/kyrcUPaPrsk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/kyrcUPaPrsk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/kyrcUPaPrsk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/kyrcUPaPrsk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/kyrcUPaPrsk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:10.231608",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/i-built-a-20-prompt-set-to-kill-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/i-built-a-20-prompt-set-to-kill-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:20.828093"
   },
   "llm_outputs": [
     {
@@ -19,6 +107,7 @@
       "completion_tokens": null
     }
   ],
+  "derived_outputs": [],
   "processing_history": [
     {
       "version": "v1_full_embed",
@@ -26,16 +115,5 @@
       "collection_name": "cached_content",
       "notes": "Migrated from Qdrant"
     }
-  ],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T19:23:28.526526",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  ]
 }

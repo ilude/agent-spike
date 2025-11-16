@@ -3,9 +3,91 @@
   "url": "https://www.youtube.com/watch?v=Q9ZGa3PzIBQ",
   "fetched_at": "2025-11-09T22:05:41.043448",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:05:41.043448",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "I've been talking a lot about OpenAI monetizing ads and we have seen them do three things that argue for ads maybe four in the last week. One is starting to hire a head of monetization and ads. That's pretty transparent. Two is launching Pulse for pro users where they actually show you cards. You can see sponsored cards so easily there guys. And then three launching Sora 2. Again a super easy platform for ads. Now the fourth thing they are working with Etsy and Shopify on checkout within chat GPT and so now they would own the whole funnel right well all of this helps to answer the question for all of us about how they are thinking about ads and how they are thinking about maintaining the perceived integrity of the system when you get answers from chat GPT",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "Q9ZGa3PzIBQ",
+    "title": "Inside ChatGPT's Ad Strategy! #chatgpt #ads #sora2 #ai #imagegeneration #openai #meta #instagram",
+    "description": "What\u2019s really happening with OpenAI\u2019s Sora 2 launch?\nThe media is full of hype about how long and realistic the videos are (like 16 seconds, let's not hyperventilate guys). \n\nBut it's NOT just a video tool. It's a lot more. It's the next move in OpenAI's strategy for social media domination.\n\nIn this video, I share the inside scoop on why Sora 2 is a friend-centric social network and what that signals for AI strategy, LLMs, and monetization:\n\u2022 Why OpenAI is shipping Sora 2 as a standalone social network.\n\u2022 How friend-cameos counter \u201cAI slop\u201d and onboard new creators.\n\u2022 What Pulse cards, Sora, and checkout reveal about ad funnels.\n\u2022 Where this pressures Snap, Meta, and Google heading into Q4.\n\nFor teams and operators, the opportunity is safer AI-powered engagement via new ad surfaces\u2014while the risk is eroding trust if ads ever bleed into core ChatGPT answers.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-10T03:00:22Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT47S",
+    "duration_seconds": 47,
+    "view_count": 3528,
+    "like_count": 83,
+    "comment_count": 0,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI agents",
+      "automation at work",
+      "prompt engineering",
+      "AI monetization",
+      "AI advertising",
+      "OpenAI",
+      "ChatGPT",
+      "Sora 2",
+      "Pulse",
+      "social network",
+      "Shopify checkout",
+      "Snap",
+      "Meta",
+      "AI strategy for teams",
+      "AI ads funnel",
+      "social AI networks"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/Q9ZGa3PzIBQ/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/Q9ZGa3PzIBQ/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/Q9ZGa3PzIBQ/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/Q9ZGa3PzIBQ/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/Q9ZGa3PzIBQ/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:53.470304",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:23.710818"
   },
   "llm_outputs": [
     {
@@ -18,16 +100,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:05:41.043448",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

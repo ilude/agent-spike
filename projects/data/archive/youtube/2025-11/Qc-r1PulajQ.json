@@ -3,9 +3,72 @@
   "url": "https://www.youtube.com/watch?v=Qc-r1PulajQ",
   "fetched_at": "2025-11-10T00:50:18.615925",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:50:18.615925",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "on November 20th I'm going to be doing a free live 30 minute lesson on cutting through the hype and delivering real value with AI I'll cover things like picking the right problem picking problems with high leverage and I'll also be talking about principles for actually building in a landscape that seems to be changing every single day how do you build when AI is changing all the time and last but not least I'll talk about sort of the difference between building for AI workflows versus AI tools which I think is one of the CR iCal pieces were missing so if you want an OBS straight up look at how to build in 2024 and headed into 2025 you can check it out it's uh in a maven course link which is right down under my uh video here and I hope to see you in class it's November 20th 30 minutes take 30 minutes learn about AI it'll be good cheers",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "Qc-r1PulajQ",
+    "title": "Grab Your Spot: Free 30 Minute Lesson on Building AI Without the Hype",
+    "description": "Sign up: https://maven.com/p/eea6f2/cut-through-ai-noise-and-create-real-value?utm_medium=ll_share_link&utm_source=instructor\n\n1. Takeaways: \n   1. Strategic Perspective: Focus on workflows, not just tools, to unlock real value in AI applications.\n   2. 10x Problem Solving: Identify high-impact problems where AI can create exponential value, whether in startups or internal projects.\n   3. Hype vs. Value: Learn to filter through AI hype and find tools that truly deliver practical results.\n   4. Staying Grounded: Practical principles help keep you focused and adaptable amid fast-paced AI advancements.\n   5. AI Workflow Design: Go beyond individual tools by designing comprehensive workflows that maximize efficiency and impact.\n   6. Competitive Advantage: Use strategic AI insights to stay ahead in a landscape of constant innovation.\n   7. Real-World Application: Apply a strategic lens to make lasting improvements in your field through AI integration.\n\n2. Quotes: \n   \"AI software is cheap, but real value comes from strategic application.\"  \n   \"The difference between value and hype in AI is all about choosing workflows that work.\"  \n   \"Picking 10x problems means finding areas where AI can unlock massive, real-world impact.\"\n\n3. Summary: \n   This lesson tackles how to stay grounded in the fast-paced world of AI. I cover 10 actionable principles to help you focus on real value, emphasizing workflows over individual tools. You\u2019ll learn to pick high-impact problems that yield 10x results, filtering out the hype and using AI strategically. Whether you're building a startup or improving internal tools, this lesson equips you with insights to leverage AI as a competitive advantage.\n\n4. Keywords: \n   AI, artificial intelligence, workflows, strategic advantage, AI tools, AI hype, 10x value, startup, internal tools, competitive advantage, product management, AI news, tech strategy, problem solving, AI principles",
+    "published_at": "2024-11-12T13:57:24Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 425,
+    "like_count": 42,
+    "comment_count": 13,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/Qc-r1PulajQ/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/Qc-r1PulajQ/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/Qc-r1PulajQ/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/Qc-r1PulajQ/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/Qc-r1PulajQ/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:54.488399",
+    "all_urls": [
+      "https://maven.com/p/eea6f2/cut-through-ai-noise-and-create-real-value?utm_medium=ll_share_link&utm_source=instructor"
+    ],
+    "blocked_urls": [
+      "https://maven.com/p/eea6f2/cut-through-ai-noise-and-create-real-value?utm_medium=ll_share_link&utm_source=instructor"
+    ],
+    "content_urls": [],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:23.766121"
   },
   "llm_outputs": [
     {
@@ -18,16 +81,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:50:18.615925",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

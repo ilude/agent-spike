@@ -3,9 +3,97 @@
   "url": "https://www.youtube.com/watch?v=s7eT6g9KWsE",
   "fetched_at": "2025-11-09T21:51:44.400951",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:51:44.400951",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "Let's build a mental model for AI. And this is why this scale is so important. By the way, no one talks like this. Like people tend to give you specific skill sets and and I can do that, too. I'm going to talk about some of the specific skill sets you demonstrate, but you need an overarching perspective on the fluency and competency assessment that you're looking for at this level. And 3 to 5 is all about building mental models. You are starting to understand how LLMs actually work, what they do when they reason, what they do when they don't reason. You're starting to understand that LLMs don't truly know things, that they're not programmed. You're understanding what next token prediction looks like. You have the beginnings of a mental model of what AI can",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "s7eT6g9KWsE",
+    "title": "Understand the inner workings of AI! #ai #mentalmodels #workwithai #openai #chatgpt #productivity",
+    "description": "My site: https://natebjones.com\nThe Story: https://natesnewsletter.substack.com/p/the-ai-fluency-assessment-for-everyone?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWe aren't getting AI fluency right. \nLike, at all. \nWe don't even have a language for it!\n\nThe common story is that \u201ceveryone\u2019s learning AI fast or else\" \u2014 but the reality is that most people plateau early because they never build a mental model of how large language models actually think. \n\nAnd we miss a framework for understanding fluency levels beyond job family so we can reliably coach ourselves (and others) up.\n\nIn this video, I share the inside scoop on how to assess and grow your AI fluency:\n\u2022 Why most AI users stay at the \u201crewrite emails\u201d level\n\u2022 How to develop mental models that make you faster and smarter\n\u2022 What separates intuitive prompt engineering from systematic mastery\n\u2022 Where to focus next if you want to lead, teach, or innovate in AI\n\nThe future of work belongs to people who can think in systems with AI \u2014 not just use it.\n\nChapters\n00:00 Understanding AI Fluency Levels\n04:41 Building Mental Models for AI\n07:50 Mastering Systems Thinking in AI\n11:22 Navigating the Evolving AI Landscape\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-19T03:01:04Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT41S",
+    "duration_seconds": 41,
+    "view_count": 3000,
+    "like_count": 90,
+    "comment_count": 2,
+    "tags": [
+      "AI fluency",
+      "AI strategy",
+      "LLMs",
+      "prompt engineering",
+      "AI learning",
+      "AI skills",
+      "large language models",
+      "AI career advice",
+      "AI upskilling",
+      "AI training",
+      "AI at work",
+      "AI agents",
+      "OpenAI",
+      "GPT-5",
+      "Claude",
+      "future of work",
+      "automation",
+      "AI systems thinking",
+      "AI jobs"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/s7eT6g9KWsE/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/s7eT6g9KWsE/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/s7eT6g9KWsE/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/s7eT6g9KWsE/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/s7eT6g9KWsE/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:09.092853",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/the-ai-fluency-assessment-for-everyone?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/the-ai-fluency-assessment-for-everyone?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:24.720892"
   },
   "llm_outputs": [
     {
@@ -18,16 +106,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T21:51:44.400951",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

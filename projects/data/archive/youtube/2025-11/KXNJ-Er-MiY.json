@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=KXNJ-Er-MiY",
   "fetched_at": "2025-11-09T23:35:37.789259",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:35:37.789259",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "A lot of the fancy work that companies do to keep context windows open a long time basically revolves down to this fancy memory management. This is one of the reasons why OpenAI feels like it has a larger context window even though it doesn't. They don't exactly reveal what they do, but basically they do some fancy work with memory management to keep the conversation flowing longer. Whereas Claude has a pretty hard memory cap and they aren't keeping the conversation longer with a technique like this right now at least. And so you'll run into the you've run out of memory on Claude really fast. And what's fascinating is people think that means that Claude has shorter context windows and shorter memory, but that's not true. OpenAI is fooling you with fancier memory management.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "KXNJ-Er-MiY",
+    "title": "RAG: AI Memory Management OpenAI vs Claude  #artificialintelligence #ai #shorts",
+    "description": "The story: https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. RAG Fixes LLM Blind Spots: By pairing vector search with large-language models, Retrieval-Augmented Generation eliminates knowledge cut-offs, slashes hallucinations, and securely injects company data into answers.\n 2. Explosive Enterprise Adoption: The RAG market is climbing from today\u2019s ~$2 B to a forecast $40 B by 2035, with roughly 80 % of enterprises choosing RAG over fine-tuning for real-time data access.\n 3. Data & Chunking Decide Success: Clean text, smart metadata, and overlapping semantic chunks (not model size) make or break retrieval accuracy\u2014bad chunking is the #1 RAG killer.\n 4. Roadmap from Prototype to Planet-Scale: Simple FAQ bots stand up in a week, but scaling to multimodal, agentic, enterprise-grade RAG demands hybrid search, sharded vector DBs, caching, cost controls, and rigorous security/compliance.\n 5. Know When Not to RAG: Skip it for high-volatility data, creative writing, ultra-low-latency workflows, or tiny datasets where the next model upgrade suffices\u2014several firms learned this the expensive way.\n 6. The Future Is Agentic & Connected: Million-token context windows, Model Context Protocol, and agentic planning will merge with RAG, not replace it, keeping retrieval as the precision memory layer of AI systems.\n\nQuotes:\n\u201cWe\u2019re giving LLMs an open-book exam instead of a closed book, and the score difference is enormous.\u201d\n\u201cBad chunking ruins more RAG projects than bad models\u2014data discipline beats model size every time.\u201d\n\u201cRAG isn\u2019t a magic bullet; use it where your proprietary data matters and skip it where the next model update will suffice.\u201d\n\nSummary:\nIn this video I break down Retrieval-Augmented Generation as the pragmatic fix for large-language-model blind spots. I explain how RAG pairs embeddings, smart chunking and vector search to ground answers in real data, share enterprise wins like LinkedIn\u2019s faster support and RBC\u2019s compliant agent assist, and map a five-level roadmap from simple FAQ bots to multimodal, agentic, enterprise-grade systems. I warn where RAG backfires\u2014volatile data, creative writing, trivial tasks\u2014and stress disciplined data pipelines, evaluation and security from day one. Looking ahead, bigger context windows and MCP will fuse with RAG, not replace it, keeping retrieval central to real-world AI.\n\nKeywords:\nRAG, Retrieval Augmented Generation, embeddings, vector database, chunking, cosine similarity, hybrid search, multimodal RAG, agentic RAG, MCP, context windows, hallucination mitigation, enterprise AI, fine-tuning, data pipelines",
+    "published_at": "2025-07-02T15:27:54Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT44S",
+    "duration_seconds": 44,
+    "view_count": 4402,
+    "like_count": 111,
+    "comment_count": 5,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/KXNJ-Er-MiY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/KXNJ-Er-MiY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/KXNJ-Er-MiY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/KXNJ-Er-MiY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/KXNJ-Er-MiY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:08.992617",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:20.749614"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:35:37.789259",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

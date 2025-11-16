@@ -3,9 +3,77 @@
   "url": "https://www.youtube.com/watch?v=8WzttrzBxfI",
   "fetched_at": "2025-11-09T22:57:21.982746",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:57:21.982746",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "If you use the LLM to analyze your refinancing position, you don't get a decision back. All you get back is a set of options with a lot more color, a set of options with a lot more clarity around the details. You have given the LLM a lot of information, maybe your W2s, your 1099 income, whatever you have, right? Your current rate on the house, what you want to do, etc. And you're going to get a lot of options back. And the OM may have an opinion and that may be okay and you may or may not agree but it doesn't give you an answer because you didn't prompt it to be an answer completion machine. And so you have to sit with the uncertainty and the responsibility of the decision. This is the part where the lens zooms back into the wider world. We need to get a lot more comfortable with uncertainty and LLMs. LLMs are wonderful analysis tools. We need to take that analysis, own the decision and own the consequences of that decision.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "8WzttrzBxfI",
+    "title": "AI: Unlocking Analysis Not Answers",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. MIT \u201cBrain-Drain\u201d Study: Copy-pasting ChatGPT answers lowers cognitive effort, proving passive AI use literally shrinks our mental workload.\n 2. Decision Anxiety Loop: People hand tough choices to AI so they can claim credit when it works\u2014or blame the bot when it fails.\n 3. Answer vs. Analysis Prompts: Google excels at domain-completion questions (\u201cGive me the answer\u201d); LLMs shine when asked for scenario analysis with rich inputs.\n 4. Structured Thinking Framework: Effective prompts define role, inputs, silent reflection, output format, success criteria, and rejection conditions\u2014forcing deeper reasoning.\n 5. Finance as a Testbed: Money decisions are high-leverage and emotionally charged, making them the perfect arena to practice analysis-first prompting.\n 6. Live 90-Day Experiment: I\u2019m allocating real dollars on Robinhood and Kalshi, letting O3 Pro, Opus 4, and Grok 4 generate trades to measure analytical depth\u2014outcomes will be published.\n 7. Embrace Uncertainty: LLMs expand optionality and surface trade-offs, but humans must still own the decision and its consequences.\n\nQuotes\n\u201cWe keep begging ChatGPT for certainty when its real superpower is exploring uncertainty.\u201d\n\u201cGoogle is the answer machine; ChatGPT is the thinking machine\u2014if you let it think.\u201d\n\u201cThe goal is to keep responsibility inside you and let AI synthesize the options.\u201d\n\nSummary\nI unpack why many smart people use AI to dodge responsibility instead of sharpening judgment. An MIT study shows that blindly copying ChatGPT narrows brain engagement, yet decision anxiety drives us to seek definitive answers, especially in finance. I argue for analysis-first prompts: feed LLMs structured data, role instructions, and reflection steps so they map scenarios rather than dictate actions. To prove the point, I\u2019m running a 90-day live test on Robinhood and Kalshi, giving O3 Pro, Opus 4, and Grok 4 real money and rigorous prompts. The experiment will reveal how well each model supports human agency\u2014and how we can reclaim it.\n\nKeywords\nMIT brain-drain study, decision anxiety, AI judgment, structured prompts, answer vs analysis, financial decisions, Robinhood, Kalshi, O3 Pro, Opus 4, Grok 4, live LLM experiment, thinking machine, domain completion, uncertainty, optionality",
+    "published_at": "2025-08-01T21:00:09Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT56S",
+    "duration_seconds": 56,
+    "view_count": 2754,
+    "like_count": 84,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/8WzttrzBxfI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/8WzttrzBxfI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/8WzttrzBxfI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/8WzttrzBxfI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/8WzttrzBxfI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:23.523794",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:13.656805"
   },
   "llm_outputs": [
     {
@@ -18,16 +86,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:57:21.982746",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

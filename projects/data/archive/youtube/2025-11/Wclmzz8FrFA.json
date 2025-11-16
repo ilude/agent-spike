@@ -3,9 +3,78 @@
   "url": "https://www.youtube.com/watch?v=Wclmzz8FrFA",
   "fetched_at": "2025-11-09T23:47:03.996200",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:47:03.996200",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "The agentic mesh is a word salad that has no empirical grounding. It doesn't have the builder's touch. And that is what makes that presentation so concerning because I've seen over and over again as someone in sort of the product engineering side of things when you have a CEO come in fresh off a report like that and he's like this should just work. The McKenzie guys say that they can build an agentic mesh and you can plug any model in without additional work. Why don't we use uh you know Mistl small or why don't we use GPT 3.5 Turbo because McKenzie mentioned it. Both of those are in the presentation by the way. And the tech teams roll their eyes because they're like these are ancient models. They're tiny. It relies on this assumption of edge computing that hasn't sustained very well because larger models just show sustained gains in intelligence that smaller models aren't matching. That's one of the big surprises of 2025 is that edge computing for models is not working as well as people thought it would yet. That makes a CEO sleep well at night. It is not true.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "Wclmzz8FrFA",
+    "title": "McKinsey Agentic Mesh",
+    "description": "June 23 #shorts \n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Software 3.0 Paradigm Shift: Andrej Karpathy argues the next \u201clanguage\u201d of coding is English, forcing teams to rethink every layer of software design\u2014from data pipelines to deployment.\n 2. LLMs as \u201cPeople Spirits\u201d: Large language models are stochastic simulations with jagged intelligence; they feel human but still need tight human supervision and constrained output.\n 3. Human-in-the-Loop by Design: Success hinges on making validation frictionless and deliberately limiting AI generation so reviewers can keep up.\n 4. Builder Honesty vs. Boardroom Hype: Karpathy names CI/CD gaps and edge-model limits, while McKinsey\u2019s \u201cagentic mesh\u201d offers a seductive yet unbuildable fairy tale.\n 5. Enterprise AI Reality Check: Plug-and-play agents and tiny edge models don\u2019t exist; incremental crawl-walk-run adoption with clear culture change is mandatory.\n 6. Risk of Consultant Oversimplification: CEO faith in word-salad frameworks stalls projects and wastes budgets\u2014tech leaders must push for empirically grounded plans.\n 7. Edge Computing Debate: Despite bets from Apple and others, large centralized models still outperform small edge deployments in 2025; prudence beats hype.\n\nQuotes\n\u201cTreat large language models as \u2018people spirits\u2019\u2014they feel human, but they still need a leash and a supervisor.\u201d\n\u201cSoftware 3.0 is about building Iron-Man suits: AI augments our reach, yet humans stay in the cockpit.\u201d\n\u201cMcKinsey\u2019s \u2018agentic mesh\u2019 is comforting fiction\u2014there\u2019s no USB port that lets any model magically run any workflow.\u201d\n\nSummary\nIn this talk I contrast Andrej Karpathy\u2019s builder-centric \u201cSoftware 3.0\u201d vision with McKinsey\u2019s consultant-driven \u201cagentic mesh.\u201d Karpathy sees large language models as \u201cpeople spirits\u201d\u2014stochastic simulations that require tight human oversight, short-leash generation, and redesigned data pipelines. He urges teams to treat English as the new programming interface yet remain realistic about jagged intelligence and deployment gaps. McKinsey, by contrast, packages a comforting fiction for CEOs, promising plug-and-play agents and commodity edge models that don\u2019t exist. I warn that believing such pitches breeds failed enterprise projects; instead we must tell harder truths and cultivate a culture of incremental, validated AI.\n\nKeywords\nSoftware 3.0, Andrej Karpathy, McKinsey, agentic mesh, large language models, people spirits, human-in-the-loop, jagged intelligence, edge computing, enterprise AI, culture change, validation loops, builders vs consultants",
+    "published_at": "2025-06-23T21:40:00Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT58S",
+    "duration_seconds": 58,
+    "view_count": 2829,
+    "like_count": 68,
+    "comment_count": 2,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/Wclmzz8FrFA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/Wclmzz8FrFA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/Wclmzz8FrFA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/Wclmzz8FrFA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/Wclmzz8FrFA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:37.613532",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:26.696291"
   },
   "llm_outputs": [
     {
@@ -18,16 +87,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:47:03.996200",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

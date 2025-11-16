@@ -3,9 +3,75 @@
   "url": "https://www.youtube.com/watch?v=Z6CQ3-HoAJo",
   "fetched_at": "2025-11-09T23:14:33.065353",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:14:33.065353",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "The assistant that I find ideal is the one that I touch daily because it's quick, it helps with simple tasks, it's accurate, and I don't have to babysit it. And this agent isn't any of those things. In fact, it's kind of doubling down on the framework that was problematic about operator. You have to babysit it. It takes a long time. It thinks a lot. It has more arms and legs now. It can connect to more stuff. It'll connect to Google Drive. It'll connect to Excel. It will do it. It legitimately has more capabilities. But the fundamental frame of you must babysit it, it's going to take a while, it has a lot of guard rail, so you have to intervene a lot. Hasn't changed. It's not different than it was. And I think that those those requirements are problematic enough that this is not going to be a widely adopted tool",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "Z6CQ3-HoAJo",
+    "title": "ChatGPT Agent Mode \u2014 What's Not Ready  #artificialintelligence #ai #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Hype vs Reality: Agent Mode behaves like an \u201cover-thinking intern,\u201d delivering less autonomy and speed than the marketing suggests.\n 2. Excel Automation Edge: Its most credible win is auto-building straightforward Excel models, finally closing AI\u2019s long-standing spreadsheet gap for finance teams.\n 3. Mandatory Babysitting: Heavy guardrails force constant user approval, slowing work and revealing OpenAI\u2019s priority to limit liability over efficiency.\n 4. Prompt-Injection Risk: Sam Altman admits a simple email can hijack the agent\u2014spotlighting a new, highly exploitable attack surface.\n 5. Data-Harvest Strategy: OpenAI is shipping early to collect real-world usage data, effectively turning users into test subjects for a decade-long general agent project.\n 6. Specialized Beats General (for now): Narrow, task-focused agents\u2014like code or calendaring bots\u2014still deliver more day-to-day value than this broad but cumbersome tool.\n\nQuotes\n\u201cWe are all guinea pigs in OpenAI\u2019s decade-long quest to build a general-purpose agent.\u201d\n\u201cAll you get when you give deep research arms and legs is an over-thinking intern.\u201d\n\u201cAn agent I have to babysit isn\u2019t an assistant; it\u2019s another task.\u201d\n\nSummary\nI argue that OpenAI\u2019s new Agent Mode, despite the hype, behaves like an over-thinking intern: it can build simple Excel models and rudimentary decks but demands constant supervision, slows work, and invites liability. Guardrails force repeated hand-offs, and Sam Altman admits the system remains vulnerable to prompt-injection hijacks, making email triage risky. Finance professionals may glean value from automated spreadsheet creation, yet most users will see limited day-to-day payoff. OpenAI is effectively using us as guinea pigs to gather data for a decade-long quest toward a true general-purpose agent; until then, specialized task-focused agents will deliver more practical gains.\n\nKeywords\nOpenAI, Agent Mode, general-purpose agent, Excel automation, guardrails, prompt injection, supervised AI, finance workflows, intern analogy, data collection, Sam Altman, liability, specialized agents",
+    "published_at": "2025-07-18T17:50:40Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT48S",
+    "duration_seconds": 48,
+    "view_count": 6698,
+    "like_count": 145,
+    "comment_count": 9,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/Z6CQ3-HoAJo/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/Z6CQ3-HoAJo/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/Z6CQ3-HoAJo/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/Z6CQ3-HoAJo/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/Z6CQ3-HoAJo/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:02.177159",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:31.915020"
   },
   "llm_outputs": [
     {
@@ -18,16 +84,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:14:33.065353",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

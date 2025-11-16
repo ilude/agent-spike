@@ -3,9 +3,77 @@
   "url": "https://www.youtube.com/watch?v=aMJWAemVTa8",
   "fetched_at": "2025-11-09T23:00:53.647690",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:00:53.647690",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "Okay, pattern number three. This one is related to tools. It is not going anywhere. You know what the fastest tool to $100 million is? It's not cursor anymore. It's lovable. The vibe coding tool. It is such a big deal that Microsoft launched their own copycat version for GitHub called Spark. I think natural language driven coding or vibe coding. It is in a sense its own pattern. I wanted to give it its own airtime. You prompt in natural language for code generation. You iterate for refinements. It's ideal for prototypes, for scripting, for exploration, and you can honestly build real applications. I know people who have built CRM for small services businesses off of Lovable. I know people who have built small applications that are focused on uh crypto monitoring off of Lovable. The strength is speed. You can get through things very very rapidly.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "aMJWAemVTa8",
+    "title": "Vibecoding $100M Tool #ai #artificialintelligence #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/the-complete-52-page-guide-to-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. Codebase Mapping & Onboarding: Aim the model at a repo, prompt for summaries, graphs, or PR analysis, and refine manually to slash ramp-up time for both engineers and non-coders.\n 2. Plan-First Development: Treat AI as an architect\u2014force it to outline edge cases, pseudo-code, and road-maps before it writes a single line, then code against the approved plan.\n 3. Natural-Language \u201cVibe Coding\u201d: Clear, intent-rich prompts let tools like Lovable or Cursor turn plain English into deployable apps; ambiguity is the only bottleneck.\n 4. AI-Augmented Debugging & Testing: Paste explicit error traces, ask for root-cause analysis, loop fixes in a sandbox, and guard against regressions.\n 5. AI-Assisted Reviews & Refactors: Use the model as a pre-pull reviewer for scoped diffs, but require human sign-off to avoid runaway edits.\n 6. Context Engineering for Consistency: Maintain repo-level rules files (e.g., .cursor-rules, claude.md) so prompts stay on brand, hallucinations drop, and multi-agent workflows stay coherent.\n 7. Durable Patterns Trump Tools: Tools will churn (ChatGPT-5, Gemini, etc.), but these six workflows form a stable playbook you can slot any new model into.\n\nQuotes\n\u201cWe keep chasing shiny tools, but the only thing that survives the hype cycle is a repeatable workflow.\u201d\n\u201cKnowing how to code is now as easy\u2014and as valuable\u2014as knowing how to cook.\u201d\n\u201cAI just made it possible for you to be your own technical founder; the gatekeepers are gone.\u201d\n\nSummary\nI break today\u2019s AI-powered coding chaos into six enduring workflows\u2014mapping codebases, planning before coding, natural-language \u201cvibe coding,\u201d AI-driven debugging, AI-assisted reviews, and rigorous context engineering. By spotlighting real tactics from leaders using tools like Devin, Cursor, Claude, Lovable, and Windsurf, I show how these patterns remain stable even as models and products churn. Mastering them lets anyone\u2014from indie hackers to product execs\u2014build faster, onboard quicker, and avoid brittle prompt hacks. If you\u2019ve never shipped code, start small, follow the patterns, and discover that becoming your own builder is finally within reach.\n\nKeywords\nAI development, workflow patterns, codebase mapping, onboarding, plan-first development, vibe coding, natural language coding, AI debugging, code reviews, context engineering, Devin, Cursor, Claude, Lovable, Windsurf, model context protocol",
+    "published_at": "2025-07-29T21:00:01Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT53S",
+    "duration_seconds": 53,
+    "view_count": 2961,
+    "like_count": 102,
+    "comment_count": 4,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/aMJWAemVTa8/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/aMJWAemVTa8/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/aMJWAemVTa8/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/aMJWAemVTa8/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/aMJWAemVTa8/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:35.375692",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-52-page-guide-to-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-52-page-guide-to-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:14.428731"
   },
   "llm_outputs": [
     {
@@ -18,16 +86,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:00:53.647690",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

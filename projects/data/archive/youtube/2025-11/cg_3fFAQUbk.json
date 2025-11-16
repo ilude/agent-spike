@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=cg_3fFAQUbk",
   "fetched_at": "2025-11-09T23:41:04.869989",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:41:04.869989",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "We need answers for jobs that do not depend on showing that you have gone to college and know all the things because those things are devoid of meaning now. And so we have to rethink from the ground up what makes a human job interesting and worth doing and meaningful. And it doesn't make it easier to do that if all around us everyone is shouting about AI taking away jobs. It is much more productive to sit there and actually ask yourself, well, what do we know about what AI is good at? And what do we know about what AI is architecturally maybe not so great at? And if we know what those things are, can we start to get a sense of where our skills might lie in the future?",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "cg_3fFAQUbk",
+    "title": "Rethinking Human Jobs in the age of AI #education #artificialintelligence #jobs #shorts #chatgpt",
+    "description": "Get the story: https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Knowledge Hyperinflation Curve: AI has pushed Buckminster Fuller\u2019s knowledge-doubling rate from decades to months, flooding us with information faster than anyone can absorb.\n 2. College Credential Collapse: Degrees feel like empty rituals because AI can supply (or fake) the same knowledge on demand.\n 3. R\u00e9sum\u00e9 Obsolescence: Monster.com\u2019s bankruptcy signals that traditional job-application signals no longer prove real competence in an AI era.\n 4. Judgment Over Knowledge: We\u2019re shifting from a \u201cknowledge economy\u201d to a \u201cjudgment economy\u201d where discernment and context beat facts alone.\n 5. Five Human Moats: Taste, extreme agency, learning velocity, long intent horizons, and interruptibility are traits AI still struggles to mimic.\n 6. Action Plan: Stop chasing credentials; build proof-of-work projects that show judgment and resilience machines can\u2019t imitate.\n\nQuotes:\n\u201cWe live in a hyper-inflating knowledge economy\u2014no one can read it all.\u201d\n\u201cThe r\u00e9sum\u00e9 is now a chatbot prompt away from perfect, which makes it worthless.\u201d\n\u201cThe future pays for judgment, not just knowledge.\u201d\n\nSummary:\nIn this video I break down why our knowledge-based economy is cracking under AI\u2019s super-charged learning curve. College degrees and r\u00e9sum\u00e9s lose value when language models can fake them in seconds. I trace the knowledge-doubling curve, explain Monster\u2019s bankruptcy as a warning, and show why simply collecting skills no longer works. Instead, I argue for a \u201cjudgment economy\u201d built on five human advantages\u2014taste, extreme agency, learning velocity, long intent horizons, and interruptibility. I invite you to spot other AI weak points and start cultivating proof-of-work that machines can\u2019t copy. Together we\u2019ll navigate this shift and keep our work unmistakably human.\n\nKeywords:\nAI, knowledge economy, knowledge hyperinflation, Buckminster Fuller, knowledge doubling curve, college degrees, r\u00e9sum\u00e9 collapse, Monster bankruptcy, job market, judgment economy, taste, extreme agency, learning velocity, intent horizon, interruptibility, future of work",
+    "published_at": "2025-06-27T16:07:47Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT44S",
+    "duration_seconds": 44,
+    "view_count": 2461,
+    "like_count": 96,
+    "comment_count": 8,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/cg_3fFAQUbk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/cg_3fFAQUbk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/cg_3fFAQUbk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/cg_3fFAQUbk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/cg_3fFAQUbk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:55.006725",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.659359"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:41:04.869989",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

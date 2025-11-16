@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=8BsneCFmK1E",
   "fetched_at": "2025-11-09T23:39:36.504745",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:39:36.504745",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "Number one, prediction. Just predicting the next word sounds really trivial, but it's not. Fundamentally, if you have scale and if you understand the structure of language, you can encode a vast amount of knowledge. You can build up answers token by token that reflect that structure, that reflect that scale. And you can use model weights, which are conditional probabilities, and they can encode a tremendously dense information set. They can encode long range relationships. They can encode short range relationships. They can talk about grammatical similarities. They can talk about cognates or meaning similarities. They can encode even relationships we don't fully understand. One of the most interesting things about LLMs and weights and encoding is that we have learned more things about language than we expected.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "8BsneCFmK1E",
+    "title": "AI: Predicting the Next Word #shorts  #artificialintelligence #ai #history",
+    "description": "The story: https://natesnewsletter.substack.com/p/the-complete-ai-learning-roadmap\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways:\n 1. GPT-5 Timeline Still Fluid: Internal benchmarks, engineering burn-in, and GPU provisioning make July the best guess, but \u201csummer 2025\u201d remains the only promise\u2014expect slips if quality or scale falter.\n 2. Unified Multimodal Experience: OpenAI is folding the O-series reasoning model, GPT-4 knowledge, voice, and deep-search tools into a single \u201cone brain\u201d interface\u2014no more model picker.\n 3. Four Pillars of Improvement: Multimodality (speech, images, maybe video), deeper reasoning, higher reliability (1 great answer in 10 000), and real personalization via memory and enterprise data.\n 4. Platform Shift \u2248 iPhone 2007: 2025 releases will make 2023\u201324 models look obsolete, kicking off an enterprise-grade AI consolidation similar to the smartphone inflection.\n 5. Gradual, Monitored Rollout: Pro \u2192 Plus \u2192 Free is likely; adaptive compute will ration GPU use while alignment and monitoring levers expand in the API.\n 6. Get Ahead by Learning Fundamentals: Master the journey from spam filters to transformers, then study Karpathy, 3Blue1Brown, and Stanford CS231N to build fluency before the noise hits.\n\nQuotes:\n\u201cWe\u2019re about to see 2025 models make 2023 look like dial-up AI.\u201d\n\u201cGPT-5 isn\u2019t just GPT-4 but bigger\u2014it\u2019s a single coherent brain that decides which skills to light up.\u201d\n\u201cAI isn\u2019t Twitter-thread FOMO; it\u2019s solid mental models and the right guides.\u201d\n\nSummary:\nI explain why summer 2025 marks an iPhone-level platform shift for AI and how GPT-5 will anchor it. The release window hovers around July, but only if OpenAI nails unified multimodal performance, deeper reasoning, rock-solid reliability, and real personalization without melting its GPU fleet. Builders should expect a staggered rollout and new alignment controls. To be ready, I trace AI\u2019s path from hand-coded spam filters to transformer scale, demystify embeddings, attention, training, and inference, and share the best courses and eleven must-follow voices for signal over noise. Catch up now so GPT-5 doesn\u2019t leave you behind.\n\nKeywords:\nChatGPT-5, GPT-5, OpenAI, unified model, multimodality, transformer, attention, large language models, platform shift, iPhone moment, adaptive compute, GPU scaling, alignment tooling, AI learning resources, Karpathy, 3Blue1Brown, CS231N, Simon Willison, enterprise AI, builders",
+    "published_at": "2025-06-30T17:01:35Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT48S",
+    "duration_seconds": 48,
+    "view_count": 1788,
+    "like_count": 58,
+    "comment_count": 3,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/8BsneCFmK1E/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/8BsneCFmK1E/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/8BsneCFmK1E/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/8BsneCFmK1E/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/8BsneCFmK1E/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:20.214323",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/p/the-complete-ai-learning-roadmap",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/the-complete-ai-learning-roadmap",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:13.438716"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:39:36.504745",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

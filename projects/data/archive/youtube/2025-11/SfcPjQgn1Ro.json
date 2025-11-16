@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=SfcPjQgn1Ro",
   "fetched_at": "2025-11-09T23:33:24.439181",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:33:24.439181",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "product can then take that analysis that you get from marketing. Maybe you throw a chart in there, right? Copilot can help with that. And it can then say, \"Hey, can you help me prioritize these feedback themes? How do they align to our existing roadmap?\" And it can invoke like roadmap. dox and it can put them together and they can say, \"Hey, this could slot in here. This could slot in here.\" That creative streamlining is something that PMs have historically been very frustrated by because it means revisiting a road map and changing it all the time. This makes some of that pain easier. It means that marketing has more of a voice with product. It is one of the advanced workflows that ultimately pays for itself not just in sort of the time and alignment and lack of frustration but in the right feature getting built for customers more often. Is it perfect? No. RPM still going to argue about the road map 100%. But it gives you a sense of what Copilot can do beyond just help me with my",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "SfcPjQgn1Ro",
+    "title": "CoPilot: Streamlining Product Roadmaps  #artificialintelligence #ai #shorts",
+    "description": "My story: https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Copilot Name Chaos: Microsoft slapped the Copilot brand on twelve different SKUs, so enterprises routinely buy the wrong license and stall adoption.\n 2. Underused Potential: Most teams limit Copilot to email drafts, ignoring high-value workflows like instant pivot tables, meeting-minute generation, and screenshot-based troubleshooting.\n 3. Workflow Mindset: Treat Copilot as \u201cintelligence on tap\u201d across entire processes\u2014prompt chains, cross-app report builds, and Vision-enabled data extraction reclaim hours.\n 4. Cultural Rollout: Small pilots, role champions, shared prompt libraries, and relentless measurement turn isolated wins into organization-wide productivity shifts.\n 5. ROI Stakes: Done right, Copilot saves roughly three hours per worker each week and can return twenty-fold on license spend.\n 6. Future Baseline: Within a year, advanced Copilot fluency will be table stakes; laggards will sacrifice competitive edge.\n\nQuotes\n\u201cCompanies are literally paying for a Ferrari and they are driving it to the grocery store in first gear.\u201d\n\u201cIf AI was as good as it needs to be to take our jobs, I wouldn\u2019t have to make this video.\u201d\n\u201cCopilot mastery is going to look like a basic requirement in about a year.\u201d\n\nSummary\nI spent months interviewing frontline users and dissecting case studies to learn why firms paying six-figure Copilot bills still use it only for drafting email. Microsoft stamped the Copilot name on twelve distinct SKUs, confusing leaders and burying huge gains. I decode each edition, reveal workflows from auto-generated pivot tables to cross-app prompt chains, and spotlight Vodafone\u2019s staged 68,000-seat rollout that recaptured three hours per worker weekly. The takeaway is cultural: pair phased experimentation, role-specific champions, ongoing measurement, transparent wins, and fearless prompt sharing to shift Copilot from novelty to indispensable enterprise leverage\u2014and secure twenty-fold returns on license spend.\n\nKeywords\nMicrosoft Copilot, Copilot SKUs, enterprise AI, workflow automation, prompt libraries, cultural change, Vodafone rollout, email productivity, Excel analysis, pivot tables, ROI",
+    "published_at": "2025-07-03T15:02:05Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT50S",
+    "duration_seconds": 50,
+    "view_count": 470,
+    "like_count": 5,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/SfcPjQgn1Ro/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/SfcPjQgn1Ro/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/SfcPjQgn1Ro/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/SfcPjQgn1Ro/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/SfcPjQgn1Ro/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:10.436008",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:24.802804"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:33:24.439181",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

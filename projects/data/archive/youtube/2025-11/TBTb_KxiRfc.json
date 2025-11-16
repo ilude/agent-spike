@@ -3,9 +3,75 @@
   "url": "https://www.youtube.com/watch?v=TBTb_KxiRfc",
   "fetched_at": "2025-11-09T23:10:35.447827",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:10:35.447827",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "reports jumped over the weekend that as big as the $200 million pay package was that Mark Zuckerberg offered and that was accepted by someone to come to Meta, I think that was the biggest headline. I think they all vary between 10 and $200 million, which is just generational wealth, right? It's incredible. Apparently, at least 10 researchers at OpenAI turned down, the rumor goes, $300 million paychecks. $300 million. That is more than most professional athletes make. That is show Otani money. if you're a baseball fan. So, the reason I'm calling this out is that this is part of Meta's playbook. If you're looking at the trust fingerprint for Meta, they are very heavily into spending money to catch up aggressively and making sure that they can back up their demos. Even if their demos were in the move fast, breakthrough, break things spirit initially.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "TBTb_KxiRfc",
+    "title": "$300M for AI Researchers - Turned Down! #ai #artificialintelligence #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. The Trust Gap Is Structural: Classical transactions work because both sides see what they get; with AI you buy a black box, forcing users to rely on lab claims instead of transparent evidence.\n 2. OpenAI\u2019s \u201cGold Medal\u201d Raises Eyebrows: Its Math Olympiad victory lacked the official marking guide and ignored the organizers\u2019 request for silence\u2014fitting a pattern of grabbing headlines before offering verification.\n 3. Every Lab Has a \u201cTrust Fingerprint\u201d: OpenAI chases PR and hides the \u201chow,\u201d Meta spends billions to brute-force demos, Anthropic pairs meticulous research with rosy futurism, Google couples world-class science with dismal UX, and XAI optimizes benchmarks while staying opaque.\n 4. Money Can\u2019t Buy Passion\u2014or Credibility: Zuckerberg\u2019s $100-300 million recruiting blitz may fix talent shortages, but it can\u2019t guarantee the cohesive, mission-driven teams required for true breakthroughs.\n 5. Domain Experts Are the Reality Check: Mathematicians like Terence Tao spot gaps in AI proofs that technologists celebrate; outside of code, labs often overstate usefulness because they don\u2019t own the domain knowledge.\n 6. Heuristics Beat Hype: I trust OpenAI models already in production, expect Meta\u2019s pendulum to swing back next year, read Anthropic papers but discount their utopia, test Google via API not UI, and keep XAI sandboxed until it shows its work.\n\nQuotes\n\u201cWe\u2019re being asked to buy intelligence sight unseen\u2014and the bill comes with a press release, not a receipt.\u201d\n\u201cOpenAI will win the headline war every time; transparency is the price they never seem willing to pay.\u201d\n\u201cUntil domain experts say the model works for them, the lab\u2019s confidence is just marketing in a lab coat.\u201d\n\nSummary\nI unpack why trusting AI labs is fundamentally different from trusting traditional vendors. OpenAI\u2019s headline-grabbing Math Olympiad claim illustrates the gap: no official graders, no marking guide, and a PR push that ignored the organizers\u2019 wishes. Each lab shows a distinct \u201ctrust fingerprint\u201d: OpenAI prizes publicity over details, Meta buys talent to fix demo failures, Anthropic mixes rigorous safety work with utopian forecasts, Google delivers superb science but poor interfaces, and XAI hides behind benchmark scores. Because domain experts\u2014not technologists\u2014ultimately validate usefulness, I rely on lab-specific heuristics before deploying any model.\n\nKeywords\nAI trust, OpenAI, International Math Olympiad, Sam Altman, Meta, Mark Zuckerberg, Anthropic, Claude, Google, Demis Hassabis, XAI, Grok 4, Terence Tao, trust fingerprint, model transparency, domain expertise, AI claims, PR strategy",
+    "published_at": "2025-07-21T17:14:56Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 6524,
+    "like_count": 150,
+    "comment_count": 8,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/TBTb_KxiRfc/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/TBTb_KxiRfc/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/TBTb_KxiRfc/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/TBTb_KxiRfc/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/TBTb_KxiRfc/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:16.861160",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:25.241588"
   },
   "llm_outputs": [
     {
@@ -18,16 +84,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:10:35.447827",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

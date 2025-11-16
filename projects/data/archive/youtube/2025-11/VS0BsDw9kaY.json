@@ -3,9 +3,78 @@
   "url": "https://www.youtube.com/watch?v=VS0BsDw9kaY",
   "fetched_at": "2025-11-10T00:36:10.495393",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:36:10.495393",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "YouTube is going to hate me for this I'm just going to give you the 12 days of open Ai and that's it and if you one take at the end and we're going to be done number one was 01 and 01 Pro big deal first release of reasoning models number two reinforcement fine-tuning really aimed at sort of Corporations number three was Sora which was a texted video model aimed at the consumer that had been promised for months number four was canvas which had been in beta for a while number five was Apple intelligence so they sort of rapchat GPT into the iPhone that was when they had the massive outage I think the two are related uh then we had advanced voice with video which Google sort of stole their Thunder on because they did the same thing with Gemini then we had projects which is what Claude already has so you can organize your files and stuff then we had chat GPT search which again some of us already had in beta then we had Dev tools for 01 which is cool which is necessary 11th we had Seamless app Integrations people cannot make up their minds what that one is like people are just giving up linking to that when they're building their listicles because it's like important but like the details are very not not there um and then last but not least 03 which is a freaking huge deal and is an entirely new level of intelligence here's my comment at the end that is no way to release artificial general intelligence you do not do that and then expect to be able to get the Public's attention and I think that the reason why I'm frustrated many of the rest of us are frustrated is that we're used to the apple style of releases where it's a consumer facing release and it's polished and it's focused on what the consumer needs that's not how this works this goes back to an earlier tradition of American innovation in b s Bell Labs just built stuff and they released it and they kind of didn't care what order it was in and they didn't care if it was polished and they didn't care if it was ready for the consumer and like 03 wasn't ready like it's not actually out they're asking for safety researchers Sam Alman is Shilling it for safety researchers actively on Twitter so I think we should think about open AI more as Bell labs and less as Apple because that actually explains a ton of how they're handling releases and it implies that you should not necessarily assume that the company that delivers the Innovation is the company that monetizes it the company that figures out the massive hit consumer application I see people all the time assuming that open ey has a grand strategy and they're going to put it all together into one seamless product but I don't see a track record of that somebody else may take their building blocks and do that we will see that's my comment those are the 12 days of open AI is quite a hodg Podge if you want a longer discussion of it it's on my substack cheers",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "VS0BsDw9kaY",
+    "title": "YouTube Will Hate This: 12 days of OpenAI in One List in 3 Min",
+    "description": "Yes I forgot 1-800-ChatGPT lol but it doesn't matter\n\nAbout me: https://natebjones.com/\nMy Links: https://linktr.ee/natebjones\n12 days: https://natesnewsletter.substack.com/p/the-apple-vs-the-beaker-apple-bell\n\nTakeaways:\n 1. Reasoning Models Launch: OpenAI\u2019s O1 and O1 Pro introduced the first reasoning models, marking a major step forward in AI\u2019s problem-solving capabilities.\n 2. Text-to-Video Goes Mainstream: Sora, the much-anticipated text-to-video model, finally delivered a consumer-focused innovation in AI media.\n 3. Apple Integration Amid Outages: ChatGPT\u2019s integration into Apple devices as Apple Intelligence coincided with a massive outage, raising questions about readiness.\n 4. Advanced Voice Competition: Advanced Voice with Video positioned OpenAI against Google\u2019s Gemini, highlighting a race for dominance in voice AI.\n 5. Organization Tools Launched: Projects brought file organization to ChatGPT, a feature similar to what Claude already offers.\n 6. Seamless Integrations Confusion: OpenAI introduced Seamless App Integrations, but its vague details left developers and users puzzled.\n 7. O3\u2019s Giant Leap: O3 showcased groundbreaking intelligence but wasn\u2019t consumer-ready, focusing instead on recruiting safety researchers for further development.\n\nQuotes:\n\u201cWe should think about OpenAI more as Bell Labs and less as Apple.\u201d\n\u201cThis isn\u2019t how you release artificial general intelligence\u2014piecemeal launches won\u2019t grab the public\u2019s attention.\u201d\n\u201cThe company that builds the innovation isn\u2019t always the one that monetizes it.\u201d\n\nSummary:\nOpenAI\u2019s \u201c12 Days of AI\u201d highlighted its innovation-first, consumer-second approach. From reasoning models (O1, O1 Pro) to text-to-video tools like Sora, the releases ranged from groundbreaking to incomplete. ChatGPT\u2019s integration with Apple devices was clouded by outages, while O3 represented a leap in intelligence yet remains under development. Unlike Apple, OpenAI takes a Bell Labs-style approach\u2014focusing on building blocks rather than polished consumer solutions. This strategy may mean the real consumer hits come from other companies leveraging OpenAI\u2019s innovations. The releases reflect the exciting, chaotic process of defining AI\u2019s next chapter.\n\nKeywords:\nOpenAI, reasoning models, O1, O3, text-to-video, Sora, Apple Intelligence, advanced voice, Gemini, Bell Labs, seamless integrations, safety researchers, artificial general intelligence, Claude, AI innovation, product strategy, consumer applications, AI tools.",
+    "published_at": "2024-12-23T16:19:11Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT3M",
+    "duration_seconds": 180,
+    "view_count": 2952,
+    "like_count": 149,
+    "comment_count": 24,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/VS0BsDw9kaY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/VS0BsDw9kaY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/VS0BsDw9kaY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/VS0BsDw9kaY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/VS0BsDw9kaY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:34.154920",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/p/the-apple-vs-the-beaker-apple-bell"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/the-apple-vs-the-beaker-apple-bell"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:26.430949"
   },
   "llm_outputs": [
     {
@@ -18,16 +87,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:36:10.495393",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

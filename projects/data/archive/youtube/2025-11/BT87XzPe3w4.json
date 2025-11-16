@@ -3,9 +3,91 @@
   "url": "https://www.youtube.com/watch?v=BT87XzPe3w4",
   "fetched_at": "2025-11-09T22:10:26.982212",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:10:26.982212",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "One of the crosscutting trends here is that the companies that were funded in 2025 are going to be hitting the ground in 2026 and they are going to be fiercely competing for every sales dollar. And so you want to be in a position where you can argue that your product is not only compliant driver one, but driver two is able to show agentic aligned measurable outcomes. If you're deploying an agent in production, if you are selling something that has an agentic element, if you are buying something that has agents included, you want to make it clear why that extra work, that extra token burn, that extra expense is worth it. And the only way I can think to make that really math math, you know, to make 1 plus 1 equal three, is to show that the agent can solve problems that traditional LLM tooling cannot.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "BT87XzPe3w4",
+    "title": "Unlocking 2026: Beat Your Competition with AI Agents #ai #agents #aistrategy #llm #2026",
+    "description": "What\u2019s really happening with AI strategy for 2026 planning? If you're building for next year, NOW is the time to be planning. But I'm seeing builders and boards get turned around on what to bet on because AI hype seems to change everything every week. \n\nBut the reality is that there ARE real trends under the surface you can bet on, and I've pulled together hundreds of sources (including conversations with industry insiders) to get at the five key AI trends that really matters for builders and roadmappers heading into 2026. \n\nIn this video, I share the inside scoop on 2026 AI roadmapping across five drivers and cross-cutting implications:\n\u2022 Why enforcement turns governance into a builder\u2019s market opportunity.\n\u2022 How CFO scrutiny pushes outcome-based pricing for AI agents.\n\u2022 Where AI-native entrants outpace incumbents\u2014and how to respond.\n\u2022 What local LLMs and market segmentation mean for roadmaps.\n\nTeams that invest now in evals, multi-model resilience, agents on golden workflows, and vertical expertise will manage risk and capture 2026 upside.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-06T03:00:11Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT57S",
+    "duration_seconds": 57,
+    "view_count": 2339,
+    "like_count": 114,
+    "comment_count": 0,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "future of work",
+      "automation at work",
+      "AI governance",
+      "AI compliance",
+      "multi model resilience",
+      "EU AI Act",
+      "California AI bill",
+      "outcome based pricing",
+      "ROI telemetry",
+      "AI native entrants",
+      "vertical expertise",
+      "local LLMs",
+      "on device compute",
+      "2026 AI planning",
+      "agentic workflows ROI"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/BT87XzPe3w4/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/BT87XzPe3w4/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/BT87XzPe3w4/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/BT87XzPe3w4/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/BT87XzPe3w4/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:48.155690",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.250213"
   },
   "llm_outputs": [
     {
@@ -18,16 +100,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:10:26.982212",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

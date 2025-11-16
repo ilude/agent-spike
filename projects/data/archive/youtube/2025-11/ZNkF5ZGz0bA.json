@@ -3,9 +3,78 @@
   "url": "https://www.youtube.com/watch?v=ZNkF5ZGz0bA",
   "fetched_at": "2025-11-10T00:14:23.453207",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:14:23.453207",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "Google has built an AI scientist and Microsoft has built a new state of matter uh and we're going to talk about it so fundamentally when you think about AI agent architectures we tend to assume that they have a commercial application and in this case the AI scientist that Google builds isn't really for commercial purposes Google is beta testing it with a few select scientific Labs but it really is truly for high hard scientific problems and it lines up with things that open AI have adusted in others that they really see open uh they really see openness to scientific research and advancing scientific research is one of the key benefits of artificial intelligence you might say where are the hard benefits and when Google released their paper and then released the scientist's uh AI architecture to labs they called out that this scientist has already done novel work and so a few examples they gave were that apparently it independently hypothesized a novel Gene transfer mechanism that the Imperial College of London had looked at and had not yet been able to publish and so it could have known about it but it developed a hypothesis that that was correct in that instance but it went farther than that it also looked at uh drug repurposing candidates which is often a fast-track way to get drugs uh into people's hands because you can take a drug that works for disease X and say oh it actually works for disease y too which is a hypothesis you have to validate and all of that well it proposed a novel drug that would work for acute myoid leukemia um and they took the drug and tried the repurposing and it works in vitro which doesn't mean it works in humans yet we're not all the way through that's a multi-year process but it means that it was able to formulate a hypothesis that stood up to the next test along the way and what's what's interesting is it uses uh some enhanced reasoning under the hood to do that so it scales test time compute which is what we see a lot with reasoning here right like test time compute is when you uh ask a question it takes a while to answer right because it's running so much back and forth the system engages in uh scientific debates internally it has ranked tournaments for hypotheses ultimately that leads to improved reasoning and hypothesis qualities uh or and hypothesis quality I should say so in terms of why this matters the key thing to take away is that at the end of the day AI is supposed to be able to do novel scientific work that is one of the bars that the model makers have set out and this is one of the first examples we've seen that it actually can and that's really exciting meanwhile Microsoft unveiled majara 1 uh which apparently includes a new state of matter we have solid liquid gas and now some sort of topological superconductor and they're not telling me like how to imagine it so I can't tell it to you but it apparently is made from uh like the physical substrate is part of what makes this the quantum chip so cool because it reduces uh it reduces errors and makes more reliable and scalable what are called cubits which are the little bits that actually form the logic gates in a superconductor and for the first time they see a path to a million cubits in a single chip which would enable a Quantum system that can actually do like industrial applications does this mean that we're ready tomorrow for industrial applications no no we are not but does it mean that we are excited to see if we can build a more reliable system because we have topological superconductors yes I think this is actually a meaningful technical breakthrough and it shows that Microsoft and Google are very much neck and neck in this Quantum compute race it's been five years away from production for a long time if you've been following supercomputing so I'm not holding my breath but I do think that we see a Cascade of breakthroughs here that could lead to something that is Meaningful Quantum Computing industrially um maybe by 2030 we'll see right maybe this five years away will actually work so yeah that's where we're at um I'm excited sometimes sometimes I think we lose lose ourselves in the model maker news and we forget some of these other hard science updates so it's pretty cool",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "ZNkF5ZGz0bA",
+    "title": "AI for science: Google announces an AI co-scientist, plus Microsoft builds a quantum chip",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways:\n 1. AI as a Research Partner: Google\u2019s AI co-scientist, powered by Gemini 2.0, acts as a virtual research assistant, helping scientists generate hypotheses, summarize literature, and design experiments.\n 2. Multi-Agent Collaboration: The AI system leverages multiple specialized agents that work together, refining and validating hypotheses through iterative feedback loops.\n 3. Breakthroughs in Biomedical Science: Google\u2019s AI has already contributed to drug repurposing efforts, identifying compounds to treat diseases like acute myeloid leukemia.\n 4. Quantum Computing and AI Synergy: Microsoft\u2019s Majorana 1 chip introduces a topological quantum computing approach, paving the way for more stable, scalable quantum AI applications.\n 5. Majorana Particles and Stability: By leveraging Majorana particles, Microsoft\u2019s quantum chip aims to create fault-tolerant qubits, a critical step toward practical quantum computing.\n 6. Scaling to a Million Qubits: Majorana 1 is designed to scale up to one million qubits, enabling quantum processors to solve problems beyond classical computing\u2019s reach.\n 7. AI-Driven Scientific Discovery: Both Google and Microsoft are using AI to accelerate breakthroughs, from new material discovery to revolutionizing computation through quantum advances.\n\nQuotes:\n\n\u201cWe\u2019re entering an era where AI isn\u2019t just analyzing data\u2014it\u2019s actively driving scientific breakthroughs.\u201d\n\n\u201cMajorana particles could unlock quantum computing at scale, bringing us closer to a future where AI and quantum work hand in hand.\u201d\n\n\u201cAI as a research collaborator is no longer science fiction\u2014it\u2019s happening now, changing the pace of innovation in real time.\u201d\n\nSummary:\n\nGoogle and Microsoft are pushing AI\u2019s boundaries, transforming both scientific research and quantum computing. Google\u2019s AI co-scientist, powered by Gemini 2.0, collaborates with researchers to generate hypotheses and accelerate biomedical breakthroughs. Meanwhile, Microsoft\u2019s Majorana 1 chip introduces a novel quantum computing approach, leveraging Majorana particles for more stable qubits. With the ability to scale to one million qubits, this breakthrough could enable AI to tackle previously unsolvable problems. As AI becomes an active participant in discovery, we\u2019re witnessing a paradigm shift where intelligent agents and quantum advancements are reshaping the future of science and technology.\n\nKeywords:\nAI co-scientist, Gemini 2.0, Google AI, Microsoft Majorana 1, quantum computing, Majorana particles, AI agents, biomedical breakthroughs, AI in science, AI research, topological qubits, machine learning, quantum stability, scientific AI, AI-driven research, AI and physics, AI collaboration, computational breakthroughs, technology trends",
+    "published_at": "2025-02-21T13:56:45Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT4M24S",
+    "duration_seconds": 264,
+    "view_count": 3196,
+    "like_count": 175,
+    "comment_count": 14,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ZNkF5ZGz0bA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ZNkF5ZGz0bA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ZNkF5ZGz0bA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ZNkF5ZGz0bA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ZNkF5ZGz0bA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:05.346096",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:32.120398"
   },
   "llm_outputs": [
     {
@@ -18,16 +87,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:14:23.453207",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

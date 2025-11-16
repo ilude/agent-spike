@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=67nkpKogBqg",
   "fetched_at": "2025-11-09T23:36:40.721501",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:36:40.721501",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "And this is where I want to underline again my thesis for where general intelligence is falling down right now is that AI is good at individual skills but real jobs and real work that humans do is not an individual skill set question. It is a bundle secured by glue work deeply interacted and entangled with other people's roles. And AI does not have enough context and does not have enough reinforcement learning. does not have enough training data or anything to get at that piece of the work, the glue work. And so my encouragement to you if you were worried about AGI is to remember Project Vend. Remember Claude loses money on a vending machine. And remember that even if people talk a big game about AI, no one has an answer to this kind of problem. to why Claude went off the rails to why memory problems are not yet solved.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "67nkpKogBqg",
+    "title": "The AI Glue Work Challenge  #artificialintelligence #ai #shorts",
+    "description": "The story: https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways:\n 1. AGI Meltdown Exposed: Claude\u2019s \u201cProject Vend\u201d lost 20 % of its seed capital in five weeks, proving conversational brilliance doesn\u2019t equal operational competence.\n 2. Vending Machine Reality Check: A $7 billion industry with 25 % margins became a money pit once AI tried to handle inventory, pricing, and payments.\n 3. Practicality Gap: Current models ace benchmarks yet flunk simple business tasks\u2014highlighting a gulf between theoretical intelligence and real-world execution.\n 4. Bubble Trouble: The $100 billion AI investment frenzy assumes future profits, but failures like Claude\u2019s signal a looming value-destruction crater.\n 5. The Vending-Machine Test: Forget the Turing Test\u2014if your model can\u2019t turn a profit for 30 days, stop calling it AGI.\n 6. Human-in-the-Loop Wins: Pairing AI with human oversight (\u201cSoftware 3.0\u201d) could flip losses to gains, showing augmentation beats full automation.\n\nQuotes:\n\u201cAn AI that can draft a PhD thesis but can\u2019t price a can of soda is artificial general incompetence.\u201d\n\u201cProject Vend is the emperor\u2019s-new-clothes moment for the entire AI industry.\u201d\n\u201cIf AGI has arrived and it still loses money on tungsten cubes, your job is safer than you think.\u201d\n\nSummary:\nI unpack Anthropic\u2019s Project Vend, where Claude tried\u2014and spectacularly failed\u2014to run a vending machine. Despite access to suppliers, Slack, and $1 000 in capital, it mis-priced items, hallucinated payment details, and burned cash, finishing 20 % down. The fiasco reveals a stark practicality gap: today\u2019s AI can discuss strategy eloquently yet execute disastrously. This \u201cAGI meltdown\u201d warns investors of an overheated bubble and offers a new benchmark\u2014the Vending-Machine Test\u2014to judge real intelligence. I argue human-AI hybrids will deliver value long before fully autonomous agents and remind viewers their jobs remain safer than the hype suggests.\n\nKeywords:\nAGI meltdown, artificial general intelligence, Anthropic, Claude, Project Vend, vending machine experiment, AI failure, AI economics, tungsten cubes, AI bubble, AI incompetence, job security, vending machine test, human-in-the-loop, software 3.0, AI limits, profitable AI, AI business, AGI timeline",
+    "published_at": "2025-07-01T18:46:20Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT52S",
+    "duration_seconds": 52,
+    "view_count": 883,
+    "like_count": 25,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/67nkpKogBqg/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/67nkpKogBqg/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/67nkpKogBqg/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/67nkpKogBqg/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/67nkpKogBqg/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:10.293832",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.745307"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:36:40.721501",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

@@ -3,9 +3,77 @@
   "url": "https://www.youtube.com/watch?v=_sn7WAVWC2A",
   "fetched_at": "2025-11-09T21:31:11.802349",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:31:11.802349",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "I think that one of the things we're really missing is a return to anchoring on a steady sense of the future because AI has felt so uncertain. And one of the things I'm grateful for that I wish people would talk about more is that Andre sees a steady sense of the future. Andre is not panicking. Andre is actually seeing the problem of agents as a really hard one that's going to take a long time to think through and solve properly. I'm looking at it as a builder and saying for this tiny piece of the world where we already have agents, wow, we have a lot we have to do architecturally to build well. But the good news is Andre is saying you've got runway to do that. You can build well now. Continuity over rupture. That is a discipline you can practice.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "_sn7WAVWC2A",
+    "title": "Andrej Karpathy's Vision for the Future of AI #ai #artificialintelligence #shorts",
+    "description": "Watch the longer video to grab the whole story!\n_______________________\n\nMy site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/everyone-misread-andrejs-podcastheres?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\n\n\nAndrej Karpathy went on Dwarkesh's podcast last week and the results were explosive.\n\nThe common story is that his podcast \u201ckilled the hype\u201d \u2014 but the reality is more complicated.\n\nIn this video, I share the inside scoop on what Karpathy actually said and what it means for AI builders today:\n\u2022 Why \u201cuseful agents\u201d may still be a decade away\n\u2022 How current LLMs struggle with memory, robustness, and reliability\n\u2022 What builders can still do with AI agents right now\n\u2022 Where the real opportunity lies in continuity over hype cycles\n\nChapters:\n00:00 Understanding Andre Carpathy's Perspective\n02:40 The Current State of AI Agents\n05:24 Economic Growth and AGI Expectations\n07:54 Challenges in Self-Driving Technology\n10:46 The Role of Education and AI\n13:17 Reactions to Andre's Statements\n15:50 Key Insights and Future Directions\n\nThe takeaway: for operators and teams, the next decade of AI won\u2019t be magic\u2014it\u2019ll be architecture, iteration, and compounding advantage for those who build early and build well.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-25T21:30:15Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT48S",
+    "duration_seconds": 48,
+    "view_count": 4559,
+    "like_count": 128,
+    "comment_count": 2,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/_sn7WAVWC2A/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/_sn7WAVWC2A/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/_sn7WAVWC2A/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/_sn7WAVWC2A/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/_sn7WAVWC2A/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:10.058600",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/everyone-misread-andrejs-podcastheres?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/everyone-misread-andrejs-podcastheres?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:32.437931"
   },
   "llm_outputs": [
     {
@@ -18,16 +86,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T21:31:11.802349",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

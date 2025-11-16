@@ -3,9 +3,75 @@
   "url": "https://www.youtube.com/watch?v=XuKflH9u-ro",
   "fetched_at": "2025-11-09T22:50:29.561887",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:50:29.561887",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "for a weekly business review. That's a classic one. You have data. You need to represent it. You need to be able to click around, look at the the metrics. You should be able to use an app for that. You should be able to tell chat GPT5 to do it. Now, not everyone's going to do that. There's going to be a lot of people that say they want to stick to their existing templates. The advantage if you do get into the culture of building apps is that you really unlock ground swell innovation from your team. Your team will come up with ideas for apps you did not have. If you can bless it and if you can remind them that it's a good thing. If you can remind them you're supportive of this kind of kitchen table software and you want them to be able to use it to solve interesting problems. You will not imagine the 200 use cases across your business. You'll imagine three or four of them and you'll try them out and you'll let people know these are awesome little use cases.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "XuKflH9u-ro",
+    "title": "ChatGPT-5: Unlocking Applications  #artificialintelligence #ai #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Bias to Ship: GPT-5\u2019s system prompt is designed to execute quickly, asking at most one clarifying question before delivering a complete output\u2014favoring speed over iterative refinement.\n 2. Specification Over Conversation: Success with GPT-5 requires detailed, upfront specifications\u2014task, deliverable, assumptions, non-goals, tool policies, and acceptance criteria\u2014instead of casual prompts.\n 3. Tool Policy Control: Without explicit permissions or restrictions, GPT-5 will proactively use tools like code execution or web search, which can surprise users.\n 4. Compound Advantage for Early Adopters: Those who adapt to GPT-5\u2019s bias toward speed and agentic behavior can outpace others in productivity and output quality.\n 5. Canvas + Memory Integration: OpenAI is pushing GPT-5 toward a persistent, collaborative workspace model where memory and version control enhance long-term workflows.\n 6. Failure Modes to Avoid: Risks include speculative over-completion, unintended tool usage, and lost commentary after image generation\u2014each requiring prompt design safeguards.\n 7. Roadmap Implications: The system prompt signals OpenAI\u2019s move toward an AI-powered operating system that consolidates documents, code, scheduling, and memory into a single workspace.\n\nQuotes\n\u201cWe\u2019ve moved from a helpful assistant to a full agentic colleague\u2014tasks that took five turns now take one.\u201d\n\u201cWrong assumptions in your prompt don\u2019t get clarified\u2014they get shipped, beautifully and disastrously.\u201d\n\u201cSuccess with GPT-5 isn\u2019t about prettier prose; it\u2019s about thinking like a manager delegating to a literal-minded, hyper-productive employee.\u201d\n\nSummary\nI analyzed GPT-5\u2019s leaked system prompt and found it engineered with a \u201cbias to ship,\u201d executing quickly with minimal clarification. To succeed, users must replace iterative chats with precise specifications that define tasks, deliverables, assumptions, non-goals, tool permissions, and acceptance criteria. This shift rewards early adopters who adapt their workflows to GPT-5\u2019s agentic style, leveraging Canvas and memory for persistent, collaborative work. However, risks like speculative execution, unexpected tool use, and lost commentary after image generation require prompt safeguards. OpenAI\u2019s design points toward an AI-powered operating system unifying work into one workspace.\n\nKeywords\nChatGPT-5, GPT-5 system prompt, bias to ship, agentic AI, prompt engineering, specification mindset, tool policy, Canvas, memory, AI-powered operating system, OpenAI roadmap, early adopter advantage, workflow transformation, failure modes, compound advantage",
+    "published_at": "2025-08-13T03:00:38Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT47S",
+    "duration_seconds": 47,
+    "view_count": 3738,
+    "like_count": 116,
+    "comment_count": 7,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/XuKflH9u-ro/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/XuKflH9u-ro/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/XuKflH9u-ro/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/XuKflH9u-ro/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/XuKflH9u-ro/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:52.958717",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:27.766435"
   },
   "llm_outputs": [
     {
@@ -18,16 +84,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:50:29.561887",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=6A3NOedlPWI",
   "fetched_at": "2025-11-10T00:34:24.412602",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:34:24.412602",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "this is the story of the craziest internship I have ever heard of happened in AI it's still unfolding this person defrauded the company they stole gpus which is the most precious resource in AI they've been sued for a million dollars and they're not done yet they just won best paper at the most prestigious AI conference on the planet their name is kouan and he started at bite dance which is the parent company of tick tock back in the middle of 2024 so like jish immediately things went wrong something started to happen so his colleagues models would fail his their training runs would crash naturally during during large training runs there would be small innocuous file edits that would pass and somehow the pipelines would be sabotaged and no one figured out what was going on but the net net of it was he was able to change model weights he was able to hack machines and he caused enough of the AI training and research pipeline at bite dance to fail that he freed up a significant number of gpus which he used for his own academic paperwork that's what he wanted his whole goal was to get access to gpus well when bite dance figures this out in August they terminate him bye-bye fired fired for malicious interference bite Dan then reports his behavior to his university and begins investigating the extent of the damages he's caused they are very upset about this but Tian isn't done writing he keeps writing and in October of 2024 he submits his research paper visual autor regressive modeling scalable image generation via next scale prediction to nurs which is the most prestigious AI conference on the planet talk about like wow right like the the the willingness to basically say yeah I stole the gpus but look at what I did it's so incredible you have to look at this that was what happened and if you're wondering what scalable image generation via next scale prediction is he's moving past just next token prediction or next pixel prediction and actually looking in images at how you can have a larger concept to translate scale more effectively and one of the things that is at The Cutting Edge of AI in late 2024 is how do you reason against larger chunks than just a to we saw it very recently with um deep seek V3 doing double token prediction we've seen it with a paper from meta that's looking at reasoning across Concepts this is very much in that vein but apparently it was such a good paper that in December very recently the judges at NPS blind awarded the best paper at nurs to Kon the intern who stole the gpus and and I say blindly because they measured the paper quality without looking at names they didn't know this was who it was now obviously the conference organizers knew who it was when they awarded it and they still chose to award it and there's a lot of controversy about awarding best paper to someone who stole compute and bite dance is certainly mad about it because when they saw that the paper was submitted using their stolen GPU time they sued him in Beijing demanding a public apology and demanding $1.1 million in Deb Imes roughly this was back in November that court case is still pending so this guy now has a court case for a million bucks against him best paper award at nurs and a massive controversy around what he did and the where where I come down on this at the end of the day is you have someone who is brilliant enough that they can figure out how to hack the AI modeling pipeline of a major model builder and AI researcher and they can do that for their benefit and they can get a groundbreaking Innovation out of it you want to employ them you just want them to have a very good manager with tight constraints if you don't employ them it will be worse because they will figure out a way to contribute to this field it is evident that they will not be stopped from contributing to the AI field it's about whether you employ them or not so I would expect that someone in the model maker space is going to decide to bite the bullet cover the liability for the damages sued for or settle out of court and get this guy employed as long as they have very very tight constraints because they want the innovation in the house they just don't want the liability that comes from him being a loose cannon so we will see what happens it's still unfolding but the story of Kon is already the wildest internship story I have ever heard you tell me if you've heard something Wilder but this is just nuts",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "6A3NOedlPWI",
+    "title": "This is the wildest AI intern story I have ever heard",
+    "description": "about me: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\n\nReddit's take: https://www.reddit.com/r/MachineLearning/comments/1hctf36/d_the_winner_of_the_neurips_2024_best_paper_award/#:~:text=Presumably%2C%20the%20winner%20of%20the,was%20always%20one%20step%20ahead.\n\nThe story: https://www.wired.com/story/bytedance-intern-best-paper-neurips/\n\nTakeaways:\n 1. Resource Sabotage for Research: Keyu Tian manipulated training pipelines and sabotaged colleagues\u2019 workflows to free up GPUs, enabling him to conduct independent AI research.\n 2. Stolen Compute, Award-Winning Work: Using unauthorized GPU access, Tian developed a groundbreaking paper on scalable image generation, winning the NeurIPS Best Paper Award in December 2024.\n 3. NeurIPS Controversy: The paper was evaluated through a blind review process, sparking debate over recognizing scientific merit despite the unethical means used to achieve it.\n 4. Legal Action by ByteDance: ByteDance terminated Tian in August 2024 and filed a lawsuit in November, seeking $1.1 million in damages and a public apology.\n 5. Next-Scale Prediction Innovation: Tian\u2019s paper introduced a novel approach to image generation, focusing on reasoning across larger scales rather than individual tokens or pixels.\n 6. Systemic Resource Scarcity: The story highlights the intense competition for compute resources in AI research, raising questions about fairness and accessibility in the field.\n 7. Ethics vs. Talent Debate: Despite Tian\u2019s unethical actions, his brilliance has sparked discussions on whether companies should employ him under strict constraints to harness his potential responsibly.\n\nQuotes:\n \u2022 \u201cHe sabotaged pipelines, hacked machines, and freed up GPUs to create award-winning research\u2014ethics aside, that\u2019s undeniable brilliance.\u201d\n \u2022 \u201cThe NeurIPS committee judged the paper blindly, focusing on scientific merit while the author faced a $1.1 million lawsuit.\u201d\n \u2022 \u201cThis story isn\u2019t just about one intern; it\u2019s about systemic pressures and resource scarcity in AI research.\u201d\n\nSummary:\nKeyu Tian\u2019s internship at ByteDance turned into a dramatic story of ambition and controversy. Allegedly sabotaging colleagues\u2019 workflows to free up GPUs, Tian used the stolen compute to develop award-winning research on scalable image generation. In August 2024, ByteDance fired him and filed a $1.1 million lawsuit. Meanwhile, his paper was evaluated blindly and won the prestigious NeurIPS Best Paper Award, sparking debates about ethics versus innovation. Tian\u2019s actions highlight both the brilliance and recklessness that can emerge in competitive, resource-constrained environments like AI research. The outcome of his lawsuit and future in AI remains uncertain.\n\nKeywords:\nKeyu Tian, ByteDance, NeurIPS, scalable image generation, next-scale prediction, GPU theft, AI research ethics, award-winning paper, training pipeline sabotage, resource scarcity, legal action, AI innovation, controversy, blind review, AI ethics, compute competition.",
+    "published_at": "2024-12-28T15:00:04Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT4M53S",
+    "duration_seconds": 293,
+    "view_count": 14744,
+    "like_count": 645,
+    "comment_count": 111,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/6A3NOedlPWI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/6A3NOedlPWI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/6A3NOedlPWI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/6A3NOedlPWI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/6A3NOedlPWI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:10.784120",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://www.reddit.com/r/MachineLearning/comments/1hctf36/d_the_winner_of_the_neurips_2024_best_paper_award/#:~:text=Presumably%2C%20the%20winner%20of%20the,was%20always%20one%20step%20ahead",
+      "https://www.wired.com/story/bytedance-intern-best-paper-neurips/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://www.reddit.com/r/MachineLearning/comments/1hctf36/d_the_winner_of_the_neurips_2024_best_paper_award/#:~:text=Presumably%2C%20the%20winner%20of%20the,was%20always%20one%20step%20ahead",
+      "https://www.wired.com/story/bytedance-intern-best-paper-neurips/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.786912"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:34:24.412602",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

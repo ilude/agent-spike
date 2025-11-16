@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=oSCSUZDwWRY",
   "fetched_at": "2025-11-09T23:31:35.909486",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:31:35.909486",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "I haven't talked a ton about how legal is seeing tremendous changes with AI. But even though legal has a very high bar on accuracy, they cannot mess anything up. You can still use something like co-pilot to get an early read and reduce the time. I think the time taken was like 7 days to 7 hours and they got more consistent quality because they uploaded the contract and critically they asked the right prompts, identify obligations, identify deadlines, flag unusual terms compared to our standard which requires co-pilot to know your standard. Create a summary in plain English. It's all about the kinds of prompting that you bring. And you see how they're prompting in ways that give the AI room to succeed here. Healthcare is another example. You can use Copilot for patient discharge summaries. Doctors might spend 30 minutes writing discharges. Now, Copilot can just pull from patient records, create the discharge summary, including medications, and follow up and be done with it. It can result in a dramatic drop in the time spent doctors on doctors spend on paperwork and more time with patients.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "oSCSUZDwWRY",
+    "title": "AI in Legal and Healthcare: CoPilot's Impact  #artificialintelligence #ai #shorts",
+    "description": "My story: https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Copilot Name Chaos: Microsoft slapped the Copilot brand on twelve different SKUs, so enterprises routinely buy the wrong license and stall adoption.\n 2. Underused Potential: Most teams limit Copilot to email drafts, ignoring high-value workflows like instant pivot tables, meeting-minute generation, and screenshot-based troubleshooting.\n 3. Workflow Mindset: Treat Copilot as \u201cintelligence on tap\u201d across entire processes\u2014prompt chains, cross-app report builds, and Vision-enabled data extraction reclaim hours.\n 4. Cultural Rollout: Small pilots, role champions, shared prompt libraries, and relentless measurement turn isolated wins into organization-wide productivity shifts.\n 5. ROI Stakes: Done right, Copilot saves roughly three hours per worker each week and can return twenty-fold on license spend.\n 6. Future Baseline: Within a year, advanced Copilot fluency will be table stakes; laggards will sacrifice competitive edge.\n\nQuotes\n\u201cCompanies are literally paying for a Ferrari and they are driving it to the grocery store in first gear.\u201d\n\u201cIf AI was as good as it needs to be to take our jobs, I wouldn\u2019t have to make this video.\u201d\n\u201cCopilot mastery is going to look like a basic requirement in about a year.\u201d\n\nSummary\nI spent months interviewing frontline users and dissecting case studies to learn why firms paying six-figure Copilot bills still use it only for drafting email. Microsoft stamped the Copilot name on twelve distinct SKUs, confusing leaders and burying huge gains. I decode each edition, reveal workflows from auto-generated pivot tables to cross-app prompt chains, and spotlight Vodafone\u2019s staged 68,000-seat rollout that recaptured three hours per worker weekly. The takeaway is cultural: pair phased experimentation, role-specific champions, ongoing measurement, transparent wins, and fearless prompt sharing to shift Copilot from novelty to indispensable enterprise leverage\u2014and secure twenty-fold returns on license spend.\n\nKeywords\nMicrosoft Copilot, Copilot SKUs, enterprise AI, workflow automation, prompt libraries, cultural change, Vodafone rollout, email productivity, Excel analysis, pivot tables, ROI",
+    "published_at": "2025-07-03T15:07:48Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M3S",
+    "duration_seconds": 63,
+    "view_count": 1413,
+    "like_count": 66,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/oSCSUZDwWRY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/oSCSUZDwWRY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/oSCSUZDwWRY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/oSCSUZDwWRY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/oSCSUZDwWRY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:37.584733",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:22.704762"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:31:35.909486",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

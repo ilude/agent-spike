@@ -3,9 +3,82 @@
   "url": "https://www.youtube.com/watch?v=yOGMZq-_q60",
   "fetched_at": "2025-11-10T00:38:38.591942",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:38:38.591942",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "three pieces of AI news today we're going to start with open AI 12 days of open AI they did a developer day yesterday 01 is now in API which means that you can call it you can give it a reasoning parameter which is really cool because essentially it gives you a little slider and you can move the slider up and down to uh suggest the effortfulness of reasoning how much it should think about a particular question you pose apparently you can bring in a vision element and pass that to 01 now uh which kind of makes sense because you can put photos into the chat bot with 01 already so it it has visual reasoning and they also did a bunch of other releases 40 mini uh out in API there's a ton of other stuff I'm going to link the full developer docs in the video here check them out there's more than I can get into on this on this video oh one more that's really fun they bumped the output token and the input token limit which means that you can get more into the query and more out of the prompt uh and that's very exciting okay number two black spatula project so we know that 01 has been useful anecdotally for catching mistakes in peer-reviewed papers but like many other realworld examples of AI application it's been hard to get a consistent eval it's hard to get a consistent evaluation or test that is changing the black spatula project is a project to review hundreds of peer-reviewed published papers with AI and see if AI can catch mist stakes in those papers in a way that's useful to the field we will see what happens it's not done yet but the fact that it exists is a significant step forward because at the end of the day most of the evals for AI are very very tightly controlled model maker defined evals which they kind of have to be to have Apples to Apples comparisons but it means we don't really understand which models do well at real world tasks in specific Fields even though we're using them like like medicine which brings me to my third piece of news medicine the New England Journal of Medicine has a famously difficult uh diagnosis test called the clinicopathological conference it's a sort of differential diagnosis uh uh case study that they do and what they decided to do for this academic paper was run 01 and a few other models against the questions posed in the clinical pathological conference tests and and assign Physicians to do the same well Physicians scored about 30% and had a really wide range of variant I actually looked at the err bars 01 scored 80% and had a very narrow sort of range of variance and I look at that and I I think two things the first is we are going to see startups bringing AI into the ex exam room and medical settings in 2025 this is too big a difference for AI not to be in the room especially with capabilities like Vision being rolled out it's going to happen and that's going to take a cultural change because we've already seen studies where doctors were given the option to try AI alongside their own judgment uh for an academic paper and the doctors just refused to sort of trust what AI was saying and trusted their own judgment so there's there's a cultural change that's going to need to happen but but even if the cultural change happens and even if we bring AI in the other piece that stands out to me is that there is a intangible factor in some of what is going on that is difficult to measure and we need to think more about but probably fixable with prompting I'll give you an example some of the treatment plans proposed by 01 were not incorrect but they were impractical it is very difficult to catch correct but impractical for example they for too many tests tests that would not necessarily incrementally add value but would just add that sort of fine grain piece of detail Physicians are usually quite sparing with the test that they run partly because it's invasive to the patient and partly because of expense and partly because they want to efficiently get the most value per test in sort of understanding the disease and they know how much granularity they need in their results to get a correct diagnosis so there's some human judgment there that 01 wasn't necessarily showing and it's interesting to think about how you would prompt for that okay that's your news mostly science and math but hey developers it's it's a fun day go over and check out the developer tools open AI released cheers",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "yOGMZq-_q60",
+    "title": "AI News: o1 API, AI Scores 80% on a test doctors fail, AI catches scientific errors at scale",
+    "description": "about me: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nBlack Spatula: https://amistrongeryet.substack.com/p/the-black-spatula-project\nSuper human medical reasoning: https://arxiv.org/pdf/2412.10849\no1 api: https://openai.com/index/o1-and-new-tools-for-developers/\n\nTakeaways:\n 1. O1 API Reasoning Parameter:\nOpenAI added a reasoning parameter to its O1 API, allowing developers to adjust how much the model \u201cthinks\u201d before responding, offering more control over AI-generated answers.\n 2. Visual Reasoning Expansion:\nDevelopers can now pass photos into the O1 API for visual reasoning, extending beyond text-based queries into more dynamic use cases like medical imaging or scientific analysis.\n 3. Token Limit Increase:\nOpenAI significantly increased input and output token limits for O1, enabling larger, more complex queries and more detailed responses.\n 4. AI-Powered Peer Review:\nThe Black Spatula Project aims to evaluate AI\u2019s ability to detect errors in published scientific papers, pushing AI toward real-world applications in research and academia.\n 5. Medical Diagnostics Revolution:\nIn a test with the New England Journal of Medicine, O1 scored 80% on a challenging diagnostic exam, outperforming physicians\u2019 30% average, highlighting AI\u2019s potential role in clinical decision-making.\n 6. Challenge of Practical Recommendations:\nWhile AI excelled at diagnostics, its treatment recommendations were sometimes impractical, suggesting the need for prompts that simulate human-like judgment.\n 7. Cultural Resistance in Medicine:\nDespite AI\u2019s high diagnostic scores, cultural resistance from physicians could delay its adoption, showing that technical performance alone isn\u2019t enough for real-world integration.\n\nQuotes:\n\n\u201cWe\u2019re moving toward real-world AI evaluation beyond controlled model tests\u2014this changes everything for research and medicine.\u201d\n\n\u201cAI scoring 80% on a top-tier medical test while doctors average 30% is a sign of what\u2019s coming in healthcare by 2025.\u201d\n\n\u201cCorrect but impractical treatment plans reveal that AI still needs prompting strategies that reflect real-world constraints.\u201d\n\nSummary:\n\nOpenAI\u2019s O1 API now supports a reasoning parameter and visual input, expanding its developer toolkit. The Black Spatula Project is testing AI\u2019s ability to find errors in published research, moving beyond lab-based evaluations. Meanwhile, O1 achieved an 80% score on a challenging medical diagnosis test, far surpassing doctors\u2019 average of 30%. However, cultural resistance from physicians and occasional impractical AI recommendations show that successful integration will require more than technical superiority. These updates mark a significant leap toward AI-driven decision-making in research, medicine, and beyond.\n\nKeywords:\nOpenAI, O1 API, AI diagnostics, medical AI, Black Spatula Project, scientific research, visual reasoning, peer review, API updates, AI in medicine, diagnostic tests, AI prompting, AI research, New England Journal of Medicine, healthcare AI, AI adoption, future of AI, AI technology, AI integration, AI evaluation, medical test automation, artificial intelligence tools, developer API, tech trends, research automation, AI in healthcare, 2025 AI predictions.",
+    "published_at": "2024-12-18T16:33:41Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT4M39S",
+    "duration_seconds": 279,
+    "view_count": 1485,
+    "like_count": 127,
+    "comment_count": 28,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/yOGMZq-_q60/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/yOGMZq-_q60/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/yOGMZq-_q60/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/yOGMZq-_q60/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/yOGMZq-_q60/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:58.707831",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://amistrongeryet.substack.com/p/the-black-spatula-project",
+      "https://arxiv.org/pdf/2412.10849",
+      "https://openai.com/index/o1-and-new-tools-for-developers/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://amistrongeryet.substack.com/p/the-black-spatula-project",
+      "https://arxiv.org/pdf/2412.10849",
+      "https://openai.com/index/o1-and-new-tools-for-developers/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:31.693389"
   },
   "llm_outputs": [
     {
@@ -18,16 +91,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:38:38.591942",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

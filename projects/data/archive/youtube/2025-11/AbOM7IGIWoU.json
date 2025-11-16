@@ -3,9 +3,91 @@
   "url": "https://www.youtube.com/watch?v=AbOM7IGIWoU",
   "fetched_at": "2025-11-09T22:20:48.764653",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:20:48.764653",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "And so you should instead be thinking about the kinds of pain points that persist regardless of the intelligence of the model. What are the things that people struggle with where a smarter model wouldn't fix it? So as an example, if you are solving a painoint for someone and it's a coordination problem between multiple strands of software or multiple parts of their day or physical and digital, that is not something that more intelligence necessarily makes go away. Another example, if you are solving a painoint for someone and it bridges the uh physical world and the digital world. So you're providing a physical service mediated digitally or ordered digitally. That's not necessarily something that more intelligence makes goes it doesn't more intelligence doesn't fix that. Another example, if you are focused on providing a digital service, but the digital service is predicated on your user feeling like they got stuck in a way that isn't tied to immediate answers. That is a very powerful place to solve for it.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "AbOM7IGIWoU",
+    "title": "AI's Limitations: Persistent Pain Points #shorts #artificialintelligence #ai",
+    "description": "What\u2019s really happening with building an AI-powered side gig?\nThe usual advice is super generic: \"AI makes building a side gig easier than ever\"\u2014sure. \n\nBut HOW? What's the actual advantage now? Why? How do YOU leverage that advantage to build an AI side gig that actually stands a chance of making money?\n\nIn this video, I share the inside scoop on launching an AI-native side gig that actually ships:\n\u2022 Why LLMs open a short-lived micro-niche window\u2014and how to spot it.\n\u2022 How to choose distribution-first micro markets you already know and serve.\n\u2022 What tool stack ships fast: Lovable.dev, Outseta, Framer, Gemini\u2014no heroics.\n\u2022 Where to draw the line: ruthless scope, square-deal pricing, real traction.\n\nFor solo builders, the window is real but short; choose a niche you know, keep scope tight, and let distribution\u2014not features\u2014decide.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-09-21T13:00:18Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M3S",
+    "duration_seconds": 63,
+    "view_count": 1481,
+    "like_count": 59,
+    "comment_count": 1,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI side gig",
+      "AI entrepreneurship",
+      "micro niche software",
+      "distribution first",
+      "Lovable.dev tool",
+      "Outseta membership stack",
+      "Framer landing pages",
+      "Gemini API usage",
+      "OpenAI consumer stack",
+      "Anthropic Claude models",
+      "Stripe integration tips",
+      "solopreneur builders",
+      "nights and weekends",
+      "scope discipline",
+      "monetization strategy",
+      "LLMs for builders"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/AbOM7IGIWoU/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/AbOM7IGIWoU/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/AbOM7IGIWoU/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/AbOM7IGIWoU/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/AbOM7IGIWoU/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:32.163091",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:14.188744"
   },
   "llm_outputs": [
     {
@@ -18,16 +100,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:20:48.764653",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

@@ -3,10 +3,80 @@
   "url": "https://www.youtube.com/watch?v=CT4WfKEQY6M",
   "fetched_at": "2025-11-09T19:23:28.348439",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "single_import",
+    "imported_at": "2025-11-09T19:23:28.348439",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": false
+    },
+    "recommendation_weight": 1.0
+  },
   "raw_transcript": "Thropic just released this blog post, code execution with MCP, building more efficient agents, and it proposes a much more efficient way for building and using MCB servers. Think of it like this. You're in construction, you have a toolbox with all these tools, and every time you go do a task, you have to look at every single tool before you even start the task. And every step of the way of doing that task, you have to look at all the tools again. And on top of that, you have a very small area you could work in. And as you continue building, the area gets smaller and smaller. But this blog post proposes a different approach. Instead of looking at all your tools every time, you have a list of tools that you can search through and not even think about the other ones. And on top of that, you're doing your work in a whole different area. The essence of this blog post essentially is saying that it's more efficient to give an agent, now that it has code execution, the ability to look at these tools in like a file system where they can search, find the tools they need, decide how to use the tools, and do this all in a sandbox environment outside of your context window. And this is generally possible because during pre-training models are trained on code, a lot of code. But only during post- rating, which has a lot less compute, do models start learning how to use tools. So we know LLMs are really good at writing code. And giving them the ability to see these tools as code and interact with them as code in a coding environment solves the MCP context window dilemma. So let's just read the blog post. We already know that MCP provides a universal protocol for tools and resources. Since launching MCP in 2024, adoption has been rapid. community has built thousands of MCP servers and the industry has adopted MCP as the de facto standard for connecting agents to tools. And here's the problem. As the number of connected tools grow, loading all the tool definitions up front and passing intermediate results through the context window slows down agents and increases costs. So, if you've been chatting with Claude and you have 10 MCP servers activated, your context window will shrink way faster. Your chat will end very quickly. And I know we've all experienced this. In this blog, we'll explore how code execution can enable agents to interact with MCP servers more efficiently, handling more tools while using fewer tokens. Excessive token consumption from tools make agents less efficient. Tool definitions overload the context window and intermediate tool results consume additional tokens. So that means the tools themselves already take up space in the context window. And when then when you use the tool and you get the tool results, that also fills up the context window. Most FCP clients load all tool definitions up front directly into context. And tool descriptions occupy more context window space, increasing response time and costs. In cases where agents are connected to thousands of tools, they'll need to process hundreds of thousands of tokens before reading a request. And it doesn't even have to be thousands of tools, could be tens of tools. And then when you use the tool takes even more context in the example they present here of retrieving a call transcript after calling the tool, the transcript of the full call passes through the model twice. So the example they give here is really great. You have your system prompt, your tool definitions, you have your message. This is all the context that goes to the model. Your model responds with its message and it makes a tool call. It goes to the MCB server. It goes back to the client, back to the model, and then comes back to you. So, this is a great illustration of how easy it is to fill up the context window with basic MCP tool calls. The solution is code execution. With code execution environments becoming more common for agents, a solution is to present MCP servers as code APIs rather than direct tool calls. So, the agent can write code to interact with MCB server. And they claim that this solves two problems. The agents can load only the tools they need and process data in the execution environment before passing the results back to the model. So all this stays out of the context window. The context window stays clean. And they say there are plenty of ways of doing it. One way is doing it with a file system approach. This is very similar to what we've seen with skills. With progressive disclosure, we see that a server has its tools. So the agent is then able to discover tools by exploring the file system just like in skills and could use GP or ls to find specific tools or servers. This lets the agent only load the definition it needs for the current task. And this reduces the token usage from 150,000 tokens to just 2,000 tokens. That's insane. You don't got to be good at numbers to know that is a huge improvement. Cloudflare also made a blog post with similar findings. They call it code mode. And the point of it is that LLMs are much better at writing code than using tools. Plain and simple. Code execution with MCB servers enables agents to use context more efficiently by loading tools on demand. Filtering data before it reaches the model and executing complex logic in a single step. Models are great at looking at file systems. Presenting tools as code on a file system allows the models to load them on demand rather than reading them all up front. They even suggest adding a search tools tool to the server to find relevant definitions. So bottom line, instead of building MCP servers as we're doing now, we organize them as a file system with separate tools. We give the model the ability to look at that file system and choose which tool to use. Context efficient tool results. When working with large data sets, agents can filter and transform results in code before returning them. Consider fetching a spreadsheet with 10,000 rows. Without code execution, all rows flow through context. Here's the example tool call. Hit the sheet. It returns 10,000 rows in context to filter manually. With code execution, it filters in the execution environment and it results in only five rows. They say here the agent sees five rows instead of 10,000. And this is a huge unlock for the context window. Loops and conditionals and error handling can be done with familiar code patterns rather than chaining individual tool calls. Most of my most powerful workflows were chaining all these tool calls together, all these MCP servers together. And the problem was I would hit my context window really fast. I'd hit my usage limits really fast. But here they're saying you don't have to do that anymore. If the agent has access to the tools as code, it can pick and choose and do it itself. This approach is more efficient than alternating between MCV to calls and sleep commands. This also improves time to first token. Rather than having to wait for a model to evaluate an if statement, the agent can let code execution environment do this. Another great example here is I talk about privacy. When an agent uses code execution with MCP, the intermediate results stay in the execution environment. And that means the personal information doesn't have to touch the model. It all stays in this sandbox environment. For example, imagine you need to import customer contact details from a spreadsheet into Salesforce. The MCB client would intercept the data and tokenize the PII before it even reaches the model. And then when the data is shared in another MCB to call, it is untokenized via a lookup in the MCB client. So all that PII, the name, the phone numbers never even touch the model. From a privacy perspective, this is huge. So essentially, if you're building MCB server, you can add in a PII filter, a tokenizer, and untoizer to ensure your client's data stays private. This prevents the agent from accidentally logging or processing sensitive data. Code execution with file system access allows agents to maintain state across operations. Agents can also persist their own code as reusable functions. Once an agent develops working code for a task, it can save that implementation for future use. I don't know if this falls into the bucket of AI self-improving, but the agent is able to make code, see that it works, and reuse it. And this ties in closely with the concept of skills. Adding a skill.md file to these saved functions creates a structured skill that models could reference and use. And over time, this allows your agent to build a toolbox of higher level capabilities, evolving the scaffolding that it needs to work most efficiently. So yeah, self-improving AI. Of course, running agent generated code needs to be in sandbox. It needs to be monitored. It needs to have limits. And this will of course add operational overhead and security considerations. But the benefits of code execution, which I see as reduced token cost, better context window, and built-in privacy benefits, I think this is huge. MCP is still in its infancy. And the spec itself hasn't really got a big upgrade till now. In my opinion, this will greatly improve most of the gripes I have with MCP right now. Not token efficient, eats up the context window. How rigid they have to be for agents to use them. Giving agents the ability to use these MCP servers as code as they want is a huge unlock. Cloudflare made a similar post a few days ago. I've seen a similar post on Hacker News. There's been a lot of talk about dynamic MCP servers, but now it seems to be finally possible. One thing that these blog posts are missing are actual implementations. I haven't seen any MCP servers that utilize code mode or code execution to its best ability yet. So, I'll keep my eyes open and I'll do a deep dive into code execution MCB servers in the next few days. I'll drop a link to this blog post and the Cloudflare blog post in the description below. If you're building or maintaining MCB servers, I challenge you to go out restructure MCB server to the file system approach they suggest here and then comment on the video and I'll give it a try. Let me know what you guys think. Thank you guys for watching. Have a great day.",
+  "timed_transcript": null,
   "youtube_metadata": {
     "source": "exported_from_qdrant",
-    "original_collection": "cached_content"
+    "original_collection": "cached_content",
+    "video_id": "CT4WfKEQY6M",
+    "title": "Anthropic's New MCP Blog Post is Huge",
+    "description": "Anthropic just dropped a blog post that could finally fix MCP's biggest problem \u2014 the context window.\n\nInstead of loading all your tools upfront and burning through tokens, the new code execution approach lets Claude interact with MCP servers as code APIs. This means tools load on-demand, data filters in the sandbox before reaching the model, and token usage drops from 150K to 2K.\n\nIn this video, I break down the blog post, explain how presenting tools as code solves MCP's efficiency problems, and what this means for building better agents.\n\n\u23f1\ufe0f TIMESTAMPS\n0:00 \u2013 Intro: Code Execution with MCP\n0:38 \u2013 The Core Concept: Tools as Code APIs\n1:13 \u2013 The Problem: Context Window Overload\n2:55 \u2013 The Solution: Code Execution\n3:20 \u2013 File System Approach (Similar to Skills)\n4:00 \u2013 Context-Efficient Tool Results\n5:01 \u2013 Chaining Workflows Without Hitting Limits\n5:40 \u2013 Privacy Benefits: PII Stays Out of Model\n6:19 \u2013 Persistent State & Self-Improving AI\n7:06 \u2013 Final Thoughts & Challenge\n\n\ud83d\udd17 RESOURCES\nAnthropic Blog: https://www.anthropic.com/engineering/code-execution-with-mcp\nHacker News Discussion: https://news.ycombinator.com/item?id=45830318\nCloudflare Code Mode: https://blog.cloudflare.com/code-mode/\n\nBook a call with me \u2192 https://yedatechs.com/#container06\nSponsorship inquiries \u2192 hi@yedatechs.com\n\n#MCPServers #ClaudeAI #CodeExecution #Anthropic #ContextWindow #AIAgents #DeveloperTools #MCP #AIWorkflow #AIDevelopment",
+    "published_at": "2025-11-06T23:57:35Z",
+    "channel_id": "UCaIm6rTg-RXb6rB19fYJgTg",
+    "channel_title": "JeredBlu",
+    "duration": "PT8M12S",
+    "duration_seconds": 492,
+    "view_count": 8750,
+    "like_count": 241,
+    "comment_count": 34,
+    "tags": [],
+    "category_id": "28",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/CT4WfKEQY6M/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/CT4WfKEQY6M/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/CT4WfKEQY6M/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/CT4WfKEQY6M/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/CT4WfKEQY6M/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:00.033659",
+    "all_urls": [
+      "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "https://news.ycombinator.com/item?id=45830318",
+      "https://blog.cloudflare.com/code-mode/",
+      "https://yedatechs.com/#container06"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "https://news.ycombinator.com/item?id=45830318",
+      "https://blog.cloudflare.com/code-mode/"
+    ],
+    "marketing_urls": [
+      "https://yedatechs.com/#container06"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.945695"
   },
   "llm_outputs": [
     {
@@ -19,6 +89,7 @@
       "completion_tokens": null
     }
   ],
+  "derived_outputs": [],
   "processing_history": [
     {
       "version": "v1_full_embed",
@@ -26,16 +97,5 @@
       "collection_name": "cached_content",
       "notes": "Migrated from Qdrant"
     }
-  ],
-  "import_metadata": {
-    "source_type": "single_import",
-    "imported_at": "2025-11-09T19:23:28.348439",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": false
-    },
-    "recommendation_weight": 1.0
-  }
+  ]
 }

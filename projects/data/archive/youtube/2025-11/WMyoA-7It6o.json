@@ -3,9 +3,91 @@
   "url": "https://www.youtube.com/watch?v=WMyoA-7It6o",
   "fetched_at": "2025-11-09T22:09:16.394319",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:09:16.394319",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "I had to yell at chat GPT5 just yesterday because I asked it for an outline with three elements and it came back with seven and I said you didn't put the time in on the three I asked you and you and you're just so hyper excited that you came back with with a bunch of extra and that's a tiny little story and it's not isolated only to chat GPT5 slop is a threat to our ability to realize the gains of AI workflows and AI productivity and so one of the things I'm excited about is that there's some clarity in the work produced by this model that I think enables us to get back to creating really useful pieces of work, whether they're code or spreadsheets or powerpoints or what have you, and then focusing on whether they're right and then iterating if they're not. And that becomes a workflow that I can get excited about because it's less sloppy and it fits into how teams already make decisions.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "WMyoA-7It6o",
+    "title": "Claude's new model cuts AI slop #aislop #ai #claude #anthropic #productivity #sonnetmodel #llm",
+    "description": "What\u2019s really happening inside Claude\u2019s new AI model for work?\nThe common story is that AI automates whole jobs \u2014 but the reality is more complicated: the best LLMs actually make it EASIER for humans to touch the work, get hands on, and make their best contributions.\n\nIn this video, I share the inside scoop on how this Claude release performs in real work\u2014decks, spreadsheets, docs, and code\u2014after head-to-head tests against GPT-5 and Opus 4.1, with a focus on decision-ready outputs and less prompt sensitivity:\n\n\u2022 Why clarity beats AI slop for decision-ready outputs.\n\u2022 How Claude self-checks slides, formulas, and dev servers.\n\u2022 What changed versus GPT-5 and Opus 4.1 in practice.\n\u2022 Where it speeds decks, spreadsheets, docs, and Claude code.\n\nFor teams, the upside is faster, clearer deliverables and shorter iteration loops; the risk is forgetting that judgment and domain expertise still do the final mile.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-07T03:00:36Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT53S",
+    "duration_seconds": 53,
+    "view_count": 4256,
+    "like_count": 152,
+    "comment_count": 6,
+    "tags": [
+      "AI strategy",
+      "LLMs",
+      "large language models",
+      "automation at work",
+      "future of work",
+      "prompt engineering",
+      "AI productivity",
+      "Claude",
+      "Anthropic",
+      "GPT-5",
+      "Opus 4.1",
+      "PowerPoint",
+      "spreadsheets",
+      "Claude code",
+      "voice of customer",
+      "decision-ready AI outputs",
+      "AI strategy for teams",
+      "Claude vs GPT-5"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/WMyoA-7It6o/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/WMyoA-7It6o/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/WMyoA-7It6o/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/WMyoA-7It6o/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/WMyoA-7It6o/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:41.623122",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:26.980954"
   },
   "llm_outputs": [
     {
@@ -18,16 +100,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:09:16.394319",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

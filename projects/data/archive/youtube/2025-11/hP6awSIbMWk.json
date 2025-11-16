@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=hP6awSIbMWk",
   "fetched_at": "2025-11-09T23:41:22.293084",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:41:22.293084",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "And I want to suggest to you that actually LLMs are not super great at learning right now and the model makers know it. Right now, no LLM really fundamentally learns after it is released. Now, are they working on that problem? Yes, they're working on that problem, but that's a lot to work on. And it is fair to describe it as one of the weak spots in the jagged intelligence of AI right now. Number four, intent horizon. The capacity to maintain coherent goals. I've mentioned this on this channel before. I think it's a really big one. I don't know why it's not getting called out more. I don't care if your AI can go from three hours to seven hours. It's nice. It's helpful for tactical tasks, but it's not a gamecher. We need very long-term thinking, and that requires systems that are on that are not just instantiated and amnesiac when they appear, which is what Andre Carpathy described in his Y Combinator talk last week, that they're they just have no previous memory. They're just instantiated and here's the chat. That is a fundamental",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "hP6awSIbMWk",
+    "title": "AI's Weak Spots: Learning and Memory  #education #artificialintelligence #chatgpt #shorts",
+    "description": "Get the story: https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Knowledge Hyperinflation Curve: AI has pushed Buckminster Fuller\u2019s knowledge-doubling rate from decades to months, flooding us with information faster than anyone can absorb.\n 2. College Credential Collapse: Degrees feel like empty rituals because AI can supply (or fake) the same knowledge on demand.\n 3. R\u00e9sum\u00e9 Obsolescence: Monster.com\u2019s bankruptcy signals that traditional job-application signals no longer prove real competence in an AI era.\n 4. Judgment Over Knowledge: We\u2019re shifting from a \u201cknowledge economy\u201d to a \u201cjudgment economy\u201d where discernment and context beat facts alone.\n 5. Five Human Moats: Taste, extreme agency, learning velocity, long intent horizons, and interruptibility are traits AI still struggles to mimic.\n 6. Action Plan: Stop chasing credentials; build proof-of-work projects that show judgment and resilience machines can\u2019t imitate.\n\nQuotes:\n\u201cWe live in a hyper-inflating knowledge economy\u2014no one can read it all.\u201d\n\u201cThe r\u00e9sum\u00e9 is now a chatbot prompt away from perfect, which makes it worthless.\u201d\n\u201cThe future pays for judgment, not just knowledge.\u201d\n\nSummary:\nIn this video I break down why our knowledge-based economy is cracking under AI\u2019s super-charged learning curve. College degrees and r\u00e9sum\u00e9s lose value when language models can fake them in seconds. I trace the knowledge-doubling curve, explain Monster\u2019s bankruptcy as a warning, and show why simply collecting skills no longer works. Instead, I argue for a \u201cjudgment economy\u201d built on five human advantages\u2014taste, extreme agency, learning velocity, long intent horizons, and interruptibility. I invite you to spot other AI weak points and start cultivating proof-of-work that machines can\u2019t copy. Together we\u2019ll navigate this shift and keep our work unmistakably human.\n\nKeywords:\nAI, knowledge economy, knowledge hyperinflation, Buckminster Fuller, knowledge doubling curve, college degrees, r\u00e9sum\u00e9 collapse, Monster bankruptcy, job market, judgment economy, taste, extreme agency, learning velocity, intent horizon, interruptibility, future of work",
+    "published_at": "2025-06-27T16:06:00Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT59S",
+    "duration_seconds": 59,
+    "view_count": 1870,
+    "like_count": 62,
+    "comment_count": 7,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/hP6awSIbMWk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/hP6awSIbMWk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/hP6awSIbMWk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/hP6awSIbMWk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/hP6awSIbMWk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:37.973942",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/what-good-is-a-college-degree-when?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:18.484458"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T23:41:22.293084",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

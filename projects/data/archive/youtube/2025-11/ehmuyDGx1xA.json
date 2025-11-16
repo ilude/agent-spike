@@ -3,9 +3,97 @@
   "url": "https://www.youtube.com/watch?v=ehmuyDGx1xA",
   "fetched_at": "2025-11-09T21:48:01.192690",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:48:01.192690",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "I think it's important not just for whether you pick claude or codeex which we'll get into. It's also important for how we think about how we want to collaborate with AI going forward because we have to kind of pick a vision that we want to sign up for and it leaks into the rest of the Asian ecosystem. So if you want to pick Claude, you're sort of voting for a future where you want to collaborate with AI almost like a peer and you want to be able to give your claude a number of different tasks to go after during the day and it will pick up the tools it needs and it will go get them done and come back. That is very broadly the vision that we are starting to see come together from Anthropic. On the other hand, if you are someone who's like no really I need to build production systems. I need to make sure I have exactly what I need for this agent. Cannot fool around with did the clawed code come back with the right eight pages of analysis or not. It must be correct every time. I want for lack of a better term more deterministic intelligence. Fine. That's fine. At that point, you need to sign up with codeex. But your aentic vision of the future.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "ehmuyDGx1xA",
+    "title": "Claude vs Codex : Agentic AI vision for your future! #aiagents #openai #claude #anthropic #codex",
+    "description": "My site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWe're seeing a trillion dollar battleground over the future of AI agents, and we're not talking about it.\n\nThe usual story is that all LLMs are converging \u2014 but the reality is two rival visions are splitting the future of automation.\n\nIn this video, I share the inside scoop on Claude vs. Codex:\n\u2022 Why Claude\u2019s agent loop favors collaboration and context\n\u2022 How Codex builds linear, deterministic task flows\n\u2022 What these philosophies reveal about OpenAI and Anthropic\n\u2022 Where the agent ecosystem may diverge in 2026\n\nChapters\n00:00 Introduction to AI Agents\n01:06 Claude\u2019s Collaborative Vision\n05:52 Codex\u2019s Task-Oriented Approach\n13:17 Comparing Claude and Codex\n15:04 Implications for AI\u2019s Future\n\nThe takeaway: the agents you choose shape how you\u2019ll work \u2014 as a collaborator with AI or a controller of it.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-23T03:00:57Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M8S",
+    "duration_seconds": 68,
+    "view_count": 2210,
+    "like_count": 45,
+    "comment_count": 2,
+    "tags": [
+      "AI agents",
+      "large language models",
+      "Claude",
+      "Codex",
+      "GPT-5",
+      "OpenAI",
+      "Anthropic",
+      "agent builder",
+      "MCP protocol",
+      "AI strategy",
+      "automation at work",
+      "AI workflows",
+      "enterprise AI",
+      "LLM architecture",
+      "prompt engineering",
+      "AI coding tools",
+      "AI collaboration",
+      "future of work",
+      "AI system design"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ehmuyDGx1xA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ehmuyDGx1xA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ehmuyDGx1xA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ehmuyDGx1xA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ehmuyDGx1xA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:16.707963",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:17.091413"
   },
   "llm_outputs": [
     {
@@ -18,16 +106,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T21:48:01.192690",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

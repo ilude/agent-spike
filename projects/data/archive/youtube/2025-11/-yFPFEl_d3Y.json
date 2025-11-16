@@ -3,22 +3,6 @@
   "url": "https://www.youtube.com/watch?v=-yFPFEl_d3Y",
   "fetched_at": "2025-11-10T00:10:51.203289",
   "source": "youtube-transcript-api",
-  "raw_transcript": "a model from Google called Gemini 2.0 flash experimental they really need to fix the names uh is incredible at interleaving text and images it went into wide release yesterday and you have to go to the Google AI Studio to get it I don't know that it's available anywhere else right now and if you go to the trouble and you go to Google AI studio and you hit the drop down and you get that model what you get is something that we've been dreaming of since chat GPT started talking talking about multimodal token outputs so text and images together and then they never released like Chad GPT didn't release it but Google did and Google is able to generate really really good text inside an image now so if I tell it to write a llm equation on a chalkboard in an image it's not goblook it's actually a good equation if I tell it to write text it spells the text correctly the text looks naturally written it's really good it's not perfect uh as an example um I asked it to take take a picture of me dress me in a suit and then have me hold up a handwritten sign that says today's date which is March 13th um so it dressed me in the suit well it had me holding up the sign it looked pretty natural but the paper for the sign in the image just it looked a little bit fake it was just a little bit more like a very shiny cardboard and I said hey maybe you can can make the paper wrinkled that apparently stressed out the model and we lost good quality on the text and so I don't want to convey the impression that this is perfect and it's going to take away Photoshop and designers will never work again that's not that's not what's going on here but it is a lot of progress to be able to tell an a model that you want to edit an image in a specific way and it will only touch that area as an example if you have a picture of a dragon and if it's orange right now you can say please make the dragon green and it will actually not change the outline it will not change the background it will not change anything else it will just make the dragon green that sounds really obvious that's something you could say to a human and it would work well it is not something that we've been able to do with AI to date until now so that's a really big deal it also maintains really good uh character consistency I was able to create a children's story book just this morning with a little goat and it's uh got this wonderful sort of Eastern European illustrative style that we were able to come up with and it keeps that character consistent throughout um and the goat has adventures with a bat and it's great but the point is I don't have to redescribe the character every time within the chat within the context window I can just keep talking about what that character does and Google's able to keep up in fact people are now using this as a very analog way to play video games so they'll create a character and an imaginary world and then they'll just tell Google where they want the character to go next and Google will draw the image climb a wall run through the fields go flying um and Google can do it with a consistent character so it's super interesting recommend you checking it out um I think the thing that I would expect at this point is that since Chad GPT was the one that talked about multimodal and never truly shipped it they're going to get defensive and they are going to try and ship something soon that they claim is just as multimodal or maybe as multimodal they've been sitting on but either way I would expect a share from cat GPT very soon that tries to match this capability because it is definitely pushing state-of-the-art right now so there you go new Google model Gemini 2.0 flash experimental say that five times fast",
-  "youtube_metadata": {
-    "source": "youtube-transcript-api"
-  },
-  "llm_outputs": [
-    {
-      "output_type": "tags",
-      "output_value": "multimodal-ai, ai-image-editing, text-in-images, google-gemini-2-0",
-      "generated_at": "2025-11-10T00:10:59.267033",
-      "model": "claude-3-5-haiku-20241022",
-      "cost_usd": 0.001,
-      "prompt_tokens": null,
-      "completion_tokens": null
-    }
-  ],
-  "processing_history": [],
   "import_metadata": {
     "source_type": "bulk_channel",
     "imported_at": "2025-11-10T00:10:51.203289",
@@ -30,6 +14,7 @@
     },
     "recommendation_weight": 0.5
   },
+  "raw_transcript": "a model from Google called Gemini 2.0 flash experimental they really need to fix the names uh is incredible at interleaving text and images it went into wide release yesterday and you have to go to the Google AI Studio to get it I don't know that it's available anywhere else right now and if you go to the trouble and you go to Google AI studio and you hit the drop down and you get that model what you get is something that we've been dreaming of since chat GPT started talking talking about multimodal token outputs so text and images together and then they never released like Chad GPT didn't release it but Google did and Google is able to generate really really good text inside an image now so if I tell it to write a llm equation on a chalkboard in an image it's not goblook it's actually a good equation if I tell it to write text it spells the text correctly the text looks naturally written it's really good it's not perfect uh as an example um I asked it to take take a picture of me dress me in a suit and then have me hold up a handwritten sign that says today's date which is March 13th um so it dressed me in the suit well it had me holding up the sign it looked pretty natural but the paper for the sign in the image just it looked a little bit fake it was just a little bit more like a very shiny cardboard and I said hey maybe you can can make the paper wrinkled that apparently stressed out the model and we lost good quality on the text and so I don't want to convey the impression that this is perfect and it's going to take away Photoshop and designers will never work again that's not that's not what's going on here but it is a lot of progress to be able to tell an a model that you want to edit an image in a specific way and it will only touch that area as an example if you have a picture of a dragon and if it's orange right now you can say please make the dragon green and it will actually not change the outline it will not change the background it will not change anything else it will just make the dragon green that sounds really obvious that's something you could say to a human and it would work well it is not something that we've been able to do with AI to date until now so that's a really big deal it also maintains really good uh character consistency I was able to create a children's story book just this morning with a little goat and it's uh got this wonderful sort of Eastern European illustrative style that we were able to come up with and it keeps that character consistent throughout um and the goat has adventures with a bat and it's great but the point is I don't have to redescribe the character every time within the chat within the context window I can just keep talking about what that character does and Google's able to keep up in fact people are now using this as a very analog way to play video games so they'll create a character and an imaginary world and then they'll just tell Google where they want the character to go next and Google will draw the image climb a wall run through the fields go flying um and Google can do it with a consistent character so it's super interesting recommend you checking it out um I think the thing that I would expect at this point is that since Chad GPT was the one that talked about multimodal and never truly shipped it they're going to get defensive and they are going to try and ship something soon that they claim is just as multimodal or maybe as multimodal they've been sitting on but either way I would expect a share from cat GPT very soon that tries to match this capability because it is definitely pushing state-of-the-art right now so there you go new Google model Gemini 2.0 flash experimental say that five times fast",
   "timed_transcript": [
     {
       "text": "a model from Google called Gemini 2.0",
@@ -531,5 +516,78 @@
       "start": 230.28,
       "duration": 2.44
     }
-  ]
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "-yFPFEl_d3Y",
+    "title": "Google drops a new image model: Gemini 2.0 Flash Experimental",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\n\u2e3b\n\nTakeaways:\n 1. Google\u2019s Multimodal Leap: Gemini 2.0 Flash Experimental can seamlessly generate both text and images together, something OpenAI hinted at but never fully shipped.\n 2. Accurate In-Image Text: Unlike past AI models, Gemini correctly renders text inside images, ensuring proper spelling and legibility.\n 3. Targeted Edits Without Distortion: The model allows precise image modifications\u2014changing a dragon\u2019s color, for example\u2014without disrupting the background or shape.\n 4. Character Consistency for Storytelling: It maintains a consistent visual style across multiple images, making it a game-changer for storyboarding and creative projects.\n 5. AI as an Interactive World Builder: Users are leveraging Gemini to generate evolving visuals in a text-based \u201cgame-like\u201d format, directing characters through scenes in real-time.\n 6. Still Room for Improvement: While highly advanced, certain refinements\u2014like achieving realistic textures\u2014remain challenging, especially when adding effects like wrinkled paper.\n 7. OpenAI\u2019s Expected Response: Given OpenAI\u2019s earlier multimodal ambitions, a competing update from ChatGPT is likely coming soon to keep pace with Google\u2019s advancements.\n\n\u2e3b\n\nQuotes:\n\n\u201cGoogle just shipped what OpenAI promised\u2014real multimodal AI that blends text and images seamlessly.\u201d\n\u201cThis isn\u2019t just about generating images\u2014it\u2019s about editing them with precision, maintaining character consistency, and enabling interactive storytelling.\u201d\n\u201cExpect OpenAI to respond soon because Gemini 2.0 Flash Experimental is setting a new standard for AI creativity.\u201d\n\n\u2e3b\n\nSummary:\n\nGoogle\u2019s Gemini 2.0 Flash Experimental is a major leap for multimodal AI, offering seamless text and image generation. Unlike previous models, it renders text accurately in images and allows for precise visual edits without disrupting background details. It also maintains consistent characters, making it ideal for storytelling and game-like interactions. While not perfect\u2014some textures like wrinkled paper still pose challenges\u2014this release is a huge step forward. With OpenAI having initially teased multimodal AI, a competitive response is highly likely in the near future. AI-powered creativity is about to enter a new phase.\n\n\u2e3b\n\nKeywords:\nGoogle, Gemini 2.0 Flash, AI multimodal, text-image AI, character consistency, AI storytelling, OpenAI, ChatGPT, AI-generated text, AI image editing, interactive AI, AI-generated games, text-to-image AI, AI updates, machine learning, deep learning, AI creativity, tech trends, artificial intelligence",
+    "published_at": "2025-03-13T19:03:55Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT3M51S",
+    "duration_seconds": 231,
+    "view_count": 3524,
+    "like_count": 181,
+    "comment_count": 24,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:42.742821",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:10.865883"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "multimodal-ai, ai-image-editing, text-in-images, google-gemini-2-0",
+      "generated_at": "2025-11-10T00:10:59.267033",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
 }

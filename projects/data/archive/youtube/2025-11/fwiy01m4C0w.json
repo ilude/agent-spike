@@ -3,9 +3,91 @@
   "url": "https://www.youtube.com/watch?v=fwiy01m4C0w",
   "fetched_at": "2025-11-09T22:20:09.211278",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:20:09.211278",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "You can build custom software for a specific tiny audience. If your audience loves to take notes and they have a particular way of taking notes and you've always had a note-taking system and you wanted to share it with the world, well, you can do that now. If you wanted to build a fantasy football software that you have never been able to find before, you can do that now. If you wanted to build some kind of special event planning software that you would never have been able to get in the market, well, you can do that now. These micro markets exist, but no one has been building software for them because software is such a blunt instrument because it was so expensive. By moving from natural language to code, we now have the ability to treat software like a scalpel. And so we can carve out these micro niches and build really sustainable side businesses where we are the authority on that particular tiny corner of the universe.",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "fwiy01m4C0w",
+    "title": "AI: Carving Niche Software Markets with Precision #ai #shorts #artificialintelligence",
+    "description": "What\u2019s really happening with building an AI-powered side gig?\nThe usual advice is super generic: \"AI makes building a side gig easier than ever\"\u2014sure. \n\nBut HOW? What's the actual advantage now? Why? How do YOU leverage that advantage to build an AI side gig that actually stands a chance of making money?\n\nIn this video, I share the inside scoop on launching an AI-native side gig that actually ships:\n\u2022 Why LLMs open a short-lived micro-niche window\u2014and how to spot it.\n\u2022 How to choose distribution-first micro markets you already know and serve.\n\u2022 What tool stack ships fast: Lovable.dev, Outseta, Framer, Gemini\u2014no heroics.\n\u2022 Where to draw the line: ruthless scope, square-deal pricing, real traction.\n\nFor solo builders, the window is real but short; choose a niche you know, keep scope tight, and let distribution\u2014not features\u2014decide.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-09-22T03:00:49Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT51S",
+    "duration_seconds": 51,
+    "view_count": 1328,
+    "like_count": 62,
+    "comment_count": 2,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI side gig",
+      "AI entrepreneurship",
+      "micro niche software",
+      "distribution first",
+      "Lovable.dev tool",
+      "Outseta membership stack",
+      "Framer landing pages",
+      "Gemini API usage",
+      "OpenAI consumer stack",
+      "Anthropic Claude models",
+      "Stripe integration tips",
+      "solopreneur builders",
+      "nights and weekends",
+      "scope discipline",
+      "monetization strategy",
+      "LLMs for builders"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/fwiy01m4C0w/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/fwiy01m4C0w/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/fwiy01m4C0w/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/fwiy01m4C0w/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/fwiy01m4C0w/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:25.512787",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:17.629214"
   },
   "llm_outputs": [
     {
@@ -18,16 +100,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T22:20:09.211278",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }

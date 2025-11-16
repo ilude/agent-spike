@@ -3,10 +3,97 @@
   "url": "https://www.youtube.com/watch?v=_ESebVqColU",
   "fetched_at": "2025-11-09T19:23:28.180116",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.180116",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "The state of AI report is finally out. This is an annual report from Airst Street Capital with Nathan Benich at the lead. It's been published for the last eight years. Every time it comes out, it shifts the industry. I'm going to go through and I'm going to summarize the 313 slides in just a few minutes so that you get the TLDDR. So, first things first, the takeaway is that the model IQ contest is over and the infrastructure wars are just beginning. So the thesis is fundamentally we have been pushing and pushing and pushing to make incrementally smarter models. But now what really matters is systems specifically three compounding forces that drive those systems. The capability to cost curve, the distribution question, and the physical infrastructure question. We're going to get to all three of those, but the thesis of this entire 313 slide report is that those three drivers are going to matter more in terms of practical AI than just model IQ. And so the winners in the race are going to be the ones that can route computational work to the cheapest capable model rather than just defaulting to Frontier or Smart IQ options.",
+  "timed_transcript": null,
   "youtube_metadata": {
     "source": "exported_from_qdrant",
-    "original_collection": "cached_content"
+    "original_collection": "cached_content",
+    "video_id": "_ESebVqColU",
+    "title": "State of AI Report : New AI winners (not who you think)  #anthropic #claude #chatgpt #openai #llm",
+    "description": "My site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nThe most read report in Silicon Valley just dropped\u2014and it's 313 slides. Here's the TLDR, what's most surprising, and the realities AI builders everywhere will face in 2025 and 2026. \n\nIn this video, I share the inside scoop on the shift from model IQ to systems\u2014capability-to-cost, distribution, and power constraints\u2014and what it means for LLMs like GPT-5, Claude, and Gemini:\n\u2022 Why the capability-to-cost curve resets unit economics every few months.\n\u2022 How routing to the cheapest capable model beats frontier defaults.\n\u2022 What answer engines mean for distribution and AEO in the browser.\n\u2022 Where power, permits, and water will bottleneck LLM scale.\n\nChapters:\n00:00 The State of AI Report Overview\n04:56 Drivers of AI Systems: Cost, Distribution, and Infrastructure\n12:39 Evaluating AI Reasoning Gains and Model Intelligence\n17:39 Open vs Closed Models: The Global AI Landscape\n22:48 Implications for AI Builders and Investors\n25:56 The Future of AI: Individual Agency and Opportunities\n\nFor operators, advantage now comes from multi-model routing, answer-engine optimization, and clear-eyed planning for infrastructure limits\u2014balancing upside in automation at work and AI agents with real execution risk.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-11-04T04:00:39Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M10S",
+    "duration_seconds": 70,
+    "view_count": 7907,
+    "like_count": 325,
+    "comment_count": 0,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI agents",
+      "automation at work",
+      "AI search distribution",
+      "answer engine optimization",
+      "capability to cost",
+      "model routing",
+      "multi model architecture",
+      "data center power",
+      "power and permits",
+      "Stargate project",
+      "OpenAI models",
+      "Anthropic Claude",
+      "GPT-5 updates",
+      "Google Gemini",
+      "sovereign AI strategy",
+      "AI strategy for teams"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/_ESebVqColU/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/_ESebVqColU/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/_ESebVqColU/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/_ESebVqColU/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/_ESebVqColU/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:08.360466",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:32.328904"
   },
   "llm_outputs": [
     {
@@ -19,6 +106,7 @@
       "completion_tokens": null
     }
   ],
+  "derived_outputs": [],
   "processing_history": [
     {
       "version": "v1_full_embed",
@@ -26,16 +114,5 @@
       "collection_name": "cached_content",
       "notes": "Migrated from Qdrant"
     }
-  ],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-09T19:23:28.180116",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  ]
 }

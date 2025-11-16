@@ -3,9 +3,80 @@
   "url": "https://www.youtube.com/watch?v=XoM5w8OYlXs",
   "fetched_at": "2025-11-10T00:19:09.136339",
   "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:19:09.136339",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
   "raw_transcript": "okay I've taken my time on doing this video because I wanted to get it right this is a sort of larger look at what deep seek is where they got their chips what has been happening and it's sort of timely because apparently when Sam mman went to Washington DC for his big briefing yesterday all the questions were not about open AI they were about deep seek and so I thought doing a little bit of a deeper dive might be appropriate so with that in mind where did deep seek come from Deep seek was founded in May of 2023 they spun off from highflyer which is a hedge fund in China that had integrated AI into its trading strategies this will come back later uh recognizing you know AI has potential Beyond Finance at this point so highflyer invests highflyer invests in deep seek specifically getting 10,000 Nvidia a100 gpus for them in 2021 by the the the in other words like was founded 2023 they got the a100 gpus in 2021 because they believed in AI they handed or believed to have handed the 10,000 Nvidia A1 100s over to deep seek as part of the initial investment so that Hardware acquisition positioned deep seek for really aggressive AI development which is sort of what we see as they start to open source models this is if you got surprised by them you haven't been reading their papers and watching their model capability climb this brings me to training costs deep seep claims that their training run cost $ 5.58 million it used 2,000 gpus they did not share the model for reasons that should be pretty obvious uh and they said 55 days of training time the the cost they're reporting is much lower than what other models have reported but not wildly lower and that's a point that Dario amade made in his essay where he said we should kind of expect model in the 5 to10 million range if the incremental cost of for example Claude uh like a year ago was 10 plus million we expect models in the same class to get cheaper over time that's not a surprise so this is kind of expected none of that to take away from the brilliant engineering the team is doing it doesn't come for free to make the stuff cheaper you actually have to work at it um but this is in line with previous cost curve reductions that we've seen there are other reasons to be skeptical though of whether it was actually $5 million so the $5 million figure is really around the incremental cost for the actual training run so it doesn't cover the R&D labor cost I've seen a lot of people noting how many people are on those Open Source papers it doesn't cover electricity it doesn't cover cooling costs both of which are significant it doesn't cover pre-training data acquisition acquisition and curation if you think they just suck in the internet and do no curation that is just not how it works nowadays and then then it doesn't cover infrastructure and storage so how do you optimize your storage systems how do you manage all the data all of that the estimate that I saw from semi analysis which is a firm that analyzes semiconductors for Wall Street is that they think deep se's annual AI budget is somewhere around half a billion dollars which is a bit more than five million and maybe they're off but it just I think it's helpful to understand that when you name a price that's just a piece of the total price that's all it is it's like saying you know I bought my Toyota door for a hundred bucks I don't think I could get my Toyota door for 100 bucks let's just use that phrase I bought my Toyota door for 100 bucks and not mentioning the fact that you had to buy the whole car and Wall Street bought that so what about this Hardware the the best analysis I've seen and I've seen this multiple places is that they have got their hands deep seek has got their hands on about 50,000 Nvidia Hopper class gpus and that includes H 800s which is a China specific version of the h100 that has some lower performance and h20s um and the H20 is a restricted variant that's designed to be able to be sold to China and still be compliant plus that significant a100 stock pile from 2021 plus possibly Cloud compute agreements with Chinese providers which would allow them to kind of get around things at the end of the day these chips are slower than the full power h100 but deep seek ironically could scale up quantity to maintain performance for at least for a while and that explains why the feds specifically the FBI is looking at the Singapore back door that's under investigation now um and the Singapore backd door is the nickname for the fact that Nvidia has an inordinately large percentage of sales to Singapore and it is wondered if some of those sales to Singapore are getting renamed and re-exported back to China from Singapore and yeah the FBI is looking at that we may see tighter export controls I don't know we'll see so really what this comes down to is are the hardware constraints and training costs going to be helpful for for determining a competitive advantage and what deep seek tried to say essentially was no like we can train a model for $5 billion it's fine um and what I would argue and what other model makers are arguing is that the marginal differences matter a lot if you start out in this race just a little bit ahead it adds up a lot because these models are improving at an accelerating rate it's like you're starting a little bit ahead but everyone's running faster and faster over time and that kind of adds up like if you look at where deep seek is at from a model capability perspective they have just released a model on the class of the models that finished their training runs a year ago so like Claude so okay they're about a year behind and they're uh you know somewhat cheaper and by the way that is some if you Dario released the incremental costs for for Claude And it's like yeah you could say the Toyota door costs $150 to use my metaphor it's he was saying it's like $10 million in change um okay fine like maybe it was a little bit more than $10 million but the point is like you can slice it down and say it only cost a certain number of million when the reality is they need a lot of capital for all the other stuff I discussed for the R&D for the labor for the data and compute and infrastructure all of that okay so I suspect I am going to guess that we are looking at tighter chip export regulations I don't know that I'm not a profit but it just makes sense to me I think that if anything deep seek drawing this much attention to itself might end up being counterproductive for them from an access to chips perspective we will see I also would call out that this is a trailing Edge indicator releasing a model is the end of a long process and if you've been able to get around export restrictions successfully for a bit and then release a very widely known model well you got around export export restrictions successfully for 2021 22 23 you got some benefit out of it it is not clear if that is going to persist and if they start to clamp down on that that is going to change in a year in two years where deep seek will be at and I think that is the argument that the feds will be looking at we will see how the FBI investigation goes so that's the story of deep seek it's actually not that that uh old a firm but it's super aggressive and by the way if you just heard of them now they've been publishing papers they've been building model capabilities since they were founded in 2023 so this is not actually new they've been in the space and it's all good engineering stuff and I do want to call out that none of this is shadeed on the team uh they did great engineering work and I will continue to say that that was not fake um there's just a lot of other stuff going on and I wanted to share the full story cheers",
+  "timed_transcript": null,
   "youtube_metadata": {
-    "source": "youtube-transcript-api"
+    "source": "youtube-transcript-api",
+    "video_id": "XoM5w8OYlXs",
+    "title": "The FBI is investigating DeepSeek and NVIDIA, plus the complete story of the rise of DeepSeek",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\nAnalysis: https://semianalysis.com/2025/01/31/deepseek-debates/\n\nTakeaways:\n 1. DeepSeek\u2019s Origins and Hardware Advantage\nDeepSeek was founded in May 2023, spinning out of High Flyer, a hedge fund that integrated AI into its trading strategies. High Flyer secured 10,000 Nvidia A100 GPUs in 2021, providing DeepSeek with early hardware dominance for AI development.\n 2. Surprisingly Low Reported Training Costs\nDeepSeek claims its latest model was trained for $5.58M over 55 days on 2,000 GPUs, but this figure only includes incremental training costs. It excludes R&D, labor, electricity, cooling, and data acquisition, with analysts estimating their annual AI budget at $500M.\n 3. Massive GPU Stockpile Raises Questions\nReports suggest DeepSeek has access to 50,000 Nvidia Hopper-class GPUs, including H800s and H20s, which are export-controlled versions of the H100. This raises concerns about how they secured such a vast amount of compute power.\n 4. FBI Investigating GPU Exports to China\nThe \u201cSingapore backdoor\u201d theory suggests Nvidia chips may have been exported to Singapore and then resold to China, circumventing U.S. trade restrictions. The FBI is investigating, and this could lead to tighter chip export regulations.\n 5. DeepSeek Is a Year Behind the Leaders\nDespite its rapid rise, DeepSeek\u2019s latest model is roughly a year behind OpenAI and Anthropic in terms of capability. Their approach prioritizes cost efficiency, but scaling AI without unrestricted access to top-tier hardware may become a challenge.\n 6. Geopolitical and Regulatory Risks Loom\nThe spotlight on DeepSeek could backfire, potentially restricting its access to advanced hardware. The U.S. government is closely monitoring AI chip exports, and future regulations could limit China\u2019s ability to scale AI models at the same pace.\n\nQuotes:\n \u2022 \u201cYou can say the Toyota door costs $150, but you still had to buy the whole car.\u201d\n \u2022 \u201cDeepSeek\u2019s AI budget is closer to $500M a year\u2014so don\u2019t be fooled by a $5M training run estimate.\u201d\n \u2022 \u201cThe FBI is looking into how Nvidia chips may have been re-exported to China through Singapore, and tighter regulations could follow.\u201d\n\nSummary:\n\nDeepSeek, founded in 2023, emerged from High Flyer, a hedge fund that recognized AI\u2019s potential early, securing 10,000 Nvidia A100 GPUs in 2021. Their latest AI model was reportedly trained for $5.58M over 55 days, but true costs\u2014including infrastructure and labor\u2014are estimated at $500M annually. DeepSeek has amassed 50,000 Nvidia Hopper-class GPUs, raising concerns about its ability to bypass U.S. export restrictions. The FBI is investigating potential illegal GPU exports via Singapore, which could trigger tighter regulations. Despite their aggressive expansion, DeepSeek remains about a year behind OpenAI and Anthropic, facing geopolitical risks that could impact their long-term strategy.\n\nKeywords:\nDeepSeek, AI development, Nvidia, A100 GPUs, H800, H20, High Flyer, hedge fund AI, U.S. export restrictions, Singapore backdoor, FBI investigation, AI model training costs, OpenAI, Anthropic, Claude, AI chips, semiconductor policy, geopolitical risks, AI funding, compute power, training efficiency, AI regulations, China AI market",
+    "published_at": "2025-01-31T14:17:54Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT8M32S",
+    "duration_seconds": 512,
+    "view_count": 6558,
+    "like_count": 359,
+    "comment_count": 117,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/XoM5w8OYlXs/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/XoM5w8OYlXs/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/XoM5w8OYlXs/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/XoM5w8OYlXs/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/XoM5w8OYlXs/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:50.954469",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/",
+      "https://semianalysis.com/2025/01/31/deepseek-debates/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/",
+      "https://semianalysis.com/2025/01/31/deepseek-debates/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:27.634106"
   },
   "llm_outputs": [
     {
@@ -18,16 +89,6 @@
       "completion_tokens": null
     }
   ],
-  "processing_history": [],
-  "import_metadata": {
-    "source_type": "bulk_channel",
-    "imported_at": "2025-11-10T00:19:09.136339",
-    "import_method": "cli",
-    "channel_context": {
-      "channel_id": null,
-      "channel_name": null,
-      "is_bulk_import": true
-    },
-    "recommendation_weight": 0.5
-  }
+  "derived_outputs": [],
+  "processing_history": []
 }
