@@ -26,9 +26,9 @@ from script_base import setup_script_environment
 setup_script_environment(needs_agent=True)
 
 # Import from centralized services
-from tools.services.youtube import get_transcript, extract_video_id
+from tools.services.youtube import get_transcript, extract_video_id, fetch_video_metadata
 from tools.services.cache import create_qdrant_cache
-from tools.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
+from tools.services.archive import create_archive_manager, ImportMetadata, ChannelContext
 
 # Import agent from lesson (still experimental)
 from youtube_agent.agent import create_agent
@@ -71,7 +71,7 @@ async def ingest_single_video(
 
         # Initialize services
         cache = create_qdrant_cache(collection_name=collection_name)
-        archive = create_local_archive_writer()
+        archive = create_archive_manager()
 
         try:
             # Check if already cached
@@ -87,7 +87,7 @@ async def ingest_single_video(
             print(f"  [OK] Video not in cache, proceeding...\n")
 
             # Fetch transcript
-            print("[2/5] Fetching transcript (via Webshare proxy)...")
+            print("[2/6] Fetching transcript (via Webshare proxy)...")
             transcript = get_transcript(url, cache=None)
 
             if "ERROR:" in transcript:
@@ -95,14 +95,28 @@ async def ingest_single_video(
 
             print(f"  [OK] Fetched {len(transcript):,} characters\n")
 
+            # Fetch YouTube metadata
+            print("[3/6] Fetching YouTube metadata (Data API v3)...")
+            youtube_metadata, metadata_error = fetch_video_metadata(video_id)
+
+            if metadata_error:
+                print(f"  [WARN] Metadata fetch failed: {metadata_error}")
+                print(f"  [WARN] Continuing without metadata...\n")
+                youtube_metadata = {}
+            else:
+                print(f"  [OK] Fetched metadata:")
+                print(f"      Title: {youtube_metadata.get('title', 'N/A')}")
+                print(f"      Duration: {youtube_metadata.get('duration', 'N/A')}")
+                print(f"      Views: {youtube_metadata.get('view_count', 0):,}\n")
+
             if dry_run:
-                print("[DRY RUN] Would archive transcript and generate tags")
+                print("[DRY RUN] Would archive transcript, metadata, and generate tags")
                 print(f"  Archive path: projects/data/archive/YYYY-MM/{video_id}.json")
                 print(f"  Cache key: {cache_key}")
                 return True, "Dry run complete (no changes made)"
 
             # Archive transcript
-            print("[3/5] Archiving transcript...")
+            print("[4/6] Archiving transcript...")
 
             # Create import metadata for single CLI import
             import_metadata = ImportMetadata(
@@ -113,17 +127,26 @@ async def ingest_single_video(
                 recommendation_weight=1.0
             )
 
-            archive.archive_youtube_video(
+            # Use Archive Manager to handle transcript
+            archive.update_transcript(
                 video_id=video_id,
                 url=url,
                 transcript=transcript,
-                metadata={"source": "youtube-transcript-api"},
                 import_metadata=import_metadata
             )
-            print(f"  [OK] Archived to: {archive.config.base_dir}\n")
+
+            # Archive metadata (merges with existing transcript)
+            if youtube_metadata:
+                archive.update_metadata(
+                    video_id=video_id,
+                    url=url,
+                    metadata=youtube_metadata
+                )
+
+            print(f"  [OK] Archived transcript and metadata\n")
 
             # Generate structured metadata
-            print("[4/5] Generating metadata with Claude Haiku...")
+            print("[5/6] Generating tags with Claude Haiku...")
             agent = create_agent(instrument=False)
 
             # Agent will use the new prompt from prompts.py
@@ -146,7 +169,7 @@ async def ingest_single_video(
                 tags_data = {"raw_output": tags_output}
 
             # Archive LLM output (full structured data)
-            archive.add_llm_output(
+            archive.writer.add_llm_output(
                 video_id=video_id,
                 output_type="metadata",
                 output_value=json.dumps(tags_data, indent=2),
@@ -155,7 +178,7 @@ async def ingest_single_video(
             )
 
             # Cache result
-            print("[5/5] Caching in Qdrant...")
+            print("[6/6] Caching in Qdrant...")
             cache_data = {
                 "video_id": video_id,
                 "url": url,
@@ -176,6 +199,12 @@ async def ingest_single_video(
                 "recommendation_weight": 1.0,
                 "imported_at": datetime.now().isoformat(),
                 "is_bulk_import": False,
+                # YouTube metadata (if available)
+                "youtube_title": youtube_metadata.get("title"),
+                "youtube_channel": youtube_metadata.get("channel_title"),
+                "youtube_duration_seconds": youtube_metadata.get("duration_seconds"),
+                "youtube_view_count": youtube_metadata.get("view_count"),
+                "youtube_published_at": youtube_metadata.get("published_at"),
             }
 
             # Flatten metadata for Qdrant filtering
@@ -195,7 +224,7 @@ async def ingest_single_video(
             print(f"Summary: {tags_data.get('summary', 'N/A')}")
             print(f"Subject Matter: {', '.join(tags_data.get('subject_matter', [])[:5])}")
             print(f"Content Style: {tags_data.get('content_style', 'N/A')}")
-            print(f"Archive: {archive.config.base_dir}")
+            print(f"Archive: {archive.writer.config.base_dir}")
             print(f"Cache: {collection_name}")
             print(f"{'='*70}\n")
 
