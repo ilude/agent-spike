@@ -75,3 +75,6 @@ projects/data/queues/processing/
 .idea/
 *.swp
 *.swo
+
+# Session context management (multi-instance work tracking)
+.session/
