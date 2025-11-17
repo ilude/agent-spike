@@ -138,9 +138,32 @@ lesson-009 = [
     "openai>=1.54.0",  # For gpt-5-nano
 ]
 api = [
-    # FastAPI service for N8N integration
+    # FastAPI service for N8N integration (DEPRECATED - use platform instead)
     {include-group = "lesson-001"},  # YouTube agent
     {include-group = "lesson-007"},  # Cache manager
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
+]
+platform-api = [
+    # API service with embeddings (TODO: split embedding service later)
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic>=2.0.0",
+    "qdrant-client>=1.7.0",
+    "sentence-transformers>=2.2.0",  # Needed by qdrant_cache
+    "youtube-transcript-api>=1.2.3",
+    "google-api-python-client>=2.0.0",
+    "openai>=1.54.0",
+    "anthropic>=0.40.0",  # Needed by url_filter
+    "rich>=14.2.0",
+    "typer>=0.9",
+]
+platform-embeddings = [
+    # Heavy ML service for embeddings (PyTorch + CUDA)
+    {include-group = "platform-api"},
+    "sentence-transformers>=2.2.0",  # Pulls in PyTorch/CUDA (~3GB)
+]
+platform = [
+    # Full platform (all services)
+    {include-group = "platform-embeddings"},
 ]
