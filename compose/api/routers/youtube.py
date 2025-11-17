@@ -38,7 +38,7 @@ async def analyze_video(request: AnalyzeVideoRequest):
         metadata = None
 
         # Load archive if exists
-        archive_path = Path(f"platform/data/archive/youtube/{datetime.now().year}-{datetime.now().month:02d}/{video_id}.json")
+        archive_path = Path(f"compose/data/archive/youtube/{datetime.now().year}-{datetime.now().month:02d}/{video_id}.json")
         if archive_path.exists():
             with open(archive_path) as f:
                 archive_data = json.load(f)
@@ -48,8 +48,20 @@ async def analyze_video(request: AnalyzeVideoRequest):
         # Fetch metadata if requested or not in archive
         if request.fetch_metadata or not metadata:
             try:
-                metadata = fetch_video_metadata(video_id)
-                cached = False
+                metadata, fetch_error = fetch_video_metadata(video_id)
+                if fetch_error:
+                    # If fetch fails but we have cached data, use it
+                    if metadata:
+                        cached = True
+                    else:
+                        raise HTTPException(
+                            status_code=500,
+                            detail=f"Failed to fetch metadata: {fetch_error}",
+                        )
+                else:
+                    cached = False
+            except HTTPException:
+                raise
             except Exception as e:
                 # If fetch fails but we have cached data, use it
                 if metadata:
@@ -61,7 +73,7 @@ async def analyze_video(request: AnalyzeVideoRequest):
                     )
 
         # Generate basic analysis from metadata
-        # TODO: Implement full AI-powered analysis service in platform/services/analysis/
+        # TODO: Implement full AI-powered analysis service in compose/services/analysis/
         tags = []
         summary = ""
 
@@ -111,7 +123,7 @@ async def analyze_video(request: AnalyzeVideoRequest):
 @router.get("/metadata/{video_id}")
 async def get_metadata(video_id: str):
     """Get cached metadata for a video from archive."""
-    archive_path = Path(f"platform/data/archive/youtube/{datetime.now().year}-{datetime.now().month:02d}/{video_id}.json")
+    archive_path = Path(f"compose/data/archive/youtube/{datetime.now().year}-{datetime.now().month:02d}/{video_id}.json")
 
     if not archive_path.exists():
         raise HTTPException(status_code=404, detail="Video not found in archive")
