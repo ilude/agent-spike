@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(uv run python:*)"
+      "Bash(uv run python:*)",
+      "Bash(xargs ls:*)",
+      "Bash(done)",
+      "Bash(for dir in \"C:\\Projects\\working\\agent-spike\\tools\\services\\analytics\" \"C:\\Projects\\working\\agent-spike\\tools\\services\\cache\" \"C:\\Projects\\working\\agent-spike\\tools\\services\\display\" \"C:\\Projects\\working\\agent-spike\\tools\\services\\metadata\" \"C:\\Projects\\working\\agent-spike\\tools\\services\\tagger\" \"C:\\Projects\\working\\agent-spike\\tools\\services\\youtube\")",
+      "Bash(do if [ ! -f \"$dir/__init__.py\" ])",
+      "Bash(then echo \"MISSING: $dir/__init__.py\")",
+      "Bash(else echo \"OK: $dir/__init__.py\")",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": [],
