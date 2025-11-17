@@ -1,0 +1,118 @@
+{
+  "video_id": "3C2oZpoQ8ro",
+  "url": "https://www.youtube.com/watch?v=3C2oZpoQ8ro",
+  "fetched_at": "2025-11-09T19:23:27.960791",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:27.960791",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Send this video to your manager. Tell your manager, \"Watch this. This is a problem for us. I can't get the budgeting I need to do my work.\" And if you're in leadership, this has got to be a call to action for you. You cannot look at traditional software budgeting the same way. This is not traditional software. I don't care if you call it agentic software. I don't care what the hype term is, but you've got to shift the way you budget for work and you've got to invest in your best employees so they can deliver this 2, three, four, 5x impact over the next couple years. So that is my challenge to you. We are we are not in old software land anymore. We are in new software land and there are new rules and there are new budgets and you have to invest in your team at a different level. Good luck.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "3C2oZpoQ8ro",
+    "title": "Send this to your manager: AI budget crisis #aiforbusiness #productivity #ai #llm #aiagent #openai",
+    "description": "My site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat is going on with AI budgeting and adoption?\nCompanies can get literally infinite intelligence for a few hundred bucks a month but most of them...are saying no. In 2025 if you are sticking with the cheap version of a single AI you are begging your best people to leave. You are saying no to intelligence. You are volunteering to be left behind as a business.\n\nIn this video, I share the inside scoop on why traditional software budgets break in the AI era\u2014and what managers must change:\n\u2022 Why \u201cmechanical horse\u201d thinking cripples AI procurement\n\u2022 How budget lines must shift from tools to outcomes\n\u2022 What happens when top ICs can\u2019t access AI tools\n\u2022 Where leaders should reset per-employee AI spend\n\nChapters\n00:00 The AI Revolution and Managerial Challenges\n02:36 The Cost of AI Tools and Budgeting Issues\n05:35 Cultural Shifts and Employee Retention in the AI Era\n08:07 The Need for New Budgeting Strategies for AI\n\nTakeaway: teams that budget like it\u2019s 2023 will lose talent and stagnate; teams that fund AI agents now expand impact without ballooning headcount.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-11-04T22:00:03Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT43S",
+    "duration_seconds": 43,
+    "view_count": 3671,
+    "like_count": 102,
+    "comment_count": 2,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "LLMs",
+      "automation at work",
+      "future of work",
+      "AI career advice",
+      "upskilling with AI",
+      "managers and directors",
+      "IT procurement",
+      "software budgeting",
+      "per employee spend",
+      "headcount planning",
+      "individual contributors",
+      "culture change",
+      "retain AI talent",
+      "AI strategy for teams",
+      "AI budgeting for managers"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/3C2oZpoQ8ro/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/3C2oZpoQ8ro/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/3C2oZpoQ8ro/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/3C2oZpoQ8ro/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/3C2oZpoQ8ro/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:59.200968",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.061001"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Rethinking software budgeting and investing in people\",\n  \"tags\": [\"software-budgeting\", \"leadership\", \"organizational-change\", \"employee-development\", \"enterprise-software\"],\n  \"summary\": \"Advocates shifting from traditional software budgets to investing in top employees to unlock large 2x-5x impact.\"\n}",
+      "generated_at": "2025-11-09T19:23:27.972400",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:27.985213",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

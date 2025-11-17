@@ -1,0 +1,116 @@
+{
+  "video_id": "wE84JztBGuU",
+  "url": "https://www.youtube.com/watch?v=wE84JztBGuU",
+  "fetched_at": "2025-11-09T19:23:28.052814",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.052814",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "So when you search how to break into AI in that world, you get one of two extremes. You get let's learn Python in 30 days and become an ML engineer. Lots of lots of that. Or you get a little bit of gatekeeping like you need to be a PhD from Stanford or you need to get into Y Combinator, you need to found your own startup. Both of these are suboptimal because they only apply to a very narrow subsegment of the overall population. If you look at the overall number of people interested in AI roles, not very many of them are going to be learning Python in 30 days. And nobody talks about it as if AI is not a single career path but a but a wild maze of career paths that's developing. And I want to start talking about it like that because that's how it actually is. Right now when people say how do I break into AI, it's sort of like a chef hearing, how do I break into food? I mean that's a pretty general statement. Do you do you want to cook? Do you want to do front of the house? You want to do back of the house? You want to get into investing and owning restaurants? Uh, do you want to just be a taste maker?",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "wE84JztBGuU",
+    "title": "AI career maze nobody talks about! #ai #futureofwork #jobs #jobsearch #aiforbusiness #productivity",
+    "description": "My site: https://natebjones.com\nFull Story w/ Prompts: https://natesnewsletter.substack.com/p/which-ai-job-actually-fits-you-i?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat\u2019s really happening inside the AI labor market?\nThe common story is \u201clearn AI\u201d and doors open \u2014 but the reality is more complicated.\n\nIn this video, I share the inside scoop on breaking into AI with role-specific paths and practical prompting:\n\u2022 Why generic \u201clearn AI\u201d advice fails operators and builders.\n\u2022 How to map 17 role-specific paths and skill gaps.\n\u2022 What the AI labor market is hiring versus cutting.\n\u2022 Where prompt engineering helps you target upskilling quickly.\n\nFor operators and builders, the upside is real if you choose a specific path and use targeted prompting to assess fit; the risk is drifting under vague advice while roles consolidate.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-31T21:01:11Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M1S",
+    "duration_seconds": 61,
+    "view_count": 4527,
+    "like_count": 167,
+    "comment_count": 6,
+    "tags": [
+      "AI jobs",
+      "AI labor market",
+      "AI career advice",
+      "prompt engineering",
+      "LLMs",
+      "AI agents",
+      "upskilling with AI",
+      "automation at work",
+      "career paths",
+      "operators",
+      "builders",
+      "executives",
+      "hiring trends",
+      "job cuts",
+      "AI jobs for operators",
+      "break into AI"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/wE84JztBGuU/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/wE84JztBGuU/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/wE84JztBGuU/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/wE84JztBGuU/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/wE84JztBGuU/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:38.602387",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/which-ai-job-actually-fits-you-i?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/which-ai-job-actually-fits-you-i?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:26.766746"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"How to Break into AI: A Maze of Career Paths\",\n  \"tags\": [\"ai-career-paths\", \"career-advice\", \"ai-education\", \"gatekeeping-in-tech\"],\n  \"summary\": \"The video argues that entering AI isn't a single, uniform path but a diverse maze of career options, challenging narrow routes and gatekeeping.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.061370",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.069964",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

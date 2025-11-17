@@ -1,0 +1,105 @@
+{
+  "video_id": "CO-yJ55GkuA",
+  "url": "https://www.youtube.com/watch?v=CO-yJ55GkuA",
+  "fetched_at": "2025-11-09T22:10:46.229761",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:10:46.229761",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "There are talent implications for the kind of world we're talking about. And if you're building for the team, a lot of people are asking me, where are the engineers? Where are the architects? What does that look like? I also want to ask you about the next level of team. As you're thinking about your budgeting, don't just think about architects. Don't just think about engineers. Think about implementation. What does it take to invest in training? What does it take to invest in implementation specialists? What does it take to invest in your culture so that you have the right AI champions on the team, not necessarily just engineers and architects, who can drive the business forward. This is one of the biggest misses most businesses had in 2025. It's one of the reasons why that infamous MIT study showed up with a 95% fail rate. There's talent issues at every single business I consult at. take the talent more seriously next",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "CO-yJ55GkuA",
+    "title": "AI Talent: The 2025 Miss  #ai #artificialintelligence #jobs #2026 #aistrategy",
+    "description": "What\u2019s really happening with AI strategy for 2026 planning? If you're building for next year, NOW is the time to be planning. But I'm seeing builders and boards get turned around on what to bet on because AI hype seems to change everything every week. \n\nBut the reality is that there ARE real trends under the surface you can bet on, and I've pulled together hundreds of sources (including conversations with industry insiders) to get at the five key AI trends that really matters for builders and roadmappers heading into 2026. \n\nIn this video, I share the inside scoop on 2026 AI roadmapping across five drivers and cross-cutting implications:\n\u2022 Why enforcement turns governance into a builder\u2019s market opportunity.\n\u2022 How CFO scrutiny pushes outcome-based pricing for AI agents.\n\u2022 Where AI-native entrants outpace incumbents\u2014and how to respond.\n\u2022 What local LLMs and market segmentation mean for roadmaps.\n\nTeams that invest now in evals, multi-model resilience, agents on golden workflows, and vertical expertise will manage risk and capture 2026 upside.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-05T21:00:12Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT53S",
+    "duration_seconds": 53,
+    "view_count": 1923,
+    "like_count": 74,
+    "comment_count": 1,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "future of work",
+      "automation at work",
+      "AI governance",
+      "AI compliance",
+      "multi model resilience",
+      "EU AI Act",
+      "California AI bill",
+      "outcome based pricing",
+      "ROI telemetry",
+      "AI native entrants",
+      "vertical expertise",
+      "local LLMs",
+      "on device compute",
+      "2026 AI planning",
+      "agentic workflows ROI"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/CO-yJ55GkuA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/CO-yJ55GkuA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/CO-yJ55GkuA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/CO-yJ55GkuA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/CO-yJ55GkuA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:58.812749",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.856621"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-adoption, talent-management, implementation-training, organizational-change, digital-transformation",
+      "generated_at": "2025-11-09T22:10:55.558512",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

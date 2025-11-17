@@ -1,0 +1,108 @@
+{
+  "video_id": "BE0lN9FhYyw",
+  "url": "https://www.youtube.com/watch?v=BE0lN9FhYyw",
+  "fetched_at": "2025-11-09T21:57:58.662222",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:57:58.662222",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "If I were designing a curriculum for teams, and I get asked this, so I'm going to share right here with you what I would say. If I were asked to design an upskilling curriculum for teams, I would start by working through use cases with them. Where are the pain points in the team's existing workflow? Engineers, product managers, sales, whatever it is, where are the pain points where we see lots and lots of manual cycles and not a lot of results? like you just grind on it. Great. Thank you. That is a candidate for talking about AI. And then we start to ground the whole day, the whole time we have together in actually talking through how AI can unlock that for you. And that makes it tangible. It immediately goes from the silly two or threeline prompts like I've been tearing apart here into something that is useful for your use",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "BE0lN9FhYyw",
+    "title": "Know your usecases to unlock AI for you! #ai #aiforbusiness #prompt #productivity #chatgpt #prompt",
+    "description": "What is the deal with OpenAI\u2019s prompt pack for teams? \n200 prompts that are supposed to be grab-n-go for teams. The reality is a lot more complicated, and it has real implications for teams and how organizations adopt AI in 2025 (and 2026).\n\nIn this video, I share the inside scoop on why prompt education must match the pace of LLMs and real work:\n\u2022 Why one-line prompts trap teams in AI\u2019s messy middle\n\u2022 How to ground prompt engineering in real workflow pain\n\u2022 What hands-on work showed about GPT-5 vs Claude\n\u2022 Where managers should start: use cases, tool use, upskilling\n\nTeams that treat LLMs as workflow engines\u2014not search\u2014will move faster, but shallow training will leave them behind.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-12T03:00:10Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 3922,
+    "like_count": 137,
+    "comment_count": 1,
+    "tags": [
+      "AI strategy",
+      "LLMs",
+      "prompt engineering",
+      "future of work",
+      "automation at work",
+      "upskilling with AI",
+      "GPT-5",
+      "Claude",
+      "OpenAI",
+      "Copilot",
+      "engineering teams",
+      "product managers",
+      "sales teams",
+      "GDPR compliance",
+      "CCPA compliance",
+      "Excel workflows",
+      "PowerPoint slides",
+      "Slack workflows",
+      "AI strategy for teams",
+      "LLMs in workflows",
+      "prompt engineering for execs"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/BE0lN9FhYyw/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/BE0lN9FhYyw/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/BE0lN9FhYyw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/BE0lN9FhYyw/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/BE0lN9FhYyw/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:45.210543",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.083137"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Designing an AI-powered upskilling curriculum for teams\",\n  \"tags\": [\"ai-training\", \"upskilling\", \"team-workflows\", \"ai-use-cases\", \"workflow-automation\"],\n  \"summary\": \"Explores designing a team upskilling curriculum by identifying workflow pain points and showing how AI can unlock tangible improvements.\"\n}",
+      "generated_at": "2025-11-09T21:58:12.994879",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

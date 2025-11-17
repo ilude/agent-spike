@@ -1,0 +1,112 @@
+{
+  "video_id": "ZWf2hmXv2Hk",
+  "url": "https://www.youtube.com/watch?v=ZWf2hmXv2Hk",
+  "fetched_at": "2025-11-09T21:47:23.459944",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:47:23.459944",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Imagine a world where there were five different iPhones. And that matters because part of what made the App Store successful was that it was the only game in town. That's not true for Open AAI. It is not the only game in town. Now, I will say anyone at OpenAI is going to come back with a very reasonable response. Nobody else has 800 million users. Well, true, but Google has, I don't know, 400 and change with Gemini and growing fast. And Anthropic arguably has the super premium segment that iPhone traditionally represented because people are choosing to lean in and pay for it, which is part of what Anthropic was leaning into in their marketing this week. Put on your thinking caps. They had popup cafes in New York and San Francisco. People waited in line. They got a thinking cap. And the clear implication was if you're a thinking person, you're picking anthropic, right? So, I think the book has not yet been written on where all of this is going to end up. But developers and builders have an unprecedented set of choices.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "ZWf2hmXv2Hk",
+    "title": "AI Choices: Where Will the Future Lead? #aifuture #openai #anthropic #iphone #ai #aibuilders",
+    "description": "My site: https://natebjones.com\nThe Story: https://natesnewsletter.substack.com/p/openai-dev-day-three-scenarios-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat\u2019s the real story on OpenAI's Dev Day?\n\nThe news is full of stories saying that OpenAI just cemented total dominance\u2014but the reality is far more complex.\n\nIn this video, I share the inside scoop on what the new OpenAI developer ecosystem really means:\n\u2022 Why Dev Day targeted builders, not casual users\n\u2022 How the new Apps SDK and Agent Builder reshape platform power\n\u2022 What competing ecosystems like Claude and Gemini are doing differently\n\u2022 Where leaders and developers still have real strategic choices\n\nFor builders, this moment is full of opportunity\u2014but also risk if you lock in too early.\n\nChapters\n00:00 OpenAI\u2019s New Product Launch and Its Implications\n02:39 The Builder\u2019s Stage: Opportunities in AI Development\n05:41 The Competitive Landscape: OpenAI vs. Other Players\n08:13 The Developer\u2019s Dilemma: Lock-In vs. Flexibility\n10:48 Token Economics: Spending Less in a Competitive Market\n13:17 Future Scenarios: OpenAI\u2019s Path Forward\n16:16 Takeaways for Builders and Leaders in AI\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-23T21:00:43Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M1S",
+    "duration_seconds": 61,
+    "view_count": 3963,
+    "like_count": 117,
+    "comment_count": 1,
+    "tags": [
+      "OpenAI",
+      "ChatGPT",
+      "Dev Day",
+      "AI strategy",
+      "AI agents",
+      "Claude",
+      "Gemini",
+      "Anthropic",
+      "LLMs",
+      "large language models",
+      "prompt engineering",
+      "future of work",
+      "AI ecosystem",
+      "developers",
+      "platform economics",
+      "agent builder",
+      "app store",
+      "AI career advice",
+      "AI for executives",
+      "multi-model AI"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ZWf2hmXv2Hk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ZWf2hmXv2Hk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ZWf2hmXv2Hk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ZWf2hmXv2Hk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ZWf2hmXv2Hk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:06.787871",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/openai-dev-day-three-scenarios-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/openai-dev-day-three-scenarios-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:32.224061"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai platforms and market competition\",\n  \"tags\": [\"ai-platforms\", \"large-language-models\", \"ai-competition\", \"developer-tools\", \"tech-ecosystems\"],\n  \"summary\": \"Discussion of competing AI platforms (OpenAI, Google Gemini, Anthropic) and how developers navigate a growing AI ecosystem.\"\n}",
+      "generated_at": "2025-11-09T21:47:34.809310",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

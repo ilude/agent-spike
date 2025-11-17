@@ -1,0 +1,111 @@
+{
+  "video_id": "osD0onhKW24",
+  "url": "https://www.youtube.com/watch?v=osD0onhKW24",
+  "fetched_at": "2025-11-09T21:57:11.989992",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:57:11.989992",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "if you guys would share ways you are using Excel and if you guys would talk specifically about what that speed up feels like when you're using it well versus the speed up you get from using AI for words because I continue to come back to this idea that AI for words was huge. It was like a 10 or 100x speed up, but the potential with Excel is a thousandx because of how complex these numeric structures are. They're not lists of numbers. They're complicated multi-heet, hundreds of formula, multi-ellular structure messes. And now we can finally deal with them. So that's why I'm excited for AI for Excel, for leveraging numbers and going farther in",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "osD0onhKW24",
+    "title": "AI supercharges Excel by 1000x #claude #ai #aiforbusiness #excel #productivity #decisionmaking",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesne...\nMy substack: https://natesnewsletter.substack.com/\n_______________________\n\nWhat\u2019s really happening inside AI for Excel?\nWhether we're talking about Claude's ability to build Excel models now or the just-launched CoPilot for Excel, the usual story is that LLMs write words, so numbers are second best. NOT true anymore.\n\nThe reality is AI models are NOW changing how numbers, models, and business analysis get done. And yes, that includes doing workflows so efficiently that one person can do the work of 3-4 if they are well-organized. \n\nIn this video, I share the inside scoop on AI in Excel:\n\u2022 Why Claude\u2019s new Excel skills are a leap in productivity\n\u2022 How Copilot compares as an embedded spreadsheet assistant\n\u2022 What ROI tradeoffs to weigh when upgrading to premium plans\n\u2022 Where prompt engineering unlocks board-ready models and dashboards\n\nAI for Excel isn\u2019t just faster typing \u2014 it\u2019s order-of-magnitude leverage for teams who work with numbers. It's 1000x gains. \n\nChapters\n00:00 Unlocking AI\u2019s Potential in Excel\n02:39 The Evolution of AI in Data Analysis\n05:01 Maximizing ROI with AI Tools\n07:33 Crafting Effective Prompts for Excel\n09:39 Building Financial Models with AI\n12:30 Creating Comprehensive Reports\n14:56 Developing Business Plans with AI\n17:39 Editing and Cleaning Data Efficiently\n20:08 The Future of AI in Excel\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-13T03:00:53Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT47S",
+    "duration_seconds": 47,
+    "view_count": 2250,
+    "like_count": 82,
+    "comment_count": 4,
+    "tags": [
+      "AI strategy",
+      "AI tools",
+      "AI in Excel",
+      "Claude Sonnet 4.5",
+      "Microsoft Copilot",
+      "Anthropic Claude",
+      "OpenAI GPT-5",
+      "large language models",
+      "AI agents",
+      "prompt engineering",
+      "automation at work",
+      "future of work",
+      "finance teams",
+      "business analysis",
+      "ROI models",
+      "board reports",
+      "Excel automation",
+      "AI for numbers",
+      "AI strategy for teams"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/osD0onhKW24/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/osD0onhKW24/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/osD0onhKW24/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/osD0onhKW24/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/osD0onhKW24/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:38.210936",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesne",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesne",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:22.745624"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "excel, ai-in-spreadsheets, data-analysis, spreadsheet-automation",
+      "generated_at": "2025-11-09T21:57:20.513232",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

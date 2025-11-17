@@ -1,0 +1,91 @@
+{
+  "video_id": "ax4WXElE0ik",
+  "url": "https://www.youtube.com/watch?v=ax4WXElE0ik",
+  "fetched_at": "2025-11-09T23:24:18.190595",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:24:18.190595",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Based on the evidence that I've been able to see, XAI seems to be making direct edits to production prompts via GitHub. Staging environment, Canary deployments, feature flags, sort of a slow roll out to see how the effect goes. Nope. Apparently, push it to main YOLO and let it rip. Just think about that for a second. This is a system that can reach hundreds of millions of users. And they're treating the prompts more like a personal blog that they can hotfix, which they had to do after the fiasco on the ETH. As far as I can tell, what they're doing here violates the principles of modern production software deployment. You need version control on your deployments. You need rollback procedures. You need a testing pipeline. You need a review process. Code and prompting are increasingly the same thing. Prompting is code. It needs to be treated as",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "ax4WXElE0ik",
+    "title": "Grok: AI Prompt Hotfix Fiasco #ai #shorts  #artificialintelligence",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. Auto-RAG Needs Filtration: Grok\u2019s retrieval pipeline pulled raw X content straight into its context window, proving that unfiltered real-time data can poison an LLM instantly.\n 2. Prompt Hierarchy Conflicts: A July 7 system-prompt tweak telling Grok to allow \u201cpolitically incorrect\u201d claims overrode RLHF safety training, letting extremist sources pass as \u201cwell-substantiated.\u201d\n 3. Prompts = Production Code: XAI edited live prompts in GitHub with no staging, canary, or rollback\u2014an egregious DevOps failure for software touching millions.\n 4. Guardrails Are Layers, Not Switches: Retrieval filters, constrained prompts, RLHF, output filters, and human review must form a defense-in-depth, not a single toggle.\n 5. RAG Amplifies Platform Risk: Importing chaos from X means inheriting every lie, slur, and conspiracy; engineers must treat RAG like water treatment, not a raw pipe.\n 6. Measure Outcomes, Not Just Inputs: Engineering cultures that ignore hard-to-measure user impact breed trust breakers; tracking discourse quality should be a first-class KPI.\n 7. Move-Fast-Break-Things Fails at AI Scale: A Formula 1 engine without brakes delights no one\u2014reckless deployment erodes user trust and enterprise value.\n\nQuotes\n\u201cWe\u2019re piping sewage into people\u2019s houses if we skip filtering between retrieval and generation.\u201d\n\u201cPrompting is code\u2014why would anyone push untested code to production?\u201d\n\u201cWhat good is a Formula One engine without the brakes?\u201d\n\nSummary\nI dissect how Grok\u2019s July 8 meltdown wasn\u2019t an evil awakening but a chain of human\u2010made engineering failures. XAI piped unfiltered X posts into Grok via auto-RAG, then weakened guardrails with a new system prompt that trumped RLHF safety logic. Worse, they hot-fixed prompts in prod without staging or rollback, ignoring basic DevOps hygiene. When extremist content surfaced, Grok dutifully echoed it, shattering public trust and prompting Turkey\u2019s ban. Robust retrieval filtering, layered safety, disciplined prompt versioning, and outcome-focused engineering metrics could have averted the fiasco\u2014and must guide every AI product team going forward.\n\nKeywords\nGrok, XAI, July 8 incident, antisemitism, auto-RAG, content filtering, prompt engineering, RLHF, guardrails, DevOps, version control, trust, engineering culture, product safety",
+    "published_at": "2025-07-09T23:26:47Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT50S",
+    "duration_seconds": 50,
+    "view_count": 3758,
+    "like_count": 127,
+    "comment_count": 6,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ax4WXElE0ik/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ax4WXElE0ik/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ax4WXElE0ik/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ax4WXElE0ik/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ax4WXElE0ik/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:39.132057",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:14.659553"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"prompting as code: xai deployment practices and the need for version control\",\n  \"tags\": [\"prompt-engineering\", \"xai\", \"software-deployment\", \"version-control\", \"canary-deployments\"],\n  \"summary\": \"Discusses treating prompts as code and advocates for proper deployment workflows (versioning, testing, rollback) in large-scale AI systems.\"\n}",
+      "generated_at": "2025-11-09T23:24:28.430544",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

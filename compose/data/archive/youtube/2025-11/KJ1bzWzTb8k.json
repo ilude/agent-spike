@@ -1,0 +1,118 @@
+{
+  "video_id": "KJ1bzWzTb8k",
+  "url": "https://www.youtube.com/watch?v=KJ1bzWzTb8k",
+  "fetched_at": "2025-11-09T19:23:28.224331",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.224331",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "managers are screwing the AI revolution. And I say that as someone who has managed teams and I have great sympathy for the challenges that we're all experiencing right now, but it's true. It's true. And I'm going to I'm going to be really honest. I have talked to a lot of individual contributors and the universal complaint I hear near universal 99% 98% is that they want access to AI tools that will help them do their job better in a really significant way. Like we're talking in some cases for your best performers double or triple their productivity and they can't get it. And they can't get it because the managers are not budgeting for it. And managers will tell me well we can't go to it. It is giving difficulties about security going back up to department heads. Like my boss is just not going to like go for 400 bucks a month per employee. They've never seen that. Managers, senior managers, directors, you guys carry the flag on this. You have to be the ones that explain clearly to your bosses, to the IT department, why we don't live in a traditional software world anymore. software.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "KJ1bzWzTb8k",
+    "title": "Your manager is sabotaging your AI career growth! #workbetter #manager #ailearning #productivity",
+    "description": "My site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat is going on with AI budgeting and adoption?\nCompanies can get literally infinite intelligence for a few hundred bucks a month but most of them...are saying no. In 2025 if you are sticking with the cheap version of a single AI you are begging your best people to leave. You are saying no to intelligence. You are volunteering to be left behind as a business.\n\nIn this video, I share the inside scoop on why traditional software budgets break in the AI era\u2014and what managers must change:\n\u2022 Why \u201cmechanical horse\u201d thinking cripples AI procurement\n\u2022 How budget lines must shift from tools to outcomes\n\u2022 What happens when top ICs can\u2019t access AI tools\n\u2022 Where leaders should reset per-employee AI spend\n\nChapters\n00:00 The AI Revolution and Managerial Challenges\n02:36 The Cost of AI Tools and Budgeting Issues\n05:35 Cultural Shifts and Employee Retention in the AI Era\n08:07 The Need for New Budgeting Strategies for AI\n\nTakeaway: teams that budget like it\u2019s 2023 will lose talent and stagnate; teams that fund AI agents now expand impact without ballooning headcount.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-29T03:00:23Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M7S",
+    "duration_seconds": 67,
+    "view_count": 3377,
+    "like_count": 131,
+    "comment_count": 3,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "LLMs",
+      "automation at work",
+      "future of work",
+      "AI career advice",
+      "upskilling with AI",
+      "managers and directors",
+      "IT procurement",
+      "software budgeting",
+      "per employee spend",
+      "headcount planning",
+      "individual contributors",
+      "culture change",
+      "retain AI talent",
+      "AI strategy for teams",
+      "AI budgeting for managers"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/KJ1bzWzTb8k/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/KJ1bzWzTb8k/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/KJ1bzWzTb8k/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/KJ1bzWzTb8k/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/KJ1bzWzTb8k/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:05.042013",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/dear-manager-your-ai-budget-is-costing?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:20.456748"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Managers are screwing the AI revolution\",\n  \"tags\": [\"ai-tools\", \"employee-productivity\", \"management-challenges\", \"digital-transformation\"],\n  \"summary\": \"A critique of managerial gatekeeping on AI tools, exploring how access and budgeting impact workforce productivity and digital transformation.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.233315",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.245553",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

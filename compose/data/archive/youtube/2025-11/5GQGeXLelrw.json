@@ -1,0 +1,91 @@
+{
+  "video_id": "5GQGeXLelrw",
+  "url": "https://www.youtube.com/watch?v=5GQGeXLelrw",
+  "fetched_at": "2025-11-09T22:53:51.340495",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:53:51.340495",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "There is a frog boiling in the pot problem around media reaction right now and I'm putting in this at the end because media reaction isn't the most important thing but I am including it because I think the way we think about the evolving intelligence curve does matter. We're living through a historical moment. This model is a significant step forward in the way we interact with AI. It is closer to interacting with us as a thought partner and I think the reduction in hallucinations helps there. I think the work done on stuff like medical where it's high value helps there. I think the work done on improving writing helps there. People are going to feel like they can trust this model more. People are going to feel like it's right more and they will be correct about that. If you compare that to the flashbang that came when chat GPT entered the scene in the first place or the stunning jump to chat GPT4 which may be hard to remember but it was there or the jump to 03 reasoning. People I think are assuming that it will feel the same way with shed GPT5.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "5GQGeXLelrw",
+    "title": "ChatGPT-5: Evolving the Intelligence Curve #shorts #ai  #artificialintelligence",
+    "description": "My site: [https://natebjones.com](https://natebjones.com)\nMy substack: [https://natesnewsletter.substack.com/](https://natesnewsletter.substack.com/)\nThe story: https://open.substack.com/pub/natesnewsletter/p/the-complete-chatgpt-5-review-5-real?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\n**Takeaways:**\n\n1. Mixture-of-Models Approach: ChatGPT-5 is a model router with multiple specialized models underneath, excelling in areas like coding, writing, and healthcare reasoning.\n2. Healthcare Emphasis: Significant training investment went into medical accuracy, making GPT-5 markedly better for health-related queries\u2014potentially life-saving for users relying on it for medical guidance.\n3. Coding Strength & Environment Effects: Delivers strong results in OpenAI\u2019s Canvas app, but identical prompts in third-party coding tools (e.g., Lovable) produced failures, suggesting environment-specific optimization.\n4. Prompting Matters More Than Ever: Performance on complex, messy real-world data varied dramatically based on prompting; \u201cThink Hard\u201d mode or explicit instructions yielded top-tier results.\n5. Incremental but Meaningful Gains: Improvements in reasoning, agentic coding edits, and reduced hallucinations combine to make GPT-5 the most capable model yet when used effectively.\n6. Writing & Reading Upgrades: Produces clearer, more natural prose and demonstrates strong multimodal reading skills, including handwriting and edit interpretation.\n7. Real-World Weaknesses: Applets can be fragile, overbuilding or breaking without checkpointing, and the model still occasionally over-anchors to recent prompt context.\n\n**Quotes:**\n\"We\u2019re living through a historical moment\u2014this is a significant step toward AI as a true thought partner.\"\n\"People who say prompting doesn\u2019t matter have not played with this model\u2014it\u2019s trickier than ever to get right.\"\n\"At its best, GPT-5 does things I\u2019ve never seen a model do; at its worst, it\u2019s still capable of failing hard.\"\n\n**Summary:**\nI tested ChatGPT-5 across real-world tasks in coding, writing, and data analysis, finding it both the best and worst performer depending on prompting. Its mixture-of-models architecture excels in medical reasoning, agentic coding, and producing natural prose, but gains are environment-dependent\u2014Canvas coding far outperformed Lovable with identical prompts. \u201cThink Hard\u201d mode consistently beat all other models on messy, high-stakes datasets. While hallucinations are reduced and reliability improved, applets remain fragile and prompt clarity is essential. GPT-5 is my new daily driver for serious work, but only when used with precision.\n\n**Keywords:**\nChatGPT-5, OpenAI, mixture of models, model router, healthcare AI, medical reasoning, coding, Canvas app, Lovable.dev, agentic coding, prompting, Think Hard, real-world testing, messy data, data analysis, Gantt charts, Apollo 13, itinerary builder, writing quality, multimodal reading, hallucination reduction, AI reliability, environment optimization, daily driver AI",
+    "published_at": "2025-08-08T21:00:07Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT59S",
+    "duration_seconds": 59,
+    "view_count": 1106,
+    "like_count": 25,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/5GQGeXLelrw/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/5GQGeXLelrw/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/5GQGeXLelrw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/5GQGeXLelrw/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/5GQGeXLelrw/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:06.307249",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-chatgpt-5-review-5-real?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-chatgpt-5-review-5-real?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.468257"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"The evolving intelligence curve: AI progress, trust, and applications\",\n  \"tags\": [\"artificial-intelligence\", \"ai-hallucinations\", \"human-ai-interaction\", \"ai-writing\", \"ai-medical-applications\"],\n  \"summary\": \"Explores AI progress, the shift toward thought-partner interactions, reduced hallucinations, and applications in writing and medicine, with reflections on public perception and past AI milestones.\"\n}",
+      "generated_at": "2025-11-09T22:54:11.345296",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

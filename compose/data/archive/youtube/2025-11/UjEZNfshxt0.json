@@ -1,0 +1,89 @@
+{
+  "video_id": "UjEZNfshxt0",
+  "url": "https://www.youtube.com/watch?v=UjEZNfshxt0",
+  "fetched_at": "2025-11-09T23:08:26.159247",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:08:26.159247",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "as a personal challenge. And so what we are going to work through today is an actual prompt to set up your own digital twin simulation. We have a couple of goals as we work through this prompt. We want to understand first how the prompt functions. It's another one of those system level prompts. So it actually walks through an entire process or flow. It creates a scenario and then it walks you directly through it all in one prompt. and we'll see how it works. The second thing I want to do is I want to show you some of how it works with actual real conversations that I had using that prompt and we'll walk through them. You'll get both a salary negotiation conversation because sometimes we want to game those in advance. Uh and you'll also get a classic like product approval conversation to give you a sense of office politics and how it simulates office politics.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "UjEZNfshxt0",
+    "title": "Real World Applications of Digital Twin Simulations #ai #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Digital-Twin Super Prompt: A single, system-level prompt collects scenario details, embeds them, and instantly launches a multi-stakeholder simulation\u2014no code required.\n 2. Deterministic State Machine: A fixed nine-question intake script plus echo-confirmation ensures the model gathers exactly what it needs, one answer at a time.\n 3. Explicit Output Contract: Clear purpose, mode, effort, references, and \u201cBEGIN ROUND 1\u201d delimiter lock the twins\u2019 identities and prevent drift throughout the run.\n 4. Model Behavior Matters: In tests, o3 played a hard-nosed negotiator, while 4o was friendlier and gave away an extra $6 K\u2014highlighting real-world differences between models.\n 5. Versatile Use Cases: The framework handles salary talks, product approvals, sales pitches, board debates, and interviews\u2014any situation with competing stakeholders.\n 6. Built-in Debrief & Metrics: Automatic scorecards, concession ledgers, and post-round analysis turn each run into a learning loop for sharpening strategy.\n\nQuotes\n\u201cWe\u2019re literally measuring in dollars the dumbness of the model.\u201d\n\u201cHumans aren\u2019t great at simulating an entire boardroom\u2014this prompt lets ChatGPT do it for us.\u201d\n\u201cI create a deterministic state machine: ask, confirm, embed, and run.\u201d\n\nSummary\nIn this walkthrough I unpack my Digital-Twin Negotiation Builder prompt and demonstrate its power. By defining a clear role, a nine-question intake, and an explicit output contract, I turn ChatGPT into a deterministic state machine capable of realistic, multi-stakeholder simulations. Live demos\u2014one product pitch and one salary negotiation\u2014show the prompt in action and reveal sharp contrasts between o3 and 4o: o3 negotiates hard while 4o flatters and concedes an extra $6 K. The same framework can stress-test interviews, sales deals, or board debates, giving anyone a no-code way to rehearse high-stakes conversations.\n\nKeywords\ndigital twin, negotiation simulation, prompt engineering, deterministic state machine, progressive disclosure, ChatGPT o3, ChatGPT 4o, salary negotiation, product approval, concession ledger, multi-stakeholder dialogue, AI prompting",
+    "published_at": "2025-07-26T05:47:05Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 3062,
+    "like_count": 77,
+    "comment_count": 3,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/UjEZNfshxt0/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/UjEZNfshxt0/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/UjEZNfshxt0/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/UjEZNfshxt0/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/UjEZNfshxt0/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:26.495049",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:25.869407"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Digital twin prompt for simulating conversations\",\n  \"tags\": [\"digital-twin\", \"prompt-engineering\", \"ai-prompting\", \"conversation-simulation\", \"salary-negotiation\"],\n  \"summary\": \"The video explains a system-level prompt to build a digital twin simulation and demonstrates real conversations, including salary negotiations and product-approval, to illustrate how the prompt drives simulated office interactions.\"\n}",
+      "generated_at": "2025-11-09T23:08:38.290227",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

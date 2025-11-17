@@ -1,0 +1,96 @@
+{
+  "video_id": "DgYzkS80JdQ",
+  "url": "https://www.youtube.com/watch?v=DgYzkS80JdQ",
+  "fetched_at": "2025-11-10T00:44:07.657614",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:44:07.657614",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "all right it's Cyber Monday and we're all thinking about deals and that's not what this is about Amazon suffers 750 million hacking attempts per day I didn't know it was that big a number either and it's up even for them so in the last 6 months they have seen hacking attempts go up from 100 million per day to 750 million per day and they think it's because generative AI is giving hacking tool sets to people who would previously have needed to learn computer programming in order to execute blackhead attacks it's also possible that large language models are at a point where they can agentically and autonomously exploit and uh begin attempting to hack just by being given the instruction to look for vulnerabilities we are at that point in capability now I would not be surprised if that was part of the story too either way it's huge it's a 7.5x increase in hacking attempts at a scale of hundreds of millions in just 6 months then on top of that this is underlining the capabilities of llm Stanford center for human design says that they are going to have to reset their benchmarks previously they've been using the 100% human Baseline as a benchmark but now ai capability across all the fields they're measuring is converging on human capable it's such a rate with math being the last by the way math was apparently the hardest uh but even math is now coming up they're going to have to reset the benchmarks and find harder tests and they want to specifically find things that uh enable us to measure human capabilities in ways that we haven't before and I think that's going to be really interesting to follow they also would like to see for the things that they are currently measuring harder tests done that humans can't do that they can use to continue to evaluate the capabilities of llms and this is going to be an ongoing theme as large language models surpass human capabilities we're going to need to Define evaluations or evals that are harder tests that measure the capabilities of llms that maybe even we can't do or maybe only a few of us can do third the daylight tablet is shipping a really interesting user interface with AI so what they're doing is their their whole Focus their whole theme at daylight is to keep you in flow and so when you're reading they don't want to distract you they are not a popup ad company they're not a company that's going to interrupt you with uh new Temptations to Doom scroll they want you to actually read and if you're reading they don't want you distracted but they want the power of contextual reading available through large language models and so they've actually decided to add a call button on the tablet that allows you if you want to understand the passage better better to actually call in a conversation with an llm and figure out what the passage means without changing the interface without distracting you keeping it completely invisible unless you call for it with the call button I think it's a really interesting approach to using an llm without allowing the llm to contact switch and distract you we'll see how it goes last but not least have you asked your llm to tell you about David Meyer d a v d m a ye R this broke on Reddit uh a few days ago no one can quite make sense of why there's such a hardcoded block here but it seems apparent that chat GPT in particular will not tell you about David Meyer and people are speculating this is because chat GPT for whatever reason doesn't want to talk about the heir to the roths child Fortune but but that's a little weird because none of the other llms have this block Claude is fine with this and I he's not recorded as an investor it just it feels a little fanciful so I have no idea why this is actually happening it's kind of amusing feel free to try to get chat GPT to write David Meyer m a y r and if you do let me know in the comments there's a few hacks that have that have worked but I'll be curious to see what you find",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "DgYzkS80JdQ",
+    "title": "AI News: The Stanford AI Index Breaks, AWS Hacking Explodes, Daylight Gets AI",
+    "description": "About me: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\n\nAI Index report: https://aiindex.stanford.edu/report/\nWSJ: https://www.wsj.com/articles/the-ai-effect-amazon-sees-nearly-1-billion-cyber-threats-a-day-15434edd\nDaylight: https://x.com/daylightco/status/1862672432483770814\n\nTakeaways:\n 1. Generative AI\u2019s Impact on Cybersecurity: Amazon reports a 7.5x surge in daily hacking attempts, rising from 100 million to 750 million in six months, likely due to AI-enabled hacking tools.\n 2. Autonomous Exploitation by LLMs: Large language models may now independently identify and exploit vulnerabilities, marking a significant shift in their capabilities.\n 3. Resetting AI Benchmarks: Stanford\u2019s Center for Human Design plans to develop harder tests to evaluate AI beyond human capability as LLMs converge on or surpass human benchmarks.\n 4. Daylight Tablet\u2019s Flow-First AI Integration: The Daylight tablet introduces a non-disruptive AI call button for contextual reading assistance, preserving the user\u2019s focus.\n 5. Mystery of David Meyer Block: ChatGPT has a peculiar block on discussing \u201cDavid Meyer,\u201d sparking speculation and curiosity, as other LLMs handle the query without issue.\n\nQuotes:\n\u201cWe\u2019re at the point where AI might be autonomously seeking vulnerabilities\u2014it\u2019s a major turning point.\u201d\n\u201cAI capabilities are converging on human-level performance so fast that benchmarks can\u2019t keep up.\u201d\n\u201cThe Daylight tablet shows how AI can support, not distract, keeping you in flow while reading.\u201d\n\nSummary:\nAmazon reports a massive 7.5x increase in hacking attempts in just six months, linked to generative AI empowering non-programmers with sophisticated tools and possibly autonomous exploitation by large language models. Stanford\u2019s Center for Human Design is revising AI benchmarks as LLMs approach or exceed human performance across disciplines. Meanwhile, Daylight\u2019s tablet introduces a flow-centric AI integration, allowing users to summon contextual assistance without disrupting their reading experience. On a curious note, ChatGPT won\u2019t discuss \u201cDavid Meyer,\u201d unlike other LLMs, sparking intrigue about the block\u2019s origins.\n\nKeywords:\ngenerative AI, hacking attempts, large language models, autonomous exploitation, cybersecurity, AI benchmarks, Stanford Center for Human Design, Daylight tablet, contextual reading, David Meyer block, ChatGPT, AI capabilities.",
+    "published_at": "2024-12-02T18:49:48Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT4M31S",
+    "duration_seconds": 271,
+    "view_count": 1336,
+    "like_count": 65,
+    "comment_count": 17,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/DgYzkS80JdQ/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/DgYzkS80JdQ/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/DgYzkS80JdQ/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/DgYzkS80JdQ/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/DgYzkS80JdQ/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:06.485907",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://aiindex.stanford.edu/report/",
+      "https://www.wsj.com/articles/the-ai-effect-amazon-sees-nearly-1-billion-cyber-threats-a-day-15434edd",
+      "https://x.com/daylightco/status/1862672432483770814"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://aiindex.stanford.edu/report/",
+      "https://www.wsj.com/articles/the-ai-effect-amazon-sees-nearly-1-billion-cyber-threats-a-day-15434edd",
+      "https://x.com/daylightco/status/1862672432483770814"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:16.374949"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "cybersecurity, generative-ai, llm-evaluation-benchmarks, ai-user-interface",
+      "generated_at": "2025-11-10T00:44:15.465703",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

@@ -1,0 +1,91 @@
+{
+  "video_id": "jLsRpuXqDP0",
+  "url": "https://www.youtube.com/watch?v=jLsRpuXqDP0",
+  "fetched_at": "2025-11-10T00:40:56.592554",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:40:56.592554",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "a Swiss church built AI Jesus and I think they built it incorrectly we're going to talk about it so we're familiar with the idea of AI as companions that's one of the hottest themes in 2024 some of the fastest growing consumer startups in AI are around the idea of companionship spirituality is a new one uh and this church used a haen avatar they hooked it up to cat GPT 40 and they had whisper as the voice mode that's fine as far as it goes certainly the people who used it enjoyed it uh 2third of people who used it so about a, people used it 250 people responded to the survey afterward for the art project and two-thirds of that 250 or so said this was meaningful this was a spiritual experience and they enjoyed it so it got positive feedback but I think they built it wrong and the reason I think they built it wrong is the same reason why Air Canada went off the rails with their bereaved customer about a year or two ago basically Air Canada had no tool chain safeguards in place to prevent the AI from hallucinating and so the AI hallucinated a response to a bereaved customer made up a bereavement policy that wasn't there and ultimately there was a court case and Air Canada was found liable for it in the same way if you are building a spiritual authority figure out of AI you probably wanted to adhere to the foundational text of your faith which suggests to me that the correct way to build AI Jesus would have been a rag Model A retrieval augmented generation model maybe they could have used uh some of the guardrail system that AWS used now I'm not saying that the people who built this were going to deploy this on AWS widely it seems like it was a much more localized experiment so maybe that's overbuilding but to me at least you want to hook it to a rag system and like stick the Bible in the rag or something because otherwise it would be entirely plausible since chat gp4 has pretty much the entirety of spiritual writings of mankind at its disposal to chat with AI Jesus in a church about Buddhist texts about uh Hindu texts anything at all and I'm not sure that's really what the church intended so if you're going to create a spiritual authority figure you probably ought to use the correct tool chain to do so",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "jLsRpuXqDP0",
+    "title": "A Swiss Church built AI Jesus but they built it wrong",
+    "description": "about me: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nAI Jesus: https://people.com/ai-jesus-installed-in-churchs-confessional-booth-dubbed-the-work-of-the-devil-by-critics-8756572\n\nTakeaways:\n 1. AI in Spirituality: A Swiss church built an AI-powered Jesus using ChatGPT-4, Whisper, and Heygen, exploring spiritual companionship through tech.\n 2. Art vs. Theology: While the project received positive feedback, it missed a critical design element\u2014connecting the AI to religious texts for theological consistency.\n 3. Hallucination Risk: Without safeguards like a RAG model (Retrieval Augmented Generation), the AI could provide inaccurate or unrelated spiritual guidance.\n 4. Toolchain Consideration: The correct tech stack matters when building AI-driven authority figures, especially in sensitive contexts like religion.\n 5. Air Canada Parallel: A similar issue occurred when Air Canada\u2019s AI created a fake bereavement policy, causing legal problems due to lack of safeguards.\n 6. Future Potential: This experiment raises broader questions about AI\u2019s role in spiritual support, faith counseling, and religious education.\n\nQuotes:\n \u2022 \u201cIf you\u2019re going to create a spiritual authority figure, you probably ought to use the correct toolchain to do so.\u201d\n \u2022 \u201cThe AI might end up quoting Buddhist or Hindu texts\u2014which is cool for interfaith dialogue but probably not what the church intended.\u201d\n \u2022 \u201cWe already use AI for companionship\u2014so why not spiritual guidance, as long as it\u2019s done thoughtfully?\u201d\n\nSummary:\nA Swiss church built AI Jesus using ChatGPT-4, Whisper, and Heygen, offering spiritual conversations through AI. While participants found it meaningful, the project lacked theological grounding due to the absence of a Retrieval Augmented Generation (RAG) system connected to religious texts. This oversight risks inaccurate or unrelated spiritual responses, similar to Air Canada\u2019s AI mistake when it hallucinated a bereavement policy. The experiment highlights the importance of using the right tech stack when creating AI authority figures, raising deeper questions about AI\u2019s future in spiritual guidance, counseling, and religious education.\n\nKeywords:\nAI Jesus, ChatGPT-4, Whisper, Heygen, spiritual AI, theology, RAG model, retrieval-augmented generation, Air Canada AI, bereavement policy, AI safeguards, religious AI, AI in church, faith tech, spiritual authority, church technology, AI hallucinations, interfaith dialogue, tech ethics, AI art project, AWS guardrails",
+    "published_at": "2024-12-10T22:33:38Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT2M31S",
+    "duration_seconds": 151,
+    "view_count": 706,
+    "like_count": 30,
+    "comment_count": 11,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/jLsRpuXqDP0/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/jLsRpuXqDP0/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/jLsRpuXqDP0/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/jLsRpuXqDP0/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/jLsRpuXqDP0/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:55.438911",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://people.com/ai-jesus-installed-in-churchs-confessional-booth-dubbed-the-work-of-the-devil-by-critics-8756572"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [],
+    "marketing_urls": [
+      "https://natebjones.com/",
+      "https://people.com/ai-jesus-installed-in-churchs-confessional-booth-dubbed-the-work-of-the-devil-by-critics-8756572"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:19.781756"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Swiss church built AI Jesus: why toolchains matter\",\n  \"tags\": [\"ai-ethics\", \"ai-in-religion\", \"retrieval-augmented-generation\", \"ai-safety\"],\n  \"summary\": \"Examines a church's AI Jesus experiment, the risk of hallucinations, and why a proper toolchain and safeguards are crucial when using AI in spiritual contexts.\"\n}",
+      "generated_at": "2025-11-10T00:41:10.475990",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

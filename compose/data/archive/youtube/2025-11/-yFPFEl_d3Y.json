@@ -1,0 +1,593 @@
+{
+  "video_id": "-yFPFEl_d3Y",
+  "url": "https://www.youtube.com/watch?v=-yFPFEl_d3Y",
+  "fetched_at": "2025-11-10T00:10:51.203289",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:10:51.203289",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "a model from Google called Gemini 2.0 flash experimental they really need to fix the names uh is incredible at interleaving text and images it went into wide release yesterday and you have to go to the Google AI Studio to get it I don't know that it's available anywhere else right now and if you go to the trouble and you go to Google AI studio and you hit the drop down and you get that model what you get is something that we've been dreaming of since chat GPT started talking talking about multimodal token outputs so text and images together and then they never released like Chad GPT didn't release it but Google did and Google is able to generate really really good text inside an image now so if I tell it to write a llm equation on a chalkboard in an image it's not goblook it's actually a good equation if I tell it to write text it spells the text correctly the text looks naturally written it's really good it's not perfect uh as an example um I asked it to take take a picture of me dress me in a suit and then have me hold up a handwritten sign that says today's date which is March 13th um so it dressed me in the suit well it had me holding up the sign it looked pretty natural but the paper for the sign in the image just it looked a little bit fake it was just a little bit more like a very shiny cardboard and I said hey maybe you can can make the paper wrinkled that apparently stressed out the model and we lost good quality on the text and so I don't want to convey the impression that this is perfect and it's going to take away Photoshop and designers will never work again that's not that's not what's going on here but it is a lot of progress to be able to tell an a model that you want to edit an image in a specific way and it will only touch that area as an example if you have a picture of a dragon and if it's orange right now you can say please make the dragon green and it will actually not change the outline it will not change the background it will not change anything else it will just make the dragon green that sounds really obvious that's something you could say to a human and it would work well it is not something that we've been able to do with AI to date until now so that's a really big deal it also maintains really good uh character consistency I was able to create a children's story book just this morning with a little goat and it's uh got this wonderful sort of Eastern European illustrative style that we were able to come up with and it keeps that character consistent throughout um and the goat has adventures with a bat and it's great but the point is I don't have to redescribe the character every time within the chat within the context window I can just keep talking about what that character does and Google's able to keep up in fact people are now using this as a very analog way to play video games so they'll create a character and an imaginary world and then they'll just tell Google where they want the character to go next and Google will draw the image climb a wall run through the fields go flying um and Google can do it with a consistent character so it's super interesting recommend you checking it out um I think the thing that I would expect at this point is that since Chad GPT was the one that talked about multimodal and never truly shipped it they're going to get defensive and they are going to try and ship something soon that they claim is just as multimodal or maybe as multimodal they've been sitting on but either way I would expect a share from cat GPT very soon that tries to match this capability because it is definitely pushing state-of-the-art right now so there you go new Google model Gemini 2.0 flash experimental say that five times fast",
+  "timed_transcript": [
+    {
+      "text": "a model from Google called Gemini 2.0",
+      "start": 0.04,
+      "duration": 4.84
+    },
+    {
+      "text": "flash experimental they really need to",
+      "start": 2.639,
+      "duration": 5.16
+    },
+    {
+      "text": "fix the names uh is incredible at",
+      "start": 4.88,
+      "duration": 4.88
+    },
+    {
+      "text": "interleaving text and images it went",
+      "start": 7.799,
+      "duration": 3.561
+    },
+    {
+      "text": "into wide release",
+      "start": 9.76,
+      "duration": 3.64
+    },
+    {
+      "text": "yesterday and you have to go to the",
+      "start": 11.36,
+      "duration": 3.96
+    },
+    {
+      "text": "Google AI Studio to get it I don't know",
+      "start": 13.4,
+      "duration": 3.44
+    },
+    {
+      "text": "that it's available anywhere else right",
+      "start": 15.32,
+      "duration": 4.2
+    },
+    {
+      "text": "now and if you go to the trouble and you",
+      "start": 16.84,
+      "duration": 4.32
+    },
+    {
+      "text": "go to Google AI studio and you hit the",
+      "start": 19.52,
+      "duration": 4.24
+    },
+    {
+      "text": "drop down and you get that model what",
+      "start": 21.16,
+      "duration": 5.439
+    },
+    {
+      "text": "you get is something that we've been",
+      "start": 23.76,
+      "duration": 5.96
+    },
+    {
+      "text": "dreaming of since chat GPT started",
+      "start": 26.599,
+      "duration": 4.64
+    },
+    {
+      "text": "talking talking about",
+      "start": 29.72,
+      "duration": 4.4
+    },
+    {
+      "text": "multimodal token outputs so text and",
+      "start": 31.239,
+      "duration": 5.48
+    },
+    {
+      "text": "images together and then they never",
+      "start": 34.12,
+      "duration": 5.56
+    },
+    {
+      "text": "released like Chad GPT didn't release it",
+      "start": 36.719,
+      "duration": 6.921
+    },
+    {
+      "text": "but Google did and Google is able to",
+      "start": 39.68,
+      "duration": 6.84
+    },
+    {
+      "text": "generate really really good text inside",
+      "start": 43.64,
+      "duration": 6.8
+    },
+    {
+      "text": "an image now so if I tell it to write a",
+      "start": 46.52,
+      "duration": 6.719
+    },
+    {
+      "text": "llm equation on a chalkboard in an image",
+      "start": 50.44,
+      "duration": 4.959
+    },
+    {
+      "text": "it's not goblook it's actually a good",
+      "start": 53.239,
+      "duration": 4.8
+    },
+    {
+      "text": "equation if I tell it to write text it",
+      "start": 55.399,
+      "duration": 4.64
+    },
+    {
+      "text": "spells the text correctly the text looks",
+      "start": 58.039,
+      "duration": 4.401
+    },
+    {
+      "text": "naturally written it's really good it's",
+      "start": 60.039,
+      "duration": 6.601
+    },
+    {
+      "text": "not perfect uh as an example um I asked",
+      "start": 62.44,
+      "duration": 6.999
+    },
+    {
+      "text": "it to take take a picture of me dress me",
+      "start": 66.64,
+      "duration": 5.159
+    },
+    {
+      "text": "in a suit and then have me hold up a",
+      "start": 69.439,
+      "duration": 4.761
+    },
+    {
+      "text": "handwritten sign that says today's date",
+      "start": 71.799,
+      "duration": 3.561
+    },
+    {
+      "text": "which is March",
+      "start": 74.2,
+      "duration": 4.16
+    },
+    {
+      "text": "13th um so it dressed me in the suit",
+      "start": 75.36,
+      "duration": 4.92
+    },
+    {
+      "text": "well it had me holding up the sign it",
+      "start": 78.36,
+      "duration": 4.52
+    },
+    {
+      "text": "looked pretty natural but the paper for",
+      "start": 80.28,
+      "duration": 5.32
+    },
+    {
+      "text": "the sign in the image just it looked a",
+      "start": 82.88,
+      "duration": 4.279
+    },
+    {
+      "text": "little bit fake it was just a little bit",
+      "start": 85.6,
+      "duration": 3.28
+    },
+    {
+      "text": "more like a very shiny cardboard and I",
+      "start": 87.159,
+      "duration": 3.161
+    },
+    {
+      "text": "said hey maybe you can can make the",
+      "start": 88.88,
+      "duration": 3.96
+    },
+    {
+      "text": "paper wrinkled that apparently stressed",
+      "start": 90.32,
+      "duration": 4.479
+    },
+    {
+      "text": "out the model and we lost good quality",
+      "start": 92.84,
+      "duration": 4.68
+    },
+    {
+      "text": "on the text and so I don't want to",
+      "start": 94.799,
+      "duration": 4.161
+    },
+    {
+      "text": "convey the impression that this is",
+      "start": 97.52,
+      "duration": 2.639
+    },
+    {
+      "text": "perfect and it's going to take away",
+      "start": 98.96,
+      "duration": 3.08
+    },
+    {
+      "text": "Photoshop and designers will never work",
+      "start": 100.159,
+      "duration": 3.481
+    },
+    {
+      "text": "again that's not that's not what's going",
+      "start": 102.04,
+      "duration": 4.2
+    },
+    {
+      "text": "on here but it is a lot of progress to",
+      "start": 103.64,
+      "duration": 6.4
+    },
+    {
+      "text": "be able to tell an a model that you want",
+      "start": 106.24,
+      "duration": 6.199
+    },
+    {
+      "text": "to edit an image in a specific way and",
+      "start": 110.04,
+      "duration": 4.6
+    },
+    {
+      "text": "it will only touch that area as an",
+      "start": 112.439,
+      "duration": 4.121
+    },
+    {
+      "text": "example if you have a picture of a",
+      "start": 114.64,
+      "duration": 5.28
+    },
+    {
+      "text": "dragon and if it's orange right now you",
+      "start": 116.56,
+      "duration": 5.44
+    },
+    {
+      "text": "can say please make the dragon green and",
+      "start": 119.92,
+      "duration": 4.04
+    },
+    {
+      "text": "it will actually not change the outline",
+      "start": 122.0,
+      "duration": 3.119
+    },
+    {
+      "text": "it will not change the background it",
+      "start": 123.96,
+      "duration": 2.439
+    },
+    {
+      "text": "will not change anything else it will",
+      "start": 125.119,
+      "duration": 3.56
+    },
+    {
+      "text": "just make the dragon green that sounds",
+      "start": 126.399,
+      "duration": 3.56
+    },
+    {
+      "text": "really obvious that's something you",
+      "start": 128.679,
+      "duration": 2.761
+    },
+    {
+      "text": "could say to a human and it would work",
+      "start": 129.959,
+      "duration": 3.401
+    },
+    {
+      "text": "well it is not something that we've been",
+      "start": 131.44,
+      "duration": 5.48
+    },
+    {
+      "text": "able to do with AI to date until now so",
+      "start": 133.36,
+      "duration": 5.519
+    },
+    {
+      "text": "that's a really big deal it also",
+      "start": 136.92,
+      "duration": 4.08
+    },
+    {
+      "text": "maintains really good uh character",
+      "start": 138.879,
+      "duration": 3.72
+    },
+    {
+      "text": "consistency I was able to create a",
+      "start": 141.0,
+      "duration": 4.08
+    },
+    {
+      "text": "children's story book just this morning",
+      "start": 142.599,
+      "duration": 6.401
+    },
+    {
+      "text": "with a little goat and it's uh got this",
+      "start": 145.08,
+      "duration": 5.84
+    },
+    {
+      "text": "wonderful sort of Eastern European",
+      "start": 149.0,
+      "duration": 3.56
+    },
+    {
+      "text": "illustrative style that we were able to",
+      "start": 150.92,
+      "duration": 3.36
+    },
+    {
+      "text": "come up with and it keeps that character",
+      "start": 152.56,
+      "duration": 4.759
+    },
+    {
+      "text": "consistent throughout um and the goat",
+      "start": 154.28,
+      "duration": 5.039
+    },
+    {
+      "text": "has adventures with a bat and it's great",
+      "start": 157.319,
+      "duration": 4.56
+    },
+    {
+      "text": "but the point is I don't have to",
+      "start": 159.319,
+      "duration": 5.361
+    },
+    {
+      "text": "redescribe the character every time",
+      "start": 161.879,
+      "duration": 4.521
+    },
+    {
+      "text": "within the chat within the context",
+      "start": 164.68,
+      "duration": 4.559
+    },
+    {
+      "text": "window I can just keep talking about",
+      "start": 166.4,
+      "duration": 6.08
+    },
+    {
+      "text": "what that character does and Google's",
+      "start": 169.239,
+      "duration": 6.041
+    },
+    {
+      "text": "able to keep up in fact people are now",
+      "start": 172.48,
+      "duration": 5.32
+    },
+    {
+      "text": "using this as a very analog way to play",
+      "start": 175.28,
+      "duration": 3.959
+    },
+    {
+      "text": "video games so they'll create a",
+      "start": 177.8,
+      "duration": 3.84
+    },
+    {
+      "text": "character and an imaginary world and",
+      "start": 179.239,
+      "duration": 4.881
+    },
+    {
+      "text": "then they'll just tell Google where they",
+      "start": 181.64,
+      "duration": 4.159
+    },
+    {
+      "text": "want the character to go next and Google",
+      "start": 184.12,
+      "duration": 3.679
+    },
+    {
+      "text": "will draw the image climb a wall run",
+      "start": 185.799,
+      "duration": 5.0
+    },
+    {
+      "text": "through the fields go flying um and",
+      "start": 187.799,
+      "duration": 5.041
+    },
+    {
+      "text": "Google can do it with a consistent",
+      "start": 190.799,
+      "duration": 4.601
+    },
+    {
+      "text": "character so it's super interesting",
+      "start": 192.84,
+      "duration": 5.759
+    },
+    {
+      "text": "recommend you checking it out um I think",
+      "start": 195.4,
+      "duration": 5.759
+    },
+    {
+      "text": "the thing that I would expect at this",
+      "start": 198.599,
+      "duration": 4.761
+    },
+    {
+      "text": "point is that since Chad GPT was the one",
+      "start": 201.159,
+      "duration": 4.041
+    },
+    {
+      "text": "that talked about multimodal and never",
+      "start": 203.36,
+      "duration": 4.36
+    },
+    {
+      "text": "truly shipped it they're going to get",
+      "start": 205.2,
+      "duration": 4.08
+    },
+    {
+      "text": "defensive and they are going to try and",
+      "start": 207.72,
+      "duration": 3.879
+    },
+    {
+      "text": "ship something soon that they claim is",
+      "start": 209.28,
+      "duration": 3.76
+    },
+    {
+      "text": "just as multimodal or maybe as",
+      "start": 211.599,
+      "duration": 3.521
+    },
+    {
+      "text": "multimodal they've been sitting on but",
+      "start": 213.04,
+      "duration": 3.72
+    },
+    {
+      "text": "either way I would expect a share from",
+      "start": 215.12,
+      "duration": 4.399
+    },
+    {
+      "text": "cat GPT very soon that tries to match",
+      "start": 216.76,
+      "duration": 5.08
+    },
+    {
+      "text": "this capability because it is definitely",
+      "start": 219.519,
+      "duration": 3.92
+    },
+    {
+      "text": "pushing state-of-the-art right now so",
+      "start": 221.84,
+      "duration": 5.56
+    },
+    {
+      "text": "there you go new Google model Gemini 2.0",
+      "start": 223.439,
+      "duration": 6.841
+    },
+    {
+      "text": "flash experimental say that five times",
+      "start": 227.4,
+      "duration": 5.32
+    },
+    {
+      "text": "fast",
+      "start": 230.28,
+      "duration": 2.44
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "-yFPFEl_d3Y",
+    "title": "Google drops a new image model: Gemini 2.0 Flash Experimental",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\n\u2e3b\n\nTakeaways:\n 1. Google\u2019s Multimodal Leap: Gemini 2.0 Flash Experimental can seamlessly generate both text and images together, something OpenAI hinted at but never fully shipped.\n 2. Accurate In-Image Text: Unlike past AI models, Gemini correctly renders text inside images, ensuring proper spelling and legibility.\n 3. Targeted Edits Without Distortion: The model allows precise image modifications\u2014changing a dragon\u2019s color, for example\u2014without disrupting the background or shape.\n 4. Character Consistency for Storytelling: It maintains a consistent visual style across multiple images, making it a game-changer for storyboarding and creative projects.\n 5. AI as an Interactive World Builder: Users are leveraging Gemini to generate evolving visuals in a text-based \u201cgame-like\u201d format, directing characters through scenes in real-time.\n 6. Still Room for Improvement: While highly advanced, certain refinements\u2014like achieving realistic textures\u2014remain challenging, especially when adding effects like wrinkled paper.\n 7. OpenAI\u2019s Expected Response: Given OpenAI\u2019s earlier multimodal ambitions, a competing update from ChatGPT is likely coming soon to keep pace with Google\u2019s advancements.\n\n\u2e3b\n\nQuotes:\n\n\u201cGoogle just shipped what OpenAI promised\u2014real multimodal AI that blends text and images seamlessly.\u201d\n\u201cThis isn\u2019t just about generating images\u2014it\u2019s about editing them with precision, maintaining character consistency, and enabling interactive storytelling.\u201d\n\u201cExpect OpenAI to respond soon because Gemini 2.0 Flash Experimental is setting a new standard for AI creativity.\u201d\n\n\u2e3b\n\nSummary:\n\nGoogle\u2019s Gemini 2.0 Flash Experimental is a major leap for multimodal AI, offering seamless text and image generation. Unlike previous models, it renders text accurately in images and allows for precise visual edits without disrupting background details. It also maintains consistent characters, making it ideal for storytelling and game-like interactions. While not perfect\u2014some textures like wrinkled paper still pose challenges\u2014this release is a huge step forward. With OpenAI having initially teased multimodal AI, a competitive response is highly likely in the near future. AI-powered creativity is about to enter a new phase.\n\n\u2e3b\n\nKeywords:\nGoogle, Gemini 2.0 Flash, AI multimodal, text-image AI, character consistency, AI storytelling, OpenAI, ChatGPT, AI-generated text, AI image editing, interactive AI, AI-generated games, text-to-image AI, AI updates, machine learning, deep learning, AI creativity, tech trends, artificial intelligence",
+    "published_at": "2025-03-13T19:03:55Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT3M51S",
+    "duration_seconds": 231,
+    "view_count": 3524,
+    "like_count": 181,
+    "comment_count": 24,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/-yFPFEl_d3Y/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:42.742821",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:10.865883"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "multimodal-ai, ai-image-editing, text-in-images, google-gemini-2-0",
+      "generated_at": "2025-11-10T00:10:59.267033",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

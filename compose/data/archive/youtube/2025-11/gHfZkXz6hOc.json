@@ -1,0 +1,108 @@
+{
+  "video_id": "gHfZkXz6hOc",
+  "url": "https://www.youtube.com/watch?v=gHfZkXz6hOc",
+  "fetched_at": "2025-11-09T22:04:15.430345",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:04:15.430345",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Every department is full of those kinds of opportunities and the gap is our ability to understand how quickly AI is scaling and how much capability we have on the table. Most managers have no idea how much AI opportunity there is in their space. Like I look at it when I come in and I'm like 80 or 90% of the AI opportunity is untouched. You guys are sitting here talking about, you know, how Copilot can do this and that or how chat GPT can do this and that. Great. I'm glad you're chatting with chat GPT. I'm glad you're using Copilot for your emails. Have you thought in workflows? Have you thought about the impact your team is delivering and worked back from that into your pain points? No. Well, maybe we should start with that and then get into training. And so yes, when I build prompts, when I think about what teams need, I think about how to build prompts that are going to be supportive of workflows.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "gHfZkXz6hOc",
+    "title": "Prompts won't work well until you know this! #ai #promptengineering #openai #aiforbusiness #chatgpt",
+    "description": "What is the deal with OpenAI\u2019s prompt pack for teams? \n200 prompts that are supposed to be grab-n-go for teams. The reality is a lot more complicated, and it has real implications for teams and how organizations adopt AI in 2025 (and 2026).\n\nIn this video, I share the inside scoop on why prompt education must match the pace of LLMs and real work:\n\u2022 Why one-line prompts trap teams in AI\u2019s messy middle\n\u2022 How to ground prompt engineering in real workflow pain\n\u2022 What hands-on work showed about GPT-5 vs Claude\n\u2022 Where managers should start: use cases, tool use, upskilling\n\nTeams that treat LLMs as workflow engines\u2014not search\u2014will move faster, but shallow training will leave them behind.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-11T03:00:48Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT56S",
+    "duration_seconds": 56,
+    "view_count": 3747,
+    "like_count": 141,
+    "comment_count": 1,
+    "tags": [
+      "AI strategy",
+      "LLMs",
+      "prompt engineering",
+      "future of work",
+      "automation at work",
+      "upskilling with AI",
+      "GPT-5",
+      "Claude",
+      "OpenAI",
+      "Copilot",
+      "engineering teams",
+      "product managers",
+      "sales teams",
+      "GDPR compliance",
+      "CCPA compliance",
+      "Excel workflows",
+      "PowerPoint slides",
+      "Slack workflows",
+      "AI strategy for teams",
+      "LLMs in workflows",
+      "prompt engineering for execs"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/gHfZkXz6hOc/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/gHfZkXz6hOc/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/gHfZkXz6hOc/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/gHfZkXz6hOc/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/gHfZkXz6hOc/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:29.205973",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:17.879627"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Identifying Untapped AI Opportunities Through Workflows\",\n  \"tags\": [\"ai-adoption\", \"workflow-automation\", \"prompt-engineering\", \"enterprise-ai\"],\n  \"summary\": \"Explains how organizations underestimate AI opportunities, emphasizing workflow design and prompts to scale AI impact beyond basic tools like Copilot and ChatGPT.\"\n}",
+      "generated_at": "2025-11-09T22:04:36.548803",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

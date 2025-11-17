@@ -1,0 +1,92 @@
+{
+  "video_id": "BhjtZP4T0oA",
+  "url": "https://www.youtube.com/watch?v=BhjtZP4T0oA",
+  "fetched_at": "2025-11-10T00:35:49.841136",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:35:49.841136",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "today I want to talk very briefly about the memory problem for large language models I believe this is going to be one of the dominant issues we need to discuss in 2025 at the end of the day large language models are becoming very intelligent but they still have atrociously bad memory 100,000 200,000 token memory it's like having a PhD in your pocket that forgets a conversation from 10 minutes ago it's not working well and the problem is if you do the math on the cost of memory there is no easy solve given our current solution architectures I I did the math I wrote a substack on this it would take over half a trillion dollars to solve this problem just at the current daily active user count for chat GPT which is roughly 125 million and that's growing all the time the problem is getting worse all the time and that's assuming you don't want human level memory which lasts years you would be happy with long-term memory that's several months and I don't even know if we would be happy with that to be honest with you but that would still be vastly better than just a few minutes of memory which is really what we have today if the chat is going well I burn through chats with Claude in about 10 minutes claud's great well Claude lasts and then we're done and I think that one of the things that we need to ask ourselves is if you have this much intelligence but it has this much short-term memory what kinds of problems are useful to solve with that kind of intelligence and what kinds of problems are we inherently limited from solving because memory is an issue even 01 Pro 200,000 tokens you have very limited memory now people are doing incredible things with it so I'm not saying that you can't find really cool problems to solve I absolutely you can but it is making me wonder is memory the next breakthrough that we need to be looking for and if it is I don't see anything on the horizon that help helps us to solve that right now and I think that's probably worth talking about a lot more than we currently do especially if we're using llms all the time and they have very short-term memories is that going to affect the way we remember things does that change the and shape the way we remember things there are anecdotal stories coming out now of the way people are changing their vocabulary changing their thinking because of the way they interact with llms especially early on at formative stages in education if that continues and we are used to working with these thinking partners that are very smart but have very very limited short-term memory like it has read everything in the world but it cannot remember your conversation from 20 minutes ago does that shape the way we remember things too maybe for good maybe for ill maybe we're the ones that have to get better at remembering because our thinking partner can't I don't know but to me it's one of the most interesting Dynamics in large language models right now and I think it deserves to be talked about about more than it is so I wrote a substack on that if you're interested um otherwise enjoy the YouTube",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "BhjtZP4T0oA",
+    "title": "AI Has a Half Trillion Dollar Memory Problem",
+    "description": "About me: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMemory problem: https://open.substack.com/pub/natesnewsletter/p/the-trillion-dollar-memory-problem?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways:\n 1. Memory Constraints in LLMs: Despite their intelligence, large language models like Claude and GPT struggle with retaining long-term memory, limiting their effectiveness in extended conversations.\n 2. Cost of Solving Memory: Providing even a few months of long-term memory for ChatGPT\u2019s daily user base could cost over $500 billion annually, making it an immense technical and financial challenge.\n 3. Short-Term vs. Long-Term Utility: While LLMs excel in solving specific, short-term tasks, their memory limits make them less suitable for sustained, context-heavy interactions.\n 4. Shaping Human Memory: Interacting with AI models with limited memory may influence how humans think, recall, and communicate, especially in formative educational settings.\n 5. Future AI Breakthroughs: Addressing memory limitations could be the next major AI breakthrough, fundamentally changing how LLMs are used.\n 6. Adapting to Limitations: As AI tools evolve, users may need to adjust their workflows and expectations to accommodate these memory constraints.\n\nQuotes:\n\u201cWe\u2019re working with pocket geniuses that forget our conversations after 10 minutes.\u201d\n\u201cThe cost of long-term memory at scale could exceed half a trillion dollars annually.\u201d\n\u201cAI is shaping how we think and remember\u2014whether for better or worse remains to be seen.\u201d\n\nSummary:\nLarge language models (LLMs) like ChatGPT and Claude exhibit exceptional intelligence but struggle with short-term memory limitations, typically retaining context for only a few minutes. Solving this issue at scale could cost over $500 billion annually, even for modest improvements. This constraint not only affects the types of problems LLMs can address but also influences how humans interact with and adapt to these tools. As we approach 2025, resolving memory challenges may be the next critical breakthrough in AI, shaping both the technology\u2019s trajectory and its impact on human cognition.\n\nKeywords:\nAI, large language models, memory, Claude, ChatGPT, OpenAI, long-term memory, token limit, short-term memory, cost analysis, 2025, human cognition, education, intelligence, problem-solving, LLM limitations, future AI breakthroughs.",
+    "published_at": "2024-12-24T21:23:54Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT3M6S",
+    "duration_seconds": 186,
+    "view_count": 5392,
+    "like_count": 298,
+    "comment_count": 108,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/BhjtZP4T0oA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/BhjtZP4T0oA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/BhjtZP4T0oA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/BhjtZP4T0oA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/BhjtZP4T0oA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:46.324869",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://open.substack.com/pub/natesnewsletter/p/the-trillion-dollar-memory-problem?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-trillion-dollar-memory-problem?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:15.156528"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"memory problem for large language models\",\n  \"tags\": [\"memory-constraints\", \"large-language-models\", \"short-term-memory\", \"long-term-memory\"],\n  \"summary\": \"Analysis of the memory limitations of large language models, the high costs of scaling memory, and potential impacts on education and cognition.\"\n}",
+      "generated_at": "2025-11-10T00:36:03.752440",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

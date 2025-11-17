@@ -1,0 +1,217 @@
+{
+  "video_id": "0uu1Tqebh3U",
+  "url": "https://www.youtube.com/watch?v=0uu1Tqebh3U",
+  "fetched_at": "2025-11-09T21:56:24.421613",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:56:24.421613",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "To me, what has launched in the last 2 weeks has the same leverage and power for numbers as the launch of the pocket calculator. That's how big a deal it is. And we're sleeping on it because most people either don't have the Claude Max plan, haven't really sat down and thought about prompting the co-pilot AI for Excel, or they just don't have the time to come up with these complicated prompts, and they've always done it this way, and so they're just always going to do it. Let me challenge you. It is worth it to go a little bit differently, to try a new prompt, to adjust one of my prompts if it saves you that much time. If it saves you a dozen hours this month, the Claude Max plan is probably worth the money because you're going to spend that amount of time, right? Like your your time has some value to",
+  "timed_transcript": [
+    {
+      "text": "To me, what has launched in the last 2",
+      "start": 0.08,
+      "duration": 5.92
+    },
+    {
+      "text": "weeks has the same leverage and power",
+      "start": 3.12,
+      "duration": 5.2
+    },
+    {
+      "text": "for numbers as the launch of the pocket",
+      "start": 6.0,
+      "duration": 4.639
+    },
+    {
+      "text": "calculator. That's how big a deal it is.",
+      "start": 8.32,
+      "duration": 4.319
+    },
+    {
+      "text": "And we're sleeping on it because most",
+      "start": 10.639,
+      "duration": 3.601
+    },
+    {
+      "text": "people either don't have the Claude Max",
+      "start": 12.639,
+      "duration": 3.2
+    },
+    {
+      "text": "plan, haven't really sat down and",
+      "start": 14.24,
+      "duration": 3.6
+    },
+    {
+      "text": "thought about prompting the co-pilot AI",
+      "start": 15.839,
+      "duration": 4.721
+    },
+    {
+      "text": "for Excel, or they just don't have the",
+      "start": 17.84,
+      "duration": 4.16
+    },
+    {
+      "text": "time to come up with these complicated",
+      "start": 20.56,
+      "duration": 2.799
+    },
+    {
+      "text": "prompts, and they've always done it this",
+      "start": 22.0,
+      "duration": 2.56
+    },
+    {
+      "text": "way, and so they're just always going to",
+      "start": 23.359,
+      "duration": 4.16
+    },
+    {
+      "text": "do it. Let me challenge you. It is worth",
+      "start": 24.56,
+      "duration": 5.039
+    },
+    {
+      "text": "it to go a little bit differently, to",
+      "start": 27.519,
+      "duration": 3.84
+    },
+    {
+      "text": "try a new prompt, to adjust one of my",
+      "start": 29.599,
+      "duration": 4.401
+    },
+    {
+      "text": "prompts if it saves you that much time.",
+      "start": 31.359,
+      "duration": 4.801
+    },
+    {
+      "text": "If it saves you a dozen hours this",
+      "start": 34.0,
+      "duration": 4.48
+    },
+    {
+      "text": "month, the Claude Max plan is probably",
+      "start": 36.16,
+      "duration": 4.399
+    },
+    {
+      "text": "worth the money because you're going to",
+      "start": 38.48,
+      "duration": 4.32
+    },
+    {
+      "text": "spend that amount of time, right? Like",
+      "start": 40.559,
+      "duration": 5.921
+    },
+    {
+      "text": "your your time has some value to",
+      "start": 42.8,
+      "duration": 3.68
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "0uu1Tqebh3U",
+    "title": "Claude Max: The New Era of Calculation #excel #claude #ai #aiforbusiness #productivity #numbers",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/weve-had-two-massive-excel-ai-launches?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\n\nWhat\u2019s really happening inside AI for Excel?\nWhether we're talking about Claude's ability to build Excel models now or the just-launched CoPilot for Excel, the usual story is that LLMs write words, so numbers are second best. NOT true anymore.\n\nThe reality is AI models are NOW changing how numbers, models, and business analysis get done. And yes, that includes doing workflows so efficiently that one person can do the work of 3-4 if they are well-organized. \n\nIn this video, I share the inside scoop on AI in Excel:\n\u2022 Why Claude\u2019s new Excel skills are a leap in productivity\n\u2022 How Copilot compares as an embedded spreadsheet assistant\n\u2022 What ROI tradeoffs to weigh when upgrading to premium plans\n\u2022 Where prompt engineering unlocks board-ready models and dashboards\n\nAI for Excel isn\u2019t just faster typing \u2014 it\u2019s order-of-magnitude leverage for teams who work with numbers. It's 1000x gains. \n\nChapters\n00:00 Unlocking AI\u2019s Potential in Excel\n02:39 The Evolution of AI in Data Analysis\n05:01 Maximizing ROI with AI Tools\n07:33 Crafting Effective Prompts for Excel\n09:39 Building Financial Models with AI\n12:30 Creating Comprehensive Reports\n14:56 Developing Business Plans with AI\n17:39 Editing and Cleaning Data Efficiently\n20:08 The Future of AI in Excel\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-13T21:00:01Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT45S",
+    "duration_seconds": 45,
+    "view_count": 6200,
+    "like_count": 235,
+    "comment_count": 10,
+    "tags": [
+      "AI strategy",
+      "AI tools",
+      "AI in Excel",
+      "Claude Sonnet 4.5",
+      "Microsoft Copilot",
+      "Anthropic Claude",
+      "OpenAI GPT-5",
+      "large language models",
+      "AI agents",
+      "prompt engineering",
+      "automation at work",
+      "future of work",
+      "finance teams",
+      "business analysis",
+      "ROI models",
+      "board reports",
+      "Excel automation",
+      "AI for numbers",
+      "AI strategy for teams"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/0uu1Tqebh3U/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/0uu1Tqebh3U/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/0uu1Tqebh3U/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/0uu1Tqebh3U/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/0uu1Tqebh3U/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:46.498588",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/weve-had-two-massive-excel-ai-launches?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/weve-had-two-massive-excel-ai-launches?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.154310"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai prompts for excel: save hours with claude max\",\n  \"tags\": [\"ai-for-spreadsheets\", \"excel-automation\", \"prompt-engineering\", \"productivity-tools\", \"time-savings\"],\n  \"summary\": \"The video argues that using Claude Max and AI prompts for Excel can dramatically increase efficiency and save significant time.\"\n}",
+      "generated_at": "2025-11-09T21:56:38.164890",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

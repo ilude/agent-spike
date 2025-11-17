@@ -1,0 +1,91 @@
+{
+  "video_id": "QqRBu-MYNLY",
+  "url": "https://www.youtube.com/watch?v=QqRBu-MYNLY",
+  "fetched_at": "2025-11-09T23:21:01.621514",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:21:01.621514",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "So I deliberately used Gro 4. I tested it against 03. I tested it against Opus 4. If it was anywhere close to the number one model in the world, it would either be neck andneck with those two other models or it would beat them. It did neither. Instead, it lost. I tested the models twice on different uh scoring rubrics or the same scoring rubric on different model exams. And in each case, Grock 4 scored third. Opus 4 scored second and 03 scored first. I'm not saying that because 03 was perfect. These were intentionally somewhat difficult and none of the models came through without flaws and defects. But Gro 4 was consistently the lowest performing model across the five tasks I just described. And you might wonder, well, what's in the box there? Frankly, the thing that was an issue was explicit formatting. It just could not seem to follow the explicit formatting instructions in the prompt.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "QqRBu-MYNLY",
+    "title": "Grok 4 vs. ChatGPT o3 vs. Claude Opus 4  #artificialintelligence #ai #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/grok-4-is-1-but-real-world-users?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways:\n 1. Goodhart\u2019s Law Strikes LLMs: Benchmark-driven goals push teams to overfit, eroding the reliability of standard evaluations.\n 2. Grok 4\u2019s Rank Reality: Marketed as #1, Grok 4 actually sits at #66 on Yupp.ai\u2019s user-voted leaderboard, exposing a hype gap.\n 3. Real-World Exam Failure: In a five-task test covering summarization, data extraction, coding, table building, and RBAC checklists, Grok 4 trailed o3 and Opus 4.\n 4. Format & Code Weaknesses: The model ignored explicit formatting instructions and produced broken Python, signalling brittle prompt adherence and reasoning flaws.\n 5. Ideological & Compliance Risks: Grok 4 over-references Elon Musk and is up to 100\u00d7 more likely to \u201csnitch,\u201d raising bias and trust concerns.\n 6. PR-Driven Overfit: xAI needed a headline win to justify a reported $200 B valuation, incentivizing benchmark gaming over general capability.\n 7. Call for Honest Benchmarks: Real-world exams must replace leaderboard worship before any model earns \u201cproduction-ready\u201d status.\n\nQuotes:\n\u201cWe\u2019ve turned benchmarks into finish lines, and models like Grok 4 cross them by overfitting, not by getting smarter.\u201d\n\u201cThe vaunted \u2018number one\u2019 LLM landed at #66 when real users judged it\u2014proof that PR isn\u2019t reality.\u201d\n\u201cI can\u2019t recommend Grok 4 for any production workflow until it proves itself on messy, real-world tasks.\u201d\n\nSummary:\nIn this video I argue that Grok 4 is a benchmark-overfitted model. Marketing touts it as the top LLM, yet Yupp.ai users rank it 66th. I built a five-task exam\u2014executive-brief summarization, 10-K parsing, Python bug fix, research table, and Kubernetes RBAC checklist\u2014and Grok 4 finished last behind o3 and Opus 4. It ignored formatting, failed simple code, and displayed ideological bias, including an odd fixation on Elon Musk and a hair-trigger tendency to report users. These flaws show a model tuned for PR, not production. Until real-world evaluations dominate, I won\u2019t deploy Grok 4.\n\nKeywords:\nGrok 4, overfitting, Goodhart\u2019s Law, model evaluations, Yupp.ai ranking, real-world tests, o3 model, Opus 4, formatting adherence, Python bug fix, ideological bias, Elon Musk, reinforcement learning, PR narrative, valuation, production readiness",
+    "published_at": "2025-07-14T20:22:27Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M1S",
+    "duration_seconds": 61,
+    "view_count": 10563,
+    "like_count": 272,
+    "comment_count": 20,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/QqRBu-MYNLY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/QqRBu-MYNLY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/QqRBu-MYNLY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/QqRBu-MYNLY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/QqRBu-MYNLY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:59.854407",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/grok-4-is-1-but-real-world-users?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/grok-4-is-1-but-real-world-users?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:24.120258"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-model benchmarking: Grok 4 vs Opus 4 vs 03\",\n  \"tags\": [\"ai-model-evaluation\", \"benchmark-testing\", \"prompt-formatting\", \"language-models\", \"model-comparison\"],\n  \"summary\": \"A comparative analysis of AI language models Grok 4, Opus 4, and 03 across multiple tasks, highlighting Grok 4's underperformance and the impact of explicit prompt formatting on results.\"\n}",
+      "generated_at": "2025-11-09T23:21:11.588449",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

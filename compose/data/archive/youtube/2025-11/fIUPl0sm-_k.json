@@ -1,0 +1,91 @@
+{
+  "video_id": "fIUPl0sm-_k",
+  "url": "https://www.youtube.com/watch?v=fIUPl0sm-_k",
+  "fetched_at": "2025-11-09T22:37:10.843895",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:37:10.843895",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "AI agents are not a tickbox. AI agents, if you want to implement them, implement them this way. And so many teams do. AI agents are just a new way of doing software for everybody. And it's possible to do software for everybody. I firmly believe that if you work with your favorite LLM, whether that's Claude or Chad GPT or Gemini or even Grock, you can get to a point where you build this yourself and it builds in line with what I'm suggesting. It's simple. It's composable. it fixes real pain points etc. You don't have to have an engineer to do that but let's recognize that you are doing real engineering work. You are actually building software and this is part of the magic of the AI era. If you're willing to think this way with this kind of clear intent, you too can do the work of building software and you can generate the magic, the real ROI that comes from true automation.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "fIUPl0sm-_k",
+    "title": "n8n & the promise and peril of AI agents #ai #artificialintelligence #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/the-complete-guide-to-building-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. Simplicity Principle: N8n\u2019s visual workflow builder is powerful but dangerous\u2014complex workflows quickly become unmaintainable. Keep workflows ruthlessly simple to ensure scalability and readability.\n 2. JSON as a Simplifier: Using JSON representations of workflows reduces complexity, improves accuracy, and enables LLMs to both generate and document automations more clearly.\n 3. Separation of Concerns: Avoid monolithic \u201csubway map\u201d agents; instead, break down processes into small, composable, single-purpose workflows that can be reused and debugged.\n 4. Team-Level Responsibility: Automation projects fail when they\u2019re treated as private experiments. Documentation, runbooks, and patterns are essential so workflows can survive vacations and staff turnover.\n 5. Real-World Proof: Companies like StepStone, Border, Delivery Hero, and Vodafone demonstrate that N8n can deliver massive ROI if workflows remain focused, simple, and well-documented.\n 6. LLMs as Accelerators: ChatGPT, Claude, and others now reliably generate JSON configs and workflow documentation, making it easier for non-developers to build maintainable agents.\n 7. Strategic Adoption: AI agents are software. Non-technical teams must adopt engineering principles\u2014simplicity, composability, and documentation\u2014if they want to avoid burnout and failure.\n\nQuotes\n\u201cWe are not just configuring workflows\u2014we are building real software, and that requires engineering discipline.\u201d\n\u201cSimplicity isn\u2019t boring; it\u2019s the foundation of maintainability and scalability.\u201d\n\u201cN8n is like a knife\u2014you can use it badly and hurt yourself, or use it well and create real value.\u201d\n\nSummary\nIn this talk, I explain why building AI agents in N8n is both powerful and risky. The visual workflow builder makes automation accessible, but complexity quickly spirals into unmaintainable spaghetti. The key is simplicity: break problems into small, composable workflows, use JSON representations with LLMs for clarity, and always document. Real companies like StepStone, Border, and Vodafone prove the ROI of this approach. Agents should be treated as real software\u2014team-level products that require engineering discipline. With focus, documentation, and clear design, even non-developers can build sustainable agents that deliver long-term value.\n\nKeywords\nN8n, AI agents, workflow automation, JSON workflows, LLM acceleration, composability, simplicity principle, separation of concerns, documentation, automation best practices, StepStone, Border, Delivery Hero, Vodafone, agent building, maintainability",
+    "published_at": "2025-09-03T03:00:44Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 2997,
+    "like_count": 109,
+    "comment_count": 5,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/fIUPl0sm-_k/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/fIUPl0sm-_k/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/fIUPl0sm-_k/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/fIUPl0sm-_k/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/fIUPl0sm-_k/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:24.386063",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-guide-to-building-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-guide-to-building-ai?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:17.565725"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai agents as a new way of software\",\n  \"tags\": [\"ai-agents\", \"software-development\", \"automation\", \"large-language-models\", \"roi\"],\n  \"summary\": \"The video argues for using AI agents and LLMs to build composable software, highlighting automation, ROI, and treating AI as a modern engineering approach.\"\n}",
+      "generated_at": "2025-11-09T22:37:21.058737",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

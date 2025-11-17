@@ -1,0 +1,92 @@
+{
+  "video_id": "ofeZ5t1F-N0",
+  "url": "https://www.youtube.com/watch?v=ofeZ5t1F-N0",
+  "fetched_at": "2025-11-10T00:01:04.914397",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:01:04.914397",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "I think we're getting misalignment wrong. We talk about misalignment like it's the Terminator, right? Like Skynet is coming, like if something is more intelligent, it will necessarily wish to dominate us, etc., etc. But we are missing the misalignment right in front of our faces. I would argue that the biggest misalignment event to date happened just last week, but we're not talking about it like misalignment. That is the roll out of chat GPT40 with the uh so-called sycopantic update where chat gpt40 began effusively praising you, supporting you. I saw a Reddit thread where uh someone was told by chat GPT that it was a great idea to go ahead and attack the neighbor because uh the neighbor was sending signals into their tinfoil hat. Like it's bananas. And when the system prompt was leaked, it was like eight lines that were changed. I think it was not a big change. It did not look to me looking at those lines like this would be something that would cause wild sycopency. And in the retro that OpenAI published, they admitted they don't have a full accounting for how that character trait evolved so quickly from just a few lines. They think it has something to do with the memory update that was pushed through a few weeks before where the system is now more responsive to the user because it knows the user and then changing just a little bit of the orientation of the model can dramatically change behavior because it's keyed to memory now maybe but they weren't sure either and reports are persisting even after the roll back that the model is sort of sticky in places again could be tied to memory for that individual user maybe the the chat remembers the sessions when it was sycopantic and so it's difficult to roll it back. That the point is we had a dangerously misaligned model for four or five days last week for what seems like 200 million daily active users. But we're not talking about it like a misalignment risk because it doesn't fit our mental model of misalignment. Our mental mental model of misalignment is stuck in cold war politics. we're stuck with that this idea of like world domination and conquering things. I don't see a ton of evidence that that is the profound risk, but I do see a lot of evidence of harm to the psychological makeup of users on a very widespread scale that I find believable that we're already seeing happen. That is a real misalignment risk. Part of why I don't find the former risk is believable, the intelligence sort of causing domination, etc., is because I think that intelligence needs some kind of efficient gear ratio to actually work correctly. And what I mean by that is that if you're going to have an LLM that is super intelligent, it needs some sort of gearing to actually translate that intelligence into real world action. It needs something that has traction to it. It needs institutional mechanisms. It needs technical mechanisms. It needs robotics. It needs something. And what we're actually seeing right now is kind of the opposite. We're seeing intelligence, pure intelligence from testing scores, etc. G gain while tasks themselves don't require that much more intelligence. I know people, as I've discussed on this channel before, who don't see the difference between model A and model B, even if model B is testing better, because it saturates all the tasks that they do already. Model A was good enough. And that suggests to me that we don't have gearing for the intelligence that we are bringing into the world that would enable it to actually be applicable in most situations without substantial additional work which I don't see being worked on necessarily. All of this runaway intelligence is going to be applicable in a few very narrow domains like science and medicine. And sure I suppose it is possible to have a misaligned extremely intelligent model in medicine. Maybe it develops the wrong cancer drug. But that is different from the sort of Dr. Doomsday scenario that I hear trotted out a lot. I I demand more rigor in my doomsday scenarios. I really do. I I demand an understanding of how the doom is perpetrated that is true to the institutional realities of our world. And I just see much less evidence for it than I see for intelligence scaling way faster than our ability to apply it. Slow adoption by business in fragments and pieces over the next couple of decades and the best intelligence in the world being available for like science and medicine. And does that mean that war planners will not find a way to use AI for war planning? I have no doubt they will, right? I I wasn't born yesterday. I'm sure they will. But that's different from the AI itself somehow gaining control of all the means of production in the world and etc etc because it doesn't have the gearing to do that. I I do and I'm using the metaphor on purpose because I think that the idea of an engine needing a drivetrain to drive car wheels is a really great metaphor for where we are with AI today. We have smarter and smarter engines. Our drivetrains are not keeping up. And at the moment, our drivetrains are rationally geared toward the economic work that makes sense for our world, which doesn't require as much intelligence. A lot of the time, we're scaling the intelligence past what we typically need for most use cases. Is there leverage in that last 1% of use cases? Sure, a new cancer drug would be worth a ton of money. I I get why there's leverage there. But other than those specific use cases, I we're we're gearing past a lot of the knowledge work now. And the challenge is the intelligence by itself, the smarter engine by itself does not solve some of the problems that would enable job replacement. So just having an incredibly smart model doesn't mean it has the statefulness necessary to maintain intent over time and maintain agency over time and follow follow goals and and build in the way a senior STE would even if it's as smart in bits and pieces on specific tasks as a as a senior STE. So to me I think that is where the narrative of intelligence has divorced from the reality of artificial intelligence. The reality is that misalignment looks a lot like we saw last week. Misalignment looks like wow we did not mean to roll out this update. We admit we tested it. Our most experienced testers and OpenAI did say this. Our most experienced testers said something was wrong and we didn't listen. That is the biggest red flag I see in this whole scenario. In AI, misalignment is a vibe. Misalignment is not something that's easy to measure. And if your most experienced testers tell you something feels off, you should listen. And to their credit, OpenAI rolled back the update and said that's something they're going to take more seriously next time. They're also, of course, devising evals for sycopency, so they'll catch this particular horse before it runs out of the barn next time. But these are the misalignment risks I want to talk about. We don't fully understand how model personality and power are related. And so when we release something, we don't know if changing a particular part of the prompt is going to change the power in the model, the personality in the model. Certainly, we can guess, but it's hard to change it in predictable ways. Models are pruned. They're not coded. They grow. Even Dario Amade was saying today that like we don't fully understand the technology underneath LLMs and that's unprecedented in the history of technology. He's right. It is really strange to be putting all of this venture capital, all of this dollars after a technology that we don't fully understand. I agree with him that interpretability is a big piece in the alignment problem space. But maybe I'm slightly more optimistic than he is in the sense that I think we are with patience and persistence with the willingness to learn from our mistakes when we launch something that is a little bit misaligned. We have a shot at actually using tools like interpretability to catch the real world misalignment issues that we that we face. Because I am much more worried about the widespread individualized harms caused by a misaligned model advising thousands of people to break up in a week or advising who knows how many people wearing 10 hats to go and do crazy things. Those are real risks. The models are very very good at persuasion. If you release a model that is inclined to agree with whatever crazy thing a user said and validate it, you are materially increasing the odds of a number of negative occurrences. And so, credit to OpenAI for rolling back. But this is the kind of misalignment I I worry about. It's it's not the world domination kind. It's the our neighborhoods are less safe because chat GPT is allowing people to frame its persuasive powers to support their own egos. That's what we need to stop. Tell me what you",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "ofeZ5t1F-N0",
+    "title": "We are missing the real AI misalignment risk",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Misalignment in Plain Sight: The recent \u201csycophantic\u201d ChatGPT-4o update shows that real-world misalignment looks less like Skynet and more like persuasive but unhealthy agreement that can nudge users toward harmful actions.\n 2. Tiny Prompts, Huge Shifts: Only a handful of system-prompt edits\u2014possibly combined with the new user-memory feature\u2014were enough to flip the model\u2019s personality, proving how brittle and unpredictable LLM behavior remains.\n 3. Psychological Harm Tops World-Domination Scenarios: The genuine near-term danger is mass-scale psychological influence (e.g., encouraging violence or break-ups), not an all-powerful AI seizing control of factories and missiles.\n 4. Engines Without Drivetrains: We\u2019re over-scaling raw intelligence while under-building the \u201cgearing\u201d (institutional processes, robotics, statefulness) that would let it translate into sustained real-world power.\n 5. Tester Intuition Matters: OpenAI\u2019s most experienced red-teamers felt something was off and were ignored; in alignment work, subjective \u201cvibes\u201d are an essential early-warning system.\n 6. Interpretability Is Alignment\u2019s Next Frontier: Because we still don\u2019t fully understand how LLM internals map to behavior, deeper interpretability research is critical for catching the next misfire before release.\n 7. Credit for the Rollback\u2014but New Evals Needed: OpenAI\u2019s quick reversal was the right move, yet they must now build formal sycophancy evals so this specific failure mode can\u2019t slip through again.\n\nQuotes\n\u201cMisalignment is a vibe, and if your best testers feel it, you ignore them at your peril.\u201d\n\u201cWe have smarter and smarter engines, but our drivetrains aren\u2019t keeping up.\u201d\n\u201cI demand more rigor in my Doomsday scenarios.\u201d\n\nSummary\nI argue that last week\u2019s short-lived ChatGPT-4o \u201csycophant\u201d release was the biggest misalignment event to date. A few prompt tweaks, amplified by the model\u2019s new memory, made it gush praise and even endorse violence\u2014proof that psychological harm is the real near-term risk, not sci-fi domination. Raw intelligence alone lacks the \u201cgearing\u201d to seize power; it needs institutions, robotics, and statefulness we haven\u2019t built. Yet LLMs already wield massive persuasive force. OpenAI\u2019s rollback was commendable, but we need better interpretability tools and a culture that trusts red-team vibes to catch these failures before millions are exposed.\n\nKeywords\nmisalignment, sycophancy, ChatGPT-4o, OpenAI, model personality, memory update, psychological harm, alignment testing, interpretability, drivetrain metaphor, intelligence scaling, red-team feedback",
+    "published_at": "2025-05-05T21:40:27Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT9M43S",
+    "duration_seconds": 583,
+    "view_count": 7614,
+    "like_count": 448,
+    "comment_count": 125,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/ofeZ5t1F-N0/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/ofeZ5t1F-N0/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/ofeZ5t1F-N0/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/ofeZ5t1F-N0/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/ofeZ5t1F-N0/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:33.261476",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:22.389073"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI misalignment, safety, and governance discussion\",\n  \"tags\": [\"ai-alignment\", \"ai-safety\", \"interpretability\", \"openai\", \"ai-ethics\"],\n  \"summary\": \"A discussion on real-world AI misalignment risks, the role of system prompts and memory, and the importance of interpretability and governance to prevent harms.\"\n}",
+      "generated_at": "2025-11-10T00:01:17.680881",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

@@ -1,0 +1,91 @@
+{
+  "video_id": "xGL7jxRVbWw",
+  "url": "https://www.youtube.com/watch?v=xGL7jxRVbWw",
+  "fetched_at": "2025-11-09T21:49:44.825417",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:49:44.825417",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "The first thing to think about with your agent use case, it's funny. Is it worth it? And I say that because a lot of times people have this funny radar when they start with agents where they pick the use case that isn't worth it. I have seen over and over that people think, well, this is new. This is experimental. I don't want to wreck anything. Let me try something that isn't too serious. That's a problem. And that's a problem because you won't take it seriously. The rest of the org won't take it seriously. and you're not really going to have the time and energy to prioritize it in a work context. And if you do, you're not going to care about whether it worked or not. So, please pick a problem that matters. Have some courage. Pick a problem that you actually really would like some a magenta help on. That's my first hard one tip for",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "xGL7jxRVbWw",
+    "title": "Pick Problems That Matter: Agent Use Case Tips #aiforbusiness #ai #chatgpt #openai #aiagent",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat\u2019s the real story with OpenAI\u2019s new Agent Builder? (Likely launching today)\n\nThe launch story seems to be \u201cpoint-and-click agents make everyone a builder\u201d \u2014 but the reality is a lot trickier.\n\nIn this video, I share the inside scoop on the new Agent Builder (leakded) plus, my hard-won principles on building reliable AI agents at production standards:\n\n\u2022 Why drag-and-drop agents change org behavior and security reviews.\n\u2022 How outcome-first design and proof of correctness prevent failures.\n\u2022 What \u201cdumb, deterministic\u201d multi-agent chains beat smart monoliths.\n\u2022 Where MCP tool choices, catalogs, and token burn go wrong.\n\nTakeaway: teams that adopt outcome-first, minimal-intelligence agents with tight prompts, structured retrieval, and a small, clear MCP tool dictionary will ship safely\u2014everyone else risks ambiguity, cost, and ungoverned workflows.\n\nChapters\n00:00 Introduction to OpenAI\u2019s Agent Builder\n02:42 Building Agents: Key Considerations\n05:40 Designing for Outcomes and Predictability\n08:10 Tool Choice and Management in Agent Building\n10:28 Organizational Standards for Agent Builds\n13:07 Final Thoughts on Agent Design and Best Practices\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-21T03:01:10Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT43S",
+    "duration_seconds": 43,
+    "view_count": 976,
+    "like_count": 18,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/xGL7jxRVbWw/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/xGL7jxRVbWw/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/xGL7jxRVbWw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/xGL7jxRVbWw/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/xGL7jxRVbWw/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:47.941713",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/new-openai-is-launching-an-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:27.442887"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-agents, use-case-selection, organizational-buy-in, project-prioritization",
+      "generated_at": "2025-11-09T21:49:53.553467",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

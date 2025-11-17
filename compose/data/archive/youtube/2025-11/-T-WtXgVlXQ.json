@@ -1,0 +1,823 @@
+{
+  "video_id": "-T-WtXgVlXQ",
+  "url": "https://www.youtube.com/watch?v=-T-WtXgVlXQ",
+  "fetched_at": "2025-11-10T00:14:05.305671",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:14:05.305671",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "so the internet was full over the weekend of reports that Microsoft was somehow delaying data center spend uh in other words that their 80 billion was not going to be the 80 billion they said they'd spend on AI there were rumors that a couple of data centers were pushed back Etc well this morning right when the markets open Microsoft got very clear and they said we're not changing our overall 80 billion spend Target you shouldn't interpret it that way we may be quote unquote readjusting things now readjusting would make sense because open AI is rumored to be moving to the soft Bank Oracle stack and not really rumored at this point I think if you have a presidential press conference it's more than a rumor uh and at the end of the day they're the largest tenant for Microsoft's Azure AI stack right now and so if they start to move that's going to change and readjust investment plans in a private research note I saw that it was Kenosha Wisconsin and Atlanta Georgia that are the ones that they're thinking about moving delaying adjusting Etc we will have to see how that plays out but the point is Microsoft was very keen to put uh paid to the rumors and say no no no no we're still spending $80 billion on AI this year which is adjusting it right adjusting it as our largest tenant leaves now at the same time over the weekend Nvidia made sure that they leaked that they were full up on chips and in fact that the blackw chip architecture their most current one is full up on orders all the way through 2025 and they're also rapidly filling up 2026 and so they're broadcasting that this whole rumored deep seek effect is also nothing people still need compute to scale and that's really not surprising to me like at the end of the day if after deep seek is released China announces a massive massive multi-billion dollar infrastructure spend they don't have a magic secret key that enables them to scale AI without spending on computers it doesn't exist it's not a thing uh and so yeah of course people are going to spend on it and the reason they're going to spend on it is that the value is still there and I know that SAA nadela went on a podcast with dwares and said I he wants to see AI do economically useful work I I I think he set the bar really weird there because if he's asking for like 10% GDP growth he's basically ignoring the effects that we see today which is workers reporting significant improvements in productivity when they are allowed to use AI so why sleep on that right like why not go after that and that's where a lot of the people who are focused on building an AI are thinking about it's like how do we get teams effective with AI how do we get individuals effective with AI um and that's where we see a lot of the gains and I think that's interesting because if you're trying to build AI out right now it may be a little bit premature to assume that you can build AI out to the point where you can just replace someone's job haven't seen that go well in fact Clara had that go very very badly last week uh but I have seen lots of productivity gains from existing workers getting augmented with AI that is a very real thing and whether or not Microsoft wants to pay attention to it is a different thing they have different customers right they don't have consumers they don't have individuals or teams I realize the irony of that statement uh they have Enterprises ENT Rises are who they work with and so they're going to move at the pace of the Enterprise and if their biggest Enterprise client open AI walks away they they're going to adjust their data center spend that just kind of makes sense even if it's overall 80 billion they're going to rearrange it a little bit it's like salary caps in the National Football League you rearrange things a little bit so that's the story and I think that I find it very interesting there's a whole class of people that whenever a CEO says something that is remotely I don't know thoughtfully critical of AI they assume that this means that the the top of the quote unquote bubble is in and AI is doomed etc etc and and I think you should be able to have a conversation where SAA can make a point and say hey I'm really focused on economically useful work and even if I disagree with sort of the way he's playing that set of cards that he has that's his call and he's fair to call out that economically useful work is a good bar and we can have the conversation without making big assumptions about it and I think that one of the things that Microsoft is realizing is that the hype in the system is really around arguments over whether or not we are in a bubble and that's not super relevant if you're actually talking about meaningful investment over time and that's why the serious players are talking very clearly in the markets today and saying we are investing over time stop it so by the way ironically if you're one of those people who thinks we're in a bubble you know what one of the classic signs of a bubble is it's not this it's not people arguing about whether we're in a bubble it's when everybody gives up and everybody agrees that whatever we have going is the greatest thing ever that's what happened during the famous tulip crash 400 years ago yeah so we are not in a bubble by definition because all of you are arguing about it cheers yes it's that cult",
+  "timed_transcript": [
+    {
+      "text": "so the internet was full over the",
+      "start": 0.04,
+      "duration": 3.96
+    },
+    {
+      "text": "weekend of reports that Microsoft was",
+      "start": 1.599,
+      "duration": 5.32
+    },
+    {
+      "text": "somehow delaying data center spend uh in",
+      "start": 4.0,
+      "duration": 4.639
+    },
+    {
+      "text": "other words that their 80 billion was",
+      "start": 6.919,
+      "duration": 3.64
+    },
+    {
+      "text": "not going to be the 80 billion they said",
+      "start": 8.639,
+      "duration": 3.721
+    },
+    {
+      "text": "they'd spend on AI there were rumors",
+      "start": 10.559,
+      "duration": 3.2
+    },
+    {
+      "text": "that a couple of data centers were",
+      "start": 12.36,
+      "duration": 5.24
+    },
+    {
+      "text": "pushed back Etc well this morning right",
+      "start": 13.759,
+      "duration": 5.841
+    },
+    {
+      "text": "when the markets open Microsoft got very",
+      "start": 17.6,
+      "duration": 3.439
+    },
+    {
+      "text": "clear and they said we're not changing",
+      "start": 19.6,
+      "duration": 3.96
+    },
+    {
+      "text": "our overall 80 billion spend Target you",
+      "start": 21.039,
+      "duration": 4.201
+    },
+    {
+      "text": "shouldn't interpret it that",
+      "start": 23.56,
+      "duration": 4.719
+    },
+    {
+      "text": "way we may be quote unquote readjusting",
+      "start": 25.24,
+      "duration": 5.64
+    },
+    {
+      "text": "things now readjusting would make sense",
+      "start": 28.279,
+      "duration": 6.96
+    },
+    {
+      "text": "because open AI is rumored to be moving",
+      "start": 30.88,
+      "duration": 7.199
+    },
+    {
+      "text": "to the soft Bank Oracle stack and not",
+      "start": 35.239,
+      "duration": 4.681
+    },
+    {
+      "text": "really rumored at this point I think if",
+      "start": 38.079,
+      "duration": 3.521
+    },
+    {
+      "text": "you have a presidential press conference",
+      "start": 39.92,
+      "duration": 5.319
+    },
+    {
+      "text": "it's more than a rumor uh and at the end",
+      "start": 41.6,
+      "duration": 5.72
+    },
+    {
+      "text": "of the day they're the largest tenant",
+      "start": 45.239,
+      "duration": 5.201
+    },
+    {
+      "text": "for Microsoft's Azure AI stack right now",
+      "start": 47.32,
+      "duration": 4.68
+    },
+    {
+      "text": "and so if they start to move that's",
+      "start": 50.44,
+      "duration": 3.88
+    },
+    {
+      "text": "going to change and readjust investment",
+      "start": 52.0,
+      "duration": 6.0
+    },
+    {
+      "text": "plans in a private research note I saw",
+      "start": 54.32,
+      "duration": 5.96
+    },
+    {
+      "text": "that it was Kenosha Wisconsin and",
+      "start": 58.0,
+      "duration": 4.68
+    },
+    {
+      "text": "Atlanta Georgia that are the ones that",
+      "start": 60.28,
+      "duration": 4.04
+    },
+    {
+      "text": "they're thinking about moving delaying",
+      "start": 62.68,
+      "duration": 4.04
+    },
+    {
+      "text": "adjusting Etc we will have to see how",
+      "start": 64.32,
+      "duration": 3.64
+    },
+    {
+      "text": "that plays out but the point is",
+      "start": 66.72,
+      "duration": 4.32
+    },
+    {
+      "text": "Microsoft was very keen to put uh paid",
+      "start": 67.96,
+      "duration": 5.6
+    },
+    {
+      "text": "to the rumors and say no no no no we're",
+      "start": 71.04,
+      "duration": 4.399
+    },
+    {
+      "text": "still spending $80 billion on AI this",
+      "start": 73.56,
+      "duration": 3.76
+    },
+    {
+      "text": "year which is adjusting it right",
+      "start": 75.439,
+      "duration": 3.921
+    },
+    {
+      "text": "adjusting it as our largest tenant",
+      "start": 77.32,
+      "duration": 4.759
+    },
+    {
+      "text": "leaves now at the same time over the",
+      "start": 79.36,
+      "duration": 5.079
+    },
+    {
+      "text": "weekend Nvidia made sure that they",
+      "start": 82.079,
+      "duration": 4.201
+    },
+    {
+      "text": "leaked that they were full up on chips",
+      "start": 84.439,
+      "duration": 3.481
+    },
+    {
+      "text": "and in fact that the blackw chip",
+      "start": 86.28,
+      "duration": 4.36
+    },
+    {
+      "text": "architecture their most current one",
+      "start": 87.92,
+      "duration": 5.04
+    },
+    {
+      "text": "is full up on orders all the way through",
+      "start": 90.64,
+      "duration": 5.0
+    },
+    {
+      "text": "2025 and they're also rapidly filling up",
+      "start": 92.96,
+      "duration": 5.64
+    },
+    {
+      "text": "2026 and so they're broadcasting that",
+      "start": 95.64,
+      "duration": 5.24
+    },
+    {
+      "text": "this whole rumored deep seek effect is",
+      "start": 98.6,
+      "duration": 4.559
+    },
+    {
+      "text": "also nothing people still need compute",
+      "start": 100.88,
+      "duration": 4.4
+    },
+    {
+      "text": "to scale and that's really not",
+      "start": 103.159,
+      "duration": 4.64
+    },
+    {
+      "text": "surprising to me like at the end of the",
+      "start": 105.28,
+      "duration": 7.24
+    },
+    {
+      "text": "day if after deep seek is released China",
+      "start": 107.799,
+      "duration": 7.161
+    },
+    {
+      "text": "announces a massive massive",
+      "start": 112.52,
+      "duration": 4.279
+    },
+    {
+      "text": "multi-billion dollar infrastructure",
+      "start": 114.96,
+      "duration": 5.28
+    },
+    {
+      "text": "spend they don't have a magic secret key",
+      "start": 116.799,
+      "duration": 5.521
+    },
+    {
+      "text": "that enables them to scale AI without",
+      "start": 120.24,
+      "duration": 4.199
+    },
+    {
+      "text": "spending on computers it doesn't exist",
+      "start": 122.32,
+      "duration": 5.159
+    },
+    {
+      "text": "it's not a thing uh and so yeah of",
+      "start": 124.439,
+      "duration": 4.281
+    },
+    {
+      "text": "course people are going to spend on it",
+      "start": 127.479,
+      "duration": 2.4
+    },
+    {
+      "text": "and the reason they're going to spend on",
+      "start": 128.72,
+      "duration": 3.12
+    },
+    {
+      "text": "it is that the value is still there and",
+      "start": 129.879,
+      "duration": 4.921
+    },
+    {
+      "text": "I know that SAA nadela went on a podcast",
+      "start": 131.84,
+      "duration": 5.8
+    },
+    {
+      "text": "with dwares and said I he wants to see",
+      "start": 134.8,
+      "duration": 5.04
+    },
+    {
+      "text": "AI do economically useful",
+      "start": 137.64,
+      "duration": 5.28
+    },
+    {
+      "text": "work I I I think he set the bar really",
+      "start": 139.84,
+      "duration": 5.36
+    },
+    {
+      "text": "weird there because if he's asking for",
+      "start": 142.92,
+      "duration": 4.56
+    },
+    {
+      "text": "like 10% GDP growth he's basically",
+      "start": 145.2,
+      "duration": 4.759
+    },
+    {
+      "text": "ignoring the effects that we see today",
+      "start": 147.48,
+      "duration": 4.479
+    },
+    {
+      "text": "which is workers reporting significant",
+      "start": 149.959,
+      "duration": 3.521
+    },
+    {
+      "text": "improvements in productivity when they",
+      "start": 151.959,
+      "duration": 3.441
+    },
+    {
+      "text": "are allowed to use",
+      "start": 153.48,
+      "duration": 5.56
+    },
+    {
+      "text": "AI so why sleep on that right like why",
+      "start": 155.4,
+      "duration": 5.28
+    },
+    {
+      "text": "not go after that and that's where a lot",
+      "start": 159.04,
+      "duration": 3.32
+    },
+    {
+      "text": "of the people who are focused on",
+      "start": 160.68,
+      "duration": 3.32
+    },
+    {
+      "text": "building an AI are thinking about it's",
+      "start": 162.36,
+      "duration": 3.2
+    },
+    {
+      "text": "like how do we get teams effective with",
+      "start": 164.0,
+      "duration": 3.2
+    },
+    {
+      "text": "AI how do we get individuals effective",
+      "start": 165.56,
+      "duration": 4.56
+    },
+    {
+      "text": "with AI um and that's where we see a lot",
+      "start": 167.2,
+      "duration": 4.119
+    },
+    {
+      "text": "of the gains and I think that's",
+      "start": 170.12,
+      "duration": 3.759
+    },
+    {
+      "text": "interesting because if you're trying to",
+      "start": 171.319,
+      "duration": 5.801
+    },
+    {
+      "text": "build AI out right now it may be a",
+      "start": 173.879,
+      "duration": 5.241
+    },
+    {
+      "text": "little bit premature to assume that you",
+      "start": 177.12,
+      "duration": 3.759
+    },
+    {
+      "text": "can build AI out to the point where you",
+      "start": 179.12,
+      "duration": 3.88
+    },
+    {
+      "text": "can just replace someone's job haven't",
+      "start": 180.879,
+      "duration": 3.961
+    },
+    {
+      "text": "seen that go well in fact Clara had that",
+      "start": 183.0,
+      "duration": 6.44
+    },
+    {
+      "text": "go very very badly last week uh but I",
+      "start": 184.84,
+      "duration": 7.56
+    },
+    {
+      "text": "have seen lots of productivity gains",
+      "start": 189.44,
+      "duration": 5.12
+    },
+    {
+      "text": "from existing workers getting augmented",
+      "start": 192.4,
+      "duration": 5.36
+    },
+    {
+      "text": "with AI that is a very real thing and",
+      "start": 194.56,
+      "duration": 4.959
+    },
+    {
+      "text": "whether or not Microsoft wants to pay",
+      "start": 197.76,
+      "duration": 3.92
+    },
+    {
+      "text": "attention to it is a different thing",
+      "start": 199.519,
+      "duration": 3.481
+    },
+    {
+      "text": "they have different customers right they",
+      "start": 201.68,
+      "duration": 3.04
+    },
+    {
+      "text": "don't have consumers they don't have",
+      "start": 203.0,
+      "duration": 3.92
+    },
+    {
+      "text": "individuals or teams I realize the irony",
+      "start": 204.72,
+      "duration": 3.879
+    },
+    {
+      "text": "of that statement uh they have",
+      "start": 206.92,
+      "duration": 3.879
+    },
+    {
+      "text": "Enterprises ENT Rises are who they work",
+      "start": 208.599,
+      "duration": 4.441
+    },
+    {
+      "text": "with and so they're going to move at the",
+      "start": 210.799,
+      "duration": 3.72
+    },
+    {
+      "text": "pace of the Enterprise and if their",
+      "start": 213.04,
+      "duration": 3.6
+    },
+    {
+      "text": "biggest Enterprise client open AI walks",
+      "start": 214.519,
+      "duration": 3.761
+    },
+    {
+      "text": "away they they're going to adjust their",
+      "start": 216.64,
+      "duration": 3.239
+    },
+    {
+      "text": "data center spend that just kind of",
+      "start": 218.28,
+      "duration": 3.28
+    },
+    {
+      "text": "makes sense even if it's overall 80",
+      "start": 219.879,
+      "duration": 3.72
+    },
+    {
+      "text": "billion they're going to rearrange it a",
+      "start": 221.56,
+      "duration": 5.08
+    },
+    {
+      "text": "little bit it's like salary caps in the",
+      "start": 223.599,
+      "duration": 4.72
+    },
+    {
+      "text": "National Football League you rearrange",
+      "start": 226.64,
+      "duration": 2.76
+    },
+    {
+      "text": "things a little",
+      "start": 228.319,
+      "duration": 4.92
+    },
+    {
+      "text": "bit so that's the story and I think that",
+      "start": 229.4,
+      "duration": 6.96
+    },
+    {
+      "text": "I find it very interesting there's a",
+      "start": 233.239,
+      "duration": 5.56
+    },
+    {
+      "text": "whole class of people that whenever a",
+      "start": 236.36,
+      "duration": 5.519
+    },
+    {
+      "text": "CEO says something that is",
+      "start": 238.799,
+      "duration": 5.321
+    },
+    {
+      "text": "remotely I don't know thoughtfully",
+      "start": 241.879,
+      "duration": 4.36
+    },
+    {
+      "text": "critical of AI they assume that this",
+      "start": 244.12,
+      "duration": 3.959
+    },
+    {
+      "text": "means that the the top of the quote",
+      "start": 246.239,
+      "duration": 3.961
+    },
+    {
+      "text": "unquote bubble is in and AI is doomed",
+      "start": 248.079,
+      "duration": 3.44
+    },
+    {
+      "text": "etc",
+      "start": 250.2,
+      "duration": 3.56
+    },
+    {
+      "text": "etc and and I think you should be able",
+      "start": 251.519,
+      "duration": 4.041
+    },
+    {
+      "text": "to have a conversation where SAA can",
+      "start": 253.76,
+      "duration": 3.4
+    },
+    {
+      "text": "make a point and say hey I'm really",
+      "start": 255.56,
+      "duration": 4.88
+    },
+    {
+      "text": "focused on economically useful work and",
+      "start": 257.16,
+      "duration": 5.2
+    },
+    {
+      "text": "even if I disagree with sort of the way",
+      "start": 260.44,
+      "duration": 3.96
+    },
+    {
+      "text": "he's playing that set of cards that he",
+      "start": 262.36,
+      "duration": 5.88
+    },
+    {
+      "text": "has that's his call and he's fair to",
+      "start": 264.4,
+      "duration": 5.639
+    },
+    {
+      "text": "call out that economically useful work",
+      "start": 268.24,
+      "duration": 4.0
+    },
+    {
+      "text": "is a good bar and we can have the",
+      "start": 270.039,
+      "duration": 3.72
+    },
+    {
+      "text": "conversation without making big",
+      "start": 272.24,
+      "duration": 2.959
+    },
+    {
+      "text": "assumptions about it and I think that",
+      "start": 273.759,
+      "duration": 3.321
+    },
+    {
+      "text": "one of the things that Microsoft is",
+      "start": 275.199,
+      "duration": 4.28
+    },
+    {
+      "text": "realizing is that the hype in the system",
+      "start": 277.08,
+      "duration": 4.88
+    },
+    {
+      "text": "is really around",
+      "start": 279.479,
+      "duration": 5.44
+    },
+    {
+      "text": "arguments over whether or not we are in",
+      "start": 281.96,
+      "duration": 7.079
+    },
+    {
+      "text": "a bubble and that's not super relevant",
+      "start": 284.919,
+      "duration": 5.321
+    },
+    {
+      "text": "if you're actually talking about",
+      "start": 289.039,
+      "duration": 3.241
+    },
+    {
+      "text": "meaningful investment over time and",
+      "start": 290.24,
+      "duration": 3.44
+    },
+    {
+      "text": "that's why the serious players are",
+      "start": 292.28,
+      "duration": 3.08
+    },
+    {
+      "text": "talking very clearly in the markets",
+      "start": 293.68,
+      "duration": 3.84
+    },
+    {
+      "text": "today and saying we are investing over",
+      "start": 295.36,
+      "duration": 5.6
+    },
+    {
+      "text": "time stop it so",
+      "start": 297.52,
+      "duration": 5.08
+    },
+    {
+      "text": "by the way ironically if you're one of",
+      "start": 300.96,
+      "duration": 2.679
+    },
+    {
+      "text": "those people who thinks we're in a",
+      "start": 302.6,
+      "duration": 2.48
+    },
+    {
+      "text": "bubble you know what one of the classic",
+      "start": 303.639,
+      "duration": 4.881
+    },
+    {
+      "text": "signs of a bubble is it's not this it's",
+      "start": 305.08,
+      "duration": 4.88
+    },
+    {
+      "text": "not people arguing about whether we're",
+      "start": 308.52,
+      "duration": 3.679
+    },
+    {
+      "text": "in a bubble it's when everybody gives up",
+      "start": 309.96,
+      "duration": 4.6
+    },
+    {
+      "text": "and everybody agrees that whatever we",
+      "start": 312.199,
+      "duration": 4.681
+    },
+    {
+      "text": "have going is the greatest thing ever",
+      "start": 314.56,
+      "duration": 3.72
+    },
+    {
+      "text": "that's what happened during the famous",
+      "start": 316.88,
+      "duration": 3.4
+    },
+    {
+      "text": "tulip crash 400 years",
+      "start": 318.28,
+      "duration": 5.639
+    },
+    {
+      "text": "ago yeah so we are not in a bubble by",
+      "start": 320.28,
+      "duration": 5.16
+    },
+    {
+      "text": "definition because all of you are",
+      "start": 323.919,
+      "duration": 4.881
+    },
+    {
+      "text": "arguing about it cheers yes it's that",
+      "start": 325.44,
+      "duration": 5.759
+    },
+    {
+      "text": "cult",
+      "start": 328.8,
+      "duration": 2.399
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "-T-WtXgVlXQ",
+    "title": "Feb 24: The Microsoft AI Spend Drama Continues (Real Housewives Edition)",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Microsoft\u2019s AI Spend Adjustments: Microsoft reaffirmed its $80 billion AI investment but acknowledged a shift in data center allocations as OpenAI moves to SoftBank\u2019s Oracle stack.\n 2. Delayed Data Centers: Reports suggest Microsoft is adjusting or delaying investments in data centers in Kenosha, Wisconsin, and Atlanta, Georgia, as part of this realignment.\n 3. Nvidia\u2019s AI Chip Demand: Nvidia confirmed that its latest Blackwell chips are fully booked through 2025, with 2026 filling up fast\u2014proving AI infrastructure demand remains strong.\n 4. Economic Utility of AI: Satya Nadella emphasized AI should contribute to \u201ceconomically useful work,\u201d but critics argue that significant productivity gains from AI are already evident today.\n 5. Job Augmentation Over Replacement: While some companies attempt AI-driven layoffs, many businesses see AI as a tool to boost worker productivity rather than replace jobs outright.\n 6. AI Bubble Debate: Some believe AI is in a bubble, but historical precedent suggests true bubbles form when skepticism disappears\u2014something that hasn\u2019t happened yet.\n 7. Market Reassurance: Microsoft and Nvidia made it clear that long-term AI investment is steady, even as short-term spending shifts in response to evolving enterprise needs.\n\nQuotes\n \u2022 \u201cWe\u2019re not changing our overall $80 billion spend target. You shouldn\u2019t interpret it that way.\u201d\n \u2022 \u201cIf OpenAI starts to move, that\u2019s going to change and readjust investment plans.\u201d\n \u2022 \u201cThe classic sign of a bubble isn\u2019t debate\u2014it\u2019s when everyone blindly agrees something is the greatest thing ever.\u201d\n\nSummary\n\nMicrosoft clarified that its $80 billion AI investment remains intact, but spending is being realigned as OpenAI transitions to SoftBank\u2019s Oracle stack. Reports suggest data centers in Kenosha, WI, and Atlanta, GA, are affected. Nvidia, meanwhile, reaffirmed that demand for its Blackwell AI chips is soaring, with orders booked through 2025. Satya Nadella stressed the need for AI to drive \u201ceconomically useful work,\u201d sparking debate on AI\u2019s role in productivity. While some worry about an AI bubble, historical patterns suggest skepticism itself is evidence that AI\u2019s growth is far from peaking. Market leaders continue investing for the long haul.\n\nKeywords\n\nMicrosoft, Nvidia, OpenAI, AI investment, data centers, Kenosha, Atlanta, Oracle, SoftBank, Blackwell chips, AI productivity, Satya Nadella, enterprise AI, AI infrastructure, AI bubble, economic utility, job automation, market trends, technology investments, AI skepticism, corporate strategy",
+    "published_at": "2025-02-24T14:01:21Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT5M30S",
+    "duration_seconds": 330,
+    "view_count": 3065,
+    "like_count": 169,
+    "comment_count": 34,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/-T-WtXgVlXQ/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/-T-WtXgVlXQ/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/-T-WtXgVlXQ/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/-T-WtXgVlXQ/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/-T-WtXgVlXQ/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:40.847638",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:10.744271"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Microsoft AI spending, OpenAI, Nvidia chips, and the AI market outlook\",\n  \"tags\": [\"artificial-intelligence\", \"cloud-computing\", \"data-centers\", \"enterprise-ai\", \"ai-productivity\"],\n  \"summary\": \"Discussion of corporate AI investment strategies, data center plans, and productivity gains from AI, with references to Microsoft, OpenAI, Nvidia, and market perceptions.\"\n}",
+      "generated_at": "2025-11-10T00:14:14.766001",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

@@ -1,0 +1,1483 @@
+{
+  "video_id": "2ZclZ-IBzXs",
+  "url": "https://www.youtube.com/watch?v=2ZclZ-IBzXs&pp=ygUmaHR0cHM6Ly9ibG9nLmNsb3VkZmxhcmUuY29tL2NvZGUtbW9kZS8%3D",
+  "fetched_at": "2025-11-09T19:23:28.369859",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "single_import",
+    "imported_at": "2025-11-09T19:23:28.369859",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": false
+    },
+    "recommendation_weight": 1.0
+  },
+  "raw_transcript": "wow. Oh This is insane. I have just built my own vibe\ncoding platform. Hello, I'm Mike with this week's new and trending AI tools\nyou can't afford to miss. And this video is going to be a bit meta,\nbecause I'm going to attempt to build my very own\nAI vibe coding platform. Let's dive\nin. So this really caught my eye. Deploy your own AI vibe coding platform in\none click from Cloudflare of all places. It's goodbye to Replit, Lovable, Bolt\nbecause I can now build my own vibe coding platform.\nSo you'll see here in the blog post. Actually,\nthey've got this handy little button here. Deploy to Cloudflare. I'm just going to click it\nand see how easy it is. All right.\nNow I'm in my Cloudflare account. This is super exciting. I need to select a GitHub account. I haven't linked it, so I'll do that now. I'll select my personal account.\nare we going to call it. Let's call it magic vibes. And we'll use that name for everything else\nobviously using all of Cloudflare's tools. Now, while this is free and open source, using some of these tools\nin a Cloudflare account may not be free.\nSo make sure to check that. Okay, as you can see, I've filled out\nthe top stuff with magic vibes. Now it's asking me for my Google\nAI studio API key. I'll just go ahead\nand grab that from Google's AI studio. We've got some secrets already prefilled\nthere. I'll leave everything else the same\nand let's see if we can create and deploy. Coffee time. Now you'll see here\nit's setting up a repository for me. I look over here. The build is queued. Yes, it's initializing\nthe built environment. It's basically creating my vibe\ncoding platform for me without me having to do very much. Apart from filling the form,\nthis is exciting. Here it goes. It's doing all the installs. And there we go. It's just deploying it now to Cloudflare. You'll see in just over a minute\nit did all of that. This is so exciting. And clicking into bindings. Wow. Look at all of this stuff\nthat's going on in Magic Vibes production. Let's go to vibes dot Creator Magic dot AI. Wow wow. Oh This is insane. I have just built my own vibe\ncoding platform. Deploy your own. This is just nuts. one click. And Cloudflare\ndeployed a vibe coding platform. This is just blowing my mind. Let's try it.\nnow as I've never used this before. I don't know if I need to sign in or not,\nbut let's just try create a simple to do list app just to test it,\nand we'll click the go arrow. Okay, it needs me to sign in. Let's try here. Signing up. Okay. Since I'm signed up,\nI have my own account. I can make it light or dark. This is really cool. Got the Cloudflare logo up here. I'm guessing this can all be customized. Now that I've signed\nup, let's click that arrow again And look at this. It's going to work\nis actually writing code for me. My own vibe\ncoding platform is vibe coding for me. This is so meta. It's still writing more code. It's really thinking about this carefully. I'm guessing\nall powered by Gemini 2.5 Pro. And what I notice as it's writing\nthe code is there is this really cool deploy\nto Cloudflare button. So once the code is written\nI can actually get this deployed. They take care of everything. Deployment for me. This is insane. Okay. Now it's just reviewing everything. Maybe it'll fix any code issues\nthat come up. Okay. I've just click the Deploy to Cloudflare\nbutton. Let's see what happens. And look at this. It tells me\nmy application is successfully deployed. I can view this public URL. Let's try it. My app is complete\nand it's loaded on the screen. This is actually not too bad at all. I can switch between bright and dark mode. It works pretty well. I can say make a better app as my To-Do. And look at that. It adds straight in here. A task added successfully. Record YouTube vid and that's in as well. I love vibe coding with an emoji\nof course. And plus yes, and I can take off these to\ndos as I go through. I can even use the delete. Everything works verified. So there we go, my very own vibe\ncoding platform ready to go. And what's more, I can go to the settings\nhere and I've got I model configurations. Not only can I bring my own API keys\nfor any AI model, but I can also choose\nwhich AI to use for every step. For the start, I'm using Gemini Flash\nLite and Gemini Pro to plan things out. I've also got Pro working away on that, and I can configure every single detail\nhere. Inside Pro, including the temperature,\nthe maximum tokens, the reasoning effort. Oh, this is so fantastic. And I can choose\ncoding, debugging and advanced tools and basically bring whatever AI models I want into my very own vibe\ncoding platform. This is really cool. I hope you try it out below. And if you like what you've seen then throw a like and subscribe as I do\nvideos like this weekly. All right. Next up\nand this is big Chrome DevTools MCP. Now for your AI agent. Essentially you can use a genetic\ncode is like Gemini, Codex, Claude Code to browse websites and inspect things\njust like a developer would. When you right click\nand go to inspect on a website, you can look at all of this stuff. You can look at stuff in the console,\nyou can look at network requests. You can see what's going on\nwhen you refresh a page. But you don't need to look at this\nyourself. Now, I can do that for you easily. You can find the Chrome Dev Tools MCP on\nGitHub and I'll link that down below. They've got a guide to set it up for pretty much any single\nAI agent that you want to use. I'm just going to copy this. Go over to my terminal,\nand then I'm going to edit the Gemini config file,\nwhich will contain my MCP service. As you'll see at the moment,\nthere's nothing in there. So I'm going to delete all this paste in the code\nhere to use the Chrome DevTools MCP. We'll save it and give it a go. let me give you a practical example. Here's a landing page for my creator\nmagic community. Hey, it looks great in all that. I've even got a GitHub repo for it,\nwhich I'll clone. So now that's there. We'll go into that, Creator Magic\ndirectory type Gemini Okay, now I fired up Gemini, the Creator Magic launchpad\nis the subject of its attention. spin up this website locally and then use\nyour MCP tool to have a look around and tell me how you can optimize this\nfor speed and load time. That's a pretty good prompt,\nso let's get it to do that. It's going to use nodes\nto activate my website. Of course, and get all the dependencies\ninstalled on my local machine. And I'll just of course\nallow this to always run. Now it's going through it's\ninstalling the dependencies. It's also running\nthe development environment. Okay. This is really important. This is the first call of my MCP\ntool Chrome DevTools. It wants to navigate to the page. And it also wants to know\nshall I allow it to do that. Well I'm going to always allow every tool from the MCP server\nso we can watch it work on automation. And look at this. It fires up a web page. Now notice nothing loaded here. And you can see over here it's\ncorrectly picked up that it's not working. So let's let Gemini fix its own issues. It's going through it's fixing everything\nup and it's reloading over here. And yes, we can see actually\nthe website is loading. And now DevTools\nis going to actually inspect that website. And you can see it's navigating around\nI'm not doing anything here. This is the MCP tool. Now browsing my web page. can see. It's already determined that one\nthing is loading over 1396 milliseconds. And it's working on updating\nthe performance to kill that bottleneck. Now, it's also noticed here\nthat my member count Hook network request is complex and the animation\nis slowing down the render. So it's going to optimize for me. And of course, again, I'll allow\nalways. Boom. The MCP is now reloading my site. It's doing another analysis\nof the performance improvements. Now it's stripping out more stuff\nthat is killing the load time on my site. But look at this. I messed up and didn't back up the file. I'll have to rebuild it. No. Oh my goodness me. just obviously,\nshowing you that AI isn't always perfect. Now, you can see it's got in\nits crosshairs the cosmic background. And it's trying to optimize that image\nto increase the load time further. Look at this. Okay, I'll create a celebratory summary. Prepare for liftoff. Your website is now lightning fast. I've turbocharge your website's\nperformance. The results are in. Here is a summary\nfrom 1.4 seconds to loads to 154 milliseconds. That's right. How did we achieve this? Well, the animation was annihilated. The images were optimized down\nto a 27% reduction, and they deferred\nthe network requests as well. All of this will not only improve your user experience, but\nalso have a positive impact on your SEO. Congratulations on a much faster website. Let's just test in a new window. And that's lightning fast. Yes, that really does load up very fast. Now I see what it's done. It's removed\nall of those crazy animations. But now my website is loading in a flash. There's not even a pause\nwhen the site loads. This is just one example\nof how you can use Chrome DevTools MCP\nto make things better with AI. Finally, yesterday was ZapConnect,\nthe annual virtual conference from Zapier. And of course, you can watch everything\non demand just by clicking the link. I'll post down below. I was honored to be a speaker there and participate\nin the first ever builder battle. I was given the task to build a quick automation\nto monitor two social media channels. And this is how I did it. first of all to record\nall the information I use Zapier tables. Oh, and just a heads up on that,\nby the way, Zapier just last week bundled tables, interfaces, and MCP\nall into your Zampa plan. That means you've got everything\nyou need to build complete AI automations free of add ons. So yes, I didn't use any add ons. I was recording posts on X from the Zapier\nX account and summarizing using the AI field inside Zapier tables\nright there. That's also free\nand included in your Zapier plan. Now. The first step I built out\nwas really simple. I monitored an RSS feed\nthat I actually built using RSS dot app\nthat could monitor the Zapier X account. And by the way, this is a really cool tool\nif you've never used it before, you can build RSS feeds for pretty much any social network\nand anything on the internet. I recommend you try RSS app\nand I'll link it up down below. But now back to it. I would essentially run this\nto find new posts. And as you can see,\nthere have been quite a few new posts. Let's go ahead and click this one\nand we'll continue with that record. I then went to I by Zapier,\nand I told it to use GPT 5 mini to analyze everything\nin that post and determine the sentiment and also categorize the primary theme. So we'll run this and retest that step. And we can see the sentiment is positive. And it's an announcement about the Zappy\nAwards and live updates will continue on. It then creates a record in Zapier Tables\nwith the title of my post when it was received. The sentiment and the theme will continue\nand retest the step. Well, we go back to Zapier tables\nand watch it populates. There it is. There's the post, there's the sentiment,\nthere's the theme, and the AI inside Zapier tables itself actually summarizes\nwhat is going on. Inside that ten minutes,\nI built another app and this one would watch my videos\nfor new comments. It'll go ahead and analyze\nthe sentiment of my latest YouTube comment, which is positive\nbut cautious about production. Use of AI. It then connects to a table. Where a record is created. In my feedback pulse table,\nthe source for this time being YouTube. the content being the actual comment text. the receive date\nbeing the publish date of the comments. and there we go. It's populated inside the Zapier table\nwith the comment when it was published, sentiment, theme, and a nice\nAI summary right inside Zapier tables. but there you go.\nThat's just a brief recap of ZapConnect. You can go ahead and click the link\nin the description to actually watch the full replay of the session\nthat I was featured in. Thank you so much for watching this video\nthis week. I hope you've taken lots home\nand you have fun with it. Let me know in the comments what you get\nup to as a result of watching this video. Thank you so much! And YouTube is showing\na video on your screen now. You should watch next. Thanks.",
+  "timed_transcript": [
+    {
+      "text": "wow. Oh This is insane.",
+      "start": 0.233,
+      "duration": 3.1
+    },
+    {
+      "text": "I have just built my own vibe\ncoding platform.",
+      "start": 3.333,
+      "duration": 4.4
+    },
+    {
+      "text": "Hello, I'm Mike with this week's new",
+      "start": 7.9,
+      "duration": 1.3
+    },
+    {
+      "text": "and trending AI tools\nyou can't afford to miss.",
+      "start": 9.2,
+      "duration": 2.133
+    },
+    {
+      "text": "And this video is going to be a bit meta,\nbecause I'm going to attempt",
+      "start": 11.333,
+      "duration": 2.9
+    },
+    {
+      "text": "to build my very own\nAI vibe coding platform.",
+      "start": 14.233,
+      "duration": 3.4
+    },
+    {
+      "text": "Let's dive\nin. So this really caught my eye.",
+      "start": 17.666,
+      "duration": 2.7
+    },
+    {
+      "text": "Deploy your own AI vibe coding platform in\none click from Cloudflare of all places.",
+      "start": 20.366,
+      "duration": 5.967
+    },
+    {
+      "text": "It's goodbye to Replit, Lovable, Bolt\nbecause I can now build my own vibe",
+      "start": 26.333,
+      "duration": 4.833
+    },
+    {
+      "text": "coding platform.\nSo you'll see here in the blog post.",
+      "start": 31.166,
+      "duration": 2.3
+    },
+    {
+      "text": "Actually,\nthey've got this handy little button here.",
+      "start": 33.466,
+      "duration": 2.434
+    },
+    {
+      "text": "Deploy to Cloudflare.",
+      "start": 35.9,
+      "duration": 1.333
+    },
+    {
+      "text": "I'm just going to click it\nand see how easy it is.",
+      "start": 37.233,
+      "duration": 2.9
+    },
+    {
+      "text": "All right.\nNow I'm in my Cloudflare account.",
+      "start": 40.133,
+      "duration": 2.767
+    },
+    {
+      "text": "This is super exciting.",
+      "start": 42.9,
+      "duration": 1.966
+    },
+    {
+      "text": "I need to select a GitHub account.",
+      "start": 44.866,
+      "duration": 1.567
+    },
+    {
+      "text": "I haven't linked it, so I'll do that now.",
+      "start": 46.433,
+      "duration": 1.7
+    },
+    {
+      "text": "I'll select my personal account.\nare we going to call it.",
+      "start": 48.133,
+      "duration": 2.167
+    },
+    {
+      "text": "Let's call it magic vibes.",
+      "start": 50.3,
+      "duration": 1.866
+    },
+    {
+      "text": "And we'll use that name",
+      "start": 52.166,
+      "duration": 1.0
+    },
+    {
+      "text": "for everything else\nobviously using all of Cloudflare's tools.",
+      "start": 53.166,
+      "duration": 3.334
+    },
+    {
+      "text": "Now, while this is free",
+      "start": 56.5,
+      "duration": 1.166
+    },
+    {
+      "text": "and open source, using some of these tools\nin a Cloudflare account",
+      "start": 57.666,
+      "duration": 3.367
+    },
+    {
+      "text": "may not be free.\nSo make sure to check that.",
+      "start": 61.3,
+      "duration": 2.166
+    },
+    {
+      "text": "Okay, as you can see, I've filled out\nthe top stuff with magic vibes.",
+      "start": 63.466,
+      "duration": 2.967
+    },
+    {
+      "text": "Now it's asking me for my Google\nAI studio API key.",
+      "start": 66.433,
+      "duration": 3.2
+    },
+    {
+      "text": "I'll just go ahead\nand grab that from Google's AI studio.",
+      "start": 69.733,
+      "duration": 3.0
+    },
+    {
+      "text": "We've got some secrets already prefilled\nthere.",
+      "start": 72.8,
+      "duration": 2.333
+    },
+    {
+      "text": "I'll leave everything else the same\nand let's see if we can create and deploy.",
+      "start": 75.133,
+      "duration": 3.133
+    },
+    {
+      "text": "Coffee time.",
+      "start": 78.333,
+      "duration": 1.0
+    },
+    {
+      "text": "Now you'll see here\nit's setting up a repository for me.",
+      "start": 79.333,
+      "duration": 2.7
+    },
+    {
+      "text": "I look over here.",
+      "start": 82.033,
+      "duration": 0.967
+    },
+    {
+      "text": "The build is queued.",
+      "start": 83.0,
+      "duration": 0.966
+    },
+    {
+      "text": "Yes, it's initializing\nthe built environment.",
+      "start": 83.966,
+      "duration": 2.1
+    },
+    {
+      "text": "It's basically creating my vibe\ncoding platform for me without me",
+      "start": 86.066,
+      "duration": 3.867
+    },
+    {
+      "text": "having to do very much.",
+      "start": 89.933,
+      "duration": 1.033
+    },
+    {
+      "text": "Apart from filling the form,\nthis is exciting.",
+      "start": 90.966,
+      "duration": 2.1
+    },
+    {
+      "text": "Here it goes. It's doing all the installs.",
+      "start": 93.066,
+      "duration": 1.934
+    },
+    {
+      "text": "And there we go.",
+      "start": 95.0,
+      "duration": 0.8
+    },
+    {
+      "text": "It's just deploying it now to Cloudflare.",
+      "start": 95.8,
+      "duration": 2.1
+    },
+    {
+      "text": "You'll see in just over a minute\nit did all of that.",
+      "start": 97.9,
+      "duration": 3.366
+    },
+    {
+      "text": "This is so exciting.",
+      "start": 101.366,
+      "duration": 1.767
+    },
+    {
+      "text": "And clicking into bindings. Wow.",
+      "start": 103.133,
+      "duration": 1.533
+    },
+    {
+      "text": "Look at all of this stuff\nthat's going on in Magic Vibes production.",
+      "start": 104.666,
+      "duration": 3.767
+    },
+    {
+      "text": "Let's go to vibes",
+      "start": 108.633,
+      "duration": 1.133
+    },
+    {
+      "text": "dot Creator Magic dot AI.",
+      "start": 111.866,
+      "duration": 2.667
+    },
+    {
+      "text": "Wow wow.",
+      "start": 114.533,
+      "duration": 1.867
+    },
+    {
+      "text": "Oh This is insane.",
+      "start": 116.4,
+      "duration": 2.166
+    },
+    {
+      "text": "I have just built my own vibe\ncoding platform.",
+      "start": 118.566,
+      "duration": 4.467
+    },
+    {
+      "text": "Deploy your own.",
+      "start": 123.5,
+      "duration": 1.533
+    },
+    {
+      "text": "This is just nuts. one click.",
+      "start": 125.033,
+      "duration": 3.0
+    },
+    {
+      "text": "And Cloudflare\ndeployed a vibe coding platform.",
+      "start": 128.033,
+      "duration": 3.6
+    },
+    {
+      "text": "This is just blowing my mind.",
+      "start": 132.233,
+      "duration": 1.733
+    },
+    {
+      "text": "Let's try it.\nnow as I've never used this before.",
+      "start": 133.966,
+      "duration": 2.1
+    },
+    {
+      "text": "I don't know if I need to sign in or not,\nbut let's just try create a simple",
+      "start": 136.066,
+      "duration": 5.034
+    },
+    {
+      "text": "to do list app just to test it,\nand we'll click the go arrow.",
+      "start": 141.133,
+      "duration": 4.633
+    },
+    {
+      "text": "Okay, it needs me to sign in.",
+      "start": 146.4,
+      "duration": 1.7
+    },
+    {
+      "text": "Let's try here. Signing up.",
+      "start": 148.1,
+      "duration": 1.733
+    },
+    {
+      "text": "Okay. Since I'm signed up,\nI have my own account.",
+      "start": 149.833,
+      "duration": 2.267
+    },
+    {
+      "text": "I can make it light or dark.",
+      "start": 152.1,
+      "duration": 2.1
+    },
+    {
+      "text": "This is really cool.",
+      "start": 154.2,
+      "duration": 1.6
+    },
+    {
+      "text": "Got the Cloudflare logo up here.",
+      "start": 155.8,
+      "duration": 1.466
+    },
+    {
+      "text": "I'm guessing this can all be customized.",
+      "start": 157.266,
+      "duration": 2.0
+    },
+    {
+      "text": "Now that I've signed\nup, let's click that arrow again",
+      "start": 159.266,
+      "duration": 2.567
+    },
+    {
+      "text": "And look at this.",
+      "start": 164.133,
+      "duration": 0.733
+    },
+    {
+      "text": "It's going to work\nis actually writing code for me.",
+      "start": 164.866,
+      "duration": 3.267
+    },
+    {
+      "text": "My own vibe\ncoding platform is vibe coding for me.",
+      "start": 168.166,
+      "duration": 3.934
+    },
+    {
+      "text": "This is so meta.",
+      "start": 172.2,
+      "duration": 1.466
+    },
+    {
+      "text": "It's still writing more code.",
+      "start": 173.666,
+      "duration": 1.7
+    },
+    {
+      "text": "It's really thinking about this carefully.",
+      "start": 175.366,
+      "duration": 1.967
+    },
+    {
+      "text": "I'm guessing\nall powered by Gemini 2.5 Pro.",
+      "start": 177.333,
+      "duration": 3.333
+    },
+    {
+      "text": "And what I notice as it's writing\nthe code is there",
+      "start": 181.133,
+      "duration": 2.233
+    },
+    {
+      "text": "is this really cool deploy\nto Cloudflare button.",
+      "start": 183.366,
+      "duration": 2.8
+    },
+    {
+      "text": "So once the code is written\nI can actually get this deployed.",
+      "start": 186.166,
+      "duration": 3.0
+    },
+    {
+      "text": "They take care of everything.",
+      "start": 189.233,
+      "duration": 1.5
+    },
+    {
+      "text": "Deployment for me.",
+      "start": 190.733,
+      "duration": 1.433
+    },
+    {
+      "text": "This is insane.",
+      "start": 192.166,
+      "duration": 1.3
+    },
+    {
+      "text": "Okay. Now it's just reviewing everything.",
+      "start": 193.466,
+      "duration": 2.1
+    },
+    {
+      "text": "Maybe it'll fix any code issues\nthat come up.",
+      "start": 195.566,
+      "duration": 2.767
+    },
+    {
+      "text": "Okay.",
+      "start": 198.333,
+      "duration": 0.367
+    },
+    {
+      "text": "I've just click the Deploy to Cloudflare\nbutton.",
+      "start": 198.7,
+      "duration": 2.066
+    },
+    {
+      "text": "Let's see what happens.",
+      "start": 200.766,
+      "duration": 1.7
+    },
+    {
+      "text": "And look at this.",
+      "start": 202.466,
+      "duration": 0.834
+    },
+    {
+      "text": "It tells me\nmy application is successfully deployed.",
+      "start": 203.3,
+      "duration": 3.833
+    },
+    {
+      "text": "I can view this public URL. Let's try it.",
+      "start": 207.266,
+      "duration": 2.834
+    },
+    {
+      "text": "My app is complete\nand it's loaded on the screen.",
+      "start": 210.1,
+      "duration": 2.733
+    },
+    {
+      "text": "This is actually not too bad at all.",
+      "start": 212.833,
+      "duration": 2.267
+    },
+    {
+      "text": "I can switch between bright and dark mode.",
+      "start": 215.1,
+      "duration": 1.933
+    },
+    {
+      "text": "It works pretty well.",
+      "start": 217.033,
+      "duration": 1.267
+    },
+    {
+      "text": "I can say make a better app as my To-Do.",
+      "start": 218.3,
+      "duration": 3.6
+    },
+    {
+      "text": "And look at that.",
+      "start": 221.9,
+      "duration": 0.533
+    },
+    {
+      "text": "It adds straight in here.",
+      "start": 222.433,
+      "duration": 1.633
+    },
+    {
+      "text": "A task added successfully.",
+      "start": 224.066,
+      "duration": 1.834
+    },
+    {
+      "text": "Record YouTube vid and that's in as well.",
+      "start": 225.9,
+      "duration": 5.266
+    },
+    {
+      "text": "I love vibe coding with an emoji\nof course.",
+      "start": 231.433,
+      "duration": 5.5
+    },
+    {
+      "text": "And plus yes, and I can take off these to\ndos as I go through.",
+      "start": 236.933,
+      "duration": 4.333
+    },
+    {
+      "text": "I can even use the delete.",
+      "start": 241.266,
+      "duration": 1.734
+    },
+    {
+      "text": "Everything works verified.",
+      "start": 243.0,
+      "duration": 2.333
+    },
+    {
+      "text": "So there we go, my very own vibe\ncoding platform ready to go.",
+      "start": 245.333,
+      "duration": 3.667
+    },
+    {
+      "text": "And what's more, I can go to the settings\nhere and I've got I model configurations.",
+      "start": 249.0,
+      "duration": 3.966
+    },
+    {
+      "text": "Not only can I bring my own API keys\nfor any AI model,",
+      "start": 252.966,
+      "duration": 3.7
+    },
+    {
+      "text": "but I can also choose\nwhich AI to use for every step.",
+      "start": 256.8,
+      "duration": 3.833
+    },
+    {
+      "text": "For the start, I'm using Gemini Flash\nLite and Gemini Pro to plan things out.",
+      "start": 260.833,
+      "duration": 5.0
+    },
+    {
+      "text": "I've also got Pro working away on that,",
+      "start": 265.833,
+      "duration": 3.0
+    },
+    {
+      "text": "and I can configure every single detail\nhere.",
+      "start": 268.833,
+      "duration": 2.633
+    },
+    {
+      "text": "Inside Pro, including the temperature,\nthe maximum tokens, the reasoning effort.",
+      "start": 271.466,
+      "duration": 4.4
+    },
+    {
+      "text": "Oh, this is so fantastic.",
+      "start": 275.866,
+      "duration": 1.867
+    },
+    {
+      "text": "And I can choose\ncoding, debugging and advanced tools",
+      "start": 277.733,
+      "duration": 3.133
+    },
+    {
+      "text": "and basically bring whatever",
+      "start": 281.0,
+      "duration": 1.7
+    },
+    {
+      "text": "AI models I want into my very own vibe\ncoding platform.",
+      "start": 282.7,
+      "duration": 4.166
+    },
+    {
+      "text": "This is really cool.",
+      "start": 286.9,
+      "duration": 1.3
+    },
+    {
+      "text": "I hope you try it out below.",
+      "start": 288.2,
+      "duration": 1.2
+    },
+    {
+      "text": "And if you like what you've seen",
+      "start": 289.4,
+      "duration": 1.533
+    },
+    {
+      "text": "then throw a like and subscribe as I do\nvideos like this weekly.",
+      "start": 290.933,
+      "duration": 3.333
+    },
+    {
+      "text": "All right.",
+      "start": 294.266,
+      "duration": 0.434
+    },
+    {
+      "text": "Next up\nand this is big Chrome DevTools MCP.",
+      "start": 294.7,
+      "duration": 3.5
+    },
+    {
+      "text": "Now for your AI agent.",
+      "start": 298.2,
+      "duration": 1.9
+    },
+    {
+      "text": "Essentially you can use a genetic\ncode is like Gemini, Codex, Claude Code",
+      "start": 300.1,
+      "duration": 4.2
+    },
+    {
+      "text": "to browse websites and inspect things\njust like a developer would.",
+      "start": 304.366,
+      "duration": 3.934
+    },
+    {
+      "text": "When you right click\nand go to inspect on a website,",
+      "start": 308.5,
+      "duration": 2.7
+    },
+    {
+      "text": "you can look at all of this stuff.",
+      "start": 311.2,
+      "duration": 1.466
+    },
+    {
+      "text": "You can look at stuff in the console,\nyou can look at network requests.",
+      "start": 312.666,
+      "duration": 3.3
+    },
+    {
+      "text": "You can see what's going on\nwhen you refresh a page.",
+      "start": 315.966,
+      "duration": 2.634
+    },
+    {
+      "text": "But you don't need to look at this\nyourself.",
+      "start": 318.6,
+      "duration": 2.3
+    },
+    {
+      "text": "Now, I can do that for you easily.",
+      "start": 320.9,
+      "duration": 2.766
+    },
+    {
+      "text": "You can find the Chrome Dev Tools MCP on\nGitHub and I'll link that down below.",
+      "start": 323.666,
+      "duration": 4.134
+    },
+    {
+      "text": "They've got a guide to set it up",
+      "start": 327.833,
+      "duration": 1.1
+    },
+    {
+      "text": "for pretty much any single\nAI agent that you want to use.",
+      "start": 328.933,
+      "duration": 3.533
+    },
+    {
+      "text": "I'm just going to copy this.",
+      "start": 332.7,
+      "duration": 1.566
+    },
+    {
+      "text": "Go over to my terminal,\nand then I'm going to edit the Gemini",
+      "start": 334.266,
+      "duration": 3.767
+    },
+    {
+      "text": "config file,\nwhich will contain my MCP service.",
+      "start": 338.033,
+      "duration": 3.167
+    },
+    {
+      "text": "As you'll see at the moment,\nthere's nothing in there.",
+      "start": 341.4,
+      "duration": 2.133
+    },
+    {
+      "text": "So I'm going to delete",
+      "start": 343.533,
+      "duration": 0.767
+    },
+    {
+      "text": "all this paste in the code\nhere to use the Chrome DevTools MCP.",
+      "start": 344.3,
+      "duration": 4.133
+    },
+    {
+      "text": "We'll save it and give it a go.",
+      "start": 348.433,
+      "duration": 1.567
+    },
+    {
+      "text": "let me give you a practical example.",
+      "start": 350.0,
+      "duration": 1.266
+    },
+    {
+      "text": "Here's a landing page for my creator\nmagic community.",
+      "start": 351.266,
+      "duration": 2.967
+    },
+    {
+      "text": "Hey, it looks great in all that.",
+      "start": 354.233,
+      "duration": 1.3
+    },
+    {
+      "text": "I've even got a GitHub repo for it,\nwhich I'll clone.",
+      "start": 355.533,
+      "duration": 2.867
+    },
+    {
+      "text": "So now that's there.",
+      "start": 358.4,
+      "duration": 1.133
+    },
+    {
+      "text": "We'll go into that, Creator Magic\ndirectory type Gemini Okay, now I fired up",
+      "start": 359.533,
+      "duration": 4.267
+    },
+    {
+      "text": "Gemini, the Creator Magic launchpad\nis the subject of its attention.",
+      "start": 363.8,
+      "duration": 4.3
+    },
+    {
+      "text": "spin up this website locally and then use\nyour MCP tool to have a look around",
+      "start": 368.5,
+      "duration": 6.133
+    },
+    {
+      "text": "and tell me how you can optimize this\nfor speed and load time.",
+      "start": 374.733,
+      "duration": 3.4
+    },
+    {
+      "text": "That's a pretty good prompt,\nso let's get it to do that.",
+      "start": 378.633,
+      "duration": 2.667
+    },
+    {
+      "text": "It's going to use nodes\nto activate my website.",
+      "start": 381.3,
+      "duration": 2.8
+    },
+    {
+      "text": "Of course, and get all the dependencies\ninstalled on my local machine.",
+      "start": 384.1,
+      "duration": 3.466
+    },
+    {
+      "text": "And I'll just of course\nallow this to always run.",
+      "start": 387.733,
+      "duration": 2.7
+    },
+    {
+      "text": "Now it's going through it's\ninstalling the dependencies.",
+      "start": 390.433,
+      "duration": 2.367
+    },
+    {
+      "text": "It's also running\nthe development environment.",
+      "start": 392.8,
+      "duration": 2.433
+    },
+    {
+      "text": "Okay. This is really important.",
+      "start": 395.233,
+      "duration": 1.2
+    },
+    {
+      "text": "This is the first call of my MCP\ntool Chrome DevTools.",
+      "start": 396.433,
+      "duration": 3.233
+    },
+    {
+      "text": "It wants to navigate to the page.",
+      "start": 399.666,
+      "duration": 2.134
+    },
+    {
+      "text": "And it also wants to know\nshall I allow it to do that.",
+      "start": 401.8,
+      "duration": 2.3
+    },
+    {
+      "text": "Well I'm going to always allow every tool",
+      "start": 404.1,
+      "duration": 3.0
+    },
+    {
+      "text": "from the MCP server\nso we can watch it work on automation.",
+      "start": 407.1,
+      "duration": 3.133
+    },
+    {
+      "text": "And look at this.",
+      "start": 410.233,
+      "duration": 0.533
+    },
+    {
+      "text": "It fires up a web page.",
+      "start": 410.766,
+      "duration": 1.367
+    },
+    {
+      "text": "Now notice nothing loaded here.",
+      "start": 412.133,
+      "duration": 2.133
+    },
+    {
+      "text": "And you can see over here it's\ncorrectly picked up that it's not working.",
+      "start": 414.266,
+      "duration": 3.767
+    },
+    {
+      "text": "So let's let Gemini fix its own issues.",
+      "start": 418.233,
+      "duration": 2.7
+    },
+    {
+      "text": "It's going through it's fixing everything\nup and it's reloading over here.",
+      "start": 420.933,
+      "duration": 3.733
+    },
+    {
+      "text": "And yes, we can see actually\nthe website is loading.",
+      "start": 424.966,
+      "duration": 3.034
+    },
+    {
+      "text": "And now DevTools\nis going to actually inspect that website.",
+      "start": 428.1,
+      "duration": 3.966
+    },
+    {
+      "text": "And you can see it's navigating around\nI'm not doing anything here.",
+      "start": 432.2,
+      "duration": 3.0
+    },
+    {
+      "text": "This is the MCP tool.",
+      "start": 435.3,
+      "duration": 1.466
+    },
+    {
+      "text": "Now browsing my web page. can see.",
+      "start": 436.766,
+      "duration": 2.3
+    },
+    {
+      "text": "It's already determined that one\nthing is loading over 1396 milliseconds.",
+      "start": 439.066,
+      "duration": 4.967
+    },
+    {
+      "text": "And it's working on updating\nthe performance to kill that bottleneck.",
+      "start": 444.2,
+      "duration": 3.666
+    },
+    {
+      "text": "Now, it's also noticed here\nthat my member count Hook network",
+      "start": 448.1,
+      "duration": 3.033
+    },
+    {
+      "text": "request is complex and the animation\nis slowing down the render.",
+      "start": 451.133,
+      "duration": 3.8
+    },
+    {
+      "text": "So it's going to optimize for me.",
+      "start": 454.933,
+      "duration": 1.533
+    },
+    {
+      "text": "And of course, again, I'll allow\nalways. Boom.",
+      "start": 456.466,
+      "duration": 2.834
+    },
+    {
+      "text": "The MCP is now reloading my site.",
+      "start": 459.3,
+      "duration": 2.366
+    },
+    {
+      "text": "It's doing another analysis\nof the performance improvements.",
+      "start": 461.666,
+      "duration": 3.0
+    },
+    {
+      "text": "Now it's stripping out more stuff\nthat is killing the load time on my site.",
+      "start": 465.033,
+      "duration": 3.467
+    },
+    {
+      "text": "But look at this.",
+      "start": 468.766,
+      "duration": 0.734
+    },
+    {
+      "text": "I messed up and didn't back up the file.",
+      "start": 469.5,
+      "duration": 1.6
+    },
+    {
+      "text": "I'll have to rebuild it. No.",
+      "start": 471.1,
+      "duration": 1.933
+    },
+    {
+      "text": "Oh my goodness me.",
+      "start": 474.566,
+      "duration": 1.567
+    },
+    {
+      "text": "just obviously,\nshowing you that AI isn't always perfect.",
+      "start": 476.133,
+      "duration": 3.1
+    },
+    {
+      "text": "Now, you can see it's got in\nits crosshairs the cosmic background.",
+      "start": 479.4,
+      "duration": 3.3
+    },
+    {
+      "text": "And it's trying to optimize that image\nto increase the load time further.",
+      "start": 482.7,
+      "duration": 3.833
+    },
+    {
+      "text": "Look at this.",
+      "start": 487.166,
+      "duration": 0.5
+    },
+    {
+      "text": "Okay, I'll create a celebratory summary.",
+      "start": 487.666,
+      "duration": 2.434
+    },
+    {
+      "text": "Prepare for liftoff.",
+      "start": 490.1,
+      "duration": 1.566
+    },
+    {
+      "text": "Your website is now lightning fast.",
+      "start": 491.666,
+      "duration": 2.167
+    },
+    {
+      "text": "I've turbocharge your website's\nperformance.",
+      "start": 493.833,
+      "duration": 2.067
+    },
+    {
+      "text": "The results are in.",
+      "start": 495.9,
+      "duration": 1.066
+    },
+    {
+      "text": "Here is a summary\nfrom 1.4 seconds to loads",
+      "start": 496.966,
+      "duration": 3.234
+    },
+    {
+      "text": "to 154 milliseconds.",
+      "start": 500.366,
+      "duration": 3.0
+    },
+    {
+      "text": "That's right.",
+      "start": 503.533,
+      "duration": 0.733
+    },
+    {
+      "text": "How did we achieve this?",
+      "start": 504.266,
+      "duration": 1.134
+    },
+    {
+      "text": "Well, the animation was annihilated.",
+      "start": 505.4,
+      "duration": 2.1
+    },
+    {
+      "text": "The images were optimized down\nto a 27% reduction,",
+      "start": 507.5,
+      "duration": 4.2
+    },
+    {
+      "text": "and they deferred\nthe network requests as well.",
+      "start": 511.833,
+      "duration": 2.6
+    },
+    {
+      "text": "All of this will not only improve",
+      "start": 514.433,
+      "duration": 1.9
+    },
+    {
+      "text": "your user experience, but\nalso have a positive impact on your SEO.",
+      "start": 516.333,
+      "duration": 4.067
+    },
+    {
+      "text": "Congratulations on a much faster website.",
+      "start": 520.4,
+      "duration": 3.133
+    },
+    {
+      "text": "Let's just test in a new window.",
+      "start": 523.533,
+      "duration": 1.833
+    },
+    {
+      "text": "And that's lightning fast.",
+      "start": 525.366,
+      "duration": 1.7
+    },
+    {
+      "text": "Yes, that really does load up very fast.",
+      "start": 527.066,
+      "duration": 2.234
+    },
+    {
+      "text": "Now I see what it's done.",
+      "start": 529.3,
+      "duration": 0.966
+    },
+    {
+      "text": "It's removed\nall of those crazy animations.",
+      "start": 530.266,
+      "duration": 2.334
+    },
+    {
+      "text": "But now my website is loading in a flash.",
+      "start": 532.6,
+      "duration": 2.533
+    },
+    {
+      "text": "There's not even a pause\nwhen the site loads.",
+      "start": 535.133,
+      "duration": 2.2
+    },
+    {
+      "text": "This is just one example\nof how you can use",
+      "start": 537.333,
+      "duration": 2.367
+    },
+    {
+      "text": "Chrome DevTools MCP\nto make things better with AI.",
+      "start": 539.7,
+      "duration": 3.833
+    },
+    {
+      "text": "Finally, yesterday was ZapConnect,\nthe annual virtual conference from Zapier.",
+      "start": 543.833,
+      "duration": 4.067
+    },
+    {
+      "text": "And of course, you can watch everything\non demand just by clicking the link.",
+      "start": 548.066,
+      "duration": 3.867
+    },
+    {
+      "text": "I'll post down below.",
+      "start": 551.933,
+      "duration": 1.133
+    },
+    {
+      "text": "I was honored to be a speaker there",
+      "start": 553.066,
+      "duration": 1.567
+    },
+    {
+      "text": "and participate\nin the first ever builder battle.",
+      "start": 554.633,
+      "duration": 2.667
+    },
+    {
+      "text": "I was given the task",
+      "start": 557.3,
+      "duration": 0.733
+    },
+    {
+      "text": "to build a quick automation\nto monitor two social media channels.",
+      "start": 558.033,
+      "duration": 3.5
+    },
+    {
+      "text": "And this is how I did it.",
+      "start": 561.8,
+      "duration": 1.433
+    },
+    {
+      "text": "first of all to record\nall the information I use Zapier tables.",
+      "start": 563.233,
+      "duration": 2.9
+    },
+    {
+      "text": "Oh, and just a heads up on that,\nby the way, Zapier just last week",
+      "start": 566.133,
+      "duration": 3.033
+    },
+    {
+      "text": "bundled tables, interfaces, and MCP\nall into your Zampa plan.",
+      "start": 569.166,
+      "duration": 4.934
+    },
+    {
+      "text": "That means you've got everything\nyou need to build complete AI automations",
+      "start": 574.3,
+      "duration": 3.366
+    },
+    {
+      "text": "free of add ons.",
+      "start": 577.866,
+      "duration": 1.7
+    },
+    {
+      "text": "So yes, I didn't use any add ons.",
+      "start": 579.566,
+      "duration": 1.634
+    },
+    {
+      "text": "I was recording posts on X from the Zapier\nX account and summarizing",
+      "start": 581.2,
+      "duration": 5.3
+    },
+    {
+      "text": "using the AI field inside Zapier tables\nright there.",
+      "start": 586.5,
+      "duration": 4.066
+    },
+    {
+      "text": "That's also free\nand included in your Zapier plan. Now.",
+      "start": 590.7,
+      "duration": 2.933
+    },
+    {
+      "text": "The first step I built out\nwas really simple.",
+      "start": 593.633,
+      "duration": 1.933
+    },
+    {
+      "text": "I monitored an RSS feed\nthat I actually built using",
+      "start": 595.566,
+      "duration": 3.067
+    },
+    {
+      "text": "RSS dot app\nthat could monitor the Zapier X account.",
+      "start": 598.666,
+      "duration": 3.534
+    },
+    {
+      "text": "And by the way, this is a really cool tool\nif you've never used it before,",
+      "start": 602.5,
+      "duration": 3.533
+    },
+    {
+      "text": "you can build RSS feeds",
+      "start": 606.066,
+      "duration": 1.434
+    },
+    {
+      "text": "for pretty much any social network\nand anything on the internet.",
+      "start": 607.5,
+      "duration": 4.0
+    },
+    {
+      "text": "I recommend you try RSS app\nand I'll link it up down below.",
+      "start": 611.633,
+      "duration": 3.333
+    },
+    {
+      "text": "But now back to it.",
+      "start": 615.0,
+      "duration": 0.866
+    },
+    {
+      "text": "I would essentially run this\nto find new posts.",
+      "start": 615.866,
+      "duration": 2.434
+    },
+    {
+      "text": "And as you can see,\nthere have been quite a few new posts.",
+      "start": 618.3,
+      "duration": 2.8
+    },
+    {
+      "text": "Let's go ahead and click this one\nand we'll continue with that record.",
+      "start": 621.1,
+      "duration": 3.966
+    },
+    {
+      "text": "I then went to I by Zapier,\nand I told it to use GPT 5 mini",
+      "start": 625.166,
+      "duration": 5.134
+    },
+    {
+      "text": "to analyze everything\nin that post and determine the sentiment",
+      "start": 630.3,
+      "duration": 3.766
+    },
+    {
+      "text": "and also categorize the primary theme.",
+      "start": 634.2,
+      "duration": 2.133
+    },
+    {
+      "text": "So we'll run this and retest that step.",
+      "start": 636.333,
+      "duration": 3.0
+    },
+    {
+      "text": "And we can see the sentiment is positive.",
+      "start": 639.466,
+      "duration": 1.834
+    },
+    {
+      "text": "And it's an announcement about the Zappy\nAwards and live updates will continue on.",
+      "start": 641.3,
+      "duration": 4.666
+    },
+    {
+      "text": "It then creates a record in Zapier Tables\nwith the title of my post",
+      "start": 645.966,
+      "duration": 4.0
+    },
+    {
+      "text": "when it was received.",
+      "start": 649.966,
+      "duration": 0.834
+    },
+    {
+      "text": "The sentiment and the theme will continue\nand retest the step.",
+      "start": 650.8,
+      "duration": 4.133
+    },
+    {
+      "text": "Well, we go back to Zapier tables\nand watch it populates.",
+      "start": 654.933,
+      "duration": 2.933
+    },
+    {
+      "text": "There it is.",
+      "start": 657.866,
+      "duration": 1.034
+    },
+    {
+      "text": "There's the post, there's the sentiment,\nthere's the theme, and the AI inside",
+      "start": 658.9,
+      "duration": 4.1
+    },
+    {
+      "text": "Zapier tables itself actually summarizes\nwhat is going on.",
+      "start": 663.0,
+      "duration": 3.8
+    },
+    {
+      "text": "Inside that ten minutes,\nI built another app",
+      "start": 666.9,
+      "duration": 2.366
+    },
+    {
+      "text": "and this one would watch my videos\nfor new comments.",
+      "start": 669.266,
+      "duration": 3.0
+    },
+    {
+      "text": "It'll go ahead and analyze\nthe sentiment of my latest",
+      "start": 672.466,
+      "duration": 3.167
+    },
+    {
+      "text": "YouTube comment, which is positive\nbut cautious about production.",
+      "start": 675.633,
+      "duration": 3.467
+    },
+    {
+      "text": "Use of AI. It then connects to a table.",
+      "start": 679.1,
+      "duration": 2.633
+    },
+    {
+      "text": "Where a record is created.",
+      "start": 681.733,
+      "duration": 1.467
+    },
+    {
+      "text": "In my feedback pulse table,\nthe source for this time being YouTube.",
+      "start": 683.2,
+      "duration": 3.333
+    },
+    {
+      "text": "the content being the actual comment text.",
+      "start": 686.733,
+      "duration": 2.3
+    },
+    {
+      "text": "the receive date\nbeing the publish date of the comments.",
+      "start": 689.033,
+      "duration": 2.333
+    },
+    {
+      "text": "and there we go.",
+      "start": 691.366,
+      "duration": 0.534
+    },
+    {
+      "text": "It's populated inside the Zapier table\nwith the comment when it was published,",
+      "start": 691.9,
+      "duration": 3.666
+    },
+    {
+      "text": "sentiment, theme, and a nice\nAI summary right inside Zapier tables.",
+      "start": 695.733,
+      "duration": 5.1
+    },
+    {
+      "text": "but there you go.\nThat's just a brief recap of ZapConnect.",
+      "start": 700.833,
+      "duration": 2.633
+    },
+    {
+      "text": "You can go ahead and click the link\nin the description to actually",
+      "start": 703.466,
+      "duration": 3.167
+    },
+    {
+      "text": "watch the full replay of the session\nthat I was featured in.",
+      "start": 706.633,
+      "duration": 3.067
+    },
+    {
+      "text": "Thank you so much for watching this video\nthis week.",
+      "start": 709.933,
+      "duration": 2.167
+    },
+    {
+      "text": "I hope you've taken lots home\nand you have fun with it.",
+      "start": 712.1,
+      "duration": 1.966
+    },
+    {
+      "text": "Let me know in the comments what you get\nup to as a result of watching this video.",
+      "start": 714.066,
+      "duration": 3.367
+    },
+    {
+      "text": "Thank you so much!",
+      "start": 717.6,
+      "duration": 1.166
+    },
+    {
+      "text": "And YouTube is showing\na video on your screen now.",
+      "start": 718.766,
+      "duration": 2.367
+    },
+    {
+      "text": "You should watch next. Thanks.",
+      "start": 721.133,
+      "duration": 1.633
+    }
+  ],
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "2ZclZ-IBzXs",
+    "title": "Cloudflare Just Killed ALL Vibe Coding Tools!",
+    "description": "This week's video is a bit meta because I'm attempting to build my very own AI vibe coding platform in just one click, thanks to an incredible new template from Cloudflare! I'll walk you through how I deployed it and then immediately used it to build a functional to do list app. After that, I unleash an AI agent with the new Chrome DevTools MCP to automatically inspect and optimize one of my websites, and the speed improvements it made are just mind blowing. To wrap up, I'll give you a quick recap of the builder battle I competed in at Zapier's ZapConnect and show you the powerful social media monitoring automation I built live on the spot. I hope these tools inspire you to build something awesome.\n\n\ud83d\ude80 Cloudflare VibeSDK: https://mrc.fm/vibesdk\n\ud83e\udd16 Chrome DevTools MCP: https://mrc.fm/devtoolsmcp\n\ud83d\udcfa ZapConnect 2025 Replay: https://mrc.fm/zapconnect\n\ud83d\udce1 RSS app: https://mrc.fm/rssapp\n\n00:00 Intro: What's new and trending\n00:18 Building an AI Vibe Coding Platform with Cloudflare\n00:32 One Click Deployment from the Cloudflare Blog\n01:18 The Platform is Deploying\n01:54 First Look at the Custom Built Platform\n02:14 Testing the Platform with a To Do List App\n03:22 Deploying the App Built by the AI\n04:05 Customizing the Platform's AI Models\n04:54 New Tool: Chrome DevTools MCP for AI Agents\n05:50 Practical Example: Optimizing a Website with an AI Agent\n06:50 Watching the AI Agent Browse & Fix the Site\n08:10 The Incredible Performance Results\n09:03 Recap of ZapConnect 2025\n09:23 The Builder Battle Challenge: Social Media Monitoring\n11:40 Outro & How to Watch the Full ZapConnect Replay",
+    "published_at": "2025-09-26T14:28:05Z",
+    "channel_id": "UC08Fah8EIryeOZRkjBRohcQ",
+    "channel_title": "Creator Magic",
+    "duration": "PT12M4S",
+    "duration_seconds": 724,
+    "view_count": 86212,
+    "like_count": 3215,
+    "comment_count": 187,
+    "tags": [
+      "AI tools",
+      "Cloudflare",
+      "AI coding platform",
+      "one-click deploy",
+      "GitHub",
+      "Google AI Studio",
+      "Gemini",
+      "AI agent",
+      "Chrome DevTools MCP",
+      "website optimization",
+      "performance tuning",
+      "Zapier",
+      "ZapConnect",
+      "automation",
+      "no-code",
+      "social media monitoring",
+      "sentiment analysis",
+      "Zapier Tables",
+      "RSS.app",
+      "web development",
+      "AI app builder",
+      "automated coding",
+      "developer tools",
+      "API integration",
+      "code generation",
+      "YouTube automation",
+      "build your own AI",
+      "open source AI",
+      "AI news",
+      "productivity tools",
+      "task automation"
+    ],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/2ZclZ-IBzXs/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/2ZclZ-IBzXs/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/2ZclZ-IBzXs/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/2ZclZ-IBzXs/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/2ZclZ-IBzXs/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:57.370466",
+    "all_urls": [
+      "https://mrc.fm/vibesdk",
+      "https://mrc.fm/devtoolsmcp",
+      "https://mrc.fm/zapconnect",
+      "https://mrc.fm/rssapp"
+    ],
+    "blocked_urls": [],
+    "content_urls": [],
+    "marketing_urls": [
+      "https://mrc.fm/vibesdk",
+      "https://mrc.fm/devtoolsmcp",
+      "https://mrc.fm/zapconnect",
+      "https://mrc.fm/rssapp"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.940557"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Building a personal AI vibe coding platform with Cloudflare and automation tools\",\n  \"tags\": [\"cloudflare\", \"ai-platform\", \"chrome-devtools-mcp\", \"zapier\", \"website-optimization\"],\n  \"summary\": \"A creator builds and deploys a personal AI-driven vibe coding platform using Cloudflare, demonstrates Chrome DevTools MCP for AI-assisted site analysis, and showcases Zapier automation workflows.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.379576",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.389195",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

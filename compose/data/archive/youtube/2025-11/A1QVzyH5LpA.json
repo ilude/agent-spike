@@ -1,0 +1,110 @@
+{
+  "video_id": "A1QVzyH5LpA",
+  "url": "https://www.youtube.com/watch?v=A1QVzyH5LpA",
+  "fetched_at": "2025-11-09T21:55:15.559178",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:55:15.559178",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "The larger lesson for PowerPoint is that unlike producing text, unlike producing numbers in Excel, now PowerPoint is really finicky with AI, but it is production ready if you know how to think in systems. In a sense, PowerPoints are the result of narratives of conflict over data. And what you are doing is you are exposing the data processing logic that you always needed to do, but it was in your head. And now you have to express your intent clearly and get it into PowerPoint. This means you can now systematically generate enterprise PowerPoint decks full stop. not maybe with the right prompt eti at scale you can generate enterprise powerpoint decks with quality that pass executive",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "A1QVzyH5LpA",
+    "title": "Unlocking effortless enterprise powerpoints with AI #claude #powerpoint #ai #chatgpt #enterprise",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/powerpoint-is-the-hardest-thing-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\n\nWhat's the deal with AI and PowerPoint?\nI mostly hear that AI can't do PowerPoint, that AI PowerPoints are badly designed, that AI can't be trust with PowerPoint.\n\nThat's all wrong now. AI CAN do production presentation decks. It CAN design decks. It CAN do sophisticated narratives and analysis and present those narratives in a visual way in a PowerPoint. \n\nBUT it's incredibly tricky to prompt. And I spent WEEKS figuring out how to prompt it right. Here are my lessons learned:\n\nIn this video, I share the inside scoop on enterprise-grade PowerPoint with AI: workflow enforcement, prompt engineering, and reliable slide automation:\n\u2022 Why workflow enforcement beats generic prompts for PPT.\n\u2022 How simple typography and spacing stabilize LLM slide output.\n\u2022 What multi-chat agent architecture enables for long narratives.\n\u2022 Where validation gates reconcile data conflicts and visual brittleness.\n\nChapters:\n00:00 Unlocking AI for PowerPoint Efficiency\n02:39 Five Principles for Effective AI Prompts\n05:09 Visual Design and AI: The Importance of Simplicity\n08:05 Building Complex Narratives with AI\n10:40 Iterative Prompting for Better Results\n12:55 Conflict Resolution in Data Processing\n15:17 Learning from Bad Prompts: A Case Study\n17:07 Improving Prompts for Better PowerPoint Outputs\n19:54 The Future of AI in Business Presentations\n\nFor teams, AI can cut days to hours\u2014but only if you own the data and enforce disciplined, tool-aware prompts.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/\n\nTAGS: AI strategy, large language models, AI agents, prompt engineering, automation at work, Claude for PowerPoint, ChatGPT for slides, Copilot PowerPoint tips, PowerPoint automation, executive decks, slide design, accessibility checks, HTML2 PPTX, multi chat architecture, board deck workflow, AI strategy for teams, LLMs for PowerPoint, prompt engineering for slides",
+    "published_at": "2025-10-14T21:00:12Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT45S",
+    "duration_seconds": 45,
+    "view_count": 3451,
+    "like_count": 98,
+    "comment_count": 4,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI agents",
+      "prompt engineering",
+      "automation at work",
+      "Claude for PowerPoint",
+      "ChatGPT for slides",
+      "Copilot PowerPoint tips",
+      "PowerPoint automation",
+      "executive decks",
+      "slide design",
+      "accessibility checks",
+      "HTML2 PPTX",
+      "multi chat architecture",
+      "board deck workflow",
+      "AI strategy for teams",
+      "LLMs for PowerPoint",
+      "prompt engineering for slides"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/A1QVzyH5LpA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/A1QVzyH5LpA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/A1QVzyH5LpA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/A1QVzyH5LpA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/A1QVzyH5LpA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:29.601788",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/powerpoint-is-the-hardest-thing-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/powerpoint-is-the-hardest-thing-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:14.047464"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"powerpoint-ai-systems-thinking\",\n  \"tags\": [\"powerpoint\", \"ai\", \"data-storytelling\", \"enterprise-decks\", \"presentation-design\"],\n  \"summary\": \"This video explains how to leverage AI with PowerPoint to generate enterprise decks by externalizing data-processing logic and crafting narratives around data.\"\n}",
+      "generated_at": "2025-11-09T21:55:28.972839",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

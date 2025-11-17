@@ -1,0 +1,94 @@
+{
+  "video_id": "slTArhGhulo",
+  "url": "https://www.youtube.com/watch?v=slTArhGhulo",
+  "fetched_at": "2025-11-09T23:35:53.679853",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:35:53.679853",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Rag is currently a roughly2 billion dollar market, although that's exploding so fast it's hard to measure. It is on track for $40 billion plus by 2035. So many enterprises use rag. The loose running number is around 80% and they use it over fine-tuning because they perceive it as easier. So fine-tuning a model is perceived as more difficult, at least right now. And those that are engaging with AI, 73% of them say that they need real time data access. By the way, if you're wondering where am I making up these statistics from, I have a list of links in my Substack that you can go and follow up to find all of the actual stories that underly this. So as an example of a success story, LinkedIn had a significant reduction in support ticket resolution time because of rag. Because rag enabled them to know their",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "slTArhGhulo",
+    "title": "RAG: The $40B AI Market Explosion  #artificialintelligence #ai #shorts",
+    "description": "The story: https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. RAG Fixes LLM Blind Spots: By pairing vector search with large-language models, Retrieval-Augmented Generation eliminates knowledge cut-offs, slashes hallucinations, and securely injects company data into answers.\n 2. Explosive Enterprise Adoption: The RAG market is climbing from today\u2019s ~$2 B to a forecast $40 B by 2035, with roughly 80 % of enterprises choosing RAG over fine-tuning for real-time data access.\n 3. Data & Chunking Decide Success: Clean text, smart metadata, and overlapping semantic chunks (not model size) make or break retrieval accuracy\u2014bad chunking is the #1 RAG killer.\n 4. Roadmap from Prototype to Planet-Scale: Simple FAQ bots stand up in a week, but scaling to multimodal, agentic, enterprise-grade RAG demands hybrid search, sharded vector DBs, caching, cost controls, and rigorous security/compliance.\n 5. Know When Not to RAG: Skip it for high-volatility data, creative writing, ultra-low-latency workflows, or tiny datasets where the next model upgrade suffices\u2014several firms learned this the expensive way.\n 6. The Future Is Agentic & Connected: Million-token context windows, Model Context Protocol, and agentic planning will merge with RAG, not replace it, keeping retrieval as the precision memory layer of AI systems.\n\nQuotes:\n\u201cWe\u2019re giving LLMs an open-book exam instead of a closed book, and the score difference is enormous.\u201d\n\u201cBad chunking ruins more RAG projects than bad models\u2014data discipline beats model size every time.\u201d\n\u201cRAG isn\u2019t a magic bullet; use it where your proprietary data matters and skip it where the next model update will suffice.\u201d\n\nSummary:\nIn this video I break down Retrieval-Augmented Generation as the pragmatic fix for large-language-model blind spots. I explain how RAG pairs embeddings, smart chunking and vector search to ground answers in real data, share enterprise wins like LinkedIn\u2019s faster support and RBC\u2019s compliant agent assist, and map a five-level roadmap from simple FAQ bots to multimodal, agentic, enterprise-grade systems. I warn where RAG backfires\u2014volatile data, creative writing, trivial tasks\u2014and stress disciplined data pipelines, evaluation and security from day one. Looking ahead, bigger context windows and MCP will fuse with RAG, not replace it, keeping retrieval central to real-world AI.\n\nKeywords:\nRAG, Retrieval Augmented Generation, embeddings, vector database, chunking, cosine similarity, hybrid search, multimodal RAG, agentic RAG, MCP, context windows, hallucination mitigation, enterprise AI, fine-tuning, data pipelines",
+    "published_at": "2025-07-02T15:26:34Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT52S",
+    "duration_seconds": 52,
+    "view_count": 1412,
+    "like_count": 50,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/slTArhGhulo/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/slTArhGhulo/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/slTArhGhulo/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/slTArhGhulo/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/slTArhGhulo/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:12.304481",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/rag-the-complete-guide-to-retrieval?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:24.929413"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Retrieval-Augmented Generation (RAG): Market Growth, Real-Time Data, and Use Cases\",\n  \"tags\": [\"rag\", \"retrieval-augmented-generation\", \"ai-market-trends\", \"enterprise-ai\"],\n  \"summary\": \"Explores the rapid growth of RAG, its adoption over fine-tuning, the demand for real-time data access, and a LinkedIn use case.\"\n}",
+      "generated_at": "2025-11-09T23:36:04.817843",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

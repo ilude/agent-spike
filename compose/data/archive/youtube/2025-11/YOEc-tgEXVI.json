@@ -1,0 +1,91 @@
+{
+  "video_id": "YOEc-tgEXVI",
+  "url": "https://www.youtube.com/watch?v=YOEc-tgEXVI",
+  "fetched_at": "2025-11-09T23:18:22.805400",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:18:22.805400",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "July 14th, Monday, Cognition Labs, the makers of Devon, announced an acquisition of the remaining parts of Windsurf. This includes their IP, their product, their trademark, their brand, their training data, and all remaining 250 employees. The key difference here is there is 100% employee financial participation, full vesting, acceleration, and wave cliffs. In other words, Cognition Labs saw what Google did and said, \"We have an opportunity to step in as the good guy here. We can be the good guy. We will acquire Windsurf. We will bring everybody aboard. It doesn't matter whether you vested or not. If you've worked less than a year or not, which by the way, when you're in a startup and it's hiring like on a power law like this, most of your employees by definition are less than a year in because you're hiring so fast. So, I would expect for most of these employees, waving the cliff was a big deal. Essentially, Cognition Labs makes them whole where Google screwed them over. And it's a nice move for them because they're basically saying, \"We have an agentic developer in Devon. Now we have tools for development environment in windsurf.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "YOEc-tgEXVI",
+    "title": "AI: Cognition Labs Acquires Windsurf  #artificialintelligence #shorts #ai",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/windsurfs-3b-collapse-how-ai-talent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways:\n 1. From GPU Optimizer to $100 M ARR: ExaFunction pivoted twice\u2014first to Codeium, then to Windsurf\u2014landing FedRAMP-High status and racing from $40 M to $100 M ARR on the back of 1 M+ developers and 350+ enterprise customers.\n 2. OpenAI\u2019s $3 B Bid Craters: An all-cash acquisition collapsed when Microsoft asserted contractual IP rights and Anthropic yanked Claude, exposing the fragility of toolmakers dependent on upstream models.\n 3. Google\u2019s $2.4 B Reverse Acqui-Hire: Google hired 42 top engineers (and the founders) for outsized packages, licensing Windsurf tech non-exclusively and leaving 250 staff\u2014and Valley trust\u2014hanging.\n 4. Cognition Labs\u2019 \u201cWhite Knight\u201d Move: Devon\u2019s parent scooped up the remaining team, IP, and brand, granting full vest-acceleration and positioning Windsurf to bolster its agentic coding stack.\n 5. FedRAMP-High as Strategic Moat: Government-grade certification gives Windsurf\u2014and now Cognition Labs\u2014a unique wedge into regulated markets that rivals still lack.\n 6. Talent Wars Rewrite Founder Incentives: Nine-figure paychecks now lure founders out of their own startups, signaling a power-law shift that could discourage future company-building.\n\nQuotes:\n\u201cWe just watched a founder decide a $200 million paycheck was worth more than every Valley norm about finishing what you start.\u201d\n\u201cModel makers hold two-thirds of the power, but that last third in the tool layer can still flip the script.\u201d\n\u201cThe Windsurf saga is the canary in the coal mine for how agentic coding tools will hit every other workflow next.\u201d\n\nSummary:\nI trace Windsurf\u2019s rise and wreckage: born as ExaFunction, pivoted to Codeium, then Windsurf, it snagged FedRAMP-High and sprinted to $100 M ARR. OpenAI offered $3 B, but Microsoft\u2019s IP clause and Anthropic\u2019s Claude exit killed the deal. Google pounced with a $2.4 B reverse acqui-hire for 42 staff, stranding 250 colleagues and fracturing founder loyalty norms. Cognition Labs rescued the remainder, merging Windsurf with Devon\u2019s agentic engine. The episode spotlights ruthless AI talent economics, model-maker versus tool-layer tensions, and why coding agents are the leading indicator for wider workflow disruption in the coming quarters.\n\nKeywords:\nWindsurf, ExaFunction, Codeium, OpenAI acquisition, Microsoft IP clause, Anthropic Claude withdrawal, Google reverse acqui-hire, FedRAMP-High certification, Cognition Labs, Devon agent, coding agents, AI talent wars, tool layer, model makers, Silicon Valley, enterprise developers",
+    "published_at": "2025-07-15T20:30:16Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT57S",
+    "duration_seconds": 57,
+    "view_count": 390,
+    "like_count": 11,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/YOEc-tgEXVI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/YOEc-tgEXVI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/YOEc-tgEXVI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/YOEc-tgEXVI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/YOEc-tgEXVI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:58.239949",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/windsurfs-3b-collapse-how-ai-talent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/windsurfs-3b-collapse-how-ai-talent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:31.648351"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Cognition Labs acquires Windsurf: 100% employee vesting and Devon integration\",\n  \"tags\": [\"startup\", \"acquisition\", \"employee-vesting\", \"equity-compensation\"],\n  \"summary\": \"Explains Cognition Labs' acquisition of Windsurf, detailing 100% employee financial participation, full vesting with acceleration, and implications for startup equity and developer tooling.\"\n}",
+      "generated_at": "2025-11-09T23:18:38.054016",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

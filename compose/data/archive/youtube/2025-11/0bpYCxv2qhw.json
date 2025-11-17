@@ -1,0 +1,1609 @@
+{
+  "video_id": "0bpYCxv2qhw",
+  "url": "https://www.youtube.com/watch?v=0bpYCxv2qhw&pp=ygUmaHR0cHM6Ly9ibG9nLmNsb3VkZmxhcmUuY29tL2NvZGUtbW9kZS8%3D",
+  "fetched_at": "2025-11-09T19:23:28.409499",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "single_import",
+    "imported_at": "2025-11-09T19:23:28.409499",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": false
+    },
+    "recommendation_weight": 1.0
+  },
+  "raw_transcript": "Hello, this is in many ways a response video to Theo or T3 GGG's video called MCP is the wrong abstraction and it is also a video about this Cloudflare article which that video is about called code mode the better way to use MCP and I want to show you this article but also point out something that potentially is missed by uh either of these two uh article and the commentary. So here's the core idea of the article voiced by Theo. And that seems to be the direction Cloudflare is leaning into here. As they said, they're trying something different. Converting the MCP tools into Typescript APIs, then asking the LLM to write code to call those APIs instead. The results are striking. We found agents are able to handle many more tools and more complex tools when the tools are presented as a TypeScript API rather than directly. They don't know why this is, but their theories are that this is perhaps because LMS have an enormous amount of real world TypeScript in their training data, but only a small set of contrived examples of tool calls. Very likely. And then point two. So what's the idea here? Um, you just heard it. Let's not do tool calling in a way where we expose this to the LLMs and the LLMs has to in sort of conversational mode say I will use the tool and then emit some token and then emit some JSON for the uh tool calling itself and then we give it back the JSON of the response. rather than that um let's render the tools as an API then let the LLM write code and call that code execute that code and part of that code is actually the tool call right here this is what's called code mode and uh Cloudflare is advocating for it now in a sense this is really really great because as Cloudflare hypothesizes in the training data of LLMs there's very probably tons and tons and tons of code. So, tons of examples of uh someone wanting to call some API and stringing that together and doing that correctly. Um fitting the types and so on, that's probably super common. Whereas the LLM tool calling that we're doing nowadays, this is very probably a result of the postraining. So you do your pre-training and then on top of that you do the fine-tuning from human feedback, reinforcement learning and so on. Uh from these specific examples that the the mechanical Turks create for you. Very very big difference between the two. Whatever is in pre-training is kind of ingrained knowledge of the LLMs. Whatever is on top is just sort of tacked on. Uh the article here compares that to saying making an LLM perform tasks with tool calling is like putting Shakespeare through a month-long class in Mandarin and then asking him to write a play in it. It's just not going to be his best work here. Uh Shakespeare writing plays will be the pre-training sort of the ingrained knowledge and then you tack on a very brief Mandarin course and um ask Shakespeare to write a play in that. He can still write play it. He could still write the play but uh the the understanding of the language is just very rudimentary, clunky and a lot of things are going to go wrong. I agree with this stance. I agree with yes probably framing tool calls as APIs is a lot better and um as Theo also points out a lot of the providers are at least internally already doing this where I have a problem is when it is uh when it comes to that second point that the article makes right here let's listen to it two here the approach really shines when an agent needs to string together multiple calls with the traditional approach the output of Each tool call must feed into the LLM's neural network just to be copied over to the inputs of the next call, wasting time, energy, and tokens. When the LLM can write code, it can skip all that and only read back the final results that it needs. In short, LM are better at writing code to call MCP than they are at calling MCP directly. I totally Okay, this point is a bit more contentious in my opinion. So, the idea is let's say you want to know what you should wear today. Now the LLM needs to do two things. It needs to find out where you are and what the weather is today. So it does a first tool call and that first tool call is to the weather MCP server and get back. Okay, here's the weather. No, sorry. The first tool call is for the location or memory or whatnot. Just figure out where you are. Get back the location and then it needs to provide that to the to the weather uh MCP server. get back the weather and then reason what you should wear today. This is a stringing together of tool calls. And the way this works right now is that uh the results of the first tool call will get back into the context of the LLM. You call it again with that new context and then it can decide to do the second tool call. And in the point of of the article right here, this is this is uh clunky because it goes back to the LLM. It wastes tokens and so on. Wouldn't it be easier if all of this was an API? So if you had the API of the location service and the API of the weather service, you could just do get weather open parentheses get location uh closed like as an argument, right? So you directly say I want to get the location and then feed that into the weather server and that's a single execution. Um and you don't have to go back to the LLM intermittently. So the LLM could at priori tell you oh I have these five tools here is how I want to string them together and you execute all of that and you only get back the final result. Now this sounds appealing in theory. Um however I think it is missing a crucial point and that is that in um in in some cases this is going to work but it's only going to work if you have extremely deterministic tools extremely deterministic types and so on. So for example if the location is getting back um is getting back a determined type um and then you can feed that into the into the weather tool. However, it starts breaking down in most real world scenarios and that is because uh stuff is messy and the real world is messy and yeah that's that's where I think that the problems here come in. So what I mean by that is let's say your location uh service doesn't always give you back a GPS location. Sometimes it gives you back an address. Sometimes it gives you back a oh behind the house. Sometimes it's a I don't know. Sometimes it's a question back to the to the to the user, right? Like, hey, uh, give me your location. It's like, oh, I know yesterday you were in London. Um, I don't have any location data of today. Uh, did you take a train or something? I'm contriving this, but I hope you can see that the real world is messy and the output of a lot of tool calls is not so defined. I know people are trying to get around that with JSON mode and all of that. Um, but even with that, even you get back JSON mode, it is very likely that the next action will actually be dependent on the outputs of the last action in a nondeterministic way. What I mean by that is in a way that you have to reason. So what humans do when they string together different tools is they do exactly that. They call the first tool and then they look at the outputs of that and then they decide how to call the second tool. And I think that a lot of situations are like this and therefore it is not really going to be an advantage to string together tool calls by writing the code a priori. I can ask you this, right? If you have a very complex task and you make a detailed plan at the beginning, um, how well is that plan usually turning out? I predict it's not turning out well. I predict that in the middle somewhere, you'll have to adjust your plan as you go along. And that only works if you actually look at each of the outputs and redecide how you want to react to that output, whether your plan is still valid and how to pass how and if to pass that output on to the next tools. And so um and so that's where I have the the the trouble with because if we simply compose all these API calls together into one block of code and then say oh now we only need to read the output. That is effectively the same as saying yes my plans always work out 100% of the time. um and I don't ever need to, you know, nothing is ever actually dependent on the on the intermediate states in any meaningful uh non-deterministic way. So a that's a word of caution. Now I think that is code mode is still fantastic and I think it's going to to give us a lot of benefits. Um, but it might not get us the benefits in this more meaningful way when the tasks are complex and the the the tools are doing a bit more sophisticated things than you know calling the weather and um yeah so that was an appeal. Now what I do think is um there is actually an opportunity to get a lot of the benefits and that has to do with speculative decoding. So what we can actually do is let's say we compose all of this code together, right? Um and we do multiple tool calls. It's code, there's a loop and so on, but we record all the intermediate things. We record all of the outputs um from the intermediate states. Uh and then we just execute this all at once. And at the end, we don't just give the final output to the LLM, but we give all of the tool calls and all of the intermediate outputs to the LLM and effectively ask it whether any of these look sus, right? Like, hey, look, these were the intermediate outputs. Does any of this look suspicious? Does any of this look wrong to you? And if it doesn't, then you're perfectly fine taking the final output, right? uh because it's it's it's the LLM is effectively saying no all of this looks perfectly fine if you had given this to me during the execution I would have told you to move forward move along with the plan and if we can somehow get that or or let the LLM pinpoint where uh the deviation happens like oh no no no this output here or ah I would not have called the tool in this way had I known the outputs we skip a lot of these intermediate steps. So, let's call it speculative tool calling or something like this, which is you just call a bunch of tools ahead of time um because you estimate that that's something that might happen in a lot of cases. Uh tool calling isn't so expensive. um you might use a few extra tokens by doing all of this intermediate validation and but maybe we'll get a lot of speed out of it. All right, I still I invite you to read the article about code mode because it also talks about loading loading code into running agents uh using isolates and all of that. Very very cool. And I also invite you to uh watch Theo's video on the topic because uh is a lot of good comments about it. uh just this this one thing that I think is missed by both and that's that in the real world with complex tools and messy data um there will often be the case where intermittently you need to actually look at the intermediate output and decide what you want to do in a way that you couldn't have known at the beginning. General reminder that MCP isn't magic. MCP doesn't add any capabilities and MCP simply is a standard way of exposing APIs. I think that goes without saying if you've watched this channel for a while or are in the field, but for anyone else uh who's super hyping about MCP, it's not that big of a deal. It's cool, but uh it doesn't add anything new. Cool. That's it. Thank you very much, and I'll see you around. Bye-bye.",
+  "timed_transcript": [
+    {
+      "text": "Hello, this is in many ways a response",
+      "start": 0.96,
+      "duration": 6.72
+    },
+    {
+      "text": "video to Theo or T3 GGG's video called",
+      "start": 3.52,
+      "duration": 7.039
+    },
+    {
+      "text": "MCP is the wrong abstraction and it is",
+      "start": 7.68,
+      "duration": 4.959
+    },
+    {
+      "text": "also a video about this Cloudflare",
+      "start": 10.559,
+      "duration": 4.801
+    },
+    {
+      "text": "article which that video is about called",
+      "start": 12.639,
+      "duration": 5.921
+    },
+    {
+      "text": "code mode the better way to use MCP and",
+      "start": 15.36,
+      "duration": 6.24
+    },
+    {
+      "text": "I want to show you this article but also",
+      "start": 18.56,
+      "duration": 5.36
+    },
+    {
+      "text": "point out something that potentially is",
+      "start": 21.6,
+      "duration": 6.16
+    },
+    {
+      "text": "missed by uh either of these two uh",
+      "start": 23.92,
+      "duration": 6.16
+    },
+    {
+      "text": "article and the commentary. So here's",
+      "start": 27.76,
+      "duration": 4.56
+    },
+    {
+      "text": "the core idea of the article voiced by",
+      "start": 30.08,
+      "duration": 4.639
+    },
+    {
+      "text": "Theo. And that seems to be the direction",
+      "start": 32.32,
+      "duration": 4.32
+    },
+    {
+      "text": "Cloudflare is leaning into here. As they",
+      "start": 34.719,
+      "duration": 2.961
+    },
+    {
+      "text": "said, they're trying something",
+      "start": 36.64,
+      "duration": 2.88
+    },
+    {
+      "text": "different. Converting the MCP tools into",
+      "start": 37.68,
+      "duration": 4.32
+    },
+    {
+      "text": "Typescript APIs, then asking the LLM to",
+      "start": 39.52,
+      "duration": 4.719
+    },
+    {
+      "text": "write code to call those APIs instead.",
+      "start": 42.0,
+      "duration": 3.92
+    },
+    {
+      "text": "The results are striking. We found",
+      "start": 44.239,
+      "duration": 3.361
+    },
+    {
+      "text": "agents are able to handle many more",
+      "start": 45.92,
+      "duration": 4.0
+    },
+    {
+      "text": "tools and more complex tools when the",
+      "start": 47.6,
+      "duration": 4.32
+    },
+    {
+      "text": "tools are presented as a TypeScript API",
+      "start": 49.92,
+      "duration": 3.6
+    },
+    {
+      "text": "rather than directly. They don't know",
+      "start": 51.92,
+      "duration": 3.6
+    },
+    {
+      "text": "why this is, but their theories are that",
+      "start": 53.52,
+      "duration": 3.679
+    },
+    {
+      "text": "this is perhaps because LMS have an",
+      "start": 55.52,
+      "duration": 3.28
+    },
+    {
+      "text": "enormous amount of real world TypeScript",
+      "start": 57.199,
+      "duration": 3.52
+    },
+    {
+      "text": "in their training data, but only a small",
+      "start": 58.8,
+      "duration": 4.239
+    },
+    {
+      "text": "set of contrived examples of tool calls.",
+      "start": 60.719,
+      "duration": 5.841
+    },
+    {
+      "text": "Very likely. And then point two.",
+      "start": 63.039,
+      "duration": 7.681
+    },
+    {
+      "text": "So what's the idea here? Um, you just",
+      "start": 66.56,
+      "duration": 7.36
+    },
+    {
+      "text": "heard it. Let's not do tool calling in a",
+      "start": 70.72,
+      "duration": 6.16
+    },
+    {
+      "text": "way where we expose this to the LLMs and",
+      "start": 73.92,
+      "duration": 5.12
+    },
+    {
+      "text": "the LLMs has to in sort of",
+      "start": 76.88,
+      "duration": 4.559
+    },
+    {
+      "text": "conversational mode say I will use the",
+      "start": 79.04,
+      "duration": 4.32
+    },
+    {
+      "text": "tool and then emit some token and then",
+      "start": 81.439,
+      "duration": 5.441
+    },
+    {
+      "text": "emit some JSON for the uh tool calling",
+      "start": 83.36,
+      "duration": 6.32
+    },
+    {
+      "text": "itself and then we give it back the JSON",
+      "start": 86.88,
+      "duration": 6.08
+    },
+    {
+      "text": "of the response. rather than that um",
+      "start": 89.68,
+      "duration": 6.24
+    },
+    {
+      "text": "let's render the tools as an API then",
+      "start": 92.96,
+      "duration": 6.4
+    },
+    {
+      "text": "let the LLM write code and call that",
+      "start": 95.92,
+      "duration": 5.76
+    },
+    {
+      "text": "code execute that code and part of that",
+      "start": 99.36,
+      "duration": 4.0
+    },
+    {
+      "text": "code is actually the tool call right",
+      "start": 101.68,
+      "duration": 5.04
+    },
+    {
+      "text": "here this is what's called code mode and",
+      "start": 103.36,
+      "duration": 6.96
+    },
+    {
+      "text": "uh Cloudflare is advocating for it now",
+      "start": 106.72,
+      "duration": 6.0
+    },
+    {
+      "text": "in a sense this is really really great",
+      "start": 110.32,
+      "duration": 5.6
+    },
+    {
+      "text": "because as Cloudflare hypothesizes in",
+      "start": 112.72,
+      "duration": 5.92
+    },
+    {
+      "text": "the training data of LLMs there's very",
+      "start": 115.92,
+      "duration": 6.0
+    },
+    {
+      "text": "probably tons and tons and tons of code.",
+      "start": 118.64,
+      "duration": 7.6
+    },
+    {
+      "text": "So, tons of examples of uh someone",
+      "start": 121.92,
+      "duration": 7.44
+    },
+    {
+      "text": "wanting to call some API and stringing",
+      "start": 126.24,
+      "duration": 6.16
+    },
+    {
+      "text": "that together and doing that correctly.",
+      "start": 129.36,
+      "duration": 6.0
+    },
+    {
+      "text": "Um fitting the types and so on, that's",
+      "start": 132.4,
+      "duration": 5.76
+    },
+    {
+      "text": "probably super common. Whereas the LLM",
+      "start": 135.36,
+      "duration": 4.959
+    },
+    {
+      "text": "tool calling that we're doing nowadays,",
+      "start": 138.16,
+      "duration": 5.2
+    },
+    {
+      "text": "this is very probably a result of the",
+      "start": 140.319,
+      "duration": 6.0
+    },
+    {
+      "text": "postraining. So you do your pre-training",
+      "start": 143.36,
+      "duration": 5.36
+    },
+    {
+      "text": "and then on top of that you do the",
+      "start": 146.319,
+      "duration": 4.56
+    },
+    {
+      "text": "fine-tuning from human feedback,",
+      "start": 148.72,
+      "duration": 4.799
+    },
+    {
+      "text": "reinforcement learning and so on. Uh",
+      "start": 150.879,
+      "duration": 6.161
+    },
+    {
+      "text": "from these specific examples that the",
+      "start": 153.519,
+      "duration": 8.881
+    },
+    {
+      "text": "the mechanical Turks create for you.",
+      "start": 157.04,
+      "duration": 7.12
+    },
+    {
+      "text": "Very very big difference between the",
+      "start": 162.4,
+      "duration": 4.08
+    },
+    {
+      "text": "two. Whatever is in pre-training is kind",
+      "start": 164.16,
+      "duration": 4.88
+    },
+    {
+      "text": "of ingrained knowledge of the LLMs.",
+      "start": 166.48,
+      "duration": 4.399
+    },
+    {
+      "text": "Whatever is on top is just sort of",
+      "start": 169.04,
+      "duration": 5.919
+    },
+    {
+      "text": "tacked on. Uh the article here compares",
+      "start": 170.879,
+      "duration": 6.801
+    },
+    {
+      "text": "that to saying making an LLM perform",
+      "start": 174.959,
+      "duration": 4.481
+    },
+    {
+      "text": "tasks with tool calling is like putting",
+      "start": 177.68,
+      "duration": 3.68
+    },
+    {
+      "text": "Shakespeare through a month-long class",
+      "start": 179.44,
+      "duration": 4.159
+    },
+    {
+      "text": "in Mandarin and then asking him to write",
+      "start": 181.36,
+      "duration": 4.48
+    },
+    {
+      "text": "a play in it. It's just not going to be",
+      "start": 183.599,
+      "duration": 5.28
+    },
+    {
+      "text": "his best work here. Uh Shakespeare",
+      "start": 185.84,
+      "duration": 4.96
+    },
+    {
+      "text": "writing plays will be the pre-training",
+      "start": 188.879,
+      "duration": 4.0
+    },
+    {
+      "text": "sort of the ingrained knowledge and then",
+      "start": 190.8,
+      "duration": 5.2
+    },
+    {
+      "text": "you tack on a very brief Mandarin course",
+      "start": 192.879,
+      "duration": 6.801
+    },
+    {
+      "text": "and um ask Shakespeare to write a play",
+      "start": 196.0,
+      "duration": 7.04
+    },
+    {
+      "text": "in that. He can still write play it. He",
+      "start": 199.68,
+      "duration": 6.32
+    },
+    {
+      "text": "could still write the play but uh the",
+      "start": 203.04,
+      "duration": 5.04
+    },
+    {
+      "text": "the understanding of the language is",
+      "start": 206.0,
+      "duration": 4.879
+    },
+    {
+      "text": "just very rudimentary, clunky and a lot",
+      "start": 208.08,
+      "duration": 5.84
+    },
+    {
+      "text": "of things are going to go wrong.",
+      "start": 210.879,
+      "duration": 5.761
+    },
+    {
+      "text": "I agree with this stance. I agree with",
+      "start": 213.92,
+      "duration": 6.8
+    },
+    {
+      "text": "yes probably framing tool calls as APIs",
+      "start": 216.64,
+      "duration": 8.159
+    },
+    {
+      "text": "is a lot better and um as Theo also",
+      "start": 220.72,
+      "duration": 6.64
+    },
+    {
+      "text": "points out a lot of the providers are at",
+      "start": 224.799,
+      "duration": 5.201
+    },
+    {
+      "text": "least internally already doing this",
+      "start": 227.36,
+      "duration": 6.32
+    },
+    {
+      "text": "where I have a problem is when it is uh",
+      "start": 230.0,
+      "duration": 5.599
+    },
+    {
+      "text": "when it comes to that second point that",
+      "start": 233.68,
+      "duration": 3.6
+    },
+    {
+      "text": "the article makes right here let's",
+      "start": 235.599,
+      "duration": 4.241
+    },
+    {
+      "text": "listen to it two here the approach",
+      "start": 237.28,
+      "duration": 4.08
+    },
+    {
+      "text": "really shines when an agent needs to",
+      "start": 239.84,
+      "duration": 3.44
+    },
+    {
+      "text": "string together multiple calls with the",
+      "start": 241.36,
+      "duration": 3.84
+    },
+    {
+      "text": "traditional approach the output of Each",
+      "start": 243.28,
+      "duration": 3.679
+    },
+    {
+      "text": "tool call must feed into the LLM's",
+      "start": 245.2,
+      "duration": 4.0
+    },
+    {
+      "text": "neural network just to be copied over to",
+      "start": 246.959,
+      "duration": 4.241
+    },
+    {
+      "text": "the inputs of the next call, wasting",
+      "start": 249.2,
+      "duration": 4.239
+    },
+    {
+      "text": "time, energy, and tokens. When the LLM",
+      "start": 251.2,
+      "duration": 4.08
+    },
+    {
+      "text": "can write code, it can skip all that and",
+      "start": 253.439,
+      "duration": 3.841
+    },
+    {
+      "text": "only read back the final results that it",
+      "start": 255.28,
+      "duration": 3.919
+    },
+    {
+      "text": "needs. In short, LM are better at",
+      "start": 257.28,
+      "duration": 3.919
+    },
+    {
+      "text": "writing code to call MCP than they are",
+      "start": 259.199,
+      "duration": 6.241
+    },
+    {
+      "text": "at calling MCP directly. I totally",
+      "start": 261.199,
+      "duration": 6.641
+    },
+    {
+      "text": "Okay, this point is a bit more",
+      "start": 265.44,
+      "duration": 4.88
+    },
+    {
+      "text": "contentious in my opinion. So, the idea",
+      "start": 267.84,
+      "duration": 4.56
+    },
+    {
+      "text": "is let's say you want to know what you",
+      "start": 270.32,
+      "duration": 5.2
+    },
+    {
+      "text": "should wear today. Now the LLM needs to",
+      "start": 272.4,
+      "duration": 4.56
+    },
+    {
+      "text": "do two things. It needs to find out",
+      "start": 275.52,
+      "duration": 3.84
+    },
+    {
+      "text": "where you are and what the weather is",
+      "start": 276.96,
+      "duration": 5.44
+    },
+    {
+      "text": "today. So it does a first tool call and",
+      "start": 279.36,
+      "duration": 5.119
+    },
+    {
+      "text": "that first tool call is to the weather",
+      "start": 282.4,
+      "duration": 5.12
+    },
+    {
+      "text": "MCP server and get back. Okay, here's",
+      "start": 284.479,
+      "duration": 5.201
+    },
+    {
+      "text": "the weather. No, sorry. The first tool",
+      "start": 287.52,
+      "duration": 5.28
+    },
+    {
+      "text": "call is for the location or memory or",
+      "start": 289.68,
+      "duration": 5.519
+    },
+    {
+      "text": "whatnot. Just figure out where you are.",
+      "start": 292.8,
+      "duration": 4.64
+    },
+    {
+      "text": "Get back the location and then it needs",
+      "start": 295.199,
+      "duration": 4.801
+    },
+    {
+      "text": "to provide that to the to the weather uh",
+      "start": 297.44,
+      "duration": 4.64
+    },
+    {
+      "text": "MCP server. get back the weather and",
+      "start": 300.0,
+      "duration": 5.199
+    },
+    {
+      "text": "then reason what you should wear today.",
+      "start": 302.08,
+      "duration": 5.36
+    },
+    {
+      "text": "This is a stringing together of tool",
+      "start": 305.199,
+      "duration": 4.241
+    },
+    {
+      "text": "calls. And the way this works right now",
+      "start": 307.44,
+      "duration": 4.96
+    },
+    {
+      "text": "is that uh the results of the first tool",
+      "start": 309.44,
+      "duration": 5.28
+    },
+    {
+      "text": "call will get back into the context of",
+      "start": 312.4,
+      "duration": 4.72
+    },
+    {
+      "text": "the LLM. You call it again with that new",
+      "start": 314.72,
+      "duration": 4.56
+    },
+    {
+      "text": "context and then it can decide to do the",
+      "start": 317.12,
+      "duration": 5.28
+    },
+    {
+      "text": "second tool call. And in the point of of",
+      "start": 319.28,
+      "duration": 5.6
+    },
+    {
+      "text": "the article right here, this is this is",
+      "start": 322.4,
+      "duration": 5.2
+    },
+    {
+      "text": "uh clunky because it goes back to the",
+      "start": 324.88,
+      "duration": 5.68
+    },
+    {
+      "text": "LLM. It wastes tokens and so on.",
+      "start": 327.6,
+      "duration": 5.439
+    },
+    {
+      "text": "Wouldn't it be easier if all of this was",
+      "start": 330.56,
+      "duration": 5.68
+    },
+    {
+      "text": "an API? So if you had the API of the",
+      "start": 333.039,
+      "duration": 4.961
+    },
+    {
+      "text": "location service and the API of the",
+      "start": 336.24,
+      "duration": 3.92
+    },
+    {
+      "text": "weather service, you could just do get",
+      "start": 338.0,
+      "duration": 7.039
+    },
+    {
+      "text": "weather open parentheses get location uh",
+      "start": 340.16,
+      "duration": 7.68
+    },
+    {
+      "text": "closed like as an argument, right? So",
+      "start": 345.039,
+      "duration": 4.88
+    },
+    {
+      "text": "you directly say I want to get the",
+      "start": 347.84,
+      "duration": 3.68
+    },
+    {
+      "text": "location and then feed that into the",
+      "start": 349.919,
+      "duration": 4.161
+    },
+    {
+      "text": "weather server and that's a single",
+      "start": 351.52,
+      "duration": 5.84
+    },
+    {
+      "text": "execution. Um and you don't have to go",
+      "start": 354.08,
+      "duration": 5.44
+    },
+    {
+      "text": "back to the LLM intermittently. So the",
+      "start": 357.36,
+      "duration": 5.52
+    },
+    {
+      "text": "LLM could at priori tell you oh I have",
+      "start": 359.52,
+      "duration": 5.519
+    },
+    {
+      "text": "these five tools here is how I want to",
+      "start": 362.88,
+      "duration": 4.72
+    },
+    {
+      "text": "string them together and you execute all",
+      "start": 365.039,
+      "duration": 4.801
+    },
+    {
+      "text": "of that and you only get back the final",
+      "start": 367.6,
+      "duration": 6.0
+    },
+    {
+      "text": "result. Now this sounds appealing in",
+      "start": 369.84,
+      "duration": 7.44
+    },
+    {
+      "text": "theory. Um however I think it is missing",
+      "start": 373.6,
+      "duration": 8.48
+    },
+    {
+      "text": "a crucial point and that is that in um",
+      "start": 377.28,
+      "duration": 6.88
+    },
+    {
+      "text": "in in some cases this is going to work",
+      "start": 382.08,
+      "duration": 4.239
+    },
+    {
+      "text": "but it's only going to work if you have",
+      "start": 384.16,
+      "duration": 5.28
+    },
+    {
+      "text": "extremely deterministic tools extremely",
+      "start": 386.319,
+      "duration": 5.841
+    },
+    {
+      "text": "deterministic types and so on. So for",
+      "start": 389.44,
+      "duration": 5.52
+    },
+    {
+      "text": "example if the location is getting back",
+      "start": 392.16,
+      "duration": 6.72
+    },
+    {
+      "text": "um is getting back a determined type um",
+      "start": 394.96,
+      "duration": 6.16
+    },
+    {
+      "text": "and then you can feed that into the into",
+      "start": 398.88,
+      "duration": 5.039
+    },
+    {
+      "text": "the weather tool. However, it starts",
+      "start": 401.12,
+      "duration": 4.48
+    },
+    {
+      "text": "breaking down in most real world",
+      "start": 403.919,
+      "duration": 5.84
+    },
+    {
+      "text": "scenarios and that is because uh stuff",
+      "start": 405.6,
+      "duration": 7.68
+    },
+    {
+      "text": "is messy and the real world is messy and",
+      "start": 409.759,
+      "duration": 5.201
+    },
+    {
+      "text": "yeah that's that's where I think that",
+      "start": 413.28,
+      "duration": 4.16
+    },
+    {
+      "text": "the problems here come in. So what I",
+      "start": 414.96,
+      "duration": 5.28
+    },
+    {
+      "text": "mean by that is let's say your location",
+      "start": 417.44,
+      "duration": 6.08
+    },
+    {
+      "text": "uh service doesn't always give you back",
+      "start": 420.24,
+      "duration": 6.16
+    },
+    {
+      "text": "a GPS location. Sometimes it gives you",
+      "start": 423.52,
+      "duration": 5.28
+    },
+    {
+      "text": "back an address. Sometimes it gives you",
+      "start": 426.4,
+      "duration": 6.0
+    },
+    {
+      "text": "back a oh behind the house. Sometimes",
+      "start": 428.8,
+      "duration": 6.0
+    },
+    {
+      "text": "it's a I don't know. Sometimes it's a",
+      "start": 432.4,
+      "duration": 4.96
+    },
+    {
+      "text": "question back to the to the to the user,",
+      "start": 434.8,
+      "duration": 4.32
+    },
+    {
+      "text": "right? Like, hey, uh, give me your",
+      "start": 437.36,
+      "duration": 3.679
+    },
+    {
+      "text": "location. It's like, oh, I know",
+      "start": 439.12,
+      "duration": 5.359
+    },
+    {
+      "text": "yesterday you were in London. Um, I",
+      "start": 441.039,
+      "duration": 6.16
+    },
+    {
+      "text": "don't have any location data of today.",
+      "start": 444.479,
+      "duration": 6.0
+    },
+    {
+      "text": "Uh, did you take a train or something?",
+      "start": 447.199,
+      "duration": 5.28
+    },
+    {
+      "text": "I'm contriving this, but I hope you can",
+      "start": 450.479,
+      "duration": 4.641
+    },
+    {
+      "text": "see that the real world is messy and the",
+      "start": 452.479,
+      "duration": 6.241
+    },
+    {
+      "text": "output of a lot of tool calls is not so",
+      "start": 455.12,
+      "duration": 5.28
+    },
+    {
+      "text": "defined. I know people are trying to get",
+      "start": 458.72,
+      "duration": 4.16
+    },
+    {
+      "text": "around that with JSON mode and all of",
+      "start": 460.4,
+      "duration": 5.84
+    },
+    {
+      "text": "that. Um, but even with that, even you",
+      "start": 462.88,
+      "duration": 7.2
+    },
+    {
+      "text": "get back JSON mode, it is very likely",
+      "start": 466.24,
+      "duration": 7.6
+    },
+    {
+      "text": "that the next action will actually be",
+      "start": 470.08,
+      "duration": 7.519
+    },
+    {
+      "text": "dependent on the outputs of the last",
+      "start": 473.84,
+      "duration": 6.639
+    },
+    {
+      "text": "action in a nondeterministic",
+      "start": 477.599,
+      "duration": 4.641
+    },
+    {
+      "text": "way. What I mean by that is in a way",
+      "start": 480.479,
+      "duration": 4.241
+    },
+    {
+      "text": "that you have to reason. So what humans",
+      "start": 482.24,
+      "duration": 4.239
+    },
+    {
+      "text": "do when they string together different",
+      "start": 484.72,
+      "duration": 4.879
+    },
+    {
+      "text": "tools is they do exactly that. They call",
+      "start": 486.479,
+      "duration": 5.28
+    },
+    {
+      "text": "the first tool and then they look at the",
+      "start": 489.599,
+      "duration": 5.521
+    },
+    {
+      "text": "outputs of that and then they decide how",
+      "start": 491.759,
+      "duration": 5.761
+    },
+    {
+      "text": "to call the second tool. And I think",
+      "start": 495.12,
+      "duration": 5.359
+    },
+    {
+      "text": "that a lot of situations are like this",
+      "start": 497.52,
+      "duration": 6.399
+    },
+    {
+      "text": "and therefore it is not really going to",
+      "start": 500.479,
+      "duration": 5.521
+    },
+    {
+      "text": "be an advantage to string together tool",
+      "start": 503.919,
+      "duration": 4.881
+    },
+    {
+      "text": "calls by writing the code a priori. I",
+      "start": 506.0,
+      "duration": 4.72
+    },
+    {
+      "text": "can ask you this, right? If you have a",
+      "start": 508.8,
+      "duration": 3.84
+    },
+    {
+      "text": "very complex task and you make a",
+      "start": 510.72,
+      "duration": 5.6
+    },
+    {
+      "text": "detailed plan at the beginning, um, how",
+      "start": 512.64,
+      "duration": 6.48
+    },
+    {
+      "text": "well is that plan usually turning out? I",
+      "start": 516.32,
+      "duration": 5.44
+    },
+    {
+      "text": "predict it's not turning out well. I",
+      "start": 519.12,
+      "duration": 5.039
+    },
+    {
+      "text": "predict that in the middle somewhere,",
+      "start": 521.76,
+      "duration": 4.56
+    },
+    {
+      "text": "you'll have to adjust your plan as you",
+      "start": 524.159,
+      "duration": 5.041
+    },
+    {
+      "text": "go along. And that only works if you",
+      "start": 526.32,
+      "duration": 6.0
+    },
+    {
+      "text": "actually look at each of the outputs and",
+      "start": 529.2,
+      "duration": 5.52
+    },
+    {
+      "text": "redecide how you want to react to that",
+      "start": 532.32,
+      "duration": 5.199
+    },
+    {
+      "text": "output, whether your plan is still valid",
+      "start": 534.72,
+      "duration": 6.08
+    },
+    {
+      "text": "and how to pass how and if to pass that",
+      "start": 537.519,
+      "duration": 8.0
+    },
+    {
+      "text": "output on to the next tools. And so um",
+      "start": 540.8,
+      "duration": 7.12
+    },
+    {
+      "text": "and so",
+      "start": 545.519,
+      "duration": 5.76
+    },
+    {
+      "text": "that's where I have the the the trouble",
+      "start": 547.92,
+      "duration": 5.599
+    },
+    {
+      "text": "with because if we simply compose all",
+      "start": 551.279,
+      "duration": 4.481
+    },
+    {
+      "text": "these API calls together into one block",
+      "start": 553.519,
+      "duration": 4.161
+    },
+    {
+      "text": "of code and then say oh now we only need",
+      "start": 555.76,
+      "duration": 5.759
+    },
+    {
+      "text": "to read the output. That is effectively",
+      "start": 557.68,
+      "duration": 5.839
+    },
+    {
+      "text": "the same as saying yes my plans always",
+      "start": 561.519,
+      "duration": 5.121
+    },
+    {
+      "text": "work out 100% of the time. um and I",
+      "start": 563.519,
+      "duration": 5.201
+    },
+    {
+      "text": "don't ever need to, you know, nothing is",
+      "start": 566.64,
+      "duration": 6.08
+    },
+    {
+      "text": "ever actually dependent on the on the",
+      "start": 568.72,
+      "duration": 6.96
+    },
+    {
+      "text": "intermediate states in any meaningful uh",
+      "start": 572.72,
+      "duration": 6.4
+    },
+    {
+      "text": "non-deterministic way. So a that's a",
+      "start": 575.68,
+      "duration": 6.0
+    },
+    {
+      "text": "word of caution. Now",
+      "start": 579.12,
+      "duration": 5.279
+    },
+    {
+      "text": "I think that is code mode is still",
+      "start": 581.68,
+      "duration": 4.8
+    },
+    {
+      "text": "fantastic and I think it's going to to",
+      "start": 584.399,
+      "duration": 5.201
+    },
+    {
+      "text": "give us a lot of benefits. Um, but it",
+      "start": 586.48,
+      "duration": 5.12
+    },
+    {
+      "text": "might not get us the benefits in this",
+      "start": 589.6,
+      "duration": 4.799
+    },
+    {
+      "text": "more meaningful way when the tasks are",
+      "start": 591.6,
+      "duration": 5.76
+    },
+    {
+      "text": "complex and the the the tools are doing",
+      "start": 594.399,
+      "duration": 5.361
+    },
+    {
+      "text": "a bit more sophisticated things than you",
+      "start": 597.36,
+      "duration": 6.72
+    },
+    {
+      "text": "know calling the weather and um yeah so",
+      "start": 599.76,
+      "duration": 6.72
+    },
+    {
+      "text": "that was an appeal. Now what I do think",
+      "start": 604.08,
+      "duration": 5.84
+    },
+    {
+      "text": "is um",
+      "start": 606.48,
+      "duration": 5.52
+    },
+    {
+      "text": "there is actually an opportunity to get",
+      "start": 609.92,
+      "duration": 3.76
+    },
+    {
+      "text": "a lot of the benefits and that has to do",
+      "start": 612.0,
+      "duration": 4.72
+    },
+    {
+      "text": "with speculative decoding. So what we",
+      "start": 613.68,
+      "duration": 6.48
+    },
+    {
+      "text": "can actually do is let's say we compose",
+      "start": 616.72,
+      "duration": 6.32
+    },
+    {
+      "text": "all of this code together, right? Um and",
+      "start": 620.16,
+      "duration": 4.88
+    },
+    {
+      "text": "we do multiple tool calls. It's code,",
+      "start": 623.04,
+      "duration": 4.4
+    },
+    {
+      "text": "there's a loop and so on, but we record",
+      "start": 625.04,
+      "duration": 5.2
+    },
+    {
+      "text": "all the intermediate things. We record",
+      "start": 627.44,
+      "duration": 5.839
+    },
+    {
+      "text": "all of the outputs um from the",
+      "start": 630.24,
+      "duration": 6.08
+    },
+    {
+      "text": "intermediate states. Uh and then we just",
+      "start": 633.279,
+      "duration": 4.881
+    },
+    {
+      "text": "execute this all at once. And at the",
+      "start": 636.32,
+      "duration": 3.519
+    },
+    {
+      "text": "end, we don't just give the final output",
+      "start": 638.16,
+      "duration": 4.32
+    },
+    {
+      "text": "to the LLM, but we give all of the tool",
+      "start": 639.839,
+      "duration": 4.081
+    },
+    {
+      "text": "calls and all of the intermediate",
+      "start": 642.48,
+      "duration": 4.799
+    },
+    {
+      "text": "outputs to the LLM and effectively ask",
+      "start": 643.92,
+      "duration": 6.96
+    },
+    {
+      "text": "it whether any of these look sus, right?",
+      "start": 647.279,
+      "duration": 5.361
+    },
+    {
+      "text": "Like, hey, look, these were the",
+      "start": 650.88,
+      "duration": 4.88
+    },
+    {
+      "text": "intermediate outputs. Does any of this",
+      "start": 652.64,
+      "duration": 5.12
+    },
+    {
+      "text": "look suspicious? Does any of this look",
+      "start": 655.76,
+      "duration": 6.079
+    },
+    {
+      "text": "wrong to you? And if it doesn't, then",
+      "start": 657.76,
+      "duration": 6.0
+    },
+    {
+      "text": "you're perfectly fine taking the final",
+      "start": 661.839,
+      "duration": 5.361
+    },
+    {
+      "text": "output, right? uh because it's it's it's",
+      "start": 663.76,
+      "duration": 5.28
+    },
+    {
+      "text": "the LLM is effectively saying no all of",
+      "start": 667.2,
+      "duration": 4.4
+    },
+    {
+      "text": "this looks perfectly fine if you had",
+      "start": 669.04,
+      "duration": 6.72
+    },
+    {
+      "text": "given this to me during the execution I",
+      "start": 671.6,
+      "duration": 6.64
+    },
+    {
+      "text": "would have told you to move forward move",
+      "start": 675.76,
+      "duration": 5.759
+    },
+    {
+      "text": "along with the plan and if we can",
+      "start": 678.24,
+      "duration": 5.92
+    },
+    {
+      "text": "somehow get that or or let the LLM",
+      "start": 681.519,
+      "duration": 6.0
+    },
+    {
+      "text": "pinpoint where uh the",
+      "start": 684.16,
+      "duration": 5.359
+    },
+    {
+      "text": "deviation happens like oh no no no this",
+      "start": 687.519,
+      "duration": 4.0
+    },
+    {
+      "text": "output here or ah I would not have",
+      "start": 689.519,
+      "duration": 4.0
+    },
+    {
+      "text": "called the tool in this way had I known",
+      "start": 691.519,
+      "duration": 4.721
+    },
+    {
+      "text": "the outputs we skip a lot of these",
+      "start": 693.519,
+      "duration": 6.32
+    },
+    {
+      "text": "intermediate steps. So, let's call it",
+      "start": 696.24,
+      "duration": 5.92
+    },
+    {
+      "text": "speculative tool calling or something",
+      "start": 699.839,
+      "duration": 4.56
+    },
+    {
+      "text": "like this, which is you just call a",
+      "start": 702.16,
+      "duration": 4.96
+    },
+    {
+      "text": "bunch of tools ahead of time um because",
+      "start": 704.399,
+      "duration": 5.68
+    },
+    {
+      "text": "you estimate that that's something that",
+      "start": 707.12,
+      "duration": 6.08
+    },
+    {
+      "text": "might happen in a lot of cases. Uh tool",
+      "start": 710.079,
+      "duration": 6.88
+    },
+    {
+      "text": "calling isn't so expensive. um you might",
+      "start": 713.2,
+      "duration": 6.16
+    },
+    {
+      "text": "use a few extra tokens by doing all of",
+      "start": 716.959,
+      "duration": 6.0
+    },
+    {
+      "text": "this intermediate validation and but",
+      "start": 719.36,
+      "duration": 5.44
+    },
+    {
+      "text": "maybe we'll get a lot of speed out of",
+      "start": 722.959,
+      "duration": 4.481
+    },
+    {
+      "text": "it. All right, I still I invite you to",
+      "start": 724.8,
+      "duration": 4.24
+    },
+    {
+      "text": "read the article about code mode because",
+      "start": 727.44,
+      "duration": 4.72
+    },
+    {
+      "text": "it also talks about loading loading code",
+      "start": 729.04,
+      "duration": 5.919
+    },
+    {
+      "text": "into running agents uh using isolates",
+      "start": 732.16,
+      "duration": 5.119
+    },
+    {
+      "text": "and all of that. Very very cool. And I",
+      "start": 734.959,
+      "duration": 5.44
+    },
+    {
+      "text": "also invite you to uh watch Theo's video",
+      "start": 737.279,
+      "duration": 5.841
+    },
+    {
+      "text": "on the topic because uh is a lot of good",
+      "start": 740.399,
+      "duration": 6.161
+    },
+    {
+      "text": "comments about it. uh just this this one",
+      "start": 743.12,
+      "duration": 6.56
+    },
+    {
+      "text": "thing that I think is missed by both and",
+      "start": 746.56,
+      "duration": 5.68
+    },
+    {
+      "text": "that's that in the real world with",
+      "start": 749.68,
+      "duration": 6.399
+    },
+    {
+      "text": "complex tools and messy data um there",
+      "start": 752.24,
+      "duration": 5.36
+    },
+    {
+      "text": "will often be the case where",
+      "start": 756.079,
+      "duration": 4.481
+    },
+    {
+      "text": "intermittently you need to actually look",
+      "start": 757.6,
+      "duration": 5.919
+    },
+    {
+      "text": "at the intermediate output and decide",
+      "start": 760.56,
+      "duration": 4.8
+    },
+    {
+      "text": "what you want to do in a way that you",
+      "start": 763.519,
+      "duration": 5.521
+    },
+    {
+      "text": "couldn't have known at the beginning.",
+      "start": 765.36,
+      "duration": 6.32
+    },
+    {
+      "text": "General reminder that MCP isn't magic.",
+      "start": 769.04,
+      "duration": 6.4
+    },
+    {
+      "text": "MCP doesn't add any capabilities and MCP",
+      "start": 771.68,
+      "duration": 6.64
+    },
+    {
+      "text": "simply is a standard way of exposing",
+      "start": 775.44,
+      "duration": 5.519
+    },
+    {
+      "text": "APIs. I think that goes without saying",
+      "start": 778.32,
+      "duration": 4.56
+    },
+    {
+      "text": "if you've watched this channel for a",
+      "start": 780.959,
+      "duration": 3.761
+    },
+    {
+      "text": "while or are in the field, but for",
+      "start": 782.88,
+      "duration": 5.04
+    },
+    {
+      "text": "anyone else uh who's super hyping about",
+      "start": 784.72,
+      "duration": 6.0
+    },
+    {
+      "text": "MCP, it's not that big of a deal. It's",
+      "start": 787.92,
+      "duration": 5.68
+    },
+    {
+      "text": "cool, but uh it doesn't add anything",
+      "start": 790.72,
+      "duration": 5.679
+    },
+    {
+      "text": "new. Cool. That's it. Thank you very",
+      "start": 793.6,
+      "duration": 7.12
+    },
+    {
+      "text": "much, and I'll see you around. Bye-bye.",
+      "start": 796.399,
+      "duration": 4.321
+    }
+  ],
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "0bpYCxv2qhw",
+    "title": "[Video Response] What Cloudflare's code mode misses about MCP and tool calling",
+    "description": "Theo's Video: https://www.youtube.com/watch?v=bAYZjVAodoo\nCloudflare article: https://blog.cloudflare.com/code-mode/\n\nLinks:\nHomepage: https://ykilcher.com\nMerch: https://ykilcher.com/merch\nYouTube: https://www.youtube.com/c/yannickilcher\nTwitter: https://twitter.com/ykilcher\nDiscord: https://ykilcher.com/discord\nLinkedIn: https://www.linkedin.com/in/ykilcher\n\nIf you want to support me, the best thing to do is to share out the content :)\n\nIf you want to support me financially (completely optional and voluntary, but a lot of people have asked for this):\nSubscribeStar: https://www.subscribestar.com/yannickilcher\nPatreon: https://www.patreon.com/yannickilcher\nBitcoin (BTC): bc1q49lsw3q325tr58ygf8sudx2dqfguclvngvy2cq\nEthereum (ETH): 0x7ad3513E3B8f66799f507Aa7874b1B0eBC7F85e2\nLitecoin (LTC): LQW2TRyKYetVC8WjFkhpPhtpbDM4Vw7r9m\nMonero (XMR): 4ACL8AGrEo5hAir8A9CeVrW8pEauWvnp1WnSDZxW7tziCDLhZAGsgzhRQABDnFy8yuM9fWJDviJPHKRjV4FWt19CJZN9D4n",
+    "published_at": "2025-10-19T10:58:51Z",
+    "channel_id": "UCZHmQk67mSJgfCCTn7xBfew",
+    "channel_title": "Yannic Kilcher",
+    "duration": "PT13M19S",
+    "duration_seconds": 799,
+    "view_count": 7635,
+    "like_count": 259,
+    "comment_count": 32,
+    "tags": [
+      "deep learning",
+      "machine learning",
+      "arxiv",
+      "explained",
+      "neural networks",
+      "ai",
+      "artificial intelligence",
+      "paper"
+    ],
+    "category_id": "28",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/0bpYCxv2qhw/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/0bpYCxv2qhw/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/0bpYCxv2qhw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/0bpYCxv2qhw/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/0bpYCxv2qhw/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:45.268372",
+    "all_urls": [
+      "https://www.youtube.com/watch?v=bAYZjVAodoo",
+      "https://blog.cloudflare.com/code-mode/",
+      "https://ykilcher.com",
+      "https://ykilcher.com/merch",
+      "https://www.youtube.com/c/yannickilcher",
+      "https://twitter.com/ykilcher",
+      "https://ykilcher.com/discord",
+      "https://www.linkedin.com/in/ykilcher",
+      "https://www.subscribestar.com/yannickilcher",
+      "https://www.patreon.com/yannickilcher"
+    ],
+    "blocked_urls": [
+      "https://www.youtube.com/c/yannickilcher",
+      "https://twitter.com/ykilcher",
+      "https://www.linkedin.com/in/ykilcher",
+      "https://www.subscribestar.com/yannickilcher"
+    ],
+    "content_urls": [
+      "https://www.youtube.com/watch?v=bAYZjVAodoo",
+      "https://blog.cloudflare.com/code-mode/"
+    ],
+    "marketing_urls": [
+      "https://ykilcher.com",
+      "https://ykilcher.com/merch",
+      "https://ykilcher.com/discord",
+      "https://www.patreon.com/yannickilcher"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.078471"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"MCP is the wrong abstraction? Code mode, TypeScript APIs, and speculative decoding\",\n  \"tags\": [\"llm\", \"tool-calling\", \"code-mode\", \"api-design\", \"typescript\"],\n  \"summary\": \"A discussion comparing code mode with traditional tool calling for MCP, emphasizing the benefits of TypeScript APIs, real-world tool integration, and speculative decoding in complex LLM workflows.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.418304",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.427725",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "video_id": "M0NMEeaYcs4",
+  "url": "https://www.youtube.com/watch?v=M0NMEeaYcs4",
+  "fetched_at": "2025-11-09T23:22:40.722574",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:22:40.722574",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "And I share that because that feels like that's a conversation many of us who are interested in AI, who are passionate about AI need to be having with those around us. I see the poll results. I see that AI is not trusted. There are a lot of joshes in this world. It makes sense that they may not trust AI. I don't blame them. It's kind of rational. But in that world, we have to be the ones, we who are interested in AI have to be the ones who are able to sit down and invite a conversation about how all of our dreams are changing because of AI. That's not something that anybody is immune to. And so besides telling Josh's story, I'll tell my own story a little bit. I got my start in a job that AI has changed dramatically already, right? I was doing nonprofit grant management.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "M0NMEeaYcs4",
+    "title": "AI: A Double Edged Sword #ai #shorts  #artificialintelligence",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nthe story: https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. AI-Driven Displacement: Josh\u2019s entry-level newsroom vanished when AI content tools undercut human reporters, exposing the tangible human cost of automation.\n 2. Hidden Resistance: People who feel harmed by AI often reject reskilling advice; anger and mistrust can block even well-meaning help.\n 3. Dream Flexibility: Thriving now means treating careers as evolving problem-solving journeys, not fixed job titles\u2014dreams must update with the game board.\n 4. Personal Reinvention Proof: My pivot from grant management to e-commerce to product shows that reinvention is possible each time technology reshapes tasks.\n 5. AI as Practice Partner: Modern models let anyone rehearse interviews, code, or decode textbooks on demand, compressing learning cycles dramatically.\n 6. Social Responsibility: AI advocates must listen to the \u201cJoshes,\u201d offer respect before solutions, and help them find new paths or risk deepening divides.\n\nQuotes\n\u201cAI took my job.\u201d\n\u201cAre you open to your dreams shifting?\u201d\n\u201cWe\u2019ve taught the sand to think, and now everything is different.\u201d\n\nSummary\nI share Josh\u2019s story, an amalgam of displaced journalists I\u2019ve met, to spotlight AI\u2019s unseen casualties. Josh lost his newsroom job, moved home, and now sees AI only as the force that stole his future. I contrast his despair with my own path, which has repeatedly morphed\u2014grant management, e-commerce, marketing\u2014each shaken by new tech yet still valuable after reinvention. AI accelerates that pattern: it erodes tasks yet expands what we can learn and build. Our job is to sit with the Joshes, listen, and invite them\u2014without condescension\u2014to imagine fresh dreams on a newly rearranged board and learn alongside them daily.\n\nKeywords\nAI, job displacement, journalism, dream flexibility, upskilling, career reinvention, learning tools, societal impact, automation, Josh, AI trust, listening",
+    "published_at": "2025-07-11T21:04:41Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT57S",
+    "duration_seconds": 57,
+    "view_count": 1392,
+    "like_count": 28,
+    "comment_count": 2,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/M0NMEeaYcs4/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/M0NMEeaYcs4/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/M0NMEeaYcs4/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/M0NMEeaYcs4/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/M0NMEeaYcs4/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:18.354207",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:21.434754"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI, Trust, and Transformation: A Personal Story in Nonprofit Work\",\n  \"tags\": [\"ai\", \"trust-in-ai\", \"ai-in-workplace\", \"nonprofit-sector\"],\n  \"summary\": \"The speaker discusses why AI trust matters, the need to talk openly about AI's impact, and shares a personal experience of how AI is changing nonprofit grant management.\"\n}",
+      "generated_at": "2025-11-09T23:22:53.087634",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

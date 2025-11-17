@@ -1,0 +1,105 @@
+{
+  "video_id": "TdMklFHmie0",
+  "url": "https://www.youtube.com/watch?v=TdMklFHmie0",
+  "fetched_at": "2025-11-09T22:08:23.293854",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:08:23.293854",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "It's a model that really wants to cut through the noise and it's a model that is able to give you some backbone and I think that's somewhat related to its ability to check its work. It has a sense of rightness. It has a sense of what works and what doesn't. And when it doesn't feel like something is correct, it says so. And so, one of the subtler things that I've seen come out that you will also see is that this model has some opinions on what is correct and what is incorrect, whether you're saying it or whether the model is saying it. And that makes the model less like a hyperactive squirrel on aderall and more like a thoughtful colleague. A colleague that has opinions, a colleague that can be persuaded, but a colleague that will also push back sometimes and say, \"I don't think that's quite correct.\" And that is a very tough balance to strike. And if Claude has been able to strike that balance with this new model, it is a very good sign for us because it helps us to have a more professional relationship with AI. I",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "TdMklFHmie0",
+    "title": "Claude's Sonnet 4.5: Your Thoughtful AI Colleague #ai #claude #anthropic #productivity #work #teams",
+    "description": "What\u2019s really happening inside Claude\u2019s new AI model for work?\nThe common story is that AI automates whole jobs \u2014 but the reality is more complicated: the best LLMs actually make it EASIER for humans to touch the work, get hands on, and make their best contributions.\n\nIn this video, I share the inside scoop on how this Claude release performs in real work\u2014decks, spreadsheets, docs, and code\u2014after head-to-head tests against GPT-5 and Opus 4.1, with a focus on decision-ready outputs and less prompt sensitivity:\n\n\u2022 Why clarity beats AI slop for decision-ready outputs.\n\u2022 How Claude self-checks slides, formulas, and dev servers.\n\u2022 What changed versus GPT-5 and Opus 4.1 in practice.\n\u2022 Where it speeds decks, spreadsheets, docs, and Claude code.\n\nFor teams, the upside is faster, clearer deliverables and shorter iteration loops; the risk is forgetting that judgment and domain expertise still do the final mile.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-08T03:00:36Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT59S",
+    "duration_seconds": 59,
+    "view_count": 2090,
+    "like_count": 84,
+    "comment_count": 5,
+    "tags": [
+      "AI strategy",
+      "LLMs",
+      "large language models",
+      "automation at work",
+      "future of work",
+      "prompt engineering",
+      "AI productivity",
+      "Claude",
+      "Anthropic",
+      "GPT-5",
+      "Opus 4.1",
+      "PowerPoint",
+      "spreadsheets",
+      "Claude code",
+      "voice of customer",
+      "decision-ready AI outputs",
+      "AI strategy for teams",
+      "Claude vs GPT-5"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/TdMklFHmie0/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/TdMklFHmie0/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/TdMklFHmie0/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/TdMklFHmie0/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/TdMklFHmie0/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:17.934968",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:25.306078"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai models as thoughtful colleagues: alignment and human-ai interaction\",\n  \"tags\": [\"ai-alignment\", \"human-ai-interaction\", \"ai-safety\", \"machine-learning\"],\n  \"summary\": \"Explores how a sophisticated AI model evaluates its own outputs, demonstrates a sense of rightness, offers corrections, and fosters a professional, opinionated yet persuadable relationship with humans.\"\n}",
+      "generated_at": "2025-11-09T22:08:36.056316",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

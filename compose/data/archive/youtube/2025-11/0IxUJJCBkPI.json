@@ -1,0 +1,1258 @@
+{
+  "video_id": "0IxUJJCBkPI",
+  "url": "https://www.youtube.com/watch?v=0IxUJJCBkPI",
+  "fetched_at": "2025-11-10T00:09:26.002259",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:09:26.002259",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "I did not want to do this. We are going to talk about hallucinations. And the reason we're going to talk about hallucinations is because I can't get people to stop talking to me about hallucinations. So, here we are. We're doing it. Uh, look, at the end of the day, the fact that chat GPT was released when it was at the capability level it was released at means that we have a massive overhang of credibility that we have to make up. Chat GPT is much more credible than people believe it is. Claude is much more credible than people believe it is. It's not really just about chat GPT, but for the people who care about this, it's always Chad GPT because that's the language model they know. But Gemini, same deal. What I'm trying to say is when chat GPT was released back in 2022, there were enough high-profile hallucinations that people misunderstood what AI can actually do and chocked it up to a bunch of lies. And I still hear that all the time. And I am just it's like every every day I hear this and I'm just dealing with it. I'm just going to talk about it. What I want to say is that we have a different bar for AI than we have for humans. For humans, if I had an unreliable researcher, frankly, a human researcher who was an intern, and that intern took a week to prepare me a 40-page report, and if that intern made three mistakes in that 40-page report, I would say great. Uh, and I would love to use that report in whatever I'm working on. If an AI comes back in 30 minutes with a 40page report and it makes three mistakes, we say it's it's not good enough. It needs to be perfect. Why? It's already cut the time by a 100x. Why does it need to be perfect? Why does it need to be more perfect than people? Now, there's other reasons to say that herist, you know, hallucinations are not that big a deal. Um, but I think that's the most compelling one to me because if you want AI to do useful work, then you just have to believe that the work it can do is more useful than the time it takes to check for hallucinations. And we are well past that bar. Does that mean that hallucinations don't matter? Does that mean a lawyer should not be checking their case by case citations if they're using AI? Does that mean a doctor shouldn't be checking the medical reasoning of an AI? Obviously not. Obviously, we should be checking and we should be working to reduce hallucinations. Great. But the fact that we are at a point now where it can clearly and obviously do useful work means that AI has crossed the event horizon. It is no longer just a play thing. is something we can do work with. And I think unfortunately that credibility overhang is biting this industry in the butt because at the end of the day, most people who are not sitting in this YouTube circle, if I talk to them about AI, hallucinations are the first thing out of their mouth. It's the first thing they talk about. Hey, what about hallucinations? I heard they make stuff up. I heard it lies. Honestly, it lies less than the average human does at this point. Most of them. The hallucination rate, which by the way, it's really hard to measure hallucination rate. I looked into this. I wrote a Substack about this if you want to check it out. If you don't, I don't care. It's a good read, though. Um, and it goes deep in on what hallucinations are. And one of the things that I think is really interesting is that what we call the hallucination rate varies by a factor of 10 depending on the task you give it. The same model can come in at 1 and a.5% and 15%. And by the way, I'm not making that up. That's roughly where ChatGpt 4.5 comes in, depending on which hallucination measure you use. Context really matters. The kind of task you give it really matters. One of the reasons why I don't worry about hallucinations personally is because I don't give AI a situation where it is likely to make up hallucinations and then blame it. I figure that's mismanaging my employee. Like, why would I do that? I don't ask AI to do things that are virtually impossible unless it imagines or hallucinates or confabulates information because that's useless. Why would I do that? It's such a powerful tool for what it can do well. Why not specify your sources where you want it to go look? Why not be careful in my prompting and be really clear and structured? Because it does well when I do that. That's just easier for me. So, a lot of these things that actually reduce hallucinations, turns out that they're just best practice for working with AI. I don't know. Seems like we should follow best practice. And so, to me, like our open AI, our anthropic, are they working on this? Sure. Is Deep Mind at Google working on this? Absolutely. Does that mean that we're going to have 100% no hallucination models next year? I guarantee you we will not. And I also just about guarantee you it won't matter. It won't matter for real work. It's going to matter enormously for public perception because we are trained to assume that computers must be perfect because everything we've had in computers for 100 years, well not 100 years, call it 60 years, has been deterministic computing. It has been programs that if a plus b equals c then whatever right like it's all mathematics it's algorithmic everything is determined in the program when it runs and so we can expect perfection and all of our movies say the same thing. None of us are ready for an AI where we taught the rocks to think and they turn out to be poetic dreamers. We're just not ready for that. And the fact that the the like AI doesn't inherently have a factual world model. The fact that we can talk about a 1.5% error rate in certain hallucination tests for chat GPT 4.5 is a freaking miracle. I I am astonished. These things they dream. They come up with probabilistic tokens that they think match what you're looking for. They have no factual world model underneath. It's amazing they get anything right at all. It's kind of incredible. And so within that world, yeah, I do think we need to baseline on humans more. I do think we need to take seriously the fact that they do work. And I think that we need to come up with better answers as an industry for people who say all it does is lie. All it does is make stuff up. It's re and by the way the people who do that tend to be quite unreliable narrators themselves. I have never heard that kind of aggressive contrarian take from someone who isn't to some degree personally threatened by AI and needing to denigrate it. So there is absolutely a leading edge of change here. People who are worried about their jobs, people who are worried about what will happen to their work are going to be more likely to denigrate AI. And do I have a study for that? I will admit frankly I don't. That is based on me having conversations with hundreds of people. It's just something I've observed. So where does that leave us? At the end of the day AI is going to get to a point, in fact arguably is already crossing the line where it is more reliable in most fields than most humans. At which point we should stop worrying so much about hallucination for AI and logically worry about hallucination for ourselves. And we're not. And the reason why we're not is pretty simple. It's the same reason why Whimo vehicles are not more popular even though they're vastly safer. It's the same reason why we haven't outlawed human driving in the US even though statistically speaking in US testing, automated driving is already so much safer it costs lives to keep human drivers on the road. And I say the US because that's where it's been tested. It's probably true everywhere else in the world, too. We are a stubborn, stubborn race. We are a stubborn species. We do not easily give up on something we think is true. We think humans should drive. I do not see that disappearing anytime soon, even though that kills people. We think AI hallucinates. I don't think that belief is disappearing. even though it is demonstrabably easily obviously proved to be an unhelpful belief. But we have to try we have to try and explain to people what really matters here. We have to do our best to educate. And this is a challenge for all of us in the industry. And I just I got so tired of hearing about hallucinations. I just I wrote a giant Substack on it. I did this. Like, we've got to be able to",
+  "timed_transcript": [
+    {
+      "text": "I did not want to do this. We are going",
+      "start": 0.08,
+      "duration": 4.56
+    },
+    {
+      "text": "to talk about hallucinations. And the",
+      "start": 2.159,
+      "duration": 3.361
+    },
+    {
+      "text": "reason we're going to talk about",
+      "start": 4.64,
+      "duration": 3.119
+    },
+    {
+      "text": "hallucinations is because I can't get",
+      "start": 5.52,
+      "duration": 3.84
+    },
+    {
+      "text": "people to stop talking to me about",
+      "start": 7.759,
+      "duration": 3.201
+    },
+    {
+      "text": "hallucinations. So, here we are. We're",
+      "start": 9.36,
+      "duration": 5.12
+    },
+    {
+      "text": "doing it. Uh, look, at the end of the",
+      "start": 10.96,
+      "duration": 6.399
+    },
+    {
+      "text": "day, the fact that chat GPT was released",
+      "start": 14.48,
+      "duration": 5.04
+    },
+    {
+      "text": "when it was at the capability level it",
+      "start": 17.359,
+      "duration": 5.84
+    },
+    {
+      "text": "was released at means that we have a",
+      "start": 19.52,
+      "duration": 6.24
+    },
+    {
+      "text": "massive overhang of credibility that we",
+      "start": 23.199,
+      "duration": 7.041
+    },
+    {
+      "text": "have to make up. Chat GPT is much more",
+      "start": 25.76,
+      "duration": 7.92
+    },
+    {
+      "text": "credible than people believe it is.",
+      "start": 30.24,
+      "duration": 5.839
+    },
+    {
+      "text": "Claude is much more credible than people",
+      "start": 33.68,
+      "duration": 3.68
+    },
+    {
+      "text": "believe it is. It's not really just",
+      "start": 36.079,
+      "duration": 3.361
+    },
+    {
+      "text": "about chat GPT, but for the people who",
+      "start": 37.36,
+      "duration": 4.0
+    },
+    {
+      "text": "care about this, it's always Chad GPT",
+      "start": 39.44,
+      "duration": 3.279
+    },
+    {
+      "text": "because that's the language model they",
+      "start": 41.36,
+      "duration": 4.64
+    },
+    {
+      "text": "know. But Gemini, same deal.",
+      "start": 42.719,
+      "duration": 6.241
+    },
+    {
+      "text": "What I'm trying to say is when chat GPT",
+      "start": 46.0,
+      "duration": 4.84
+    },
+    {
+      "text": "was released back in",
+      "start": 48.96,
+      "duration": 5.0
+    },
+    {
+      "text": "2022, there were enough high-profile",
+      "start": 50.84,
+      "duration": 6.359
+    },
+    {
+      "text": "hallucinations that people misunderstood",
+      "start": 53.96,
+      "duration": 5.48
+    },
+    {
+      "text": "what AI can actually do and chocked it",
+      "start": 57.199,
+      "duration": 4.241
+    },
+    {
+      "text": "up to a bunch of lies. And I still hear",
+      "start": 59.44,
+      "duration": 4.24
+    },
+    {
+      "text": "that all the time. And I am just it's",
+      "start": 61.44,
+      "duration": 5.12
+    },
+    {
+      "text": "like every every day I hear this and I'm",
+      "start": 63.68,
+      "duration": 4.56
+    },
+    {
+      "text": "just dealing with it. I'm just going to",
+      "start": 66.56,
+      "duration": 4.0
+    },
+    {
+      "text": "talk about it.",
+      "start": 68.24,
+      "duration": 5.6
+    },
+    {
+      "text": "What I want to say is that we have a",
+      "start": 70.56,
+      "duration": 6.84
+    },
+    {
+      "text": "different bar for AI than we have for",
+      "start": 73.84,
+      "duration": 6.48
+    },
+    {
+      "text": "humans. For humans, if I had an",
+      "start": 77.4,
+      "duration": 5.56
+    },
+    {
+      "text": "unreliable researcher, frankly, a human",
+      "start": 80.32,
+      "duration": 5.76
+    },
+    {
+      "text": "researcher who was an intern, and that",
+      "start": 82.96,
+      "duration": 5.04
+    },
+    {
+      "text": "intern took a week to prepare me a",
+      "start": 86.08,
+      "duration": 4.719
+    },
+    {
+      "text": "40-page report, and if that intern made",
+      "start": 88.0,
+      "duration": 6.079
+    },
+    {
+      "text": "three mistakes in that 40-page report, I",
+      "start": 90.799,
+      "duration": 4.121
+    },
+    {
+      "text": "would",
+      "start": 94.079,
+      "duration": 4.801
+    },
+    {
+      "text": "say great. Uh, and I would love to use",
+      "start": 94.92,
+      "duration": 6.08
+    },
+    {
+      "text": "that report in whatever I'm working",
+      "start": 98.88,
+      "duration": 7.04
+    },
+    {
+      "text": "on. If an AI comes back in 30 minutes",
+      "start": 101.0,
+      "duration": 8.439
+    },
+    {
+      "text": "with a 40page report and it makes three",
+      "start": 105.92,
+      "duration": 6.08
+    },
+    {
+      "text": "mistakes, we say it's it's not good",
+      "start": 109.439,
+      "duration": 4.841
+    },
+    {
+      "text": "enough. It needs to be perfect.",
+      "start": 112.0,
+      "duration": 5.28
+    },
+    {
+      "text": "Why? It's already cut the time by a",
+      "start": 114.28,
+      "duration": 5.76
+    },
+    {
+      "text": "100x. Why does it need to be",
+      "start": 117.28,
+      "duration": 4.96
+    },
+    {
+      "text": "perfect? Why does it need to be more",
+      "start": 120.04,
+      "duration": 4.16
+    },
+    {
+      "text": "perfect than",
+      "start": 122.24,
+      "duration": 4.239
+    },
+    {
+      "text": "people? Now, there's other reasons to",
+      "start": 124.2,
+      "duration": 3.4
+    },
+    {
+      "text": "say that herist, you know,",
+      "start": 126.479,
+      "duration": 4.081
+    },
+    {
+      "text": "hallucinations are not that big a deal.",
+      "start": 127.6,
+      "duration": 4.8
+    },
+    {
+      "text": "Um, but I think that's the most",
+      "start": 130.56,
+      "duration": 3.759
+    },
+    {
+      "text": "compelling one to me because if you want",
+      "start": 132.4,
+      "duration": 5.52
+    },
+    {
+      "text": "AI to do useful work, then you just have",
+      "start": 134.319,
+      "duration": 7.601
+    },
+    {
+      "text": "to believe that the work it can do is",
+      "start": 137.92,
+      "duration": 5.92
+    },
+    {
+      "text": "more useful than the time it takes to",
+      "start": 141.92,
+      "duration": 3.92
+    },
+    {
+      "text": "check for hallucinations. And we are",
+      "start": 143.84,
+      "duration": 4.72
+    },
+    {
+      "text": "well past that bar. Does that mean that",
+      "start": 145.84,
+      "duration": 4.88
+    },
+    {
+      "text": "hallucinations don't matter? Does that",
+      "start": 148.56,
+      "duration": 4.16
+    },
+    {
+      "text": "mean a lawyer should not be checking",
+      "start": 150.72,
+      "duration": 4.879
+    },
+    {
+      "text": "their case by case citations if they're",
+      "start": 152.72,
+      "duration": 4.72
+    },
+    {
+      "text": "using AI? Does that mean a doctor",
+      "start": 155.599,
+      "duration": 3.201
+    },
+    {
+      "text": "shouldn't be checking the medical",
+      "start": 157.44,
+      "duration": 4.2
+    },
+    {
+      "text": "reasoning of an AI? Obviously",
+      "start": 158.8,
+      "duration": 6.079
+    },
+    {
+      "text": "not. Obviously, we should be checking",
+      "start": 161.64,
+      "duration": 5.2
+    },
+    {
+      "text": "and we should be working to reduce",
+      "start": 164.879,
+      "duration": 4.041
+    },
+    {
+      "text": "hallucinations.",
+      "start": 166.84,
+      "duration": 4.52
+    },
+    {
+      "text": "Great. But the fact that we are at a",
+      "start": 168.92,
+      "duration": 4.599
+    },
+    {
+      "text": "point now where it can clearly and",
+      "start": 171.36,
+      "duration": 4.72
+    },
+    {
+      "text": "obviously do useful work means that AI",
+      "start": 173.519,
+      "duration": 4.72
+    },
+    {
+      "text": "has crossed the event horizon. It is no",
+      "start": 176.08,
+      "duration": 4.32
+    },
+    {
+      "text": "longer just a play thing. is something",
+      "start": 178.239,
+      "duration": 4.401
+    },
+    {
+      "text": "we can do work with. And I think",
+      "start": 180.4,
+      "duration": 4.8
+    },
+    {
+      "text": "unfortunately that credibility overhang",
+      "start": 182.64,
+      "duration": 5.04
+    },
+    {
+      "text": "is biting this industry in the butt",
+      "start": 185.2,
+      "duration": 5.36
+    },
+    {
+      "text": "because at the end of the day, most",
+      "start": 187.68,
+      "duration": 4.72
+    },
+    {
+      "text": "people who are not sitting in this",
+      "start": 190.56,
+      "duration": 4.72
+    },
+    {
+      "text": "YouTube circle, if I talk to them about",
+      "start": 192.4,
+      "duration": 5.52
+    },
+    {
+      "text": "AI, hallucinations are the first thing",
+      "start": 195.28,
+      "duration": 4.48
+    },
+    {
+      "text": "out of their mouth. It's the first thing",
+      "start": 197.92,
+      "duration": 5.16
+    },
+    {
+      "text": "they talk about. Hey, what about",
+      "start": 199.76,
+      "duration": 5.6
+    },
+    {
+      "text": "hallucinations? I heard they make stuff",
+      "start": 203.08,
+      "duration": 4.879
+    },
+    {
+      "text": "up. I heard it",
+      "start": 205.36,
+      "duration": 5.36
+    },
+    {
+      "text": "lies. Honestly, it lies less than the",
+      "start": 207.959,
+      "duration": 5.401
+    },
+    {
+      "text": "average human does at this point. Most",
+      "start": 210.72,
+      "duration": 5.2
+    },
+    {
+      "text": "of them. The hallucination rate, which",
+      "start": 213.36,
+      "duration": 3.92
+    },
+    {
+      "text": "by the way, it's really hard to measure",
+      "start": 215.92,
+      "duration": 2.8
+    },
+    {
+      "text": "hallucination rate. I looked into this.",
+      "start": 217.28,
+      "duration": 3.12
+    },
+    {
+      "text": "I wrote a Substack about this if you",
+      "start": 218.72,
+      "duration": 3.28
+    },
+    {
+      "text": "want to check it out. If you don't, I",
+      "start": 220.4,
+      "duration": 3.72
+    },
+    {
+      "text": "don't care. It's a good read, though.",
+      "start": 222.0,
+      "duration": 6.319
+    },
+    {
+      "text": "Um, and it goes deep in on what",
+      "start": 224.12,
+      "duration": 5.56
+    },
+    {
+      "text": "hallucinations are. And one of the",
+      "start": 228.319,
+      "duration": 2.401
+    },
+    {
+      "text": "things that I think is really",
+      "start": 229.68,
+      "duration": 3.119
+    },
+    {
+      "text": "interesting is that what we call the",
+      "start": 230.72,
+      "duration": 4.48
+    },
+    {
+      "text": "hallucination rate varies by a factor of",
+      "start": 232.799,
+      "duration": 5.681
+    },
+    {
+      "text": "10 depending on the task you give it.",
+      "start": 235.2,
+      "duration": 5.599
+    },
+    {
+      "text": "The same model can come in at 1 and a.5%",
+      "start": 238.48,
+      "duration": 4.959
+    },
+    {
+      "text": "and 15%. And by the way, I'm not making",
+      "start": 240.799,
+      "duration": 4.481
+    },
+    {
+      "text": "that up. That's roughly where ChatGpt",
+      "start": 243.439,
+      "duration": 3.841
+    },
+    {
+      "text": "4.5 comes in, depending on which",
+      "start": 245.28,
+      "duration": 4.879
+    },
+    {
+      "text": "hallucination measure you use. Context",
+      "start": 247.28,
+      "duration": 5.679
+    },
+    {
+      "text": "really matters. The kind of task you",
+      "start": 250.159,
+      "duration": 4.321
+    },
+    {
+      "text": "give it really matters. One of the",
+      "start": 252.959,
+      "duration": 2.881
+    },
+    {
+      "text": "reasons why I don't worry about",
+      "start": 254.48,
+      "duration": 3.2
+    },
+    {
+      "text": "hallucinations personally is because I",
+      "start": 255.84,
+      "duration": 4.48
+    },
+    {
+      "text": "don't give AI a situation where it is",
+      "start": 257.68,
+      "duration": 4.239
+    },
+    {
+      "text": "likely to make up hallucinations and",
+      "start": 260.32,
+      "duration": 3.12
+    },
+    {
+      "text": "then blame it. I figure that's",
+      "start": 261.919,
+      "duration": 3.84
+    },
+    {
+      "text": "mismanaging my employee. Like, why would",
+      "start": 263.44,
+      "duration": 6.4
+    },
+    {
+      "text": "I do that? I don't ask AI to do things",
+      "start": 265.759,
+      "duration": 6.561
+    },
+    {
+      "text": "that are virtually impossible unless it",
+      "start": 269.84,
+      "duration": 5.88
+    },
+    {
+      "text": "imagines or hallucinates or confabulates",
+      "start": 272.32,
+      "duration": 5.52
+    },
+    {
+      "text": "information because that's useless. Why",
+      "start": 275.72,
+      "duration": 3.4
+    },
+    {
+      "text": "would I do that? It's such a powerful",
+      "start": 277.84,
+      "duration": 3.6
+    },
+    {
+      "text": "tool for what it can do well. Why not",
+      "start": 279.12,
+      "duration": 4.56
+    },
+    {
+      "text": "specify your sources where you want it",
+      "start": 281.44,
+      "duration": 4.0
+    },
+    {
+      "text": "to go look? Why not be careful in my",
+      "start": 283.68,
+      "duration": 3.239
+    },
+    {
+      "text": "prompting and be really clear and",
+      "start": 285.44,
+      "duration": 3.84
+    },
+    {
+      "text": "structured? Because it does well when I",
+      "start": 286.919,
+      "duration": 5.081
+    },
+    {
+      "text": "do that. That's just easier for me. So,",
+      "start": 289.28,
+      "duration": 4.0
+    },
+    {
+      "text": "a lot of these things that actually",
+      "start": 292.0,
+      "duration": 2.68
+    },
+    {
+      "text": "reduce",
+      "start": 293.28,
+      "duration": 3.76
+    },
+    {
+      "text": "hallucinations, turns out that they're",
+      "start": 294.68,
+      "duration": 5.799
+    },
+    {
+      "text": "just best practice for working with AI.",
+      "start": 297.04,
+      "duration": 5.439
+    },
+    {
+      "text": "I don't know. Seems like we should",
+      "start": 300.479,
+      "duration": 3.801
+    },
+    {
+      "text": "follow best",
+      "start": 302.479,
+      "duration": 5.361
+    },
+    {
+      "text": "practice. And so, to me, like our open",
+      "start": 304.28,
+      "duration": 6.919
+    },
+    {
+      "text": "AI, our anthropic, are they working on",
+      "start": 307.84,
+      "duration": 5.12
+    },
+    {
+      "text": "this? Sure. Is Deep Mind at Google",
+      "start": 311.199,
+      "duration": 3.321
+    },
+    {
+      "text": "working on this?",
+      "start": 312.96,
+      "duration": 3.679
+    },
+    {
+      "text": "Absolutely. Does that mean that we're",
+      "start": 314.52,
+      "duration": 5.16
+    },
+    {
+      "text": "going to have 100% no hallucination",
+      "start": 316.639,
+      "duration": 5.201
+    },
+    {
+      "text": "models next year? I guarantee you we",
+      "start": 319.68,
+      "duration": 5.12
+    },
+    {
+      "text": "will not. And I also just about",
+      "start": 321.84,
+      "duration": 4.88
+    },
+    {
+      "text": "guarantee you it won't matter. It won't",
+      "start": 324.8,
+      "duration": 3.6
+    },
+    {
+      "text": "matter for real work. It's going to",
+      "start": 326.72,
+      "duration": 4.24
+    },
+    {
+      "text": "matter enormously for public perception",
+      "start": 328.4,
+      "duration": 6.0
+    },
+    {
+      "text": "because we are trained to assume that",
+      "start": 330.96,
+      "duration": 6.72
+    },
+    {
+      "text": "computers must be perfect because",
+      "start": 334.4,
+      "duration": 5.12
+    },
+    {
+      "text": "everything we've had in computers for",
+      "start": 337.68,
+      "duration": 4.0
+    },
+    {
+      "text": "100 years, well not 100 years, call it",
+      "start": 339.52,
+      "duration": 5.28
+    },
+    {
+      "text": "60 years, has been deterministic",
+      "start": 341.68,
+      "duration": 4.72
+    },
+    {
+      "text": "computing.",
+      "start": 344.8,
+      "duration": 4.64
+    },
+    {
+      "text": "It has been programs that if a plus b",
+      "start": 346.4,
+      "duration": 5.519
+    },
+    {
+      "text": "equals c then whatever right like it's",
+      "start": 349.44,
+      "duration": 4.68
+    },
+    {
+      "text": "all mathematics it's",
+      "start": 351.919,
+      "duration": 4.56
+    },
+    {
+      "text": "algorithmic everything is determined in",
+      "start": 354.12,
+      "duration": 4.84
+    },
+    {
+      "text": "the program when it runs and so we can",
+      "start": 356.479,
+      "duration": 3.881
+    },
+    {
+      "text": "expect",
+      "start": 358.96,
+      "duration": 4.16
+    },
+    {
+      "text": "perfection and all of our movies say the",
+      "start": 360.36,
+      "duration": 5.72
+    },
+    {
+      "text": "same thing. None of us are ready for an",
+      "start": 363.12,
+      "duration": 5.359
+    },
+    {
+      "text": "AI where we taught the rocks to think",
+      "start": 366.08,
+      "duration": 5.44
+    },
+    {
+      "text": "and they turn out to be poetic dreamers.",
+      "start": 368.479,
+      "duration": 6.481
+    },
+    {
+      "text": "We're just not ready for that.",
+      "start": 371.52,
+      "duration": 5.76
+    },
+    {
+      "text": "And the fact that the the like AI",
+      "start": 374.96,
+      "duration": 4.64
+    },
+    {
+      "text": "doesn't inherently have a factual world",
+      "start": 377.28,
+      "duration": 5.24
+    },
+    {
+      "text": "model. The fact that we can talk about a",
+      "start": 379.6,
+      "duration": 5.76
+    },
+    {
+      "text": "1.5% error rate in certain hallucination",
+      "start": 382.52,
+      "duration": 6.64
+    },
+    {
+      "text": "tests for chat GPT 4.5 is a freaking",
+      "start": 385.36,
+      "duration": 6.04
+    },
+    {
+      "text": "miracle. I I am",
+      "start": 389.16,
+      "duration": 5.64
+    },
+    {
+      "text": "astonished. These things they dream.",
+      "start": 391.4,
+      "duration": 5.72
+    },
+    {
+      "text": "They come up with probabilistic tokens",
+      "start": 394.8,
+      "duration": 3.839
+    },
+    {
+      "text": "that they think match what you're",
+      "start": 397.12,
+      "duration": 4.32
+    },
+    {
+      "text": "looking for. They have no factual world",
+      "start": 398.639,
+      "duration": 5.441
+    },
+    {
+      "text": "model underneath. It's amazing they get",
+      "start": 401.44,
+      "duration": 5.08
+    },
+    {
+      "text": "anything right at all. It's kind of",
+      "start": 404.08,
+      "duration": 5.239
+    },
+    {
+      "text": "incredible. And so within that",
+      "start": 406.52,
+      "duration": 5.0
+    },
+    {
+      "text": "world, yeah, I do think we need to",
+      "start": 409.319,
+      "duration": 4.681
+    },
+    {
+      "text": "baseline on humans more. I do think we",
+      "start": 411.52,
+      "duration": 4.48
+    },
+    {
+      "text": "need to take seriously the fact that",
+      "start": 414.0,
+      "duration": 3.6
+    },
+    {
+      "text": "they do work. And I think that we need",
+      "start": 416.0,
+      "duration": 4.28
+    },
+    {
+      "text": "to come up with better answers as an",
+      "start": 417.6,
+      "duration": 6.64
+    },
+    {
+      "text": "industry for people who say all it does",
+      "start": 420.28,
+      "duration": 6.759
+    },
+    {
+      "text": "is lie. All it does is make stuff up.",
+      "start": 424.24,
+      "duration": 5.2
+    },
+    {
+      "text": "It's re and by the way the people who do",
+      "start": 427.039,
+      "duration": 4.801
+    },
+    {
+      "text": "that tend to be quite unreliable",
+      "start": 429.44,
+      "duration": 4.96
+    },
+    {
+      "text": "narrators themselves. I have never heard",
+      "start": 431.84,
+      "duration": 5.04
+    },
+    {
+      "text": "that kind of aggressive contrarian take",
+      "start": 434.4,
+      "duration": 5.359
+    },
+    {
+      "text": "from someone who isn't to some degree",
+      "start": 436.88,
+      "duration": 5.12
+    },
+    {
+      "text": "personally threatened by AI and needing",
+      "start": 439.759,
+      "duration": 5.041
+    },
+    {
+      "text": "to denigrate it. So there is absolutely",
+      "start": 442.0,
+      "duration": 5.68
+    },
+    {
+      "text": "a leading edge of change here. People",
+      "start": 444.8,
+      "duration": 5.04
+    },
+    {
+      "text": "who are worried about their jobs, people",
+      "start": 447.68,
+      "duration": 3.76
+    },
+    {
+      "text": "who are worried about what will happen",
+      "start": 449.84,
+      "duration": 3.68
+    },
+    {
+      "text": "to their work are going to be more",
+      "start": 451.44,
+      "duration": 4.159
+    },
+    {
+      "text": "likely to denigrate AI. And do I have a",
+      "start": 453.52,
+      "duration": 4.239
+    },
+    {
+      "text": "study for that? I will admit frankly I",
+      "start": 455.599,
+      "duration": 3.521
+    },
+    {
+      "text": "don't. That is based on me having",
+      "start": 457.759,
+      "duration": 3.681
+    },
+    {
+      "text": "conversations with hundreds of people.",
+      "start": 459.12,
+      "duration": 4.359
+    },
+    {
+      "text": "It's just something I've",
+      "start": 461.44,
+      "duration": 4.319
+    },
+    {
+      "text": "observed. So where does that leave us?",
+      "start": 463.479,
+      "duration": 5.761
+    },
+    {
+      "text": "At the end of the day",
+      "start": 465.759,
+      "duration": 6.801
+    },
+    {
+      "text": "AI is going to get to a point, in fact",
+      "start": 469.24,
+      "duration": 5.959
+    },
+    {
+      "text": "arguably is already crossing the line",
+      "start": 472.56,
+      "duration": 5.44
+    },
+    {
+      "text": "where it is more reliable in most fields",
+      "start": 475.199,
+      "duration": 3.961
+    },
+    {
+      "text": "than most",
+      "start": 478.0,
+      "duration": 4.479
+    },
+    {
+      "text": "humans. At which point we should stop",
+      "start": 479.16,
+      "duration": 5.159
+    },
+    {
+      "text": "worrying so much about hallucination for",
+      "start": 482.479,
+      "duration": 3.44
+    },
+    {
+      "text": "AI and logically worry about",
+      "start": 484.319,
+      "duration": 3.921
+    },
+    {
+      "text": "hallucination for ourselves. And we're",
+      "start": 485.919,
+      "duration": 4.481
+    },
+    {
+      "text": "not. And the reason why we're not is",
+      "start": 488.24,
+      "duration": 4.799
+    },
+    {
+      "text": "pretty simple. It's the same reason why",
+      "start": 490.4,
+      "duration": 5.199
+    },
+    {
+      "text": "Whimo vehicles are not more popular even",
+      "start": 493.039,
+      "duration": 4.641
+    },
+    {
+      "text": "though they're vastly safer. It's the",
+      "start": 495.599,
+      "duration": 3.6
+    },
+    {
+      "text": "same reason why we haven't outlawed",
+      "start": 497.68,
+      "duration": 3.359
+    },
+    {
+      "text": "human driving in the US even though",
+      "start": 499.199,
+      "duration": 4.56
+    },
+    {
+      "text": "statistically speaking in US testing,",
+      "start": 501.039,
+      "duration": 4.56
+    },
+    {
+      "text": "automated driving is already so much",
+      "start": 503.759,
+      "duration": 3.681
+    },
+    {
+      "text": "safer it costs lives to keep human",
+      "start": 505.599,
+      "duration": 3.921
+    },
+    {
+      "text": "drivers on the road. And I say the US",
+      "start": 507.44,
+      "duration": 3.28
+    },
+    {
+      "text": "because that's where it's been tested.",
+      "start": 509.52,
+      "duration": 2.639
+    },
+    {
+      "text": "It's probably true everywhere else in",
+      "start": 510.72,
+      "duration": 4.199
+    },
+    {
+      "text": "the world, too. We are a stubborn,",
+      "start": 512.159,
+      "duration": 5.8
+    },
+    {
+      "text": "stubborn race. We are a stubborn",
+      "start": 514.919,
+      "duration": 6.12
+    },
+    {
+      "text": "species. We do not easily give up on",
+      "start": 517.959,
+      "duration": 4.601
+    },
+    {
+      "text": "something we think is true. We think",
+      "start": 521.039,
+      "duration": 3.761
+    },
+    {
+      "text": "humans should drive. I do not see that",
+      "start": 522.56,
+      "duration": 3.68
+    },
+    {
+      "text": "disappearing anytime soon, even though",
+      "start": 524.8,
+      "duration": 2.84
+    },
+    {
+      "text": "that kills",
+      "start": 526.24,
+      "duration": 5.2
+    },
+    {
+      "text": "people. We think AI hallucinates. I",
+      "start": 527.64,
+      "duration": 6.199
+    },
+    {
+      "text": "don't think that belief is disappearing.",
+      "start": 531.44,
+      "duration": 5.44
+    },
+    {
+      "text": "even though it is demonstrabably easily",
+      "start": 533.839,
+      "duration": 5.721
+    },
+    {
+      "text": "obviously proved to be an unhelpful",
+      "start": 536.88,
+      "duration": 5.2
+    },
+    {
+      "text": "belief. But we have to try we have to",
+      "start": 539.56,
+      "duration": 4.279
+    },
+    {
+      "text": "try and explain to people what really",
+      "start": 542.08,
+      "duration": 3.439
+    },
+    {
+      "text": "matters here. We have to do our best to",
+      "start": 543.839,
+      "duration": 3.761
+    },
+    {
+      "text": "educate. And this is a challenge for all",
+      "start": 545.519,
+      "duration": 4.401
+    },
+    {
+      "text": "of us in the industry. And I just I got",
+      "start": 547.6,
+      "duration": 3.679
+    },
+    {
+      "text": "so tired of hearing about",
+      "start": 549.92,
+      "duration": 3.44
+    },
+    {
+      "text": "hallucinations. I just I wrote a giant",
+      "start": 551.279,
+      "duration": 4.881
+    },
+    {
+      "text": "Substack on it. I did this. Like, we've",
+      "start": 553.36,
+      "duration": 5.52
+    },
+    {
+      "text": "got to be able to",
+      "start": 556.16,
+      "duration": 2.72
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "0IxUJJCBkPI",
+    "title": "We have a problem with AI and hallucinations\u2014and not what you think",
+    "description": "My site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways:\n 1. Overhyped Hallucinations: Many people fixate on AI \u201challucinations,\u201d yet I argue that these errors are overblown compared to the massive productivity benefits AI delivers.\n 2. Context Is Key: The error rate varies dramatically based on the task, proving that careful, clear prompting significantly reduces mistakes.\n 3. Human-AI Comparison: We hold AI to an unrealistic standard\u2014expecting perfection\u2014while human work naturally includes errors.\n 4. Credibility Overhang: Early high-profile mistakes have skewed public perception, despite the proven reliability of models like ChatGPT, Claude, and Gemini.\n 5. Best Practices Matter: Structuring tasks and specifying sources are essential strategies to mitigate hallucinations.\n 6. Shifting Paradigms: AI has crossed an important threshold and is now a practical work tool, deserving updated public trust.\n\nQuotes:\n\u201cWe have a different bar for AI than we have for humans.\u201d\n\u201cIt is no longer just a play thing. It is something we can do work with.\u201d\n\u201cAt the end of the day, AI is going to get to a point, in fact, arguably is already crossing the line, where it is more reliable in most fields than most humans.\u201d\n\nSummary:\nIn my discussion, I addressed the persistent concern over AI hallucinations and argued that these errors are overemphasized compared to the practical benefits AI provides. I explained that while hallucinations exist, careful prompting and context can drastically reduce their impact. I emphasized that we hold AI to a different standard than humans, expecting perfection despite its rapid, valuable output. I shared my experiences with models like ChatGPT, Claude, and Gemini, highlighting that AI has crossed a significant threshold into being a reliable work tool. I urged a shift in public perception and best practices for utilizing AI in real-world tasks.\n\nKeywords:\nAI hallucinations, ChatGPT, credibility, context, reliability, human-AI comparison, best practices, public perception, Claude, Gemini",
+    "published_at": "2025-03-20T03:21:34Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT9M18S",
+    "duration_seconds": 558,
+    "view_count": 6105,
+    "like_count": 435,
+    "comment_count": 170,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/0IxUJJCBkPI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/0IxUJJCBkPI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/0IxUJJCBkPI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/0IxUJJCBkPI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/0IxUJJCBkPI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:45.837627",
+    "all_urls": [
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.115902"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai hallucinations and credibility: using language models effectively\",\n  \"tags\": [\"ai-hallucinations\", \"model-reliability\", \"prompt-engineering\", \"ai-credibility\", \"human-vs-ai-comparison\"],\n  \"summary\": \"Discussion of AI hallucinations, model reliability, and practical strategies for using language models while acknowledging limitations and the impact on public perception.\"\n}",
+      "generated_at": "2025-11-10T00:09:37.412492",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

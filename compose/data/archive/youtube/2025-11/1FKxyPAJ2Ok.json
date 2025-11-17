@@ -1,0 +1,3292 @@
+{
+  "video_id": "1FKxyPAJ2Ok",
+  "url": "https://www.youtube.com/watch?v=1FKxyPAJ2Ok",
+  "fetched_at": "2025-11-09T22:26:07.104189",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:26:07.104189",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Nate, when do I use AI? When do I use AI agents? I get that question a lot. This video is for you. If you've ever wondered, how do I know when to use agents? How do I know when to use generative AI and large language models? This is going to show you. We're going to go through the four different categories that you can choose between when you make decisions about data and insights. We're going to give you a concrete decision framework. We're going to give you the principles to work with so you understand how to recognize these problems elsewhere. And I'm even going to give you scripts so that you can understand if if an investor if your boss is pushing on you for a solution that you know won't work. How do you push back in a way that makes sense? First step, let's understand the four categories we're working with. Number one, plain old data processing. It's not new. It's not fancy. It's not AI. It's the simplest possible thing. Data cleaning, aggregating it up, building simple reports. If you just need to get a very simple sales report and you're aggregating up the clients and the regions and over a particular time period, that kind of thing, do not use AI. Repeat after me, don't use AI. Don't use agents. Don't use generative AI. Don't believe anyone who tells you to do that. If you're on an e-commerce site and you just need to look at your payment volumes over the last quarter, don't use AI. If you just need to understand how many SKs you have for sale, don't use AI. Are you getting the idea? If it is the kind of thing where you could write it out as a math problem, x + y= z, don't use ai. It's not worth it. It's going to be much more expensive. It's going to be less dependable. It's a waste of everybody's time. Let's go to bucket number two. Classical predictive machine learning. This one has almost disappeared because there's been so much hype around large language models. So, let's talk about what it actually is and where to use it so we don't lose the value. Because we put decades of work into developing classical machine learning. I've built classical machine learning systems myself at scale. It is important to understand where it is still valuable versus large language models, but almost nobody thinks about it because of the hype cycle, which is why we have to make videos like this. If you have rich historical data and you have a clear target variable to optimize against and you need something to predict that's very specific, like I want to predict seasonal Q4 demand or I want to detect fraud or I want to predict churn. Well, machine learning excels in taking patterns in structured data and pulling them to light when you have a clear goal like that. Now, this takes training data. It takes evaluation metrics. It takes monitoring. It's a little bit more complex than just running a SQL query. But if you want to predict next quarter sales based on past trends and promotions, a lot of people are using large language models for this. But the correct tool is not large language models. The correct tool is actually traditional machine learning. Traditional machine learning is designed for situations where you have structured data and a problem with a single variable you're optimizing toward. Let it do its job. Let it do its job. And you see the difference, right? I want to make sure you understand the difference. If you're doing very simple sums and reports and aggregations, that's not for machine learning. That's that plain old data processing category. If you want to predict the performance of a single variable and you have structured data, that's not large language models. That's not AI the way most people talk about it. It's machine learning or traditional artificial intelligence back before chat GBT generative AI or large language models. Now that's our third bucket. Let's say you have a data set that's mixed. You have some numbers. You have structured data. You have some text. Now you also need to generate text in the answer. Maybe you need to generate concrete summaries of the marketing quarterly report and you want to generate the text with that. Maybe you want to generate an image with that. The problem involves summarizing something that is not numeric necessarily. It involves translating things. It involves drafting content. It has a lot of words in it. Well, large language models are probably your best tool at this point for that. They're flexible, but you also have to take into account hallucinations, which I've talked about a fair bit, how you handle higher compute costs, and how you handle latency, which is like the unpredictable sort of gap in response time. So, if you want to autodraft customer support responses based on the text of the customer support manual, that is a great example of a large language model task. If you want to autogenerate product descriptions, that is a great example of a large language model task. And you can even do it if they're just looking at the image and they're writing the description based on the image. LLM tasks are characterized by wordiness. They're characterized by unstructured data and they often have multi-threaded output. So you're not optimizing for a single variable in a structured data set. You're actually trying to get multiple outputs. You might have an image output in some cases. You might have a text output in other cases. And you value that so highly that you are willing to put up with the risk of hallucinations and putting in guards to minimize that and all the investment that goes with that. In other words, generative AI is more expensive to build and maintain. So you have to do the math to decide that it's worth it. And we'll get into more of that ROI math later in this video. The fourth bucket is AI agents. It's the most complex bucket. That's why I put it fourth. Use it when tasks involve workflows. Dynamic multi-step workflows with clear decision points. That's critical for agents. Decision points where you can describe the criteria. You can describe the scope of decision and you can give the agent all the context it needs to make a good choice. Things like scheduling, follow-ups, data retrieval across systems all fall into the agent bucket. As an example, an agent that books conference rooms, notifies attendees, and adjust schedules when conflicts arise automatically. That's an AI agent problem. It's not traditional machine learning. It's also not generative AI. It's an agent problem. Agents can orchestrate complicated tasks autonomously, but you have to have very careful error handling. You have to have good observability so you can see what they did and you need to have humans who know how to debug them. So there's a human talent question with agents as well. It's worth thinking about though because as we've gone through these four buckets, what you should be thinking is leverage. These buckets are not linear. These buckets are disproportionate. There's a power law return here. If you get one x return on the simple x plus y plus c, the simple monthly sales by region, write a SQL query, you get it back, you get x return on solving it with a machine learning problem if it's machine learning susceptible. You get a 100x return on generative AI and you can get a x return on agents. Now those are somewhat illustrative. I'm not saying every single project falls exactly in that number. But in my experience and the experience of a lot of others who have implemented these in practice, that is how it works. These are not stairs. It's like a roller coaster to heaven, right? Like this is a crazy gain in leverage as you move up, but it's also a crazy gain in cost and maintenance. And you have to design the more advanced systems very intelligently and target them at the right problem, which is exactly why we have this video. Because you can imagine the expense, the cost of building a generative AI system, of building an agentic system against a problem set that didn't need it. What if you built an AI agent workflow to sum monthly sales by region? Is it possible? Yes, absolutely. Is it like bringing a bazooka to kill a fly? Yes, it is. It's ridiculously expensive. You don't need to do it and it would be a terrible waste to try and do it that way. And that brings me to the idea of the ladder. Pick the simplest solution on the ladder. Imagine these four rungs. You have just basic data operations. You have machine learning traditional. You have generative AI and then finally you have AI agents. Pick the lowest rung on the ladder you possibly can. And I'm going to show you how you kind of think that through. You could call this developing engineering taste, but it's not just for engineers. So many of these skills have been sequestered away and hidden in engineering uh conference rooms for too long. And I want to bring them out because they're not actually too technical and we really need them in the age of AI. So the first skill that you need to navigate this ladder correctly is to focus on pattern recognition over hype. Did you notice how I talk about the type of pattern? That is a skill you can learn to focus on problem structure, not on buzzwords. You can learn to ask, hey, what needs solving? Is this a decision that we need to solve for? Is it a prediction we need to solve for? Is it a generation we need to solve for? If it's a decision in a workflow, it might be an agent. If it's a prediction, well, that might be traditional machine learning. If it's a generation problem, that might be a large language model problem. If it's just a report, that might be traditional just data operations. That kind of thinking, that kind of sober focus on problem structure is going to help you resist the AI for everything temptation. Sometimes just having a SQL uh script that runs will solve almost your entire problem. And by the way, I said almost on purpose. Do not give in to the temptation to make something a generative AI project or an agent project if 5 or 10% of the value is coming from that agentic piece or that generative AI piece and most of the value is coming from SQL. If your boss says to you, I want a quarterly marketing report and I want it to have this fancy insight as to why we why why we performed the way we did and I want it to be in text and I want to have an illustration of our top selling product. You could look at that and say, \"Well, there's some stuff here that is generative AI.\" So, it's probably a generative AI problem or maybe it's a mixed problem where you use two or three runs on that ladder. I talked about data processing, generative AI, maybe even some prediction from machine learning. I would not look at it that way. Instead, I would look at it and say, why the heck do we need the picture? Why do we need the text? Don't we get the business value to make good decisions out of traditional data operations? If you get 90% of the value for 5% of the cost, the business should take that trade all day and you should be able to articulate that in dollars and cents very very clearly. It is worth asking where the leverage and the problem lies. That is my point. So think of the problem as a distribution and it's going to be distributed along the four legs of that ladder. If the problem is is going to be bumpy and like really skewed heavily toward one of the legs of the ladder, you should take that pretty seriously. You should say maybe this is fundamentally just a data operations problem because most of the problem value is there and maybe we should make the decision to cut the five or 10% of value you're talking about and make that a later choice and just do the thing that we can get away with now that is only one of the legs of that ladder. The simplest one you need to understand how to speak the language of costbenefit to make these kinds of claims because that's how executives speak. If your boss or your investor is telling you to invest in AI, the only way they will really hear you is if you come back with cost benefit. So start to learn how to talk about compute costs. Generative AI and agents are both extremely expensive in tokens. It is not cheap to run those pipelines. If you make a mistake with that architecture, you you can be out thousands, tens of thousands more. Machine learning is a lot cheaper, but does take expertise to set up and it's not free. And data processing is the cheapest of all. Almost anybody at this point with an engineering degree can set up a data processing pipeline without any kind of issue. Most of us who don't have engineering degrees can figure it out with Jad GPT. The maintenance version is also non-trivial and I want to call that out because the maintenance version you know how I talked about this idea of power law returns and this roller coaster that stretches up as a way of showing like how much uh well potentially fun but also how much excitement uh there is in some of the agentic use flow cases, the generative AI cases. The maintenance also scales with that. So if you have an agentic workflow that is going to have significantly more costs than a large language model workflow that is going to have significantly more costs again than a machine learning workflow which is still more expensive than a data pipeline workflow. It's not 1 2 3 4 costs. It's more like 1 2 48 costs. These costs get much more expensive. And part of why is that agents and LLM systems have to be maintained in production. Your leader who charges you with building these systems has to know that the dollars keep going out the door on time spent supporting these systems after they are launched. And so instead of thinking about an agent workflow like traditional software, you have to think about it as continually maintained almost like a little employee that you have to pay every month. The last thing I want to call out from a costbenefit perspective is time to value. As you would imagine with compute costs, with maintenance burden, it is increasingly complex as you move up the ladder and that takes increasing time and talent. And so if just about anybody can set up a data pipeline in a few days given the data and if you can get a data scientist to work with you on a machine learning model and that might take just a couple weeks if you have everything ready. Generative AI prototypes really vary. If it's out of box and it's super simple, it can be a couple hours. And if it's a full production pipeline, it's going to be multiple weeks, multiple weeks. It's not going to be easy. Often months, I know people who are at scale, who are building LLM pipelines that aren't agentic, still taking them months. This is not easy to do. Agents, if you're starting from scratch and you're a scrappy startup and you're wellunded in the valley, sure. Can you knock up some agents over the weekend? Absolutely. You have the right talent. you have a clean slate to work with. If you're an existing company and you're trying to get this done, it is even harder than LLMs. It is quite difficult to do well and quite difficult to sustain well and you have to recruit the talent for it. The months stretch out into 6 months or more very, very quickly. And it's your job if you are given this assignment or asked to do a project that involves AI to find a way to articulate that and explain it to find a way to say yeah we could do this with agents but it seems like what you're really optimizing for is just getting the data into a report and there could be a simpler way to get you that value much much faster. we can find another use for AI so that you can tell the board right so in sum if you have someone coming to you or if you're asking the question when do I use AI when do I use agents before proposing AI identify the simplest nonAI solution evaluate whether AI measurably improves the accuracy speed or user experience against that solution and by measurably I mean it has to significantly improve my rule of thumb with using a large language model or an agentic workflow is that if it isn't 10x versus the baseline, it probably isn't worth it because there's adoption, there's talent, there's systems to maintain. And so 10x is my rule of thumb. And if you don't hit that, stick with a simpler approach. It's worth it. So I want to suggest to you that there are a few scripts that you can use if you get stuck with leaders who are just not believing you that will help you to work through this. And then we're going to get at the end of the video into some sort of contrarian insights, things that kind of go deeper. But before we do, just to like sum up this piece around costbenefit and communication. Here's how you answer. Let's say your VP says, \"We need to use chat GPT for our report.\" Common. I've seen it happen. You could say this. Hey, uh, thanks for asking. I researched three different approaches for uh, the report problem with a data pipeline. Uh, it's going to take us 2 days to set it up. Uh, it's going to cost us like 200 bucks and we're going to have 100% accuracy on our known metrics. You can have it by Friday. If we used a machine learning model, which is not AI, Mr. VP. That's going to be 2 and 1/2 weeks with our data science team, push back another project. I suspect we'll get to 80% accuracy on prediction initially and have to work up from there. Uh total cost, I want to say $15,000 maybe. If it's generative AI and uh it's a large language model prototype, I would guess out of the gate that you're going to have inaccuracies across all of your key metrics initially. It will take us a few days to get it set up and it will take us probably three or four months to root out enough of the hallucinations to make the report really worthwhile. I would recommend option one because we can get reliable results by Friday and it's the cheapest overall. If we really need predictive insights, we can add that machine learning model as a fast follow. You see how that's something that speaks executive. It talks cost. It talks time. It doesn't say no directly. It actually just reframes the problem and helps them understand what's going on. Okay, now let's get to some of the contrarian insights that you need to have in your head when you're facing these when do I use agents, when do I use AI problems. Number one, data quality is going to beat model complexity every time. Garbage in, garbage out, right? If you are introducing AI and you have bad data, you are pouring money down the drain and lighting it on fire. Fix your data pipelines before reaching for models. And if you have great quality data, you can use cheaper and cheaper and cheaper models. Make sure you take advantage of your data quality. And if you don't have data quality, make sure you make that a priority and fix it. You do get real leverage from that fix. That is how you unlock the 100x,000x use cases cuz agents also struggle with it if the data is bad quality. Number two, boring solutions when a clear, well-designed BI dashboard that just works outperforms a fancy AI model that nobody understands and that can't be audited. I love AI. AI has a lot of use cases, but I have seen too often now that we're in this sort of hype cycle for AI, people are throwing out the boring solutions that work. Don't do that. Don't be that person. Find ways to reframe like the sort of narrative that we talked about. Number three, human in the loop first. When you're deploying LLM, when you're deploying agents, start by surfacing suggestions for humans to vet, build trust, gather feedback, and then automate. Now, if you're a startup and you have nothing to lose, sure, give it a shot. See if you can automate it and make it work in a weekend. If you're a company with stakes, you have to take seriously the idea that humans need to be involved from the beginning and helping to get the model to a place where it works. And you need to assume that cost. Who's going to staff for that? Who's going to pay for that? How long are you going to use the humans? How do you know if the humans are able to transition to AI systems? You know, one of the dirty secrets in AI is that sometimes it never makes it and then there's a scandal. So, for example, in the Amazon just walk out checkout stores, the company would trumpet that it was AI that they were using, but the reality was it was people looking through the cameras, checking all the work because they were never able to transition out of humans in the loop. AI is hard. Don't believe every pressed release you see. Look at whether you can reasonably hand off human work to AI. Sometimes you can. There are real wins out there, but think about it and make an intentional plan and benchmark yourself and see if you're actually able to successfully do it. This comes down to scoping the problem very very precisely around the value you intend to deliver. Number four, ROI focused. Don't think about the feature list. Remember when I said earlier in this video that you want to mentally assess the problem space and look at where the value is spiky against that ladder, whether that's simple data operations or machine learning or generative AI or agents. Focus on that value piece. The feature lists will spread out all over the place. If you focus on feature lists, you're going to be extremely inefficient. Focus on where the leverage is. Focus on the value and frame AI as a means to specific business outcomes. It should deliver reduced costs, faster decisions. It should deliver better customer satisfaction. The point is not AI itself. The point is the value it delivers. And so if you need to push back when someone makes the case that you should use an AI agent and you have used this framework and you know you shouldn't, push back on ROI. push back and say, I want to deliver reduced costs and this isn't going to do that. I want to make sure that we make good decisions to actually improve customer satisfaction, and this agent workflow is not going to do that on the timeline you need. So, let's close with a 30-se secondond decision tree that will help you the next time you face this. Does the problem have deterministic rules? It's a data processing problem. Does the problem need to predict an outcome? It's a traditional machine learning problem. Does the problem need to generate novel tokens, novel words, novel content, generative AI, large language models? Finally, do we need a workflow with autonomous decisions and multi-step orchestration? That's an agent's problem. The cross cutting factor here is talent. As you go up these four, the talent needs get bigger. The same person that can do data processing usually can't do autonomous multi-step orchestration with agents, not a production scale. So you have to have to also be aware of how to advocate for the talent that you need in order to deliver against these outcomes. It is not fair to ask an engineer who has never worked with large language models to immediately build an autonomous multi-step orchestration agent that handles 95% of customer service tickets. That is unlikely to go well and the companies that tend to ask for that are setting themselves up for grief. I hope this has been helpful. My goal for you has been to help you to develop a sense of taste by focusing on problem structure, not problem hype and not solution hype in AI. To start simple, remember to climb the complexity ladder as you go. To make sure you frame things in terms of ROI, that's going to help executives to really make sense of what you're saying. To build trust first, which by the way is one of the underlying themes all the way through. You have to build trust with your executive by speaking their language. You have to build trust with yourself when you're making your decisions by making decisions that actually lead to sustainable software. You have to build trust with your customers by making sure that you focus on quality for them and use the right tool. Data pipelines, machine learning, generative AI, and agents each have their place. You need to know when to pick up the right tool in the toolbox. I hope that this video has given you a sense of the kinds of problems that are susceptible to agents, the kinds of problems that are susceptible to generative AI, and the frankly fairly wide class of problems that isn't either of those things and that we still have in business today and that still needs a good solution. Good luck out there.",
+  "timed_transcript": [
+    {
+      "text": "Nate, when do I use AI? When do I use AI",
+      "start": 0.16,
+      "duration": 4.88
+    },
+    {
+      "text": "agents? I get that question a lot. This",
+      "start": 2.879,
+      "duration": 3.841
+    },
+    {
+      "text": "video is for you. If you've ever",
+      "start": 5.04,
+      "duration": 4.479
+    },
+    {
+      "text": "wondered, how do I know when to use",
+      "start": 6.72,
+      "duration": 4.56
+    },
+    {
+      "text": "agents? How do I know when to use",
+      "start": 9.519,
+      "duration": 4.0
+    },
+    {
+      "text": "generative AI and large language models?",
+      "start": 11.28,
+      "duration": 3.68
+    },
+    {
+      "text": "This is going to show you. We're going",
+      "start": 13.519,
+      "duration": 3.52
+    },
+    {
+      "text": "to go through the four different",
+      "start": 14.96,
+      "duration": 3.76
+    },
+    {
+      "text": "categories that you can choose between",
+      "start": 17.039,
+      "duration": 3.681
+    },
+    {
+      "text": "when you make decisions about data and",
+      "start": 18.72,
+      "duration": 3.44
+    },
+    {
+      "text": "insights. We're going to give you a",
+      "start": 20.72,
+      "duration": 2.88
+    },
+    {
+      "text": "concrete decision framework. We're going",
+      "start": 22.16,
+      "duration": 3.119
+    },
+    {
+      "text": "to give you the principles to work with",
+      "start": 23.6,
+      "duration": 3.439
+    },
+    {
+      "text": "so you understand how to recognize these",
+      "start": 25.279,
+      "duration": 3.201
+    },
+    {
+      "text": "problems elsewhere. And I'm even going",
+      "start": 27.039,
+      "duration": 3.521
+    },
+    {
+      "text": "to give you scripts so that you can",
+      "start": 28.48,
+      "duration": 4.0
+    },
+    {
+      "text": "understand if if an investor if your",
+      "start": 30.56,
+      "duration": 3.6
+    },
+    {
+      "text": "boss is pushing on you for a solution",
+      "start": 32.48,
+      "duration": 3.36
+    },
+    {
+      "text": "that you know won't work. How do you",
+      "start": 34.16,
+      "duration": 3.36
+    },
+    {
+      "text": "push back in a way that makes sense?",
+      "start": 35.84,
+      "duration": 3.28
+    },
+    {
+      "text": "First step, let's understand the four",
+      "start": 37.52,
+      "duration": 3.44
+    },
+    {
+      "text": "categories we're working with. Number",
+      "start": 39.12,
+      "duration": 4.8
+    },
+    {
+      "text": "one, plain old data processing. It's not",
+      "start": 40.96,
+      "duration": 5.439
+    },
+    {
+      "text": "new. It's not fancy. It's not AI. It's",
+      "start": 43.92,
+      "duration": 4.479
+    },
+    {
+      "text": "the simplest possible thing. Data",
+      "start": 46.399,
+      "duration": 4.081
+    },
+    {
+      "text": "cleaning, aggregating it up, building",
+      "start": 48.399,
+      "duration": 4.0
+    },
+    {
+      "text": "simple reports. If you just need to get",
+      "start": 50.48,
+      "duration": 3.84
+    },
+    {
+      "text": "a very simple sales report and you're",
+      "start": 52.399,
+      "duration": 4.241
+    },
+    {
+      "text": "aggregating up the clients and the",
+      "start": 54.32,
+      "duration": 4.239
+    },
+    {
+      "text": "regions and over a particular time",
+      "start": 56.64,
+      "duration": 5.439
+    },
+    {
+      "text": "period, that kind of thing, do not use",
+      "start": 58.559,
+      "duration": 6.481
+    },
+    {
+      "text": "AI. Repeat after me, don't use AI. Don't",
+      "start": 62.079,
+      "duration": 4.801
+    },
+    {
+      "text": "use agents. Don't use generative AI.",
+      "start": 65.04,
+      "duration": 3.28
+    },
+    {
+      "text": "Don't believe anyone who tells you to do",
+      "start": 66.88,
+      "duration": 2.88
+    },
+    {
+      "text": "that. If you're on an e-commerce site",
+      "start": 68.32,
+      "duration": 2.72
+    },
+    {
+      "text": "and you just need to look at your",
+      "start": 69.76,
+      "duration": 3.039
+    },
+    {
+      "text": "payment volumes over the last quarter,",
+      "start": 71.04,
+      "duration": 4.32
+    },
+    {
+      "text": "don't use AI. If you just need to",
+      "start": 72.799,
+      "duration": 4.881
+    },
+    {
+      "text": "understand how many SKs you have for",
+      "start": 75.36,
+      "duration": 4.24
+    },
+    {
+      "text": "sale, don't use AI. Are you getting the",
+      "start": 77.68,
+      "duration": 4.079
+    },
+    {
+      "text": "idea? If it is the kind of thing where",
+      "start": 79.6,
+      "duration": 3.6
+    },
+    {
+      "text": "you could write it out as a math",
+      "start": 81.759,
+      "duration": 6.641
+    },
+    {
+      "text": "problem, x + y= z, don't use ai. It's",
+      "start": 83.2,
+      "duration": 6.959
+    },
+    {
+      "text": "not worth it. It's going to be much more",
+      "start": 88.4,
+      "duration": 2.96
+    },
+    {
+      "text": "expensive. It's going to be less",
+      "start": 90.159,
+      "duration": 3.361
+    },
+    {
+      "text": "dependable. It's a waste of everybody's",
+      "start": 91.36,
+      "duration": 4.079
+    },
+    {
+      "text": "time. Let's go to bucket number two.",
+      "start": 93.52,
+      "duration": 3.68
+    },
+    {
+      "text": "Classical predictive machine learning.",
+      "start": 95.439,
+      "duration": 3.441
+    },
+    {
+      "text": "This one has almost disappeared because",
+      "start": 97.2,
+      "duration": 3.44
+    },
+    {
+      "text": "there's been so much hype around large",
+      "start": 98.88,
+      "duration": 3.44
+    },
+    {
+      "text": "language models. So, let's talk about",
+      "start": 100.64,
+      "duration": 3.839
+    },
+    {
+      "text": "what it actually is and where to use it",
+      "start": 102.32,
+      "duration": 4.159
+    },
+    {
+      "text": "so we don't lose the value. Because we",
+      "start": 104.479,
+      "duration": 3.761
+    },
+    {
+      "text": "put decades of work into developing",
+      "start": 106.479,
+      "duration": 3.28
+    },
+    {
+      "text": "classical machine learning. I've built",
+      "start": 108.24,
+      "duration": 3.12
+    },
+    {
+      "text": "classical machine learning systems",
+      "start": 109.759,
+      "duration": 4.241
+    },
+    {
+      "text": "myself at scale. It is important to",
+      "start": 111.36,
+      "duration": 4.399
+    },
+    {
+      "text": "understand where it is still valuable",
+      "start": 114.0,
+      "duration": 4.079
+    },
+    {
+      "text": "versus large language models, but almost",
+      "start": 115.759,
+      "duration": 3.761
+    },
+    {
+      "text": "nobody thinks about it because of the",
+      "start": 118.079,
+      "duration": 3.04
+    },
+    {
+      "text": "hype cycle, which is why we have to make",
+      "start": 119.52,
+      "duration": 3.199
+    },
+    {
+      "text": "videos like this. If you have rich",
+      "start": 121.119,
+      "duration": 3.441
+    },
+    {
+      "text": "historical data and you have a clear",
+      "start": 122.719,
+      "duration": 4.4
+    },
+    {
+      "text": "target variable to optimize against and",
+      "start": 124.56,
+      "duration": 3.919
+    },
+    {
+      "text": "you need something to predict that's",
+      "start": 127.119,
+      "duration": 3.12
+    },
+    {
+      "text": "very specific, like I want to predict",
+      "start": 128.479,
+      "duration": 4.4
+    },
+    {
+      "text": "seasonal Q4 demand or I want to detect",
+      "start": 130.239,
+      "duration": 5.521
+    },
+    {
+      "text": "fraud or I want to predict churn. Well,",
+      "start": 132.879,
+      "duration": 5.601
+    },
+    {
+      "text": "machine learning excels in taking",
+      "start": 135.76,
+      "duration": 4.88
+    },
+    {
+      "text": "patterns in structured data and pulling",
+      "start": 138.48,
+      "duration": 3.759
+    },
+    {
+      "text": "them to light when you have a clear goal",
+      "start": 140.64,
+      "duration": 3.28
+    },
+    {
+      "text": "like that. Now, this takes training",
+      "start": 142.239,
+      "duration": 3.681
+    },
+    {
+      "text": "data. It takes evaluation metrics. It",
+      "start": 143.92,
+      "duration": 3.84
+    },
+    {
+      "text": "takes monitoring. It's a little bit more",
+      "start": 145.92,
+      "duration": 3.92
+    },
+    {
+      "text": "complex than just running a SQL query.",
+      "start": 147.76,
+      "duration": 3.68
+    },
+    {
+      "text": "But if you want to predict next quarter",
+      "start": 149.84,
+      "duration": 3.2
+    },
+    {
+      "text": "sales based on past trends and",
+      "start": 151.44,
+      "duration": 3.76
+    },
+    {
+      "text": "promotions, a lot of people are using",
+      "start": 153.04,
+      "duration": 3.919
+    },
+    {
+      "text": "large language models for this. But the",
+      "start": 155.2,
+      "duration": 3.679
+    },
+    {
+      "text": "correct tool is not large language",
+      "start": 156.959,
+      "duration": 4.0
+    },
+    {
+      "text": "models. The correct tool is actually",
+      "start": 158.879,
+      "duration": 3.521
+    },
+    {
+      "text": "traditional machine learning.",
+      "start": 160.959,
+      "duration": 4.801
+    },
+    {
+      "text": "Traditional machine learning is designed",
+      "start": 162.4,
+      "duration": 5.28
+    },
+    {
+      "text": "for situations where you have structured",
+      "start": 165.76,
+      "duration": 4.16
+    },
+    {
+      "text": "data and a problem with a single",
+      "start": 167.68,
+      "duration": 4.32
+    },
+    {
+      "text": "variable you're optimizing toward. Let",
+      "start": 169.92,
+      "duration": 4.64
+    },
+    {
+      "text": "it do its job. Let it do its job. And",
+      "start": 172.0,
+      "duration": 4.0
+    },
+    {
+      "text": "you see the difference, right? I want to",
+      "start": 174.56,
+      "duration": 2.72
+    },
+    {
+      "text": "make sure you understand the difference.",
+      "start": 176.0,
+      "duration": 3.28
+    },
+    {
+      "text": "If you're doing very simple sums and",
+      "start": 177.28,
+      "duration": 4.48
+    },
+    {
+      "text": "reports and aggregations, that's not for",
+      "start": 179.28,
+      "duration": 4.08
+    },
+    {
+      "text": "machine learning. That's that plain old",
+      "start": 181.76,
+      "duration": 3.759
+    },
+    {
+      "text": "data processing category. If you want to",
+      "start": 183.36,
+      "duration": 3.92
+    },
+    {
+      "text": "predict the performance of a single",
+      "start": 185.519,
+      "duration": 3.601
+    },
+    {
+      "text": "variable and you have structured data,",
+      "start": 187.28,
+      "duration": 3.679
+    },
+    {
+      "text": "that's not large language models. That's",
+      "start": 189.12,
+      "duration": 3.759
+    },
+    {
+      "text": "not AI the way most people talk about",
+      "start": 190.959,
+      "duration": 4.0
+    },
+    {
+      "text": "it. It's machine learning or traditional",
+      "start": 192.879,
+      "duration": 4.72
+    },
+    {
+      "text": "artificial intelligence back before chat",
+      "start": 194.959,
+      "duration": 5.28
+    },
+    {
+      "text": "GBT generative AI or large language",
+      "start": 197.599,
+      "duration": 4.64
+    },
+    {
+      "text": "models. Now that's our third bucket.",
+      "start": 200.239,
+      "duration": 4.481
+    },
+    {
+      "text": "Let's say you have a data set that's",
+      "start": 202.239,
+      "duration": 4.481
+    },
+    {
+      "text": "mixed. You have some numbers. You have",
+      "start": 204.72,
+      "duration": 4.32
+    },
+    {
+      "text": "structured data. You have some text. Now",
+      "start": 206.72,
+      "duration": 4.0
+    },
+    {
+      "text": "you also need to generate text in the",
+      "start": 209.04,
+      "duration": 3.44
+    },
+    {
+      "text": "answer. Maybe you need to generate",
+      "start": 210.72,
+      "duration": 5.2
+    },
+    {
+      "text": "concrete summaries of the marketing",
+      "start": 212.48,
+      "duration": 4.88
+    },
+    {
+      "text": "quarterly report and you want to",
+      "start": 215.92,
+      "duration": 3.039
+    },
+    {
+      "text": "generate the text with that. Maybe you",
+      "start": 217.36,
+      "duration": 3.599
+    },
+    {
+      "text": "want to generate an image with that. The",
+      "start": 218.959,
+      "duration": 3.84
+    },
+    {
+      "text": "problem involves summarizing something",
+      "start": 220.959,
+      "duration": 5.041
+    },
+    {
+      "text": "that is not numeric necessarily. It",
+      "start": 222.799,
+      "duration": 4.881
+    },
+    {
+      "text": "involves translating things. It involves",
+      "start": 226.0,
+      "duration": 3.599
+    },
+    {
+      "text": "drafting content. It has a lot of words",
+      "start": 227.68,
+      "duration": 4.4
+    },
+    {
+      "text": "in it. Well, large language models are",
+      "start": 229.599,
+      "duration": 3.761
+    },
+    {
+      "text": "probably your best tool at this point",
+      "start": 232.08,
+      "duration": 3.519
+    },
+    {
+      "text": "for that. They're flexible, but you also",
+      "start": 233.36,
+      "duration": 3.12
+    },
+    {
+      "text": "have to take into account",
+      "start": 235.599,
+      "duration": 2.401
+    },
+    {
+      "text": "hallucinations, which I've talked about",
+      "start": 236.48,
+      "duration": 3.36
+    },
+    {
+      "text": "a fair bit, how you handle higher",
+      "start": 238.0,
+      "duration": 3.84
+    },
+    {
+      "text": "compute costs, and how you handle",
+      "start": 239.84,
+      "duration": 4.16
+    },
+    {
+      "text": "latency, which is like the unpredictable",
+      "start": 241.84,
+      "duration": 4.24
+    },
+    {
+      "text": "sort of gap in response time. So, if you",
+      "start": 244.0,
+      "duration": 3.68
+    },
+    {
+      "text": "want to autodraft customer support",
+      "start": 246.08,
+      "duration": 4.879
+    },
+    {
+      "text": "responses based on the text of the",
+      "start": 247.68,
+      "duration": 5.36
+    },
+    {
+      "text": "customer support manual, that is a great",
+      "start": 250.959,
+      "duration": 4.081
+    },
+    {
+      "text": "example of a large language model task.",
+      "start": 253.04,
+      "duration": 3.68
+    },
+    {
+      "text": "If you want to autogenerate product",
+      "start": 255.04,
+      "duration": 3.759
+    },
+    {
+      "text": "descriptions, that is a great example of",
+      "start": 256.72,
+      "duration": 3.919
+    },
+    {
+      "text": "a large language model task. And you can",
+      "start": 258.799,
+      "duration": 3.441
+    },
+    {
+      "text": "even do it if they're just looking at",
+      "start": 260.639,
+      "duration": 3.12
+    },
+    {
+      "text": "the image and they're writing the",
+      "start": 262.24,
+      "duration": 3.44
+    },
+    {
+      "text": "description based on the image. LLM",
+      "start": 263.759,
+      "duration": 4.88
+    },
+    {
+      "text": "tasks are characterized by wordiness.",
+      "start": 265.68,
+      "duration": 5.12
+    },
+    {
+      "text": "They're characterized by unstructured",
+      "start": 268.639,
+      "duration": 5.201
+    },
+    {
+      "text": "data and they often have multi-threaded",
+      "start": 270.8,
+      "duration": 5.119
+    },
+    {
+      "text": "output. So you're not optimizing for a",
+      "start": 273.84,
+      "duration": 3.919
+    },
+    {
+      "text": "single variable in a structured data",
+      "start": 275.919,
+      "duration": 3.761
+    },
+    {
+      "text": "set. You're actually trying to get",
+      "start": 277.759,
+      "duration": 3.44
+    },
+    {
+      "text": "multiple outputs. You might have an",
+      "start": 279.68,
+      "duration": 3.04
+    },
+    {
+      "text": "image output in some cases. You might",
+      "start": 281.199,
+      "duration": 3.521
+    },
+    {
+      "text": "have a text output in other cases. And",
+      "start": 282.72,
+      "duration": 4.96
+    },
+    {
+      "text": "you value that so highly that you are",
+      "start": 284.72,
+      "duration": 4.479
+    },
+    {
+      "text": "willing to put up with the risk of",
+      "start": 287.68,
+      "duration": 3.519
+    },
+    {
+      "text": "hallucinations and putting in guards to",
+      "start": 289.199,
+      "duration": 3.201
+    },
+    {
+      "text": "minimize that and all the investment",
+      "start": 291.199,
+      "duration": 2.801
+    },
+    {
+      "text": "that goes with that. In other words,",
+      "start": 292.4,
+      "duration": 4.0
+    },
+    {
+      "text": "generative AI is more expensive to build",
+      "start": 294.0,
+      "duration": 5.04
+    },
+    {
+      "text": "and maintain. So you have to do the math",
+      "start": 296.4,
+      "duration": 4.239
+    },
+    {
+      "text": "to decide that it's worth it. And we'll",
+      "start": 299.04,
+      "duration": 3.36
+    },
+    {
+      "text": "get into more of that ROI math later in",
+      "start": 300.639,
+      "duration": 4.321
+    },
+    {
+      "text": "this video. The fourth bucket is AI",
+      "start": 302.4,
+      "duration": 4.4
+    },
+    {
+      "text": "agents. It's the most complex bucket.",
+      "start": 304.96,
+      "duration": 3.679
+    },
+    {
+      "text": "That's why I put it fourth. Use it when",
+      "start": 306.8,
+      "duration": 5.28
+    },
+    {
+      "text": "tasks involve workflows. Dynamic",
+      "start": 308.639,
+      "duration": 6.641
+    },
+    {
+      "text": "multi-step workflows with clear decision",
+      "start": 312.08,
+      "duration": 5.04
+    },
+    {
+      "text": "points. That's critical for agents.",
+      "start": 315.28,
+      "duration": 3.919
+    },
+    {
+      "text": "Decision points where you can describe",
+      "start": 317.12,
+      "duration": 4.32
+    },
+    {
+      "text": "the criteria. You can describe the scope",
+      "start": 319.199,
+      "duration": 5.201
+    },
+    {
+      "text": "of decision and you can give the agent",
+      "start": 321.44,
+      "duration": 5.599
+    },
+    {
+      "text": "all the context it needs to make a good",
+      "start": 324.4,
+      "duration": 5.2
+    },
+    {
+      "text": "choice. Things like scheduling,",
+      "start": 327.039,
+      "duration": 4.641
+    },
+    {
+      "text": "follow-ups, data retrieval across",
+      "start": 329.6,
+      "duration": 5.68
+    },
+    {
+      "text": "systems all fall into the agent bucket.",
+      "start": 331.68,
+      "duration": 5.76
+    },
+    {
+      "text": "As an example, an agent that books",
+      "start": 335.28,
+      "duration": 4.56
+    },
+    {
+      "text": "conference rooms, notifies attendees,",
+      "start": 337.44,
+      "duration": 4.0
+    },
+    {
+      "text": "and adjust schedules when conflicts",
+      "start": 339.84,
+      "duration": 3.919
+    },
+    {
+      "text": "arise automatically. That's an AI agent",
+      "start": 341.44,
+      "duration": 3.68
+    },
+    {
+      "text": "problem. It's not traditional machine",
+      "start": 343.759,
+      "duration": 3.041
+    },
+    {
+      "text": "learning. It's also not generative AI.",
+      "start": 345.12,
+      "duration": 3.68
+    },
+    {
+      "text": "It's an agent problem. Agents can",
+      "start": 346.8,
+      "duration": 4.16
+    },
+    {
+      "text": "orchestrate complicated tasks",
+      "start": 348.8,
+      "duration": 5.04
+    },
+    {
+      "text": "autonomously, but you have to have very",
+      "start": 350.96,
+      "duration": 4.88
+    },
+    {
+      "text": "careful error handling. You have to have",
+      "start": 353.84,
+      "duration": 3.52
+    },
+    {
+      "text": "good observability so you can see what",
+      "start": 355.84,
+      "duration": 4.0
+    },
+    {
+      "text": "they did and you need to have humans who",
+      "start": 357.36,
+      "duration": 4.16
+    },
+    {
+      "text": "know how to debug them. So there's a",
+      "start": 359.84,
+      "duration": 3.28
+    },
+    {
+      "text": "human talent question with agents as",
+      "start": 361.52,
+      "duration": 3.76
+    },
+    {
+      "text": "well. It's worth thinking about though",
+      "start": 363.12,
+      "duration": 3.68
+    },
+    {
+      "text": "because as we've gone through these four",
+      "start": 365.28,
+      "duration": 4.0
+    },
+    {
+      "text": "buckets, what you should be thinking is",
+      "start": 366.8,
+      "duration": 6.239
+    },
+    {
+      "text": "leverage. These buckets are not linear.",
+      "start": 369.28,
+      "duration": 5.6
+    },
+    {
+      "text": "These buckets are disproportionate.",
+      "start": 373.039,
+      "duration": 4.241
+    },
+    {
+      "text": "There's a power law return here. If you",
+      "start": 374.88,
+      "duration": 5.439
+    },
+    {
+      "text": "get one x return on the simple x plus y",
+      "start": 377.28,
+      "duration": 5.28
+    },
+    {
+      "text": "plus c, the simple monthly sales by",
+      "start": 380.319,
+      "duration": 3.761
+    },
+    {
+      "text": "region, write a SQL query, you get it",
+      "start": 382.56,
+      "duration": 4.24
+    },
+    {
+      "text": "back, you get x return on solving it",
+      "start": 384.08,
+      "duration": 4.08
+    },
+    {
+      "text": "with a machine learning problem if it's",
+      "start": 386.8,
+      "duration": 3.28
+    },
+    {
+      "text": "machine learning susceptible. You get a",
+      "start": 388.16,
+      "duration": 3.84
+    },
+    {
+      "text": "100x return on generative AI and you can",
+      "start": 390.08,
+      "duration": 5.119
+    },
+    {
+      "text": "get a x return on agents. Now those are",
+      "start": 392.0,
+      "duration": 4.56
+    },
+    {
+      "text": "somewhat illustrative. I'm not saying",
+      "start": 395.199,
+      "duration": 3.12
+    },
+    {
+      "text": "every single project falls exactly in",
+      "start": 396.56,
+      "duration": 3.919
+    },
+    {
+      "text": "that number. But in my experience and",
+      "start": 398.319,
+      "duration": 3.521
+    },
+    {
+      "text": "the experience of a lot of others who",
+      "start": 400.479,
+      "duration": 3.521
+    },
+    {
+      "text": "have implemented these in practice, that",
+      "start": 401.84,
+      "duration": 5.359
+    },
+    {
+      "text": "is how it works. These are not stairs.",
+      "start": 404.0,
+      "duration": 5.039
+    },
+    {
+      "text": "It's like a roller coaster to heaven,",
+      "start": 407.199,
+      "duration": 4.241
+    },
+    {
+      "text": "right? Like this is a crazy gain in",
+      "start": 409.039,
+      "duration": 5.201
+    },
+    {
+      "text": "leverage as you move up, but it's also a",
+      "start": 411.44,
+      "duration": 4.879
+    },
+    {
+      "text": "crazy gain in cost and maintenance. And",
+      "start": 414.24,
+      "duration": 4.079
+    },
+    {
+      "text": "you have to design the more advanced",
+      "start": 416.319,
+      "duration": 4.0
+    },
+    {
+      "text": "systems very intelligently and target",
+      "start": 418.319,
+      "duration": 3.681
+    },
+    {
+      "text": "them at the right problem, which is",
+      "start": 420.319,
+      "duration": 4.241
+    },
+    {
+      "text": "exactly why we have this video. Because",
+      "start": 422.0,
+      "duration": 5.12
+    },
+    {
+      "text": "you can imagine the expense, the cost of",
+      "start": 424.56,
+      "duration": 4.24
+    },
+    {
+      "text": "building a generative AI system, of",
+      "start": 427.12,
+      "duration": 4.479
+    },
+    {
+      "text": "building an agentic system against a",
+      "start": 428.8,
+      "duration": 4.64
+    },
+    {
+      "text": "problem set that didn't need it. What if",
+      "start": 431.599,
+      "duration": 4.401
+    },
+    {
+      "text": "you built an AI agent workflow to sum",
+      "start": 433.44,
+      "duration": 5.199
+    },
+    {
+      "text": "monthly sales by region? Is it possible?",
+      "start": 436.0,
+      "duration": 5.919
+    },
+    {
+      "text": "Yes, absolutely. Is it like bringing a",
+      "start": 438.639,
+      "duration": 6.56
+    },
+    {
+      "text": "bazooka to kill a fly? Yes, it is. It's",
+      "start": 441.919,
+      "duration": 5.12
+    },
+    {
+      "text": "ridiculously expensive. You don't need",
+      "start": 445.199,
+      "duration": 3.601
+    },
+    {
+      "text": "to do it and it would be a terrible",
+      "start": 447.039,
+      "duration": 3.841
+    },
+    {
+      "text": "waste to try and do it that way. And",
+      "start": 448.8,
+      "duration": 3.6
+    },
+    {
+      "text": "that brings me to the idea of the",
+      "start": 450.88,
+      "duration": 5.36
+    },
+    {
+      "text": "ladder. Pick the simplest solution on",
+      "start": 452.4,
+      "duration": 6.0
+    },
+    {
+      "text": "the ladder. Imagine these four rungs.",
+      "start": 456.24,
+      "duration": 4.799
+    },
+    {
+      "text": "You have just basic data operations. You",
+      "start": 458.4,
+      "duration": 4.4
+    },
+    {
+      "text": "have machine learning traditional. You",
+      "start": 461.039,
+      "duration": 3.841
+    },
+    {
+      "text": "have generative AI and then finally you",
+      "start": 462.8,
+      "duration": 5.28
+    },
+    {
+      "text": "have AI agents. Pick the lowest rung on",
+      "start": 464.88,
+      "duration": 5.2
+    },
+    {
+      "text": "the ladder you possibly can. And I'm",
+      "start": 468.08,
+      "duration": 3.36
+    },
+    {
+      "text": "going to show you how you kind of think",
+      "start": 470.08,
+      "duration": 3.04
+    },
+    {
+      "text": "that through. You could call this",
+      "start": 471.44,
+      "duration": 3.599
+    },
+    {
+      "text": "developing engineering taste, but it's",
+      "start": 473.12,
+      "duration": 4.24
+    },
+    {
+      "text": "not just for engineers. So many of these",
+      "start": 475.039,
+      "duration": 4.88
+    },
+    {
+      "text": "skills have been sequestered away and",
+      "start": 477.36,
+      "duration": 4.959
+    },
+    {
+      "text": "hidden in engineering uh conference",
+      "start": 479.919,
+      "duration": 4.4
+    },
+    {
+      "text": "rooms for too long. And I want to bring",
+      "start": 482.319,
+      "duration": 3.521
+    },
+    {
+      "text": "them out because they're not actually",
+      "start": 484.319,
+      "duration": 3.44
+    },
+    {
+      "text": "too technical and we really need them in",
+      "start": 485.84,
+      "duration": 4.079
+    },
+    {
+      "text": "the age of AI. So the first skill that",
+      "start": 487.759,
+      "duration": 4.0
+    },
+    {
+      "text": "you need to navigate this ladder",
+      "start": 489.919,
+      "duration": 4.56
+    },
+    {
+      "text": "correctly is to focus on pattern",
+      "start": 491.759,
+      "duration": 4.481
+    },
+    {
+      "text": "recognition over hype. Did you notice",
+      "start": 494.479,
+      "duration": 4.0
+    },
+    {
+      "text": "how I talk about the type of pattern?",
+      "start": 496.24,
+      "duration": 5.04
+    },
+    {
+      "text": "That is a skill you can learn to focus",
+      "start": 498.479,
+      "duration": 5.361
+    },
+    {
+      "text": "on problem structure, not on buzzwords.",
+      "start": 501.28,
+      "duration": 4.72
+    },
+    {
+      "text": "You can learn to ask, hey, what needs",
+      "start": 503.84,
+      "duration": 4.0
+    },
+    {
+      "text": "solving? Is this a decision that we need",
+      "start": 506.0,
+      "duration": 3.759
+    },
+    {
+      "text": "to solve for? Is it a prediction we need",
+      "start": 507.84,
+      "duration": 3.68
+    },
+    {
+      "text": "to solve for? Is it a generation we need",
+      "start": 509.759,
+      "duration": 4.08
+    },
+    {
+      "text": "to solve for? If it's a decision in a",
+      "start": 511.52,
+      "duration": 4.079
+    },
+    {
+      "text": "workflow, it might be an agent. If it's",
+      "start": 513.839,
+      "duration": 3.921
+    },
+    {
+      "text": "a prediction, well, that might be",
+      "start": 515.599,
+      "duration": 3.841
+    },
+    {
+      "text": "traditional machine learning. If it's a",
+      "start": 517.76,
+      "duration": 3.519
+    },
+    {
+      "text": "generation problem, that might be a",
+      "start": 519.44,
+      "duration": 3.599
+    },
+    {
+      "text": "large language model problem. If it's",
+      "start": 521.279,
+      "duration": 4.24
+    },
+    {
+      "text": "just a report, that might be traditional",
+      "start": 523.039,
+      "duration": 5.441
+    },
+    {
+      "text": "just data operations. That kind of",
+      "start": 525.519,
+      "duration": 5.601
+    },
+    {
+      "text": "thinking, that kind of sober focus on",
+      "start": 528.48,
+      "duration": 4.479
+    },
+    {
+      "text": "problem structure is going to help you",
+      "start": 531.12,
+      "duration": 4.24
+    },
+    {
+      "text": "resist the AI for everything temptation.",
+      "start": 532.959,
+      "duration": 5.521
+    },
+    {
+      "text": "Sometimes just having a SQL uh script",
+      "start": 535.36,
+      "duration": 5.52
+    },
+    {
+      "text": "that runs will solve almost your entire",
+      "start": 538.48,
+      "duration": 4.64
+    },
+    {
+      "text": "problem. And by the way, I said almost",
+      "start": 540.88,
+      "duration": 4.8
+    },
+    {
+      "text": "on purpose. Do not give in to the",
+      "start": 543.12,
+      "duration": 4.64
+    },
+    {
+      "text": "temptation to make something a",
+      "start": 545.68,
+      "duration": 4.32
+    },
+    {
+      "text": "generative AI project or an agent",
+      "start": 547.76,
+      "duration": 5.28
+    },
+    {
+      "text": "project if 5 or 10% of the value is",
+      "start": 550.0,
+      "duration": 4.959
+    },
+    {
+      "text": "coming from that agentic piece or that",
+      "start": 553.04,
+      "duration": 4.239
+    },
+    {
+      "text": "generative AI piece and most of the",
+      "start": 554.959,
+      "duration": 4.88
+    },
+    {
+      "text": "value is coming from SQL. If your boss",
+      "start": 557.279,
+      "duration": 4.961
+    },
+    {
+      "text": "says to you, I want a quarterly",
+      "start": 559.839,
+      "duration": 4.401
+    },
+    {
+      "text": "marketing report and I want it to have",
+      "start": 562.24,
+      "duration": 5.92
+    },
+    {
+      "text": "this fancy insight as to why we why why",
+      "start": 564.24,
+      "duration": 5.44
+    },
+    {
+      "text": "we performed the way we did and I want",
+      "start": 568.16,
+      "duration": 3.119
+    },
+    {
+      "text": "it to be in text and I want to have an",
+      "start": 569.68,
+      "duration": 3.599
+    },
+    {
+      "text": "illustration of our top selling product.",
+      "start": 571.279,
+      "duration": 4.0
+    },
+    {
+      "text": "You could look at that and say, \"Well,",
+      "start": 573.279,
+      "duration": 3.441
+    },
+    {
+      "text": "there's some stuff here that is",
+      "start": 575.279,
+      "duration": 4.24
+    },
+    {
+      "text": "generative AI.\" So, it's probably a",
+      "start": 576.72,
+      "duration": 4.4
+    },
+    {
+      "text": "generative AI problem or maybe it's a",
+      "start": 579.519,
+      "duration": 3.281
+    },
+    {
+      "text": "mixed problem where you use two or three",
+      "start": 581.12,
+      "duration": 3.92
+    },
+    {
+      "text": "runs on that ladder. I talked about data",
+      "start": 582.8,
+      "duration": 4.08
+    },
+    {
+      "text": "processing, generative AI, maybe even",
+      "start": 585.04,
+      "duration": 4.0
+    },
+    {
+      "text": "some prediction from machine learning. I",
+      "start": 586.88,
+      "duration": 4.079
+    },
+    {
+      "text": "would not look at it that way. Instead,",
+      "start": 589.04,
+      "duration": 4.0
+    },
+    {
+      "text": "I would look at it and say, why the heck",
+      "start": 590.959,
+      "duration": 3.841
+    },
+    {
+      "text": "do we need the picture? Why do we need",
+      "start": 593.04,
+      "duration": 3.68
+    },
+    {
+      "text": "the text? Don't we get the business",
+      "start": 594.8,
+      "duration": 3.36
+    },
+    {
+      "text": "value to make good decisions out of",
+      "start": 596.72,
+      "duration": 3.6
+    },
+    {
+      "text": "traditional data operations? If you get",
+      "start": 598.16,
+      "duration": 4.799
+    },
+    {
+      "text": "90% of the value for 5% of the cost, the",
+      "start": 600.32,
+      "duration": 4.56
+    },
+    {
+      "text": "business should take that trade all day",
+      "start": 602.959,
+      "duration": 3.681
+    },
+    {
+      "text": "and you should be able to articulate",
+      "start": 604.88,
+      "duration": 3.84
+    },
+    {
+      "text": "that in dollars and cents very very",
+      "start": 606.64,
+      "duration": 4.56
+    },
+    {
+      "text": "clearly. It is worth asking where the",
+      "start": 608.72,
+      "duration": 4.32
+    },
+    {
+      "text": "leverage and the problem lies. That is",
+      "start": 611.2,
+      "duration": 4.079
+    },
+    {
+      "text": "my point. So think of the problem as a",
+      "start": 613.04,
+      "duration": 3.76
+    },
+    {
+      "text": "distribution and it's going to be",
+      "start": 615.279,
+      "duration": 3.201
+    },
+    {
+      "text": "distributed along the four legs of that",
+      "start": 616.8,
+      "duration": 3.92
+    },
+    {
+      "text": "ladder. If the problem is is going to be",
+      "start": 618.48,
+      "duration": 4.0
+    },
+    {
+      "text": "bumpy and like really skewed heavily",
+      "start": 620.72,
+      "duration": 3.44
+    },
+    {
+      "text": "toward one of the legs of the ladder,",
+      "start": 622.48,
+      "duration": 3.599
+    },
+    {
+      "text": "you should take that pretty seriously.",
+      "start": 624.16,
+      "duration": 3.359
+    },
+    {
+      "text": "You should say maybe this is",
+      "start": 626.079,
+      "duration": 3.681
+    },
+    {
+      "text": "fundamentally just a data operations",
+      "start": 627.519,
+      "duration": 4.081
+    },
+    {
+      "text": "problem because most of the problem",
+      "start": 629.76,
+      "duration": 3.759
+    },
+    {
+      "text": "value is there and maybe we should make",
+      "start": 631.6,
+      "duration": 4.16
+    },
+    {
+      "text": "the decision to cut the five or 10% of",
+      "start": 633.519,
+      "duration": 3.76
+    },
+    {
+      "text": "value you're talking about and make that",
+      "start": 635.76,
+      "duration": 3.36
+    },
+    {
+      "text": "a later choice and just do the thing",
+      "start": 637.279,
+      "duration": 3.361
+    },
+    {
+      "text": "that we can get away with now that is",
+      "start": 639.12,
+      "duration": 3.2
+    },
+    {
+      "text": "only one of the legs of that ladder. The",
+      "start": 640.64,
+      "duration": 3.92
+    },
+    {
+      "text": "simplest one you need to understand how",
+      "start": 642.32,
+      "duration": 4.72
+    },
+    {
+      "text": "to speak the language of costbenefit to",
+      "start": 644.56,
+      "duration": 3.839
+    },
+    {
+      "text": "make these kinds of claims because",
+      "start": 647.04,
+      "duration": 2.96
+    },
+    {
+      "text": "that's how executives speak. If your",
+      "start": 648.399,
+      "duration": 3.281
+    },
+    {
+      "text": "boss or your investor is telling you to",
+      "start": 650.0,
+      "duration": 3.92
+    },
+    {
+      "text": "invest in AI, the only way they will",
+      "start": 651.68,
+      "duration": 3.92
+    },
+    {
+      "text": "really hear you is if you come back with",
+      "start": 653.92,
+      "duration": 3.76
+    },
+    {
+      "text": "cost benefit. So start to learn how to",
+      "start": 655.6,
+      "duration": 4.72
+    },
+    {
+      "text": "talk about compute costs. Generative AI",
+      "start": 657.68,
+      "duration": 4.96
+    },
+    {
+      "text": "and agents are both extremely expensive",
+      "start": 660.32,
+      "duration": 4.88
+    },
+    {
+      "text": "in tokens. It is not cheap to run those",
+      "start": 662.64,
+      "duration": 4.24
+    },
+    {
+      "text": "pipelines. If you make a mistake with",
+      "start": 665.2,
+      "duration": 3.6
+    },
+    {
+      "text": "that architecture, you you can be out",
+      "start": 666.88,
+      "duration": 3.92
+    },
+    {
+      "text": "thousands, tens of thousands more.",
+      "start": 668.8,
+      "duration": 4.0
+    },
+    {
+      "text": "Machine learning is a lot cheaper, but",
+      "start": 670.8,
+      "duration": 3.76
+    },
+    {
+      "text": "does take expertise to set up and it's",
+      "start": 672.8,
+      "duration": 3.76
+    },
+    {
+      "text": "not free. And data processing is the",
+      "start": 674.56,
+      "duration": 4.08
+    },
+    {
+      "text": "cheapest of all. Almost anybody at this",
+      "start": 676.56,
+      "duration": 3.92
+    },
+    {
+      "text": "point with an engineering degree can set",
+      "start": 678.64,
+      "duration": 3.439
+    },
+    {
+      "text": "up a data processing pipeline without",
+      "start": 680.48,
+      "duration": 3.44
+    },
+    {
+      "text": "any kind of issue. Most of us who don't",
+      "start": 682.079,
+      "duration": 3.2
+    },
+    {
+      "text": "have engineering degrees can figure it",
+      "start": 683.92,
+      "duration": 3.44
+    },
+    {
+      "text": "out with Jad GPT. The maintenance",
+      "start": 685.279,
+      "duration": 4.881
+    },
+    {
+      "text": "version is also non-trivial and I want",
+      "start": 687.36,
+      "duration": 4.479
+    },
+    {
+      "text": "to call that out because the maintenance",
+      "start": 690.16,
+      "duration": 3.04
+    },
+    {
+      "text": "version you know how I talked about this",
+      "start": 691.839,
+      "duration": 2.881
+    },
+    {
+      "text": "idea of power law returns and this",
+      "start": 693.2,
+      "duration": 3.04
+    },
+    {
+      "text": "roller coaster that stretches up as a",
+      "start": 694.72,
+      "duration": 4.239
+    },
+    {
+      "text": "way of showing like how much uh well",
+      "start": 696.24,
+      "duration": 4.4
+    },
+    {
+      "text": "potentially fun but also how much",
+      "start": 698.959,
+      "duration": 3.841
+    },
+    {
+      "text": "excitement uh there is in some of the",
+      "start": 700.64,
+      "duration": 4.0
+    },
+    {
+      "text": "agentic use flow cases, the generative",
+      "start": 702.8,
+      "duration": 4.24
+    },
+    {
+      "text": "AI cases. The maintenance also scales",
+      "start": 704.64,
+      "duration": 4.08
+    },
+    {
+      "text": "with that. So if you have an agentic",
+      "start": 707.04,
+      "duration": 3.84
+    },
+    {
+      "text": "workflow that is going to have",
+      "start": 708.72,
+      "duration": 5.119
+    },
+    {
+      "text": "significantly more costs than a large",
+      "start": 710.88,
+      "duration": 4.8
+    },
+    {
+      "text": "language model workflow that is going to",
+      "start": 713.839,
+      "duration": 4.0
+    },
+    {
+      "text": "have significantly more costs again than",
+      "start": 715.68,
+      "duration": 3.76
+    },
+    {
+      "text": "a machine learning workflow which is",
+      "start": 717.839,
+      "duration": 2.801
+    },
+    {
+      "text": "still more expensive than a data",
+      "start": 719.44,
+      "duration": 3.2
+    },
+    {
+      "text": "pipeline workflow. It's not 1 2 3 4",
+      "start": 720.64,
+      "duration": 4.72
+    },
+    {
+      "text": "costs. It's more like 1 2 48 costs.",
+      "start": 722.64,
+      "duration": 5.439
+    },
+    {
+      "text": "These costs get much more expensive. And",
+      "start": 725.36,
+      "duration": 5.919
+    },
+    {
+      "text": "part of why is that agents and LLM",
+      "start": 728.079,
+      "duration": 5.44
+    },
+    {
+      "text": "systems have to be maintained in",
+      "start": 731.279,
+      "duration": 4.641
+    },
+    {
+      "text": "production. Your leader who charges you",
+      "start": 733.519,
+      "duration": 5.201
+    },
+    {
+      "text": "with building these systems has to know",
+      "start": 735.92,
+      "duration": 5.68
+    },
+    {
+      "text": "that the dollars keep going out the door",
+      "start": 738.72,
+      "duration": 5.44
+    },
+    {
+      "text": "on time spent supporting these systems",
+      "start": 741.6,
+      "duration": 4.72
+    },
+    {
+      "text": "after they are launched. And so instead",
+      "start": 744.16,
+      "duration": 4.16
+    },
+    {
+      "text": "of thinking about an agent workflow like",
+      "start": 746.32,
+      "duration": 3.6
+    },
+    {
+      "text": "traditional software, you have to think",
+      "start": 748.32,
+      "duration": 4.319
+    },
+    {
+      "text": "about it as continually maintained",
+      "start": 749.92,
+      "duration": 4.56
+    },
+    {
+      "text": "almost like a little employee that you",
+      "start": 752.639,
+      "duration": 3.76
+    },
+    {
+      "text": "have to pay every month. The last thing",
+      "start": 754.48,
+      "duration": 3.599
+    },
+    {
+      "text": "I want to call out from a costbenefit",
+      "start": 756.399,
+      "duration": 4.0
+    },
+    {
+      "text": "perspective is time to value. As you",
+      "start": 758.079,
+      "duration": 4.161
+    },
+    {
+      "text": "would imagine with compute costs, with",
+      "start": 760.399,
+      "duration": 4.161
+    },
+    {
+      "text": "maintenance burden, it is increasingly",
+      "start": 762.24,
+      "duration": 4.24
+    },
+    {
+      "text": "complex as you move up the ladder and",
+      "start": 764.56,
+      "duration": 4.56
+    },
+    {
+      "text": "that takes increasing time and talent.",
+      "start": 766.48,
+      "duration": 4.32
+    },
+    {
+      "text": "And so if just about anybody can set up",
+      "start": 769.12,
+      "duration": 4.08
+    },
+    {
+      "text": "a data pipeline in a few days given the",
+      "start": 770.8,
+      "duration": 4.8
+    },
+    {
+      "text": "data and if you can get a data scientist",
+      "start": 773.2,
+      "duration": 3.84
+    },
+    {
+      "text": "to work with you on a machine learning",
+      "start": 775.6,
+      "duration": 2.799
+    },
+    {
+      "text": "model and that might take just a couple",
+      "start": 777.04,
+      "duration": 2.88
+    },
+    {
+      "text": "weeks if you have everything ready.",
+      "start": 778.399,
+      "duration": 4.321
+    },
+    {
+      "text": "Generative AI prototypes really vary. If",
+      "start": 779.92,
+      "duration": 4.4
+    },
+    {
+      "text": "it's out of box and it's super simple,",
+      "start": 782.72,
+      "duration": 4.08
+    },
+    {
+      "text": "it can be a couple hours. And if it's a",
+      "start": 784.32,
+      "duration": 4.639
+    },
+    {
+      "text": "full production pipeline, it's going to",
+      "start": 786.8,
+      "duration": 5.039
+    },
+    {
+      "text": "be multiple weeks, multiple weeks. It's",
+      "start": 788.959,
+      "duration": 5.041
+    },
+    {
+      "text": "not going to be easy. Often months, I",
+      "start": 791.839,
+      "duration": 3.921
+    },
+    {
+      "text": "know people who are at scale, who are",
+      "start": 794.0,
+      "duration": 3.839
+    },
+    {
+      "text": "building LLM pipelines that aren't",
+      "start": 795.76,
+      "duration": 4.48
+    },
+    {
+      "text": "agentic, still taking them months. This",
+      "start": 797.839,
+      "duration": 4.721
+    },
+    {
+      "text": "is not easy to do. Agents, if you're",
+      "start": 800.24,
+      "duration": 3.76
+    },
+    {
+      "text": "starting from scratch and you're a",
+      "start": 802.56,
+      "duration": 3.2
+    },
+    {
+      "text": "scrappy startup and you're wellunded in",
+      "start": 804.0,
+      "duration": 3.68
+    },
+    {
+      "text": "the valley, sure. Can you knock up some",
+      "start": 805.76,
+      "duration": 3.84
+    },
+    {
+      "text": "agents over the weekend? Absolutely. You",
+      "start": 807.68,
+      "duration": 3.52
+    },
+    {
+      "text": "have the right talent. you have a clean",
+      "start": 809.6,
+      "duration": 3.28
+    },
+    {
+      "text": "slate to work with. If you're an",
+      "start": 811.2,
+      "duration": 3.28
+    },
+    {
+      "text": "existing company and you're trying to",
+      "start": 812.88,
+      "duration": 3.92
+    },
+    {
+      "text": "get this done, it is even harder than",
+      "start": 814.48,
+      "duration": 4.799
+    },
+    {
+      "text": "LLMs. It is quite difficult to do well",
+      "start": 816.8,
+      "duration": 4.4
+    },
+    {
+      "text": "and quite difficult to sustain well and",
+      "start": 819.279,
+      "duration": 3.761
+    },
+    {
+      "text": "you have to recruit the talent for it.",
+      "start": 821.2,
+      "duration": 4.079
+    },
+    {
+      "text": "The months stretch out into 6 months or",
+      "start": 823.04,
+      "duration": 4.16
+    },
+    {
+      "text": "more very, very quickly. And it's your",
+      "start": 825.279,
+      "duration": 4.081
+    },
+    {
+      "text": "job if you are given this assignment or",
+      "start": 827.2,
+      "duration": 4.72
+    },
+    {
+      "text": "asked to do a project that involves AI",
+      "start": 829.36,
+      "duration": 4.479
+    },
+    {
+      "text": "to find a way to articulate that and",
+      "start": 831.92,
+      "duration": 5.2
+    },
+    {
+      "text": "explain it to find a way to say yeah we",
+      "start": 833.839,
+      "duration": 4.8
+    },
+    {
+      "text": "could do this with agents but it seems",
+      "start": 837.12,
+      "duration": 3.279
+    },
+    {
+      "text": "like what you're really optimizing for",
+      "start": 838.639,
+      "duration": 4.481
+    },
+    {
+      "text": "is just getting the data into a report",
+      "start": 840.399,
+      "duration": 4.081
+    },
+    {
+      "text": "and there could be a simpler way to get",
+      "start": 843.12,
+      "duration": 3.68
+    },
+    {
+      "text": "you that value much much faster. we can",
+      "start": 844.48,
+      "duration": 4.799
+    },
+    {
+      "text": "find another use for AI so that you can",
+      "start": 846.8,
+      "duration": 5.279
+    },
+    {
+      "text": "tell the board right so in sum if you",
+      "start": 849.279,
+      "duration": 4.481
+    },
+    {
+      "text": "have someone coming to you or if you're",
+      "start": 852.079,
+      "duration": 3.76
+    },
+    {
+      "text": "asking the question when do I use AI",
+      "start": 853.76,
+      "duration": 4.96
+    },
+    {
+      "text": "when do I use agents before proposing AI",
+      "start": 855.839,
+      "duration": 5.201
+    },
+    {
+      "text": "identify the simplest nonAI solution",
+      "start": 858.72,
+      "duration": 4.64
+    },
+    {
+      "text": "evaluate whether AI measurably improves",
+      "start": 861.04,
+      "duration": 4.56
+    },
+    {
+      "text": "the accuracy speed or user experience",
+      "start": 863.36,
+      "duration": 4.64
+    },
+    {
+      "text": "against that solution and by measurably",
+      "start": 865.6,
+      "duration": 5.52
+    },
+    {
+      "text": "I mean it has to significantly improve",
+      "start": 868.0,
+      "duration": 5.44
+    },
+    {
+      "text": "my rule of thumb with using a large",
+      "start": 871.12,
+      "duration": 4.88
+    },
+    {
+      "text": "language model or an agentic workflow is",
+      "start": 873.44,
+      "duration": 4.639
+    },
+    {
+      "text": "that if it isn't 10x versus the",
+      "start": 876.0,
+      "duration": 4.399
+    },
+    {
+      "text": "baseline, it probably isn't worth it",
+      "start": 878.079,
+      "duration": 3.841
+    },
+    {
+      "text": "because there's adoption, there's",
+      "start": 880.399,
+      "duration": 3.841
+    },
+    {
+      "text": "talent, there's systems to maintain. And",
+      "start": 881.92,
+      "duration": 4.24
+    },
+    {
+      "text": "so 10x is my rule of thumb. And if you",
+      "start": 884.24,
+      "duration": 3.279
+    },
+    {
+      "text": "don't hit that, stick with a simpler",
+      "start": 886.16,
+      "duration": 3.84
+    },
+    {
+      "text": "approach. It's worth it. So I want to",
+      "start": 887.519,
+      "duration": 5.44
+    },
+    {
+      "text": "suggest to you that there are a few",
+      "start": 890.0,
+      "duration": 4.959
+    },
+    {
+      "text": "scripts that you can use if you get",
+      "start": 892.959,
+      "duration": 3.44
+    },
+    {
+      "text": "stuck with leaders who are just not",
+      "start": 894.959,
+      "duration": 4.24
+    },
+    {
+      "text": "believing you that will help you to work",
+      "start": 896.399,
+      "duration": 3.921
+    },
+    {
+      "text": "through this. And then we're going to",
+      "start": 899.199,
+      "duration": 2.481
+    },
+    {
+      "text": "get at the end of the video into some",
+      "start": 900.32,
+      "duration": 3.12
+    },
+    {
+      "text": "sort of contrarian insights, things that",
+      "start": 901.68,
+      "duration": 3.76
+    },
+    {
+      "text": "kind of go deeper. But before we do,",
+      "start": 903.44,
+      "duration": 3.6
+    },
+    {
+      "text": "just to like sum up this piece around",
+      "start": 905.44,
+      "duration": 3.44
+    },
+    {
+      "text": "costbenefit and communication. Here's",
+      "start": 907.04,
+      "duration": 3.68
+    },
+    {
+      "text": "how you answer. Let's say your VP says,",
+      "start": 908.88,
+      "duration": 3.84
+    },
+    {
+      "text": "\"We need to use chat GPT for our",
+      "start": 910.72,
+      "duration": 4.08
+    },
+    {
+      "text": "report.\" Common. I've seen it happen.",
+      "start": 912.72,
+      "duration": 4.559
+    },
+    {
+      "text": "You could say this. Hey, uh, thanks for",
+      "start": 914.8,
+      "duration": 4.08
+    },
+    {
+      "text": "asking. I researched three different",
+      "start": 917.279,
+      "duration": 4.0
+    },
+    {
+      "text": "approaches for uh, the report problem",
+      "start": 918.88,
+      "duration": 4.399
+    },
+    {
+      "text": "with a data pipeline. Uh, it's going to",
+      "start": 921.279,
+      "duration": 4.081
+    },
+    {
+      "text": "take us 2 days to set it up. Uh, it's",
+      "start": 923.279,
+      "duration": 3.841
+    },
+    {
+      "text": "going to cost us like 200 bucks and",
+      "start": 925.36,
+      "duration": 3.599
+    },
+    {
+      "text": "we're going to have 100% accuracy on our",
+      "start": 927.12,
+      "duration": 3.36
+    },
+    {
+      "text": "known metrics. You can have it by",
+      "start": 928.959,
+      "duration": 3.44
+    },
+    {
+      "text": "Friday. If we used a machine learning",
+      "start": 930.48,
+      "duration": 4.799
+    },
+    {
+      "text": "model, which is not AI, Mr. VP. That's",
+      "start": 932.399,
+      "duration": 4.88
+    },
+    {
+      "text": "going to be 2 and 1/2 weeks with our",
+      "start": 935.279,
+      "duration": 3.68
+    },
+    {
+      "text": "data science team, push back another",
+      "start": 937.279,
+      "duration": 3.92
+    },
+    {
+      "text": "project. I suspect we'll get to 80%",
+      "start": 938.959,
+      "duration": 3.921
+    },
+    {
+      "text": "accuracy on prediction initially and",
+      "start": 941.199,
+      "duration": 4.08
+    },
+    {
+      "text": "have to work up from there. Uh total",
+      "start": 942.88,
+      "duration": 5.12
+    },
+    {
+      "text": "cost, I want to say $15,000 maybe. If",
+      "start": 945.279,
+      "duration": 4.961
+    },
+    {
+      "text": "it's generative AI and uh it's a large",
+      "start": 948.0,
+      "duration": 4.24
+    },
+    {
+      "text": "language model prototype, I would guess",
+      "start": 950.24,
+      "duration": 3.599
+    },
+    {
+      "text": "out of the gate that you're going to",
+      "start": 952.24,
+      "duration": 3.599
+    },
+    {
+      "text": "have inaccuracies across all of your key",
+      "start": 953.839,
+      "duration": 3.92
+    },
+    {
+      "text": "metrics initially. It will take us a few",
+      "start": 955.839,
+      "duration": 3.601
+    },
+    {
+      "text": "days to get it set up and it will take",
+      "start": 957.759,
+      "duration": 3.44
+    },
+    {
+      "text": "us probably three or four months to root",
+      "start": 959.44,
+      "duration": 3.36
+    },
+    {
+      "text": "out enough of the hallucinations to make",
+      "start": 961.199,
+      "duration": 4.0
+    },
+    {
+      "text": "the report really worthwhile. I would",
+      "start": 962.8,
+      "duration": 4.24
+    },
+    {
+      "text": "recommend option one because we can get",
+      "start": 965.199,
+      "duration": 3.921
+    },
+    {
+      "text": "reliable results by Friday and it's the",
+      "start": 967.04,
+      "duration": 3.84
+    },
+    {
+      "text": "cheapest overall. If we really need",
+      "start": 969.12,
+      "duration": 3.92
+    },
+    {
+      "text": "predictive insights, we can add that",
+      "start": 970.88,
+      "duration": 4.56
+    },
+    {
+      "text": "machine learning model as a fast follow.",
+      "start": 973.04,
+      "duration": 4.32
+    },
+    {
+      "text": "You see how that's something that speaks",
+      "start": 975.44,
+      "duration": 4.48
+    },
+    {
+      "text": "executive. It talks cost. It talks time.",
+      "start": 977.36,
+      "duration": 4.64
+    },
+    {
+      "text": "It doesn't say no directly. It actually",
+      "start": 979.92,
+      "duration": 4.159
+    },
+    {
+      "text": "just reframes the problem and helps them",
+      "start": 982.0,
+      "duration": 4.48
+    },
+    {
+      "text": "understand what's going on. Okay, now",
+      "start": 984.079,
+      "duration": 4.721
+    },
+    {
+      "text": "let's get to some of the contrarian",
+      "start": 986.48,
+      "duration": 4.56
+    },
+    {
+      "text": "insights that you need to have in your",
+      "start": 988.8,
+      "duration": 4.159
+    },
+    {
+      "text": "head when you're facing these when do I",
+      "start": 991.04,
+      "duration": 4.32
+    },
+    {
+      "text": "use agents, when do I use AI problems.",
+      "start": 992.959,
+      "duration": 4.641
+    },
+    {
+      "text": "Number one, data quality is going to",
+      "start": 995.36,
+      "duration": 4.56
+    },
+    {
+      "text": "beat model complexity every time.",
+      "start": 997.6,
+      "duration": 4.56
+    },
+    {
+      "text": "Garbage in, garbage out, right? If you",
+      "start": 999.92,
+      "duration": 4.88
+    },
+    {
+      "text": "are introducing AI and you have bad",
+      "start": 1002.16,
+      "duration": 4.72
+    },
+    {
+      "text": "data, you are pouring money down the",
+      "start": 1004.8,
+      "duration": 3.92
+    },
+    {
+      "text": "drain and lighting it on fire. Fix your",
+      "start": 1006.88,
+      "duration": 3.68
+    },
+    {
+      "text": "data pipelines before reaching for",
+      "start": 1008.72,
+      "duration": 3.679
+    },
+    {
+      "text": "models. And if you have great quality",
+      "start": 1010.56,
+      "duration": 3.519
+    },
+    {
+      "text": "data, you can use cheaper and cheaper",
+      "start": 1012.399,
+      "duration": 3.761
+    },
+    {
+      "text": "and cheaper models. Make sure you take",
+      "start": 1014.079,
+      "duration": 3.68
+    },
+    {
+      "text": "advantage of your data quality. And if",
+      "start": 1016.16,
+      "duration": 3.039
+    },
+    {
+      "text": "you don't have data quality, make sure",
+      "start": 1017.759,
+      "duration": 3.52
+    },
+    {
+      "text": "you make that a priority and fix it. You",
+      "start": 1019.199,
+      "duration": 4.08
+    },
+    {
+      "text": "do get real leverage from that fix. That",
+      "start": 1021.279,
+      "duration": 4.081
+    },
+    {
+      "text": "is how you unlock the 100x,000x use",
+      "start": 1023.279,
+      "duration": 3.92
+    },
+    {
+      "text": "cases cuz agents also struggle with it",
+      "start": 1025.36,
+      "duration": 3.92
+    },
+    {
+      "text": "if the data is bad quality. Number two,",
+      "start": 1027.199,
+      "duration": 4.48
+    },
+    {
+      "text": "boring solutions when a clear,",
+      "start": 1029.28,
+      "duration": 4.32
+    },
+    {
+      "text": "well-designed BI dashboard that just",
+      "start": 1031.679,
+      "duration": 4.4
+    },
+    {
+      "text": "works outperforms a fancy AI model that",
+      "start": 1033.6,
+      "duration": 4.0
+    },
+    {
+      "text": "nobody understands and that can't be",
+      "start": 1036.079,
+      "duration": 4.24
+    },
+    {
+      "text": "audited. I love AI. AI has a lot of use",
+      "start": 1037.6,
+      "duration": 5.439
+    },
+    {
+      "text": "cases, but I have seen too often now",
+      "start": 1040.319,
+      "duration": 4.161
+    },
+    {
+      "text": "that we're in this sort of hype cycle",
+      "start": 1043.039,
+      "duration": 3.601
+    },
+    {
+      "text": "for AI, people are throwing out the",
+      "start": 1044.48,
+      "duration": 4.16
+    },
+    {
+      "text": "boring solutions that work. Don't do",
+      "start": 1046.64,
+      "duration": 4.399
+    },
+    {
+      "text": "that. Don't be that person. Find ways to",
+      "start": 1048.64,
+      "duration": 4.159
+    },
+    {
+      "text": "reframe like the sort of narrative that",
+      "start": 1051.039,
+      "duration": 4.88
+    },
+    {
+      "text": "we talked about. Number three, human in",
+      "start": 1052.799,
+      "duration": 5.521
+    },
+    {
+      "text": "the loop first. When you're deploying",
+      "start": 1055.919,
+      "duration": 4.721
+    },
+    {
+      "text": "LLM, when you're deploying agents, start",
+      "start": 1058.32,
+      "duration": 4.56
+    },
+    {
+      "text": "by surfacing suggestions for humans to",
+      "start": 1060.64,
+      "duration": 4.96
+    },
+    {
+      "text": "vet, build trust, gather feedback, and",
+      "start": 1062.88,
+      "duration": 5.28
+    },
+    {
+      "text": "then automate. Now, if you're a startup",
+      "start": 1065.6,
+      "duration": 4.56
+    },
+    {
+      "text": "and you have nothing to lose, sure, give",
+      "start": 1068.16,
+      "duration": 3.28
+    },
+    {
+      "text": "it a shot. See if you can automate it",
+      "start": 1070.16,
+      "duration": 3.2
+    },
+    {
+      "text": "and make it work in a weekend. If you're",
+      "start": 1071.44,
+      "duration": 4.56
+    },
+    {
+      "text": "a company with stakes, you have to take",
+      "start": 1073.36,
+      "duration": 4.72
+    },
+    {
+      "text": "seriously the idea that humans need to",
+      "start": 1076.0,
+      "duration": 3.44
+    },
+    {
+      "text": "be involved from the beginning and",
+      "start": 1078.08,
+      "duration": 2.88
+    },
+    {
+      "text": "helping to get the model to a place",
+      "start": 1079.44,
+      "duration": 3.28
+    },
+    {
+      "text": "where it works. And you need to assume",
+      "start": 1080.96,
+      "duration": 3.68
+    },
+    {
+      "text": "that cost. Who's going to staff for",
+      "start": 1082.72,
+      "duration": 3.6
+    },
+    {
+      "text": "that? Who's going to pay for that? How",
+      "start": 1084.64,
+      "duration": 2.88
+    },
+    {
+      "text": "long are you going to use the humans?",
+      "start": 1086.32,
+      "duration": 2.4
+    },
+    {
+      "text": "How do you know if the humans are able",
+      "start": 1087.52,
+      "duration": 3.44
+    },
+    {
+      "text": "to transition to AI systems? You know,",
+      "start": 1088.72,
+      "duration": 4.88
+    },
+    {
+      "text": "one of the dirty secrets in AI is that",
+      "start": 1090.96,
+      "duration": 4.24
+    },
+    {
+      "text": "sometimes it never makes it and then",
+      "start": 1093.6,
+      "duration": 3.52
+    },
+    {
+      "text": "there's a scandal. So, for example, in",
+      "start": 1095.2,
+      "duration": 3.839
+    },
+    {
+      "text": "the Amazon just walk out checkout",
+      "start": 1097.12,
+      "duration": 4.0
+    },
+    {
+      "text": "stores, the company would trumpet that",
+      "start": 1099.039,
+      "duration": 4.0
+    },
+    {
+      "text": "it was AI that they were using, but the",
+      "start": 1101.12,
+      "duration": 4.08
+    },
+    {
+      "text": "reality was it was people looking",
+      "start": 1103.039,
+      "duration": 3.76
+    },
+    {
+      "text": "through the cameras, checking all the",
+      "start": 1105.2,
+      "duration": 3.2
+    },
+    {
+      "text": "work because they were never able to",
+      "start": 1106.799,
+      "duration": 3.601
+    },
+    {
+      "text": "transition out of humans in the loop. AI",
+      "start": 1108.4,
+      "duration": 3.84
+    },
+    {
+      "text": "is hard. Don't believe every pressed",
+      "start": 1110.4,
+      "duration": 4.399
+    },
+    {
+      "text": "release you see. Look at whether you can",
+      "start": 1112.24,
+      "duration": 4.96
+    },
+    {
+      "text": "reasonably hand off human work to AI.",
+      "start": 1114.799,
+      "duration": 4.161
+    },
+    {
+      "text": "Sometimes you can. There are real wins",
+      "start": 1117.2,
+      "duration": 3.839
+    },
+    {
+      "text": "out there, but think about it and make",
+      "start": 1118.96,
+      "duration": 3.92
+    },
+    {
+      "text": "an intentional plan and benchmark",
+      "start": 1121.039,
+      "duration": 3.361
+    },
+    {
+      "text": "yourself and see if you're actually able",
+      "start": 1122.88,
+      "duration": 3.36
+    },
+    {
+      "text": "to successfully do it. This comes down",
+      "start": 1124.4,
+      "duration": 4.48
+    },
+    {
+      "text": "to scoping the problem very very",
+      "start": 1126.24,
+      "duration": 4.88
+    },
+    {
+      "text": "precisely around the value you intend to",
+      "start": 1128.88,
+      "duration": 5.28
+    },
+    {
+      "text": "deliver. Number four, ROI focused. Don't",
+      "start": 1131.12,
+      "duration": 4.64
+    },
+    {
+      "text": "think about the feature list. Remember",
+      "start": 1134.16,
+      "duration": 3.28
+    },
+    {
+      "text": "when I said earlier in this video that",
+      "start": 1135.76,
+      "duration": 4.32
+    },
+    {
+      "text": "you want to mentally assess the problem",
+      "start": 1137.44,
+      "duration": 4.56
+    },
+    {
+      "text": "space and look at where the value is",
+      "start": 1140.08,
+      "duration": 3.839
+    },
+    {
+      "text": "spiky against that ladder, whether",
+      "start": 1142.0,
+      "duration": 4.16
+    },
+    {
+      "text": "that's simple data operations or machine",
+      "start": 1143.919,
+      "duration": 4.241
+    },
+    {
+      "text": "learning or generative AI or agents.",
+      "start": 1146.16,
+      "duration": 4.56
+    },
+    {
+      "text": "Focus on that value piece. The feature",
+      "start": 1148.16,
+      "duration": 4.08
+    },
+    {
+      "text": "lists will spread out all over the",
+      "start": 1150.72,
+      "duration": 3.36
+    },
+    {
+      "text": "place. If you focus on feature lists,",
+      "start": 1152.24,
+      "duration": 2.799
+    },
+    {
+      "text": "you're going to be extremely",
+      "start": 1154.08,
+      "duration": 3.68
+    },
+    {
+      "text": "inefficient. Focus on where the leverage",
+      "start": 1155.039,
+      "duration": 5.76
+    },
+    {
+      "text": "is. Focus on the value and frame AI as a",
+      "start": 1157.76,
+      "duration": 5.039
+    },
+    {
+      "text": "means to specific business outcomes. It",
+      "start": 1160.799,
+      "duration": 4.321
+    },
+    {
+      "text": "should deliver reduced costs, faster",
+      "start": 1162.799,
+      "duration": 3.681
+    },
+    {
+      "text": "decisions. It should deliver better",
+      "start": 1165.12,
+      "duration": 3.6
+    },
+    {
+      "text": "customer satisfaction. The point is not",
+      "start": 1166.48,
+      "duration": 4.4
+    },
+    {
+      "text": "AI itself. The point is the value it",
+      "start": 1168.72,
+      "duration": 4.8
+    },
+    {
+      "text": "delivers. And so if you need to push",
+      "start": 1170.88,
+      "duration": 4.72
+    },
+    {
+      "text": "back when someone makes the case that",
+      "start": 1173.52,
+      "duration": 4.0
+    },
+    {
+      "text": "you should use an AI agent and you have",
+      "start": 1175.6,
+      "duration": 3.439
+    },
+    {
+      "text": "used this framework and you know you",
+      "start": 1177.52,
+      "duration": 3.92
+    },
+    {
+      "text": "shouldn't, push back on ROI. push back",
+      "start": 1179.039,
+      "duration": 5.041
+    },
+    {
+      "text": "and say, I want to deliver reduced costs",
+      "start": 1181.44,
+      "duration": 4.4
+    },
+    {
+      "text": "and this isn't going to do that. I want",
+      "start": 1184.08,
+      "duration": 3.68
+    },
+    {
+      "text": "to make sure that we make good decisions",
+      "start": 1185.84,
+      "duration": 3.28
+    },
+    {
+      "text": "to actually improve customer",
+      "start": 1187.76,
+      "duration": 3.6
+    },
+    {
+      "text": "satisfaction, and this agent workflow is",
+      "start": 1189.12,
+      "duration": 3.6
+    },
+    {
+      "text": "not going to do that on the timeline you",
+      "start": 1191.36,
+      "duration": 3.52
+    },
+    {
+      "text": "need. So, let's close with a 30-se",
+      "start": 1192.72,
+      "duration": 4.0
+    },
+    {
+      "text": "secondond decision tree that will help",
+      "start": 1194.88,
+      "duration": 4.4
+    },
+    {
+      "text": "you the next time you face this. Does",
+      "start": 1196.72,
+      "duration": 4.88
+    },
+    {
+      "text": "the problem have deterministic rules?",
+      "start": 1199.28,
+      "duration": 4.639
+    },
+    {
+      "text": "It's a data processing problem. Does the",
+      "start": 1201.6,
+      "duration": 3.84
+    },
+    {
+      "text": "problem need to predict an outcome? It's",
+      "start": 1203.919,
+      "duration": 3.281
+    },
+    {
+      "text": "a traditional machine learning problem.",
+      "start": 1205.44,
+      "duration": 3.84
+    },
+    {
+      "text": "Does the problem need to generate novel",
+      "start": 1207.2,
+      "duration": 4.24
+    },
+    {
+      "text": "tokens, novel words, novel content,",
+      "start": 1209.28,
+      "duration": 4.32
+    },
+    {
+      "text": "generative AI, large language models?",
+      "start": 1211.44,
+      "duration": 4.32
+    },
+    {
+      "text": "Finally, do we need a workflow with",
+      "start": 1213.6,
+      "duration": 4.48
+    },
+    {
+      "text": "autonomous decisions and multi-step",
+      "start": 1215.76,
+      "duration": 4.24
+    },
+    {
+      "text": "orchestration? That's an agent's",
+      "start": 1218.08,
+      "duration": 4.16
+    },
+    {
+      "text": "problem. The cross cutting factor here",
+      "start": 1220.0,
+      "duration": 5.039
+    },
+    {
+      "text": "is talent. As you go up these four, the",
+      "start": 1222.24,
+      "duration": 5.2
+    },
+    {
+      "text": "talent needs get bigger. The same person",
+      "start": 1225.039,
+      "duration": 4.401
+    },
+    {
+      "text": "that can do data processing usually",
+      "start": 1227.44,
+      "duration": 3.599
+    },
+    {
+      "text": "can't do autonomous multi-step",
+      "start": 1229.44,
+      "duration": 3.44
+    },
+    {
+      "text": "orchestration with agents, not a",
+      "start": 1231.039,
+      "duration": 3.841
+    },
+    {
+      "text": "production scale. So you have to have to",
+      "start": 1232.88,
+      "duration": 4.48
+    },
+    {
+      "text": "also be aware of how to advocate for the",
+      "start": 1234.88,
+      "duration": 4.64
+    },
+    {
+      "text": "talent that you need in order to deliver",
+      "start": 1237.36,
+      "duration": 4.08
+    },
+    {
+      "text": "against these outcomes. It is not fair",
+      "start": 1239.52,
+      "duration": 4.0
+    },
+    {
+      "text": "to ask an engineer who has never worked",
+      "start": 1241.44,
+      "duration": 3.68
+    },
+    {
+      "text": "with large language models to",
+      "start": 1243.52,
+      "duration": 3.039
+    },
+    {
+      "text": "immediately build an autonomous",
+      "start": 1245.12,
+      "duration": 4.0
+    },
+    {
+      "text": "multi-step orchestration agent that",
+      "start": 1246.559,
+      "duration": 5.6
+    },
+    {
+      "text": "handles 95% of customer service tickets.",
+      "start": 1249.12,
+      "duration": 4.96
+    },
+    {
+      "text": "That is unlikely to go well and the",
+      "start": 1252.159,
+      "duration": 3.681
+    },
+    {
+      "text": "companies that tend to ask for that are",
+      "start": 1254.08,
+      "duration": 3.76
+    },
+    {
+      "text": "setting themselves up for grief. I hope",
+      "start": 1255.84,
+      "duration": 4.0
+    },
+    {
+      "text": "this has been helpful. My goal for you",
+      "start": 1257.84,
+      "duration": 3.52
+    },
+    {
+      "text": "has been to help you to develop a sense",
+      "start": 1259.84,
+      "duration": 3.12
+    },
+    {
+      "text": "of taste by focusing on problem",
+      "start": 1261.36,
+      "duration": 3.679
+    },
+    {
+      "text": "structure, not problem hype and not",
+      "start": 1262.96,
+      "duration": 4.4
+    },
+    {
+      "text": "solution hype in AI. To start simple,",
+      "start": 1265.039,
+      "duration": 3.921
+    },
+    {
+      "text": "remember to climb the complexity ladder",
+      "start": 1267.36,
+      "duration": 3.439
+    },
+    {
+      "text": "as you go. To make sure you frame things",
+      "start": 1268.96,
+      "duration": 3.36
+    },
+    {
+      "text": "in terms of ROI, that's going to help",
+      "start": 1270.799,
+      "duration": 3.521
+    },
+    {
+      "text": "executives to really make sense of what",
+      "start": 1272.32,
+      "duration": 5.28
+    },
+    {
+      "text": "you're saying. To build trust first,",
+      "start": 1274.32,
+      "duration": 4.479
+    },
+    {
+      "text": "which by the way is one of the",
+      "start": 1277.6,
+      "duration": 2.559
+    },
+    {
+      "text": "underlying themes all the way through.",
+      "start": 1278.799,
+      "duration": 2.481
+    },
+    {
+      "text": "You have to build trust with your",
+      "start": 1280.159,
+      "duration": 2.64
+    },
+    {
+      "text": "executive by speaking their language.",
+      "start": 1281.28,
+      "duration": 2.72
+    },
+    {
+      "text": "You have to build trust with yourself",
+      "start": 1282.799,
+      "duration": 2.961
+    },
+    {
+      "text": "when you're making your decisions by",
+      "start": 1284.0,
+      "duration": 3.2
+    },
+    {
+      "text": "making decisions that actually lead to",
+      "start": 1285.76,
+      "duration": 3.2
+    },
+    {
+      "text": "sustainable software. You have to build",
+      "start": 1287.2,
+      "duration": 3.359
+    },
+    {
+      "text": "trust with your customers by making sure",
+      "start": 1288.96,
+      "duration": 3.52
+    },
+    {
+      "text": "that you focus on quality for them and",
+      "start": 1290.559,
+      "duration": 3.921
+    },
+    {
+      "text": "use the right tool. Data pipelines,",
+      "start": 1292.48,
+      "duration": 3.439
+    },
+    {
+      "text": "machine learning, generative AI, and",
+      "start": 1294.48,
+      "duration": 3.92
+    },
+    {
+      "text": "agents each have their place. You need",
+      "start": 1295.919,
+      "duration": 3.921
+    },
+    {
+      "text": "to know when to pick up the right tool",
+      "start": 1298.4,
+      "duration": 4.56
+    },
+    {
+      "text": "in the toolbox. I hope that this video",
+      "start": 1299.84,
+      "duration": 5.199
+    },
+    {
+      "text": "has given you a sense of the kinds of",
+      "start": 1302.96,
+      "duration": 4.16
+    },
+    {
+      "text": "problems that are susceptible to agents,",
+      "start": 1305.039,
+      "duration": 3.201
+    },
+    {
+      "text": "the kinds of problems that are",
+      "start": 1307.12,
+      "duration": 3.28
+    },
+    {
+      "text": "susceptible to generative AI, and the",
+      "start": 1308.24,
+      "duration": 4.559
+    },
+    {
+      "text": "frankly fairly wide class of problems",
+      "start": 1310.4,
+      "duration": 4.08
+    },
+    {
+      "text": "that isn't either of those things and",
+      "start": 1312.799,
+      "duration": 3.521
+    },
+    {
+      "text": "that we still have in business today and",
+      "start": 1314.48,
+      "duration": 4.0
+    },
+    {
+      "text": "that still needs a good solution. Good",
+      "start": 1316.32,
+      "duration": 4.719
+    },
+    {
+      "text": "luck out there.",
+      "start": 1318.48,
+      "duration": 2.559
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "1FKxyPAJ2Ok",
+    "title": "Your Boss says 'Use AI!'\u2014Here's When to Actually Use AI & AI Agents For Real",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/the-real-talk-guide-to-using-ai-agents?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. The Four Buckets: Problems fall into four categories\u2014data processing, traditional ML, generative AI, and AI agents. Always start with the simplest possible solution.\n 2. Don\u2019t Overuse AI: If a problem is deterministic and can be solved with SQL or basic math, AI is unnecessary, more expensive, and less reliable.\n 3. Machine Learning Still Matters: For structured data with clear prediction goals (fraud, churn, demand), classical ML is more effective and cheaper than LLMs.\n 4. Generative AI Strength: Best for mixed or unstructured data and when the output requires words, summaries, or creative synthesis\u2014but it comes with risks like hallucinations and higher costs.\n 5. Agents for Workflows: Use agents only when tasks require multi-step orchestration and clear decision points. They offer massive leverage but demand strong error handling and observability.\n 6. ROI & Cost Discipline: If AI or agents don\u2019t deliver at least 10x improvement over the baseline, stick with simpler methods. Maintenance and compute costs rise steeply as complexity increases.\n 7. Boring Wins: Reliable dashboards and simple pipelines often outperform overengineered AI systems. Fix data quality before adding complexity.\n\nQuotes\n\u201cWe are living in a hype cycle, and the real skill is learning to focus on problem structure, not solution buzzwords.\u201d\n\u201cGenerative AI is powerful, but if it isn\u2019t delivering a 10x improvement, it\u2019s probably not worth the cost and complexity.\u201d\n\u201cAgents can deliver thousand-fold leverage, but they behave more like little employees you pay every month\u2014costly to run and maintain.\u201d\n\nSummary\nIn this video, I explain when to use data pipelines, traditional ML, generative AI, and AI agents. The key is choosing the lowest rung of the ladder that solves the problem\u2014simple queries for reporting, ML for structured predictions, LLMs for unstructured or word-heavy tasks, and agents for multi-step workflows. Each rung offers more leverage but also more cost, complexity, and maintenance. ROI focus is critical: if an AI solution doesn\u2019t deliver at least 10x over the baseline, it\u2019s usually not worth it. I stress boring, reliable solutions, strong data quality, and human-in-the-loop adoption.\n\nKeywords\nAI decision framework, data processing, SQL, machine learning, predictive analytics, generative AI, large language models, AI agents, workflows, ROI, compute costs, maintenance, hallucinations, agent orchestration, human in the loop, business value, data quality, dashboards",
+    "published_at": "2025-09-15T13:00:06Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT22M",
+    "duration_seconds": 1320,
+    "view_count": 7132,
+    "like_count": 343,
+    "comment_count": 98,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/1FKxyPAJ2Ok/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/1FKxyPAJ2Ok/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/1FKxyPAJ2Ok/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/1FKxyPAJ2Ok/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/1FKxyPAJ2Ok/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:49.924984",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/the-real-talk-guide-to-using-ai-agents?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-real-talk-guide-to-using-ai-agents?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.408851"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"how to use ai: choosing between data-processing, machine-learning, generative-ai, and ai-agents\",\n  \"tags\": [\"data-processing\", \"machine-learning\", \"generative-ai\", \"ai-agents\"],\n  \"summary\": \"A practical framework for deciding when to use data processing, traditional machine learning, generative AI, or AI agents, including cost-benefit considerations and example workflows.\"\n}",
+      "generated_at": "2025-11-09T22:26:21.481317",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

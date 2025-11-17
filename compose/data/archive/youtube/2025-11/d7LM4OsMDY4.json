@@ -1,0 +1,118 @@
+{
+  "video_id": "d7LM4OsMDY4",
+  "url": "https://www.youtube.com/watch?v=d7LM4OsMDY4",
+  "fetched_at": "2025-11-09T19:23:28.487520",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.487520",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "If you're in a building or founding space, you need to be assuming a world next year where intelligence per dollar continues to double every four or five months. And therefore, your margin opportunity is smarter routing. And so you need to think about a core product lever that enables you to route more intelligent that enables you to deliver higher quality at lesser cost with the assumption that models will continue to deliver more capability for cheaper going forward. You also need to think about how you capture distribution with answer engine optimization. You should assume that there the 60% AI search share from Chad GPT the 11% retail conversion rate those are sticking around. You should assume that there's going to be an ad network launched against that. You should assume that if you are not in place with AEO optimized content like structured data, canonical APIs, etc., Uh, you are invisible to the fastest growing e-commerce distribution",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "d7LM4OsMDY4",
+    "title": "AI commerce revolution is coming. Are you ready ? #ecommerce #ai #seo #shopify #shopping #llm",
+    "description": "My site: https://natebjones.com\nFull Story: https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nThe most read report in Silicon Valley just dropped\u2014and it's 313 slides. Here's the TLDR, what's most surprising, and the realities AI builders everywhere will face in 2025 and 2026. \n\nIn this video, I share the inside scoop on the shift from model IQ to systems\u2014capability-to-cost, distribution, and power constraints\u2014and what it means for LLMs like GPT-5, Claude, and Gemini:\n\u2022 Why the capability-to-cost curve resets unit economics every few months.\n\u2022 How routing to the cheapest capable model beats frontier defaults.\n\u2022 What answer engines mean for distribution and AEO in the browser.\n\u2022 Where power, permits, and water will bottleneck LLM scale.\n\nChapters:\n00:00 The State of AI Report Overview\n04:56 Drivers of AI Systems: Cost, Distribution, and Infrastructure\n12:39 Evaluating AI Reasoning Gains and Model Intelligence\n17:39 Open vs Closed Models: The Global AI Landscape\n22:48 Implications for AI Builders and Investors\n25:56 The Future of AI: Individual Agency and Opportunities\n\nFor operators, advantage now comes from multi-model routing, answer-engine optimization, and clear-eyed planning for infrastructure limits\u2014balancing upside in automation at work and AI agents with real execution risk.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-31T03:00:48Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M",
+    "duration_seconds": 60,
+    "view_count": 6248,
+    "like_count": 215,
+    "comment_count": 8,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI agents",
+      "automation at work",
+      "AI search distribution",
+      "answer engine optimization",
+      "capability to cost",
+      "model routing",
+      "multi model architecture",
+      "data center power",
+      "power and permits",
+      "Stargate project",
+      "OpenAI models",
+      "Anthropic Claude",
+      "GPT-5 updates",
+      "Google Gemini",
+      "sovereign AI strategy",
+      "AI strategy for teams"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/d7LM4OsMDY4/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/d7LM4OsMDY4/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/d7LM4OsMDY4/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/d7LM4OsMDY4/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/d7LM4OsMDY4/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:25:02.415724",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/executive-briefing-i-summarized-the?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:16.103754"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Smart routing and answer-engine optimization for AI-powered ecommerce distribution\",\n  \"tags\": [\"ai-for-ecommerce\", \"answer-engine-optimization\", \"structured-data\", \"ai-search\", \"ecommerce-distribution\"],\n  \"summary\": \"Explores leveraging intelligent routing and AEO to improve ecommerce distribution amid rising AI capabilities and search dominance.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.495681",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.504479",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

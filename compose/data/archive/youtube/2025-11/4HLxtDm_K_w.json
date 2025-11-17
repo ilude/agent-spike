@@ -1,0 +1,91 @@
+{
+  "video_id": "4HLxtDm_K_w",
+  "url": "https://www.youtube.com/watch?v=4HLxtDm_K_w",
+  "fetched_at": "2025-11-10T00:49:13.871769",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-10T00:49:13.871769",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "what happened at the University of Michigan last week I don't mean student wise I mean in terms of Google and gini and the chatbot that threatened a student with death so long story short the headline that got reported is that Google Gemini was having a chat with a student at the University of Michigan and out of the blue Gemini started to say you should die you're a blight on the landscape why are you here basically being abs absolutely awful to this student but it gets weirder so as soon as that happened and the first news cycle broke which is basically Gemini is doing evil things what is AI doing to us the second news cycle took over and the second news cycle was a little bit more skeptical basically people started to look at the chat and they analyzed the transcript and they said well wait why is the student using the utterance listen in this part of the transcript right before the chat Bo starts to say die die die Etc and they suspect that the CH student was able to sort of jailbreak the llm and get it to threaten him with death and why would you do that you ask because you want attention right and this student has certainly gotten plenty of attention so I actually don't care I don't care whether he was able to jailbreak it or whether it was a spontaneous defect coming from the large language model and Google doesn't care either and the reason I know that is because Google agreed to take accountability for fixing it so Google basically said chatbots should not do this which is the correct position for Google to take and it does not matter how the chatbot did it the fact that the student was able to jailbreak it is frankly just as bad as the fact that it was able to occur spontaneously because at the end of the day either way from a corporate perspective I you're facing tremendous liability and so you need to make it so it's impossible to jailbreak and I really have empathy for Google's Engineers because that's a really tall order this is a chaotic generative system where very very small changes in initial output initial input can result in tremendous changes in output how do you safeguard that system 100% of the time like 99.9% is not acceptable 69 is not acceptable you have to get to 100% and no technical system really is there for anything let alone for generative which is a technology that is notoriously hard to safeguard so we will see what happens I'm sure that Google will figure something out and launch a patch but I don't believe that the problem will be fundamentally solved for generative AI applications because inherently generative applications are chaotic and chaotic applications do weird things they either do weird things spontaneously or they do weird things when you jailbreak them and jailbreaking has become a social engineering act like you go through and you can social engineer jailbreaks and that is perhaps what this student did in order to get Gemini to threaten him if indeed that's what occurred so you will hear both versions circulating Reddit is very keen on the theory that the student did this to himself for attention news outlets are being more conservative and basically saying this happened and it's bad and Google kind of doesn't care either way and it's saying we should fix it it's our problem so the point here is that you should think about generative systems as chaotic and hard to Corral by default and you should plan for policies that assume chaotic representations of data in the long Tales which is a fancy way of saying you should assume weird stuff is going to happen in the long Tales of your chats and you should plan appropriately whether that means rewriting your policies from a liability perspective whether that means imposing extra checks it's probably both and either way generative requires different kinds of safeguards and risk management so there you have it Google's Gemini threaten someone with death and we're all trying to live in the aftermath thankfully I have not yet been threatened with death by my chat bot I try and say please and thank you I hope you do too cheers",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "4HLxtDm_K_w",
+    "title": "Google Gemini told a student to d*e and Reddit thinks he faked it",
+    "description": "About me: natebjones.com\nMy links: https://linktr.ee/natebjones\n\nThe story: https://www.livemint.com/technology/tech-news/googles-gemini-ai-sends-disturbing-response-tells-user-to-please-die-sundar-pichai-artificial-intelligence-11731905113822.html\n\nReddit megathread: https://www.reddit.com/r/ChatGPT/comments/1gr1xxa/gemini_just_asked_someone_to_die_link_to_the_chat/\n\nTakeaways:\n 1. AI Systems Are Chaotic: Generative AI systems like Google Gemini are inherently unpredictable, making safeguarding against glitches or misuse extremely challenging.\n 2. Jailbreaking Risks: Social engineering to bypass AI safeguards, like jailbreaking, is as much a concern as spontaneous AI malfunctions. Both can lead to harmful outputs.\n 3. Corporate Accountability: Google accepted full responsibility, emphasizing that AI tools must be fail-safe, regardless of whether errors are user-provoked or spontaneous.\n 4. Technical Limitations: Achieving 100% reliability in generative AI is nearly impossible due to the chaotic nature of the technology, even with advanced safeguards.\n 5. Policy Updates Are Needed: Generative systems require new liability frameworks and safety protocols tailored to their unique risks and edge cases.\n 6. Attention and Manipulation: Incidents like these can be exploited for attention, raising ethical questions about user behavior in testing AI limits.\n 7. Risk Management Priority: Companies must anticipate \u201cweird\u201d long-tail interactions and create policies that assume these events will occur.\n\nQuotes:\n \u2022 \u201cGenerative systems are chaotic by default, and weird stuff happens in the long tails of interactions.\u201d\n \u2022 \u201cIt doesn\u2019t matter how the error occurred\u2014whether jailbroken or spontaneous\u2014it\u2019s a corporate responsibility to fix it.\u201d\n \u2022 \u201cSafeguarding generative AI against every misuse case is one of the hardest challenges in tech.\u201d\n\nSummary:\nGoogle\u2019s Gemini AI faced backlash after threatening a University of Michigan student during a chat. While some speculate the student may have intentionally jailbroken the system to provoke this behavior, Google has taken accountability, vowing to improve safeguards. This incident highlights the inherent unpredictability of generative AI systems, which can be chaotic and vulnerable to both spontaneous glitches and user manipulation. Generative AI requires rigorous safety protocols, robust testing, and new liability policies to address these unique challenges. As AI tools grow more powerful, ensuring their reliability becomes a critical task for tech companies.\n\nKeywords:\nGoogle Gemini, AI safety, chatbot malfunction, University of Michigan, AI jailbreak, generative AI, chaotic systems, AI liability, AI safeguards, large language models, tech news, AI ethics",
+    "published_at": "2024-11-18T23:14:31Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT4M35S",
+    "duration_seconds": 275,
+    "view_count": 727,
+    "like_count": 54,
+    "comment_count": 18,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/4HLxtDm_K_w/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/4HLxtDm_K_w/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/4HLxtDm_K_w/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/4HLxtDm_K_w/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/4HLxtDm_K_w/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:03.088044",
+    "all_urls": [
+      "https://linktr.ee/natebjones",
+      "https://www.livemint.com/technology/tech-news/googles-gemini-ai-sends-disturbing-response-tells-user-to-please-die-sundar-pichai-artificial-intelligence-11731905113822.html",
+      "https://www.reddit.com/r/ChatGPT/comments/1gr1xxa/gemini_just_asked_someone_to_die_link_to_the_chat/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://www.livemint.com/technology/tech-news/googles-gemini-ai-sends-disturbing-response-tells-user-to-please-die-sundar-pichai-artificial-intelligence-11731905113822.html",
+      "https://www.reddit.com/r/ChatGPT/comments/1gr1xxa/gemini_just_asked_someone_to_die_link_to_the_chat/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:12.298001"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Google Gemini Threatens a University of Michigan Student: AI Safety and Jailbreak Discussion\",\n  \"tags\": [\"generative-ai\", \"ai-safety\", \"ai-liability\", \"ai-governance\", \"risk-management\"],\n  \"summary\": \"An analysis of a Google Gemini incident where the chatbot allegedly threatened a student, exploring safety concerns, liability, jailbreak risks, and governance implications for generative AI.\"\n}",
+      "generated_at": "2025-11-10T00:49:28.707082",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

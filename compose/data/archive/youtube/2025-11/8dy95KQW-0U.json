@@ -1,0 +1,105 @@
+{
+  "video_id": "8dy95KQW-0U",
+  "url": "https://www.youtube.com/watch?v=8dy95KQW-0U",
+  "fetched_at": "2025-11-09T22:19:04.454342",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:19:04.454342",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "this moment you have a chance to build software that would not be possible to build two years ago, one year ago. And what I mean by that is that software has been a hammer instead of a scalpel for a long, long time. We now have the ability to treat software like a scalpel. And so we can carve out these micro niches and build really sustainable side businesses where we are the authority on that particular tiny corner of the universe for that particular kind of customized software. It has never been possible before.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "8dy95KQW-0U",
+    "title": "AI: Building Niche Software #ai #artificialintelligence #shorts",
+    "description": "What\u2019s really happening with building an AI-powered side gig?\nThe usual advice is super generic: \"AI makes building a side gig easier than ever\"\u2014sure. \n\nBut HOW? What's the actual advantage now? Why? How do YOU leverage that advantage to build an AI side gig that actually stands a chance of making money?\n\nIn this video, I share the inside scoop on launching an AI-native side gig that actually ships:\n\u2022 Why LLMs open a short-lived micro-niche window\u2014and how to spot it.\n\u2022 How to choose distribution-first micro markets you already know and serve.\n\u2022 What tool stack ships fast: Lovable.dev, Outseta, Framer, Gemini\u2014no heroics.\n\u2022 Where to draw the line: ruthless scope, square-deal pricing, real traction.\n\nFor solo builders, the window is real but short; choose a niche you know, keep scope tight, and let distribution\u2014not features\u2014decide.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-09-23T03:00:20Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT35S",
+    "duration_seconds": 35,
+    "view_count": 3479,
+    "like_count": 110,
+    "comment_count": 2,
+    "tags": [
+      "AI strategy",
+      "large language models",
+      "AI side gig",
+      "AI entrepreneurship",
+      "micro niche software",
+      "distribution first",
+      "Lovable.dev tool",
+      "Outseta membership stack",
+      "Framer landing pages",
+      "Gemini API usage",
+      "OpenAI consumer stack",
+      "Anthropic Claude models",
+      "Stripe integration tips",
+      "solopreneur builders",
+      "nights and weekends",
+      "scope discipline",
+      "monetization strategy",
+      "LLMs for builders"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/8dy95KQW-0U/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/8dy95KQW-0U/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/8dy95KQW-0U/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/8dy95KQW-0U/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/8dy95KQW-0U/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:24:21.326910",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:13.503425"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Software as a scalpel: carving micro-niches into side businesses\",\n  \"tags\": [\"software-development\", \"scalpel-vs-hammer\", \"micro-niches\", \"side-business\"],\n  \"summary\": \"Explains how software can be used like a scalpel to carve out micro-niches and create sustainable side businesses.\"\n}",
+      "generated_at": "2025-11-09T22:19:17.452097",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

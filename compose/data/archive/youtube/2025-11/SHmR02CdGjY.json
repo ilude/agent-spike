@@ -1,0 +1,91 @@
+{
+  "video_id": "SHmR02CdGjY",
+  "url": "https://www.youtube.com/watch?v=SHmR02CdGjY",
+  "fetched_at": "2025-11-09T22:58:52.034638",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:58:52.034638",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "We need to make sure that we prioritize moving to thinking machines for high leverage, high value activities. Finance sure comes to mind. It seems pretty valuable because when you ask for answers from an LLM, the LLM is trained to be helpful and gives you a perfectly acceptable generic answer because your prompt did not give it the room to do what it does best. your prompt did not give it the room to analyze to actually dig deep. And so what I want to focus on in this video are the principles. I'm going to use finance as a lens because I think it's a high lever high value activity. We all do it one way or another. Whether we're in a budgeting app or whether we're investing or whether we're negotiating compensation, we have to do with money. I want to talk about how you use LLMs for this because it's a lens into how we use them for highv value thinking activities.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "SHmR02CdGjY",
+    "title": "AI: Beyond Answer Machines",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. MIT \u201cBrain-Drain\u201d Study: Copy-pasting ChatGPT answers lowers cognitive effort, proving passive AI use literally shrinks our mental workload.\n 2. Decision Anxiety Loop: People hand tough choices to AI so they can claim credit when it works\u2014or blame the bot when it fails.\n 3. Answer vs. Analysis Prompts: Google excels at domain-completion questions (\u201cGive me the answer\u201d); LLMs shine when asked for scenario analysis with rich inputs.\n 4. Structured Thinking Framework: Effective prompts define role, inputs, silent reflection, output format, success criteria, and rejection conditions\u2014forcing deeper reasoning.\n 5. Finance as a Testbed: Money decisions are high-leverage and emotionally charged, making them the perfect arena to practice analysis-first prompting.\n 6. Live 90-Day Experiment: I\u2019m allocating real dollars on Robinhood and Kalshi, letting O3 Pro, Opus 4, and Grok 4 generate trades to measure analytical depth\u2014outcomes will be published.\n 7. Embrace Uncertainty: LLMs expand optionality and surface trade-offs, but humans must still own the decision and its consequences.\n\nQuotes\n\u201cWe keep begging ChatGPT for certainty when its real superpower is exploring uncertainty.\u201d\n\u201cGoogle is the answer machine; ChatGPT is the thinking machine\u2014if you let it think.\u201d\n\u201cThe goal is to keep responsibility inside you and let AI synthesize the options.\u201d\n\nSummary\nI unpack why many smart people use AI to dodge responsibility instead of sharpening judgment. An MIT study shows that blindly copying ChatGPT narrows brain engagement, yet decision anxiety drives us to seek definitive answers, especially in finance. I argue for analysis-first prompts: feed LLMs structured data, role instructions, and reflection steps so they map scenarios rather than dictate actions. To prove the point, I\u2019m running a 90-day live test on Robinhood and Kalshi, giving O3 Pro, Opus 4, and Grok 4 real money and rigorous prompts. The experiment will reveal how well each model supports human agency\u2014and how we can reclaim it.\n\nKeywords\nMIT brain-drain study, decision anxiety, AI judgment, structured prompts, answer vs analysis, financial decisions, Robinhood, Kalshi, O3 Pro, Opus 4, Grok 4, live LLM experiment, thinking machine, domain completion, uncertainty, optionality",
+    "published_at": "2025-07-31T21:00:33Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT53S",
+    "duration_seconds": 53,
+    "view_count": 1794,
+    "like_count": 71,
+    "comment_count": 2,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/SHmR02CdGjY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/SHmR02CdGjY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/SHmR02CdGjY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/SHmR02CdGjY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/SHmR02CdGjY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:11.699855",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-ai-analysis-edge-7-prompts-that?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:24.873392"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "ai-in-finance, large-language-models, decision-support-ai, prompt-engineering",
+      "generated_at": "2025-11-09T22:58:59.387856",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

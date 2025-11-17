@@ -1,0 +1,91 @@
+{
+  "video_id": "z2m4vMiUmXA",
+  "url": "https://www.youtube.com/watch?v=z2m4vMiUmXA",
+  "fetched_at": "2025-11-09T23:22:19.745198",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:22:19.745198",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "I got my start in a job that AI has changed dramatically already, right? I was doing nonprofit grant management. AI can do a lot of the work that I was doing at the push of a button. Then I went over to Oracle eyes store management and conversion optimization. Conversion optimization doesn't exist as a job anymore. AI took it away. And eyes store I mean who has Oracle eyes store anymore? I'm sure there someone's going to come up and say I have Oracle eyesore after this but most people don't. And then I went and did marketing and I looked at marketing attribution systems. Again, another area where AI has taken a lot of the work away. I looked at voice of customer, almost totally automated by AI now. And what's funny as I say all of those things is that even though AI has made huge strides, we still have people who are grant fund managers.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "z2m4vMiUmXA",
+    "title": "AI: Impact on Jobs #ai  #artificialintelligence #shorts #chatgpt",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nthe story: https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. AI-Driven Displacement: Josh\u2019s entry-level newsroom vanished when AI content tools undercut human reporters, exposing the tangible human cost of automation.\n 2. Hidden Resistance: People who feel harmed by AI often reject reskilling advice; anger and mistrust can block even well-meaning help.\n 3. Dream Flexibility: Thriving now means treating careers as evolving problem-solving journeys, not fixed job titles\u2014dreams must update with the game board.\n 4. Personal Reinvention Proof: My pivot from grant management to e-commerce to product shows that reinvention is possible each time technology reshapes tasks.\n 5. AI as Practice Partner: Modern models let anyone rehearse interviews, code, or decode textbooks on demand, compressing learning cycles dramatically.\n 6. Social Responsibility: AI advocates must listen to the \u201cJoshes,\u201d offer respect before solutions, and help them find new paths or risk deepening divides.\n\nQuotes\n\u201cAI took my job.\u201d\n\u201cAre you open to your dreams shifting?\u201d\n\u201cWe\u2019ve taught the sand to think, and now everything is different.\u201d\n\nSummary\nI share Josh\u2019s story, an amalgam of displaced journalists I\u2019ve met, to spotlight AI\u2019s unseen casualties. Josh lost his newsroom job, moved home, and now sees AI only as the force that stole his future. I contrast his despair with my own path, which has repeatedly morphed\u2014grant management, e-commerce, marketing\u2014each shaken by new tech yet still valuable after reinvention. AI accelerates that pattern: it erodes tasks yet expands what we can learn and build. Our job is to sit with the Joshes, listen, and invite them\u2014without condescension\u2014to imagine fresh dreams on a newly rearranged board and learn alongside them daily.\n\nKeywords\nAI, job displacement, journalism, dream flexibility, upskilling, career reinvention, learning tools, societal impact, automation, Josh, AI trust, listening",
+    "published_at": "2025-07-11T21:05:29Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT50S",
+    "duration_seconds": 50,
+    "view_count": 4292,
+    "like_count": 106,
+    "comment_count": 5,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/z2m4vMiUmXA/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/z2m4vMiUmXA/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/z2m4vMiUmXA/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/z2m4vMiUmXA/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/z2m4vMiUmXA/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:28:01.711694",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/the-story-of-josh-an-ai-fable-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:31.887400"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai's impact on jobs across industries (nonprofit to marketing)\",\n  \"tags\": [\"artificial-intelligence\", \"automation\", \"marketing-automation\", \"job-displacement\", \"ai-in-business\"],\n  \"summary\": \"AI has dramatically automated many business tasks\u2014from nonprofit grant management to conversion optimization and marketing attribution\u2014yet human roles like grant fund managers still persist.\"\n}",
+      "generated_at": "2025-11-09T23:22:32.192688",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

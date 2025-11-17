@@ -1,0 +1,113 @@
+{
+  "video_id": "TJVaJTDA5Vw",
+  "url": "https://www.youtube.com/watch?v=TJVaJTDA5Vw",
+  "fetched_at": "2025-11-09T19:23:28.156394",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.156394",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Lies travel faster than truth and Reddit lies travel fastest of all. There's a Reddit lie out there that Chad GPT cannot help you anymore with legal and medical advice. This is simply not true. In fact, it never was true. The only thing that actually happened is that OpenAI made a minor change to their terms of service intended to govern liability with lawyers and with doctors. And someone on Reddit dramatically, perhaps intentionally, misinterpreted that and created a viral misinformation campaign that is spreading all over the internet right now, falsely claiming that Chat GPT will no longer give people legal or medical advice. I have people in my DMs threatening to cancel their OpenAI subscriptions. It is completely ridiculous. It is entirely unnecessary and it is a good example of why anytime you see a headline about AI if you can test it, if you can check it because that's what I did. I went straight to chat GPT and I just tested it and it turns out I get legal advice and medical advice the same as I always did. Nothing changed. Anyway, I actually, ironically enough, I swear I didn't plan this. I wrote an article about how to use chat GPT in medical and legal situations for today, including a prompt pack. The prompt pack still works. It's still super effective. It's a smart way to approach really complicated, highstake stuff. It can save you thousands of dollars if you're in a nasty situation. And I have a real story of how someone did that and saved $160,000. Very fun. But please just don't believe internet rumors, especially if they come from Reddit. Reddit is not a good place to get your news from. And I wish the people who reported the news would bother to check their own AI instances before doing so because it's really disrespectful to the rest of us to spread rumors like this and I'm really tired of",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "TJVaJTDA5Vw",
+    "title": "The Truth About the Rumored 'Ban' on Legal & Medical Advice from ChatGPT",
+    "description": "Do not believe the rumors.\nThe viral story is that ChatGPT \u201ccan\u2019t\u201d give legal or medical guidance anymore \u2014 but the reality is that Reddit is a trash fire and should not give news to anyone.\n\nIn this video, I share the inside scoop on how misinformation spreads about AI:\n\u2022 Why a Reddit rumor spiraled into viral AI panic\n\u2022 How OpenAI\u2019s minor policy change got misinterpreted\n\u2022 What actually happens when you test ChatGPT today\n\u2022 Where AI advice still saves real people serious money\n\nAI is moving fast, but that\u2019s no excuse for lazy reporting \u2014 always test before you trust.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-11-03T21:11:43Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M39S",
+    "duration_seconds": 99,
+    "view_count": 3241,
+    "like_count": 155,
+    "comment_count": 26,
+    "tags": [
+      "AI strategy",
+      "AI misinformation",
+      "OpenAI",
+      "ChatGPT",
+      "large language models",
+      "AI safety",
+      "AI policy",
+      "automation at work",
+      "AI in law",
+      "AI in medicine",
+      "prompt engineering",
+      "AI verification",
+      "Reddit rumors",
+      "fact checking AI",
+      "AI news analysis",
+      "AI strategy for teams",
+      "AI communication",
+      "LLM testing"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/TJVaJTDA5Vw/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/TJVaJTDA5Vw/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/TJVaJTDA5Vw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/TJVaJTDA5Vw/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/TJVaJTDA5Vw/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:19.549625",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:25.399551"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Debunking misinformation about ChatGPT's legal and medical advice\",\n  \"tags\": [\"chatgpt\", \"ai-misinformation\", \"legal-advice-ai\", \"medical-advice-ai\", \"rumor-control\"],\n  \"summary\": \"The video debunks a Reddit-driven claim that ChatGPT can't provide legal or medical advice, explains the OpenAI terms update, and discusses how to responsibly use AI in high-stakes scenarios.\"\n}",
+      "generated_at": "2025-11-09T19:23:28.169695",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.178674",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

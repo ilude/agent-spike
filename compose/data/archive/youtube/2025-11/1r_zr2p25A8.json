@@ -1,0 +1,222 @@
+{
+  "video_id": "1r_zr2p25A8",
+  "url": "https://www.youtube.com/watch?v=1r_zr2p25A8",
+  "fetched_at": "2025-11-09T22:17:25.773983",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:17:25.773983",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Now we actually have failures that are harder to detect. AI can fail by hallucinating. AI can fail by drifting. It can still be functional but be completely wrong. This is not a failure mode we're used to. We need intelligent failure detection. We need the ability to monitor reasoning quality, not just system health. And how you measure that is going to depend on the kind of inference you want to build into your agentic system. But you got to measure it. You've got to be able to detect failures that occur that are not just catastrophic program didn't launch failures. And you have to build your system not from the perspective of what would happen if the whole thing went down, but from the perspective of how can the system work well if it's difficult to detect a degradation in reasoning quality. You need to assume that you are moving from a fail fast world to a subtle failure world where the failure is going to be hard to detect. And so you need to think a lot about how you monitor quality in that",
+  "timed_transcript": [
+    {
+      "text": "Now we actually have failures that are",
+      "start": 0.16,
+      "duration": 4.8
+    },
+    {
+      "text": "harder to detect. AI can fail by",
+      "start": 2.56,
+      "duration": 4.799
+    },
+    {
+      "text": "hallucinating. AI can fail by drifting.",
+      "start": 4.96,
+      "duration": 4.88
+    },
+    {
+      "text": "It can still be functional but be",
+      "start": 7.359,
+      "duration": 4.881
+    },
+    {
+      "text": "completely wrong. This is not a failure",
+      "start": 9.84,
+      "duration": 4.879
+    },
+    {
+      "text": "mode we're used to. We need intelligent",
+      "start": 12.24,
+      "duration": 4.72
+    },
+    {
+      "text": "failure detection. We need the ability",
+      "start": 14.719,
+      "duration": 4.961
+    },
+    {
+      "text": "to monitor reasoning quality, not just",
+      "start": 16.96,
+      "duration": 4.96
+    },
+    {
+      "text": "system health. And how you measure that",
+      "start": 19.68,
+      "duration": 3.839
+    },
+    {
+      "text": "is going to depend on the kind of",
+      "start": 21.92,
+      "duration": 3.439
+    },
+    {
+      "text": "inference you want to build into your",
+      "start": 23.519,
+      "duration": 4.0
+    },
+    {
+      "text": "agentic system. But you got to measure",
+      "start": 25.359,
+      "duration": 5.201
+    },
+    {
+      "text": "it. You've got to be able to detect",
+      "start": 27.519,
+      "duration": 5.601
+    },
+    {
+      "text": "failures that occur that are not just",
+      "start": 30.56,
+      "duration": 4.64
+    },
+    {
+      "text": "catastrophic program didn't launch",
+      "start": 33.12,
+      "duration": 4.4
+    },
+    {
+      "text": "failures. And you have to build your",
+      "start": 35.2,
+      "duration": 4.879
+    },
+    {
+      "text": "system not from the perspective of what",
+      "start": 37.52,
+      "duration": 4.16
+    },
+    {
+      "text": "would happen if the whole thing went",
+      "start": 40.079,
+      "duration": 3.921
+    },
+    {
+      "text": "down, but from the perspective of how",
+      "start": 41.68,
+      "duration": 4.64
+    },
+    {
+      "text": "can the system work well if it's",
+      "start": 44.0,
+      "duration": 4.96
+    },
+    {
+      "text": "difficult to detect a degradation in",
+      "start": 46.32,
+      "duration": 5.44
+    },
+    {
+      "text": "reasoning quality. You need to assume",
+      "start": 48.96,
+      "duration": 6.72
+    },
+    {
+      "text": "that you are moving from a fail fast",
+      "start": 51.76,
+      "duration": 6.799
+    },
+    {
+      "text": "world to a subtle failure world where",
+      "start": 55.68,
+      "duration": 4.879
+    },
+    {
+      "text": "the failure is going to be hard to",
+      "start": 58.559,
+      "duration": 4.241
+    },
+    {
+      "text": "detect. And so you need to think a lot",
+      "start": 60.559,
+      "duration": 6.081
+    },
+    {
+      "text": "about how you monitor quality in that",
+      "start": 62.8,
+      "duration": 3.84
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "1r_zr2p25A8",
+    "title": "AI's Subtle Failures #ai #shorts #artificialintelligence",
+    "description": "Why do engineers have so much trouble adapting to building with AI? After building over 100 agentic systems with engineers and vibe-coders at all levels, I think the answer is simple. \n\nThe issue is that the engineering best practices we were taught for building scaled systems DO NOT WORK in the age of AI. In fact, we have to reverse many of them to get AI systems to work.\n\nIn this video, I share the inside scoop on the six production principles that make agentic systems reliable at scale for your AI strategy:\n\u2022 Why stateful intelligence and context preservation beat stateless patterns.\n\u2022 How to bound uncertainty with deterministic wrappers around LLMs.\n\u2022 What capability-based routing changes about load and token budgets.\n\u2022 Where QA shifts post-launch to monitor reasoning quality.\n\nTeams can get predictable performance from large language models and AI agents by pairing stateful context, deterministic wrappers, capability-based routing, and continuous input validation\u2014but it requires post-launch QA and rigorous auditability to catch subtle failures.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-09-25T21:00:01Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M5S",
+    "duration_seconds": 65,
+    "view_count": 2580,
+    "like_count": 136,
+    "comment_count": 3,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/1r_zr2p25A8/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/1r_zr2p25A8/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/1r_zr2p25A8/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/1r_zr2p25A8/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/1r_zr2p25A8/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:52.893610",
+    "all_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.613895"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"intelligent-failure-detection-in-ai\",\n  \"tags\": [\"ai-safety\", \"ai-hallucination\", \"model-drift\", \"monitoring-ai\", \"inference-quality\"],\n  \"summary\": \"Discusses non-catastrophic AI failures like hallucinations and drift, and argues for monitoring reasoning quality and intelligent failure detection.\"\n}",
+      "generated_at": "2025-11-09T22:17:36.681173",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

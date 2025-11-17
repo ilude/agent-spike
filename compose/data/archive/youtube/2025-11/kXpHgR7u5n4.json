@@ -1,0 +1,111 @@
+{
+  "video_id": "kXpHgR7u5n4",
+  "url": "https://www.youtube.com/watch?v=kXpHgR7u5n4",
+  "fetched_at": "2025-11-09T21:53:11.633677",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T21:53:11.633677",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "If you deeply understand the regulatory environment around real estate acquisition in particular state, whatever your expertise is, build vertical specific orchestration frameworks, embed the domain expertise inside the workflow as much as you can, but keep it out of the model because then you can swap the model in and the model will learn your verticals, compliance, terminology, decision patterns, etc. from the tools, from the context, from the orchestration layer and be able to operate. And so for example, a legal compliance framework might understand privilege. A healthcare memory system might understand consent in a certain way. Manufacturing agents can understand equipment history. You get the idea. But critically, these require the ability to call in that context, not to assume the model has it built",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "kXpHgR7u5n4",
+    "title": "Embedding domain expertise in AI agents #aiagents #ai #aiforbusiness #productivity #workflow",
+    "description": "My site: https://natebjones.com\nThe Story : https://open.substack.com/pub/natesnewsletter/p/executive-briefing-your-2025-ai-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\n\nHow do AI agents in production actually work? \nI've been studying. What I hear too often from companies without agents is that agents are early. Not true. Fortune 100 companies are using them now and delivering hundreds of millions in value.\n\nThey're already delivering ROI at scale.\n\nIn this video, I share the inside scoop on building agentic systems that last:\n\u2022 Why architecture-first orchestration beats model-first bets\n\u2022 How compounding memory creates unclosable advantages\n\u2022 What workflows to automate for measurable business outcomes\n\u2022 Where compliance and vertical context become durable moats\n\nChapters:\n00:00 The Urgency of AI Agents\n02:40 Principles for Building AI Agents\n05:36 Workflows and ROI in AI Automation\n08:04 Vertical Defensibility in AI Solutions\n11:07 Compliance as a Competitive Advantage\n13:44 The Importance of Velocity in AI Deployment\n\nIf you lead teams, the takeaway is simple: move fast on agentic orchestration now to bank learning and velocity\u2014wait, and you\u2019ll face widening gaps you can\u2019t buy back later.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-10-17T03:00:53Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT46S",
+    "duration_seconds": 46,
+    "view_count": 4567,
+    "like_count": 176,
+    "comment_count": 11,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "LLMs",
+      "automation at work",
+      "future of work",
+      "prompt engineering",
+      "enterprise AI",
+      "orchestration layer",
+      "memory systems",
+      "workflow automation",
+      "compliance framework",
+      "vertical defensibility",
+      "Fortune 100",
+      "Walmart",
+      "JPMorgan",
+      "Microsoft",
+      "AI strategy for teams",
+      "AI agents in enterprise"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/kXpHgR7u5n4/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/kXpHgR7u5n4/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/kXpHgR7u5n4/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/kXpHgR7u5n4/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/kXpHgR7u5n4/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:09.607554",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://open.substack.com/pub/natesnewsletter/p/executive-briefing-your-2025-ai-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/executive-briefing-your-2025-ai-agent?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:20.789748"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"Domain-aware AI workflows for regulatory real estate acquisition\",\n  \"tags\": [\"domain-knowledge\", \"workflow-orchestration\", \"regulatory-compliance\", \"real-estate-regulation\", \"vertical-ai\"],\n  \"summary\": \"Explains how embedding domain expertise in the workflow/orchestration layer enables regulatory-compliant real estate acquisition AI, allowing the model to be swapped while context stays in the orchestration layer.\"\n}",
+      "generated_at": "2025-11-09T21:53:26.428499",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

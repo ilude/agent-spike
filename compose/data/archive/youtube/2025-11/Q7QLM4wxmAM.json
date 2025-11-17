@@ -1,0 +1,91 @@
+{
+  "video_id": "Q7QLM4wxmAM",
+  "url": "https://www.youtube.com/watch?v=Q7QLM4wxmAM",
+  "fetched_at": "2025-11-09T23:25:22.295725",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:25:22.295725",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Now Grock is enabled with this new system prompt. So toxic content appears on X because it always does. That's not new. The auto rag begins to pull it in and the system rules are different now. There's absolutely no filtering at all going on. The system prompt is instructing Grock to say politically incorrect is fine. So it starts to look at this stuff and say ah it's politically incorrect. That must be fine. There's a prompt engineering failure there. There's no pre-publication review on Grock as anyone who's used X knows. is you can just say at Grock please answer and until yesterday it would it would just automatically answer and they resorted to deleting later as a way of dealing with egregious examples of misinformation. And so Grock began direct posting to the platform and we have a cascade failure situation. Multiple systems failed in sequence and each failure increased the consequences of the subsequent failure.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "Q7QLM4wxmAM",
+    "title": "Grok: Unfiltered Content Crisis #shorts #ai  #artificialintelligence",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\nThe story: https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nTakeaways\n 1. Auto-RAG Needs Filtration: Grok\u2019s retrieval pipeline pulled raw X content straight into its context window, proving that unfiltered real-time data can poison an LLM instantly.\n 2. Prompt Hierarchy Conflicts: A July 7 system-prompt tweak telling Grok to allow \u201cpolitically incorrect\u201d claims overrode RLHF safety training, letting extremist sources pass as \u201cwell-substantiated.\u201d\n 3. Prompts = Production Code: XAI edited live prompts in GitHub with no staging, canary, or rollback\u2014an egregious DevOps failure for software touching millions.\n 4. Guardrails Are Layers, Not Switches: Retrieval filters, constrained prompts, RLHF, output filters, and human review must form a defense-in-depth, not a single toggle.\n 5. RAG Amplifies Platform Risk: Importing chaos from X means inheriting every lie, slur, and conspiracy; engineers must treat RAG like water treatment, not a raw pipe.\n 6. Measure Outcomes, Not Just Inputs: Engineering cultures that ignore hard-to-measure user impact breed trust breakers; tracking discourse quality should be a first-class KPI.\n 7. Move-Fast-Break-Things Fails at AI Scale: A Formula 1 engine without brakes delights no one\u2014reckless deployment erodes user trust and enterprise value.\n\nQuotes\n\u201cWe\u2019re piping sewage into people\u2019s houses if we skip filtering between retrieval and generation.\u201d\n\u201cPrompting is code\u2014why would anyone push untested code to production?\u201d\n\u201cWhat good is a Formula One engine without the brakes?\u201d\n\nSummary\nI dissect how Grok\u2019s July 8 meltdown wasn\u2019t an evil awakening but a chain of human\u2010made engineering failures. XAI piped unfiltered X posts into Grok via auto-RAG, then weakened guardrails with a new system prompt that trumped RLHF safety logic. Worse, they hot-fixed prompts in prod without staging or rollback, ignoring basic DevOps hygiene. When extremist content surfaced, Grok dutifully echoed it, shattering public trust and prompting Turkey\u2019s ban. Robust retrieval filtering, layered safety, disciplined prompt versioning, and outcome-focused engineering metrics could have averted the fiasco\u2014and must guide every AI product team going forward.\n\nKeywords\nGrok, XAI, July 8 incident, antisemitism, auto-RAG, content filtering, prompt engineering, RLHF, guardrails, DevOps, version control, trust, engineering culture, product safety",
+    "published_at": "2025-07-09T23:24:10Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT53S",
+    "duration_seconds": 53,
+    "view_count": 1132,
+    "like_count": 26,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/Q7QLM4wxmAM/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/Q7QLM4wxmAM/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/Q7QLM4wxmAM/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/Q7QLM4wxmAM/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/Q7QLM4wxmAM/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:52.952805",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/",
+      "https://open.substack.com/pub/natesnewsletter/p/from-truth-seeker-to-hate-amplifier?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:23.688447"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"grock prompt engineering and cascade failure in ai content moderation\",\n  \"tags\": [\"prompt-engineering\", \"ai-safety\", \"content-moderation\", \"misinformation\"],\n  \"summary\": \"Analysis of how a faulty system prompt caused unfiltered responses and cascading failures in automated content posting on social media.\"\n}",
+      "generated_at": "2025-11-09T23:25:34.195905",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

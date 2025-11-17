@@ -1,0 +1,190 @@
+{
+  "video_id": "0wANWwCYHpU",
+  "url": "https://www.youtube.com/watch?v=0wANWwCYHpU",
+  "fetched_at": "2025-11-09T23:32:25.008031",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:32:25.008031",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "People have been so primed by the news to be afraid of AI stealing your job that they won't listen to anything else until you address it. And that must come from the leadership team and preferably from the CEO. And by the way, there's not a ton of evidence that AI is actually stealing jobs in aggregate right now. The it's not just me saying that. Ethan Mollik is one of the best known AI uh academics out there. He studied AI extensively. He tweeted as recently as like early July 2025 that there was just not much evidence that AI is actually responsible for significant job attrition. Isolated instances or expectations changing for job roles 100% changing job descriptions. Yes. scaling up, hiring for AI specific roles.",
+  "timed_transcript": [
+    {
+      "text": "People have been so primed by the news",
+      "start": 0.0,
+      "duration": 5.759
+    },
+    {
+      "text": "to be afraid of AI stealing your job",
+      "start": 3.12,
+      "duration": 4.239
+    },
+    {
+      "text": "that they won't listen to anything else",
+      "start": 5.759,
+      "duration": 3.281
+    },
+    {
+      "text": "until you address it. And that must come",
+      "start": 7.359,
+      "duration": 3.601
+    },
+    {
+      "text": "from the leadership team and preferably",
+      "start": 9.04,
+      "duration": 4.479
+    },
+    {
+      "text": "from the CEO. And by the way, there's",
+      "start": 10.96,
+      "duration": 4.16
+    },
+    {
+      "text": "not a ton of evidence that AI is",
+      "start": 13.519,
+      "duration": 3.121
+    },
+    {
+      "text": "actually stealing jobs in aggregate",
+      "start": 15.12,
+      "duration": 4.72
+    },
+    {
+      "text": "right now. The it's not just me saying",
+      "start": 16.64,
+      "duration": 5.2
+    },
+    {
+      "text": "that. Ethan Mollik is one of the best",
+      "start": 19.84,
+      "duration": 4.88
+    },
+    {
+      "text": "known AI uh academics out there. He",
+      "start": 21.84,
+      "duration": 5.599
+    },
+    {
+      "text": "studied AI extensively. He tweeted as",
+      "start": 24.72,
+      "duration": 6.0
+    },
+    {
+      "text": "recently as like early July 2025 that",
+      "start": 27.439,
+      "duration": 5.841
+    },
+    {
+      "text": "there was just not much evidence that AI",
+      "start": 30.72,
+      "duration": 4.72
+    },
+    {
+      "text": "is actually responsible for significant",
+      "start": 33.28,
+      "duration": 5.36
+    },
+    {
+      "text": "job attrition. Isolated instances or",
+      "start": 35.44,
+      "duration": 6.4
+    },
+    {
+      "text": "expectations changing for job roles 100%",
+      "start": 38.64,
+      "duration": 5.28
+    },
+    {
+      "text": "changing job descriptions. Yes. scaling",
+      "start": 41.84,
+      "duration": 6.0
+    },
+    {
+      "text": "up, hiring for AI specific roles.",
+      "start": 43.92,
+      "duration": 3.92
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "0wANWwCYHpU",
+    "title": "AI: Job Loss Myth Debunked  #artificialintelligence #ai #shorts",
+    "description": "My story: https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Copilot Name Chaos: Microsoft slapped the Copilot brand on twelve different SKUs, so enterprises routinely buy the wrong license and stall adoption.\n 2. Underused Potential: Most teams limit Copilot to email drafts, ignoring high-value workflows like instant pivot tables, meeting-minute generation, and screenshot-based troubleshooting.\n 3. Workflow Mindset: Treat Copilot as \u201cintelligence on tap\u201d across entire processes\u2014prompt chains, cross-app report builds, and Vision-enabled data extraction reclaim hours.\n 4. Cultural Rollout: Small pilots, role champions, shared prompt libraries, and relentless measurement turn isolated wins into organization-wide productivity shifts.\n 5. ROI Stakes: Done right, Copilot saves roughly three hours per worker each week and can return twenty-fold on license spend.\n 6. Future Baseline: Within a year, advanced Copilot fluency will be table stakes; laggards will sacrifice competitive edge.\n\nQuotes\n\u201cCompanies are literally paying for a Ferrari and they are driving it to the grocery store in first gear.\u201d\n\u201cIf AI was as good as it needs to be to take our jobs, I wouldn\u2019t have to make this video.\u201d\n\u201cCopilot mastery is going to look like a basic requirement in about a year.\u201d\n\nSummary\nI spent months interviewing frontline users and dissecting case studies to learn why firms paying six-figure Copilot bills still use it only for drafting email. Microsoft stamped the Copilot name on twelve distinct SKUs, confusing leaders and burying huge gains. I decode each edition, reveal workflows from auto-generated pivot tables to cross-app prompt chains, and spotlight Vodafone\u2019s staged 68,000-seat rollout that recaptured three hours per worker weekly. The takeaway is cultural: pair phased experimentation, role-specific champions, ongoing measurement, transparent wins, and fearless prompt sharing to shift Copilot from novelty to indispensable enterprise leverage\u2014and secure twenty-fold returns on license spend.\n\nKeywords\nMicrosoft Copilot, Copilot SKUs, enterprise AI, workflow automation, prompt libraries, cultural change, Vodafone rollout, email productivity, Excel analysis, pivot tables, ROI",
+    "published_at": "2025-07-03T15:04:51Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT51S",
+    "duration_seconds": 51,
+    "view_count": 687,
+    "like_count": 12,
+    "comment_count": 3,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/0wANWwCYHpU/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/0wANWwCYHpU/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/0wANWwCYHpU/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/0wANWwCYHpU/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/0wANWwCYHpU/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:47.159443",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.202202"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai and jobs: leadership perspective on automation and employment\",\n  \"tags\": [\"ai-and-jobs\", \"job-displacement\", \"future-of-work\", \"leadership-perspective\", \"ai-adoption\"],\n  \"summary\": \"Discussion on whether AI is driving job loss, citing limited evidence of aggregate disruption and emphasizing leadership communication and evolving job roles.\"\n}",
+      "generated_at": "2025-11-09T23:32:36.143676",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

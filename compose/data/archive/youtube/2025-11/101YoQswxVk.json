@@ -1,0 +1,210 @@
+{
+  "video_id": "101YoQswxVk",
+  "url": "https://www.youtube.com/watch?v=101YoQswxVk",
+  "fetched_at": "2025-11-09T23:33:03.187251",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:33:03.187251",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "sales to implementation. Let me give you an example here. Sale can sales can create a deal summary using co-pilot and it can say extract all technical requirements from this contract so our engineering team can understand it. Copilot will go through it will extract the technical requirements. I would recommend reading it again just to make sure. But it's going to give you a technical summary and engineering will then get a clean requirements list. Engineering can then use copilot to say hey can you create an implementation timeline based on these requirements? engineering in most cases will look at that implementation timeline, swear at it, go to lunch, come back, have a beer, and then write the actual one down. But I find even if you're upset with a co-pilot estimate, it still moves the ball forward because it gets you off the blank page.",
+  "timed_transcript": [
+    {
+      "text": "sales to implementation. Let me give you",
+      "start": 0.16,
+      "duration": 3.519
+    },
+    {
+      "text": "an example here. Sale can sales can",
+      "start": 2.0,
+      "duration": 3.92
+    },
+    {
+      "text": "create a deal summary using co-pilot and",
+      "start": 3.679,
+      "duration": 4.001
+    },
+    {
+      "text": "it can say extract all technical",
+      "start": 5.92,
+      "duration": 3.84
+    },
+    {
+      "text": "requirements from this contract so our",
+      "start": 7.68,
+      "duration": 3.52
+    },
+    {
+      "text": "engineering team can understand it.",
+      "start": 9.76,
+      "duration": 3.12
+    },
+    {
+      "text": "Copilot will go through it will extract",
+      "start": 11.2,
+      "duration": 3.2
+    },
+    {
+      "text": "the technical requirements. I would",
+      "start": 12.88,
+      "duration": 2.959
+    },
+    {
+      "text": "recommend reading it again just to make",
+      "start": 14.4,
+      "duration": 2.799
+    },
+    {
+      "text": "sure. But it's going to give you a",
+      "start": 15.839,
+      "duration": 2.881
+    },
+    {
+      "text": "technical summary and engineering will",
+      "start": 17.199,
+      "duration": 3.361
+    },
+    {
+      "text": "then get a clean requirements list.",
+      "start": 18.72,
+      "duration": 3.92
+    },
+    {
+      "text": "Engineering can then use copilot to say",
+      "start": 20.56,
+      "duration": 4.0
+    },
+    {
+      "text": "hey can you create an implementation",
+      "start": 22.64,
+      "duration": 3.76
+    },
+    {
+      "text": "timeline based on these requirements?",
+      "start": 24.56,
+      "duration": 3.44
+    },
+    {
+      "text": "engineering in most cases will look at",
+      "start": 26.4,
+      "duration": 3.36
+    },
+    {
+      "text": "that implementation timeline, swear at",
+      "start": 28.0,
+      "duration": 4.8
+    },
+    {
+      "text": "it, go to lunch, come back, have a beer,",
+      "start": 29.76,
+      "duration": 5.04
+    },
+    {
+      "text": "and then write the actual one down. But",
+      "start": 32.8,
+      "duration": 3.68
+    },
+    {
+      "text": "I find even if you're upset with a",
+      "start": 34.8,
+      "duration": 3.759
+    },
+    {
+      "text": "co-pilot estimate, it still moves the",
+      "start": 36.48,
+      "duration": 3.759
+    },
+    {
+      "text": "ball forward because it gets you off the",
+      "start": 38.559,
+      "duration": 4.16
+    },
+    {
+      "text": "blank page.",
+      "start": 40.239,
+      "duration": 2.48
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "101YoQswxVk",
+    "title": "CoPilot: Bridging Sales & Engineering  #artificialintelligence #ai #shorts",
+    "description": "My story: https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Copilot Name Chaos: Microsoft slapped the Copilot brand on twelve different SKUs, so enterprises routinely buy the wrong license and stall adoption.\n 2. Underused Potential: Most teams limit Copilot to email drafts, ignoring high-value workflows like instant pivot tables, meeting-minute generation, and screenshot-based troubleshooting.\n 3. Workflow Mindset: Treat Copilot as \u201cintelligence on tap\u201d across entire processes\u2014prompt chains, cross-app report builds, and Vision-enabled data extraction reclaim hours.\n 4. Cultural Rollout: Small pilots, role champions, shared prompt libraries, and relentless measurement turn isolated wins into organization-wide productivity shifts.\n 5. ROI Stakes: Done right, Copilot saves roughly three hours per worker each week and can return twenty-fold on license spend.\n 6. Future Baseline: Within a year, advanced Copilot fluency will be table stakes; laggards will sacrifice competitive edge.\n\nQuotes\n\u201cCompanies are literally paying for a Ferrari and they are driving it to the grocery store in first gear.\u201d\n\u201cIf AI was as good as it needs to be to take our jobs, I wouldn\u2019t have to make this video.\u201d\n\u201cCopilot mastery is going to look like a basic requirement in about a year.\u201d\n\nSummary\nI spent months interviewing frontline users and dissecting case studies to learn why firms paying six-figure Copilot bills still use it only for drafting email. Microsoft stamped the Copilot name on twelve distinct SKUs, confusing leaders and burying huge gains. I decode each edition, reveal workflows from auto-generated pivot tables to cross-app prompt chains, and spotlight Vodafone\u2019s staged 68,000-seat rollout that recaptured three hours per worker weekly. The takeaway is cultural: pair phased experimentation, role-specific champions, ongoing measurement, transparent wins, and fearless prompt sharing to shift Copilot from novelty to indispensable enterprise leverage\u2014and secure twenty-fold returns on license spend.\n\nKeywords\nMicrosoft Copilot, Copilot SKUs, enterprise AI, workflow automation, prompt libraries, cultural change, Vodafone rollout, email productivity, Excel analysis, pivot tables, ROI",
+    "published_at": "2025-07-03T15:02:55Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT41S",
+    "duration_seconds": 41,
+    "view_count": 990,
+    "like_count": 4,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/101YoQswxVk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/101YoQswxVk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/101YoQswxVk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/101YoQswxVk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/101YoQswxVk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:48.770815",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/the-complete-microsoft-ai-copilot?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.334376"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai-copilots-for-requirements-extraction-and-implementation-planning\",\n  \"tags\": [\"ai-copilot\", \"requirements-engineering\", \"contract-analysis\", \"project-planning\"],\n  \"summary\": \"Explains how an AI copilot can extract technical requirements from a contract and help engineering create an implementation timeline to move projects forward.\"\n}",
+      "generated_at": "2025-11-09T23:33:15.750052",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

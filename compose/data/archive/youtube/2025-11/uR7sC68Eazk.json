@@ -1,0 +1,118 @@
+{
+  "video_id": "uR7sC68Eazk",
+  "url": "https://www.youtube.com/watch?v=uR7sC68Eazk",
+  "fetched_at": "2025-11-09T19:23:28.136277",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T19:23:28.136277",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "I find a lot of people think they're at this level one chat advisor thing and they think they want agents, but they don't. They actually just want a tool augmented assistant. And when they get one, they're like, \"Oh, wow. I had no idea it could do this.\" Right? It can use Excel. I had no idea. Right? And so this is for a chat that can access data. It can search the web. It can run calculations. It can build assets. It can edit assets. You can save your team dozens of hours a week properly using these. And I'm just going to say this is 10 times, a hundred times, maybe a thousand times easier than an enterprise agentic system to install. It's so much cheaper, it's not even funny. But people sleep on it because it's not an agent. Well, it is an agent. It's an LLM plus tools plus the guidance you give. But people expect agents to be like, you know, this completely autonomous Borgl like thing that goes and and uses tools. Most of the time what most individuals and teams actually benefit from is this like level three tool augmented assistant. If they could properly implement a tool augmented assistant for finance workflows, for marketing workflows, for product workflows, they go so",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "exported_from_qdrant",
+    "original_collection": "cached_content",
+    "video_id": "uR7sC68Eazk",
+    "title": "Why tool augmented AI beats autonomous agents! #ai #workwithai #aiagents #openai #agents #chatgpt",
+    "description": "My site: https://natebjones.com\nFull Story w/ Prompt: https://natesnewsletter.substack.com/p/how-to-tell-what-ai-you-need-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\nMy substack: https://natesnewsletter.substack.com/\n_______________________\nWhat\u2019s really happening inside the AI agent debate?\nThe common story is that \u201cagents\u201d are the future of work \u2014 but the reality is more complicated.\n\nIn this video, I share the inside scoop on how to think about AI systems as a spectrum, not a binary:\n\u2022 Why most teams don\u2019t actually need AI agents yet\n\u2022 How to move from chat assistants to semi-autonomous workflows\n\u2022 What makes tool-augmented assistants the real productivity unlock\n\u2022 Where full automation breaks down and human touch still wins\n\nChapters\n00:00 Understanding the AI Spectrum\n02:20 Levels of AI Assistance\n06:09 Structured Workflows and Human Involvement\n08:17 Semi-Autonomous Systems\n10:06 The Challenge of Full Autonomy\n12:35 Reframing the AI Conversation\n\nThe takeaway: AI strategy isn\u2019t about chasing autonomy \u2014 it\u2019s about matching the right level of intelligence to the right problem.\n\nSubscribe for daily AI strategy and news.\nFor deeper playbooks and analysis: https://natesnewsletter.substack.com/",
+    "published_at": "2025-11-05T04:01:02Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT1M11S",
+    "duration_seconds": 71,
+    "view_count": 3998,
+    "like_count": 226,
+    "comment_count": 4,
+    "tags": [
+      "AI strategy",
+      "AI agents",
+      "large language models",
+      "AI automation",
+      "AI spectrum",
+      "prompt engineering",
+      "future of work",
+      "AI at work",
+      "automation strategy",
+      "copilot tools",
+      "tool-augmented assistants",
+      "semi-autonomous workflows",
+      "fully autonomous systems",
+      "AI productivity",
+      "AI design",
+      "business automation",
+      "AI implementation",
+      "AI systems design"
+    ],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/uR7sC68Eazk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/uR7sC68Eazk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/uR7sC68Eazk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/uR7sC68Eazk/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/uR7sC68Eazk/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:27.616679",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/p/how-to-tell-what-ai-you-need-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/p/how-to-tell-what-ai-you-need-for?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:25.930905"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "tool-augmented-ai, llm-with-tools, workflow-automation, finance-workflows, marketing-workflows",
+      "generated_at": "2025-11-09T19:23:28.145932",
+      "model": "unknown",
+      "cost_usd": null,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": [
+    {
+      "version": "v1_full_embed",
+      "processed_at": "2025-11-09T19:23:28.155135",
+      "collection_name": "cached_content",
+      "notes": "Migrated from Qdrant"
+    }
+  ]
+}

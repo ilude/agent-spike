@@ -1,0 +1,94 @@
+{
+  "video_id": "yMcdvFAl3v8",
+  "url": "https://www.youtube.com/watch?v=yMcdvFAl3v8",
+  "fetched_at": "2025-11-09T23:42:29.378215",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:42:29.378215",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Number two, text is currency. Current models handle over a 100,000 tokens, 200,000 tokens. GPT5, we don't know what the published specs will be, but it is not unreasonable to think that we are headed toward a future with millions of tokens by the end of the year. Start getting into the habit of front-loading rich context. Instead of a two sentence description, if you're an operator, if you're just chatting in the chat window, get into the habit of doing a lot of context loading, putting the documents in, putting your full statement, your full emotions, your full thinking in your full voice statement. If you're using voice, load up that context, full situation, constraints, history, and I say full context for operators, but that's just as true if you're running production prompts, too. You want to be in a position where you can take full advantage of that context window because these models are actually built more and more to handle reasoning at the hundreds of thousands of tokens and potentially up to millions of tokens window shortly. So, think about what you're putting in",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "yMcdvFAl3v8",
+    "title": "Front Load Context for AI #booktok #artificialintelligence #claude #shorts #chatgpt",
+    "description": "The post: https://open.substack.com/pub/natesnewsletter/p/ready-for-chatgpt-5-grab-a-complete?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Extreme Specificity Focuses Models: The tighter your word counts, formats, and numbered requirements, the sharper ChatGPT-5 (and today\u2019s models) will perform.\n 2. Context Is Currency: With context windows racing toward the million-token mark, front-load full documents, history, and constraints\u2014just keep every byte relevant.\n 3. Multi-Phase Workflows Go Native: Stop treating step-by-step prompts as hacks; GPT-5 will natively traverse multi-stage thinking and creation inside a single run.\n 4. Structured Output by Default: Demand scorecards, matrices, phased plans, or XML tags\u2014clear schemas unlock more reliable reasoning and easier downstream use.\n 5. Interrogative & Self-Check Loops: Great prompts encourage the model to ask clarifying questions and critique its own answers before you ever hit \u201csend.\u201d\n 6. Project-Manager Chunking: Break massive research into smaller deliverables, synthesize later, and iterate\u2014Agile-style prompting scales with expanding context windows.\n\nQuotes\n\u201cWe\u2019re moving from asking if AI can help to architecting a true partnership.\u201d\n\u201cSpecificity isn\u2019t a cage; it\u2019s the fine brush that paints your vision on an LLM canvas.\u201d\n\u201cContext windows are exploding\u2014treat every token like jet fuel for focused reasoning.\u201d\n\nSummary\nI argue that you can prepare for ChatGPT-5 today by refining how you prompt current frontier models. The next wave will reward extreme specificity, rich but relevant context, and multi-phase workflows executed in one shot. Structured outputs, interrogative prompts, and built-in self-evaluation loops will become table stakes. As context windows balloon toward millions of tokens, effective prompting shifts from magic phrases to precise architecture: clear goals, constraints, and chunked tasks. Prompts are thinking tools that shape both the model\u2019s reasoning and my own, forging a bidirectional partnership that scales human creativity rather than replacing it.\n\nKeywords\nChatGPT-5, prompting, extreme specificity, context windows, multi-phase workflows, structured output, self-evaluation loops, interrogative prompts, AI partnership, Wayne Gretzky, project-manager chunking, million-token context, AI architecture, prompt design, frontier models",
+    "published_at": "2025-06-26T16:53:46Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT58S",
+    "duration_seconds": 58,
+    "view_count": 2066,
+    "like_count": 78,
+    "comment_count": 1,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/yMcdvFAl3v8/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/yMcdvFAl3v8/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/yMcdvFAl3v8/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/yMcdvFAl3v8/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/yMcdvFAl3v8/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:27:57.232041",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/ready-for-chatgpt-5-grab-a-complete?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/ready-for-chatgpt-5-grab-a-complete?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:31.575191"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"text is currency: front-loading rich context in large language models\",\n  \"tags\": [\"large-language-models\", \"context-window\", \"prompt-engineering\", \"token-length\"],\n  \"summary\": \"Explains how future AI models will handle enormous token windows and why loading rich, full-context information improves reasoning in prompts and production workflows.\"\n}",
+      "generated_at": "2025-11-09T23:42:45.438162",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

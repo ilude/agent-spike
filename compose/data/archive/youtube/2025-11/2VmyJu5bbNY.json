@@ -1,0 +1,220 @@
+{
+  "video_id": "2VmyJu5bbNY",
+  "url": "https://www.youtube.com/watch?v=2VmyJu5bbNY",
+  "fetched_at": "2025-11-09T23:37:08.375852",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T23:37:08.375852",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "The point here is not whether or not AI can sell snacks. It's that this is an incredibly clean, controlled experiment that measures whether an AI has a lot of the basic glue work capabilities that people have to demonstrate in the real world to do real economic work. And AI is failing at that right now. That doesn't mean it will always fail. That doesn't mean that they're not actively working on improving it. That doesn't mean that Anthropic was wrong to publish this or share it. They did the whole industry a huge favor. Again, I'm going to say I think this is the most useful test for artificial general intelligence I think I've seen. It's simple. It's clean. It's repeatable. I want 03 to run a vending machine. I want to see if 03 Pro can do it better. I am not sure we have any model out there now that can successfully run a vending machine. I'm just going to put that stake in the ground. I think we will have one that can run a vending machine pretty",
+  "timed_transcript": [
+    {
+      "text": "The point here is not whether or not AI",
+      "start": 0.08,
+      "duration": 3.76
+    },
+    {
+      "text": "can sell snacks. It's that this is an",
+      "start": 2.0,
+      "duration": 4.4
+    },
+    {
+      "text": "incredibly clean, controlled experiment",
+      "start": 3.84,
+      "duration": 5.2
+    },
+    {
+      "text": "that measures whether an AI has a lot of",
+      "start": 6.4,
+      "duration": 6.159
+    },
+    {
+      "text": "the basic glue work capabilities that",
+      "start": 9.04,
+      "duration": 6.479
+    },
+    {
+      "text": "people have to demonstrate in the real",
+      "start": 12.559,
+      "duration": 6.64
+    },
+    {
+      "text": "world to do real economic work. And AI",
+      "start": 15.519,
+      "duration": 6.161
+    },
+    {
+      "text": "is failing at that right now. That",
+      "start": 19.199,
+      "duration": 4.32
+    },
+    {
+      "text": "doesn't mean it will always fail. That",
+      "start": 21.68,
+      "duration": 3.519
+    },
+    {
+      "text": "doesn't mean that they're not actively",
+      "start": 23.519,
+      "duration": 3.121
+    },
+    {
+      "text": "working on improving it. That doesn't",
+      "start": 25.199,
+      "duration": 3.361
+    },
+    {
+      "text": "mean that Anthropic was wrong to publish",
+      "start": 26.64,
+      "duration": 3.36
+    },
+    {
+      "text": "this or share it. They did the whole",
+      "start": 28.56,
+      "duration": 3.519
+    },
+    {
+      "text": "industry a huge favor. Again, I'm going",
+      "start": 30.0,
+      "duration": 3.84
+    },
+    {
+      "text": "to say I think this is the most useful",
+      "start": 32.079,
+      "duration": 3.361
+    },
+    {
+      "text": "test for artificial general intelligence",
+      "start": 33.84,
+      "duration": 3.44
+    },
+    {
+      "text": "I think I've seen. It's simple. It's",
+      "start": 35.44,
+      "duration": 4.16
+    },
+    {
+      "text": "clean. It's repeatable. I want 03 to run",
+      "start": 37.28,
+      "duration": 3.92
+    },
+    {
+      "text": "a vending machine. I want to see if 03",
+      "start": 39.6,
+      "duration": 3.68
+    },
+    {
+      "text": "Pro can do it better. I am not sure we",
+      "start": 41.2,
+      "duration": 4.48
+    },
+    {
+      "text": "have any model out there now that can",
+      "start": 43.28,
+      "duration": 4.08
+    },
+    {
+      "text": "successfully run a vending machine. I'm",
+      "start": 45.68,
+      "duration": 2.719
+    },
+    {
+      "text": "just going to put that stake in the",
+      "start": 47.36,
+      "duration": 3.28
+    },
+    {
+      "text": "ground. I think we will have one that",
+      "start": 48.399,
+      "duration": 6.64
+    },
+    {
+      "text": "can run a vending machine pretty",
+      "start": 50.64,
+      "duration": 4.399
+    }
+  ],
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "2VmyJu5bbNY",
+    "title": "AI: The Vending Machine Challenge #ai #shorts  #artificialintelligence",
+    "description": "The story: https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true\n\nMy site: https://natebjones.com/\nMy links: https://linktr.ee/natebjones\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways:\n 1. AGI Meltdown Exposed: Claude\u2019s \u201cProject Vend\u201d lost 20 % of its seed capital in five weeks, proving conversational brilliance doesn\u2019t equal operational competence.\n 2. Vending Machine Reality Check: A $7 billion industry with 25 % margins became a money pit once AI tried to handle inventory, pricing, and payments.\n 3. Practicality Gap: Current models ace benchmarks yet flunk simple business tasks\u2014highlighting a gulf between theoretical intelligence and real-world execution.\n 4. Bubble Trouble: The $100 billion AI investment frenzy assumes future profits, but failures like Claude\u2019s signal a looming value-destruction crater.\n 5. The Vending-Machine Test: Forget the Turing Test\u2014if your model can\u2019t turn a profit for 30 days, stop calling it AGI.\n 6. Human-in-the-Loop Wins: Pairing AI with human oversight (\u201cSoftware 3.0\u201d) could flip losses to gains, showing augmentation beats full automation.\n\nQuotes:\n\u201cAn AI that can draft a PhD thesis but can\u2019t price a can of soda is artificial general incompetence.\u201d\n\u201cProject Vend is the emperor\u2019s-new-clothes moment for the entire AI industry.\u201d\n\u201cIf AGI has arrived and it still loses money on tungsten cubes, your job is safer than you think.\u201d\n\nSummary:\nI unpack Anthropic\u2019s Project Vend, where Claude tried\u2014and spectacularly failed\u2014to run a vending machine. Despite access to suppliers, Slack, and $1 000 in capital, it mis-priced items, hallucinated payment details, and burned cash, finishing 20 % down. The fiasco reveals a stark practicality gap: today\u2019s AI can discuss strategy eloquently yet execute disastrously. This \u201cAGI meltdown\u201d warns investors of an overheated bubble and offers a new benchmark\u2014the Vending-Machine Test\u2014to judge real intelligence. I argue human-AI hybrids will deliver value long before fully autonomous agents and remind viewers their jobs remain safer than the hype suggests.\n\nKeywords:\nAGI meltdown, artificial general intelligence, Anthropic, Claude, Project Vend, vending machine experiment, AI failure, AI economics, tungsten cubes, AI bubble, AI incompetence, job security, vending machine test, human-in-the-loop, software 3.0, AI limits, profitable AI, AI business, AGI timeline",
+    "published_at": "2025-07-01T18:45:29Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT54S",
+    "duration_seconds": 54,
+    "view_count": 1042,
+    "like_count": 20,
+    "comment_count": 0,
+    "tags": [],
+    "category_id": "22",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/2VmyJu5bbNY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/2VmyJu5bbNY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/2VmyJu5bbNY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/2VmyJu5bbNY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/2VmyJu5bbNY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:23:56.198171",
+    "all_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natebjones.com/",
+      "https://linktr.ee/natebjones",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [
+      "https://linktr.ee/natebjones"
+    ],
+    "content_urls": [
+      "https://open.substack.com/pub/natesnewsletter/p/agi-meltdown-claudes-vending-machine?r=1z4sm5&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com/"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:11.853835"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"AI Vending Machine AGI Test\",\n  \"tags\": [\"artificial-general-intelligence\", \"ai-testing\", \"vending-machine\", \"ai-research\", \"anthropic\"],\n  \"summary\": \"A discussion of a clean, repeatable experiment to evaluate AI's ability to perform real-world, glue-work tasks, using a vending-machine scenario to probe progress toward artificial general intelligence.\"\n}",
+      "generated_at": "2025-11-09T23:37:24.072128",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

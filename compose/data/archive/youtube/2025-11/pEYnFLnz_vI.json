@@ -1,0 +1,89 @@
+{
+  "video_id": "pEYnFLnz_vI",
+  "url": "https://www.youtube.com/watch?v=pEYnFLnz_vI",
+  "fetched_at": "2025-11-09T22:49:01.613308",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-09T22:49:01.613308",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "You need to be at a point with your teams where they know the outputs that AI needs to write, build, demonstrate to show that it has done the work. In other words, with this model, with chat GPT5, it does better if you force it to prove its work than if you tell it to do the work. So, in other words, when you're asking for the output, say, \"Hey, give me the sentiment analysis. give me the Python workbook to show how you did it and then also give me a plain English summary of the rubric and the scoring assessment that you used for the sentiment analysis along with any personas that you developed. Something like that, right? Like basically show me what you did. Sure, give me the executive summary and the report, but show me all the artifacts along the way as well and demand those as outputs.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api",
+    "video_id": "pEYnFLnz_vI",
+    "title": "ChatGPT-5: Prove Your Work  #artificialintelligence #ai #shorts",
+    "description": "My site: https://natebjones.com\nMy substack: https://natesnewsletter.substack.com/\n\nTakeaways\n 1. Bias to Ship: GPT-5\u2019s system prompt is designed to execute quickly, asking at most one clarifying question before delivering a complete output\u2014favoring speed over iterative refinement.\n 2. Specification Over Conversation: Success with GPT-5 requires detailed, upfront specifications\u2014task, deliverable, assumptions, non-goals, tool policies, and acceptance criteria\u2014instead of casual prompts.\n 3. Tool Policy Control: Without explicit permissions or restrictions, GPT-5 will proactively use tools like code execution or web search, which can surprise users.\n 4. Compound Advantage for Early Adopters: Those who adapt to GPT-5\u2019s bias toward speed and agentic behavior can outpace others in productivity and output quality.\n 5. Canvas + Memory Integration: OpenAI is pushing GPT-5 toward a persistent, collaborative workspace model where memory and version control enhance long-term workflows.\n 6. Failure Modes to Avoid: Risks include speculative over-completion, unintended tool usage, and lost commentary after image generation\u2014each requiring prompt design safeguards.\n 7. Roadmap Implications: The system prompt signals OpenAI\u2019s move toward an AI-powered operating system that consolidates documents, code, scheduling, and memory into a single workspace.\n\nQuotes\n\u201cWe\u2019ve moved from a helpful assistant to a full agentic colleague\u2014tasks that took five turns now take one.\u201d\n\u201cWrong assumptions in your prompt don\u2019t get clarified\u2014they get shipped, beautifully and disastrously.\u201d\n\u201cSuccess with GPT-5 isn\u2019t about prettier prose; it\u2019s about thinking like a manager delegating to a literal-minded, hyper-productive employee.\u201d\n\nSummary\nI analyzed GPT-5\u2019s leaked system prompt and found it engineered with a \u201cbias to ship,\u201d executing quickly with minimal clarification. To succeed, users must replace iterative chats with precise specifications that define tasks, deliverables, assumptions, non-goals, tool permissions, and acceptance criteria. This shift rewards early adopters who adapt their workflows to GPT-5\u2019s agentic style, leveraging Canvas and memory for persistent, collaborative work. However, risks like speculative execution, unexpected tool use, and lost commentary after image generation require prompt safeguards. OpenAI\u2019s design points toward an AI-powered operating system unifying work into one workspace.\n\nKeywords\nChatGPT-5, GPT-5 system prompt, bias to ship, agentic AI, prompt engineering, specification mindset, tool policy, Canvas, memory, AI-powered operating system, OpenAI roadmap, early adopter advantage, workflow transformation, failure modes, compound advantage",
+    "published_at": "2025-08-15T03:01:03Z",
+    "channel_id": "UC0C-17n9iuUQPylguM1d-lQ",
+    "channel_title": "AI News & Strategy Daily | Nate B Jones",
+    "duration": "PT52S",
+    "duration_seconds": 52,
+    "view_count": 3642,
+    "like_count": 178,
+    "comment_count": 12,
+    "tags": [],
+    "category_id": "24",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/pEYnFLnz_vI/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/pEYnFLnz_vI/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/pEYnFLnz_vI/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/pEYnFLnz_vI/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/pEYnFLnz_vI/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "fetched_at": "2025-11-15T19:26:44.941708",
+    "all_urls": [
+      "https://natebjones.com",
+      "https://natesnewsletter.substack.com/"
+    ],
+    "blocked_urls": [],
+    "content_urls": [
+      "https://natesnewsletter.substack.com/"
+    ],
+    "marketing_urls": [
+      "https://natebjones.com"
+    ],
+    "url_filter_version": "v1_heuristic_llm",
+    "url_filtered_at": "2025-11-15T19:52:23.184781"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "{\n  \"video_title\": \"ai prompts should show their work\",\n  \"tags\": [\"prompt-engineering\", \"explainable-ai\", \"sentiment-analysis\", \"data-science-workflow\"],\n  \"summary\": \"A discussion on prompting AI models to reveal the steps, artifacts, and evaluation rubrics behind outputs, including sentiment analysis and notebooks.\"\n}",
+      "generated_at": "2025-11-09T22:49:13.626926",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}
