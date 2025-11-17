@@ -66,6 +66,9 @@ projects/data/queues/processing/
 !projects/data/qdrant/**/*.sqlite
 !projects/data/brave_history/brave_history.sqlite
 *.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+*.journal
 
 # Local helper used during history rewrites; keep out of git
 .git-filter-repo.py
