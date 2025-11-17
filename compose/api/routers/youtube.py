@@ -102,7 +102,7 @@ async def analyze_video(request: AnalyzeVideoRequest):
             archive.update_metadata(
                 video_id=video_id,
                 url=str(request.url),
-                youtube_metadata=metadata,
+                metadata=metadata,
             )
 
         # Return response
