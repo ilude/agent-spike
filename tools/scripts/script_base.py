@@ -6,7 +6,7 @@ to eliminate boilerplate and ensure consistent configuration.
 Usage:
     >>> from tools.scripts.script_base import setup_script_environment
     >>> project_root = setup_script_environment(needs_agent=True)
-    >>> # Now your script can import from tools.services, etc.
+    >>> # Now your script can import from compose.services, etc.
 """
 
 import sys
@@ -34,14 +34,14 @@ def setup_script_environment(
     Example (minimal script):
         >>> from tools.scripts.script_base import setup_script_environment
         >>> setup_script_environment()  # That's it!
-        >>> from tools.services.cache import create_qdrant_cache
+        >>> from compose.services.cache import create_qdrant_cache
         >>> cache = create_qdrant_cache()
 
     Example (script needing agents):
         >>> from tools.scripts.script_base import setup_script_environment
         >>> setup_script_environment(needs_agent=True)
         >>> from youtube_agent.agent import create_agent
-        >>> from tools.services.youtube import get_transcript
+        >>> from compose.services.youtube import get_transcript
 
     Example (no env needed):
         >>> setup_script_environment(load_env=False)
@@ -54,6 +54,11 @@ def setup_script_environment(
     # Add project root to path (for tools.* imports)
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
+
+    # Add compose directory to path (for compose.services.* imports)
+    compose_path = project_root / "compose"
+    if str(compose_path) not in sys.path:
+        sys.path.insert(0, str(compose_path))
 
     # Add lesson-001 to path (for agent imports)
     if needs_agent:

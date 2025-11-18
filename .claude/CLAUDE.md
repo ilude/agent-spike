@@ -27,7 +27,9 @@ enable-session-commits: true
 - Allows migration between storage systems (Qdrant → Pinecone, etc.)
 - Supports reprocessing with different strategies (chunking, embeddings, etc.)
 
-**Archive location:** `projects/data/archive/` (organized by source and month)
+**Archive location:** `compose/data/archive/` (organized by source and month)
+
+**Note:** The canonical data location has been moved from `projects/data/` to `compose/data/` to align with the Docker Compose service architecture.
 
 **Service pattern:** Use `ArchiveWriter` dependency injection in all ingest pipelines.
 

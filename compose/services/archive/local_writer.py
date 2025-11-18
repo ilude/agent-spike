@@ -327,7 +327,7 @@ class LocalArchiveWriter:
 def create_local_archive_writer(base_dir: Optional[Path] = None) -> LocalArchiveWriter:
     """Factory function to create LocalArchiveWriter with sensible defaults.
 
-    Uses projects/data/archive as default base directory.
+    Uses compose/data/archive as default base directory.
 
     Args:
         base_dir: Optional custom base directory
@@ -336,17 +336,17 @@ def create_local_archive_writer(base_dir: Optional[Path] = None) -> LocalArchive
         Configured LocalArchiveWriter instance
 
     Example:
-        >>> # Use defaults (projects/data/archive)
+        >>> # Use defaults (compose/data/archive)
         >>> writer = create_local_archive_writer()
         >>>
         >>> # Custom location
         >>> writer = create_local_archive_writer(Path("/custom/archive"))
     """
     if base_dir is None:
-        # Default to projects/data/archive in project root
-        # Navigate up from tools/services/archive/ to project root
-        project_root = Path(__file__).parent.parent.parent.parent
-        base_dir = project_root / "projects" / "data" / "archive"
+        # Default to compose/data/archive in project root
+        # Navigate up from compose/services/archive/ to project root
+        project_root = Path(__file__).parent.parent.parent
+        base_dir = project_root / "data" / "archive"
 
     config = ArchiveConfig(base_dir=base_dir, organize_by_month=True)
     return LocalArchiveWriter(config)

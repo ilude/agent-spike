@@ -10,7 +10,7 @@ class ArchiveConfig:
     """Configuration for local filesystem archive.
 
     Attributes:
-        base_dir: Base directory for archives (e.g., projects/data/archive)
+        base_dir: Base directory for archives (e.g., compose/data/archive)
         organize_by_month: Whether to organize files by YYYY-MM directories
         compression: Optional compression format ("gzip", "bz2", None)
     """

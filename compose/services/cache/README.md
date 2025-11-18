@@ -23,7 +23,7 @@ Cache content that's expensive to fetch or compute:
 ```python
 from tools.services.cache import create_qdrant_cache
 
-# Use defaults (projects/data/qdrant)
+# Use defaults (compose/data/qdrant)
 cache = create_qdrant_cache(collection_name="content")
 
 # Cache YouTube video

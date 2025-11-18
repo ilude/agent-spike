@@ -21,7 +21,7 @@ def create_qdrant_cache(
 ):
     """Factory function to create QdrantCache with sensible defaults.
 
-    Uses projects/data/qdrant as default cache directory.
+    Uses compose/data/qdrant as default cache directory.
 
     Args:
         cache_dir: Optional custom cache directory
@@ -51,9 +51,9 @@ def create_qdrant_cache(
         )
 
     if cache_dir is None:
-        # Default to projects/data/qdrant in project root
+        # Default to compose/data/qdrant in project root
         project_root = Path(__file__).parent.parent.parent.parent
-        cache_dir = project_root / "projects" / "data" / "qdrant"
+        cache_dir = project_root / "compose" / "data" / "qdrant"
 
     config = CacheConfig(
         cache_dir=cache_dir,

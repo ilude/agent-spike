@@ -45,26 +45,29 @@ env/
 **/.cache/
 cached_content/
 
-# Projects: Data files - track archives, qdrant, brave_history, queues, and sync scripts
+# Compose: Data files - track archives, qdrant, browser_history, queues, and sync scripts
 # Machine-specific files and temp files are ignored
-projects/data/*
-!projects/data/*.csv
-!projects/data/*.py
-!projects/data/archive/
-!projects/data/qdrant/
-!projects/data/queues/
-!projects/data/brave_history/
-projects/data/brave_history/*.tmp.sqlite
-projects/data/brave_history/brave_history.*.sqlite
-!projects/data/brave_history/.sync_state
-!projects/data/brave_history/channel_cache.db
-projects/data/qdrant.*/
-projects/data/qdrant.tmp/
-projects/data/queues/processing/
+compose/data/*
+!compose/data/*.csv
+!compose/data/*.py
+!compose/data/README.md
+!compose/data/archive/
+!compose/data/qdrant/
+!compose/data/queues/
+!compose/data/browser_history/
+compose/data/browser_history/*.tmp.sqlite
+compose/data/browser_history/brave_history.*.sqlite
+!compose/data/browser_history/.sync_state
+!compose/data/browser_history/channel_cache.db
+compose/data/qdrant.*/
+compose/data/qdrant.tmp/
+compose/data/queues/processing/
+compose/data/n8n/
+compose/data/logs/
 *.db
 *.sqlite
-!projects/data/qdrant/**/*.sqlite
-!projects/data/brave_history/brave_history.sqlite
+!compose/data/qdrant/**/*.sqlite
+!compose/data/browser_history/brave_history.sqlite
 *.sqlite3
 *.sqlite-shm
 *.sqlite-wal
