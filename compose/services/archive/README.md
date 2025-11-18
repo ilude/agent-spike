@@ -20,7 +20,7 @@ Archive anything that costs **time or money** to fetch:
 ## Quick Start
 
 ```python
-from tools.services.archive import create_local_archive_writer
+from compose.services.archive import create_local_archive_writer
 
 # Use defaults (projects/data/archive)
 archive = create_local_archive_writer()
@@ -54,7 +54,7 @@ archive.add_processing_record(
 
 ```python
 from pathlib import Path
-from tools.services.archive import ArchiveConfig, LocalArchiveWriter
+from compose.services.archive import ArchiveConfig, LocalArchiveWriter
 
 # Custom location, no month organization
 config = ArchiveConfig(
@@ -68,7 +68,7 @@ archive = LocalArchiveWriter(config)
 ## Reprocessing Workflows
 
 ```python
-from tools.services.archive import create_local_archive_reader
+from compose.services.archive import create_local_archive_reader
 
 reader = create_local_archive_reader()
 
@@ -105,10 +105,10 @@ projects/data/archive/
 
 ```bash
 # Run unit tests
-uv run pytest tools/tests/unit/test_archive.py -v
+uv run pytest compose/tests/unit/test_archive.py -v
 
 # With coverage
-uv run pytest tools/tests/unit/test_archive.py --cov=tools.services.archive
+uv run pytest compose/tests/unit/test_archive.py --cov=compose.services.archive
 ```
 
 ## See Also

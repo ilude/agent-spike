@@ -1,0 +1,35 @@
+{
+  "video_id": "KENSTonsiEc",
+  "url": "https://www.youtube.com/watch?v=KENSTonsiEc",
+  "fetched_at": "2025-11-17T22:42:29.741571",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:42:29.741542",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "[Music] all right welcome back guys in this video we're going to show how you can write to the notion API in just five minutes so in the previous video we looked at authentication as you can see here we have our authentication code that we just finished from the previous video so let's go ahead and get started I've started our five minute timer so let's go ahead and dive in here so riding with notion is fairly simple let's hop over to the documentation we'll go to API reference and then the command we're looking for is the append block children so with the append block children basically you give it a block ID of the parent that you want to write to in this case that's going to be our page and then you want the children that you're going to write so let's go ahead and look at what the block objects actually look like so if we wanted to for instance write a header two we would specify this object thankfully we have a wrapper Library called the notion client definitely check that out again all that's detailed in the first off video so we're going to jump in here and get started we're going to create a function called uh write text and that's going to take a client a page ID I'm going to take text and then what we're going to do is call the client Library we're going to say blocks.children.open so we're appending several children and what we're going to do here is specify the block ID which is going to be our page and notion pages are represented also as blocks so the page ID is a valid block ID and then we're going to specify children just like in the API documentation so um so you know you can see here we're passing in a list you can pass in multiple of these items but what we're going to do here is just pass in a single item and we're going to call it yep block object we're going to pass in type paragraph perfect and then in our paragraph chunk what we're going to do is pass in let's see what that format is so it's Rich text and then um some additional content here so let's go ahead and do that so let's see so let's set up these key value pairs correctly so it's Rich text and then it opens up another object which then specifies the type and the actual text in which case we can actually specify our content so there's that uh that's going to be our first kind of right text function and that should append content to our page so let's go ahead and give this a shot we'll remove our previous functionality from the previous video and we'll write write text and let's go ahead and just do a Hello World so let's go ahead hop in the terminal and do this run in Python 3 on Main let's check that out and as you can see we now have a Hello World block so this is pretty cool um but this isn't all we can do right if we could just append a plain old uh paragraph text would be super boring so let's go ahead and add um let's go ahead and try heading one and we'll specify that here and here this is where you need to update the type of block that you're writing and if we go ahead and run this you can see that bam we get a a header one block content type Rim into notion right from our code so that is pretty cool but we can do a bit better here um you know this isn't uh very Dynamic we have to come in here and change this every single time so let's go ahead and pass in a type parameter and instead of just specifying that here we'll update these items and now we can add let's say um let's say we want to do a call out type now we can write that there and just to show you guys like these block types are coming right from the notion docs right so you know we just did the paragraph which has the type paragraph we just did heading one which has heading underscore one and now we're going to do the call out which has Type call out so you can just look through this page here it's under block objects let's go ahead and run our script now and as you can see bam now we have a call out so that's really cool fast way to write content and let's go ahead and try one more let's try the to do I believe it's two underscore do and let's run it one more time awesome so just like that guys in under five minutes this is how you write to the notion API using a simple client library and authentication you know it's as simple as that there are additional customizations you can make here but that's going to do it for this video I'll see you guys in the next video where we learn how to read from the notion API thanks for watching I'll see you in the next one",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "notion-api, append-block-children, notion-client-library, rich-text, python",
+      "generated_at": "2025-11-17T22:42:37.044512",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

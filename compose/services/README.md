@@ -19,7 +19,7 @@ Store expensive-to-fetch content for future reprocessing.
 **Purpose**: Archive anything that costs time or money (transcripts, LLM outputs, API calls)
 
 ```python
-from tools.services.archive import create_local_archive_writer
+from compose.services.archive import create_local_archive_writer
 
 archive = create_local_archive_writer()
 
@@ -54,7 +54,7 @@ Fast semantic search and metadata filtering with Qdrant.
 **Purpose**: Cache processed content for instant retrieval
 
 ```python
-from tools.services.cache import create_qdrant_cache
+from compose.services.cache import create_qdrant_cache
 
 cache = create_qdrant_cache(collection_name="content")
 
@@ -85,7 +85,7 @@ Fetch video transcripts and metadata with proxy support.
 **Purpose**: Reusable YouTube utilities across all lessons
 
 ```python
-from tools.services.youtube import extract_video_id, get_transcript
+from compose.services.youtube import extract_video_id, get_transcript
 
 # Extract video ID
 video_id = extract_video_id("https://youtube.com/watch?v=dQw4w9WgXcQ")
@@ -108,9 +108,9 @@ transcript = get_transcript(
 Services are designed to work together:
 
 ```python
-from tools.services.youtube import extract_video_id, get_transcript
-from tools.services.cache import create_qdrant_cache
-from tools.services.archive import create_local_archive_writer
+from compose.services.youtube import extract_video_id, get_transcript
+from compose.services.cache import create_qdrant_cache
+from compose.services.archive import create_local_archive_writer
 
 # Initialize services
 cache = create_qdrant_cache(collection_name="videos")
@@ -142,7 +142,7 @@ def process_video(url: str):
 ## Directory Structure
 
 ```
-tools/services/
+compose/services/
 ├── README.md              # This file
 ├── archive/               # Archive service
 │   ├── __init__.py
@@ -175,15 +175,15 @@ All services have comprehensive pytest test suites:
 
 ```bash
 # Run all service tests
-uv run pytest tools/tests/unit/ -v
+uv run pytest compose/tests/unit/ -v
 
 # Run specific service tests
-uv run pytest tools/tests/unit/test_archive*.py -v
-uv run pytest tools/tests/unit/test_cache*.py -v
-uv run pytest tools/tests/unit/test_youtube*.py -v
+uv run pytest compose/tests/unit/test_archive*.py -v
+uv run pytest compose/tests/unit/test_cache*.py -v
+uv run pytest compose/tests/unit/test_youtube*.py -v
 
 # With coverage
-uv run pytest tools/tests/unit/ --cov=tools.services
+uv run pytest compose/tests/unit/ --cov=compose.services
 ```
 
 ## Migration from Lessons
@@ -198,17 +198,17 @@ cache = QdrantCache(collection_name="content")
 
 **After**:
 ```python
-from tools.services.cache import create_qdrant_cache
+from compose.services.cache import create_qdrant_cache
 cache = create_qdrant_cache(collection_name="content")
 ```
 
-**Backward compatibility**: Lesson modules still work via re-exports, but new code should import directly from `tools.services.*`.
+**Backward compatibility**: Lesson modules still work via re-exports, but new code should import directly from `compose.services.*`.
 
 ## Adding New Services
 
 When extracting code from lessons:
 
-1. **Create service directory**: `tools/services/your_service/`
+1. **Create service directory**: `compose/services/your_service/`
 2. **Define protocol**: Interface for dependency injection
 3. **Create models**: Pydantic models for data structures
 4. **Implement service**: Concrete implementation(s)

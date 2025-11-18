@@ -1,0 +1,35 @@
+{
+  "video_id": "rQeG6DeUPNs",
+  "url": "https://www.youtube.com/watch?v=rQeG6DeUPNs",
+  "fetched_at": "2025-11-17T22:41:41.957237",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:41:41.957208",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "Welcome to another video. In this video, we're learning how we can read from Notion databases. All the code that we have now has been written in our previous three tutorials, where we learn how to authenticate, write and read from and to Notion databases. So if you haven't checked those out, definitely do so. Let's get started. I'm going to set the five minute timer and jump right in. First things first, let's create a database. We're going to create an inline database and we're going to call this website analytics. Great. Let's change the rows a little bit or the columns. We'll call this user ID. We'll call this event and then we'll change the type to a select field and we'll add one more date column and we'll just call that date. That's perfect. Alright, so let's add a couple rows. I'm going to use my handy bash UID function here to add a couple IDs. You would think that when these events come in they'll come in as UUIDs we're gonna create a visitor event and a signup event and we're just gonna put some dates in here so whatever shows up is great and then we're going to delete this last row excellent so next thing you need to do is get your Notion database ID so we're gonna come in and copy the link we're gonna create a new variable notion database ID equals And when you paste this link, your ID is going to be the first UUID after the slash. So we're going to grab that and jump into our code. So first thing we want to do is read the information from our database. So let's go ahead and do that. We'll call this dbinfo equals client.databases.retrieve. Excellent. Yeah. So GitHub Copilot knows exactly what we want here. If you're not using GitHub Copilot, definitely hop on the AI train. It is here. It's here to stay engineers using it are going to be better off. Let's write to We reuse our write dict to file as JSON function and let's go ahead and see the output of this function. So Let's check out our DB info JSON Let's prettify this and as you can see, we have all the information from our website analytics minus our actual rows So this is just giving metadata about the database itself So let's go ahead and learn how to read the rows. The first thing we need is a function that will help us safely get nested properties from complex objects. So I'm just going to paste this function and this will be you know all the code all the information you need to get this running will be in the description. But basically this allows us to run functions like this to get information out. Alright, so let's go ahead and get our rows, DB rows, perfect, equals client databases query and now that we have our rows, we can write our rows to a dictionary and now we're going to loop through our rows for row in DB rows results. Let's get rid of the prints, let's get rid of the ID, we want our user ID, we want our event, and then let's create one more. We want our date, right? We will put these all in a list. We'll call these a simple rows. It will append all of these items. And then after we do this, we're going to dump out our simple rows to a JSON file. We're going to comment this code up for now so that we can see the structure of the database rows. Let's go ahead and run this and look at DB rows format. And as you can see, we have this results key value pair. That's an array, which contains properties in each one of these properties. We have a nested selection of keys that we need to access, which is why we imported that safe get method. So let's go ahead and run properties dot event, select dot name. This is how we're going to obtain our event. So let's go ahead and uncomment this code and repeat for each type. So let's go ahead and paste that in so that's how we get our event and let's go ahead and continue We're running out of time here. So it's gonna be properties dot date dot date dot start. Let's paste that in our date One more let's run properties dot user ID dot title dot zero dot Plain text just as we're running out of time. Let's go ahead and paste that in and Let's run and see what we get All right, so let's look at our simple rows.json file that was created. Let's pretty print. And as you can see, guys, we have our rows as JSON. So as you can see, each row aligns with a row in our database. Thanks so much for tuning in. I hope this video was helpful. If I went too fast, feel free to stop at any point. All the code, all the links are going to be in the description. We just learned how to read from Notion databases in five minutes. So I'll see you guys in the next video where we learn how to write to Notion databases. Peace.",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "website-analytics, notion-databases, notion-api, python, json",
+      "generated_at": "2025-11-17T22:41:49.322614",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

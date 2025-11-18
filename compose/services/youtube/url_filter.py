@@ -307,7 +307,7 @@ def filter_urls(
             - total_llm_cost: float - Total LLM cost in USD
 
     Example:
-        >>> from tools.services.analytics import create_pattern_tracker
+        >>> from compose.services.analytics import create_pattern_tracker
         >>> tracker = create_pattern_tracker()
         >>> desc = "Check https://github.com/user/repo and https://gumroad.com/product"
         >>> context = {"video_title": "Tutorial"}

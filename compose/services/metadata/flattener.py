@@ -4,7 +4,7 @@ This module converts nested tag structures into flat key-value pairs
 suitable for Qdrant metadata filtering and search.
 
 Example:
-    >>> from tools.services.metadata import flatten_video_metadata
+    >>> from compose.services.metadata import flatten_video_metadata
     >>> tags = {
     ...     "subject_matter": ["AI Agents", "Python"],
     ...     "entities": {"people": ["Sam Altman"], "companies": ["Anthropic"]},

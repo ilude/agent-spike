@@ -13,7 +13,7 @@ Provide reusable YouTube functionality:
 ## Quick Start
 
 ```python
-from tools.services.youtube import extract_video_id, get_transcript
+from compose.services.youtube import extract_video_id, get_transcript
 
 # Extract video ID
 video_id = extract_video_id("https://youtube.com/watch?v=dQw4w9WgXcQ")
@@ -24,7 +24,7 @@ transcript = get_transcript("https://youtube.com/watch?v=dQw4w9WgXcQ")
 print(transcript[:100])
 
 # Fetch with caching
-from tools.services.cache import create_in_memory_cache
+from compose.services.cache import create_in_memory_cache
 
 cache = create_in_memory_cache()
 transcript = get_transcript("https://youtube.com/watch?v=dQw4w9WgXcQ", cache=cache)
@@ -46,8 +46,8 @@ This avoids YouTube rate limiting when fetching many transcripts.
 ## Integration with Cache Service
 
 ```python
-from tools.services.youtube import get_transcript
-from tools.services.cache import create_qdrant_cache
+from compose.services.youtube import get_transcript
+from compose.services.cache import create_qdrant_cache
 
 # Create cache
 cache = create_qdrant_cache(collection_name="transcripts")
@@ -69,7 +69,7 @@ is_cached = cache.exists(cache_key)
 For more control, use `YouTubeTranscriptService` directly:
 
 ```python
-from tools.services.youtube import YouTubeTranscriptService
+from compose.services.youtube import YouTubeTranscriptService
 
 service = YouTubeTranscriptService()
 transcript, error = service.fetch_transcript_safe("dQw4w9WgXcQ")
@@ -83,7 +83,7 @@ else:
 ## File Structure
 
 ```
-tools/services/youtube/
+compose/services/youtube/
 ├── __init__.py           # Exports
 ├── utils.py              # High-level functions (extract_video_id, get_transcript)
 ├── transcript_service.py # Low-level YouTubeTranscriptService class
@@ -94,11 +94,11 @@ tools/services/youtube/
 
 ```bash
 # Unit tests
-uv run pytest tools/tests/unit/test_youtube*.py -v
+uv run pytest compose/tests/unit/test_youtube*.py -v
 
 # Integration test (requires API key)
 uv run python -c "
-from tools.services.youtube import get_transcript
+from compose.services.youtube import get_transcript
 transcript = get_transcript('https://youtube.com/watch?v=dQw4w9WgXcQ')
 print(transcript[:200])
 "

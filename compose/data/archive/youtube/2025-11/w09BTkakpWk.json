@@ -1,0 +1,35 @@
+{
+  "video_id": "w09BTkakpWk",
+  "url": "https://www.youtube.com/watch?v=w09BTkakpWk",
+  "fetched_at": "2025-11-17T22:41:59.655378",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:41:59.655350",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "prediction one in 2023 creators Builders and Engineers that can successfully integrate AI technology into their workflow create 10 to 100x Value than their peers that aren't using AI technology by the end of 2023 the gap between creators using AI technology and those that are not becomes blatantly apparent prediction two in 2024 the Creator economy completes its silent Evolution to the narrator economy the name of the game becomes how well can you utilize AI technology to generate compelling content and products prompt engineering becomes a skill that shows up in Communications marketing and even engineering job postings take note of how the 2023 prediction directly plays into 2024's prediction predict 3. in 2025 big Tech knows you better than you know yourself they aggregate trillions of data points per day about your life they take it and build Next Generation machine learning models that will make chat gbt look like a complete joke the models they build and the inference they can use will allow them to know our psychology better than we know it they'll know what we want before we want it and then they'll turn around and use additional AI technology to generate the right ad at the right time to crack you so that you have to click their ad and buy their thing even crazier you might not even know it's an ad so that's three years and three predictions so what can we do to fight against the incoming AI wave absolutely nothing you don't fight this it's too big it's too transformative it's too powerful you don't fight waves this big you ride them here are three actions I'm taking to ride the AI wave that you can incorporate into your life as well the name of the game is adapt adapt adapt adapt start using AI technology in your play and in your work build your Edge before you become irrelevant next to someone using these Technologies stay locked in whatever your sub domain of technology is go on Reddit YouTube Twitter Facebook and any platform you can to follow creators building the next wave of Technology with artificial intelligence understand what's here and what's coming lastly protect your mental equally as important as the first two actions you must protect your mental on a weekly basis take time to disconnect completely from technology don't go on social don't work don't play games don't scroll sit with your own mind meditate work out socialize go for a walk reflect engage in interesting conversation do things that force you to think for yourself as someone who loves to grind I get it it's hard to fight the feeling of not being productive and feeling like you're not moving closer to your goals but if you don't learn to disconnect and separate your real life identity from your digital identity when 2025 hits and big Tech owns the best AI and they can create an ad to deconstruct your psychology you won't stand a chance if you can't think for yourself and have a healthy relationship with your own mind I say this not to fear Monger but to prepare you and myself for what's coming there have already been articles written and interesting reports about Technologies predicting what people wanted before they even wanted it there's even an incident where a woman received ads from about her upcoming pregnancy she wasn't aware of yet based on their data sets and her actions protect your money at all costs adapt stay locked in protect your mental remember these are just predictions and I'm just some random guy on the Internet it's my 12 years of software experiences my analysis of current technology Trends and my own unique world view that have led me to these predictions in the end we all must Forge our own conclusions about reality my goal for this channel is to create as many Mindful and healthy Indie hackers solopreneurs and small business owners as possible on this channel I share my journey as I become a solopreneur and along the way I share my most valuable insights on Tech Trends programming and the realities of Engineering in the digital age this is always going to be a low BS Channel where we focus on maximum value for minimum time if that interests you feel free to like and sub or a brand new channel and we're just getting started if you're green or disagree with any of these predictions drop a comment below I'd love to discuss what you think and hear your feedback on my predictions I'll see you in the next next one",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "creator-economy, narrator-economy, prompt-engineering, indie-hackers, solopreneurs",
+      "generated_at": "2025-11-17T22:42:08.309718",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

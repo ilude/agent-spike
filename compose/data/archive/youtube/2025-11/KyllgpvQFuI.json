@@ -1,0 +1,35 @@
+{
+  "video_id": "KyllgpvQFuI",
+  "url": "https://www.youtube.com/watch?v=KyllgpvQFuI",
+  "fetched_at": "2025-11-17T22:42:43.911058",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:42:43.911029",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "over the next three videos I'm going to show you guys how you can read and write from and to your notion Pages using the notion API in this first video we're talking about authentication I'm going to limit each video to five minutes so we focus on exactly what you need to get started with the notion API if these videos helped you out definitely drop a like we just hit 100 Subs I'm super excited about that and we have a bunch of new content dropping to help you become a better engineer no extra Chit Chat no garbage no filler we're just talking about what you need to get started let's code all right and let's start our five minute timer as you can see here I'm in Visual Studio code I've got an empty directory create a main.py and we're going to be looking for a couple things here we want a notion token and we're going to want a notion page ID we want a client Library so we're going to use a wrapper Library that's got 100 test coverage it's going to make things easier for us it's going to make it easier to get started so all the links will be in the description we're just going to go ahead and grab this and install so let me run this I'm using python3 here and let's rock and roll so let's get that installed and let's there you go get the import there and next thing we're going to do is create our main function which is going to get us started here and in terms of the code what we're going to want to do is create a notion client here so you can see we're generating our client and we're going to pass in our notion token so that'll be our start let me pass let me create a um you know classic uh python starting block there now we're going to need to generate our notion token and get our notion page ID so the notion token is what allows us to integrate with the notion API it's how notion knows that we are a valid application so let's obtain this let's go over to the notion API website developers.notion.com we're going to hit view my Integrations at the top right if you're not logged in you'll want to log in you can see I have a couple of Integrations here you're probably going to create a noon integration so I have one created already for this and I'm going to click the notion in five and all I'm going to do here is Click show and copy my internal integration token so I've got the token now I'm going to paste it here that's going to be our token so after you have the token you can now officially validate your application against the notion API so that's step one step two is going to be getting the page that you want to interact with so this is going to be your notion page ID and we're going to grab a test page here that I created we're going to do two things first thing you need to do is authenticate your app so I'm going to look for notion N5 and this allows your page to interact with your new application that you're building so I'm going to hit this they confirm and so now you can see I have a new connection there with uh read content insert content update content permissions great so next up we're going to hit copy link here this is how we're going to obtain the page ID and I'm just going to go ahead and paste this now what you're going to want to do is grab just the ending bits here the ending bits is what's going to be your actual page ID so we're going to cut that out paste that here and now we have the notion page ID and now we have our notion token so that's everything we're going to need to authenticate with the notion API so let's go ahead and let's make our first request what I'm going to do here is call client Pages retrieve and then I'm just going to pass in the notion page ID so you can see here we have our notion token allows us to create a notion client and then with the client object we're going to call Pages dot retrieve and pass in the page that we want to retrieve and this is going to give a response so I'm going to say page equals I'll call it paid response and now I'm going to want to print this out so I'm going to use a pretty print here and print that there and let's import pretty print so let's start there and now guys you should be able to run your first notion API integration so let's go ahead and crank this open Python 3 main object retrieve that's because I spelled it wrong let's go ahead and fix that quickly save and it's clear and run again there it is guys so you should be able to check out your API information and you know this is all the data on my motion page so that's really cool five minutes is up thanks for tuning in I'll see you guys in the next video",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "notion-api, python, authentication, notion-pages, notion-sdk-python",
+      "generated_at": "2025-11-17T22:42:50.978897",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

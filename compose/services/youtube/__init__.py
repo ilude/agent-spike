@@ -10,11 +10,11 @@ This module provides:
 - fetch_video_metadata: Convenience function for fetching metadata
 
 Example:
-    >>> from tools.services.youtube import extract_video_id, get_transcript
+    >>> from compose.services.youtube import extract_video_id, get_transcript
     >>> video_id = extract_video_id("https://youtube.com/watch?v=dQw4w9WgXcQ")
     >>> transcript = get_transcript("https://youtube.com/watch?v=dQw4w9WgXcQ")
     >>>
-    >>> from tools.services.youtube import fetch_video_metadata
+    >>> from compose.services.youtube import fetch_video_metadata
     >>> metadata, error = fetch_video_metadata(video_id)
 """
 

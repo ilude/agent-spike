@@ -8,7 +8,7 @@ This module provides:
 - Factory functions for creating cache instances
 
 Example:
-    >>> from tools.services.cache import create_qdrant_cache
+    >>> from compose.services.cache import create_qdrant_cache
     >>> cache = create_qdrant_cache(collection_name="content")
     >>> cache.set("key1", {"data": "value"}, metadata={"type": "youtube"})
     >>> result = cache.get("key1")

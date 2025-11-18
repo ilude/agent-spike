@@ -7,7 +7,7 @@ from .transcript_service import YouTubeTranscriptService
 
 # Import CacheManager protocol from cache service (avoid duplication)
 try:
-    from tools.services.cache import CacheManager
+    from compose.services.cache import CacheManager
 except ImportError:
     # If cache service not available, define minimal protocol
     from typing import Protocol

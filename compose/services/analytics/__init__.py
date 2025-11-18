@@ -8,7 +8,7 @@ This service provides:
 - SQLite-based storage for statistical analysis
 
 Example usage:
-    >>> from tools.services.analytics import create_pattern_tracker
+    >>> from compose.services.analytics import create_pattern_tracker
     >>>
     >>> # Create pattern tracker
     >>> tracker = create_pattern_tracker()

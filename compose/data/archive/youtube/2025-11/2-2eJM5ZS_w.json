@@ -1,0 +1,35 @@
+{
+  "video_id": "2-2eJM5ZS_w",
+  "url": "https://www.youtube.com/watch?v=2-2eJM5ZS_w",
+  "fetched_at": "2025-11-17T22:38:51.250745",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:38:51.250714",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "what's up view engineers in this video I want to help you code Faster by sharing my most used biggest time saving vs code Snippets first off I'm just going to spin up a new VJs application I'm just going to use spin view we're going to call it snips all right see at the end install packages and let's open up an editor and as you can see here we have a new vue.js application all right so my first snippet here is as you can imagine you're writing the UJS code you need to create components so I have this snippet here called viewbns and view BN and this is just going to create a new view component as you can see here we have some templating so the name of the file is actually been placed in the class as we're all in your HTML and as a new styling so go ahead and hit save and you can see we now have a new view.js component just like that so all these Snippets are going to be in the description I want to help you guys program faster I want to help you write your vue.js code faster than before so let's go ahead and look at the next snippet the big winner for me when writing view JS components has been generating composable functions so let's go ahead and create a composable function here I'm going to generate a composables directory and then we're going to call it use is mobile to generate a new UJS composable function I use hkk which stands for hook and we're going to do is mobile and just like that I have a new vue.js composable that I can start writing shareable logic in so the next snippet I use probably the most often is ref so reff generates a new ref so let's go ahead and kind of build up this composable function I'm going to call this is mobile set to false do some importing and then of course and I have another snippet called comp which generates a new computed property I'm going to call this is desktop and of course we're just going to invert this mobile here my next most useful snippet has to be on mounted and that's just on mm I'm gonna go ahead and build this component out so let's see so on mounted we want to update is mobile and looks like we're just going to go ahead and use the enter width here that's totally fine with me add the window event and make that run on start so that's basically that let's go ahead and Export here and move back to app I'm building out lots of composables adding lots of logic here so I'd love to use ee which is the composable hook and you can see here we can add these quickly and go ahead and update our component to show off what we have now so as you can see let's go ahead and Bubble Up the size we'll just use Styles great just like that we have a new is mobile or is desktop composable function and this is all thanks to you know a couple Snippets just to list them off again we have the vpns uh New View component we have hkk generate new composable function we have ref generate new ref comp computer prop unmounted I also have I didn't show this one off but I have unmounted so we do on on not used as often as on mounted but still there still useful and then one of my favorites uh use um consume a composable function so that's it I just want to drop a really quick video give away some value help you program faster while you're writing your vue.js components and composables I'm going to link all of these in the description they're going to be completely available for you to use and hopefully speed up your development if you like this type of content I'm a huge fan of vue.js huge fan of serverless functions obviously doing a lot of things with llmsgbt Etc so if you're into that content you want to see someone build it out in real time you're going to see someone build out app ideas you want to see someone use new technology and test it you know feel free to like feel free to subscribe thanks for watching happy coding I'll see you guys in the next one",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "vue.js, composables, ref, on-mounted, vscode-snippets",
+      "generated_at": "2025-11-17T22:39:07.277198",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

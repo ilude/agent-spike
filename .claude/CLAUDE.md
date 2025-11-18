@@ -184,9 +184,9 @@ uv run python -m agent_name.cli
 - Contains ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.
 - Encrypted with git-crypt (must unlock repo to read)
 
-**Loading environment**: Use `tools/dotenv.py` utility in test scripts:
+**Loading environment**: Use `compose/lib/env_loader.py` utility in test scripts:
 ```python
-from tools.dotenv import load_root_env
+from compose.lib.env_loader import load_root_env
 load_root_env()  # Finds git root, loads .env automatically
 ```
 

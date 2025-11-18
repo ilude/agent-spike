@@ -1,0 +1,35 @@
+{
+  "video_id": "JoCdhP0OkAU",
+  "url": "https://www.youtube.com/watch?v=JoCdhP0OkAU",
+  "fetched_at": "2025-11-17T22:41:27.316570",
+  "source": "youtube-transcript-api",
+  "import_metadata": {
+    "source_type": "bulk_channel",
+    "imported_at": "2025-11-17T22:41:27.316541",
+    "import_method": "cli",
+    "channel_context": {
+      "channel_id": null,
+      "channel_name": null,
+      "is_bulk_import": true
+    },
+    "recommendation_weight": 0.5
+  },
+  "raw_transcript": "foreign welcome to another notion tutorial in this video we're learning how to write two notion databases we're going to use our pre-existing code that we've been building up over the previous four videos if you need to catch up go back check out the previous videos they're all five minutes just like this one is going to be so that I can give you just the information you need to get started building your next application I'm going to start the timer for five minutes and as you can see we have our previous website analytics table setup in this video we're going to be writing a new row and populating our user ID event and date we're going to create a simple function that writes explicitly to this table so we'll call this def right row and what we're going to pass in is our client our database ID and then we're going to pass in each individual column there are many ways you could do this for this video we're going to pass in our columns and pass in our user ID event and date now we're going to call client dot Pages dot create we're going to pass in this we're going to spread an object and then we're going to pass in our parent which is going to be our database ID perfect and now we're going to explicitly set our properties for our new row if you remember in the previous video we had our DB rows here at the end but these rows were generated from the more complex type of object that notion gives back to us where we have our Fields nested in properties event select name and date date start and user ID title zeroth index plain text so in that same kind of vein we need to specify our properties and tell notion exactly where and what type we need to populate so to do that we're going to pass in our user ID which is the name of our column and then we're going to set the title and then we're going to pass in a list with text items in it so this is the format for building out a text columns all right so next we're going to pass in our event which isn't exactly the same thing because our event is a select type we need a different structure so we're going to call this select and then we pass in its name exactly and for our date type we need a different structure and this is the structure we need right so for the date type we pass and date start and then our actual date so great so this should be our right row function as you can see the tricky part here is making sure that you're aligning the object structure of the column with a type of column structure that notion needs I know it's a little complicated but basically for every type you have in your notion database you need to change the object structure in which you're writing so that's that let's go ahead and create a new row so I'm going to write create row we're going to pass in all of our information then we're going to be more specific here we're going to say user ID we're going to pass in an event and a date so let's go ahead and now create these fields okay and for our date we're going to use a uuid uid4 and we can import that in a moment for our event let's go ahead and reuse our sign up event specified here and for our date let's go ahead and just run it to um we'll set it to today so this will be the this is 12 28 I think it's Sierra month day um so that's that let's go ahead and get our uid import here so that we can generate new IDs on the Fly and let's go ahead and run our code all right so we got a error here uh basically we're just complaining that we need to cast this to a string let's go ahead and knock that out and we run our code and excellent as you can see here we just generated a new row so right from our code right from the python script we created a new row and we can do this again let's go ahead and change our event here we'll do a visitor event and we'll set it up to four days ago and let's run the code again keep your eye on the database here awesome so there we go we got a visitor row and this is really cool guys so you know in roughly five minutes we learned how to write information to our notion database when you're building out custom applications using a database with specified column headers is a huge Advantage because it gives you structured data right having structured data as a table is a fantastic way to organize and manage your information we're doing all this to set up for building out bigger applications more complex applications thank you so much for watching check out the previous videos if you haven't and let's check this off and I'll see you guys in the next one foreign",
+  "timed_transcript": null,
+  "youtube_metadata": {
+    "source": "youtube-transcript-api"
+  },
+  "llm_outputs": [
+    {
+      "output_type": "tags",
+      "output_value": "notion-databases, notion-api, python, notion-sdk-python, notion-pages-create",
+      "generated_at": "2025-11-17T22:41:34.810673",
+      "model": "claude-3-5-haiku-20241022",
+      "cost_usd": 0.001,
+      "prompt_tokens": null,
+      "completion_tokens": null
+    }
+  ],
+  "derived_outputs": [],
+  "processing_history": []
+}

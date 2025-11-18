@@ -36,7 +36,7 @@ class QdrantCache:
     - Persistent storage
 
     Example:
-        >>> from tools.services.cache import create_qdrant_cache
+        >>> from compose.services.cache import create_qdrant_cache
         >>> cache = create_qdrant_cache(collection_name="content")
         >>> cache.set("key1", {"data": "AI agents tutorial"}, {"type": "youtube"})
         >>> results = cache.search("artificial intelligence tutorial", limit=5)

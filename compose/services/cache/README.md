@@ -21,7 +21,7 @@ Cache content that's expensive to fetch or compute:
 ## Quick Start
 
 ```python
-from tools.services.cache import create_qdrant_cache
+from compose.services.cache import create_qdrant_cache
 
 # Use defaults (compose/data/qdrant)
 cache = create_qdrant_cache(collection_name="content")
@@ -56,7 +56,7 @@ youtube_only = cache.filter({"type": "youtube_video"}, limit=100)
 
 ```python
 from pathlib import Path
-from tools.services.cache import CacheConfig, QdrantCache
+from compose.services.cache import CacheConfig, QdrantCache
 
 # Custom location and model
 config = CacheConfig(
@@ -71,7 +71,7 @@ cache = QdrantCache(config)
 ## Testing with InMemoryCache
 
 ```python
-from tools.services.cache import create_in_memory_cache
+from compose.services.cache import create_in_memory_cache
 
 # For unit tests (no persistence, no Qdrant dependency)
 cache = create_in_memory_cache()
@@ -82,8 +82,8 @@ assert cache.get("test") == {"data": "value"}
 ## Integration Example
 
 ```python
-from tools.services.cache import create_qdrant_cache
-from tools.services.archive import create_local_archive_writer
+from compose.services.cache import create_qdrant_cache
+from compose.services.archive import create_local_archive_writer
 
 # Composition: Cache + Archive working together
 cache = create_qdrant_cache(collection_name="videos")
@@ -117,7 +117,7 @@ def process_video(url: str):
 Cache service is organized as:
 
 ```
-tools/services/cache/
+compose/services/cache/
 ├── __init__.py           # Exports
 ├── cache_manager.py      # Protocol (interface)
 ├── qdrant_cache.py       # Qdrant implementation
@@ -132,10 +132,10 @@ tools/services/cache/
 
 ```bash
 # Run unit tests
-uv run pytest tools/tests/unit/test_cache*.py -v
+uv run pytest compose/tests/unit/test_cache*.py -v
 
 # With coverage
-uv run pytest tools/tests/unit/test_cache*.py --cov=tools.services.cache
+uv run pytest compose/tests/unit/test_cache*.py --cov=compose.services.cache
 ```
 
 ## See Also

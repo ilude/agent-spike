@@ -4,7 +4,7 @@ This module provides consistent formatting for displaying YouTube video
 metadata across different scripts (search, list, verify).
 
 Example:
-    >>> from tools.services.display import format_video_display
+    >>> from compose.services.display import format_video_display
     >>> video = {
     ...     "video_id": "abc123",
     ...     "url": "https://youtube.com/watch?v=abc123",

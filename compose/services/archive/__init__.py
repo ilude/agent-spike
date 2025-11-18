@@ -3,14 +3,14 @@
 Composition-based design with protocol-first interfaces.
 
 Example usage:
-    >>> from tools.services.archive import create_local_archive_writer
+    >>> from compose.services.archive import create_local_archive_writer
     >>>
     >>> # Use defaults (projects/data/archive)
     >>> archive = create_local_archive_writer()
     >>> archive.archive_youtube_video(video_id, url, transcript)
     >>>
     >>> # Custom configuration
-    >>> from tools.services.archive import ArchiveConfig, LocalArchiveWriter
+    >>> from compose.services.archive import ArchiveConfig, LocalArchiveWriter
     >>> config = ArchiveConfig(base_dir=Path("/custom/path"))
     >>> archive = LocalArchiveWriter(config)
 """

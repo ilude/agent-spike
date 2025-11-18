@@ -20,7 +20,7 @@ class InMemoryCache:
     Note: Does not support semantic search (uses simple text matching instead).
 
     Example:
-        >>> from tools.services.cache import create_in_memory_cache
+        >>> from compose.services.cache import create_in_memory_cache
         >>> cache = create_in_memory_cache()
         >>> cache.set("key1", {"data": "value"})
         >>> result = cache.get("key1")

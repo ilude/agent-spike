@@ -5,8 +5,8 @@ Two-phase approach:
 2. Normalize using semantic context and vocabulary
 
 Example:
-    >>> from tools.services.tagger import create_normalizer, create_retriever
-    >>> from tools.services.tagger import VocabularyManager
+    >>> from compose.services.tagger import create_normalizer, create_retriever
+    >>> from compose.services.tagger import VocabularyManager
     >>>
     >>> # Create components
     >>> vocab = VocabularyManager(Path("data/seed_vocabulary_v1.json"))
