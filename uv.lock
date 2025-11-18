@@ -165,6 +165,33 @@ lesson-009 = [
     { name = "youtube-transcript-api" },
 ]
 platform = [
+    { name = "anthropic" },
+    { name = "fastapi" },
+    { name = "google-api-python-client" },
+    { name = "openai" },
+    { name = "pydantic" },
+    { name = "qdrant-client" },
+    { name = "rich" },
+    { name = "sentence-transformers" },
+    { name = "typer" },
+    { name = "uvicorn", extra = ["standard"] },
+    { name = "youtube-transcript-api" },
+]
+platform-api = [
+    { name = "anthropic" },
+    { name = "fastapi" },
+    { name = "google-api-python-client" },
+    { name = "openai" },
+    { name = "pydantic" },
+    { name = "qdrant-client" },
+    { name = "rich" },
+    { name = "sentence-transformers" },
+    { name = "typer" },
+    { name = "uvicorn", extra = ["standard"] },
+    { name = "youtube-transcript-api" },
+]
+platform-embeddings = [
+    { name = "anthropic" },
     { name = "fastapi" },
     { name = "google-api-python-client" },
     { name = "openai" },
@@ -300,6 +327,33 @@ lesson-009 = [
     { name = "youtube-transcript-api", specifier = ">=1.2.3" },
 ]
 platform = [
+    { name = "anthropic", specifier = ">=0.40.0" },
+    { name = "fastapi", specifier = ">=0.109.0" },
+    { name = "google-api-python-client", specifier = ">=2.0.0" },
+    { name = "openai", specifier = ">=1.54.0" },
+    { name = "pydantic", specifier = ">=2.0.0" },
+    { name = "qdrant-client", specifier = ">=1.7.0" },
+    { name = "rich", specifier = ">=14.2.0" },
+    { name = "sentence-transformers", specifier = ">=2.2.0" },
+    { name = "typer", specifier = ">=0.9" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.27.0" },
+    { name = "youtube-transcript-api", specifier = ">=1.2.3" },
+]
+platform-api = [
+    { name = "anthropic", specifier = ">=0.40.0" },
+    { name = "fastapi", specifier = ">=0.109.0" },
+    { name = "google-api-python-client", specifier = ">=2.0.0" },
+    { name = "openai", specifier = ">=1.54.0" },
+    { name = "pydantic", specifier = ">=2.0.0" },
+    { name = "qdrant-client", specifier = ">=1.7.0" },
+    { name = "rich", specifier = ">=14.2.0" },
+    { name = "sentence-transformers", specifier = ">=2.2.0" },
+    { name = "typer", specifier = ">=0.9" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.27.0" },
+    { name = "youtube-transcript-api", specifier = ">=1.2.3" },
+]
+platform-embeddings = [
+    { name = "anthropic", specifier = ">=0.40.0" },
     { name = "fastapi", specifier = ">=0.109.0" },
     { name = "google-api-python-client", specifier = ">=2.0.0" },
     { name = "openai", specifier = ">=1.54.0" },

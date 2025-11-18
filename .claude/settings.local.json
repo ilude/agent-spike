@@ -8,7 +8,8 @@
       "Bash(do if [ ! -f \"$dir/__init__.py\" ])",
       "Bash(then echo \"MISSING: $dir/__init__.py\")",
       "Bash(else echo \"OK: $dir/__init__.py\")",
-      "Bash(fi)"
+      "Bash(fi)",
+      "Bash(cloc:*)"
     ],
     "deny": [],
     "ask": [],
