@@ -32,7 +32,7 @@ from compose.services.analytics import create_pattern_tracker
 
 
 # Progress tracking
-PROGRESS_FILE = Path("projects/data/archive/.url_filter_progress.json")
+PROGRESS_FILE = Path("compose/data/archive/.url_filter_progress.json")
 
 
 def get_batch_progress() -> dict:

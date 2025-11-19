@@ -265,7 +265,7 @@ def main() -> None:
             return
 
     # Output to queue directory
-    queue_dir = Path(__file__).parent.parent.parent / "projects" / "data" / "queues" / "pending"
+    queue_dir = Path(__file__).parent.parent.parent / "compose" / "data" / "queues" / "pending"
     queue_dir.mkdir(parents=True, exist_ok=True)
     output_file = queue_dir / output_filename
 
