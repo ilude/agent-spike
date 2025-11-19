@@ -41,7 +41,11 @@ async def reingest_all(collection_name: str = "cached_content", limit: int = Non
     
     # Initialize services
     archive = create_local_archive_reader()
-    cache = create_qdrant_cache(collection_name=collection_name)
+    cache = create_qdrant_cache(
+        collection_name=collection_name,
+        qdrant_url="http://localhost:6335",
+        infinity_url="http://localhost:7997"
+    )
     agent = create_agent(instrument=False)
     
     # Get all videos from archive

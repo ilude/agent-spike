@@ -70,7 +70,11 @@ async def ingest_single_video(
         print(f"{'='*70}\n")
 
         # Initialize services
-        cache = create_qdrant_cache(collection_name=collection_name)
+        cache = create_qdrant_cache(
+            collection_name=collection_name,
+            qdrant_url="http://localhost:6335",
+            infinity_url="http://localhost:7997"
+        )
         archive = create_archive_manager()
 
         try:
@@ -111,7 +115,7 @@ async def ingest_single_video(
 
             if dry_run:
                 print("[DRY RUN] Would archive transcript, metadata, and generate tags")
-                print(f"  Archive path: projects/data/archive/YYYY-MM/{video_id}.json")
+                print(f"  Archive path: compose/data/archive/YYYY-MM/{video_id}.json")
                 print(f"  Cache key: {cache_key}")
                 return True, "Dry run complete (no changes made)"
 
