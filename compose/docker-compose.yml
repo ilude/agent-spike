@@ -22,6 +22,50 @@ services:
     networks:
       - agent-network
 
+  docling:
+    image: ghcr.io/docling-project/docling-serve-cpu:latest
+    container_name: docling-serve
+    ports:
+      - "5001:5001"
+    environment:
+      - DOCLING_SERVE_ENABLE_UI=1
+      - DOCLING_NUM_THREADS=4
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent-network
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - "6335:6333"  # HTTP API + Web UI (mapped to avoid conflicts)
+      - "6336:6334"  # gRPC (mapped to avoid conflicts)
+    volumes:
+      - ./data/qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    restart: unless-stopped
+    networks:
+      - agent-network
+
+  infinity:
+    image: michaelf34/infinity:latest
+    container_name: infinity
+    command: v2 --model-id BAAI/bge-m3 --port 7997 --batch-size 32 --engine torch
+    ports:
+      - "7997:7997"
+    volumes:
+      - infinity_models:/app/.cache  # Persistent model storage for portability
+    restart: unless-stopped
+    networks:
+      - agent-network
+
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
@@ -35,15 +79,13 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - NODE_ENV=production
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
-      - N8N_LICENSE_ACTIVATION_KEY=${N8N_LICENSE_ACTIVATION_KEY:-}
       - DB_SQLITE_POOL_SIZE=3
       - N8N_RUNNERS_ENABLED=true
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
     env_file:
-      - ../.env
+      - ../.env  # Loads N8N_ENCRYPTION_KEY and N8N_LICENSE_ACTIVATION_KEY from .env
     volumes:
       - ./data/n8n:/home/node/.n8n
       - ./data/n8n/workflows:/workflows
@@ -68,3 +110,7 @@ services:
 networks:
   agent-network:
     driver: bridge
+
+volumes:
+  infinity_models:  # Named volume for embedding model storage (portable across dev machines)
+    driver: local

@@ -3,8 +3,11 @@
 *.key filter=git-crypt diff=git-crypt
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
-# Corrected path: actual committed location is projects/data/brave_history/** (previous pattern was reversed)
-projects/data/brave_history/** filter=git-crypt diff=git-crypt
+
+# Encrypt data storage (Qdrant collections, YouTube archives, browser history)
+compose/data/qdrant/** filter=git-crypt diff=git-crypt
+compose/data/archive/** filter=git-crypt diff=git-crypt
+compose/data/browser_history/** filter=git-crypt diff=git-crypt
 
 # Handle line endings
 * text=auto
