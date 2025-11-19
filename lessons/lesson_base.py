@@ -74,7 +74,7 @@ def setup_lesson_environment(
 
     # Load environment variables from .env
     if load_env:
-        from tools.env_loader import load_root_env
+        from compose.lib.env_loader import load_root_env
         load_root_env()
 
     return project_root

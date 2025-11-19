@@ -1,8 +1,9 @@
 """Webpage fetching and parsing tools using Docling."""
 
 import hashlib
+import os
 from typing import Any, Optional, Protocol
-from docling.document_converter import DocumentConverter
+import httpx
 
 
 class CacheManager(Protocol):
@@ -26,9 +27,9 @@ class CacheManager(Protocol):
 
 
 def fetch_webpage(url: str, cache: Optional[CacheManager] = None) -> str:
-    """Fetch webpage content and convert to clean Markdown.
+    """Fetch webpage content and convert to clean Markdown using docling-serve API.
 
-    Uses Docling to:
+    Uses Docling HTTP API to:
     - Download HTML content
     - Parse and extract main content
     - Strip navigation, ads, and UI elements
@@ -53,12 +54,27 @@ def fetch_webpage(url: str, cache: Optional[CacheManager] = None) -> str:
             if cached and "markdown" in cached:
                 return cached["markdown"]
 
-        # Create converter with default settings
-        converter = DocumentConverter()
+        # Get docling service URL from environment
+        docling_url = os.getenv("DOCLING_URL", "http://localhost:5001")
+        endpoint = f"{docling_url}/v1/convert/source"
 
-        # Fetch and convert to Markdown
-        result = converter.convert(url)
-        markdown = result.document.export_to_markdown()
+        # Make API request to docling-serve
+        response = httpx.post(
+            endpoint,
+            json={"sources": [{"kind": "http", "url": url}]},
+            timeout=30.0  # 30 second timeout for webpage conversion
+        )
+        response.raise_for_status()
+
+        data = response.json()
+
+        # Check conversion status
+        if data.get("status") != "success":
+            errors = data.get("errors", [])
+            return f"ERROR: Docling conversion failed - {errors}"
+
+        # Extract markdown from response
+        markdown = data["document"]["md_content"]
 
         # Check if content is too short (likely error/paywall)
         if len(markdown.strip()) < 100:
@@ -81,18 +97,27 @@ def fetch_webpage(url: str, cache: Optional[CacheManager] = None) -> str:
                     "length": len(markdown),
                     "truncated": truncated
                 },
-                metadata={"type": "webpage_content", "source": "docling"}
+                metadata={"type": "webpage_content", "source": "docling-serve"}
             )
 
         return markdown
 
+    except httpx.HTTPStatusError as e:
+        # HTTP error from docling service
+        return f"ERROR: Docling service returned {e.response.status_code} - {e.response.text}"
+    except httpx.ConnectError:
+        return "ERROR: Cannot connect to docling service - ensure docling-serve is running"
+    except httpx.TimeoutException:
+        return "ERROR: Docling service timeout - page took too long to convert"
+    except httpx.HTTPError as e:
+        return f"ERROR: HTTP error connecting to docling service - {e}"
+    except KeyError as e:
+        return f"ERROR: Unexpected response format from docling service - missing {e}"
     except Exception as e:
         error_msg = str(e)
-        # Provide helpful error messages
+        # Provide helpful error messages for other errors
         if "404" in error_msg:
             return "ERROR: Page not found (404)"
-        elif "timeout" in error_msg.lower():
-            return "ERROR: Connection timeout - page took too long to respond"
         elif "connection" in error_msg.lower():
             return "ERROR: Connection failed - check URL or network"
         else:
