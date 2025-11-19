@@ -96,7 +96,6 @@ lesson-001 = [
     "typer>=0.9",
 ]
 lesson-002 = [
-    "docling>=2.60.0",
     "typer>=0.9",
 ]
 lesson-003 = [
@@ -145,12 +144,12 @@ api = [
     "uvicorn[standard]>=0.27.0",
 ]
 platform-api = [
-    # API service with embeddings (TODO: split embedding service later)
+    # Lightweight API service (NO embeddings - use embeddings service for that)
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
     "pydantic>=2.0.0",
-    "qdrant-client>=1.7.0",
-    "sentence-transformers>=2.2.0",  # Needed by qdrant_cache
+    "qdrant-client>=1.7.0",  # For cache storage (no embeddings in API)
+    "httpx>=0.27.0",  # For HTTP clients (docling-serve, etc.)
     "youtube-transcript-api>=1.2.3",
     "google-api-python-client>=2.0.0",
     "openai>=1.54.0",
