@@ -84,4 +84,5 @@ compose/data/logs/
 
 # Session context management (multi-instance work tracking)
 .session/
-*.log
+*.log*.sqlite-shm
+*.sqlite-wal
