@@ -20,7 +20,18 @@ from qdrant_client.models import (
     FieldCondition,
     MatchValue,
 )
-from sentence_transformers import SentenceTransformer
+
+try:
+    from sentence_transformers import SentenceTransformer
+    _SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    _SENTENCE_TRANSFORMERS_AVAILABLE = False
+
+try:
+    import httpx
+    _HTTPX_AVAILABLE = True
+except ImportError:
+    _HTTPX_AVAILABLE = False
 
 from .config import CacheConfig
 
@@ -53,8 +64,13 @@ class QdrantCache:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.collection_name = config.collection_name
 
-        # Initialize Qdrant client (local mode)
-        self.client = QdrantClient(path=str(self.cache_dir))
+        # Initialize Qdrant client (container mode preferred, fallback to local)
+        if config.qdrant_url:
+            # Use Qdrant container via HTTP
+            self.client = QdrantClient(url=config.qdrant_url)
+        else:
+            # Fallback to local file-based storage (legacy mode)
+            self.client = QdrantClient(path=str(self.cache_dir))
 
         # Initialize embedding model (lazy load)
         self._embedding_model_name = config.embedding_model
@@ -81,20 +97,38 @@ class QdrantCache:
             )
 
     def _get_embedding_model(self) -> SentenceTransformer:
-        """Lazy load embedding model."""
+        """Lazy load embedding model (only used if no Infinity URL)."""
+        if not _SENTENCE_TRANSFORMERS_AVAILABLE:
+            raise ImportError(
+                "sentence-transformers is required for local embeddings. "
+                "Either install it or configure infinity_url for remote embeddings."
+            )
         if self._embedding_model is None:
             self._embedding_model = SentenceTransformer(self._embedding_model_name)
         return self._embedding_model
 
     def _get_embedding_dim(self) -> int:
         """Get embedding dimension for the model."""
-        model = self._get_embedding_model()
-        # Get dimension from a test encoding
-        test_embedding = model.encode("test")
-        return len(test_embedding)
+        if self.config.infinity_url:
+            # bge-m3 model dimension
+            if "bge-m3" in self.config.infinity_model:
+                return 1024
+            # gte-large dimension
+            elif "gte-large" in self.config.infinity_model:
+                return 1024
+            # Default: try to get from Infinity API
+            test_embedding = self._generate_embedding("test")
+            return len(test_embedding)
+        else:
+            # Local model
+            model = self._get_embedding_model()
+            test_embedding = model.encode("test")
+            return len(test_embedding)
 
     def _generate_embedding(self, text: str) -> list[float]:
         """Generate embedding vector for text.
+
+        Uses Infinity HTTP API if configured, otherwise falls back to local model.
 
         Args:
             text: Text to embed
@@ -102,9 +136,59 @@ class QdrantCache:
         Returns:
             Embedding vector as list of floats
         """
-        model = self._get_embedding_model()
-        embedding = model.encode(text)
-        return embedding.tolist()
+        if self.config.infinity_url:
+            # Use Infinity HTTP API
+            return self._generate_embedding_via_infinity(text)
+        else:
+            # Use local sentence-transformers model
+            model = self._get_embedding_model()
+            embedding = model.encode(text)
+            return embedding.tolist()
+
+    def _generate_embedding_via_infinity(self, text: str) -> list[float]:
+        """Generate embedding via Infinity HTTP API.
+
+        Args:
+            text: Text to embed
+
+        Returns:
+            Embedding vector as list of floats
+
+        Raises:
+            ConnectionError: If cannot connect to Infinity service
+            ValueError: If response format is unexpected
+        """
+        if not _HTTPX_AVAILABLE:
+            raise ImportError(
+                "httpx is required for Infinity embeddings. "
+                "Install with: uv sync --group platform-api"
+            )
+
+        try:
+            response = httpx.post(
+                f"{self.config.infinity_url}/embeddings",
+                json={
+                    "model": self.config.infinity_model,
+                    "input": [text]
+                },
+                timeout=30.0
+            )
+            response.raise_for_status()
+
+            data = response.json()
+
+            # Extract embedding from response
+            # Infinity format: {"data": [{"embedding": [0.1, 0.2, ...]}]}
+            if "data" not in data or not data["data"]:
+                raise ValueError(f"Unexpected Infinity response format: {data}")
+
+            embedding = data["data"][0]["embedding"]
+            return embedding
+
+        except httpx.HTTPError as e:
+            raise ConnectionError(f"Failed to connect to Infinity service: {e}")
+        except (KeyError, IndexError) as e:
+            raise ValueError(f"Unexpected response format from Infinity: {e}")
 
     def _key_to_id(self, key: str) -> str:
         """Convert cache key to Qdrant point ID.
