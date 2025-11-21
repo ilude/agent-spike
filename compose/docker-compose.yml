@@ -27,11 +27,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik_acme:/acme
-    environment:
-      - CF_API_EMAIL=${CF_API_EMAIL}
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     env_file:
-      - ../.env
+      - ../.env  # Loads CF_API_EMAIL, CF_DNS_API_TOKEN for Cloudflare DNS challenge
     labels:
       - "traefik.enable=true"
       # Dashboard
@@ -91,7 +88,9 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend/src:/app/src  # Hot reload for frontend code
+      - ./frontend:/app                # Mount entire frontend for hot reload
+      - /app/node_modules              # Preserve container's node_modules
+      - /app/.svelte-kit               # Preserve generated svelte-kit files
     environment:
       - VITE_API_URL=https://api.local.ilude.com
     labels:

@@ -11,7 +11,9 @@
       "Bash(fi)",
       "Bash(cloc:*)",
       "Bash(pip index:*)",
-      "Bash(git-crypt status:*)"
+      "Bash(git-crypt status:*)",
+      "Bash(curl:*)",
+      "Bash(docker logs:*)"
     ],
     "deny": [],
     "ask": [],

@@ -48,6 +48,9 @@ cached_content/
 # Compose: Let's Encrypt certificates (contains account private key)
 compose/acme/
 
+# Compose: Local .env copy (root .env is git-crypt encrypted, this is a copy for docker-compose)
+compose/.env
+
 # Compose: Data files - track archives, qdrant_storage, queues
 # Machine-specific files and temp files are ignored
 compose/data/*
