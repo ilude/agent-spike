@@ -1,0 +1,18 @@
+# Dynamic configuration for traefik
+# Routes frontend to local host machine for development
+
+http:
+  routers:
+    mentat-local:
+      rule: "Host(`mentat.local.ilude.com`)"
+      entrypoints:
+        - websecure
+      service: mentat-local
+      tls:
+        certResolver: cloudflare
+
+  services:
+    mentat-local:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:5173"
