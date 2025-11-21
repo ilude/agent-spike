@@ -67,9 +67,9 @@ def create_qdrant_cache(
         )
 
     if cache_dir is None:
-        # Default to compose/data/qdrant in project root
+        # Default to compose/data/qdrant_storage in project root
         project_root = Path(__file__).parent.parent.parent.parent
-        cache_dir = project_root / "compose" / "data" / "qdrant"
+        cache_dir = project_root / "compose" / "data" / "qdrant_storage"
 
     config = CacheConfig(
         cache_dir=cache_dir,

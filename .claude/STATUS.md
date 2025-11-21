@@ -89,7 +89,7 @@
 - CacheManager protocol with QdrantCache implementation
 - Semantic search with sentence-transformers embeddings
 - Generic CSV ingestion script with progress tracking
-- Centralized cache storage in `projects/data/qdrant/`
+- Centralized cache storage in `compose/data/qdrant_storage/`
 - Successfully cached 49+ items from video lists
 
 **Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE
@@ -130,7 +130,7 @@
 **Related files:**
 - Cache service: `compose/services/cache/`
 - Ingestion scripts: `compose/cli/ingest_*.py`
-- Qdrant data: `compose/data/qdrant/` (git-crypt encrypted)
+- Qdrant data: `compose/data/qdrant_storage/` (git-crypt encrypted)
 - Archive data: `compose/data/archive/` (git-crypt encrypted)
 
 ### Future Capabilities (As Needs Emerge)
@@ -268,7 +268,7 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 - Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
 - Services: `compose/services/{archive,cache,analytics,metadata,tagger,display,youtube}/`
 - Scripts: `compose/cli/` (production CLIs)
-- Data: `compose/data/{archive,queues,qdrant,n8n}/` (git-crypt encrypted)
+- Data: `compose/data/{archive,queues,qdrant_storage}/` (git-crypt encrypted)
 - Docker: `compose/docker-compose.yml`, `compose/api/Dockerfile`
 - Documentation: `compose/INFINITY_SETUP.md`, `.claude/VISION.md`
 - This status file: `.claude/STATUS.md`
