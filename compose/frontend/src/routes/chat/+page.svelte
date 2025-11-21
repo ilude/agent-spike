@@ -449,9 +449,9 @@
   // Auto-scroll to bottom after messages update
   async function scrollToBottom() {
     await tick(); // Wait for DOM to update
-    const messagesDiv = document.querySelector('.messages');
-    if (messagesDiv) {
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    const messagesWrapper = document.querySelector('.messages-wrapper');
+    if (messagesWrapper) {
+      messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
     }
   }
 
@@ -517,19 +517,32 @@
             {#if modelsLoading}
               <option>Loading models...</option>
             {:else}
-              <!-- Group free models -->
-              <optgroup label="Free Models">
-                {#each availableModels.filter(m => m.is_free) as model}
-                  <option value={model.id}>
-                    {model.name}
-                  </option>
-                {/each}
-              </optgroup>
+              <!-- Ollama local models first -->
+              {#if availableModels.some(m => m.is_local)}
+                <optgroup label="Ollama">
+                  {#each availableModels.filter(m => m.is_local) as model}
+                    <option value={model.id}>
+                      {model.name}
+                    </option>
+                  {/each}
+                </optgroup>
+              {/if}
+
+              <!-- Group free models (excluding Ollama) -->
+              {#if availableModels.some(m => m.is_free && !m.is_local)}
+                <optgroup label="Free Models">
+                  {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
+                    <option value={model.id}>
+                      {model.name}
+                    </option>
+                  {/each}
+                </optgroup>
+              {/if}
 
               <!-- Group paid models -->
-              {#if availableModels.some(m => !m.is_free)}
+              {#if availableModels.some(m => !m.is_free && !m.is_local)}
                 <optgroup label="Paid Models">
-                  {#each availableModels.filter(m => !m.is_free) as model}
+                  {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
                     <option value={model.id}>
                       {model.name}
                     </option>
@@ -559,6 +572,7 @@
     </div>
   {/if}
 
+  <div class="messages-wrapper">
   <div class="messages">
     {#each messages as msg}
       <div class="message-wrapper message-wrapper-{msg.role}">
@@ -611,6 +625,7 @@
         <p class="hint">Type a message below and press Enter to start.</p>
       </div>
     {/if}
+  </div>
   </div>
 
   <div class="input-area">
@@ -846,9 +861,13 @@
     height: 24px;
   }
 
-  .messages {
+  .messages-wrapper {
     flex: 1;
     overflow-y: auto;
+    width: 100%;
+  }
+
+  .messages {
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -857,6 +876,7 @@
     max-width: 900px;
     margin: 0 auto;
     box-sizing: border-box;
+    min-height: 100%;
   }
 
   .welcome {

@@ -21,6 +21,13 @@ openrouter_client = AsyncOpenAI(
     api_key=OPENROUTER_API_KEY,
 ) if OPENROUTER_API_KEY else None
 
+# Ollama client (local LLM server)
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
+ollama_client = AsyncOpenAI(
+    base_url=f"{OLLAMA_URL}/v1",
+    api_key="ollama",  # Ollama doesn't need a real key
+)
+
 # Infinity embedding service (gte-large-en-v1.5, 1024-dim)
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
@@ -122,7 +129,13 @@ async def list_models():
                 })
 
         filtered_models.sort(key=lambda m: (not m["is_free"], m["name"]))
-        result = {"models": filtered_models}
+
+        # Prepend local Ollama models (no rate limits!)
+        ollama_models = [
+            {"id": "ollama:qwen3:8b", "name": "Qwen3 8B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
+            {"id": "ollama:qwen2.5:7b", "name": "Qwen2.5 7B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
+        ]
+        result = {"models": ollama_models + filtered_models}
 
         models_cache["data"] = result
         models_cache["timestamp"] = now
@@ -137,6 +150,10 @@ def _fallback_models() -> dict[str, Any]:
     """Return fallback model list."""
     return {
         "models": [
+            # Local Ollama models (no rate limits!)
+            {"id": "ollama:qwen3:8b", "name": "Qwen3 8B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
+            {"id": "ollama:qwen2.5:7b", "name": "Qwen2.5 7B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
+            # OpenRouter free models
             {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "is_free": True},
             {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "is_free": True},
             {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "is_free": True}
@@ -186,6 +203,9 @@ async def get_random_question():
                     video_titles.add(meta['title'])
             if 'meta_youtube_title' in payload:
                 video_titles.add(payload['meta_youtube_title'])
+            # Also check value.title (fast_reingest stores here)
+            if 'value' in payload and payload['value'].get('title'):
+                video_titles.add(payload['value']['title'])
 
         all_tags = [t for t in all_tags if t]
         video_titles = list(video_titles)
@@ -248,8 +268,17 @@ async def websocket_chat(websocket: WebSocket):
                 continue
 
             try:
-                stream = await openrouter_client.chat.completions.create(
-                    model=model,
+                # Route to Ollama or OpenRouter
+                if model.startswith("ollama:"):
+                    ollama_model = model.replace("ollama:", "")
+                    client = ollama_client
+                    actual_model = ollama_model
+                else:
+                    client = openrouter_client
+                    actual_model = model
+
+                stream = await client.chat.completions.create(
+                    model=actual_model,
                     messages=[{"role": "user", "content": message}],
                     stream=True,
                 )
@@ -331,6 +360,7 @@ async def websocket_rag_chat(websocket: WebSocket):
                             payload.get('video_title') or
                             payload.get('meta_youtube_title') or
                             payload.get('metadata', {}).get('title') or
+                            payload.get('value', {}).get('title') or  # fast_reingest stores here
                             'Unknown Video'
                         )
 
@@ -390,9 +420,19 @@ User: {message}
 
 Respond helpfully and concisely."""
 
-                # Step 5: Stream response
-                stream = await openrouter_client.chat.completions.create(
-                    model=model,
+                # Step 5: Stream response (route to Ollama or OpenRouter)
+                if model.startswith("ollama:"):
+                    # Use local Ollama server
+                    ollama_model = model.replace("ollama:", "")
+                    client = ollama_client
+                    actual_model = ollama_model
+                else:
+                    # Use OpenRouter
+                    client = openrouter_client
+                    actual_model = model
+
+                stream = await client.chat.completions.create(
+                    model=actual_model,
                     messages=[{"role": "user", "content": augmented_prompt}],
                     stream=True,
                 )
