@@ -1,4 +1,51 @@
 services:
+  traefik:
+    image: traefik:v3.4
+    container_name: traefik
+    command:
+      # API/Dashboard
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--log.level=INFO"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      # Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      # Let's Encrypt with Cloudflare DNS challenge
+      - "--certificatesresolvers.cloudflare.acme.email=mglenn@ilude.com"
+      - "--certificatesresolvers.cloudflare.acme.storage=/acme/acme.json"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_acme:/acme
+    environment:
+      - CF_API_EMAIL=${CF_API_EMAIL}
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    env_file:
+      - ../.env
+    labels:
+      - "traefik.enable=true"
+      # Dashboard
+      - "traefik.http.routers.traefik.rule=Host(`traefik.local.ilude.com`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik.service=api@internal"
+      # Basic auth middleware
+      - "traefik.http.routers.traefik.middlewares=traefik-auth"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_AUTH}"
+    restart: unless-stopped
+    networks:
+      - agent-network
+
   api:
     build:
       context: ..  # Root of project (to access tools/)
@@ -15,10 +62,47 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app/src  # Points to src/ to avoid shadowing stdlib
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_COLLECTION=content
+      - INFINITY_URL=http://infinity:7997
+      - INFINITY_MODEL=Alibaba-NLP/gte-large-en-v1.5
     env_file:
       - ../.env  # Load API keys from root .env
     command: uv run uvicorn compose.api.main:app --reload --host 0.0.0.0 --port 8000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentat-api.rule=Host(`api.local.ilude.com`)"
+      - "traefik.http.routers.mentat-api.entrypoints=websecure"
+      - "traefik.http.routers.mentat-api.tls.certresolver=cloudflare"
+      - "traefik.http.services.mentat-api.loadbalancer.server.port=8000"
     restart: unless-stopped
+    depends_on:
+      - qdrant
+      - infinity
+    networks:
+      - agent-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: agent-spike-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/src:/app/src  # Hot reload for frontend code
+    environment:
+      - VITE_API_URL=https://api.local.ilude.com
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentat.rule=Host(`mentat.local.ilude.com`)"
+      - "traefik.http.routers.mentat.entrypoints=websecure"
+      - "traefik.http.routers.mentat.tls.certresolver=cloudflare"
+      - "traefik.http.services.mentat.loadbalancer.server.port=5173"
+    restart: unless-stopped
+    depends_on:
+      - api
     networks:
       - agent-network
 
@@ -57,7 +141,7 @@ services:
   infinity:
     image: michaelf34/infinity:latest
     container_name: infinity
-    command: v2 --model-id BAAI/bge-m3 --port 7997 --batch-size 32 --engine torch
+    command: v2 --model-id Alibaba-NLP/gte-large-en-v1.5 --port 7997 --batch-size 8 --engine torch
     ports:
       - "7997:7997"
     volumes:
@@ -113,4 +197,6 @@ networks:
 
 volumes:
   infinity_models:  # Named volume for embedding model storage (portable across dev machines)
+    driver: local
+  traefik_acme:  # Named volume for Let's Encrypt certs (Windows can't set 600 permissions on bind mounts)
     driver: local

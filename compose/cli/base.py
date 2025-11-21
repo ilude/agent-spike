@@ -47,9 +47,9 @@ def setup_script_environment(
         >>> setup_script_environment(load_env=False)
         >>> # Script that doesn't use API keys
     """
-    # Calculate project root (compose/cli -> compose -> project root)
+    # Calculate project root (compose/cli/base.py -> compose/cli -> compose -> project root)
     script_path = Path(__file__).resolve()
-    project_root = script_path.parent.parent
+    project_root = script_path.parent.parent.parent
 
     # Add project root to path (for tools.* imports)
     if str(project_root) not in sys.path:

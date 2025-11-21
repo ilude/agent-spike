@@ -1,20 +1,26 @@
 """Health check endpoints."""
 
 import os
-from pathlib import Path
 
+import httpx
 from fastapi import APIRouter
+from qdrant_client import QdrantClient
+
 from compose.api.models import HealthCheckResponse
 
 router = APIRouter(tags=["health"])
+
+# Service URLs (container networking)
+QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
+INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 
 
 @router.get("/health", response_model=HealthCheckResponse)
 async def health_check():
     """Check overall service health."""
     checks = {
-        "archive": await check_archive(),
-        "cache": await check_cache(),
+        "qdrant": await check_qdrant(),
+        "infinity": await check_infinity(),
     }
 
     # Determine overall status
@@ -24,49 +30,29 @@ async def health_check():
     return HealthCheckResponse(status=status, checks=checks)
 
 
-async def check_archive() -> dict:
-    """Check if archive directory is accessible."""
+async def check_qdrant() -> dict:
+    """Check if Qdrant is accessible."""
     try:
-        archive_path = Path("platform/data/archive/youtube")
-        exists = archive_path.exists()
-        writable = os.access(archive_path, os.W_OK) if exists else False
-
-        if not exists:
-            return {
-                "status": "error",
-                "message": "Archive directory does not exist",
-                "path": str(archive_path.absolute()),
-            }
-
-        if not writable:
-            return {
-                "status": "error",
-                "message": "Archive directory is not writable",
-                "path": str(archive_path.absolute()),
-            }
-
-        # Count archived videos
-        video_count = len(list(archive_path.glob("**/*.json")))
+        client = QdrantClient(url=QDRANT_URL)
+        collections = client.get_collections()
+        collection_names = [c.name for c in collections.collections]
 
         return {
             "status": "ok",
-            "message": f"Archive accessible with {video_count} videos",
-            "path": str(archive_path.absolute()),
+            "message": f"Qdrant accessible with {len(collection_names)} collections",
+            "collections": collection_names,
         }
     except Exception as e:
-        return {"status": "error", "message": f"Archive check failed: {str(e)}"}
+        return {"status": "error", "message": f"Qdrant check failed: {str(e)}"}
 
 
-async def check_cache() -> dict:
-    """Check if Qdrant cache is accessible."""
+async def check_infinity() -> dict:
+    """Check if Infinity embedding service is accessible."""
     try:
-        from compose.services.cache import create_qdrant_cache
-
-        cache = create_qdrant_cache()
-
-        # Try a simple operation
-        cache.exists("test-key")
-
-        return {"status": "ok", "message": "Qdrant cache accessible"}
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(f"{INFINITY_URL}/health")
+            if response.status_code == 200:
+                return {"status": "ok", "message": "Infinity embedding service accessible"}
+            return {"status": "error", "message": f"Infinity returned {response.status_code}"}
     except Exception as e:
-        return {"status": "error", "message": f"Cache check failed: {str(e)}"}
+        return {"status": "error", "message": f"Infinity check failed: {str(e)}"}

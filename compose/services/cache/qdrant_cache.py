@@ -171,7 +171,7 @@ class QdrantCache:
                     "model": self.config.infinity_model,
                     "input": [text]
                 },
-                timeout=30.0
+                timeout=120.0  # CPU embedding can be slow for large texts
             )
             response.raise_for_status()
 
@@ -280,26 +280,37 @@ class QdrantCache:
             ]
         )
 
-    def _extract_searchable_text(self, value: dict[str, Any]) -> str:
+    def _extract_searchable_text(self, value: dict[str, Any], max_chars: int = 8000) -> str:
         """Extract text content from value for embedding.
 
         Looks for common text fields: transcript, markdown, content, description, etc.
+        Truncates to max_chars to stay within model context limits.
 
         Args:
             value: Cache value dictionary
+            max_chars: Maximum characters for embedding (default 8K for gte-large context)
 
         Returns:
-            Text content for embedding
+            Text content for embedding (truncated if needed)
         """
         # Try common text fields
         text_fields = ["transcript", "markdown", "content", "text", "description", "title"]
 
+        text = None
         for field in text_fields:
             if field in value and isinstance(value[field], str):
-                return value[field]
+                text = value[field]
+                break
 
-        # Fallback: JSON dump (not ideal but works)
-        return json.dumps(value)
+        if text is None:
+            # Fallback: JSON dump (not ideal but works)
+            text = json.dumps(value)
+
+        # Truncate to stay within model context limits
+        if len(text) > max_chars:
+            text = text[:max_chars] + "..."
+
+        return text
 
     def exists(self, key: str) -> bool:
         """Check if key exists in cache.

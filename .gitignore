@@ -45,6 +45,9 @@ env/
 **/.cache/
 cached_content/
 
+# Compose: Let's Encrypt certificates (contains account private key)
+compose/acme/
+
 # Compose: Data files - track archives, qdrant, browser_history, queues, and sync scripts
 # Machine-specific files and temp files are ignored
 compose/data/*
