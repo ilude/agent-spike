@@ -191,6 +191,28 @@ services:
     networks:
       - agent-network
 
+  queue-worker:
+    build:
+      context: ..
+      dockerfile: compose/worker/Dockerfile
+    container_name: queue-worker
+    volumes:
+      - ./data/queues:/app/data/queues
+      - ./data/archive:/app/data/archive
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - INFINITY_URL=http://infinity:7997
+      - COLLECTION_NAME=content
+      - POLL_INTERVAL=10
+    env_file:
+      - ../.env
+    depends_on:
+      - qdrant
+      - infinity
+    restart: unless-stopped
+    networks:
+      - agent-network
+
 networks:
   agent-network:
     driver: bridge

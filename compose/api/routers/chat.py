@@ -300,63 +300,72 @@ async def websocket_rag_chat(websocket: WebSocket):
                 continue
 
             try:
-                # Step 1: Embed the query using Infinity (gte-large-en-v1.5)
-                query_vector = await get_embedding(message)
-
-                # Step 2: Search Qdrant
-                search_results = qdrant_client.query_points(
-                    collection_name=COLLECTION_NAME,
-                    query=query_vector,
-                    limit=5,
-                )
-
-                # Step 3: Build context
+                # Try RAG search, but gracefully fall back if it fails
                 context_chunks = []
                 sources = []
-                seen_ids = set()
+                rag_available = True
 
-                for result in search_results.points:
-                    payload = result.payload or {}
+                try:
+                    # Step 1: Embed the query using Infinity
+                    query_vector = await get_embedding(message)
 
-                    # Extract text and metadata (handle different formats)
-                    text = payload.get('text', payload.get('value', {}).get('transcript', ''))[:1000]
-                    video_id = payload.get('video_id', payload.get('key', ''))
-
-                    # Get title from various locations
-                    title = (
-                        payload.get('video_title') or
-                        payload.get('meta_youtube_title') or
-                        payload.get('metadata', {}).get('title') or
-                        'Unknown Video'
+                    # Step 2: Search Qdrant
+                    search_results = qdrant_client.query_points(
+                        collection_name=COLLECTION_NAME,
+                        query=query_vector,
+                        limit=5,
                     )
 
-                    # Get URL
-                    url = payload.get('url', f"https://youtube.com/watch?v={video_id.split(':')[-1]}" if 'youtube' in video_id else '')
+                    # Step 3: Build context
+                    seen_ids = set()
 
-                    # Get tags
-                    tags = (
-                        payload.get('tags') or
-                        payload.get('metadata', {}).get('subject') or
-                        []
-                    )
-                    if isinstance(tags, str):
-                        tags = [tags]
+                    for result in search_results.points:
+                        payload = result.payload or {}
 
-                    context_chunks.append(f"[Video: \"{title}\"]\n{text}")
+                        # Extract text and metadata (handle different formats)
+                        text = payload.get('text', payload.get('value', {}).get('transcript', ''))[:1000]
+                        video_id = payload.get('video_id', payload.get('key', ''))
 
-                    if video_id not in seen_ids:
-                        sources.append({
-                            "video_title": title,
-                            "url": url,
-                            "tags": tags,
-                        })
-                        seen_ids.add(video_id)
+                        # Get title from various locations
+                        title = (
+                            payload.get('video_title') or
+                            payload.get('meta_youtube_title') or
+                            payload.get('metadata', {}).get('title') or
+                            'Unknown Video'
+                        )
 
-                # Step 4: Build prompt
-                context_section = "\n\n".join(context_chunks) if context_chunks else "No relevant content found."
-                video_titles_list = "\n".join([f"- {s['video_title']}" for s in sources])
+                        # Get URL
+                        url = payload.get('url', f"https://youtube.com/watch?v={video_id.split(':')[-1]}" if 'youtube' in video_id else '')
 
-                augmented_prompt = f"""You are Mentat, an AI assistant with access to video transcripts.
+                        # Get tags
+                        tags = (
+                            payload.get('tags') or
+                            payload.get('metadata', {}).get('subject') or
+                            []
+                        )
+                        if isinstance(tags, str):
+                            tags = [tags]
+
+                        context_chunks.append(f"[Video: \"{title}\"]\n{text}")
+
+                        if video_id not in seen_ids:
+                            sources.append({
+                                "video_title": title,
+                                "url": url,
+                                "tags": tags,
+                            })
+                            seen_ids.add(video_id)
+
+                except Exception as rag_error:
+                    print(f"RAG search failed (falling back to direct chat): {rag_error}")
+                    rag_available = False
+
+                # Step 4: Build prompt (with or without RAG context)
+                if rag_available and context_chunks:
+                    context_section = "\n\n".join(context_chunks)
+                    video_titles_list = "\n".join([f"- {s['video_title']}" for s in sources])
+
+                    augmented_prompt = f"""You are Mentat, an AI assistant with access to video transcripts.
 
 Context from videos:
 {context_section}
@@ -373,6 +382,13 @@ Instructions:
 2. Cite video titles naturally in your response (no quotes around titles)
 3. If the context doesn't help, say so and answer from general knowledge
 4. Be concise and helpful"""
+                else:
+                    # Fallback: no RAG context available
+                    augmented_prompt = f"""You are Mentat, a helpful AI assistant.
+
+User: {message}
+
+Respond helpfully and concisely."""
 
                 # Step 5: Stream response
                 stream = await openrouter_client.chat.completions.create(
@@ -391,8 +407,8 @@ Instructions:
                 await websocket.send_json({"type": "done", "sources": sources})
 
             except Exception as e:
-                print(f"RAG error: {e}")
-                await websocket.send_json({"type": "error", "content": f"RAG error: {e}"})
+                print(f"Chat error: {e}")
+                await websocket.send_json({"type": "error", "content": f"Error: {e}"})
 
     except WebSocketDisconnect:
         print(f"RAG WebSocket disconnected: {websocket.client}")

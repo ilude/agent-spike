@@ -587,13 +587,19 @@
       </div>
     {/each}
 
-    {#if currentResponse}
+    {#if isStreaming}
       <div class="message-wrapper message-wrapper-assistant">
         <div class="message message-assistant streaming">
-          <div class="message-content">{@html renderMarkdown(currentResponse)}</div>
+          {#if currentResponse}
+            <div class="message-content">{@html renderMarkdown(currentResponse)}</div>
+          {:else}
+            <div class="message-content processing">
+              <span class="processing-dots">●●●</span>
+            </div>
+          {/if}
         </div>
         <div class="message-metadata">
-          <span class="typing-indicator">typing...</span>
+          <span class="typing-indicator">{currentResponse ? 'typing...' : 'processing...'}</span>
         </div>
       </div>
     {/if}
@@ -935,6 +941,22 @@
     color: #3b82f6;
     font-size: 0.75rem;
     font-style: italic;
+  }
+
+  .processing {
+    min-height: 1.5em;
+  }
+
+  .processing-dots {
+    color: #6b7280;
+    font-size: 1.25rem;
+    letter-spacing: 0.25em;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
   }
 
   .retry-btn {
