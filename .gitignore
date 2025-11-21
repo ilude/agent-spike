@@ -48,7 +48,7 @@ cached_content/
 # Compose: Let's Encrypt certificates (contains account private key)
 compose/acme/
 
-# Compose: Data files - track archives, qdrant, browser_history, queues, and sync scripts
+# Compose: Data files - track archives, qdrant, queues, and sync scripts
 # Machine-specific files and temp files are ignored
 compose/data/*
 !compose/data/*.csv
@@ -57,11 +57,10 @@ compose/data/*
 !compose/data/archive/
 !compose/data/qdrant/
 !compose/data/queues/
-!compose/data/browser_history/
-compose/data/browser_history/*.tmp.sqlite
-compose/data/browser_history/brave_history.*.sqlite
-!compose/data/browser_history/.sync_state
-!compose/data/browser_history/channel_cache.db
+compose/data/queues/brave_history/*.tmp.sqlite
+compose/data/queues/brave_history/brave_history.*.sqlite
+!compose/data/queues/brave_history/.sync_state
+!compose/data/queues/brave_history/channel_cache.db
 compose/data/qdrant.*/
 compose/data/qdrant.tmp/
 compose/data/queues/processing/
@@ -70,7 +69,7 @@ compose/data/logs/
 *.db
 *.sqlite
 !compose/data/qdrant/**/*.sqlite
-!compose/data/browser_history/brave_history.sqlite
+!compose/data/queues/brave_history/brave_history.sqlite
 *.sqlite3
 *.sqlite-shm
 *.sqlite-wal

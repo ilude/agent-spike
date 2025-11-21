@@ -8,14 +8,14 @@ echo "[pre-commit] Verifying git-crypt encryption for sensitive paths..."
 # Run git-crypt status and capture output
 STATUS_OUTPUT=$(git crypt status || true)
 
-# Fail if any files under projects/data/brave_history are unencrypted
-if echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+projects/data/brave_history/" >/dev/null 2>&1; then
-  echo "\nError: Some files under projects/data/brave_history are not encrypted by git-crypt." >&2
+# Fail if any files under compose/data/queues/brave_history are unencrypted
+if echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+compose/data/queues/brave_history/" >/dev/null 2>&1; then
+  echo "\nError: Some files under compose/data/queues/brave_history are not encrypted by git-crypt." >&2
   echo "Please ensure .gitattributes includes the correct patterns and rerun:" >&2
   echo "  git crypt status -f" >&2
   echo "Then commit again." >&2
   echo "\nDetails:" >&2
-  echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+projects/data/brave_history/" >&2
+  echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+compose/data/queues/brave_history/" >&2
   exit 1
 fi
 

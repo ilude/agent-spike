@@ -9,6 +9,8 @@ This script:
 4. Only the consolidated brave_history.sqlite is committed (machine files are gitignored)
 """
 
+import csv
+import re
 import shutil
 import sys
 import platform
@@ -62,6 +64,31 @@ def chromium_to_datetime(chromium_timestamp: int) -> datetime:
     return datetime.fromtimestamp(unix_timestamp, tz=timezone.utc)
 
 
+def extract_video_id(url: str) -> str | None:
+    """Extract YouTube video ID from URL.
+
+    Supports formats:
+    - https://youtube.com/watch?v=VIDEO_ID
+    - https://www.youtube.com/watch?v=VIDEO_ID&other=params
+    - https://youtu.be/VIDEO_ID
+
+    Args:
+        url: YouTube URL
+
+    Returns:
+        11-character video ID, or None if extraction fails
+    """
+    patterns = [
+        r'[?&]v=([0-9A-Za-z_-]{11})',  # Standard watch URLs
+        r'youtu\.be/([0-9A-Za-z_-]{11})',  # Short URLs
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, url)
+        if match:
+            return match.group(1)
+    return None
+
+
 def get_last_sync_timestamp(data_dir: Path) -> int:
     """Get the Chromium timestamp to sync from.
 
@@ -111,19 +138,164 @@ def get_last_sync_timestamp(data_dir: Path) -> int:
     return datetime_to_chromium(thirty_days_ago)
 
 
-def update_sync_state(data_dir: Path) -> None:
+def update_sync_state(data_dir: Path, youtube_export_timestamp: int | None = None) -> None:
     """Update .sync_state file as backup timestamp source.
 
     Args:
         data_dir: Data directory to store .sync_state
+        youtube_export_timestamp: Optional Chromium timestamp of last YouTube export
     """
+    sync_state_file = data_dir / ".sync_state"
+
+    # Load existing state to preserve youtube export timestamp if not provided
+    existing_state = {}
+    if sync_state_file.exists():
+        try:
+            existing_state = json.loads(sync_state_file.read_text())
+        except json.JSONDecodeError:
+            pass
+
     now = datetime.now(timezone.utc)
     sync_state = {
         "last_sync_chromium_timestamp": datetime_to_chromium(now),
         "last_sync_datetime": now.isoformat(),
         "machine": platform.node(),
     }
-    (data_dir / ".sync_state").write_text(json.dumps(sync_state, indent=2))
+
+    # Preserve or update YouTube export timestamp
+    if youtube_export_timestamp is not None:
+        sync_state["last_youtube_export_timestamp"] = youtube_export_timestamp
+        sync_state["last_youtube_export_datetime"] = chromium_to_datetime(youtube_export_timestamp).isoformat()
+    elif "last_youtube_export_timestamp" in existing_state:
+        sync_state["last_youtube_export_timestamp"] = existing_state["last_youtube_export_timestamp"]
+        sync_state["last_youtube_export_datetime"] = existing_state.get("last_youtube_export_datetime", "")
+
+    sync_state_file.write_text(json.dumps(sync_state, indent=2))
+
+
+def get_last_youtube_export_timestamp(data_dir: Path) -> int:
+    """Get the Chromium timestamp of last YouTube CSV export.
+
+    Args:
+        data_dir: Data directory containing .sync_state
+
+    Returns:
+        Chromium timestamp, or 0 if never exported
+    """
+    sync_state_file = data_dir / ".sync_state"
+    if sync_state_file.exists():
+        try:
+            state = json.loads(sync_state_file.read_text())
+            return state.get("last_youtube_export_timestamp", 0)
+        except json.JSONDecodeError:
+            pass
+    return 0
+
+
+def export_youtube_to_csv(data_dir: Path, pending_dir: Path | None = None) -> int:
+    """Export new YouTube URLs from consolidated history to a CSV file.
+
+    Queries the consolidated brave_history.sqlite for YouTube watch URLs
+    that haven't been exported yet (based on last_youtube_export_timestamp).
+    Normalizes URLs to canonical format and dedupes by video ID.
+
+    Args:
+        data_dir: Directory containing brave_history.sqlite and .sync_state
+        pending_dir: Directory to write CSV (default: compose/data/queues/pending/)
+
+    Returns:
+        Number of unique YouTube videos exported
+    """
+    consolidated_db = data_dir / "brave_history.sqlite"
+    if not consolidated_db.exists():
+        print("  No consolidated database found, skipping YouTube export")
+        return 0
+
+    # Determine pending directory
+    if pending_dir is None:
+        # Default: compose/data/queues/pending/ relative to brave_history location
+        # data_dir is compose/data/queues/brave_history/
+        pending_dir = data_dir.parent / "pending"
+
+    pending_dir.mkdir(parents=True, exist_ok=True)
+
+    # Get last export timestamp
+    last_export = get_last_youtube_export_timestamp(data_dir)
+    if last_export > 0:
+        last_export_dt = chromium_to_datetime(last_export)
+        print(f"  Last YouTube export: {last_export_dt.strftime('%Y-%m-%d %H:%M:%S')}")
+    else:
+        print("  First YouTube export (no previous export found)")
+
+    # Query YouTube URLs newer than last export
+    conn = sqlite3.connect(consolidated_db)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT u.url, u.title, v.visit_time
+        FROM visits v
+        JOIN urls u ON v.url = u.id
+        WHERE u.url LIKE '%youtube.com/watch%'
+          AND v.visit_time > ?
+        ORDER BY v.visit_time ASC
+    """, (last_export,))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    if not rows:
+        print("  No new YouTube URLs to export")
+        return 0
+
+    # Find the max visit_time for updating sync state
+    max_visit_time = max(row[2] for row in rows)
+
+    # Normalize URLs and dedupe by video ID (keep first occurrence with its title)
+    seen_video_ids: dict[str, tuple[str, str, int]] = {}  # video_id -> (url, title, visit_time)
+    skipped = 0
+
+    for url, title, visit_time in rows:
+        video_id = extract_video_id(url)
+        if video_id is None:
+            skipped += 1
+            continue
+
+        if video_id not in seen_video_ids:
+            # Normalize URL to canonical format
+            normalized_url = f"https://www.youtube.com/watch?v={video_id}"
+            seen_video_ids[video_id] = (normalized_url, title or "", visit_time)
+
+    if skipped > 0:
+        print(f"  Skipped {skipped} URLs (couldn't extract video ID)")
+
+    if not seen_video_ids:
+        print("  No valid YouTube URLs to export")
+        return 0
+
+    # Generate CSV filename: brave_history.HOSTNAME.YYYY-MM-DD.csv
+    machine_name = platform.node()
+    today = datetime.now().strftime("%Y-%m-%d")
+    csv_filename = f"brave_history.{machine_name}.{today}.csv"
+    csv_path = pending_dir / csv_filename
+
+    # Write CSV (sorted by visit_time)
+    sorted_videos = sorted(seen_video_ids.values(), key=lambda x: x[2])
+
+    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["url", "title", "visit_time"])
+
+        for url, title, visit_time in sorted_videos:
+            visit_dt = chromium_to_datetime(visit_time)
+            writer.writerow([url, title, visit_dt.isoformat()])
+
+    print(f"  [OK] Exported {len(seen_video_ids)} unique videos to {csv_path.name}")
+    print(f"       (deduped from {len(rows)} raw URLs)")
+
+    # Update sync state with new export timestamp
+    update_sync_state(data_dir, youtube_export_timestamp=max_visit_time)
+
+    return len(seen_video_ids)
 
 
 def get_brave_history_path() -> Path:
@@ -484,6 +656,8 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
         copy_brave_history(data_dir)
         consolidate_history_files(data_dir)
         update_sync_state(data_dir)
+        print("\n[YouTube Export]")
+        export_youtube_to_csv(data_dir)
         return
 
     # Get last sync timestamp
@@ -501,6 +675,8 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
         copy_brave_history(data_dir)
         consolidate_history_files(data_dir)
         update_sync_state(data_dir)
+        print("\n[YouTube Export]")
+        export_youtube_to_csv(data_dir)
         return
 
     # Integrity check on consolidated DB
@@ -519,6 +695,8 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
         copy_brave_history(data_dir)
         consolidate_history_files(data_dir)
         update_sync_state(data_dir)
+        print("\n[YouTube Export]")
+        export_youtube_to_csv(data_dir)
         return
     finally:
         conn.close()
@@ -531,6 +709,9 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
     if new_visits == 0:
         print(f"  No new history since {since_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
         update_sync_state(data_dir)
+        # Still export any un-exported YouTube URLs from existing DB
+        print("\n[YouTube Export]")
+        export_youtube_to_csv(data_dir)
         return
 
     print(f"  [OK] Copied {new_visits} new visits across {new_urls} URLs")
@@ -555,6 +736,10 @@ def safe_incremental_sync(data_dir: Path = Path("data")) -> None:
     # Update sync state
     update_sync_state(data_dir)
 
+    # Export new YouTube URLs to CSV for downstream processing
+    print("\n[YouTube Export]")
+    export_youtube_to_csv(data_dir)
+
 
 def _build_cli_parser():
     """Build the argparse CLI parser.
@@ -563,8 +748,7 @@ def _build_cli_parser():
     1. Full sync (default) – copies current Brave history and consolidates all machine files.
     2. Incremental sync – uses `safe_incremental_sync` with timestamp heuristics and integrity checks.
 
-    The destination directory defaults to `data/` to preserve existing behavior, but the Makefile
-    can override with `projects/data/brave_history` for project-scoped storage.
+    The destination directory defaults to `compose/data/queues/brave_history` for project-scoped storage.
     """
     import argparse
 

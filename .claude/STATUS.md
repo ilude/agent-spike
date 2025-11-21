@@ -268,7 +268,7 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 - Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
 - Services: `compose/services/{archive,cache,analytics,metadata,tagger,display,youtube}/`
 - Scripts: `compose/cli/` (production CLIs)
-- Data: `compose/data/{archive,queues,qdrant,browser_history,n8n}/` (git-crypt encrypted)
+- Data: `compose/data/{archive,queues,qdrant,n8n}/` (git-crypt encrypted)
 - Docker: `compose/docker-compose.yml`, `compose/api/Dockerfile`
 - Documentation: `compose/INFINITY_SETUP.md`, `.claude/VISION.md`
 - This status file: `.claude/STATUS.md`

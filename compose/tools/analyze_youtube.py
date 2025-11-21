@@ -34,7 +34,7 @@ def chrome_timestamp_to_datetime(chrome_timestamp: int) -> datetime:
 
 def find_latest_brave_history() -> Path:
     """Find the latest brave_history file in the data directory."""
-    data_dir = Path(__file__).parent.parent / "data" / "brave_history"
+    data_dir = Path(__file__).parent.parent / "data" / "queues" / "brave_history"
 
     history_files = sorted(data_dir.glob("brave_history.*.sqlite"), reverse=True)
 
@@ -285,7 +285,7 @@ def main():
 
     # Initialize YouTube cache
     try:
-        cache_db = Path(__file__).parent.parent / "data" / "brave_history" / "channel_cache.db"
+        cache_db = Path(__file__).parent.parent / "data" / "queues" / "brave_history" / "channel_cache.db"
         cache = YouTubeCache(cache_db_path=str(cache_db))
     except ValueError as e:
         print(f"Error: {e}")

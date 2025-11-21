@@ -240,4 +240,4 @@ publish: bump-patch
 .PHONY: brave-sync brave-full-sync
 
 brave-sync:
-	@uv run python tools/scripts/brave_history/copy_brave_history.py --incremental --dest projects/data/brave_history
+	@uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history

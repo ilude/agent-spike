@@ -4,10 +4,10 @@
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
 
-# Encrypt data storage (Qdrant collections, YouTube archives, browser history)
+# Encrypt data storage (Qdrant collections, YouTube archives, brave history)
 compose/data/qdrant/** filter=git-crypt diff=git-crypt
 compose/data/archive/** filter=git-crypt diff=git-crypt
-compose/data/browser_history/** filter=git-crypt diff=git-crypt
+compose/data/queues/brave_history/** filter=git-crypt diff=git-crypt
 
 # Handle line endings
 * text=auto
