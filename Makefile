@@ -160,7 +160,7 @@ endif
 # Install development dependencies
 uv.lock:
 	uv lock
-	uv sync --dev
+	uv sync --group dev --group platform-api
 
 # Run linting
 lint:
@@ -169,9 +169,39 @@ lint:
 	@echo "Linting completed!"
 
 # Run tests
-test: uv.lock
+.PHONY: test test-backend test-frontend test-coverage test-tools sync-dev
+
+sync-dev:
+	@uv sync --group dev --group platform-api
+
+test: test-backend test-frontend
+	@echo "All tests completed!"
+
+test-backend: sync-dev
+	@echo "Running backend tests..."
+	uv run python -m pytest compose/tests/ -v
+
+test-frontend:
+	@echo "Running frontend tests..."
+	cd compose/frontend && npm test
+
+test-coverage: sync-dev
 	@echo "Running tests with coverage..."
-	uv run pytest tools/tests/ --cov=tools --cov-report=term-missing --cov-report=html -v
+	@echo ""
+	@echo "=== Backend Coverage ==="
+	uv run python -m pytest compose/tests/ --cov=compose --cov-report=term-missing --cov-report=html:htmlcov-backend -v
+	@echo ""
+	@echo "=== Frontend Coverage ==="
+	cd compose/frontend && npm run test:coverage
+	@echo ""
+	@echo "Coverage reports:"
+	@echo "  Backend:  htmlcov-backend/index.html"
+	@echo "  Frontend: compose/frontend/coverage/index.html"
+
+# Legacy test target for tools/
+test-tools: sync-dev
+	@echo "Running tools tests with coverage..."
+	uv run python -m pytest tools/tests/ --cov=tools --cov-report=term-missing --cov-report=html -v
 
 # Format code with black and isort
 format: uv.lock
