@@ -5,6 +5,8 @@
   let stats = null;
   let eventSource = null;
   let connected = false;
+  let frontendHealthy = true;
+  let healthCheckInterval = null;
   let error = '';
 
   // Ingest state
@@ -62,7 +64,19 @@
     }
   }
 
+  async function checkFrontendHealth() {
+    try {
+      const response = await fetch('/api/health');
+      frontendHealthy = response.ok;
+    } catch {
+      frontendHealthy = false;
+    }
+  }
+
   onMount(() => {
+    // Check SvelteKit server health periodically
+    checkFrontendHealth();
+    healthCheckInterval = setInterval(checkFrontendHealth, 5000);
     // Connect to SSE stream for real-time updates
     eventSource = api.connectStatsStream(
       (data) => {
@@ -80,6 +94,9 @@
   onDestroy(() => {
     if (eventSource) {
       eventSource.close();
+    }
+    if (healthCheckInterval) {
+      clearInterval(healthCheckInterval);
     }
   });
 
@@ -187,8 +204,20 @@
               <span class="sub-card-label">Worker</span>
               <span class="sub-card-location">{stats.health?.queue_worker?.local ? 'local' : 'remote'}</span>
             </div>
+            <div class="sub-card health-status" class:healthy={stats.health?.n8n?.ok} class:unhealthy={!stats.health?.n8n?.ok}>
+              <span class="sub-card-label">n8n</span>
+              <span class="sub-card-location">{stats.health?.n8n?.local ? 'local' : 'remote'}</span>
+            </div>
+            <div class="sub-card health-status" class:healthy={stats.health?.docling?.ok} class:unhealthy={!stats.health?.docling?.ok}>
+              <span class="sub-card-label">Docling</span>
+              <span class="sub-card-location">{stats.health?.docling?.local ? 'local' : 'remote'}</span>
+            </div>
+            <div class="sub-card health-status" class:healthy={frontendHealthy} class:unhealthy={!frontendHealthy}>
+              <span class="sub-card-label">Frontend</span>
+              <span class="sub-card-location">local</span>
+            </div>
             <div class="sub-card health-status" class:healthy={connected} class:unhealthy={!connected}>
-              <span class="sub-card-label">Stream</span>
+              <span class="sub-card-label">API</span>
               <span class="sub-card-location">local</span>
             </div>
           </div>
@@ -212,21 +241,26 @@
             </div>
           </div>
 
-          {#if stats.queue?.current_progress}
-            <div class="progress-section">
-              <div class="progress-label">
-                <strong>{stats.queue.current_progress.filename}</strong>
-              </div>
-              <div class="progress-bar">
-                <div
-                  class="progress-fill"
-                  style="width: {getProgressPercent(stats.queue.current_progress)}%"
-                ></div>
-              </div>
-              <div class="progress-text">
-                {stats.queue.current_progress.completed} / {stats.queue.current_progress.total}
-                ({getProgressPercent(stats.queue.current_progress)}%)
-              </div>
+          {#if stats.queue?.active_workers?.length > 0}
+            <div class="workers-section">
+              {#each stats.queue.active_workers as worker}
+                <div class="progress-section">
+                  <div class="progress-label">
+                    <span class="worker-id">{worker.worker_id}</span>
+                    <strong>{worker.filename}</strong>
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      style="width: {getProgressPercent(worker)}%"
+                    ></div>
+                  </div>
+                  <div class="progress-text">
+                    {worker.completed} / {worker.total}
+                    ({getProgressPercent(worker)}%)
+                  </div>
+                </div>
+              {/each}
             </div>
           {:else if stats.queue?.processing_count > 0}
             <div class="progress-section">
@@ -241,7 +275,7 @@
         <div class="stat-card content">
           <div class="card-header">
             <h3>Content</h3>
-            <span class="card-source">In Qdrant</span>
+            <span class="card-source">In Qdrant ({stats.health?.qdrant?.local ? 'local' : 'remote'})</span>
           </div>
           <div class="sub-cards">
             <div class="sub-card">
@@ -431,6 +465,23 @@
   }
 
   /* Progress section */
+  .workers-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .workers-section .progress-section {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .workers-section .progress-section:first-child {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+  }
+
   .progress-section {
     margin-top: 1rem;
     padding-top: 1rem;
@@ -441,10 +492,22 @@
     font-size: 0.75rem;
     color: #888;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .progress-label strong {
     color: #fff;
+  }
+
+  .worker-id {
+    background: #3b82f6;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
   }
 
   .progress-bar {

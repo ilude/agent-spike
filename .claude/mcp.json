@@ -5,6 +5,15 @@
       "args": ["@modelcontextprotocol/server-docker"],
       "description": "MCP server for Docker operations - knowledge graph management, sequential thinking"
     },
+    "youtube-rag": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "compose.mcp.youtube_rag"],
+      "cwd": "C:\\Projects\\Personal\\agent-spike",
+      "env": {
+        "PYTHONPATH": "."
+      },
+      "description": "YouTube RAG server - search video transcripts, get metadata, extract links"
+    }
   },
   "description": "MCP (Model Context Protocol) servers configuration for agent-spike development",
   "notes": [

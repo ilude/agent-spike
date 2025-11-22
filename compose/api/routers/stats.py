@@ -33,13 +33,19 @@ def get_queue_stats() -> dict:
     processing_files = list(processing_dir.glob("*.csv")) if processing_dir.exists() else []
     completed_files = list(completed_dir.glob("*.csv")) if completed_dir.exists() else []
 
-    # Read progress file if it exists
+    # Read progress file if it exists (supports both old and new format)
     progress_file = QUEUE_BASE / ".progress.json"
-    current_progress = None
+    active_workers = []
     if progress_file.exists():
         try:
             with open(progress_file, "r") as f:
-                current_progress = json.load(f)
+                progress_data = json.load(f)
+                # New format: {"workers": [...]}
+                if "workers" in progress_data:
+                    active_workers = progress_data["workers"]
+                # Old format: single object with filename/completed/total
+                elif "filename" in progress_data:
+                    active_workers = [progress_data]
         except (json.JSONDecodeError, IOError):
             pass
 
@@ -50,7 +56,7 @@ def get_queue_stats() -> dict:
         "processing_files": [f.name for f in processing_files],
         "completed_count": len(completed_files),
         "completed_files": [f.name for f in completed_files[-5:]],  # Last 5
-        "current_progress": current_progress,
+        "active_workers": active_workers,  # List of worker progress objects
     }
 
 
@@ -68,11 +74,11 @@ def get_cache_stats() -> dict:
         try:
             from qdrant_client.models import Filter, FieldCondition, MatchValue
 
-            # Count videos
+            # Count videos (meta_type field in payload)
             videos_result = client.count(
                 collection_name=QDRANT_COLLECTION,
                 count_filter=Filter(
-                    must=[FieldCondition(key="type", match=MatchValue(value="youtube_video"))]
+                    must=[FieldCondition(key="meta_type", match=MatchValue(value="youtube_video"))]
                 ),
             )
             videos_count = videos_result.count
@@ -81,7 +87,7 @@ def get_cache_stats() -> dict:
             articles_result = client.count(
                 collection_name=QDRANT_COLLECTION,
                 count_filter=Filter(
-                    must=[FieldCondition(key="type", match=MatchValue(value="webpage"))]
+                    must=[FieldCondition(key="meta_type", match=MatchValue(value="webpage"))]
                 ),
             )
             articles_count = articles_result.count
@@ -148,8 +154,6 @@ async def get_service_health() -> dict:
     queue_worker_ok = False
     n8n_ok = False
     docling_ok = False
-    traefik_ok = False
-    frontend_ok = False
 
     # Check Qdrant
     try:
@@ -193,8 +197,8 @@ async def get_service_health() -> dict:
     except Exception:
         pass
 
-    # Check n8n (workflow automation)
-    n8n_url = os.getenv("N8N_URL", "http://n8n:5678")
+    # Check n8n (workflow automation) - remote server
+    n8n_url = os.getenv("N8N_URL", "http://192.168.16.241:5678")
     try:
         async with httpx.AsyncClient(timeout=2.0) as client:
             response = await client.get(f"{n8n_url}/healthz")
@@ -202,30 +206,12 @@ async def get_service_health() -> dict:
     except Exception:
         pass
 
-    # Check Docling (document processing)
-    docling_url = os.getenv("DOCLING_URL", "http://docling:5001")
+    # Check Docling (document processing) - remote server
+    docling_url = os.getenv("DOCLING_URL", "http://192.168.16.241:5001")
     try:
         async with httpx.AsyncClient(timeout=2.0) as client:
             response = await client.get(f"{docling_url}/health")
             docling_ok = response.status_code == 200
-    except Exception:
-        pass
-
-    # Check Traefik (reverse proxy)
-    traefik_url = os.getenv("TRAEFIK_URL", "http://traefik:8080")
-    try:
-        async with httpx.AsyncClient(timeout=2.0) as client:
-            response = await client.get(f"{traefik_url}/api/overview")
-            traefik_ok = response.status_code == 200
-    except Exception:
-        pass
-
-    # Check Frontend (SvelteKit)
-    frontend_url = os.getenv("FRONTEND_URL", "http://frontend:5173")
-    try:
-        async with httpx.AsyncClient(timeout=2.0) as client:
-            response = await client.get(frontend_url)
-            frontend_ok = response.status_code == 200
     except Exception:
         pass
 
@@ -234,10 +220,8 @@ async def get_service_health() -> dict:
         "infinity": {"ok": infinity_ok, "local": is_local_url(INFINITY_URL)},
         "ollama": {"ok": ollama_ok, "local": is_local_url(ollama_url)},
         "queue_worker": {"ok": queue_worker_ok, "local": True},
-        "n8n": {"ok": n8n_ok, "local": True},
-        "docling": {"ok": docling_ok, "local": True},
-        "traefik": {"ok": traefik_ok, "local": True},
-        "frontend": {"ok": frontend_ok, "local": True},
+        "n8n": {"ok": n8n_ok, "local": is_local_url(n8n_url)},
+        "docling": {"ok": docling_ok, "local": is_local_url(docling_url)},
     }
 
 

@@ -26,6 +26,7 @@ QDRANT_URL = os.getenv("QDRANT_URL", "http://qdrant:6333")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://infinity:7997")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "content")
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))
+WORKER_POOL_SIZE = int(os.getenv("WORKER_POOL_SIZE", "3"))
 
 # Paths (mounted volumes)
 QUEUE_BASE = Path("/app/data/queues")
@@ -50,29 +51,41 @@ def log(msg: str):
     print(f"[{timestamp}] {msg}", flush=True)
 
 
-def update_progress(filename: str, completed: int, total: int, started_at: str = None):
-    """Update progress file for dashboard monitoring."""
-    progress = {
-        "filename": filename,
-        "completed": completed,
-        "total": total,
-        "started_at": started_at or datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat(),
-    }
-    try:
-        with open(PROGRESS_FILE, "w") as f:
-            json.dump(progress, f)
-    except IOError:
-        pass  # Non-critical, don't break processing
+# Thread-safe progress tracking for multiple workers
+_progress_lock = asyncio.Lock()
+_active_workers = {}
 
 
-def clear_progress():
-    """Clear progress file when not processing."""
-    try:
-        if PROGRESS_FILE.exists():
-            PROGRESS_FILE.unlink()
-    except IOError:
-        pass
+async def update_progress(worker_id: str, filename: str, completed: int, total: int, started_at: str = None):
+    """Update progress file for dashboard monitoring (supports multiple workers)."""
+    async with _progress_lock:
+        _active_workers[worker_id] = {
+            "worker_id": worker_id,
+            "filename": filename,
+            "completed": completed,
+            "total": total,
+            "started_at": started_at or datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat(),
+        }
+        try:
+            with open(PROGRESS_FILE, "w") as f:
+                json.dump({"workers": list(_active_workers.values())}, f)
+        except IOError:
+            pass  # Non-critical, don't break processing
+
+
+async def clear_progress(worker_id: str):
+    """Clear worker from progress file when done."""
+    async with _progress_lock:
+        _active_workers.pop(worker_id, None)
+        try:
+            if _active_workers:
+                with open(PROGRESS_FILE, "w") as f:
+                    json.dump({"workers": list(_active_workers.values())}, f)
+            elif PROGRESS_FILE.exists():
+                PROGRESS_FILE.unlink()
+        except IOError:
+            pass
 
 
 async def ingest_video(
@@ -191,9 +204,9 @@ async def ingest_video(
             cache.close()
 
 
-async def process_csv(csv_path: Path, archive_manager) -> dict:
+async def process_csv(csv_path: Path, archive_manager, worker_id: str) -> dict:
     """Process all videos from a CSV file."""
-    log(f"Processing CSV: {csv_path.name}")
+    log(f"[{worker_id}] Processing CSV: {csv_path.name}")
 
     stats = {"processed": 0, "skipped": 0, "errors": 0, "total": 0}
     started_at = datetime.now().isoformat()
@@ -204,10 +217,10 @@ async def process_csv(csv_path: Path, archive_manager) -> dict:
             videos = list(reader)
 
         stats["total"] = len(videos)
-        log(f"  Found {len(videos)} videos")
+        log(f"[{worker_id}]   Found {len(videos)} videos")
 
         # Initialize progress tracking
-        update_progress(csv_path.name, 0, len(videos), started_at)
+        await update_progress(worker_id, csv_path.name, 0, len(videos), started_at)
 
         # Detect source type
         channel_ids = {v.get('channel_id', '').strip() for v in videos if v.get('channel_id')}
@@ -220,7 +233,7 @@ async def process_csv(csv_path: Path, archive_manager) -> dict:
             url = video.get('url', '').strip()
             if not url:
                 # Update progress even for skipped empty URLs
-                update_progress(csv_path.name, i, len(videos), started_at)
+                await update_progress(worker_id, csv_path.name, i, len(videos), started_at)
                 continue
 
             channel_id = video.get('channel_id', '').strip() or None
@@ -236,27 +249,54 @@ async def process_csv(csv_path: Path, archive_manager) -> dict:
                 stats["processed"] += 1
             else:
                 stats["errors"] += 1
-                log(f"  [{i}/{len(videos)}] {message}")
+                log(f"[{worker_id}]   [{i}/{len(videos)}] {message}")
 
             # Update progress after each video
-            update_progress(csv_path.name, i, len(videos), started_at)
+            await update_progress(worker_id, csv_path.name, i, len(videos), started_at)
 
             # Small delay
             await asyncio.sleep(1)
 
-        log(f"  Done: {stats['processed']} processed, {stats['skipped']} skipped, {stats['errors']} errors")
+        log(f"[{worker_id}]   Done: {stats['processed']} processed, {stats['skipped']} skipped, {stats['errors']} errors")
 
     except Exception as e:
-        log(f"  CSV Error: {e}")
+        log(f"[{worker_id}]   CSV Error: {e}")
     finally:
-        # Clear progress when done with this file
-        clear_progress()
+        # Clear this worker's progress when done
+        await clear_progress(worker_id)
 
     return stats
 
 
+async def process_single_file(csv_file: Path, archive_manager, worker_id: str, semaphore: asyncio.Semaphore):
+    """Process a single CSV file with semaphore-controlled concurrency."""
+    async with semaphore:
+        processing_path = PROCESSING_DIR / csv_file.name
+        try:
+            # Move to processing
+            shutil.move(str(csv_file), str(processing_path))
+            log(f"[{worker_id}] Moved {csv_file.name} to processing/")
+
+            # Process
+            await process_csv(processing_path, archive_manager, worker_id)
+
+            # Move to completed
+            completed_path = COMPLETED_DIR / csv_file.name
+            shutil.move(str(processing_path), str(completed_path))
+            log(f"[{worker_id}] Moved {csv_file.name} to completed/")
+
+        except Exception as e:
+            log(f"[{worker_id}] Error processing {csv_file.name}: {e}")
+            # Try to move back to pending on error
+            if processing_path.exists():
+                try:
+                    shutil.move(str(processing_path), str(PENDING_DIR / csv_file.name))
+                except Exception:
+                    pass
+
+
 async def poll_and_process():
-    """Main polling loop."""
+    """Main polling loop with worker pool."""
     log("=" * 60)
     log("Queue Processor Worker Starting")
     log("=" * 60)
@@ -264,6 +304,7 @@ async def poll_and_process():
     log(f"Infinity: {INFINITY_URL}")
     log(f"Collection: {COLLECTION_NAME}")
     log(f"Poll interval: {POLL_INTERVAL}s")
+    log(f"Worker pool size: {WORKER_POOL_SIZE}")
     log(f"Pending dir: {PENDING_DIR}")
     log(f"Archive dir: {ARCHIVE_BASE}")
     log("=" * 60)
@@ -285,27 +326,30 @@ async def poll_and_process():
     archive_writer = create_local_archive_writer(base_dir=ARCHIVE_BASE)
     archive_manager = create_archive_manager(writer=archive_writer)
 
+    # Semaphore to limit concurrent workers
+    semaphore = asyncio.Semaphore(WORKER_POOL_SIZE)
+    worker_counter = 0
+
     while True:
         try:
             # Find CSV files in pending
             csv_files = list(PENDING_DIR.glob("*.csv"))
 
             if csv_files:
-                log(f"Found {len(csv_files)} CSV file(s) to process")
+                log(f"Found {len(csv_files)} CSV file(s) to process (pool size: {WORKER_POOL_SIZE})")
 
+                # Create tasks for all pending files (semaphore limits concurrency)
+                tasks = []
                 for csv_file in csv_files:
-                    # Move to processing
-                    processing_path = PROCESSING_DIR / csv_file.name
-                    shutil.move(str(csv_file), str(processing_path))
-                    log(f"Moved {csv_file.name} to processing/")
+                    worker_counter += 1
+                    worker_id = f"W{worker_counter:03d}"
+                    task = asyncio.create_task(
+                        process_single_file(csv_file, archive_manager, worker_id, semaphore)
+                    )
+                    tasks.append(task)
 
-                    # Process
-                    await process_csv(processing_path, archive_manager)
-
-                    # Move to completed
-                    completed_path = COMPLETED_DIR / csv_file.name
-                    shutil.move(str(processing_path), str(completed_path))
-                    log(f"Moved {csv_file.name} to completed/")
+                # Wait for all tasks to complete
+                await asyncio.gather(*tasks)
 
             # Wait before next poll
             await asyncio.sleep(POLL_INTERVAL)
