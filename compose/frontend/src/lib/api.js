@@ -240,6 +240,138 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+	// ============ Project Methods ============
+
+	/**
+	 * List all projects
+	 * @returns {Promise<{projects: Array}>}
+	 */
+	async listProjects() {
+		const res = await fetch(`${this.baseURL}/projects`);
+		if (!res.ok) {
+			throw new Error(`Failed to list projects: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a new project
+	 * @param {string} name - Project name
+	 * @param {string} description - Project description
+	 * @returns {Promise<Object>}
+	 */
+	async createProject(name = 'New Project', description = '') {
+		const res = await fetch(`${this.baseURL}/projects`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ name, description })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create project: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a project by ID
+	 * @param {string} id - Project ID
+	 * @returns {Promise<Object>}
+	 */
+	async getProject(id) {
+		const res = await fetch(`${this.baseURL}/projects/${id}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get project: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update a project
+	 * @param {string} id - Project ID
+	 * @param {Object} data - Update data (name, description, custom_instructions)
+	 * @returns {Promise<Object>}
+	 */
+	async updateProject(id, data) {
+		const res = await fetch(`${this.baseURL}/projects/${id}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update project: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a project
+	 * @param {string} id - Project ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteProject(id) {
+		const res = await fetch(`${this.baseURL}/projects/${id}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete project: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Add a conversation to a project
+	 * @param {string} projectId - Project ID
+	 * @param {string} conversationId - Conversation ID
+	 * @returns {Promise<Object>}
+	 */
+	async addConversationToProject(projectId, conversationId) {
+		const res = await fetch(`${this.baseURL}/projects/${projectId}/conversations`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ conversation_id: conversationId })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to add conversation to project: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Upload a file to a project
+	 * @param {string} projectId - Project ID
+	 * @param {File} file - File to upload
+	 * @returns {Promise<Object>}
+	 */
+	async uploadProjectFile(projectId, file) {
+		const formData = new FormData();
+		formData.append('file', file);
+
+		const res = await fetch(`${this.baseURL}/projects/${projectId}/files`, {
+			method: 'POST',
+			body: formData
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to upload file: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a file from a project
+	 * @param {string} projectId - Project ID
+	 * @param {string} fileId - File ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteProjectFile(projectId, fileId) {
+		const res = await fetch(`${this.baseURL}/projects/${projectId}/files/${fileId}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete file: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**

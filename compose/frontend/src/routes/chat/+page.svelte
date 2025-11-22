@@ -35,6 +35,13 @@
   let searchQuery = '';
   let sidebarCollapsed = false;
 
+  // Project state
+  let projects = [];
+  let activeProjectId = null;
+  let activeProject = null;
+  let projectsLoading = true;
+  let projectDropdownOpen = false;
+
   // Storage version - increment when message format changes
   const STORAGE_VERSION = 7; // Bumped for conversation support
 
@@ -429,6 +436,76 @@
     }
   }
 
+  // ============ Project Functions ============
+
+  async function loadProjects() {
+    try {
+      projectsLoading = true;
+      const response = await api.listProjects();
+      projects = response.projects || [];
+    } catch (e) {
+      console.error('Failed to load projects:', e);
+      projects = [];
+    } finally {
+      projectsLoading = false;
+    }
+  }
+
+  async function selectProject(id) {
+    if (id === activeProjectId) return;
+
+    activeProjectId = id;
+    projectDropdownOpen = false;
+
+    if (id) {
+      try {
+        activeProject = await api.getProject(id);
+        // Filter conversations to show only this project's conversations
+        // For now, reload all and filter client-side
+        await loadConversations();
+      } catch (e) {
+        console.error('Failed to load project:', e);
+        activeProject = null;
+      }
+    } else {
+      activeProject = null;
+      await loadConversations();
+    }
+  }
+
+  async function createProject() {
+    try {
+      const project = await api.createProject('New Project');
+      projects = [project, ...projects];
+      await selectProject(project.id);
+    } catch (e) {
+      console.error('Failed to create project:', e);
+      error = 'Failed to create project';
+    }
+  }
+
+  async function deleteProject(id, event) {
+    event.stopPropagation();
+    if (!confirm('Delete this project and all its files?')) return;
+
+    try {
+      await api.deleteProject(id);
+      projects = projects.filter(p => p.id !== id);
+
+      if (activeProjectId === id) {
+        await selectProject(null);
+      }
+    } catch (e) {
+      console.error('Failed to delete project:', e);
+      error = 'Failed to delete project';
+    }
+  }
+
+  // Filter conversations by active project
+  $: projectConversations = activeProject
+    ? conversations.filter(c => activeProject.conversation_ids?.includes(c.id))
+    : conversations;
+
   // ============ Conversation Functions ============
 
   async function loadConversations() {
@@ -582,7 +659,7 @@
   $: handleSearchInput(searchQuery);
 
   // Use search results when available, otherwise show all conversations
-  $: filteredConversations = searchResults !== null ? searchResults : conversations;
+  $: filteredConversations = searchResults !== null ? searchResults : projectConversations;
 
   onMount(async () => {
     // Load saved model preference from localStorage
@@ -659,7 +736,8 @@
 
     connectWebSocket();
 
-    // Load conversations
+    // Load projects and conversations
+    loadProjects();
     loadConversations();
 
     // Focus input field after a short delay to ensure it's rendered
@@ -746,6 +824,55 @@
       </div>
 
       {#if !sidebarCollapsed}
+        <!-- Project Selector -->
+        <div class="project-selector">
+          <button
+            class="project-dropdown-btn"
+            on:click={() => projectDropdownOpen = !projectDropdownOpen}
+          >
+            <span class="project-icon">📁</span>
+            <span class="project-name">{activeProject?.name || 'All Chats'}</span>
+            <span class="dropdown-arrow">{projectDropdownOpen ? '▲' : '▼'}</span>
+          </button>
+
+          {#if projectDropdownOpen}
+            <div class="project-dropdown-menu">
+              <button
+                class="project-option"
+                class:active={!activeProjectId}
+                on:click={() => selectProject(null)}
+              >
+                All Chats
+              </button>
+
+              {#if projects.length > 0}
+                <div class="project-divider"></div>
+                {#each projects as project}
+                  <div class="project-option-row">
+                    <button
+                      class="project-option"
+                      class:active={activeProjectId === project.id}
+                      on:click={() => selectProject(project.id)}
+                    >
+                      {project.name}
+                    </button>
+                    <button
+                      class="project-delete-btn"
+                      on:click={(e) => deleteProject(project.id, e)}
+                      title="Delete project"
+                    >×</button>
+                  </div>
+                {/each}
+              {/if}
+
+              <div class="project-divider"></div>
+              <button class="project-option create-project" on:click={createProject}>
+                + New Project
+              </button>
+            </div>
+          {/if}
+        </div>
+
         <div class="sidebar-search">
           <input
             type="text"
@@ -1090,6 +1217,123 @@
   .collapse-btn:hover {
     background: #1a1a1a;
     color: #e5e5e5;
+  }
+
+  /* Project Selector */
+  .project-selector {
+    position: relative;
+    padding: 0.75rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .project-dropdown-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .project-dropdown-btn:hover {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+
+  .project-icon {
+    font-size: 1rem;
+  }
+
+  .project-name {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0.75rem;
+    right: 0.75rem;
+    z-index: 100;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .project-option {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: #e5e5e5;
+    font-size: 0.8125rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .project-option:hover {
+    background: #2a2a2a;
+  }
+
+  .project-option.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+  }
+
+  .project-option.create-project {
+    color: #3b82f6;
+  }
+
+  .project-option-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .project-option-row .project-option {
+    flex: 1;
+  }
+
+  .project-delete-btn {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.15s;
+  }
+
+  .project-option-row:hover .project-delete-btn {
+    opacity: 1;
+  }
+
+  .project-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+  }
+
+  .project-divider {
+    height: 1px;
+    background: #333;
+    margin: 0.25rem 0;
   }
 
   .sidebar-search {
