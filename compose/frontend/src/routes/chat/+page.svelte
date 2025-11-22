@@ -495,6 +495,44 @@
     }
   }
 
+  // Rename conversation
+  let renamingConversationId = null;
+  let renameInput = '';
+
+  function startRename(id, currentTitle, event) {
+    event.stopPropagation();
+    renamingConversationId = id;
+    renameInput = currentTitle;
+  }
+
+  async function saveRename(id) {
+    if (!renameInput.trim()) {
+      renamingConversationId = null;
+      return;
+    }
+
+    try {
+      await api.updateConversation(id, { title: renameInput.trim() });
+      conversations = conversations.map(c =>
+        c.id === id ? { ...c, title: renameInput.trim() } : c
+      );
+    } catch (e) {
+      console.error('Failed to rename conversation:', e);
+      error = 'Failed to rename conversation';
+    } finally {
+      renamingConversationId = null;
+    }
+  }
+
+  function handleRenameKeydown(event, id) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      saveRename(id);
+    } else if (event.key === 'Escape') {
+      renamingConversationId = null;
+    }
+  }
+
   function formatConversationDate(dateStr) {
     const date = new Date(dateStr);
     const now = new Date();
@@ -730,14 +768,33 @@
                 class:active={conv.id === activeConversationId}
                 on:click={() => selectConversation(conv.id)}
               >
-                <div class="conversation-title">{conv.title}</div>
+                {#if renamingConversationId === conv.id}
+                  <input
+                    type="text"
+                    class="rename-input"
+                    bind:value={renameInput}
+                    on:keydown={(e) => handleRenameKeydown(e, conv.id)}
+                    on:blur={() => saveRename(conv.id)}
+                    on:click|stopPropagation
+                    autofocus
+                  />
+                {:else}
+                  <div class="conversation-title">{conv.title}</div>
+                {/if}
                 <div class="conversation-meta">
                   <span class="conversation-date">{formatConversationDate(conv.updated_at)}</span>
-                  <button
-                    class="delete-btn"
-                    on:click={(e) => deleteConversation(conv.id, e)}
-                    title="Delete conversation"
-                  >×</button>
+                  <div class="conversation-actions">
+                    <button
+                      class="rename-btn"
+                      on:click={(e) => startRename(conv.id, conv.title, e)}
+                      title="Rename conversation"
+                    >✎</button>
+                    <button
+                      class="delete-btn"
+                      on:click={(e) => deleteConversation(conv.id, e)}
+                      title="Delete conversation"
+                    >×</button>
+                  </div>
                 </div>
               </div>
             {/each}
@@ -1109,8 +1166,19 @@
     color: #666;
   }
 
-  .delete-btn {
+  .conversation-actions {
+    display: flex;
+    gap: 0.25rem;
     opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .conversation-item:hover .conversation-actions {
+    opacity: 1;
+  }
+
+  .rename-btn,
+  .delete-btn {
     width: 20px;
     height: 20px;
     padding: 0;
@@ -1118,7 +1186,7 @@
     border: none;
     border-radius: 0.25rem;
     color: #888;
-    font-size: 1rem;
+    font-size: 0.875rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1126,13 +1194,29 @@
     transition: all 0.15s;
   }
 
-  .conversation-item:hover .delete-btn {
-    opacity: 1;
+  .rename-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
   }
 
   .delete-btn:hover {
     background: rgba(239, 68, 68, 0.2);
     color: #ef4444;
+  }
+
+  .rename-input {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    background: #1a1a1a;
+    border: 1px solid #3b82f6;
+    border-radius: 0.25rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .rename-input:focus {
+    outline: none;
   }
 
   /* Chat area */
