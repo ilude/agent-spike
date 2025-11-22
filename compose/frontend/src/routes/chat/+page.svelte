@@ -306,11 +306,12 @@
     };
     messages = [...messages, userMsg];
 
-    // Send to backend with selected model and conversation ID
+    // Send to backend with selected model, conversation ID, and project ID
     ws.send(JSON.stringify({
       message: userMessage,
       model: selectedModel,
-      conversation_id: activeConversationId
+      conversation_id: activeConversationId,
+      project_id: activeProjectId
     }));
     isStreaming = true;
     currentResponse = '';
@@ -349,10 +350,12 @@
     const nextMessage = messageQueue[0];
     messageQueue = messageQueue.slice(1);
 
-    // Send to backend with selected model
+    // Send to backend with selected model and project ID
     ws.send(JSON.stringify({
       message: nextMessage,
-      model: selectedModel
+      model: selectedModel,
+      conversation_id: activeConversationId,
+      project_id: activeProjectId
     }));
     isStreaming = true;
     currentResponse = '';

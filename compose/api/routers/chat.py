@@ -13,6 +13,7 @@ from pydantic import BaseModel
 from qdrant_client import QdrantClient
 
 from compose.services.conversations import get_conversation_service
+from compose.services.projects import get_project_service
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -283,6 +284,7 @@ async def websocket_chat(websocket: WebSocket):
         return
 
     conversation_service = get_conversation_service()
+    project_service = get_project_service()
 
     try:
         while True:
@@ -291,6 +293,7 @@ async def websocket_chat(websocket: WebSocket):
             message = request.get("message", "")
             model = request.get("model", "moonshotai/kimi-k2:free")
             conversation_id = request.get("conversation_id")
+            project_id = request.get("project_id")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -305,6 +308,13 @@ async def websocket_chat(websocket: WebSocket):
                 conversation_service.add_message(conversation_id, "user", message)
 
             try:
+                # Get project custom instructions if project_id provided
+                system_message = None
+                if project_id:
+                    project = project_service.get_project(project_id)
+                    if project and project.custom_instructions:
+                        system_message = project.custom_instructions
+
                 # Route to Ollama or OpenRouter
                 if model.startswith("ollama:"):
                     ollama_model = model.replace("ollama:", "")
@@ -314,9 +324,15 @@ async def websocket_chat(websocket: WebSocket):
                     client = openrouter
                     actual_model = model
 
+                # Build messages list
+                messages = []
+                if system_message:
+                    messages.append({"role": "system", "content": system_message})
+                messages.append({"role": "user", "content": message})
+
                 stream = await client.chat.completions.create(
                     model=actual_model,
-                    messages=[{"role": "user", "content": message}],
+                    messages=messages,
                     stream=True,
                 )
 
@@ -365,6 +381,7 @@ async def websocket_rag_chat(websocket: WebSocket):
         return
 
     conversation_service = get_conversation_service()
+    project_service = get_project_service()
 
     try:
         while True:
@@ -373,6 +390,7 @@ async def websocket_rag_chat(websocket: WebSocket):
             message = request.get("message", "")
             model = request.get("model", "moonshotai/kimi-k2:free")
             conversation_id = request.get("conversation_id")
+            project_id = request.get("project_id")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -381,6 +399,13 @@ async def websocket_rag_chat(websocket: WebSocket):
             # Save user message to conversation
             if conversation_id:
                 conversation_service.add_message(conversation_id, "user", message)
+
+            # Get project custom instructions if project_id provided
+            custom_instructions = None
+            if project_id:
+                project = project_service.get_project(project_id)
+                if project and project.custom_instructions:
+                    custom_instructions = project.custom_instructions
 
             try:
                 # Try RAG search, but gracefully fall back if it fails
@@ -446,11 +471,16 @@ async def websocket_rag_chat(websocket: WebSocket):
                     rag_available = False
 
                 # Step 4: Build prompt (with or without RAG context)
+                # Start with custom instructions if available
+                system_prefix = ""
+                if custom_instructions:
+                    system_prefix = f"{custom_instructions}\n\n---\n\n"
+
                 if rag_available and context_chunks:
                     context_section = "\n\n".join(context_chunks)
                     video_titles_list = "\n".join([f"- {s['video_title']}" for s in sources])
 
-                    augmented_prompt = f"""You are Mentat, an AI assistant with access to video transcripts.
+                    augmented_prompt = f"""{system_prefix}You are Mentat, an AI assistant with access to video transcripts.
 
 Context from videos:
 {context_section}
@@ -469,7 +499,7 @@ Instructions:
 4. Be concise and helpful"""
                 else:
                     # Fallback: no RAG context available
-                    augmented_prompt = f"""You are Mentat, a helpful AI assistant.
+                    augmented_prompt = f"""{system_prefix}You are Mentat, a helpful AI assistant.
 
 User: {message}
 
