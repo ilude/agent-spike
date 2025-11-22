@@ -112,3 +112,28 @@ async def delete_conversation(conversation_id: str):
         raise HTTPException(status_code=404, detail="Conversation not found")
 
     return {"status": "deleted", "id": conversation_id}
+
+
+class GenerateTitleRequest(BaseModel):
+    """Request to generate a title."""
+
+    message: str
+
+
+class GenerateTitleResponse(BaseModel):
+    """Response with generated title."""
+
+    title: str
+
+
+@router.post("/generate-title", response_model=GenerateTitleResponse)
+async def generate_title(request: GenerateTitleRequest):
+    """Generate a title for a conversation based on the first message."""
+    if not request.message or len(request.message) < 3:
+        raise HTTPException(
+            status_code=400, detail="Message must be at least 3 characters"
+        )
+
+    service = get_conversation_service()
+    title = await service.generate_title(request.message)
+    return GenerateTitleResponse(title=title)

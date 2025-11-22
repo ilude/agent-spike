@@ -11,7 +11,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+import httpx
 from pydantic import BaseModel, Field
+
+# Configuration for auto-title generation
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
+# Use a cheap/fast model for title generation
+TITLE_MODEL = "anthropic/claude-3-haiku"  # Fast and cheap
 
 
 class Message(BaseModel):
@@ -307,6 +313,57 @@ class ConversationService:
 
         # Sort by updated_at descending
         return sorted(results, key=lambda c: c.updated_at, reverse=True)
+
+    async def generate_title(self, first_message: str) -> str:
+        """Generate a title for a conversation using LLM.
+
+        Args:
+            first_message: The first user message in the conversation
+
+        Returns:
+            Generated title (3-6 words) or truncated message as fallback
+        """
+        # Fallback: truncate first message
+        fallback = first_message[:50].strip()
+        if len(first_message) > 50:
+            fallback = fallback.rsplit(" ", 1)[0] + "..."
+
+        if not OPENROUTER_API_KEY:
+            return fallback
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": TITLE_MODEL,
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": f"Generate a very short title (3-6 words) for a conversation that starts with this message. Return ONLY the title, no quotes or explanation:\n\n{first_message[:500]}",
+                            }
+                        ],
+                        "max_tokens": 20,
+                        "temperature": 0.7,
+                    },
+                )
+                response.raise_for_status()
+                data = response.json()
+                title = data["choices"][0]["message"]["content"].strip()
+                # Clean up: remove quotes if present
+                title = title.strip('"\'')
+                # Limit length
+                if len(title) > 60:
+                    title = title[:57] + "..."
+                return title or fallback
+
+        except Exception as e:
+            print(f"Title generation failed: {e}")
+            return fallback
 
 
 # Singleton instance
