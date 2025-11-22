@@ -100,7 +100,7 @@ python_version = "3.14"
 strict = true
 
 [tool.pytest.ini_options]
-testpaths = ["compose"]
+testpaths = ["compose/tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
@@ -113,6 +113,27 @@ markers = [
 filterwarnings = [
     "ignore::DeprecationWarning:pydantic.*:",
 ]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["compose"]
+omit = [
+    "compose/tests/*",
+    "compose/__pycache__/*",
+    "*/__pycache__/*",
+]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]
+show_missing = true
+fail_under = 0
 
 [dependency-groups]
 lesson-001 = [
