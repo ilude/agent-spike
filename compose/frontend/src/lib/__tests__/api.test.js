@@ -984,6 +984,86 @@ describe('MentatAPI', () => {
 		});
 	});
 
+	// ============ Code Sandbox ============
+
+	describe('listSandboxLanguages()', () => {
+		it('should list supported languages', async () => {
+			const mockResult = {
+				languages: [
+					{ id: 'python', name: 'Python', extension: '.py' },
+					{ id: 'javascript', name: 'JavaScript', extension: '.js' }
+				]
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.listSandboxLanguages();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/sandbox/languages');
+			expect(result).toEqual(mockResult);
+		});
+	});
+
+	describe('executeCode()', () => {
+		it('should execute code with defaults', async () => {
+			const mockResult = {
+				execution_id: 'abc123',
+				stdout: 'hello\n',
+				stderr: '',
+				exit_code: 0
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.executeCode("print('hello')");
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/sandbox/execute', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ code: "print('hello')", language: 'python', timeout: 10, stdin: '' })
+			});
+			expect(result).toEqual(mockResult);
+		});
+
+		it('should execute with custom options', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({})
+			});
+
+			await client.executeCode('console.log("hi")', 'javascript', 5, 'input');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/sandbox/execute', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ code: 'console.log("hi")', language: 'javascript', timeout: 5, stdin: 'input' })
+			});
+		});
+	});
+
+	describe('validateCode()', () => {
+		it('should validate code', async () => {
+			const mockResult = { valid: true, error: null, language: 'python' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.validateCode("print('safe')");
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/sandbox/validate', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ code: "print('safe')", language: 'python' })
+			});
+			expect(result).toEqual(mockResult);
+		});
+	});
+
 	// ============ Default Export ============
 
 	describe('default api instance', () => {

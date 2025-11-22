@@ -554,6 +554,58 @@ export class MentatAPI {
 		return res.json();
 	}
 
+	// ============ Code Sandbox Methods ============
+
+	/**
+	 * List supported programming languages
+	 * @returns {Promise<{languages: Array}>}
+	 */
+	async listSandboxLanguages() {
+		const res = await fetch(`${this.baseURL}/sandbox/languages`);
+		if (!res.ok) {
+			throw new Error(`Failed to list languages: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Execute code in sandbox
+	 * @param {string} code - Code to execute
+	 * @param {string} language - Language (python, javascript, bash)
+	 * @param {number} timeout - Timeout in seconds (1-30)
+	 * @param {string} stdin - Optional input
+	 * @returns {Promise<Object>}
+	 */
+	async executeCode(code, language = 'python', timeout = 10, stdin = '') {
+		const res = await fetch(`${this.baseURL}/sandbox/execute`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ code, language, timeout, stdin })
+		});
+		if (!res.ok) {
+			throw new Error(`Execution failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Validate code without executing
+	 * @param {string} code - Code to validate
+	 * @param {string} language - Language
+	 * @returns {Promise<{valid: boolean, error: string|null, language: string}>}
+	 */
+	async validateCode(code, language = 'python') {
+		const res = await fetch(`${this.baseURL}/sandbox/validate`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ code, language })
+		});
+		if (!res.ok) {
+			throw new Error(`Validation failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
 	// ============ Artifact Methods ============
 
 	/**

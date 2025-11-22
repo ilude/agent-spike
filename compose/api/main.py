@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox
 
 # Create FastAPI app
 app = FastAPI(
@@ -42,6 +42,7 @@ app.include_router(artifacts.router, tags=["artifacts"])
 app.include_router(styles.router, tags=["styles"])
 app.include_router(memory.router, tags=["memory"])
 app.include_router(websearch.router, tags=["search"])
+app.include_router(sandbox.router, tags=["sandbox"])
 
 
 @app.get("/")
@@ -84,5 +85,8 @@ async def root():
             "websearch": "GET /search?q=",
             "freedium_check": "GET /search/freedium?url=",
             "freedium_fetch": "POST /search/freedium",
+            "sandbox_languages": "GET /sandbox/languages",
+            "sandbox_execute": "POST /sandbox/execute",
+            "sandbox_validate": "POST /sandbox/validate",
         },
     }
