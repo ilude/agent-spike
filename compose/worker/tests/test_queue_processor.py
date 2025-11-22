@@ -538,18 +538,17 @@ class TestIngestVideoWithMocks:
     """Test ingest_video function with mocked external dependencies.
 
     These tests verify the behavior of ingest_video by mocking:
-    - Qdrant cache (create_qdrant_cache)
+    - MinIO storage (create_minio_client)
     - YouTube transcript service (get_transcript)
     - YouTube metadata service (fetch_video_metadata)
     - Archive manager
     """
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_skips_already_cached_video(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Video already in cache should be skipped."""
         # Import here to avoid module-level import issues
@@ -557,15 +556,15 @@ class TestIngestVideoWithMocks:
 
         # Setup mocks
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = True
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = True
         mock_archive = MagicMock()
 
         # Execute
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
-            mock_archive
+            mock_archive,
+            mock_storage
         )
 
         # Verify
@@ -575,38 +574,36 @@ class TestIngestVideoWithMocks:
         mock_transcript.assert_not_called()
         mock_metadata.assert_not_called()
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_returns_error_on_transcript_failure(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Transcript fetch error should return failure."""
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = False
         mock_transcript.return_value = "ERROR: No transcript available"
         mock_archive = MagicMock()
 
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
-            mock_archive
+            mock_archive,
+            mock_storage
         )
 
         assert success is False
         assert "ERROR" in message
         assert "No transcript available" in message
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_default_source_type_is_valid(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Default source_type='single_import' is a valid Pydantic literal.
 
@@ -616,9 +613,8 @@ class TestIngestVideoWithMocks:
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = False
         mock_transcript.return_value = "This is the transcript content"
         mock_metadata.return_value = (
             {"title": "Test Video", "channel_title": "Test Channel"},
@@ -629,27 +625,26 @@ class TestIngestVideoWithMocks:
         # Default source_type is now "single_import" which is valid
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
-            mock_archive
+            mock_archive,
+            mock_storage
         )
 
         # Should succeed now that default source_type is valid
         assert success is True
         assert "OK" in message
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_successful_ingest_with_valid_source_type(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Successful ingest should archive transcript and cache data with valid source_type."""
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = False
         mock_transcript.return_value = "This is the transcript content"
         mock_metadata.return_value = (
             {"title": "Test Video", "channel_title": "Test Channel"},
@@ -661,6 +656,7 @@ class TestIngestVideoWithMocks:
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
             mock_archive,
+            mock_storage,
             source_type="bulk_channel"  # Valid source type
         )
 
@@ -668,22 +664,20 @@ class TestIngestVideoWithMocks:
         assert "OK" in message
         mock_archive.update_transcript.assert_called_once()
         mock_archive.update_metadata.assert_called_once()
-        mock_cache.set.assert_called_once()
+        mock_storage.client.put_json.assert_called_once()
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_handles_metadata_fetch_failure_gracefully(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Metadata fetch failure should not prevent successful ingest."""
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = False
         mock_transcript.return_value = "This is the transcript content"
         mock_metadata.return_value = ({}, "Metadata fetch failed")
         mock_archive = MagicMock()
@@ -692,6 +686,7 @@ class TestIngestVideoWithMocks:
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
             mock_archive,
+            mock_storage,
             source_type="bulk_channel"  # Valid source type
         )
 
@@ -702,42 +697,39 @@ class TestIngestVideoWithMocks:
         # Metadata should not be updated when empty
         mock_archive.update_metadata.assert_not_called()
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_returns_error_on_invalid_url(
-        self, mock_extract, mock_cache_factory
+        self, mock_extract
     ):
         """Invalid URL should return error."""
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.side_effect = ValueError("Could not extract video ID")
-        mock_cache = MagicMock()
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
         mock_archive = MagicMock()
 
         success, message = await ingest_video(
             "https://example.com/not-youtube",
-            mock_archive
+            mock_archive,
+            mock_storage
         )
 
         assert success is False
         assert "ERROR" in message
         assert "Invalid URL" in message
 
-    @patch("compose.worker.queue_processor.create_qdrant_cache")
     @patch("compose.worker.queue_processor.get_transcript")
     @patch("compose.worker.queue_processor.fetch_video_metadata")
     @patch("compose.worker.queue_processor.extract_video_id")
     async def test_uses_provided_channel_context(
-        self, mock_extract, mock_metadata, mock_transcript, mock_cache_factory
+        self, mock_extract, mock_metadata, mock_transcript
     ):
         """Channel ID and name from CSV should be used in import metadata."""
         from compose.worker.queue_processor import ingest_video
 
         mock_extract.return_value = "dQw4w9WgXcQ"
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-        mock_cache_factory.return_value = mock_cache
+        mock_storage = MagicMock()
+        mock_storage.client.exists.return_value = False
         mock_transcript.return_value = "This is the transcript content"
         mock_metadata.return_value = ({}, None)
         mock_archive = MagicMock()
@@ -745,6 +737,7 @@ class TestIngestVideoWithMocks:
         success, message = await ingest_video(
             "https://youtube.com/watch?v=dQw4w9WgXcQ",
             mock_archive,
+            mock_storage,
             source_type="bulk_channel",
             channel_id="UC123",
             channel_name="Test Channel"

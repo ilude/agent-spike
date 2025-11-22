@@ -99,13 +99,14 @@ def run_backfill_all(batch_size: int = 20) -> dict:
 
 def show_status():
     """Show backfill status for all steps."""
+    import asyncio
     from compose.services.pipeline import get_all_steps, get_backfill_counts
-    from compose.services.graph import get_video_count
+    from compose.services.surrealdb import get_video_count
 
     log("=== Backfill Status ===")
 
-    total_videos = get_video_count()
-    log(f"Total videos in graph: {total_videos}")
+    total_videos = asyncio.run(get_video_count())
+    log(f"Total videos in database: {total_videos}")
 
     steps = get_all_steps()
     counts = get_backfill_counts()

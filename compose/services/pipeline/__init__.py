@@ -4,7 +4,7 @@ This pipeline framework provides:
 - @pipeline_step decorator for registering steps
 - Git-based automatic version detection
 - Dependency tracking between steps
-- Neo4j integration for backfill queries
+- SurrealDB integration for backfill queries
 
 Usage:
     from compose.services.pipeline import (
@@ -70,7 +70,7 @@ from .steps import (
     fetch_metadata,
     archive_raw,
     generate_tags,
-    cache_to_qdrant,
+    cache_to_minio,
     update_graph,
     DEFAULT_PIPELINE_STEPS,
     MINIMAL_PIPELINE_STEPS,
@@ -104,7 +104,7 @@ __all__ = [
     "fetch_metadata",
     "archive_raw",
     "generate_tags",
-    "cache_to_qdrant",
+    "cache_to_minio",
     "update_graph",
     "DEFAULT_PIPELINE_STEPS",
     "MINIMAL_PIPELINE_STEPS",

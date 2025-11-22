@@ -5,9 +5,8 @@ Runs as a headless Docker container, polling for new files.
 Uses existing ingest logic for archiving and caching.
 
 Environment variables:
-    QDRANT_URL: Qdrant server URL (default: http://qdrant:6333)
-    INFINITY_URL: Infinity embedding server URL (default: http://infinity:7997)
-    COLLECTION_NAME: Qdrant collection name (default: content)
+    MINIO_URL: MinIO server URL (default: http://minio:9000)
+    MINIO_BUCKET: MinIO bucket name (default: cache)
     POLL_INTERVAL: Seconds between polls (default: 10)
 """
 
@@ -22,9 +21,8 @@ from datetime import datetime
 from pathlib import Path
 
 # Configuration from environment
-QDRANT_URL = os.getenv("QDRANT_URL", "http://qdrant:6333")
-INFINITY_URL = os.getenv("INFINITY_URL", "http://infinity:7997")
-COLLECTION_NAME = os.getenv("COLLECTION_NAME", "content")
+MINIO_URL = os.getenv("MINIO_URL", "http://minio:9000")
+MINIO_BUCKET = os.getenv("MINIO_BUCKET", "cache")
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))
 WORKER_POOL_SIZE = int(os.getenv("WORKER_POOL_SIZE", "3"))
 
@@ -54,7 +52,7 @@ COMPLETED_DIR = QUEUE_BASE / "completed"
 PROGRESS_FILE = QUEUE_BASE / ".progress.json"
 
 from compose.services.youtube import get_transcript, extract_video_id, fetch_video_metadata
-from compose.services.cache import create_qdrant_cache
+from compose.services.minio import create_minio_client, ArchiveStorage
 from compose.services.archive import create_archive_manager, create_local_archive_writer, ImportMetadata, ChannelContext
 
 
@@ -104,6 +102,7 @@ async def clear_progress(worker_id: str):
 async def ingest_video(
     url: str,
     archive_manager,
+    storage: ArchiveStorage,
     source_type: str = "single_import",
     channel_id: str = None,
     channel_name: str = None,
@@ -116,18 +115,11 @@ async def ingest_video(
     Args:
         source_type: Must be one of: single_import, repl_import, bulk_channel, bulk_multi_channel
     """
-    cache = None
     try:
-        cache = create_qdrant_cache(
-            collection_name=COLLECTION_NAME,
-            qdrant_url=QDRANT_URL,
-            infinity_url=INFINITY_URL
-        )
-
         video_id = extract_video_id(url)
         cache_key = f"youtube:video:{video_id}"
 
-        if cache.exists(cache_key):
+        if storage.client.exists(cache_key):
             return True, f"SKIP: Already cached ({video_id})"
 
         log(f"  Fetching transcript for {video_id}...")
@@ -185,12 +177,8 @@ async def ingest_video(
             "url": url,
             "transcript": transcript,
             "transcript_length": len(transcript),
-        }
-
-        metadata = {
             "type": "youtube_video",
             "source": "queue_worker",
-            "video_id": video_id,
             "source_type": source_type,
             "recommendation_weight": weight_map.get(source_type, 0.8),
             "imported_at": datetime.now().isoformat(),
@@ -204,10 +192,10 @@ async def ingest_video(
         }
 
         if channel_id:
-            metadata["channel_id"] = channel_id
+            cache_data["channel_id"] = channel_id
 
-        log(f"  Caching {video_id} ({len(transcript)} chars)...")
-        cache.set(cache_key, cache_data, metadata=metadata)
+        log(f"  Caching {video_id} ({len(transcript)} chars) to MinIO...")
+        storage.client.put_json(cache_key, cache_data)
 
         title = youtube_metadata.get("title", video_id)[:50]
         return True, f"OK: {title}... ({len(transcript)} chars)"
@@ -216,12 +204,9 @@ async def ingest_video(
         return False, f"ERROR: Invalid URL - {e}"
     except Exception as e:
         return False, f"ERROR: {type(e).__name__}: {e}"
-    finally:
-        if cache:
-            cache.close()
 
 
-async def process_csv(csv_path: Path, archive_manager, worker_id: str) -> dict:
+async def process_csv(csv_path: Path, archive_manager, storage: ArchiveStorage, worker_id: str) -> dict:
     """Process all videos from a CSV file."""
     log(f"[{worker_id}] Processing CSV: {csv_path.name}")
 
@@ -257,7 +242,7 @@ async def process_csv(csv_path: Path, archive_manager, worker_id: str) -> dict:
             channel_name = video.get('channel_name', '').strip() or None
 
             success, message = await ingest_video(
-                url, archive_manager, source_type, channel_id, channel_name
+                url, archive_manager, storage, source_type, channel_id, channel_name
             )
 
             if "SKIP" in message:
@@ -285,7 +270,7 @@ async def process_csv(csv_path: Path, archive_manager, worker_id: str) -> dict:
     return stats
 
 
-async def process_single_file(csv_file: Path, archive_manager, worker_id: str, semaphore: asyncio.Semaphore):
+async def process_single_file(csv_file: Path, archive_manager, storage: ArchiveStorage, worker_id: str, semaphore: asyncio.Semaphore):
     """Process a single CSV file with semaphore-controlled concurrency."""
     async with semaphore:
         processing_path = PROCESSING_DIR / csv_file.name
@@ -295,7 +280,7 @@ async def process_single_file(csv_file: Path, archive_manager, worker_id: str, s
             log(f"[{worker_id}] Moved {csv_file.name} to processing/")
 
             # Process
-            await process_csv(processing_path, archive_manager, worker_id)
+            await process_csv(processing_path, archive_manager, storage, worker_id)
 
             # Move to completed
             completed_path = COMPLETED_DIR / csv_file.name
@@ -317,9 +302,8 @@ async def poll_and_process():
     log("=" * 60)
     log("Queue Processor Worker Starting")
     log("=" * 60)
-    log(f"Qdrant: {QDRANT_URL}")
-    log(f"Infinity: {INFINITY_URL}")
-    log(f"Collection: {COLLECTION_NAME}")
+    log(f"MinIO: {MINIO_URL}")
+    log(f"Bucket: {MINIO_BUCKET}")
     log(f"Poll interval: {POLL_INTERVAL}s")
     log(f"Worker pool size: {WORKER_POOL_SIZE}")
     log(f"Pending dir: {PENDING_DIR}")
@@ -343,6 +327,11 @@ async def poll_and_process():
     archive_writer = create_local_archive_writer(base_dir=ARCHIVE_BASE)
     archive_manager = create_archive_manager(writer=archive_writer)
 
+    # Initialize MinIO storage
+    minio_client = create_minio_client(url=MINIO_URL, bucket=MINIO_BUCKET)
+    minio_client.ensure_bucket()
+    storage = ArchiveStorage(minio_client)
+
     # Semaphore to limit concurrent workers
     semaphore = asyncio.Semaphore(WORKER_POOL_SIZE)
     worker_counter = 0
@@ -361,7 +350,7 @@ async def poll_and_process():
                     worker_counter += 1
                     worker_id = f"W{worker_counter:03d}"
                     task = asyncio.create_task(
-                        process_single_file(csv_file, archive_manager, worker_id, semaphore)
+                        process_single_file(csv_file, archive_manager, storage, worker_id, semaphore)
                     )
                     tasks.append(task)
 

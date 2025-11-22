@@ -3,10 +3,10 @@
 Each step:
 1. Has automatic version tracking via @pipeline_step
 2. Archives data before caching (archive-first strategy)
-3. Updates Neo4j state after successful execution
+3. Updates SurrealDB state after successful execution
 
 Step chain:
-    fetch_transcript -> fetch_metadata -> archive_raw -> generate_tags -> cache_to_qdrant
+    fetch_transcript -> fetch_metadata -> archive_raw -> generate_tags -> cache_to_minio
 """
 
 from datetime import datetime
@@ -147,15 +147,15 @@ def generate_tags(ctx: PipelineContext) -> StepResult[list[str]]:
 
 @pipeline_step(
     depends_on=["archive_raw"],
-    description="Cache video data to Qdrant for vector search",
+    description="Cache video data to MinIO for retrieval",
 )
-def cache_to_qdrant(ctx: PipelineContext) -> StepResult[str]:
-    """Cache video data to Qdrant vector database.
+def cache_to_minio(ctx: PipelineContext) -> StepResult[str]:
+    """Cache video data to MinIO object storage.
 
     Only runs after archiving to ensure data is persisted first.
     """
     import os
-    from compose.services.cache import create_qdrant_cache
+    from compose.services.minio import create_minio_client, ArchiveStorage
 
     transcript = ctx.get_value("fetch_transcript")
     metadata = ctx.get_value("fetch_metadata") or {}
@@ -164,17 +164,17 @@ def cache_to_qdrant(ctx: PipelineContext) -> StepResult[str]:
         return StepResult.fail("No transcript to cache")
 
     try:
-        cache = create_qdrant_cache(
-            collection_name=os.getenv("COLLECTION_NAME", "content"),
-            qdrant_url=os.getenv("QDRANT_URL", "http://localhost:6333"),
-            infinity_url=os.getenv("INFINITY_URL", "http://localhost:7997"),
+        client = create_minio_client(
+            url=os.getenv("MINIO_URL", "http://localhost:9000"),
+            bucket=os.getenv("MINIO_BUCKET", "cache"),
         )
+        client.ensure_bucket()
+        storage = ArchiveStorage(client)
 
         cache_key = f"youtube:video:{ctx.video_id}"
 
         # Skip if already cached
-        if cache.exists(cache_key):
-            cache.close()
+        if client.exists(cache_key):
             return StepResult.ok(f"Already cached: {ctx.video_id}", cached=True)
 
         cache_data = {
@@ -182,12 +182,8 @@ def cache_to_qdrant(ctx: PipelineContext) -> StepResult[str]:
             "url": ctx.url,
             "transcript": transcript,
             "transcript_length": len(transcript),
-        }
-
-        cache_metadata = {
             "type": "youtube_video",
             "source": "pipeline",
-            "video_id": ctx.video_id,
             "source_type": ctx.metadata.get("source_type", "single_import"),
             "recommendation_weight": ctx.metadata.get("recommendation_weight", 1.0),
             "imported_at": datetime.now().isoformat(),
@@ -199,8 +195,7 @@ def cache_to_qdrant(ctx: PipelineContext) -> StepResult[str]:
             "youtube_published_at": metadata.get("published_at"),
         }
 
-        cache.set(cache_key, cache_data, metadata=cache_metadata)
-        cache.close()
+        client.put_json(cache_key, cache_data)
 
         return StepResult.ok(f"Cached {ctx.video_id} ({len(transcript)} chars)")
 
@@ -209,61 +204,65 @@ def cache_to_qdrant(ctx: PipelineContext) -> StepResult[str]:
 
 
 @pipeline_step(
-    depends_on=["cache_to_qdrant"],
-    description="Update Neo4j graph with video relationships",
+    depends_on=["cache_to_minio"],
+    description="Update SurrealDB with video relationships",
 )
 def update_graph(ctx: PipelineContext) -> StepResult[str]:
-    """Update Neo4j graph with video node and relationships.
+    """Update SurrealDB with video node and relationships.
 
     Creates/updates:
-    - Video node with pipeline state
+    - Video record with pipeline state
     - Channel relationship
     - Topic relationships (if tags available)
     """
-    from compose.services.graph import (
+    import asyncio
+    from compose.services.surrealdb import (
         upsert_video,
         link_video_to_channel,
         link_video_to_topics,
-        VideoNode,
+        VideoRecord,
     )
 
     metadata = ctx.get_value("fetch_metadata") or {}
     tags = ctx.get_value("generate_tags") or []
 
-    try:
-        # Create video node
-        video = VideoNode(
-            video_id=ctx.video_id,
-            url=ctx.url,
-            fetched_at=ctx.started_at,
-            title=metadata.get("title"),
-            channel_id=metadata.get("channel_id"),
-            channel_name=metadata.get("channel_title"),
-            duration_seconds=metadata.get("duration_seconds"),
-            view_count=metadata.get("view_count"),
-            source_type=ctx.metadata.get("source_type"),
-            import_method=ctx.metadata.get("import_method"),
-            recommendation_weight=ctx.metadata.get("recommendation_weight", 1.0),
-        )
-
-        upsert_video(video)
-
-        # Link to channel if available
-        if metadata.get("channel_id") and metadata.get("channel_title"):
-            link_video_to_channel(
-                ctx.video_id,
-                metadata["channel_id"],
-                metadata["channel_title"],
+    async def _update_db():
+        try:
+            # Create video record
+            video = VideoRecord(
+                video_id=ctx.video_id,
+                url=ctx.url,
+                fetched_at=ctx.started_at,
+                title=metadata.get("title"),
+                channel_id=metadata.get("channel_id"),
+                channel_name=metadata.get("channel_title"),
+                duration_seconds=metadata.get("duration_seconds"),
+                view_count=metadata.get("view_count"),
+                source_type=ctx.metadata.get("source_type"),
+                import_method=ctx.metadata.get("import_method"),
+                recommendation_weight=ctx.metadata.get("recommendation_weight", 1.0),
             )
 
-        # Link to topics if tags available
-        if tags:
-            link_video_to_topics(ctx.video_id, tags)
+            await upsert_video(video)
 
-        return StepResult.ok(f"Graph updated for {ctx.video_id}")
+            # Link to channel if available
+            if metadata.get("channel_id") and metadata.get("channel_title"):
+                await link_video_to_channel(
+                    ctx.video_id,
+                    metadata["channel_id"],
+                    metadata["channel_title"],
+                )
 
-    except Exception as e:
-        return StepResult.fail(f"Graph update failed: {e}")
+            # Link to topics if tags available
+            if tags:
+                await link_video_to_topics(ctx.video_id, tags)
+
+            return StepResult.ok(f"Database updated for {ctx.video_id}")
+
+        except Exception as e:
+            return StepResult.fail(f"Database update failed: {e}")
+
+    return asyncio.run(_update_db())
 
 
 # Default step list for full ingestion
@@ -272,7 +271,7 @@ DEFAULT_PIPELINE_STEPS = [
     "fetch_metadata",
     "archive_raw",
     "generate_tags",
-    "cache_to_qdrant",
+    "cache_to_minio",
     "update_graph",
 ]
 
@@ -281,5 +280,5 @@ MINIMAL_PIPELINE_STEPS = [
     "fetch_transcript",
     "fetch_metadata",
     "archive_raw",
-    "cache_to_qdrant",
+    "cache_to_minio",
 ]

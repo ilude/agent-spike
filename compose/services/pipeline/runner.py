@@ -2,7 +2,7 @@
 
 The runner:
 1. Executes steps in dependency order
-2. Updates Neo4j state after each successful step
+2. Updates SurrealDB state after each successful step
 3. Provides backfill querying for stale videos
 """
 
@@ -72,7 +72,7 @@ def run_pipeline(
             result = step_func(ctx)
             ctx.set_result(step_name, result)
 
-            # Update Neo4j state if configured
+            # Update SurrealDB state if configured
             if config.update_graph and result.success:
                 try:
                     _update_graph_state(video_id, step_name, metadata.version_hash)
@@ -90,15 +90,16 @@ def run_pipeline(
 
 
 def _update_graph_state(video_id: str, step_name: str, version_hash: str) -> None:
-    """Update Neo4j pipeline state for a video.
+    """Update SurrealDB pipeline state for a video.
 
-    Only imports graph module when needed to avoid circular deps.
+    Only imports surrealdb module when needed to avoid circular deps.
     """
+    import asyncio
     try:
-        from compose.services.graph import update_pipeline_state
-        update_pipeline_state(video_id, step_name, version_hash)
-    except ImportError:
-        pass  # Graph service not available
+        from compose.services.surrealdb import update_pipeline_state
+        asyncio.run(update_pipeline_state(video_id, step_name, version_hash))
+    except (ImportError, Exception):
+        pass  # SurrealDB service not available
 
 
 def get_backfill_queue(
@@ -107,7 +108,7 @@ def get_backfill_queue(
 ) -> list[dict]:
     """Get videos that need reprocessing for a step.
 
-    Queries Neo4j for videos where:
+    Queries SurrealDB for videos where:
     1. The step has never been run
     2. The step was run with an outdated version
 
@@ -118,6 +119,7 @@ def get_backfill_queue(
     Returns:
         List of dicts with video_id, url, current_version, required_version
     """
+    import asyncio
     step_tuple = get_step(step_name)
     if not step_tuple:
         raise ValueError(f"Step '{step_name}' not found")
@@ -126,8 +128,8 @@ def get_backfill_queue(
     current_version = metadata.version_hash
 
     try:
-        from compose.services.graph import find_stale_videos
-        stale = find_stale_videos(step_name, current_version, limit)
+        from compose.services.surrealdb import find_stale_videos
+        stale = asyncio.run(find_stale_videos(step_name, current_version, limit))
         return [
             {
                 "video_id": s.video_id,
@@ -137,7 +139,7 @@ def get_backfill_queue(
             }
             for s in stale
         ]
-    except ImportError:
+    except (ImportError, Exception):
         return []
 
 
@@ -147,15 +149,17 @@ def get_backfill_counts() -> dict[str, int]:
     Returns:
         Dict of step_name -> count of stale videos
     """
+    import asyncio
     counts = {}
 
     try:
-        from compose.services.graph import count_stale_videos
+        from compose.services.surrealdb import find_stale_videos
 
         for step_name, metadata in get_all_steps().items():
-            counts[step_name] = count_stale_videos(step_name, metadata.version_hash)
+            stale = asyncio.run(find_stale_videos(step_name, metadata.version_hash, limit=10000))
+            counts[step_name] = len(stale)
 
-    except ImportError:
+    except (ImportError, Exception):
         pass
 
     return counts
