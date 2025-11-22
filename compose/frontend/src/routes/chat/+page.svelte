@@ -251,7 +251,7 @@
     };
   }
 
-  function send() {
+  async function send() {
     if (!input.trim() || !connected) return;
 
     const userMessage = input.trim();
@@ -276,26 +276,62 @@
       return;
     }
 
+    // Create conversation if this is the first message
+    const isFirstMessage = !activeConversationId && messages.length === 0;
+    if (!activeConversationId) {
+      try {
+        const conv = await api.createConversation('New conversation', selectedModel);
+        activeConversationId = conv.id;
+        // Add to conversation list
+        conversations = [{ ...conv, message_count: 0 }, ...conversations];
+      } catch (e) {
+        console.error('Failed to create conversation:', e);
+        // Continue without persistence
+      }
+    }
+
     // Add user message to chat
-    messages = [...messages, {
+    const userMsg = {
       role: 'user',
       content: userMessage,
       timestamp: new Date(),
       id: crypto.randomUUID()
-    }];
+    };
+    messages = [...messages, userMsg];
 
-    // Send to backend with selected model
+    // Send to backend with selected model and conversation ID
     ws.send(JSON.stringify({
       message: userMessage,
-      model: selectedModel
+      model: selectedModel,
+      conversation_id: activeConversationId
     }));
     isStreaming = true;
     currentResponse = '';
     error = '';
 
+    // Generate title after first message (async, don't block)
+    if (isFirstMessage && activeConversationId) {
+      generateConversationTitle(userMessage, activeConversationId);
+    }
+
     // Return focus to input field
     if (inputField) {
       inputField.focus();
+    }
+  }
+
+  // Generate title for conversation asynchronously
+  async function generateConversationTitle(message, conversationId) {
+    try {
+      const { title } = await api.generateTitle(message);
+      // Update local conversation
+      conversations = conversations.map(c =>
+        c.id === conversationId ? { ...c, title } : c
+      );
+      // Update on backend
+      await api.updateConversation(conversationId, { title });
+    } catch (e) {
+      console.error('Failed to generate title:', e);
     }
   }
 

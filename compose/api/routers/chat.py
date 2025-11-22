@@ -12,6 +12,8 @@ from openai import AsyncOpenAI
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 
+from compose.services.conversations import get_conversation_service
+
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
@@ -267,7 +269,7 @@ async def websocket_chat(websocket: WebSocket):
     """
     WebSocket endpoint for basic streaming chat (no RAG).
 
-    Client sends: {"message": "...", "model": "model-id"}
+    Client sends: {"message": "...", "model": "model-id", "conversation_id": "..."}
     Server streams: {"type": "token", "content": "..."}
     Server finishes: {"type": "done", "sources": []}
     """
@@ -280,12 +282,15 @@ async def websocket_chat(websocket: WebSocket):
         await websocket.close()
         return
 
+    conversation_service = get_conversation_service()
+
     try:
         while True:
             data = await websocket.receive_text()
             request = json.loads(data)
             message = request.get("message", "")
             model = request.get("model", "moonshotai/kimi-k2:free")
+            conversation_id = request.get("conversation_id")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -294,6 +299,10 @@ async def websocket_chat(websocket: WebSocket):
             if len(message) > 10000:
                 await websocket.send_json({"type": "error", "content": "Message too long (max 10,000 chars)"})
                 continue
+
+            # Save user message to conversation
+            if conversation_id:
+                conversation_service.add_message(conversation_id, "user", message)
 
             try:
                 # Route to Ollama or OpenRouter
@@ -311,12 +320,21 @@ async def websocket_chat(websocket: WebSocket):
                     stream=True,
                 )
 
+                full_response = ""
                 async for chunk in stream:
                     if chunk.choices[0].delta.content:
+                        content = chunk.choices[0].delta.content
+                        full_response += content
                         await websocket.send_json({
                             "type": "token",
-                            "content": chunk.choices[0].delta.content
+                            "content": content
                         })
+
+                # Save assistant message to conversation
+                if conversation_id and full_response.strip():
+                    conversation_service.add_message(
+                        conversation_id, "assistant", full_response.strip()
+                    )
 
                 await websocket.send_json({"type": "done", "sources": []})
 
@@ -346,16 +364,23 @@ async def websocket_rag_chat(websocket: WebSocket):
         await websocket.close()
         return
 
+    conversation_service = get_conversation_service()
+
     try:
         while True:
             data = await websocket.receive_text()
             request = json.loads(data)
             message = request.get("message", "")
             model = request.get("model", "moonshotai/kimi-k2:free")
+            conversation_id = request.get("conversation_id")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
                 continue
+
+            # Save user message to conversation
+            if conversation_id:
+                conversation_service.add_message(conversation_id, "user", message)
 
             try:
                 # Try RAG search, but gracefully fall back if it fails
@@ -467,12 +492,30 @@ Respond helpfully and concisely."""
                     stream=True,
                 )
 
+                full_response = ""
                 async for chunk in stream:
                     if chunk.choices[0].delta.content:
+                        content = chunk.choices[0].delta.content
+                        full_response += content
                         await websocket.send_json({
                             "type": "token",
-                            "content": chunk.choices[0].delta.content
+                            "content": content
                         })
+
+                # Save assistant message to conversation
+                if conversation_id and full_response.strip():
+                    # Convert sources to serializable format
+                    sources_for_storage = [
+                        {
+                            "video_title": s.get("video_title", ""),
+                            "url": s.get("url", ""),
+                            "tags": s.get("tags", []),
+                        }
+                        for s in sources
+                    ]
+                    conversation_service.add_message(
+                        conversation_id, "assistant", full_response.strip(), sources_for_storage
+                    )
 
                 await websocket.send_json({"type": "done", "sources": sources})
 
