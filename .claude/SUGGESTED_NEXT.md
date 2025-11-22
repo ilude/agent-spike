@@ -336,3 +336,76 @@ If you only have a few hours, start with these smaller tasks:
 ---
 
 **Next Session**: Pick one task, create a worktree, start building!
+
+---
+
+## Addendum: Test Coverage Analysis (2025-11-22)
+
+During comprehensive test coverage work, additional improvements were identified:
+
+### Test Coverage Status
+
+**Services with tests (complete)**:
+- archive, cache, display, metadata, tagger, youtube, pipeline
+- webpage (new), conversations (new), file_processor (new), projects (new)
+
+**Routers with tests (complete)**:
+- ingest, youtube_rag, chat
+- cache (new), youtube (new), conversations (new), projects (new), stats (new), health (new)
+
+**Still needed**:
+- Integration tests for end-to-end ingest pipeline
+- analytics, graph services (if substantive)
+
+### Schema Alignment Quick Wins
+
+Add these fields to cache schema to match VISION.md:
+
+```python
+# User-specific metadata
+"my_rating": int,           # 1-5 user rating
+"watched_date": str,        # When user consumed content
+"notes": str,               # Personal notes
+"importance": str,          # "high" | "medium" | "low"
+
+# Relationship fields
+"inspired_projects": list[str],
+"related_content": list[str],
+"applied_techniques": list[str],
+"solved_problems": list[str]
+```
+
+**Files**: `compose/services/cache/models.py`, `compose/services/archive/models.py`
+
+### LLM Cost Auto-Tracking
+
+Current state: `cost_usd` placeholder exists but needs manual population.
+
+Quick fix - add cost calculator:
+```python
+def calculate_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
+    rates = {
+        "claude-3-5-haiku-20241022": {"input": 0.25e-6, "output": 1.25e-6},
+        "claude-3-5-sonnet-20241022": {"input": 3.0e-6, "output": 15.0e-6},
+    }
+    r = rates.get(model, {"input": 0, "output": 0})
+    return prompt_tokens * r["input"] + completion_tokens * r["output"]
+```
+
+**File**: `compose/services/archive/models.py`
+
+### CLI Consolidation (Lower Priority)
+
+Merge these scripts:
+- `ingest_youtube.py`, `batch_ingest_youtube.py`, `ingest_video.py`, `simple_batch_ingest.py`
+
+Into single Typer CLI:
+```bash
+uv run python -m compose.cli.ingest video <url>
+uv run python -m compose.cli.ingest batch <csv> --workers 4
+uv run python -m compose.cli.ingest repl
+```
+
+---
+
+**Last Updated**: 2025-11-22 - Added test coverage analysis
