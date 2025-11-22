@@ -4,6 +4,8 @@ These tests capture CURRENT behavior - not intended to refactor the code,
 just to document how it works and ensure we don't break it unintentionally.
 """
 
+from datetime import datetime, timezone
+
 import pytest
 from unittest.mock import patch, MagicMock, AsyncMock
 from fastapi import FastAPI
@@ -278,7 +280,7 @@ async def test_list_models_cache_expires():
         assert call_count == 1
 
         # Simulate cache expiry by manipulating timestamp
-        models_cache["timestamp"] = datetime.utcnow().timestamp() - 400  # > 300 TTL
+        models_cache["timestamp"] = datetime.now(timezone.utc).timestamp() - 400  # > 300 TTL
 
         # Third call - should make new request (cache expired)
         await list_models()

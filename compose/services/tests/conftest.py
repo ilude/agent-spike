@@ -231,8 +231,10 @@ def temp_dir():
     """Temporary directory for tests.
 
     Automatically cleaned up after test completes.
+    Note: ignore_cleanup_errors=True handles Windows file locking issues
+    with embedded Qdrant SQLite storage.
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmpdir:
         yield Path(tmpdir)
 
 
