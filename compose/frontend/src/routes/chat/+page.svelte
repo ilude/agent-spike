@@ -42,6 +42,16 @@
   let projectsLoading = true;
   let projectDropdownOpen = false;
 
+  // Canvas/Artifact state
+  let canvasOpen = false;
+  let canvasTab = 'editor'; // 'editor' or 'browser'
+  let artifacts = [];
+  let activeArtifact = null;
+  let artifactContent = '';
+  let artifactTitle = '';
+  let artifactSaving = false;
+  let artifactDirty = false;
+
   // Storage version - increment when message format changes
   const STORAGE_VERSION = 7; // Bumped for conversation support
 
@@ -509,6 +519,118 @@
     ? conversations.filter(c => activeProject.conversation_ids?.includes(c.id))
     : conversations;
 
+  // ============ Canvas/Artifact Functions ============
+
+  async function loadArtifacts() {
+    try {
+      const response = await api.listArtifacts(null, activeProjectId);
+      artifacts = response.artifacts || [];
+    } catch (e) {
+      console.error('Failed to load artifacts:', e);
+      artifacts = [];
+    }
+  }
+
+  async function openCanvas(artifact = null) {
+    canvasOpen = true;
+    if (artifact) {
+      try {
+        activeArtifact = await api.getArtifact(artifact.id);
+        artifactTitle = activeArtifact.title;
+        artifactContent = activeArtifact.content;
+        artifactDirty = false;
+        canvasTab = 'editor';
+      } catch (e) {
+        console.error('Failed to load artifact:', e);
+        error = 'Failed to load artifact';
+      }
+    }
+  }
+
+  function closeCanvas() {
+    if (artifactDirty && !confirm('You have unsaved changes. Close anyway?')) {
+      return;
+    }
+    canvasOpen = false;
+    activeArtifact = null;
+    artifactContent = '';
+    artifactTitle = '';
+    artifactDirty = false;
+  }
+
+  async function createArtifact() {
+    try {
+      const artifact = await api.createArtifact(
+        'Untitled Document',
+        '',
+        'document',
+        null,
+        activeConversationId,
+        activeProjectId
+      );
+      artifacts = [artifact, ...artifacts];
+      await openCanvas(artifact);
+    } catch (e) {
+      console.error('Failed to create artifact:', e);
+      error = 'Failed to create artifact';
+    }
+  }
+
+  async function saveArtifact() {
+    if (!activeArtifact || artifactSaving) return;
+
+    artifactSaving = true;
+    try {
+      await api.updateArtifact(activeArtifact.id, {
+        title: artifactTitle,
+        content: artifactContent
+      });
+      artifactDirty = false;
+      // Update in list
+      artifacts = artifacts.map(a =>
+        a.id === activeArtifact.id
+          ? { ...a, title: artifactTitle, preview: artifactContent.slice(0, 200) }
+          : a
+      );
+    } catch (e) {
+      console.error('Failed to save artifact:', e);
+      error = 'Failed to save artifact';
+    } finally {
+      artifactSaving = false;
+    }
+  }
+
+  async function deleteArtifact(id, event) {
+    if (event) event.stopPropagation();
+    if (!confirm('Delete this artifact?')) return;
+
+    try {
+      await api.deleteArtifact(id);
+      artifacts = artifacts.filter(a => a.id !== id);
+      if (activeArtifact?.id === id) {
+        activeArtifact = null;
+        artifactContent = '';
+        artifactTitle = '';
+      }
+    } catch (e) {
+      console.error('Failed to delete artifact:', e);
+      error = 'Failed to delete artifact';
+    }
+  }
+
+  function handleArtifactContentChange() {
+    artifactDirty = true;
+  }
+
+  // Auto-save artifact with debounce
+  let autoSaveTimeout = null;
+  $: if (artifactDirty && activeArtifact) {
+    if (autoSaveTimeout) clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      saveArtifact();
+    }, 2000);
+  }
+
   // ============ Conversation Functions ============
 
   async function loadConversations() {
@@ -739,9 +861,10 @@
 
     connectWebSocket();
 
-    // Load projects and conversations
+    // Load projects, conversations, and artifacts
     loadProjects();
     loadConversations();
+    loadArtifacts();
 
     // Focus input field after a short delay to ensure it's rendered
     setTimeout(() => {
@@ -807,6 +930,14 @@
   <header>
     <a href="/" class="logo">Mentat</a>
     <div class="controls">
+      <button
+        class="canvas-toggle-btn"
+        class:active={canvasOpen}
+        on:click={() => canvasOpen = !canvasOpen}
+        title="Toggle Canvas"
+      >
+        Canvas
+      </button>
       <div class="status">
         <span class="indicator" class:connected></span>
         {connected ? 'Connected' : 'Disconnected'}
@@ -1097,6 +1228,112 @@
         </div>
       </div>
     </div><!-- /.chat-area -->
+
+    <!-- Canvas Sidebar -->
+    {#if canvasOpen}
+      <aside class="canvas-sidebar">
+        <div class="canvas-header">
+          <div class="canvas-tabs">
+            <button
+              class="canvas-tab"
+              class:active={canvasTab === 'editor'}
+              on:click={() => canvasTab = 'editor'}
+            >
+              Editor
+            </button>
+            <button
+              class="canvas-tab"
+              class:active={canvasTab === 'browser'}
+              on:click={() => { canvasTab = 'browser'; loadArtifacts(); }}
+            >
+              Browse
+            </button>
+          </div>
+          <button class="canvas-close-btn" on:click={closeCanvas}>×</button>
+        </div>
+
+        {#if canvasTab === 'editor'}
+          <div class="canvas-editor">
+            {#if activeArtifact}
+              <div class="canvas-title-row">
+                <input
+                  type="text"
+                  class="canvas-title-input"
+                  bind:value={artifactTitle}
+                  on:input={handleArtifactContentChange}
+                  placeholder="Document title..."
+                />
+                <span class="save-status">
+                  {#if artifactSaving}
+                    Saving...
+                  {:else if artifactDirty}
+                    Unsaved
+                  {:else}
+                    Saved
+                  {/if}
+                </span>
+              </div>
+              <textarea
+                class="canvas-content"
+                bind:value={artifactContent}
+                on:input={handleArtifactContentChange}
+                placeholder="Start writing..."
+              ></textarea>
+              <div class="canvas-actions">
+                <button
+                  class="save-btn"
+                  on:click={saveArtifact}
+                  disabled={artifactSaving || !artifactDirty}
+                >
+                  Save
+                </button>
+              </div>
+            {:else}
+              <div class="canvas-empty">
+                <p>No document open</p>
+                <button class="create-artifact-btn" on:click={createArtifact}>
+                  + New Document
+                </button>
+              </div>
+            {/if}
+          </div>
+        {:else}
+          <div class="canvas-browser">
+            <div class="browser-header">
+              <button class="create-artifact-btn" on:click={createArtifact}>
+                + New Document
+              </button>
+            </div>
+            <div class="artifacts-list">
+              {#if artifacts.length === 0}
+                <div class="no-artifacts">No documents yet</div>
+              {:else}
+                {#each artifacts as artifact}
+                  <div
+                    class="artifact-item"
+                    class:active={activeArtifact?.id === artifact.id}
+                    on:click={() => openCanvas(artifact)}
+                  >
+                    <div class="artifact-title">{artifact.title}</div>
+                    <div class="artifact-preview">{artifact.preview || 'Empty document'}</div>
+                    <div class="artifact-meta">
+                      <span class="artifact-date">
+                        {new Date(artifact.updated_at).toLocaleDateString()}
+                      </span>
+                      <button
+                        class="artifact-delete-btn"
+                        on:click={(e) => deleteArtifact(artifact.id, e)}
+                        title="Delete"
+                      >×</button>
+                    </div>
+                  </div>
+                {/each}
+              {/if}
+            </div>
+          </div>
+        {/if}
+      </aside>
+    {/if}
   </div><!-- /.app-layout -->
 </main>
 
@@ -2169,5 +2406,308 @@
   .random-question-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* Canvas Toggle Button */
+  .canvas-toggle-btn {
+    padding: 0.5rem 1rem;
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #a0a0a0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .canvas-toggle-btn:hover {
+    background: #3a3a3a;
+    color: #e5e5e5;
+  }
+
+  .canvas-toggle-btn.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+  }
+
+  /* Canvas Sidebar */
+  .canvas-sidebar {
+    width: 400px;
+    background: #0a0a0a;
+    border-left: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.2s ease;
+  }
+
+  .canvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .canvas-tabs {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .canvas-tab {
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.375rem;
+    color: #888;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .canvas-tab:hover {
+    background: #1a1a1a;
+    color: #e5e5e5;
+  }
+
+  .canvas-tab.active {
+    background: #1a1a1a;
+    color: #3b82f6;
+  }
+
+  .canvas-close-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #888;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .canvas-close-btn:hover {
+    background: #1a1a1a;
+    color: #e5e5e5;
+  }
+
+  /* Canvas Editor */
+  .canvas-editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  .canvas-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .canvas-title-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .canvas-title-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .save-status {
+    font-size: 0.75rem;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .canvas-content {
+    flex: 1;
+    padding: 0.75rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    resize: none;
+  }
+
+  .canvas-content:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .canvas-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+  }
+
+  .save-btn {
+    padding: 0.5rem 1rem;
+    background: #3b82f6;
+    border: none;
+    border-radius: 0.375rem;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .save-btn:hover:not(:disabled) {
+    background: #2563eb;
+  }
+
+  .save-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .canvas-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+
+  .canvas-empty p {
+    margin-bottom: 1rem;
+  }
+
+  .create-artifact-btn {
+    padding: 0.625rem 1.25rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .create-artifact-btn:hover {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+
+  /* Canvas Browser */
+  .canvas-browser {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .browser-header {
+    padding: 0.75rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .artifacts-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .no-artifacts {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.875rem;
+  }
+
+  .artifact-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 0.25rem;
+  }
+
+  .artifact-item:hover {
+    background: #1a1a1a;
+  }
+
+  .artifact-item.active {
+    background: rgba(59, 130, 246, 0.15);
+  }
+
+  .artifact-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #e5e5e5;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .artifact-preview {
+    font-size: 0.75rem;
+    color: #888;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.25rem;
+  }
+
+  .artifact-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .artifact-date {
+    font-size: 0.6875rem;
+    color: #666;
+  }
+
+  .artifact-delete-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #666;
+    font-size: 0.875rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .artifact-item:hover .artifact-delete-btn {
+    opacity: 1;
+  }
+
+  .artifact-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
   }
 </style>

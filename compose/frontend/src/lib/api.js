@@ -372,6 +372,110 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+	// ============ Artifact Methods ============
+
+	/**
+	 * List all artifacts
+	 * @param {string} conversationId - Optional filter by conversation
+	 * @param {string} projectId - Optional filter by project
+	 * @returns {Promise<{artifacts: Array}>}
+	 */
+	async listArtifacts(conversationId = null, projectId = null) {
+		let url = `${this.baseURL}/artifacts`;
+		const params = new URLSearchParams();
+		if (conversationId) params.append('conversation_id', conversationId);
+		if (projectId) params.append('project_id', projectId);
+		if (params.toString()) url += `?${params.toString()}`;
+
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error(`Failed to list artifacts: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a new artifact
+	 * @param {string} title - Artifact title
+	 * @param {string} content - Artifact content
+	 * @param {string} artifactType - Type (document, code, markdown)
+	 * @param {string} language - Programming language (for code)
+	 * @param {string} conversationId - Associated conversation
+	 * @param {string} projectId - Associated project
+	 * @returns {Promise<Object>}
+	 */
+	async createArtifact(
+		title = 'Untitled',
+		content = '',
+		artifactType = 'document',
+		language = null,
+		conversationId = null,
+		projectId = null
+	) {
+		const res = await fetch(`${this.baseURL}/artifacts`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				title,
+				content,
+				artifact_type: artifactType,
+				language,
+				conversation_id: conversationId,
+				project_id: projectId
+			})
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create artifact: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get an artifact by ID
+	 * @param {string} id - Artifact ID
+	 * @returns {Promise<Object>}
+	 */
+	async getArtifact(id) {
+		const res = await fetch(`${this.baseURL}/artifacts/${id}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get artifact: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update an artifact
+	 * @param {string} id - Artifact ID
+	 * @param {Object} data - Update data (title, content, artifact_type, language)
+	 * @returns {Promise<Object>}
+	 */
+	async updateArtifact(id, data) {
+		const res = await fetch(`${this.baseURL}/artifacts/${id}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update artifact: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete an artifact
+	 * @param {string} id - Artifact ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteArtifact(id) {
+		const res = await fetch(`${this.baseURL}/artifacts/${id}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete artifact: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**
