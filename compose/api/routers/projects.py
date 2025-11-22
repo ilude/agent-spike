@@ -1,8 +1,9 @@
 """Projects REST API router."""
 
+import asyncio
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File, BackgroundTasks
 from pydantic import BaseModel
 
 from compose.services.projects import (
@@ -10,6 +11,11 @@ from compose.services.projects import (
     Project,
     ProjectFile,
     get_project_service,
+)
+from compose.services.file_processor import (
+    process_and_index_file,
+    search_project_files,
+    delete_file_from_index,
 )
 
 router = APIRouter(prefix="/projects", tags=["projects"])
@@ -130,11 +136,59 @@ async def remove_conversation_from_project(project_id: str, conversation_id: str
     return {"status": "removed", "project_id": project_id, "conversation_id": conversation_id}
 
 
+async def process_file_background(
+    project_id: str,
+    file_id: str,
+    file_path: str,
+    filename: str,
+    content_type: str,
+):
+    """Background task to process and index uploaded file."""
+    from pathlib import Path
+
+    service = get_project_service()
+
+    try:
+        result = await process_and_index_file(
+            project_id=project_id,
+            file_id=file_id,
+            file_path=Path(file_path),
+            filename=filename,
+            content_type=content_type,
+        )
+
+        # Update file record with processing status
+        service.mark_file_processed(
+            project_id=project_id,
+            file_id=file_id,
+            qdrant_indexed=result.get("success", False),
+            error=result.get("error"),
+        )
+
+        if result.get("success"):
+            print(f"Indexed file {filename}: {result.get('chunks_indexed')} chunks")
+        else:
+            print(f"Failed to index file {filename}: {result.get('error')}")
+
+    except Exception as e:
+        print(f"Background file processing error: {e}")
+        service.mark_file_processed(
+            project_id=project_id,
+            file_id=file_id,
+            qdrant_indexed=False,
+            error=str(e),
+        )
+
+
 @router.post("/{project_id}/files", response_model=ProjectFile)
-async def upload_file(project_id: str, file: UploadFile = File(...)):
+async def upload_file(
+    project_id: str,
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+):
     """Upload a file to a project.
 
-    The file will be stored and queued for processing (text extraction, RAG indexing).
+    The file will be stored and processed in the background (text extraction, RAG indexing).
     """
     service = get_project_service()
 
@@ -170,8 +224,19 @@ async def upload_file(project_id: str, file: UploadFile = File(...)):
     if not file_record:
         raise HTTPException(status_code=500, detail="Failed to save file")
 
-    # TODO: Queue file for processing (Docling extraction, Qdrant indexing)
-    # This would be an async background task
+    # Get file path for processing
+    file_path = service.get_file_path(project_id, file_record.id)
+
+    # Queue background processing
+    if file_path:
+        background_tasks.add_task(
+            process_file_background,
+            project_id=project_id,
+            file_id=file_record.id,
+            file_path=str(file_path),
+            filename=safe_filename,
+            content_type=file.content_type or "application/octet-stream",
+        )
 
     return file_record
 
@@ -194,11 +259,56 @@ async def get_file_info(project_id: str, file_id: str):
 
 @router.delete("/{project_id}/files/{file_id}")
 async def delete_file(project_id: str, file_id: str):
-    """Delete a file from a project."""
+    """Delete a file from a project and remove from index."""
     service = get_project_service()
     deleted = service.delete_file(project_id, file_id)
 
     if not deleted:
         raise HTTPException(status_code=404, detail="File not found")
 
+    # Remove from Qdrant index
+    delete_file_from_index(project_id, file_id)
+
     return {"status": "deleted", "project_id": project_id, "file_id": file_id}
+
+
+class SearchFilesRequest(BaseModel):
+    """Request to search project files."""
+
+    query: str
+    limit: int = 5
+
+
+class SearchResult(BaseModel):
+    """A single search result."""
+
+    score: float
+    text: str
+    filename: str
+    file_id: str
+    chunk_index: int
+
+
+class SearchFilesResponse(BaseModel):
+    """Search results response."""
+
+    results: list[SearchResult]
+
+
+@router.post("/{project_id}/search", response_model=SearchFilesResponse)
+async def search_files(project_id: str, request: SearchFilesRequest):
+    """Search project files using semantic search."""
+    service = get_project_service()
+
+    # Check project exists
+    project = service.get_project(project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    results = await search_project_files(
+        project_id=project_id,
+        query=request.query,
+        limit=request.limit,
+    )
+
+    return SearchFilesResponse(results=[SearchResult(**r) for r in results])
