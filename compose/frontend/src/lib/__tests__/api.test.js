@@ -116,6 +116,77 @@ describe('MentatAPI', () => {
 		});
 	});
 
+	// ============ Styles API ============
+
+	describe('fetchStyles()', () => {
+		it('should return all writing styles', async () => {
+			const mockStyles = {
+				styles: [
+					{ id: 'default', name: 'Default', description: 'Balanced responses' },
+					{ id: 'concise', name: 'Concise', description: 'Brief responses' }
+				]
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockStyles)
+			});
+
+			const result = await client.fetchStyles();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/styles');
+			expect(result).toEqual(mockStyles);
+		});
+
+		it('should throw on fetch error', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: false,
+				statusText: 'Internal Server Error'
+			});
+
+			await expect(client.fetchStyles()).rejects.toThrow('Failed to fetch styles');
+		});
+	});
+
+	describe('getStyle()', () => {
+		it('should return a specific style', async () => {
+			const mockStyle = {
+				id: 'concise',
+				name: 'Concise',
+				description: 'Brief responses',
+				system_prompt_modifier: 'Be concise'
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockStyle)
+			});
+
+			const result = await client.getStyle('concise');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/styles/concise');
+			expect(result).toEqual(mockStyle);
+		});
+
+		it('should URL-encode style ID', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({})
+			});
+
+			await client.getStyle('style with spaces');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/styles/style%20with%20spaces');
+		});
+
+		it('should throw on 404', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: false,
+				statusText: 'Not Found'
+			});
+
+			await expect(client.getStyle('nonexistent')).rejects.toThrow('Failed to fetch style');
+		});
+	});
+
 	// ============ WebSocket & SSE ============
 
 	describe('connectWebSocket()', () => {

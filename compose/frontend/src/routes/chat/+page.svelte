@@ -42,6 +42,12 @@
   let projectsLoading = true;
   let projectDropdownOpen = false;
 
+  // Style state
+  let styles = [];
+  let selectedStyle = 'default';
+  let stylesLoading = true;
+  let styleDropdownOpen = false;
+
   // Canvas/Artifact state
   let canvasOpen = false;
   let canvasTab = 'editor'; // 'editor' or 'browser'
@@ -316,12 +322,13 @@
     };
     messages = [...messages, userMsg];
 
-    // Send to backend with selected model, conversation ID, and project ID
+    // Send to backend with selected model, conversation ID, project ID, and style
     ws.send(JSON.stringify({
       message: userMessage,
       model: selectedModel,
       conversation_id: activeConversationId,
-      project_id: activeProjectId
+      project_id: activeProjectId,
+      style: selectedStyle
     }));
     isStreaming = true;
     currentResponse = '';
@@ -415,10 +422,13 @@
     connectWebSocket();
   }
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   function handleClickOutside(event) {
     if (modelDropdownOpen && !event.target.closest('.model-dropdown')) {
       modelDropdownOpen = false;
+    }
+    if (styleDropdownOpen && !event.target.closest('.style-dropdown')) {
+      styleDropdownOpen = false;
     }
   }
 
@@ -462,6 +472,35 @@
     } finally {
       projectsLoading = false;
     }
+  }
+
+  async function loadStyles() {
+    try {
+      stylesLoading = true;
+      const response = await api.fetchStyles();
+      styles = response.styles || [];
+      // Load saved style preference
+      const savedStyle = localStorage.getItem('mentat_style');
+      if (savedStyle && styles.some(s => s.id === savedStyle)) {
+        selectedStyle = savedStyle;
+      }
+    } catch (e) {
+      console.error('Failed to load styles:', e);
+      // Use default style list as fallback
+      styles = [
+        { id: 'default', name: 'Default', description: 'Balanced responses' },
+        { id: 'concise', name: 'Concise', description: 'Brief, to-the-point' },
+        { id: 'detailed', name: 'Detailed', description: 'Comprehensive explanations' }
+      ];
+    } finally {
+      stylesLoading = false;
+    }
+  }
+
+  function selectStyle(styleId) {
+    selectedStyle = styleId;
+    localStorage.setItem('mentat_style', styleId);
+    styleDropdownOpen = false;
   }
 
   async function selectProject(id) {
@@ -861,10 +900,11 @@
 
     connectWebSocket();
 
-    // Load projects, conversations, and artifacts
+    // Load projects, conversations, artifacts, and styles
     loadProjects();
     loadConversations();
     loadArtifacts();
+    loadStyles();
 
     // Focus input field after a short delay to ensure it's rendered
     setTimeout(() => {
@@ -1130,6 +1170,34 @@
                 {/each}
               </div>
             {/if}
+          </div>
+        {/if}
+      </div>
+
+      <!-- Style selector dropdown -->
+      <div class="style-dropdown" class:open={styleDropdownOpen}>
+        <button
+          class="style-dropdown-trigger"
+          on:click={() => styleDropdownOpen = !styleDropdownOpen}
+          disabled={stylesLoading || isStreaming}
+          title="Select writing style"
+        >
+          <span class="style-name">{styles.find(s => s.id === selectedStyle)?.name || 'Default'}</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+
+        {#if styleDropdownOpen}
+          <div class="style-dropdown-menu">
+            {#each styles as style}
+              <button
+                class="style-option"
+                class:selected={style.id === selectedStyle}
+                on:click={() => selectStyle(style.id)}
+              >
+                <span class="style-option-name">{style.name}</span>
+                <span class="style-option-desc">{style.description}</span>
+              </button>
+            {/each}
           </div>
         {/if}
       </div>
@@ -1835,6 +1903,102 @@
   .model-option.selected {
     background: rgba(59, 130, 246, 0.2);
     color: #3b82f6;
+  }
+
+  /* Style dropdown (next to model dropdown) */
+  .style-dropdown {
+    position: absolute;
+    top: 0.5rem;
+    left: 220px; /* Position after model dropdown */
+    z-index: 90;
+  }
+
+  .style-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #a0a0a0;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .style-dropdown-trigger:hover:not(:disabled) {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    border-color: #444;
+  }
+
+  .style-dropdown-trigger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .style-name {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .style-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .style-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+    min-width: 220px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0;
+    margin-top: 0.25rem;
+  }
+
+  .style-option {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .style-option:hover {
+    background: #2a2a2a;
+  }
+
+  .style-option.selected {
+    background: rgba(59, 130, 246, 0.2);
+  }
+
+  .style-option-name {
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .style-option.selected .style-option-name {
+    color: #3b82f6;
+  }
+
+  .style-option-desc {
+    color: #666;
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
   }
 
   /* Secondary button base style (RAG, Clear, Random) */

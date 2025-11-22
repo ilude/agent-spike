@@ -14,6 +14,7 @@ from qdrant_client import QdrantClient
 
 from compose.services.conversations import get_conversation_service
 from compose.services.projects import get_project_service
+from compose.services.styles import get_styles_service
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -285,6 +286,7 @@ async def websocket_chat(websocket: WebSocket):
 
     conversation_service = get_conversation_service()
     project_service = get_project_service()
+    styles_service = get_styles_service()
 
     try:
         while True:
@@ -294,6 +296,7 @@ async def websocket_chat(websocket: WebSocket):
             model = request.get("model", "moonshotai/kimi-k2:free")
             conversation_id = request.get("conversation_id")
             project_id = request.get("project_id")
+            style_id = request.get("style", "default")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -308,12 +311,21 @@ async def websocket_chat(websocket: WebSocket):
                 conversation_service.add_message(conversation_id, "user", message)
 
             try:
+                # Build system message from project instructions and style
+                system_parts = []
+
+                # Apply style modifier (if not default)
+                style_modifier = styles_service.get_system_prompt_modifier(style_id)
+                if style_modifier:
+                    system_parts.append(style_modifier)
+
                 # Get project custom instructions if project_id provided
-                system_message = None
                 if project_id:
                     project = project_service.get_project(project_id)
                     if project and project.custom_instructions:
-                        system_message = project.custom_instructions
+                        system_parts.append(project.custom_instructions)
+
+                system_message = "\n\n".join(system_parts) if system_parts else None
 
                 # Route to Ollama or OpenRouter
                 if model.startswith("ollama:"):
@@ -382,6 +394,7 @@ async def websocket_rag_chat(websocket: WebSocket):
 
     conversation_service = get_conversation_service()
     project_service = get_project_service()
+    styles_service = get_styles_service()
 
     try:
         while True:
@@ -391,6 +404,7 @@ async def websocket_rag_chat(websocket: WebSocket):
             model = request.get("model", "moonshotai/kimi-k2:free")
             conversation_id = request.get("conversation_id")
             project_id = request.get("project_id")
+            style_id = request.get("style", "default")
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -400,12 +414,21 @@ async def websocket_rag_chat(websocket: WebSocket):
             if conversation_id:
                 conversation_service.add_message(conversation_id, "user", message)
 
+            # Build custom instructions from project and style
+            custom_parts = []
+
+            # Apply style modifier (if not default)
+            style_modifier = styles_service.get_system_prompt_modifier(style_id)
+            if style_modifier:
+                custom_parts.append(style_modifier)
+
             # Get project custom instructions if project_id provided
-            custom_instructions = None
             if project_id:
                 project = project_service.get_project(project_id)
                 if project and project.custom_instructions:
-                    custom_instructions = project.custom_instructions
+                    custom_parts.append(project.custom_instructions)
+
+            custom_instructions = "\n\n".join(custom_parts) if custom_parts else None
 
             try:
                 # Try RAG search, but gracefully fall back if it fails

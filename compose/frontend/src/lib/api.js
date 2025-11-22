@@ -49,6 +49,33 @@ export class MentatAPI {
 		return res.json();
 	}
 
+	// ============ Styles API ============
+
+	/**
+	 * Fetch all available writing styles
+	 * @returns {Promise<{styles: Array}>}
+	 */
+	async fetchStyles() {
+		const res = await fetch(`${this.baseURL}/styles`);
+		if (!res.ok) {
+			throw new Error(`Failed to fetch styles: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a specific writing style by ID
+	 * @param {string} styleId - Style identifier (e.g., 'concise', 'detailed')
+	 * @returns {Promise<Object>}
+	 */
+	async getStyle(styleId) {
+		const res = await fetch(`${this.baseURL}/styles/${encodeURIComponent(styleId)}`);
+		if (!res.ok) {
+			throw new Error(`Failed to fetch style: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
 	/**
 	 * Create WebSocket connection for chat
 	 * @param {boolean} useRAG - Whether to use RAG endpoint

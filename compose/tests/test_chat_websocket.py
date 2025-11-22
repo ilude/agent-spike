@@ -568,3 +568,146 @@ class TestEmbedding:
 
         with pytest.raises(Exception):
             await chat.get_embedding("test text")
+
+
+# ============ Style Injection Tests ============
+
+
+class TestStyleInjection:
+    """Tests for writing style injection in chat."""
+
+    def setup_method(self):
+        """Reset clients before each test."""
+        chat.reset_clients()
+
+    def test_websocket_chat_applies_style(self, client):
+        """WebSocket chat should apply style modifier to system message."""
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            # Capture the messages passed to the LLM
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                with patch.object(chat, "get_project_service") as mock_proj_svc:
+                    mock_conv_svc.return_value = MagicMock()
+                    mock_proj_svc.return_value = MagicMock()
+                    mock_proj_svc.return_value.get_project.return_value = None
+
+                    with client.websocket_connect("/chat/ws/chat") as websocket:
+                        websocket.send_text(json.dumps({
+                            "message": "Hello",
+                            "model": "test-model",
+                            "style": "concise"  # Apply concise style
+                        }))
+
+                        # Get done response
+                        response = websocket.receive_json()
+                        assert response["type"] == "done"
+
+        # Check that style modifier was applied
+        assert len(captured_messages) >= 1
+        system_msg = next((m for m in captured_messages if m.get("role") == "system"), None)
+        assert system_msg is not None
+        assert "STYLE INSTRUCTION" in system_msg["content"]
+        assert "concise" in system_msg["content"].lower()
+
+    def test_websocket_chat_no_style_modifier_for_default(self, client):
+        """WebSocket chat should not add system message for default style."""
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                with patch.object(chat, "get_project_service") as mock_proj_svc:
+                    mock_conv_svc.return_value = MagicMock()
+                    mock_proj_svc.return_value = MagicMock()
+                    mock_proj_svc.return_value.get_project.return_value = None
+
+                    with client.websocket_connect("/chat/ws/chat") as websocket:
+                        websocket.send_text(json.dumps({
+                            "message": "Hello",
+                            "model": "test-model",
+                            "style": "default"
+                        }))
+
+                        response = websocket.receive_json()
+                        assert response["type"] == "done"
+
+        # Check no system message was added (default style has no modifier)
+        system_msgs = [m for m in captured_messages if m.get("role") == "system"]
+        assert len(system_msgs) == 0
+
+    def test_websocket_rag_chat_applies_style(self, client):
+        """WebSocket RAG chat should include style in augmented prompt."""
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            # Mock embedding to fail so we use fallback path (simpler to test)
+            with patch.object(chat, "get_embedding", side_effect=Exception("Fail")):
+                with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                    with patch.object(chat, "get_project_service") as mock_proj_svc:
+                        mock_conv_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value.get_project.return_value = None
+
+                        with client.websocket_connect("/chat/ws/rag-chat") as websocket:
+                            websocket.send_text(json.dumps({
+                                "message": "Hello",
+                                "model": "test-model",
+                                "style": "technical"
+                            }))
+
+                            response = websocket.receive_json()
+                            assert response["type"] == "done"
+
+        # Check that style modifier appears in the prompt
+        assert len(captured_messages) >= 1
+        user_msg = captured_messages[0]  # RAG puts everything in user message
+        assert "STYLE INSTRUCTION" in user_msg["content"]
+        assert "technical" in user_msg["content"].lower()
