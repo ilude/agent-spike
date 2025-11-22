@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts
 
 # Create FastAPI app
 app = FastAPI(
@@ -38,6 +38,7 @@ app.include_router(stats.router, tags=["stats"])
 app.include_router(ingest.router, tags=["ingest"])
 app.include_router(conversations.router, tags=["conversations"])
 app.include_router(projects.router, tags=["projects"])
+app.include_router(artifacts.router, tags=["artifacts"])
 
 
 @app.get("/")
@@ -65,5 +66,8 @@ async def root():
             "projects_create": "POST /projects",
             "projects_get": "GET /projects/{id}",
             "projects_files": "POST /projects/{id}/files",
+            "artifacts_list": "GET /artifacts",
+            "artifacts_create": "POST /artifacts",
+            "artifacts_get": "GET /artifacts/{id}",
         },
     }
