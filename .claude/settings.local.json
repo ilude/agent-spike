@@ -14,7 +14,9 @@
       "Bash(git-crypt status:*)",
       "Bash(curl:*)",
       "Bash(docker logs:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(sed:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": [],

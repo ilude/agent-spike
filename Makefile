@@ -241,3 +241,22 @@ publish: bump-patch
 
 brave-sync:
 	@uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
+
+# GPU Server Management (Ansible)
+.PHONY: gpu-deploy gpu-update gpu-backup gpu-shell
+
+gpu-deploy:
+	@echo "Deploying AI services to GPU server..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy.yml
+
+gpu-update:
+	@echo "Updating AI services on GPU server (pull + restart)..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/update.yml
+
+gpu-backup:
+	@echo "Backing up current GPU server config..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/backup.yml
+
+gpu-shell:
+	@echo "Opening Ansible shell for manual commands..."
+	@cd infra/ansible && docker compose run --rm ansible bash
