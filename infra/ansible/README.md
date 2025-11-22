@@ -50,6 +50,15 @@ Edit `inventory/hosts.yml` to update:
 3. **Deploy**: Run `make gpu-deploy` to push changes and restart services
 4. **Updates**: Run `make gpu-update` to pull latest images without file changes
 
+## Secrets Management
+
+The deploy playbook copies the root `.env` (git-crypt encrypted) to the remote server.
+This allows `docker-compose.yml` to use environment variables like `${NEO4J_AUTH}` instead of hardcoded secrets.
+
+- Root `.env` is the source of truth for all secrets
+- Remote `.env` is deployed with `600` permissions (owner read-only)
+- Add new secrets to root `.env`, reference them in `docker-compose.yml`
+
 ## Requirements
 
 - Docker (for running the Ansible container)
