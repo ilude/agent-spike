@@ -6,7 +6,7 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama
+      - ./data/ollama:/root/.ollama
     deploy:
       resources:
         reservations:
@@ -17,18 +17,6 @@ services:
     environment:
       - OLLAMA_HOST=0.0.0.0
 
-  qdrant:
-    image: qdrant/qdrant:latest
-    container_name: qdrant
-    restart: unless-stopped
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_data:/qdrant/storage
-    environment:
-      - QDRANT__SERVICE__GRPC_PORT=6334
-
   infinity:
     image: michaelf34/infinity:latest
     container_name: infinity
@@ -37,7 +25,7 @@ services:
     ports:
       - "7997:7997"
     volumes:
-      - infinity_models:/app/.cache
+      - ./data/infinity:/app/.cache
     deploy:
       resources:
         reservations:
@@ -76,7 +64,7 @@ services:
     ports:
       - "5678:5678"
     volumes:
-      - n8n_data:/home/node/.n8n
+      - ./data/n8n:/home/node/.n8n
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
@@ -87,17 +75,43 @@ services:
       - N8N_PROTOCOL=http
       - NODE_ENV=production
 
-  neo4j:
-    image: neo4j:5-community
-    container_name: neo4j
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb
     restart: unless-stopped
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "8080:8000"  # External 8080 to avoid conflict with whisper on 8000
     volumes:
-      - neo4j_data:/data
+      - ./data/surrealdb:/data
+    command: start --user root --pass ${SURREALDB_PASSWORD} file:/data/database.db
     environment:
-      - NEO4J_AUTH=${NEO4J_AUTH}
+      - SURREAL_CAPS_ALLOW_ALL=true
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data/minio:/data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
+    command: server /data --console-address ":9001"
+
+  # neo4j:
+  #   image: neo4j:5-community
+  #   container_name: neo4j
+  #   restart: unless-stopped
+  #   ports:
+  #     - "7474:7474"
+  #     - "7687:7687"
+  #   volumes:
+  #     - ./data/neo4j:/data
+  #   environment:
+  #     - NEO4J_AUTH=${NEO4J_AUTH}
 
   whisper:
     image: fedirz/faster-whisper-server:latest-cuda
@@ -106,7 +120,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - whisper_models:/root/.cache/huggingface
+      - ./data/whisper:/root/.cache/huggingface
     deploy:
       resources:
         reservations:
@@ -117,16 +131,11 @@ services:
     environment:
       - WHISPER__MODEL=Systran/faster-whisper-large-v3-turbo
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 120s
 
-volumes:
-  ollama_data:
-  qdrant_data:
-  infinity_models:
-  n8n_data:
-  neo4j_data:
-  whisper_models:
+# All data stored in ./data/ bind mounts for durability
+# Run migrate-volumes.sh to copy existing named volume data before first deploy
