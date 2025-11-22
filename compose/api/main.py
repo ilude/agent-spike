@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import health, youtube, cache, chat, stats, ingest
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations
 
 # Create FastAPI app
 app = FastAPI(
@@ -36,6 +36,7 @@ app.include_router(cache.router, prefix="/cache", tags=["cache"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
 app.include_router(stats.router, tags=["stats"])
 app.include_router(ingest.router, tags=["ingest"])
+app.include_router(conversations.router, tags=["conversations"])
 
 
 @app.get("/")
@@ -55,5 +56,9 @@ async def root():
             "chat_rag_ws": "WS /chat/ws/rag-chat",
             "ingest": "POST /ingest",
             "ingest_detect": "GET /ingest/detect",
+            "conversations_list": "GET /conversations",
+            "conversations_create": "POST /conversations",
+            "conversations_get": "GET /conversations/{id}",
+            "conversations_search": "GET /conversations/search?q=",
         },
     }
