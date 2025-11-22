@@ -1,0 +1,61 @@
+# Backup current GPU server compose stack to local files/
+# Run this ONCE to capture existing configuration before making changes
+#
+# Usage: ansible-playbook playbooks/backup.yml
+
+---
+- name: Backup GPU server compose configuration
+  hosts: gpu_servers
+  gather_facts: false
+
+  tasks:
+    - name: Check if old compose directory exists
+      ansible.builtin.stat:
+        path: "{{ old_compose_dir }}"
+      register: old_dir
+
+    - name: Check if new compose directory exists
+      ansible.builtin.stat:
+        path: "{{ compose_dir }}"
+      register: new_dir
+
+    - name: Set source directory (prefer new, fall back to old)
+      ansible.builtin.set_fact:
+        source_dir: "{{ compose_dir if new_dir.stat.exists else old_compose_dir }}"
+
+    - name: Verify source directory exists
+      ansible.builtin.fail:
+        msg: "Neither {{ compose_dir }} nor {{ old_compose_dir }} exists on remote"
+      when: not new_dir.stat.exists and not old_dir.stat.exists
+
+    - name: Find all files in compose directory
+      ansible.builtin.find:
+        paths: "{{ source_dir }}"
+        patterns: "*"
+        file_type: file
+        recurse: false
+      register: compose_files
+
+    - name: Display files to backup
+      ansible.builtin.debug:
+        msg: "Found {{ compose_files.files | length }} files in {{ source_dir }}"
+
+    - name: Fetch compose files to local
+      ansible.builtin.fetch:
+        src: "{{ item.path }}"
+        dest: "/ansible/files/ai-services/"
+        flat: true
+      loop: "{{ compose_files.files }}"
+      loop_control:
+        label: "{{ item.path | basename }}"
+
+    - name: Backup complete
+      ansible.builtin.debug:
+        msg: |
+          Backup complete!
+          Files saved to: files/ai-services/
+          Source directory: {{ source_dir }}
+
+          Next steps:
+          1. Review the backed up files
+          2. Run 'ansible-playbook playbooks/deploy.yml' to deploy changes

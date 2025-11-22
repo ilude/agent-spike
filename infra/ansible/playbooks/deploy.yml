@@ -1,0 +1,85 @@
+# Deploy compose stack to GPU server
+# Syncs local files/ to remote and runs docker compose up
+#
+# Usage: ansible-playbook playbooks/deploy.yml
+
+---
+- name: Deploy AI services to GPU server
+  hosts: gpu_servers
+  gather_facts: false
+
+  tasks:
+    - name: Ensure compose directory exists
+      ansible.builtin.file:
+        path: "{{ compose_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Check if old directory exists (for migration)
+      ansible.builtin.stat:
+        path: "{{ old_compose_dir }}"
+      register: old_dir
+
+    - name: Migrate from old directory if needed
+      when: old_dir.stat.exists
+      block:
+        - name: Stop services in old directory
+          community.docker.docker_compose_v2:
+            project_src: "{{ old_compose_dir }}"
+            state: absent
+          ignore_errors: true
+
+        - name: Move old directory contents to new location
+          ansible.builtin.shell: |
+            mv {{ old_compose_dir }}/* {{ compose_dir }}/ 2>/dev/null || true
+            rmdir {{ old_compose_dir }} 2>/dev/null || true
+          args:
+            removes: "{{ old_compose_dir }}"
+
+        - name: Migration notice
+          ansible.builtin.debug:
+            msg: "Migrated from {{ old_compose_dir }} to {{ compose_dir }}"
+
+    - name: Sync compose files to remote
+      ansible.builtin.copy:
+        src: "../files/ai-services/"
+        dest: "{{ compose_dir }}/"
+        mode: "0644"
+      register: sync_result
+
+    - name: Copy root .env to remote (secrets)
+      ansible.builtin.copy:
+        src: "/project/.env"
+        dest: "{{ compose_dir }}/.env"
+        mode: "0600"
+      register: env_result
+
+    - name: Pull latest images
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_dir }}"
+        pull: always
+        state: present
+      register: pull_result
+
+    - name: Start services
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_dir }}"
+        state: present
+      register: compose_result
+
+    - name: Show running containers
+      community.docker.docker_container_info:
+        name: "{{ item }}"
+      loop: "{{ compose_result.containers | default([]) | map(attribute='Name') | list }}"
+      register: container_info
+      ignore_errors: true
+
+    - name: Deployment summary
+      ansible.builtin.debug:
+        msg: |
+          Deployment complete!
+          Target: {{ compose_dir }}
+          Files synced: {{ sync_result.changed }}
+
+          Running containers:
+          {{ compose_result.containers | default([]) | map(attribute='Name') | join('\n') }}

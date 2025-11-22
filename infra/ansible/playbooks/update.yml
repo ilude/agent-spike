@@ -1,0 +1,43 @@
+# Quick update - pull latest images and restart services
+# Does NOT sync files (use deploy.yml for that)
+#
+# Usage: ansible-playbook playbooks/update.yml
+
+---
+- name: Update AI services on GPU server
+  hosts: gpu_servers
+  gather_facts: false
+
+  tasks:
+    - name: Verify compose directory exists
+      ansible.builtin.stat:
+        path: "{{ compose_dir }}"
+      register: compose_stat
+
+    - name: Fail if compose directory missing
+      ansible.builtin.fail:
+        msg: "Compose directory {{ compose_dir }} does not exist. Run deploy.yml first."
+      when: not compose_stat.stat.exists
+
+    - name: Pull latest images
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_dir }}"
+        pull: always
+        state: present
+      register: pull_result
+
+    - name: Restart services with new images
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_dir }}"
+        state: present
+        recreate: always
+      register: compose_result
+
+    - name: Update summary
+      ansible.builtin.debug:
+        msg: |
+          Update complete!
+          Target: {{ compose_dir }}
+
+          Containers restarted:
+          {{ compose_result.containers | default([]) | map(attribute='Name') | join('\n') }}
