@@ -315,6 +315,47 @@
             <div class="no-activity">No recent activity</div>
           {/if}
         </div>
+
+        <!-- Proxy Usage -->
+        <div class="stat-card proxy">
+          <h3>Proxy Usage</h3>
+          {#if stats.webshare?.status === 'ok'}
+            <div class="proxy-usage">
+              <div class="proxy-value">
+                <span class="proxy-used">{stats.webshare.used_gb.toFixed(2)}</span>
+                <span class="proxy-unit">GB</span>
+                {#if !stats.webshare.is_unlimited}
+                  <span class="proxy-total">/ {stats.webshare.total_gb} GB</span>
+                {:else}
+                  <span class="proxy-unlimited">unlimited</span>
+                {/if}
+              </div>
+              {#if !stats.webshare.is_unlimited}
+                <div class="proxy-bar">
+                  <div
+                    class="proxy-bar-fill"
+                    class:warning={stats.webshare.percent_used > 75}
+                    class:danger={stats.webshare.percent_used > 90}
+                    style="width: {Math.min(stats.webshare.percent_used, 100)}%"
+                  ></div>
+                </div>
+                <div class="proxy-details">
+                  <span>{stats.webshare.percent_used}% used</span>
+                  <span>{stats.webshare.remaining_gb.toFixed(2)} GB remaining</span>
+                </div>
+              {/if}
+              {#if stats.webshare.billing_period_start}
+                <div class="proxy-period">Since {stats.webshare.billing_period_start}</div>
+              {/if}
+            </div>
+          {:else if stats.webshare?.status === 'unavailable'}
+            <div class="proxy-unavailable">Not configured</div>
+          {:else if stats.webshare?.status === 'error'}
+            <div class="proxy-error">{stats.webshare.message}</div>
+          {:else}
+            <div class="proxy-loading">Loading...</div>
+          {/if}
+        </div>
       </div>
 
       <div class="timestamp">
@@ -937,5 +978,92 @@
   .result-message {
     font-size: 0.875rem;
     color: #e5e5e5;
+  }
+
+  /* Proxy Usage Card */
+  .proxy-usage {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .proxy-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .proxy-used {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .proxy-unit {
+    font-size: 1rem;
+    color: #888;
+  }
+
+  .proxy-total {
+    font-size: 1rem;
+    color: #666;
+    margin-left: 0.25rem;
+  }
+
+  .proxy-unlimited {
+    font-size: 0.75rem;
+    color: #10b981;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.375rem;
+    background: rgba(16, 185, 129, 0.15);
+    border-radius: 0.25rem;
+  }
+
+  .proxy-bar {
+    height: 8px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .proxy-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    transition: width 0.3s ease;
+  }
+
+  .proxy-bar-fill.warning {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  }
+
+  .proxy-bar-fill.danger {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+  }
+
+  .proxy-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .proxy-period {
+    font-size: 0.75rem;
+    color: #666;
+    padding-top: 0.5rem;
+    border-top: 1px solid #2a2a2a;
+  }
+
+  .proxy-unavailable,
+  .proxy-loading {
+    color: #666;
+    font-size: 0.875rem;
+  }
+
+  .proxy-error {
+    color: #f87171;
+    font-size: 0.75rem;
   }
 </style>

@@ -12,30 +12,56 @@ from openai import AsyncOpenAI
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 
-# Initialize clients
+# Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
-# OpenRouter client for chat
-openrouter_client = AsyncOpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=OPENROUTER_API_KEY,
-) if OPENROUTER_API_KEY else None
-
-# Ollama client (local LLM server)
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
-ollama_client = AsyncOpenAI(
-    base_url=f"{OLLAMA_URL}/v1",
-    api_key="ollama",  # Ollama doesn't need a real key
-)
-
-# Infinity embedding service (gte-large-en-v1.5, 1024-dim)
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
-
-# Qdrant client - use port 6335 (mapped from container's 6333)
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
-qdrant_client = QdrantClient(url=QDRANT_URL)
 COLLECTION_NAME = os.getenv("QDRANT_COLLECTION", "content")
+
+# Lazy-initialized clients (no network calls at import time)
+_openrouter_client: AsyncOpenAI | None = None
+_ollama_client: AsyncOpenAI | None = None
+_qdrant_client: QdrantClient | None = None
+
+
+def get_openrouter_client() -> AsyncOpenAI | None:
+    """Get OpenRouter client, creating it on first use."""
+    global _openrouter_client
+    if _openrouter_client is None and OPENROUTER_API_KEY:
+        _openrouter_client = AsyncOpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=OPENROUTER_API_KEY,
+        )
+    return _openrouter_client
+
+
+def get_ollama_client() -> AsyncOpenAI:
+    """Get Ollama client, creating it on first use."""
+    global _ollama_client
+    if _ollama_client is None:
+        _ollama_client = AsyncOpenAI(
+            base_url=f"{OLLAMA_URL}/v1",
+            api_key="ollama",  # Ollama doesn't need a real key
+        )
+    return _ollama_client
+
+
+def get_qdrant_client() -> QdrantClient:
+    """Get Qdrant client, creating it on first use."""
+    global _qdrant_client
+    if _qdrant_client is None:
+        _qdrant_client = QdrantClient(url=QDRANT_URL)
+    return _qdrant_client
+
+
+def reset_clients() -> None:
+    """Reset all clients to None. For testing only."""
+    global _openrouter_client, _ollama_client, _qdrant_client
+    _openrouter_client = None
+    _ollama_client = None
+    _qdrant_client = None
 
 
 async def get_embedding(text: str) -> list[float]:
@@ -165,14 +191,15 @@ def _fallback_models() -> dict[str, Any]:
 async def get_random_question():
     """Generate a random question based on indexed video content."""
     try:
-        collection_info = qdrant_client.get_collection(COLLECTION_NAME)
+        qdrant = get_qdrant_client()
+        collection_info = qdrant.get_collection(COLLECTION_NAME)
         points_count = collection_info.points_count
 
         if points_count == 0:
             return {"question": "What are the best practices for building AI agents?"}
 
         random_offset = random.randint(0, max(0, points_count - 10))
-        scroll_result = qdrant_client.scroll(
+        scroll_result = qdrant.scroll(
             collection_name=COLLECTION_NAME,
             limit=10,
             offset=random_offset,
@@ -247,7 +274,8 @@ async def websocket_chat(websocket: WebSocket):
     await websocket.accept()
     print(f"Chat WebSocket connected: {websocket.client}")
 
-    if not openrouter_client:
+    openrouter = get_openrouter_client()
+    if not openrouter:
         await websocket.send_json({"type": "error", "content": "OpenRouter API key not configured"})
         await websocket.close()
         return
@@ -271,10 +299,10 @@ async def websocket_chat(websocket: WebSocket):
                 # Route to Ollama or OpenRouter
                 if model.startswith("ollama:"):
                     ollama_model = model.replace("ollama:", "")
-                    client = ollama_client
+                    client = get_ollama_client()
                     actual_model = ollama_model
                 else:
-                    client = openrouter_client
+                    client = openrouter
                     actual_model = model
 
                 stream = await client.chat.completions.create(
@@ -312,7 +340,8 @@ async def websocket_rag_chat(websocket: WebSocket):
     await websocket.accept()
     print(f"RAG WebSocket connected: {websocket.client}")
 
-    if not openrouter_client:
+    openrouter = get_openrouter_client()
+    if not openrouter:
         await websocket.send_json({"type": "error", "content": "API keys not configured"})
         await websocket.close()
         return
@@ -339,7 +368,8 @@ async def websocket_rag_chat(websocket: WebSocket):
                     query_vector = await get_embedding(message)
 
                     # Step 2: Search Qdrant
-                    search_results = qdrant_client.query_points(
+                    qdrant = get_qdrant_client()
+                    search_results = qdrant.query_points(
                         collection_name=COLLECTION_NAME,
                         query=query_vector,
                         limit=5,
@@ -424,11 +454,11 @@ Respond helpfully and concisely."""
                 if model.startswith("ollama:"):
                     # Use local Ollama server
                     ollama_model = model.replace("ollama:", "")
-                    client = ollama_client
+                    client = get_ollama_client()
                     actual_model = ollama_model
                 else:
                     # Use OpenRouter
-                    client = openrouter_client
+                    client = openrouter
                     actual_model = model
 
                 stream = await client.chat.completions.create(

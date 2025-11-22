@@ -15,6 +15,7 @@ router = APIRouter(tags=["stats"])
 
 # Configuration
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
+WEBSHARE_API_TOKEN = os.getenv("WEBSHARE_API_TOKEN", "")
 QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "content")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 
@@ -133,6 +134,81 @@ def get_archive_stats() -> dict:
         "total_videos": total,
         "by_month": dict(sorted(by_month.items(), reverse=True)),
     }
+
+
+async def get_webshare_stats() -> dict:
+    """Get Webshare proxy bandwidth usage stats."""
+    if not WEBSHARE_API_TOKEN:
+        return {"status": "unavailable", "message": "API token not configured"}
+
+    headers = {"Authorization": f"Token {WEBSHARE_API_TOKEN}"}
+    base_url = "https://proxy.webshare.io/api/v2"
+
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            # Get subscription info for billing period
+            sub_resp = await client.get(f"{base_url}/subscription/", headers=headers)
+            if sub_resp.status_code != 200:
+                return {"status": "error", "message": f"Subscription API error: {sub_resp.status_code}"}
+            sub_data = sub_resp.json()
+
+            # Get plan info for bandwidth limit
+            plan_resp = await client.get(f"{base_url}/subscription/plan/", headers=headers)
+            if plan_resp.status_code != 200:
+                return {"status": "error", "message": f"Plan API error: {plan_resp.status_code}"}
+            plan_data = plan_resp.json()
+
+            # Get bandwidth limit (0 means unlimited)
+            bandwidth_limit_gb = plan_data.get("bandwidth_limit", 0)
+            is_unlimited = bandwidth_limit_gb == 0
+
+            # Get billing period start date
+            start_date = sub_data.get("start_date", "")
+            if start_date:
+                # Format: 2024-01-15T00:00:00Z -> use for aggregate query
+                start_timestamp = start_date
+            else:
+                # Fallback: use 30 days ago
+                from datetime import timedelta
+                start_dt = datetime.now(timezone.utc) - timedelta(days=30)
+                start_timestamp = start_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+            # Get current timestamp for end of range
+            now_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+            # Get aggregate bandwidth stats for billing period
+            stats_url = f"{base_url}/stats/aggregate/"
+            stats_params = {
+                "timestamp__gte": start_timestamp,
+                "timestamp__lte": now_timestamp,
+            }
+            stats_resp = await client.get(stats_url, headers=headers, params=stats_params)
+            if stats_resp.status_code != 200:
+                return {"status": "error", "message": f"Stats API error: {stats_resp.status_code}"}
+            stats_data = stats_resp.json()
+
+            # bandwidth_total is in bytes, convert to GB
+            bandwidth_bytes = stats_data.get("bandwidth_total", 0)
+            used_gb = bandwidth_bytes / (1024**3)
+
+            result = {
+                "status": "ok",
+                "used_gb": round(used_gb, 3),
+                "is_unlimited": is_unlimited,
+                "billing_period_start": start_date[:10] if start_date else None,
+            }
+
+            if not is_unlimited:
+                result["total_gb"] = bandwidth_limit_gb
+                result["remaining_gb"] = round(bandwidth_limit_gb - used_gb, 3)
+                result["percent_used"] = round((used_gb / bandwidth_limit_gb) * 100, 1) if bandwidth_limit_gb > 0 else 0
+
+            return result
+
+    except httpx.TimeoutException:
+        return {"status": "error", "message": "Webshare API timeout"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 
 def is_local_url(url: str) -> bool:
@@ -257,6 +333,7 @@ async def generate_stats():
                 "archive": get_archive_stats(),
                 "health": await get_service_health(),
                 "recent_activity": get_recent_activity(),
+                "webshare": await get_webshare_stats(),
             }
             yield f"data: {json.dumps(stats)}\n\n"
         except Exception as e:
@@ -276,6 +353,7 @@ async def get_stats():
         "archive": get_archive_stats(),
         "health": await get_service_health(),
         "recent_activity": get_recent_activity(),
+        "webshare": await get_webshare_stats(),
     }
 
 

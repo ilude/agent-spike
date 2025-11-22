@@ -28,17 +28,30 @@ COLLECTION_NAME = os.getenv("COLLECTION_NAME", "content")
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))
 WORKER_POOL_SIZE = int(os.getenv("WORKER_POOL_SIZE", "3"))
 
-# Paths (mounted volumes)
-QUEUE_BASE = Path("/app/data/queues")
-ARCHIVE_BASE = Path("/app/data/archive")
+# Paths - configurable via environment, with sensible defaults for Docker and local dev
+def _get_data_base() -> Path:
+    """Get base data directory from environment or detect from project structure."""
+    env_path = os.getenv("DATA_BASE_DIR")
+    if env_path:
+        return Path(env_path)
+    # Docker default
+    if Path("/app/data").exists():
+        return Path("/app/data")
+    # Local development - find compose/data relative to this file
+    this_file = Path(__file__).resolve()
+    compose_data = this_file.parent.parent / "data"
+    if compose_data.exists():
+        return compose_data
+    # Fallback to current directory
+    return Path.cwd() / "data"
+
+DATA_BASE = _get_data_base()
+QUEUE_BASE = DATA_BASE / "queues"
+ARCHIVE_BASE = DATA_BASE / "archive"
 PENDING_DIR = QUEUE_BASE / "pending"
 PROCESSING_DIR = QUEUE_BASE / "processing"
 COMPLETED_DIR = QUEUE_BASE / "completed"
 PROGRESS_FILE = QUEUE_BASE / ".progress.json"
-
-# Add project paths
-sys.path.insert(0, "/app/src")
-sys.path.insert(0, "/app/src/lessons/lesson-001")
 
 from compose.services.youtube import get_transcript, extract_video_id, fetch_video_metadata
 from compose.services.cache import create_qdrant_cache
@@ -91,7 +104,7 @@ async def clear_progress(worker_id: str):
 async def ingest_video(
     url: str,
     archive_manager,
-    source_type: str = "queue_import",
+    source_type: str = "single_import",
     channel_id: str = None,
     channel_name: str = None,
 ) -> tuple[bool, str]:
@@ -99,6 +112,9 @@ async def ingest_video(
 
     Simplified version - skips LLM tagging for speed.
     Tags can be regenerated later from archive.
+
+    Args:
+        source_type: Must be one of: single_import, repl_import, bulk_channel, bulk_multi_channel
     """
     cache = None
     try:
@@ -127,9 +143,10 @@ async def ingest_video(
             log(f"  [WARN] Metadata fetch failed: {metadata_error}")
             youtube_metadata = {}
 
-        # Archive transcript
+        # Archive transcript - weights per import source type
         weight_map = {
-            "queue_import": 0.8,
+            "single_import": 1.0,
+            "repl_import": 1.0,
             "bulk_channel": 0.5,
             "bulk_multi_channel": 0.2,
         }
