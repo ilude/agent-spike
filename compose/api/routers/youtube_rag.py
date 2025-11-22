@@ -1,20 +1,19 @@
 """YouTube RAG router for semantic search and query answering.
 
 Provides REST endpoints for:
-1. Semantic search over YouTube transcripts (via Qdrant)
+1. Semantic search over YouTube transcripts (via SurrealDB)
 2. Query answering using retrieved context (RAG pattern)
 """
 
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException
 
-from compose.services.cache import create_qdrant_cache
+from compose.services.surrealdb import semantic_search
 
 router = APIRouter()
 
 # Configuration
-COLLECTION_NAME = "content"
-QDRANT_URL = "http://localhost:6335"
+SURREALDB_URL = "http://localhost:8000"
 INFINITY_URL = "http://localhost:7997"
 
 

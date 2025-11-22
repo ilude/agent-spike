@@ -13,8 +13,8 @@ from pydantic import BaseModel
 router = APIRouter(tags=["ingest"])
 
 # Configuration
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
-QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "content")
+SURREALDB_URL = os.getenv("SURREALDB_URL", "http://localhost:8000")
+MINIO_URL = os.getenv("MINIO_URL", "http://localhost:9000")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 QUEUE_BASE = Path(os.getenv("QUEUE_BASE", "/app/src/compose/data/queues"))
 ARCHIVE_BASE = Path(os.getenv("ARCHIVE_BASE", "/app/src/compose/data/archive"))
@@ -83,25 +83,20 @@ def extract_video_id(url: str) -> str:
 async def ingest_video(url: str) -> IngestResponse:
     """Ingest a single YouTube video immediately."""
     from compose.services.youtube import get_transcript, extract_video_id as yt_extract
-    from compose.services.cache import create_qdrant_cache
+    from compose.services.surrealdb import get_video, upsert_video
+    from compose.services.surrealdb import VideoRecord
     from compose.services.archive import (
         create_local_archive_writer,
         ImportMetadata,
         ChannelContext,
     )
 
-    cache = None
     try:
-        cache = create_qdrant_cache(
-            collection_name=QDRANT_COLLECTION,
-            qdrant_url=QDRANT_URL,
-            infinity_url=INFINITY_URL,
-        )
-
         video_id = yt_extract(url)
-        cache_key = f"youtube:video:{video_id}"
 
-        if cache.exists(cache_key):
+        # Check if already in SurrealDB
+        existing = await get_video(video_id)
+        if existing:
             return IngestResponse(
                 type="video",
                 status="skipped",
@@ -118,7 +113,7 @@ async def ingest_video(url: str) -> IngestResponse:
                 details={"video_id": video_id},
             )
 
-        # Archive
+        # Archive to MinIO
         archive_writer = create_local_archive_writer(base_dir=ARCHIVE_BASE)
         import_metadata = ImportMetadata(
             source_type="web_ingest",
@@ -135,20 +130,23 @@ async def ingest_video(url: str) -> IngestResponse:
             import_metadata=import_metadata,
         )
 
-        # Cache
-        cache_data = {
-            "video_id": video_id,
-            "url": url,
-            "transcript": transcript,
-            "transcript_length": len(transcript),
-        }
-        metadata = {
-            "type": "youtube_video",
-            "source": "web_ingest",
-            "video_id": video_id,
-            "imported_at": datetime.now().isoformat(),
-        }
-        cache.set(cache_key, cache_data, metadata=metadata)
+        # Store video metadata in SurrealDB
+        video_record = VideoRecord(
+            video_id=video_id,
+            url=url,
+            fetched_at=datetime.now(),
+            title="",  # Would need to fetch from YouTube metadata
+            channel_id="",
+            channel_name="",
+            duration_seconds=0,
+            view_count=0,
+            published_at=None,
+            source_type="web_ingest",
+            import_method="api",
+            recommendation_weight=1.0,
+            archive_path=f"youtube/{video_id}",
+        )
+        await upsert_video(video_record)
 
         return IngestResponse(
             type="video",
@@ -164,9 +162,6 @@ async def ingest_video(url: str) -> IngestResponse:
             message=f"Failed to ingest video: {e}",
             details={},
         )
-    finally:
-        if cache:
-            cache.close()
 
 
 async def ingest_channel(
@@ -360,23 +355,18 @@ async def ingest_channel(
 
 
 async def ingest_article(url: str) -> IngestResponse:
-    """Ingest a webpage/article using Docling."""
+    """Ingest a webpage/article using Docling and store in MinIO."""
     import hashlib
     from compose.services.webpage import fetch_webpage
-    from compose.services.cache import create_qdrant_cache
+    from compose.services.minio import create_minio_client
 
-    cache = None
     try:
-        cache = create_qdrant_cache(
-            collection_name=QDRANT_COLLECTION,
-            qdrant_url=QDRANT_URL,
-            infinity_url=INFINITY_URL,
-        )
-
         url_hash = hashlib.sha256(url.encode()).hexdigest()[:16]
-        cache_key = f"webpage:content:{url_hash}"
+        content_path = f"articles/{url_hash}.md"
 
-        if cache.exists(cache_key):
+        # Check if already in MinIO
+        client = create_minio_client()
+        if client.exists(content_path):
             return IngestResponse(
                 type="article",
                 status="skipped",
@@ -393,19 +383,8 @@ async def ingest_article(url: str) -> IngestResponse:
                 details={"url": url},
             )
 
-        # Cache the content
-        cache_data = {
-            "markdown": markdown,
-            "url": url,
-            "length": len(markdown),
-        }
-        metadata = {
-            "type": "webpage",
-            "source": "docling",
-            "url_hash": url_hash,
-            "imported_at": datetime.now().isoformat(),
-        }
-        cache.set(cache_key, cache_data, metadata=metadata)
+        # Store the content in MinIO
+        client.put_text(content_path, markdown)
 
         return IngestResponse(
             type="article",
@@ -421,9 +400,6 @@ async def ingest_article(url: str) -> IngestResponse:
             message=f"Failed to ingest article: {e}",
             details={},
         )
-    finally:
-        if cache:
-            cache.close()
 
 
 @router.post("/ingest", response_model=IngestResponse)

@@ -4,14 +4,14 @@ import os
 
 import httpx
 from fastapi import APIRouter
-from qdrant_client import QdrantClient
 
 from compose.api.models import HealthCheckResponse
 
 router = APIRouter(tags=["health"])
 
 # Service URLs (container networking)
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
+SURREALDB_URL = os.getenv("SURREALDB_URL", "http://localhost:8000")
+MINIO_URL = os.getenv("MINIO_URL", "http://localhost:9000")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 
 
@@ -19,7 +19,8 @@ INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 async def health_check():
     """Check overall service health."""
     checks = {
-        "qdrant": await check_qdrant(),
+        "surrealdb": await check_surrealdb(),
+        "minio": await check_minio(),
         "infinity": await check_infinity(),
     }
 
@@ -30,20 +31,33 @@ async def health_check():
     return HealthCheckResponse(status=status, checks=checks)
 
 
-async def check_qdrant() -> dict:
-    """Check if Qdrant is accessible."""
+async def check_surrealdb() -> dict:
+    """Check if SurrealDB is accessible."""
     try:
-        client = QdrantClient(url=QDRANT_URL)
-        collections = client.get_collections()
-        collection_names = [c.name for c in collections.collections]
+        from compose.services.surrealdb import verify_connection
+        await verify_connection()
 
         return {
             "status": "ok",
-            "message": f"Qdrant accessible with {len(collection_names)} collections",
-            "collections": collection_names,
+            "message": "SurrealDB accessible",
         }
     except Exception as e:
-        return {"status": "error", "message": f"Qdrant check failed: {str(e)}"}
+        return {"status": "error", "message": f"SurrealDB check failed: {str(e)}"}
+
+
+async def check_minio() -> dict:
+    """Check if MinIO is accessible."""
+    try:
+        from compose.services.minio import create_minio_client
+        client = create_minio_client()
+        client.ensure_bucket()
+
+        return {
+            "status": "ok",
+            "message": "MinIO accessible",
+        }
+    except Exception as e:
+        return {"status": "error", "message": f"MinIO check failed: {str(e)}"}
 
 
 async def check_infinity() -> dict:

@@ -9,14 +9,13 @@ from pathlib import Path
 import httpx
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
-from qdrant_client import QdrantClient
 
 router = APIRouter(tags=["stats"])
 
 # Configuration
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
+SURREALDB_URL = os.getenv("SURREALDB_URL", "http://localhost:8000")
+MINIO_URL = os.getenv("MINIO_URL", "http://localhost:9000")
 WEBSHARE_API_TOKEN = os.getenv("WEBSHARE_API_TOKEN", "")
-QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "content")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 
 # Queue paths (container paths - data mounted at /app/src/compose/data)
@@ -61,48 +60,24 @@ def get_queue_stats() -> dict:
     }
 
 
-def get_cache_stats() -> dict:
-    """Get Qdrant cache statistics with breakdown by content type."""
+async def get_cache_stats() -> dict:
+    """Get SurrealDB cache statistics with breakdown by content type."""
     try:
-        client = QdrantClient(url=QDRANT_URL)
-        collection = client.get_collection(QDRANT_COLLECTION)
-        total = collection.points_count
+        from compose.services.surrealdb import (
+            get_video_count,
+        )
 
-        # Try to get breakdown by type, but don't fail if it doesn't work
-        videos_count = 0
+        total = await get_video_count()
+
+        # SurrealDB stores all videos; articles are in archive via MinIO
+        videos_count = total
         articles_count = 0
-
-        try:
-            from qdrant_client.models import Filter, FieldCondition, MatchValue
-
-            # Count videos (meta_type field in payload)
-            videos_result = client.count(
-                collection_name=QDRANT_COLLECTION,
-                count_filter=Filter(
-                    must=[FieldCondition(key="meta_type", match=MatchValue(value="youtube_video"))]
-                ),
-            )
-            videos_count = videos_result.count
-
-            # Count articles/webpages
-            articles_result = client.count(
-                collection_name=QDRANT_COLLECTION,
-                count_filter=Filter(
-                    must=[FieldCondition(key="meta_type", match=MatchValue(value="webpage"))]
-                ),
-            )
-            articles_count = articles_result.count
-        except Exception:
-            # If count filters fail, estimate from total
-            videos_count = total
-            articles_count = 0
 
         return {
             "status": "ok",
             "total": total,
             "videos": videos_count,
             "articles": articles_count,
-            "collection_name": QDRANT_COLLECTION,
         }
     except Exception as e:
         return {
@@ -215,7 +190,7 @@ def is_local_url(url: str) -> bool:
     """Check if URL points to a local service."""
     local_hosts = ["localhost", "127.0.0.1", "0.0.0.0", "host.docker.internal"]
     # Also treat docker service names as local (same compose network)
-    docker_services = ["qdrant", "infinity", "api", "frontend", "docling"]
+    docker_services = ["surrealdb", "minio", "infinity", "api", "frontend", "docling"]
     for host in local_hosts + docker_services:
         if host in url.lower():
             return True
@@ -224,18 +199,28 @@ def is_local_url(url: str) -> bool:
 
 async def get_service_health() -> dict:
     """Check health of dependent services."""
-    qdrant_ok = False
+    surrealdb_ok = False
+    minio_ok = False
     infinity_ok = False
     ollama_ok = False
     queue_worker_ok = False
     n8n_ok = False
     docling_ok = False
 
-    # Check Qdrant
+    # Check SurrealDB
     try:
-        client = QdrantClient(url=QDRANT_URL)
-        client.get_collections()
-        qdrant_ok = True
+        from compose.services.surrealdb import verify_connection
+        await verify_connection()
+        surrealdb_ok = True
+    except Exception:
+        pass
+
+    # Check MinIO
+    try:
+        from compose.services.minio import create_minio_client
+        client = create_minio_client()
+        client.ensure_bucket()
+        minio_ok = True
     except Exception:
         pass
 
@@ -292,7 +277,8 @@ async def get_service_health() -> dict:
         pass
 
     return {
-        "qdrant": {"ok": qdrant_ok, "local": is_local_url(QDRANT_URL)},
+        "surrealdb": {"ok": surrealdb_ok, "local": is_local_url(SURREALDB_URL)},
+        "minio": {"ok": minio_ok, "local": is_local_url(MINIO_URL)},
         "infinity": {"ok": infinity_ok, "local": is_local_url(INFINITY_URL)},
         "ollama": {"ok": ollama_ok, "local": is_local_url(ollama_url)},
         "queue_worker": {"ok": queue_worker_ok, "local": True},
@@ -329,7 +315,7 @@ async def generate_stats():
             stats = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "queue": get_queue_stats(),
-                "cache": get_cache_stats(),
+                "cache": await get_cache_stats(),
                 "archive": get_archive_stats(),
                 "health": await get_service_health(),
                 "recent_activity": get_recent_activity(),
@@ -349,7 +335,7 @@ async def get_stats():
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "queue": get_queue_stats(),
-        "cache": get_cache_stats(),
+        "cache": await get_cache_stats(),
         "archive": get_archive_stats(),
         "health": await get_service_health(),
         "recent_activity": get_recent_activity(),
