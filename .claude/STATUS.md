@@ -23,6 +23,43 @@
 
 ## Recent Completions
 
+**Mentat Chat UI - Projects & Canvas** ✅ COMPLETE (2025-11-22)
+- Built ChatGPT-replacement frontend with conversation history, projects, and canvas
+- **Phase 1 - Conversations**: Sidebar with search, rename, delete, auto-naming
+- **Phase 2 - Projects**:
+  - Project grouping for conversations
+  - File upload with Docling text extraction (PDF, DOCX, etc.)
+  - RAG indexing via Qdrant for semantic search
+  - Custom instructions injected into chat context
+- **Phase 3 - Canvas/Artifacts**:
+  - Right sidebar with document editor
+  - Artifacts browser tab
+  - Auto-save with 2-second debounce
+  - Artifacts linked to conversations/projects
+
+**New files created:**
+- `compose/services/projects.py` - Project storage with file management
+- `compose/services/artifacts.py` - Artifact storage service
+- `compose/services/file_processor.py` - Docling extraction + Qdrant indexing
+- `compose/api/routers/projects.py` - Projects REST API
+- `compose/api/routers/artifacts.py` - Artifacts REST API
+- Frontend: Canvas UI, artifact API methods, project selector
+
+**Required services** (must be running for full functionality):
+- Qdrant: `docker compose up qdrant` (port 6335)
+- Infinity embeddings: `docker compose up infinity` (port 7997)
+- Docling: `docker compose up docling` (port 5001) - for PDF/DOCX processing
+- FastAPI backend: `uv run uvicorn compose.api.main:app --reload`
+- Frontend: `cd compose/frontend && npm run dev`
+
+**API Endpoints added:**
+- `GET/POST /projects` - List/create projects
+- `GET/PUT/DELETE /projects/{id}` - Project CRUD
+- `POST /projects/{id}/files` - File upload with background RAG processing
+- `POST /projects/{id}/search` - Semantic search project files
+- `GET/POST /artifacts` - List/create artifacts
+- `GET/PUT/DELETE /artifacts/{id}` - Artifact CRUD
+
 **Containerized Microservices Migration** ✅ COMPLETE (2025-11-18)
 - Migrated from embedded Qdrant to containerized qdrant/qdrant service (ports 6335-6336)
 - Added Infinity embedding service (michaelf34/infinity) with BAAI/bge-m3 model
