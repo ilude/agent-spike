@@ -28,8 +28,15 @@
   let storageInitialized = false; // Track if we've restored from storage
   let messageQueue = []; // Queue for messages sent while streaming
 
+  // Conversation state
+  let conversations = [];
+  let activeConversationId = null;
+  let conversationsLoading = true;
+  let searchQuery = '';
+  let sidebarCollapsed = false;
+
   // Storage version - increment when message format changes
-  const STORAGE_VERSION = 6;
+  const STORAGE_VERSION = 7; // Bumped for conversation support
 
   // Configure marked once (browser-only)
   function configureMarked() {
@@ -386,6 +393,95 @@
     }
   }
 
+  // ============ Conversation Functions ============
+
+  async function loadConversations() {
+    try {
+      conversationsLoading = true;
+      const response = await api.listConversations();
+      conversations = response.conversations || [];
+    } catch (e) {
+      console.error('Failed to load conversations:', e);
+      conversations = [];
+    } finally {
+      conversationsLoading = false;
+    }
+  }
+
+  async function selectConversation(id) {
+    if (id === activeConversationId) return;
+
+    try {
+      const conversation = await api.getConversation(id);
+      activeConversationId = id;
+      messages = conversation.messages.map(msg => ({
+        ...msg,
+        timestamp: new Date(msg.timestamp)
+      }));
+      currentResponse = '';
+
+      // Update model if conversation has one
+      if (conversation.model) {
+        selectedModel = conversation.model;
+      }
+    } catch (e) {
+      console.error('Failed to load conversation:', e);
+      error = 'Failed to load conversation';
+    }
+  }
+
+  async function startNewChat() {
+    activeConversationId = null;
+    messages = [];
+    currentResponse = '';
+    sessionStorage.removeItem('mentat_messages');
+    sessionStorage.removeItem('mentat_current_response');
+
+    if (inputField) {
+      inputField.focus();
+    }
+  }
+
+  async function deleteConversation(id, event) {
+    event.stopPropagation();
+    if (!confirm('Delete this conversation?')) return;
+
+    try {
+      await api.deleteConversation(id);
+      conversations = conversations.filter(c => c.id !== id);
+
+      if (activeConversationId === id) {
+        startNewChat();
+      }
+    } catch (e) {
+      console.error('Failed to delete conversation:', e);
+      error = 'Failed to delete conversation';
+    }
+  }
+
+  function formatConversationDate(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) {
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else if (diffDays === 1) {
+      return 'Yesterday';
+    } else if (diffDays < 7) {
+      return date.toLocaleDateString([], { weekday: 'short' });
+    } else {
+      return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+    }
+  }
+
+  $: filteredConversations = searchQuery
+    ? conversations.filter(c =>
+        c.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : conversations;
+
   onMount(async () => {
     // Load saved model preference from localStorage
     const savedModel = localStorage.getItem('mentat_model');
@@ -460,6 +556,10 @@
     }
 
     connectWebSocket();
+
+    // Load conversations
+    loadConversations();
+
     // Focus input field after a short delay to ensure it's rendered
     setTimeout(() => {
       if (inputField) {
@@ -531,167 +631,222 @@
     </div>
   </header>
 
-  {#if error}
-    <div class="error">
-      <strong>Error:</strong> {error}
-      <button on:click={() => error = ''}>✕</button>
-    </div>
-  {/if}
-
-  <!-- ChatGPT-style model selector -->
-  <div class="model-dropdown" class:open={modelDropdownOpen}>
-    <button
-      class="model-dropdown-trigger"
-      on:click={toggleModelDropdown}
-      disabled={modelsLoading || isStreaming}
-    >
-      <span class="model-name">{getSelectedModelName()}</span>
-      <span class="dropdown-arrow">▼</span>
-    </button>
-
-    {#if modelDropdownOpen}
-      <div class="model-dropdown-menu">
-        {#if availableModels.some(m => m.is_local)}
-          <div class="model-group">
-            <div class="model-group-label">Ollama</div>
-            {#each availableModels.filter(m => m.is_local) as model}
-              <button
-                class="model-option"
-                class:selected={model.id === selectedModel}
-                on:click={() => selectModel(model.id)}
-              >
-                {model.name}
-              </button>
-            {/each}
-          </div>
-        {/if}
-
-        {#if availableModels.some(m => m.is_free && !m.is_local)}
-          <div class="model-group">
-            <div class="model-group-label">Free Models</div>
-            {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
-              <button
-                class="model-option"
-                class:selected={model.id === selectedModel}
-                on:click={() => selectModel(model.id)}
-              >
-                {model.name}
-              </button>
-            {/each}
-          </div>
-        {/if}
-
-        {#if availableModels.some(m => !m.is_free && !m.is_local)}
-          <div class="model-group">
-            <div class="model-group-label">Paid Models</div>
-            {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
-              <button
-                class="model-option"
-                class:selected={model.id === selectedModel}
-                on:click={() => selectModel(model.id)}
-              >
-                {model.name}
-              </button>
-            {/each}
-          </div>
-        {/if}
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" class:collapsed={sidebarCollapsed}>
+      <div class="sidebar-header">
+        <button class="new-chat-btn" on:click={startNewChat}>
+          + New Chat
+        </button>
+        <button class="collapse-btn" on:click={() => sidebarCollapsed = !sidebarCollapsed}>
+          {sidebarCollapsed ? '→' : '←'}
+        </button>
       </div>
-    {/if}
-  </div>
 
-  <div class="messages-wrapper">
-  <div class="messages">
-    {#each messages as msg}
-      <div class="message-wrapper message-wrapper-{msg.role}">
-        <div class="message message-{msg.role}">
-          <div
-            class="message-content"
-            on:mousemove={handleInlineLinkHover}
-            on:mouseleave={hideTooltip}
-          >
-            {@html renderWithInlineCitations(msg.content, msg.sources)}
-          </div>
+      {#if !sidebarCollapsed}
+        <div class="sidebar-search">
+          <input
+            type="text"
+            placeholder="Search conversations..."
+            bind:value={searchQuery}
+          />
         </div>
-        <div class="message-metadata">
-          <span class="timestamp">{msg.timestamp.toLocaleTimeString()}</span>
-          {#if msg.role === 'user'}
-            <button
-              class="retry-btn"
-              on:click={() => retry(msg)}
-              disabled={!connected}
-              title="Retry this message"
-            >
-              ↻
-            </button>
+
+        <div class="conversations-list">
+          {#if conversationsLoading}
+            <div class="conversations-loading">Loading...</div>
+          {:else if filteredConversations.length === 0}
+            <div class="no-conversations">
+              {searchQuery ? 'No matches found' : 'No conversations yet'}
+            </div>
+          {:else}
+            {#each filteredConversations as conv}
+              <div
+                class="conversation-item"
+                class:active={conv.id === activeConversationId}
+                on:click={() => selectConversation(conv.id)}
+              >
+                <div class="conversation-title">{conv.title}</div>
+                <div class="conversation-meta">
+                  <span class="conversation-date">{formatConversationDate(conv.updated_at)}</span>
+                  <button
+                    class="delete-btn"
+                    on:click={(e) => deleteConversation(conv.id, e)}
+                    title="Delete conversation"
+                  >×</button>
+                </div>
+              </div>
+            {/each}
           {/if}
         </div>
-      </div>
-    {/each}
+      {/if}
+    </aside>
 
-    {#if isStreaming}
-      <div class="message-wrapper message-wrapper-assistant">
-        <div class="message message-assistant streaming">
-          {#if currentResponse}
-            <div class="message-content">{@html renderMarkdown(currentResponse)}</div>
-          {:else}
-            <div class="message-content processing">
-              <span class="processing-dots">●●●</span>
+    <!-- Chat Area -->
+    <div class="chat-area">
+      {#if error}
+        <div class="error">
+          <strong>Error:</strong> {error}
+          <button on:click={() => error = ''}>✕</button>
+        </div>
+      {/if}
+
+      <!-- ChatGPT-style model selector -->
+      <div class="model-dropdown" class:open={modelDropdownOpen}>
+        <button
+          class="model-dropdown-trigger"
+          on:click={toggleModelDropdown}
+          disabled={modelsLoading || isStreaming}
+        >
+          <span class="model-name">{getSelectedModelName()}</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+
+        {#if modelDropdownOpen}
+          <div class="model-dropdown-menu">
+            {#if availableModels.some(m => m.is_local)}
+              <div class="model-group">
+                <div class="model-group-label">Ollama</div>
+                {#each availableModels.filter(m => m.is_local) as model}
+                  <button
+                    class="model-option"
+                    class:selected={model.id === selectedModel}
+                    on:click={() => selectModel(model.id)}
+                  >
+                    {model.name}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+
+            {#if availableModels.some(m => m.is_free && !m.is_local)}
+              <div class="model-group">
+                <div class="model-group-label">Free Models</div>
+                {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
+                  <button
+                    class="model-option"
+                    class:selected={model.id === selectedModel}
+                    on:click={() => selectModel(model.id)}
+                  >
+                    {model.name}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+
+            {#if availableModels.some(m => !m.is_free && !m.is_local)}
+              <div class="model-group">
+                <div class="model-group-label">Paid Models</div>
+                {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
+                  <button
+                    class="model-option"
+                    class:selected={model.id === selectedModel}
+                    on:click={() => selectModel(model.id)}
+                  >
+                    {model.name}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {/if}
+      </div>
+
+      <div class="messages-wrapper">
+        <div class="messages">
+          {#each messages as msg}
+            <div class="message-wrapper message-wrapper-{msg.role}">
+              <div class="message message-{msg.role}">
+                <div
+                  class="message-content"
+                  on:mousemove={handleInlineLinkHover}
+                  on:mouseleave={hideTooltip}
+                >
+                  {@html renderWithInlineCitations(msg.content, msg.sources)}
+                </div>
+              </div>
+              <div class="message-metadata">
+                <span class="timestamp">{msg.timestamp.toLocaleTimeString()}</span>
+                {#if msg.role === 'user'}
+                  <button
+                    class="retry-btn"
+                    on:click={() => retry(msg)}
+                    disabled={!connected}
+                    title="Retry this message"
+                  >
+                    ↻
+                  </button>
+                {/if}
+              </div>
+            </div>
+          {/each}
+
+          {#if isStreaming}
+            <div class="message-wrapper message-wrapper-assistant">
+              <div class="message message-assistant streaming">
+                {#if currentResponse}
+                  <div class="message-content">{@html renderMarkdown(currentResponse)}</div>
+                {:else}
+                  <div class="message-content processing">
+                    <span class="processing-dots">●●●</span>
+                  </div>
+                {/if}
+              </div>
+              <div class="message-metadata">
+                <span class="typing-indicator">{currentResponse ? 'typing...' : 'processing...'}</span>
+              </div>
+            </div>
+          {/if}
+
+          {#if messages.length === 0 && !currentResponse}
+            <div class="welcome">
+              <h2>Welcome to Mentat</h2>
+              <p>Ask me anything about your cached videos.</p>
+              <p class="hint">Type a message below and press Enter to start.</p>
             </div>
           {/if}
         </div>
-        <div class="message-metadata">
-          <span class="typing-indicator">{currentResponse ? 'typing...' : 'processing...'}</span>
+      </div>
+
+      <div class="input-area">
+        <div class="input-content">
+          <button
+            class="random-question-btn"
+            on:click={generateRandomQuestion}
+            disabled={!connected}
+            title="Generate random question"
+          >
+            🎲
+          </button>
+          <textarea
+            bind:this={inputField}
+            bind:value={input}
+            on:keypress={handleKeyPress}
+            disabled={!connected}
+            placeholder={connected ? "Ask Mentat..." : "Connecting..."}
+            rows="2"
+          ></textarea>
+          <button
+            on:click={send}
+            disabled={!connected || !input.trim()}
+          >
+            Send
+          </button>
+          <button
+            class="rag-btn"
+            class:active={useRAG}
+            on:click={toggleRAG}
+            title={useRAG ? 'RAG Mode ON - Click to disable' : 'RAG Mode OFF - Click to enable'}
+          >
+            RAG
+          </button>
+          <button class="clear-btn" on:click={clearChat} title="Clear chat history">
+            Clear
+          </button>
         </div>
       </div>
-    {/if}
-
-    {#if messages.length === 0 && !currentResponse}
-      <div class="welcome">
-        <h2>Welcome to Mentat</h2>
-        <p>Ask me anything about your cached videos.</p>
-        <p class="hint">Type a message below and press Enter to start.</p>
-      </div>
-    {/if}
-  </div>
-  </div>
-
-  <div class="input-area">
-    <div class="input-content">
-      <button
-        class="random-question-btn"
-        on:click={generateRandomQuestion}
-        disabled={!connected}
-        title="Generate random question"
-      >
-        🎲
-      </button>
-      <textarea
-        bind:this={inputField}
-        bind:value={input}
-        on:keypress={handleKeyPress}
-        disabled={!connected}
-        placeholder={connected ? "Ask Mentat..." : "Connecting..."}
-        rows="2"
-      ></textarea>
-      <button
-        on:click={send}
-        disabled={!connected || !input.trim()}
-      >
-        Send
-      </button>
-      <button
-        class="rag-btn"
-        class:active={useRAG}
-        on:click={toggleRAG}
-        title={useRAG ? 'RAG Mode ON - Click to disable' : 'RAG Mode OFF - Click to enable'}
-      >
-        RAG
-      </button>
-      <button class="clear-btn" on:click={clearChat} title="Clear chat history">
-        Clear
-      </button>
-    </div>
-  </div>
+    </div><!-- /.chat-area -->
+  </div><!-- /.app-layout -->
 </main>
 
 <!-- Custom Tooltip -->
@@ -742,6 +897,186 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+  }
+
+  /* App layout with sidebar */
+  .app-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    background: #0a0a0a;
+    border-right: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.2s ease;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .new-chat-btn {
+    flex: 1;
+    padding: 0.625rem 1rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .sidebar.collapsed .new-chat-btn {
+    display: none;
+  }
+
+  .new-chat-btn:hover {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+
+  .collapse-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.375rem;
+    color: #888;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .collapse-btn:hover {
+    background: #1a1a1a;
+    color: #e5e5e5;
+  }
+
+  .sidebar-search {
+    padding: 0.75rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .sidebar-search input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-size: 0.8125rem;
+  }
+
+  .sidebar-search input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .sidebar-search input::placeholder {
+    color: #666;
+  }
+
+  .conversations-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .conversations-loading,
+  .no-conversations {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.8125rem;
+  }
+
+  .conversation-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 0.25rem;
+  }
+
+  .conversation-item:hover {
+    background: #1a1a1a;
+  }
+
+  .conversation-item.active {
+    background: rgba(59, 130, 246, 0.15);
+  }
+
+  .conversation-title {
+    font-size: 0.875rem;
+    color: #e5e5e5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
+  }
+
+  .conversation-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .conversation-date {
+    font-size: 0.75rem;
+    color: #666;
+  }
+
+  .delete-btn {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .conversation-item:hover .delete-btn {
+    opacity: 1;
+  }
+
+  .delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+  }
+
+  /* Chat area */
+  .chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   /* ChatGPT-style model dropdown */
