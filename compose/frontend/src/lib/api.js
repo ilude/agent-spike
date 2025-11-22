@@ -400,6 +400,114 @@ export class MentatAPI {
 		return res.json();
 	}
 
+	// ============ Memory Methods ============
+
+	/**
+	 * List all memories
+	 * @param {string} category - Optional category filter
+	 * @returns {Promise<{memories: Array, count: number}>}
+	 */
+	async listMemories(category = null) {
+		let url = `${this.baseURL}/memory`;
+		if (category) url += `?category=${encodeURIComponent(category)}`;
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error(`Failed to list memories: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Add a new memory
+	 * @param {string} content - Memory content
+	 * @param {string} category - Category (preference, fact, context, general)
+	 * @returns {Promise<Object>}
+	 */
+	async addMemory(content, category = 'general') {
+		const res = await fetch(`${this.baseURL}/memory`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ content, category })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to add memory: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a memory by ID
+	 * @param {string} id - Memory ID
+	 * @returns {Promise<Object>}
+	 */
+	async getMemory(id) {
+		const res = await fetch(`${this.baseURL}/memory/${id}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get memory: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update a memory
+	 * @param {string} id - Memory ID
+	 * @param {Object} data - Update data (content, category, relevance_score)
+	 * @returns {Promise<Object>}
+	 */
+	async updateMemory(id, data) {
+		const res = await fetch(`${this.baseURL}/memory/${id}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update memory: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a memory
+	 * @param {string} id - Memory ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteMemory(id) {
+		const res = await fetch(`${this.baseURL}/memory/${id}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete memory: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Clear all memories
+	 * @returns {Promise<{deleted_count: number, message: string}>}
+	 */
+	async clearAllMemories() {
+		const res = await fetch(`${this.baseURL}/memory`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to clear memories: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Search memories
+	 * @param {string} query - Search query
+	 * @returns {Promise<{memories: Array, count: number}>}
+	 */
+	async searchMemories(query) {
+		const res = await fetch(`${this.baseURL}/memory/search?q=${encodeURIComponent(query)}`);
+		if (!res.ok) {
+			throw new Error(`Failed to search memories: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
 	// ============ Artifact Methods ============
 
 	/**

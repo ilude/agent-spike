@@ -13,6 +13,7 @@ from pydantic import BaseModel
 from qdrant_client import QdrantClient
 
 from compose.services.conversations import get_conversation_service
+from compose.services.memory import get_memory_service
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
 
@@ -287,6 +288,7 @@ async def websocket_chat(websocket: WebSocket):
     conversation_service = get_conversation_service()
     project_service = get_project_service()
     styles_service = get_styles_service()
+    memory_service = get_memory_service()
 
     try:
         while True:
@@ -297,6 +299,7 @@ async def websocket_chat(websocket: WebSocket):
             conversation_id = request.get("conversation_id")
             project_id = request.get("project_id")
             style_id = request.get("style", "default")
+            use_memory = request.get("use_memory", True)
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -311,13 +314,19 @@ async def websocket_chat(websocket: WebSocket):
                 conversation_service.add_message(conversation_id, "user", message)
 
             try:
-                # Build system message from project instructions and style
+                # Build system message from project instructions, style, and memory
                 system_parts = []
 
                 # Apply style modifier (if not default)
                 style_modifier = styles_service.get_system_prompt_modifier(style_id)
                 if style_modifier:
                     system_parts.append(style_modifier)
+
+                # Add memory context if enabled
+                if use_memory:
+                    memory_context = memory_service.build_memory_context(message)
+                    if memory_context:
+                        system_parts.append(memory_context)
 
                 # Get project custom instructions if project_id provided
                 if project_id:
@@ -364,6 +373,15 @@ async def websocket_chat(websocket: WebSocket):
                         conversation_id, "assistant", full_response.strip()
                     )
 
+                # Extract memories from conversation (async, non-blocking)
+                if use_memory and full_response.strip():
+                    try:
+                        await memory_service.extract_memories_from_conversation(
+                            message, full_response.strip(), conversation_id
+                        )
+                    except Exception as mem_err:
+                        print(f"Memory extraction failed: {mem_err}")
+
                 await websocket.send_json({"type": "done", "sources": []})
 
             except Exception as e:
@@ -395,6 +413,7 @@ async def websocket_rag_chat(websocket: WebSocket):
     conversation_service = get_conversation_service()
     project_service = get_project_service()
     styles_service = get_styles_service()
+    memory_service = get_memory_service()
 
     try:
         while True:
@@ -405,6 +424,7 @@ async def websocket_rag_chat(websocket: WebSocket):
             conversation_id = request.get("conversation_id")
             project_id = request.get("project_id")
             style_id = request.get("style", "default")
+            use_memory = request.get("use_memory", True)
 
             if not message:
                 await websocket.send_json({"type": "error", "content": "Message cannot be empty"})
@@ -414,13 +434,19 @@ async def websocket_rag_chat(websocket: WebSocket):
             if conversation_id:
                 conversation_service.add_message(conversation_id, "user", message)
 
-            # Build custom instructions from project and style
+            # Build custom instructions from project, style, and memory
             custom_parts = []
 
             # Apply style modifier (if not default)
             style_modifier = styles_service.get_system_prompt_modifier(style_id)
             if style_modifier:
                 custom_parts.append(style_modifier)
+
+            # Add memory context if enabled
+            if use_memory:
+                memory_context = memory_service.build_memory_context(message)
+                if memory_context:
+                    custom_parts.append(memory_context)
 
             # Get project custom instructions if project_id provided
             if project_id:
@@ -569,6 +595,15 @@ Respond helpfully and concisely."""
                     conversation_service.add_message(
                         conversation_id, "assistant", full_response.strip(), sources_for_storage
                     )
+
+                # Extract memories from conversation (async, non-blocking)
+                if use_memory and full_response.strip():
+                    try:
+                        await memory_service.extract_memories_from_conversation(
+                            message, full_response.strip(), conversation_id
+                        )
+                    except Exception as mem_err:
+                        print(f"Memory extraction failed: {mem_err}")
 
                 await websocket.send_json({"type": "done", "sources": sources})
 

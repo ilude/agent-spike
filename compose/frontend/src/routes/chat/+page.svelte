@@ -48,6 +48,9 @@
   let stylesLoading = true;
   let styleDropdownOpen = false;
 
+  // Memory state
+  let useMemory = true; // Memory enabled by default
+
   // Canvas/Artifact state
   let canvasOpen = false;
   let canvasTab = 'editor'; // 'editor' or 'browser'
@@ -322,13 +325,14 @@
     };
     messages = [...messages, userMsg];
 
-    // Send to backend with selected model, conversation ID, project ID, and style
+    // Send to backend with selected model, conversation ID, project ID, style, and memory
     ws.send(JSON.stringify({
       message: userMessage,
       model: selectedModel,
       conversation_id: activeConversationId,
       project_id: activeProjectId,
-      style: selectedStyle
+      style: selectedStyle,
+      use_memory: useMemory
     }));
     isStreaming = true;
     currentResponse = '';
@@ -367,12 +371,14 @@
     const nextMessage = messageQueue[0];
     messageQueue = messageQueue.slice(1);
 
-    // Send to backend with selected model and project ID
+    // Send to backend with selected model, project ID, style, and memory
     ws.send(JSON.stringify({
       message: nextMessage,
       model: selectedModel,
       conversation_id: activeConversationId,
-      project_id: activeProjectId
+      project_id: activeProjectId,
+      style: selectedStyle,
+      use_memory: useMemory
     }));
     isStreaming = true;
     currentResponse = '';
@@ -1290,6 +1296,14 @@
           >
             RAG
           </button>
+          <button
+            class="memory-btn"
+            class:active={useMemory}
+            on:click={() => useMemory = !useMemory}
+            title={useMemory ? 'Memory ON - Click to disable' : 'Memory OFF - Click to enable'}
+          >
+            MEM
+          </button>
           <button class="clear-btn" on:click={clearChat} title="Clear chat history">
             Clear
           </button>
@@ -2049,6 +2063,33 @@
 
   .rag-btn.active:hover:not(:disabled) {
     background: #2563eb;
+  }
+
+  /* Memory toggle button */
+  .memory-btn {
+    padding: 0.75rem 1.25rem;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 0.5rem;
+    color: #a0a0a0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .memory-btn:hover:not(:disabled) {
+    background: #3a3a3a;
+    color: #e5e5e5;
+  }
+
+  .memory-btn.active {
+    background: #8b5cf6;
+    color: white;
+  }
+
+  .memory-btn.active:hover:not(:disabled) {
+    background: #7c3aed;
   }
 
   /* Clear button */

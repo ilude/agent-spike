@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory
 
 # Create FastAPI app
 app = FastAPI(
@@ -40,6 +40,7 @@ app.include_router(conversations.router, tags=["conversations"])
 app.include_router(projects.router, tags=["projects"])
 app.include_router(artifacts.router, tags=["artifacts"])
 app.include_router(styles.router, tags=["styles"])
+app.include_router(memory.router, tags=["memory"])
 
 
 @app.get("/")
@@ -72,5 +73,12 @@ async def root():
             "artifacts_get": "GET /artifacts/{id}",
             "styles_list": "GET /styles",
             "styles_get": "GET /styles/{id}",
+            "memory_list": "GET /memory",
+            "memory_add": "POST /memory",
+            "memory_search": "GET /memory/search?q=",
+            "memory_get": "GET /memory/{id}",
+            "memory_update": "PUT /memory/{id}",
+            "memory_delete": "DELETE /memory/{id}",
+            "memory_clear": "DELETE /memory",
         },
     }

@@ -711,3 +711,169 @@ class TestStyleInjection:
         user_msg = captured_messages[0]  # RAG puts everything in user message
         assert "STYLE INSTRUCTION" in user_msg["content"]
         assert "technical" in user_msg["content"].lower()
+
+
+# ============ Memory Injection Tests ============
+
+
+class TestMemoryInjection:
+    """Tests for memory context injection in chat."""
+
+    def setup_method(self):
+        """Reset clients before each test."""
+        chat.reset_clients()
+
+    def test_websocket_chat_applies_memory_context(self, client, tmp_path):
+        """WebSocket chat should apply memory context to system message."""
+        from compose.services.memory import MemoryService
+
+        # Create a memory service with some memories
+        memory_dir = tmp_path / "memory"
+        memory_dir.mkdir()
+        memory_service = MemoryService(str(memory_dir))
+        memory_service.add_memory(content="User prefers Python programming")
+
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                with patch.object(chat, "get_project_service") as mock_proj_svc:
+                    with patch("compose.api.routers.chat.get_memory_service", return_value=memory_service):
+                        mock_conv_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value.get_project.return_value = None
+
+                        with client.websocket_connect("/chat/ws/chat") as websocket:
+                            websocket.send_text(json.dumps({
+                                "message": "Help with Python",
+                                "model": "test-model",
+                                "use_memory": True
+                            }))
+
+                            response = websocket.receive_json()
+                            assert response["type"] == "done"
+
+        # Check that memory context was included
+        system_msgs = [m for m in captured_messages if m.get("role") == "system"]
+        assert len(system_msgs) >= 1
+        assert "remember about the user" in system_msgs[0]["content"]
+        assert "Python" in system_msgs[0]["content"]
+
+    def test_websocket_chat_can_disable_memory(self, client, tmp_path):
+        """WebSocket chat should skip memory when use_memory is False."""
+        from compose.services.memory import MemoryService
+
+        memory_dir = tmp_path / "memory"
+        memory_dir.mkdir()
+        memory_service = MemoryService(str(memory_dir))
+        memory_service.add_memory(content="User prefers Python programming")
+
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                with patch.object(chat, "get_project_service") as mock_proj_svc:
+                    with patch("compose.api.routers.chat.get_memory_service", return_value=memory_service):
+                        mock_conv_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value = MagicMock()
+                        mock_proj_svc.return_value.get_project.return_value = None
+
+                        with client.websocket_connect("/chat/ws/chat") as websocket:
+                            websocket.send_text(json.dumps({
+                                "message": "Help with Python",
+                                "model": "test-model",
+                                "use_memory": False
+                            }))
+
+                            response = websocket.receive_json()
+                            assert response["type"] == "done"
+
+        # Check that no memory context was included
+        system_msgs = [m for m in captured_messages if m.get("role") == "system"]
+        # Should be empty or not contain memory context
+        for msg in system_msgs:
+            assert "remember about the user" not in msg.get("content", "")
+
+    def test_websocket_rag_chat_applies_memory_context(self, client, tmp_path):
+        """WebSocket RAG chat should include memory context in prompt."""
+        from compose.services.memory import MemoryService
+
+        memory_dir = tmp_path / "memory"
+        memory_dir.mkdir()
+        memory_service = MemoryService(str(memory_dir))
+        memory_service.add_memory(content="User is expert in Python")
+
+        mock_openrouter = AsyncMock()
+        captured_messages = []
+
+        async def create_stream(*args, **kwargs):
+            if "messages" in kwargs:
+                captured_messages.extend(kwargs["messages"])
+
+            class MockStream:
+                def __aiter__(self):
+                    return self
+
+                async def __anext__(self):
+                    raise StopAsyncIteration
+
+            return MockStream()
+
+        mock_openrouter.chat.completions.create = create_stream
+
+        with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
+            with patch.object(chat, "get_embedding", side_effect=Exception("Fail")):
+                with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                    with patch.object(chat, "get_project_service") as mock_proj_svc:
+                        with patch("compose.api.routers.chat.get_memory_service", return_value=memory_service):
+                            mock_conv_svc.return_value = MagicMock()
+                            mock_proj_svc.return_value = MagicMock()
+                            mock_proj_svc.return_value.get_project.return_value = None
+
+                            with client.websocket_connect("/chat/ws/rag-chat") as websocket:
+                                websocket.send_text(json.dumps({
+                                    "message": "Help with Python code",
+                                    "model": "test-model",
+                                    "use_memory": True
+                                }))
+
+                                response = websocket.receive_json()
+                                assert response["type"] == "done"
+
+        # Check that memory context appears in the prompt
+        assert len(captured_messages) >= 1
+        user_msg = captured_messages[0]
+        assert "remember about the user" in user_msg["content"]
+        assert "Python" in user_msg["content"]

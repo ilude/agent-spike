@@ -762,6 +762,151 @@ describe('MentatAPI', () => {
 		});
 	});
 
+	// ============ Memory ============
+
+	describe('listMemories()', () => {
+		it('should list all memories', async () => {
+			const mockMemories = { memories: [{ id: '1', content: 'Test' }], count: 1 };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockMemories)
+			});
+
+			const result = await client.listMemories();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory');
+			expect(result).toEqual(mockMemories);
+		});
+
+		it('should filter by category', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ memories: [], count: 0 })
+			});
+
+			await client.listMemories('preference');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory?category=preference');
+		});
+	});
+
+	describe('addMemory()', () => {
+		it('should add memory with content and category', async () => {
+			const mockMemory = { id: '123', content: 'User likes Python', category: 'preference' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockMemory)
+			});
+
+			const result = await client.addMemory('User likes Python', 'preference');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ content: 'User likes Python', category: 'preference' })
+			});
+			expect(result).toEqual(mockMemory);
+		});
+
+		it('should use default category', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({})
+			});
+
+			await client.addMemory('Simple memory');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ content: 'Simple memory', category: 'general' })
+			});
+		});
+	});
+
+	describe('getMemory()', () => {
+		it('should get memory by ID', async () => {
+			const mockMemory = { id: '123', content: 'Test memory' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockMemory)
+			});
+
+			const result = await client.getMemory('123');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory/123');
+			expect(result).toEqual(mockMemory);
+		});
+	});
+
+	describe('updateMemory()', () => {
+		it('should update memory', async () => {
+			const mockUpdated = { id: '123', content: 'Updated', category: 'fact' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockUpdated)
+			});
+
+			const result = await client.updateMemory('123', { content: 'Updated' });
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory/123', {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ content: 'Updated' })
+			});
+			expect(result).toEqual(mockUpdated);
+		});
+	});
+
+	describe('deleteMemory()', () => {
+		it('should delete memory', async () => {
+			const mockResult = { success: true, message: 'Memory deleted' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.deleteMemory('123');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory/123', {
+				method: 'DELETE'
+			});
+			expect(result).toEqual(mockResult);
+		});
+	});
+
+	describe('clearAllMemories()', () => {
+		it('should clear all memories', async () => {
+			const mockResult = { deleted_count: 5, message: 'Deleted 5 memories' };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.clearAllMemories();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory', {
+				method: 'DELETE'
+			});
+			expect(result).toEqual(mockResult);
+		});
+	});
+
+	describe('searchMemories()', () => {
+		it('should search memories with encoded query', async () => {
+			const mockResults = { memories: [{ id: '1', content: 'Python code' }], count: 1 };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResults)
+			});
+
+			const result = await client.searchMemories('python code');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/memory/search?q=python%20code');
+			expect(result).toEqual(mockResults);
+		});
+	});
+
 	// ============ Default Export ============
 
 	describe('default api instance', () => {
