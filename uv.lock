@@ -21,6 +21,7 @@ source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
+    { name = "neo4j" },
     { name = "openai" },
     { name = "python-dotenv" },
     { name = "qdrant-client" },
@@ -207,6 +208,7 @@ requires-dist = [
     { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1.0" },
     { name = "mcp", marker = "extra == 'dev'", specifier = ">=1.20.0" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0" },
+    { name = "neo4j", specifier = ">=6.0.3" },
     { name = "openai", specifier = ">=2.7.0" },
     { name = "pydantic-ai", marker = "extra == 'dev'", specifier = ">=0.0.14" },
     { name = "pydantic-ai", marker = "extra == 'lesson-001'", specifier = ">=0.0.14" },
@@ -2365,6 +2367,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/6d/fd/91545e604bc3dad7dca9ed03284086039b294c6b3d75c0d2fa45f9e9caf3/nbformat-5.10.4.tar.gz", hash = "sha256:322168b14f937a5d11362988ecac2a4952d3d8e3a2cbeb2319584631226d5b3a", size = 142749, upload-time = "2024-04-04T11:20:37.371Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a9/82/0340caa499416c78e5d8f5f05947ae4bc3cba53c9f038ab6e9ed964e22f1/nbformat-5.10.4-py3-none-any.whl", hash = "sha256:3b48d6c8fbca4b299bf3982ea7db1af21580e4fec269ad087b9e81588891200b", size = 78454, upload-time = "2024-04-04T11:20:34.895Z" },
+]
+
+[[package]]
+name = "neo4j"
+version = "6.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytz" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/60/b2/87534fc0520e5f9db1432bacc3f8d0ce024608010babc4f65b96e0c34906/neo4j-6.0.3.tar.gz", hash = "sha256:7fb79e166e281aafd67d521f6611763ebcdc529f26db506c5605f91ddcd825ea", size = 239653, upload-time = "2025-11-06T16:57:57.012Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ba/fe/55ed1d4636defb57fae1f7be7818820aa8071d45949c91ef8649930e70c5/neo4j-6.0.3-py3-none-any.whl", hash = "sha256:a92023854da96aed4270e0d03d6429cdd7f0d3335eae977370934f4732de5678", size = 325433, upload-time = "2025-11-06T16:57:55.03Z" },
 ]
 
 [[package]]
