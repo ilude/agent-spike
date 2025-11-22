@@ -22,6 +22,7 @@
   let reconnectTimeout = null; // Track reconnection timeout to prevent stacking
   let markedConfigured = false; // Track if marked has been configured
   let tooltipVisible = false;
+  let modelDropdownOpen = false; // Track model dropdown state
   let tooltipContent = { description: '', tags: [] };
   let tooltipPosition = { x: 0, y: 0 };
   let storageInitialized = false; // Track if we've restored from storage
@@ -328,6 +329,36 @@
     localStorage.setItem('mentat_model', selectedModel);
   }
 
+  function selectModel(modelId) {
+    selectedModel = modelId;
+    localStorage.setItem('mentat_model', modelId);
+    modelDropdownOpen = false;
+  }
+
+  function toggleModelDropdown() {
+    if (!modelsLoading && !isStreaming) {
+      modelDropdownOpen = !modelDropdownOpen;
+    }
+  }
+
+  function getSelectedModelName() {
+    const model = availableModels.find(m => m.id === selectedModel);
+    return model ? model.name : selectedModel.split('/').pop();
+  }
+
+  function toggleRAG() {
+    useRAG = !useRAG;
+    if (ws) ws.close();
+    connectWebSocket();
+  }
+
+  // Close dropdown when clicking outside
+  function handleClickOutside(event) {
+    if (modelDropdownOpen && !event.target.closest('.model-dropdown')) {
+      modelDropdownOpen = false;
+    }
+  }
+
   function clearChat() {
     messages = [];
     currentResponse = '';
@@ -487,80 +518,15 @@
   }
 </script>
 
+<svelte:window on:click={handleClickOutside} />
+
 <main>
   <header>
-    <div class="header-content">
-      <h1>Mentat</h1>
-      <div class="controls">
-        <label class="toggle">
-          <input
-            type="checkbox"
-            bind:checked={useRAG}
-            on:change={() => {
-              if (ws) ws.close();
-              connectWebSocket();
-            }}
-          />
-          <span class="toggle-label">
-            RAG Mode {useRAG ? 'ON' : 'OFF'}
-          </span>
-        </label>
-
-        <div class="model-selector">
-          <label for="model-select" class="model-label">Model:</label>
-          <select
-            id="model-select"
-            bind:value={selectedModel}
-            on:change={handleModelChange}
-            disabled={modelsLoading || isStreaming}
-          >
-            {#if modelsLoading}
-              <option>Loading models...</option>
-            {:else}
-              <!-- Ollama local models first -->
-              {#if availableModels.some(m => m.is_local)}
-                <optgroup label="Ollama">
-                  {#each availableModels.filter(m => m.is_local) as model}
-                    <option value={model.id}>
-                      {model.name}
-                    </option>
-                  {/each}
-                </optgroup>
-              {/if}
-
-              <!-- Group free models (excluding Ollama) -->
-              {#if availableModels.some(m => m.is_free && !m.is_local)}
-                <optgroup label="Free Models">
-                  {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
-                    <option value={model.id}>
-                      {model.name}
-                    </option>
-                  {/each}
-                </optgroup>
-              {/if}
-
-              <!-- Group paid models -->
-              {#if availableModels.some(m => !m.is_free && !m.is_local)}
-                <optgroup label="Paid Models">
-                  {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
-                    <option value={model.id}>
-                      {model.name}
-                    </option>
-                  {/each}
-                </optgroup>
-              {/if}
-            {/if}
-          </select>
-        </div>
-
-        <button class="clear-btn" on:click={clearChat} title="Clear chat history">
-          Clear
-        </button>
-
-        <div class="status">
-          <span class="indicator" class:connected></span>
-          {connected ? 'Connected' : 'Disconnected'}
-        </div>
+    <a href="/" class="logo">Mentat</a>
+    <div class="controls">
+      <div class="status">
+        <span class="indicator" class:connected></span>
+        {connected ? 'Connected' : 'Disconnected'}
       </div>
     </div>
   </header>
@@ -571,6 +537,67 @@
       <button on:click={() => error = ''}>✕</button>
     </div>
   {/if}
+
+  <!-- ChatGPT-style model selector -->
+  <div class="model-dropdown" class:open={modelDropdownOpen}>
+    <button
+      class="model-dropdown-trigger"
+      on:click={toggleModelDropdown}
+      disabled={modelsLoading || isStreaming}
+    >
+      <span class="model-name">{getSelectedModelName()}</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+
+    {#if modelDropdownOpen}
+      <div class="model-dropdown-menu">
+        {#if availableModels.some(m => m.is_local)}
+          <div class="model-group">
+            <div class="model-group-label">Ollama</div>
+            {#each availableModels.filter(m => m.is_local) as model}
+              <button
+                class="model-option"
+                class:selected={model.id === selectedModel}
+                on:click={() => selectModel(model.id)}
+              >
+                {model.name}
+              </button>
+            {/each}
+          </div>
+        {/if}
+
+        {#if availableModels.some(m => m.is_free && !m.is_local)}
+          <div class="model-group">
+            <div class="model-group-label">Free Models</div>
+            {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
+              <button
+                class="model-option"
+                class:selected={model.id === selectedModel}
+                on:click={() => selectModel(model.id)}
+              >
+                {model.name}
+              </button>
+            {/each}
+          </div>
+        {/if}
+
+        {#if availableModels.some(m => !m.is_free && !m.is_local)}
+          <div class="model-group">
+            <div class="model-group-label">Paid Models</div>
+            {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
+              <button
+                class="model-option"
+                class:selected={model.id === selectedModel}
+                on:click={() => selectModel(model.id)}
+              >
+                {model.name}
+              </button>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/if}
+  </div>
 
   <div class="messages-wrapper">
   <div class="messages">
@@ -652,6 +679,17 @@
       >
         Send
       </button>
+      <button
+        class="rag-btn"
+        class:active={useRAG}
+        on:click={toggleRAG}
+        title={useRAG ? 'RAG Mode ON - Click to disable' : 'RAG Mode OFF - Click to enable'}
+      >
+        RAG
+      </button>
+      <button class="clear-btn" on:click={clearChat} title="Clear chat history">
+        Clear
+      </button>
     </div>
   </div>
 </main>
@@ -681,26 +719,23 @@
 
   header {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #2a2a2a;
-    background: #1a1a1a;
-    width: 100%;
-  }
-
-  .header-content {
-    display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 2rem;
+    background: #111;
+    border-bottom: 1px solid #222;
     width: 100%;
-    max-width: 900px;
   }
 
-  h1 {
-    margin: 0;
+  .logo {
     font-size: 1.5rem;
+    font-weight: 700;
     color: #3b82f6;
+    text-decoration: none;
+  }
+
+  .logo:hover {
+    color: #60a5fa;
   }
 
   .controls {
@@ -709,115 +744,198 @@
     gap: 1.5rem;
   }
 
-  .toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .toggle input[type="checkbox"] {
-    appearance: none;
-    width: 44px;
-    height: 24px;
-    background: #2a2a2a;
-    border-radius: 12px;
+  /* ChatGPT-style model dropdown */
+  .model-dropdown {
     position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
+    padding: 0.5rem 2rem;
+    background: #0a0a0a;
   }
 
-  .toggle input[type="checkbox"]:checked {
-    background: #3b82f6;
-  }
-
-  .toggle input[type="checkbox"]::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background: white;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    transition: transform 0.2s;
-  }
-
-  .toggle input[type="checkbox"]:checked::before {
-    transform: translateX(20px);
-  }
-
-  .toggle-label {
-    font-size: 0.875rem;
-    color: #e5e5e5;
-    font-weight: 500;
-  }
-
-  .model-selector {
+  .model-dropdown-trigger {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-
-  .model-label {
-    font-size: 0.875rem;
-    color: #888;
-    font-weight: 500;
-  }
-
-  .model-selector select {
-    padding: 0.4rem 0.75rem;
-    background: #0a0a0a;
-    border: 1px solid #2a2a2a;
-    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
     color: #e5e5e5;
-    font-size: 0.875rem;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: border-color 0.2s;
-    min-width: 200px;
+    transition: all 0.2s;
   }
 
-  .model-selector select:hover:not(:disabled) {
-    border-color: #3b82f6;
+  .model-dropdown-trigger:hover:not(:disabled) {
+    background: #1a1a1a;
+    border-radius: 0.375rem;
   }
 
-  .model-selector select:focus {
-    outline: none;
-    border-color: #3b82f6;
-  }
-
-  .model-selector select:disabled {
+  .model-dropdown-trigger:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .model-selector select option {
-    background: #0a0a0a;
-    color: #e5e5e5;
+  .model-name {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .model-selector select optgroup {
+  .dropdown-arrow {
+    font-size: 0.625rem;
+    color: #888;
+    transition: transform 0.2s;
+  }
+
+  .model-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .model-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 2rem;
+    z-index: 100;
+    min-width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
     background: #1a1a1a;
-    color: #3b82f6;
-    font-weight: 600;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0;
+
+    /* Dark mode scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #3a3a3a #1a1a1a;
   }
 
-  .clear-btn {
-    padding: 0.4rem 0.75rem;
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
+  .model-dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .model-dropdown-menu::-webkit-scrollbar-track {
+    background: #1a1a1a;
     border-radius: 4px;
+  }
+
+  .model-dropdown-menu::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 4px;
+  }
+
+  .model-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
+  }
+
+  .model-group {
+    padding: 0.25rem 0;
+  }
+
+  .model-group:not(:last-child) {
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .model-group-label {
+    padding: 0.375rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .model-option {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
     color: #e5e5e5;
+    font-size: 0.875rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .model-option:hover {
+    background: #2a2a2a;
+  }
+
+  .model-option.selected {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+  }
+
+  /* Secondary button base style (RAG, Clear, Random) */
+  .btn-secondary {
+    padding: 0.75rem 1.25rem;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 0.5rem;
+    color: #a0a0a0;
+    font-weight: 600;
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
-  .clear-btn:hover {
+  .btn-secondary:hover:not(:disabled) {
     background: #3a3a3a;
-    border-color: #ef4444;
-    color: #ef4444;
+    color: #e5e5e5;
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* RAG toggle button */
+  .rag-btn {
+    padding: 0.75rem 1.25rem;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 0.5rem;
+    color: #a0a0a0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .rag-btn:hover:not(:disabled) {
+    background: #3a3a3a;
+    color: #e5e5e5;
+  }
+
+  .rag-btn.active {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .rag-btn.active:hover:not(:disabled) {
+    background: #2563eb;
+  }
+
+  /* Clear button */
+  .clear-btn {
+    padding: 0.75rem 1.25rem;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 0.5rem;
+    color: #a0a0a0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-btn:hover:not(:disabled) {
+    background: #3a3a3a;
+    color: #e5e5e5;
   }
 
   .status {
@@ -1274,15 +1392,15 @@
   }
 
   button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1.25rem;
     background: #3b82f6;
     border: none;
     border-radius: 0.5rem;
     color: white;
     font-weight: 600;
     cursor: pointer;
-    font-size: 0.9375rem;
-    transition: background 0.2s;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
   }
 
   button:hover:not(:disabled) {
@@ -1300,16 +1418,26 @@
     width: 48px;
     height: 48px;
     background: #2a2a2a;
-    font-size: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    color: #a0a0a0;
+    font-size: 1.25rem;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
   .random-question-btn:hover:not(:disabled) {
     background: #3a3a3a;
+    color: #e5e5e5;
     transform: rotate(15deg);
-    transition: all 0.2s ease;
+  }
+
+  .random-question-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 </style>

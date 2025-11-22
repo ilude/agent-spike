@@ -13,6 +13,7 @@ Environment variables:
 
 import asyncio
 import csv
+import json
 import os
 import shutil
 import sys
@@ -32,14 +33,15 @@ ARCHIVE_BASE = Path("/app/data/archive")
 PENDING_DIR = QUEUE_BASE / "pending"
 PROCESSING_DIR = QUEUE_BASE / "processing"
 COMPLETED_DIR = QUEUE_BASE / "completed"
+PROGRESS_FILE = QUEUE_BASE / ".progress.json"
 
 # Add project paths
 sys.path.insert(0, "/app/src")
 sys.path.insert(0, "/app/src/lessons/lesson-001")
 
-from compose.services.youtube import get_transcript, extract_video_id
+from compose.services.youtube import get_transcript, extract_video_id, fetch_video_metadata
 from compose.services.cache import create_qdrant_cache
-from compose.services.archive import create_local_archive_writer, ImportMetadata, ChannelContext
+from compose.services.archive import create_archive_manager, create_local_archive_writer, ImportMetadata, ChannelContext
 
 
 def log(msg: str):
@@ -48,14 +50,39 @@ def log(msg: str):
     print(f"[{timestamp}] {msg}", flush=True)
 
 
+def update_progress(filename: str, completed: int, total: int, started_at: str = None):
+    """Update progress file for dashboard monitoring."""
+    progress = {
+        "filename": filename,
+        "completed": completed,
+        "total": total,
+        "started_at": started_at or datetime.now().isoformat(),
+        "updated_at": datetime.now().isoformat(),
+    }
+    try:
+        with open(PROGRESS_FILE, "w") as f:
+            json.dump(progress, f)
+    except IOError:
+        pass  # Non-critical, don't break processing
+
+
+def clear_progress():
+    """Clear progress file when not processing."""
+    try:
+        if PROGRESS_FILE.exists():
+            PROGRESS_FILE.unlink()
+    except IOError:
+        pass
+
+
 async def ingest_video(
     url: str,
-    archive_writer,
+    archive_manager,
     source_type: str = "queue_import",
     channel_id: str = None,
     channel_name: str = None,
 ) -> tuple[bool, str]:
-    """Fetch transcript, generate tags (optional), archive, and cache.
+    """Fetch transcript and metadata, archive, and cache.
 
     Simplified version - skips LLM tagging for speed.
     Tags can be regenerated later from archive.
@@ -80,6 +107,13 @@ async def ingest_video(
         if "ERROR:" in transcript:
             return False, f"ERROR: {transcript}"
 
+        # Fetch YouTube metadata (title, description, etc.)
+        log(f"  Fetching YouTube metadata for {video_id}...")
+        youtube_metadata, metadata_error = fetch_video_metadata(video_id)
+        if metadata_error:
+            log(f"  [WARN] Metadata fetch failed: {metadata_error}")
+            youtube_metadata = {}
+
         # Archive transcript
         weight_map = {
             "queue_import": 0.8,
@@ -92,22 +126,30 @@ async def ingest_video(
             imported_at=datetime.now(),
             import_method="scheduled",
             channel_context=ChannelContext(
-                channel_id=channel_id,
-                channel_name=channel_name,
+                channel_id=channel_id or youtube_metadata.get("channel_id"),
+                channel_name=channel_name or youtube_metadata.get("channel_title"),
                 is_bulk_import=True,
             ),
             recommendation_weight=weight_map.get(source_type, 0.8),
         )
 
-        archive_writer.archive_youtube_video(
+        # Archive transcript using manager
+        archive_manager.update_transcript(
             video_id=video_id,
             url=url,
             transcript=transcript,
-            metadata={"source": "youtube-transcript-api"},
-            import_metadata=import_metadata,
+            import_metadata=import_metadata
         )
 
-        # Cache without LLM tags (fast mode)
+        # Archive YouTube metadata if available
+        if youtube_metadata:
+            archive_manager.update_metadata(
+                video_id=video_id,
+                url=url,
+                metadata=youtube_metadata
+            )
+
+        # Cache with YouTube metadata
         cache_data = {
             "video_id": video_id,
             "url": url,
@@ -122,6 +164,13 @@ async def ingest_video(
             "source_type": source_type,
             "recommendation_weight": weight_map.get(source_type, 0.8),
             "imported_at": datetime.now().isoformat(),
+            # YouTube metadata for search/filtering
+            "youtube_title": youtube_metadata.get("title"),
+            "youtube_channel": youtube_metadata.get("channel_title"),
+            "youtube_channel_id": youtube_metadata.get("channel_id"),
+            "youtube_duration_seconds": youtube_metadata.get("duration_seconds"),
+            "youtube_view_count": youtube_metadata.get("view_count"),
+            "youtube_published_at": youtube_metadata.get("published_at"),
         }
 
         if channel_id:
@@ -130,7 +179,8 @@ async def ingest_video(
         log(f"  Caching {video_id} ({len(transcript)} chars)...")
         cache.set(cache_key, cache_data, metadata=metadata)
 
-        return True, f"OK: {video_id} ({len(transcript)} chars)"
+        title = youtube_metadata.get("title", video_id)[:50]
+        return True, f"OK: {title}... ({len(transcript)} chars)"
 
     except ValueError as e:
         return False, f"ERROR: Invalid URL - {e}"
@@ -141,11 +191,12 @@ async def ingest_video(
             cache.close()
 
 
-async def process_csv(csv_path: Path, archive_writer) -> dict:
+async def process_csv(csv_path: Path, archive_manager) -> dict:
     """Process all videos from a CSV file."""
     log(f"Processing CSV: {csv_path.name}")
 
     stats = {"processed": 0, "skipped": 0, "errors": 0, "total": 0}
+    started_at = datetime.now().isoformat()
 
     try:
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -154,6 +205,9 @@ async def process_csv(csv_path: Path, archive_writer) -> dict:
 
         stats["total"] = len(videos)
         log(f"  Found {len(videos)} videos")
+
+        # Initialize progress tracking
+        update_progress(csv_path.name, 0, len(videos), started_at)
 
         # Detect source type
         channel_ids = {v.get('channel_id', '').strip() for v in videos if v.get('channel_id')}
@@ -165,13 +219,15 @@ async def process_csv(csv_path: Path, archive_writer) -> dict:
         for i, video in enumerate(videos, 1):
             url = video.get('url', '').strip()
             if not url:
+                # Update progress even for skipped empty URLs
+                update_progress(csv_path.name, i, len(videos), started_at)
                 continue
 
             channel_id = video.get('channel_id', '').strip() or None
             channel_name = video.get('channel_name', '').strip() or None
 
             success, message = await ingest_video(
-                url, archive_writer, source_type, channel_id, channel_name
+                url, archive_manager, source_type, channel_id, channel_name
             )
 
             if "SKIP" in message:
@@ -182,6 +238,9 @@ async def process_csv(csv_path: Path, archive_writer) -> dict:
                 stats["errors"] += 1
                 log(f"  [{i}/{len(videos)}] {message}")
 
+            # Update progress after each video
+            update_progress(csv_path.name, i, len(videos), started_at)
+
             # Small delay
             await asyncio.sleep(1)
 
@@ -189,6 +248,9 @@ async def process_csv(csv_path: Path, archive_writer) -> dict:
 
     except Exception as e:
         log(f"  CSV Error: {e}")
+    finally:
+        # Clear progress when done with this file
+        clear_progress()
 
     return stats
 
@@ -210,8 +272,18 @@ async def poll_and_process():
     for d in [PENDING_DIR, PROCESSING_DIR, COMPLETED_DIR]:
         d.mkdir(parents=True, exist_ok=True)
 
-    # Initialize archive writer
+    # Recover any interrupted files from processing/
+    interrupted_files = list(PROCESSING_DIR.glob("*.csv"))
+    if interrupted_files:
+        log(f"Recovering {len(interrupted_files)} interrupted file(s) from processing/")
+        for f in interrupted_files:
+            dest = PENDING_DIR / f.name
+            shutil.move(str(f), str(dest))
+            log(f"  Moved {f.name} back to pending/")
+
+    # Initialize archive manager with custom base directory
     archive_writer = create_local_archive_writer(base_dir=ARCHIVE_BASE)
+    archive_manager = create_archive_manager(writer=archive_writer)
 
     while True:
         try:
@@ -228,7 +300,7 @@ async def poll_and_process():
                     log(f"Moved {csv_file.name} to processing/")
 
                     # Process
-                    await process_csv(processing_path, archive_writer)
+                    await process_csv(processing_path, archive_manager)
 
                     # Move to completed
                     completed_path = COMPLETED_DIR / csv_file.name

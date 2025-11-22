@@ -17,7 +17,7 @@ wheels = [
 [[package]]
 name = "agent-spike"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
@@ -142,6 +142,7 @@ platform = [
     { name = "fastapi" },
     { name = "google-api-python-client" },
     { name = "httpx" },
+    { name = "mcp" },
     { name = "openai" },
     { name = "pydantic" },
     { name = "qdrant-client" },
@@ -156,6 +157,7 @@ platform-api = [
     { name = "fastapi" },
     { name = "google-api-python-client" },
     { name = "httpx" },
+    { name = "mcp" },
     { name = "openai" },
     { name = "pydantic" },
     { name = "qdrant-client" },
@@ -169,6 +171,7 @@ platform-embeddings = [
     { name = "fastapi" },
     { name = "google-api-python-client" },
     { name = "httpx" },
+    { name = "mcp" },
     { name = "openai" },
     { name = "pydantic" },
     { name = "qdrant-client" },
@@ -295,6 +298,7 @@ platform = [
     { name = "fastapi", specifier = ">=0.109.0" },
     { name = "google-api-python-client", specifier = ">=2.0.0" },
     { name = "httpx", specifier = ">=0.27.0" },
+    { name = "mcp", specifier = ">=1.20.0" },
     { name = "openai", specifier = ">=1.54.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "qdrant-client", specifier = ">=1.7.0" },
@@ -309,6 +313,7 @@ platform-api = [
     { name = "fastapi", specifier = ">=0.109.0" },
     { name = "google-api-python-client", specifier = ">=2.0.0" },
     { name = "httpx", specifier = ">=0.27.0" },
+    { name = "mcp", specifier = ">=1.20.0" },
     { name = "openai", specifier = ">=1.54.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "qdrant-client", specifier = ">=1.7.0" },
@@ -322,6 +327,7 @@ platform-embeddings = [
     { name = "fastapi", specifier = ">=0.109.0" },
     { name = "google-api-python-client", specifier = ">=2.0.0" },
     { name = "httpx", specifier = ">=0.27.0" },
+    { name = "mcp", specifier = ">=1.20.0" },
     { name = "openai", specifier = ">=1.54.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "qdrant-client", specifier = ">=1.7.0" },

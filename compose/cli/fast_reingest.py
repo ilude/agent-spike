@@ -12,6 +12,7 @@ Usage:
 """
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -21,6 +22,10 @@ sys.path.insert(0, str(project_root))
 
 from compose.services.cache import create_qdrant_cache
 from compose.services.archive import create_local_archive_reader
+
+# Environment configuration (defaults to remote GPU server)
+QDRANT_URL = os.getenv("QDRANT_URL", "http://192.168.16.241:6333")
+INFINITY_URL = os.getenv("INFINITY_URL", "http://192.168.16.241:7997")
 
 
 def fast_reingest(collection_name: str = "content", limit: int = None, force: bool = False):
@@ -40,11 +45,14 @@ def fast_reingest(collection_name: str = "content", limit: int = None, force: bo
     print(f"{'='*70}\n")
 
     # Initialize services
+    print(f"Qdrant URL: {QDRANT_URL}")
+    print(f"Infinity URL: {INFINITY_URL}\n")
+
     archive = create_local_archive_reader()
     cache = create_qdrant_cache(
         collection_name=collection_name,
-        qdrant_url="http://localhost:6335",
-        infinity_url="http://localhost:7997"
+        qdrant_url=QDRANT_URL,
+        infinity_url=INFINITY_URL
     )
 
     # Get all videos from archive
