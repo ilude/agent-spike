@@ -3,7 +3,7 @@
 import json
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 import httpx
@@ -101,7 +101,7 @@ async def list_models():
     Returns free models plus GPT-5 and Claude 4.5 models.
     Results cached for 5 minutes.
     """
-    now = datetime.utcnow().timestamp()
+    now = datetime.now(timezone.utc).timestamp()
 
     # Check cache
     if (

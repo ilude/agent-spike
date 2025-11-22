@@ -19,6 +19,8 @@ from qdrant_client.models import (
     Filter,
     FieldCondition,
     MatchValue,
+    FilterSelector,
+    MatchExcept,
 )
 
 try:
@@ -377,17 +379,17 @@ class QdrantCache:
             if conditions:
                 qdrant_filter = Filter(must=conditions)
 
-        # Search
-        results = self.client.search(
+        # Search using query_points (replaces deprecated search method)
+        results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_vector,
+            query=query_vector,
             limit=limit,
             query_filter=qdrant_filter
         )
 
         # Extract and return values
         output = []
-        for hit in results:
+        for hit in results.points:
             if hit.payload and "value" in hit.payload:
                 item = hit.payload["value"].copy()
                 item["_score"] = hit.score
@@ -449,9 +451,35 @@ class QdrantCache:
         return collection_info.points_count
 
     def clear(self) -> None:
-        """Clear all items from cache."""
-        self.client.delete_collection(self.collection_name)
-        self._ensure_collection()
+        """Clear all items from cache.
+
+        Scrolls through all points and deletes them by ID for reliability
+        with embedded Qdrant on Windows.
+        """
+        # Scroll through all points and collect IDs
+        all_ids = []
+        offset = None
+
+        while True:
+            results, offset = self.client.scroll(
+                collection_name=self.collection_name,
+                limit=100,
+                offset=offset,
+                with_payload=False,
+                with_vectors=False,
+            )
+            if not results:
+                break
+            all_ids.extend([p.id for p in results])
+            if offset is None:
+                break
+
+        # Delete all points by ID
+        if all_ids:
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=all_ids,
+            )
 
     def close(self) -> None:
         """Close the Qdrant client connection.

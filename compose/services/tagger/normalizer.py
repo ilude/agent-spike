@@ -260,11 +260,23 @@ No markdown formatting, no explanations, just the JSON object.
         # Parse JSON
         data = json.loads(response_text)
 
+        # Fields that should be lists
+        list_fields = {
+            "subject_matter", "techniques_or_concepts", "tools_or_materials",
+            "key_points", "references"
+        }
+
         # Normalize field names (handle LLM returning capitalized keys)
         normalized_data = {}
         for key, value in data.items():
             # Convert to lowercase to match model field names
             normalized_key = key.lower().replace(" ", "_")
+
+            # Handle string values that should be lists
+            if normalized_key in list_fields and isinstance(value, str):
+                # Split comma-separated strings into lists
+                value = [v.strip() for v in value.split(",") if v.strip()]
+
             normalized_data[normalized_key] = value
 
         return NormalizedMetadata(**normalized_data)
