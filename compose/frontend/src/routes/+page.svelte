@@ -9,6 +9,9 @@
   let healthCheckInterval = null;
   let error = '';
 
+  // Runtime environment detection (set via VITE_RUNTIME_ENV in docker-compose)
+  const runtimeEnv = import.meta.env.VITE_RUNTIME_ENV || 'local';
+
   // Ingest state
   let ingestUrl = '';
   let ingestLoading = false;
@@ -188,9 +191,13 @@
         <div class="stat-card health">
           <h3>System Health</h3>
           <div class="sub-cards health-grid">
-            <div class="sub-card health-status" class:healthy={stats.health?.qdrant?.ok} class:unhealthy={!stats.health?.qdrant?.ok}>
-              <span class="sub-card-label">Qdrant</span>
-              <span class="sub-card-location">{stats.health?.qdrant?.local ? 'local' : 'remote'}</span>
+            <div class="sub-card health-status" class:healthy={stats.health?.surrealdb?.ok} class:unhealthy={!stats.health?.surrealdb?.ok}>
+              <span class="sub-card-label">SurrealDB</span>
+              <span class="sub-card-location">{stats.health?.surrealdb?.local ? 'local' : 'remote'}</span>
+            </div>
+            <div class="sub-card health-status" class:healthy={stats.health?.minio?.ok} class:unhealthy={!stats.health?.minio?.ok}>
+              <span class="sub-card-label">MinIO</span>
+              <span class="sub-card-location">{stats.health?.minio?.local ? 'local' : 'remote'}</span>
             </div>
             <div class="sub-card health-status" class:healthy={stats.health?.infinity?.ok} class:unhealthy={!stats.health?.infinity?.ok}>
               <span class="sub-card-label">Infinity</span>
@@ -214,11 +221,7 @@
             </div>
             <div class="sub-card health-status" class:healthy={frontendHealthy} class:unhealthy={!frontendHealthy}>
               <span class="sub-card-label">Frontend</span>
-              <span class="sub-card-location">local</span>
-            </div>
-            <div class="sub-card health-status" class:healthy={connected} class:unhealthy={!connected}>
-              <span class="sub-card-label">API</span>
-              <span class="sub-card-location">local</span>
+              <span class="sub-card-location">{runtimeEnv === 'docker' ? '🐳 docker' : '💻 local'}</span>
             </div>
           </div>
         </div>
@@ -275,7 +278,7 @@
         <div class="stat-card content">
           <div class="card-header">
             <h3>Content</h3>
-            <span class="card-source">In Qdrant ({stats.health?.qdrant?.local ? 'local' : 'remote'})</span>
+            <span class="card-source">In SurrealDB ({stats.health?.surrealdb?.local ? 'local' : 'remote'})</span>
           </div>
           <div class="sub-cards">
             <div class="sub-card">
