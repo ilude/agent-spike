@@ -146,6 +146,10 @@ async def get_service_health() -> dict:
     infinity_ok = False
     ollama_ok = False
     queue_worker_ok = False
+    n8n_ok = False
+    docling_ok = False
+    traefik_ok = False
+    frontend_ok = False
 
     # Check Qdrant
     try:
@@ -189,11 +193,51 @@ async def get_service_health() -> dict:
     except Exception:
         pass
 
+    # Check n8n (workflow automation)
+    n8n_url = os.getenv("N8N_URL", "http://n8n:5678")
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            response = await client.get(f"{n8n_url}/healthz")
+            n8n_ok = response.status_code == 200
+    except Exception:
+        pass
+
+    # Check Docling (document processing)
+    docling_url = os.getenv("DOCLING_URL", "http://docling:5001")
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            response = await client.get(f"{docling_url}/health")
+            docling_ok = response.status_code == 200
+    except Exception:
+        pass
+
+    # Check Traefik (reverse proxy)
+    traefik_url = os.getenv("TRAEFIK_URL", "http://traefik:8080")
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            response = await client.get(f"{traefik_url}/api/overview")
+            traefik_ok = response.status_code == 200
+    except Exception:
+        pass
+
+    # Check Frontend (SvelteKit)
+    frontend_url = os.getenv("FRONTEND_URL", "http://frontend:5173")
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            response = await client.get(frontend_url)
+            frontend_ok = response.status_code == 200
+    except Exception:
+        pass
+
     return {
         "qdrant": {"ok": qdrant_ok, "local": is_local_url(QDRANT_URL)},
         "infinity": {"ok": infinity_ok, "local": is_local_url(INFINITY_URL)},
         "ollama": {"ok": ollama_ok, "local": is_local_url(ollama_url)},
-        "queue_worker": {"ok": queue_worker_ok, "local": True},  # Always local (same compose)
+        "queue_worker": {"ok": queue_worker_ok, "local": True},
+        "n8n": {"ok": n8n_ok, "local": True},
+        "docling": {"ok": docling_ok, "local": True},
+        "traefik": {"ok": traefik_ok, "local": True},
+        "frontend": {"ok": frontend_ok, "local": True},
     }
 
 
