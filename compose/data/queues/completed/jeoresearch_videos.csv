@@ -1,0 +1,60 @@
+title,url,upload_date,view_count,duration,description
+"3D Eye Tracking in Python, with a Front Camera",https://www.youtube.com/watch?v=Zed2jPgks9s,2025-11-16,1121,1:47,"This video provides a brief overview of my open-sourced 3D eye tracker in Python, which now incorporates a front-facing environment camera. It's a heavily optimized port of the C++ repository released"
+You can do THIS on the Quest 3???,https://www.youtube.com/watch?v=IZo8Sxdp5OI,2025-10-27,62291,0:52,"This AI lets you quickly detect any object on the Meta Quest 3. Use it to add objects for for language learning, training, or any other object detection-based app. We'll be developing it for the autom"
+How AI is Changing Augmented Reality,https://www.youtube.com/watch?v=qy2Ni9jySbQ,2025-10-19,1343,1:29,"AI is redefining what’s possible in Augmented Reality. 
+
+By enabling scalable object detection on the Meta Quest 3, our research enables you to easily detect new objects that are not part of an origin"
+How Webcam Eye Tracking Works,https://www.youtube.com/watch?v=odr5sMuMNVA,2025-10-03,176405,0:24,"This video shows how 3D eye tracking works for webcams. This software is written in Python and is open-source. You can use it for screen control, and I expect it will eventually be integrated into you"
+3D Eye Tracking on a Webcam,https://www.youtube.com/watch?v=6J6Rb7f-Cls,2025-09-23,3410,2:38,"Open-sourced eye tracking for screen/cursor control using your webcam.
+
+This tool allows you to control your monitor with eye gaze. In the video, I explain how 3D eye tracking works on a webcam and ho"
+Check out this Webcam Eye Tracker!!,https://www.youtube.com/watch?v=VTlNQ8cKBq0,2025-09-04,130518,0:41,"Fourth iteration of my open-source eye tracking that works on your webcam. In this version, I have implemented a custom calibration and gaze visualization window that lets you see the gaze vectors and"
+3D Eye Tracking on a Webcam: Calibration,https://www.youtube.com/watch?v=EWC4Ys5Zimo,2025-08-09,88298,0:33,"Third iteration of my open-source eye tracking that works on your webcam. In this version, I have built a calibration method that associates your 3D gaze with the 2D coordinates on your monitor. Thoug"
+3D Eye Tracking on a Webcam: Stabilization,https://www.youtube.com/watch?v=n_L9HcmwxEw,2025-07-27,68531,0:31,"Second iteration of my open-source eye tracking that works on your webcam. In this version, the eye spheres are stabilized using gaze points from the nose. This eliminates the instability caused by bi"
+Why your camera doesn't have this infrared filter,https://www.youtube.com/watch?v=xxsUk_tnpYM,2025-07-18,54566,0:35,"This black glass is important, but not for your webcam. It's actually incredibly useful for eye tracking applications, and in this video, you can see why. 
+
+Link to filters ($14): https://amzn.to/4kHm"
+Accurate Eye Tracking with an Infrared Filter,https://www.youtube.com/watch?v=mo4CwTXNR3E,2025-07-16,1556,1:45,"One small and inexpensive component can dramatically improve performance if you're building an eye tracker is an infrared pass filter.
+
+In this video, I explain what IR pass filters are, how they work"
+3D Eye Tracking on a Webcam: Progress,https://www.youtube.com/watch?v=8cFmWl_Bl2c,2025-07-07,56839,0:26,"Open-source eye tracking that works on your webcam. This is a work in progress, but this will be available to everyone once the issues with the facemesh code are resolved. Stay tuned for updates!
+
+All"
+This Head Tracker Lets You Control Your Mouse,https://www.youtube.com/watch?v=yiGDkQEgXRg,2025-06-23,74606,0:17,Need to control your mouse with gaze?  This python script let's you move your cursor and interact with a screen keyboard or other applications by moving your head. I hope this will be useful for indiv
+3D Gaze Tracking in Python,https://www.youtube.com/watch?v=hImmJDTgXjw,2025-06-11,3298,1:08,"Open-sourced head tracking for screen/cursor control.
+
+This tool allows you to conrol your monitor with head gaze. Using your webcam, you can move a cursor and interact with a screen keyboard or other"
+AI Venus Flytrap (The Raspberry PiTrap),https://www.youtube.com/watch?v=KiMqacYn8dc,2025-06-03,36144,0:37,"I made an electronic Venus flytrap. Can it catch flies?
+
+Tired of fruit flies landing on your bananas? I was too, so I built an electronic Venus Fly Trap using the Raspberry Pi and AI. It uses simple "
+AI Venus Flytrap (The Raspberry PiTrap),https://www.youtube.com/watch?v=C8fQrpzDpL8,2025-06-02,3379,1:51,"I made an electronic Venus flytrap. Can it catch flies?
+
+Tired of fruit flies landing on your bananas? I was too, so I built an electronic Venus Fly Trap using the Raspberry Pi and computer vision. In"
+Why your camera has an infrared filter,https://www.youtube.com/watch?v=oRhIUIYaXpQ,2025-05-25,1086,1:17,Have you ever wondered why your camera has an infrared filter? This video shows you how they work and demonstrates the filtering process on infrared LEDs and various camera images. These filters are w
+You need to see this eye tracker!,https://www.youtube.com/watch?v=2t0On3QsLhA,2025-05-07,74196,0:43,"This video shows an easy-to-build 3D eye tracker using Python. It is inexpensive and provides the 3D origin and gaze direction for use with many eye tracking applications. 
+
+Code: https://github.com/J"
+3D Eye Tracking in Python,https://www.youtube.com/watch?v=zuoOvywtwtA,2025-05-04,48251,1:11,"This video provides a brief overview of my open-sourced 3D eye tracker in Python. It's a heavily optimized port of the C++ repository released in 2017 by me, Yuta, Leszek, and Alex. Unlike the pupil f"
+DIY Eye-tracked Terminator Glasses,https://www.youtube.com/watch?v=ujo2JjRewaQ,2025-04-16,9371,0:26,"In this video I'm going to show you how to make eye-tracked glasses that turn your eye into a digital one.  
+
+This DIY project uses a Raspberry Pi, inexpensive infrared camera, and OLED panel. 
+
+Open-"
+DIY Eye-tracked Terminator Glasses,https://www.youtube.com/watch?v=xjmwgky0e2Q,2025-04-13,3626,2:28,"A DIY project using the Raspberry Pi using an eye tracker and OLED panel. 
+
+In this video, I’ll show you how to build your own eye-tracked Terminator glasses using a budget infrared camera and a compa"
+Eye tracking for $17,https://www.youtube.com/watch?v=DmSXppkkssE,2025-03-09,1527268,0:39,"This video shows a DIY infrared eye tracking camera that is only $17. The GC0308 can be used for eye tracking with two simple modifications, including adding glue to the LEDs and re-focusing the lens."
+$17 vs $100 DIY Eye Tracking Cameras,https://www.youtube.com/watch?v=TSvbKA3uzmA,2025-03-07,10876,1:45,"This video compares two infrared eye tracking cameras, the $17 GC0308 and the $100 Spinel OV9281. Both can be used for DIY eye tracking applications, though they have slightly different characterstics"
+Are infrared LEDs dangerous?,https://www.youtube.com/watch?v=2MDs8pfSwu4,2025-02-11,16744,0:59,"This video provides an objective analysis of infrared LEDs in comparison with other common light sources. 
+
+More specifically, I use an infrared light meter to detect the irradiance of various light s"
+How Dangerous are Infrared LEDs?,https://www.youtube.com/watch?v=z30AyH_1XVE,2025-02-05,8312,4:03,"This video provides an objective analysis of infrared LEDs in comparison with other common light sources. 
+
+More specifically, I use an infrared light meter to detect the irradiance of various light s"
+Simulating Nearsightedness vs Farsightedness in VR,https://www.youtube.com/watch?v=wuDimUFJ5Ng,2025-01-21,596,0:39,"This is a simulation of nearsightedness versus farsightedness in virtual reality. Using a slider, I can control the level of each deficit. This video can be used to get a really good idea of what both"
+Nearsighted vs Farsighted in Virtual Reality,https://www.youtube.com/watch?v=6SZvMfxEZJE,2025-01-21,9918,0:39,This video shows the difference between nearsightedness and farsightedness using a virtual reality simulation.
+Astigmatism in Virtual Reality,https://www.youtube.com/watch?v=lsRP4fisAJw,2025-01-11,73830,0:31,This video shows what it's like to have astigmatism from a first-person view in virtual reality. I also built a custom control panel that allows you to change the strength and direction of the distort
+Eye Tracking on the Raspberry Pi,https://www.youtube.com/watch?v=QwpJccbbphw,2025-01-10,41212,0:54,"In this video, I demonstrate how to do eye tracking on a Raspberry Pi and explain why certain types of cameras can't be used for infrared eye tracking. I have also released the Python script for the R"
+A DIY Security Camera that E-mails you when It Detects Motion,https://www.youtube.com/watch?v=Jb_5d0TSlAw,2024-12-31,1800,3:41,"This video demonstrates how to build and program a security camera that e-mails you a picture if it detects movement. It's an inexpensive way to have a good security system at home, and it's a great l"
+Eye tracking on a Raspberry Pi (with GPT Code),https://www.youtube.com/watch?v=apTlen7mkTg,2024-12-12,5731,1:06,"In this video, I demonstrate how to do eye tracking on a Raspberry Pi and explain why certain types of cameras can't be used for infrared eye tracking. I have also released the Python script for the R"
+Why your camera has an infrared filter,https://www.youtube.com/watch?v=tYpuR-A_zy4,2024-11-29,102917,0:30,Have you ever wondered why your camera has an infrared filter? This video shows you how the filter works and demonstrates the filtering process on some infrared LEDs. This is what helps your webcam or
