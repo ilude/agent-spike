@@ -1064,6 +1064,94 @@ describe('MentatAPI', () => {
 		});
 	});
 
+	// ============ Image Generation ============
+
+	describe('getImageOptions()', () => {
+		it('should get supported sizes and styles', async () => {
+			const mockOptions = {
+				sizes: [
+					{ id: 'large', name: 'Large', dimensions: '1024x1024' }
+				],
+				styles: [
+					{ id: 'natural', name: 'Natural' }
+				]
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockOptions)
+			});
+
+			const result = await client.getImageOptions();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/imagegen/options');
+			expect(result).toEqual(mockOptions);
+		});
+	});
+
+	describe('generateImage()', () => {
+		it('should generate image with all parameters', async () => {
+			const mockResult = {
+				images: [{ id: 'img1', url: 'https://example.com/img.png' }],
+				prompt: 'a sunset',
+				backend: 'dalle-3'
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.generateImage('a sunset', 'wide', 'vivid', 2);
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/imagegen/generate', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ prompt: 'a sunset', size: 'wide', style: 'vivid', n: 2 })
+			});
+			expect(result).toEqual(mockResult);
+		});
+
+		it('should use default size, style, and n', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ images: [], prompt: 'test', backend: 'dalle-3' })
+			});
+
+			await client.generateImage('test');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/imagegen/generate', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ prompt: 'test', size: 'large', style: 'natural', n: 1 })
+			});
+		});
+	});
+
+	describe('listImages()', () => {
+		it('should list images with limit', async () => {
+			const mockResult = { images: ['img1.png', 'img2.png'], count: 2 };
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.listImages(10);
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/imagegen/images?limit=10');
+			expect(result).toEqual(mockResult);
+		});
+
+		it('should use default limit of 50', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ images: [], count: 0 })
+			});
+
+			await client.listImages();
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/imagegen/images?limit=50');
+		});
+	});
+
 	// ============ Default Export ============
 
 	describe('default api instance', () => {

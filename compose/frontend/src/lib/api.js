@@ -709,6 +709,53 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+	// ============ Image Generation Methods ============
+
+	/**
+	 * Get supported image sizes and styles
+	 * @returns {Promise<{sizes: Array, styles: Array}>}
+	 */
+	async getImageOptions() {
+		const res = await fetch(`${this.baseURL}/imagegen/options`);
+		if (!res.ok) {
+			throw new Error(`Failed to get options: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Generate an image from text prompt
+	 * @param {string} prompt - Text description of desired image
+	 * @param {string} size - Size (small, medium, large, wide, tall)
+	 * @param {string} style - Style (natural, vivid, anime, photographic, digital-art, cinematic)
+	 * @param {number} n - Number of images (1-4)
+	 * @returns {Promise<Object>}
+	 */
+	async generateImage(prompt, size = 'large', style = 'natural', n = 1) {
+		const res = await fetch(`${this.baseURL}/imagegen/generate`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ prompt, size, style, n })
+		});
+		if (!res.ok) {
+			throw new Error(`Image generation failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * List saved images
+	 * @param {number} limit - Max number of images to return
+	 * @returns {Promise<{images: Array, count: number}>}
+	 */
+	async listImages(limit = 50) {
+		const res = await fetch(`${this.baseURL}/imagegen/images?limit=${limit}`);
+		if (!res.ok) {
+			throw new Error(`Failed to list images: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**
