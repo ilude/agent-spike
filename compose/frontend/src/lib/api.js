@@ -508,6 +508,52 @@ export class MentatAPI {
 		return res.json();
 	}
 
+	// ============ Web Search Methods ============
+
+	/**
+	 * Perform a web search
+	 * @param {string} query - Search query
+	 * @param {number} num - Number of results (1-10)
+	 * @returns {Promise<{results: Array, query: string, source: string}>}
+	 */
+	async webSearch(query, num = 5) {
+		const res = await fetch(`${this.baseURL}/search?q=${encodeURIComponent(query)}&num=${num}`);
+		if (!res.ok) {
+			throw new Error(`Search failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Check if URL is Medium and get Freedium version
+	 * @param {string} url - URL to check
+	 * @returns {Promise<{original_url: string, freedium_url: string, is_medium: boolean}>}
+	 */
+	async checkFreedium(url) {
+		const res = await fetch(`${this.baseURL}/search/freedium?url=${encodeURIComponent(url)}`);
+		if (!res.ok) {
+			throw new Error(`Freedium check failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Fetch article content via Freedium
+	 * @param {string} url - Medium URL to fetch
+	 * @returns {Promise<{original_url: string, freedium_url: string, is_medium: boolean, content: string}>}
+	 */
+	async fetchViaFreedium(url) {
+		const res = await fetch(`${this.baseURL}/search/freedium`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ url })
+		});
+		if (!res.ok) {
+			throw new Error(`Freedium fetch failed: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
 	// ============ Artifact Methods ============
 
 	/**

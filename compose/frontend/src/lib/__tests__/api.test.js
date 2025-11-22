@@ -907,6 +907,83 @@ describe('MentatAPI', () => {
 		});
 	});
 
+	// ============ Web Search ============
+
+	describe('webSearch()', () => {
+		it('should search with query and num', async () => {
+			const mockResults = {
+				results: [{ title: 'Test', url: 'https://test.com', snippet: 'Test' }],
+				query: 'test query',
+				source: 'duckduckgo'
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResults)
+			});
+
+			const result = await client.webSearch('test query', 3);
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/search?q=test%20query&num=3');
+			expect(result).toEqual(mockResults);
+		});
+
+		it('should use default num of 5', async () => {
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ results: [], query: 'test', source: 'duckduckgo' })
+			});
+
+			await client.webSearch('test');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/search?q=test&num=5');
+		});
+	});
+
+	describe('checkFreedium()', () => {
+		it('should check if URL is Medium', async () => {
+			const mockResult = {
+				original_url: 'https://medium.com/test',
+				freedium_url: 'https://freedium.cfd/https://medium.com/test',
+				is_medium: true
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.checkFreedium('https://medium.com/test');
+
+			expect(fetch).toHaveBeenCalledWith(
+				'http://test-api:8000/search/freedium?url=https%3A%2F%2Fmedium.com%2Ftest'
+			);
+			expect(result).toEqual(mockResult);
+		});
+	});
+
+	describe('fetchViaFreedium()', () => {
+		it('should fetch article via Freedium', async () => {
+			const mockResult = {
+				original_url: 'https://medium.com/test',
+				freedium_url: 'https://freedium.cfd/https://medium.com/test',
+				is_medium: true,
+				content: '<html>Article</html>'
+			};
+			fetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResult)
+			});
+
+			const result = await client.fetchViaFreedium('https://medium.com/test');
+
+			expect(fetch).toHaveBeenCalledWith('http://test-api:8000/search/freedium', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ url: 'https://medium.com/test' })
+			});
+			expect(result).toEqual(mockResult);
+		});
+	});
+
 	// ============ Default Export ============
 
 	describe('default api instance', () => {
