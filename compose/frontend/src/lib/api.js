@@ -132,6 +132,114 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+	// ============ Conversation Methods ============
+
+	/**
+	 * List all conversations
+	 * @returns {Promise<{conversations: Array}>}
+	 */
+	async listConversations() {
+		const res = await fetch(`${this.baseURL}/conversations`);
+		if (!res.ok) {
+			throw new Error(`Failed to list conversations: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a new conversation
+	 * @param {string} title - Initial title
+	 * @param {string} model - Model ID
+	 * @returns {Promise<Object>}
+	 */
+	async createConversation(title = 'New conversation', model = '') {
+		const res = await fetch(`${this.baseURL}/conversations`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ title, model })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create conversation: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a conversation by ID
+	 * @param {string} id - Conversation ID
+	 * @returns {Promise<Object>}
+	 */
+	async getConversation(id) {
+		const res = await fetch(`${this.baseURL}/conversations/${id}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get conversation: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update a conversation
+	 * @param {string} id - Conversation ID
+	 * @param {Object} data - Update data (title, model)
+	 * @returns {Promise<Object>}
+	 */
+	async updateConversation(id, data) {
+		const res = await fetch(`${this.baseURL}/conversations/${id}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update conversation: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a conversation
+	 * @param {string} id - Conversation ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteConversation(id) {
+		const res = await fetch(`${this.baseURL}/conversations/${id}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete conversation: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Search conversations
+	 * @param {string} query - Search query
+	 * @returns {Promise<{conversations: Array}>}
+	 */
+	async searchConversations(query) {
+		const res = await fetch(`${this.baseURL}/conversations/search?q=${encodeURIComponent(query)}`);
+		if (!res.ok) {
+			throw new Error(`Failed to search conversations: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Generate a title for a conversation
+	 * @param {string} message - First message to generate title from
+	 * @returns {Promise<{title: string}>}
+	 */
+	async generateTitle(message) {
+		const res = await fetch(`${this.baseURL}/conversations/generate-title`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ message })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to generate title: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**
