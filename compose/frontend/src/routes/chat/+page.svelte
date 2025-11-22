@@ -512,11 +512,39 @@
     }
   }
 
-  $: filteredConversations = searchQuery
-    ? conversations.filter(c =>
-        c.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : conversations;
+  // Search with debounce
+  let searchResults = null;
+  let searchTimeout = null;
+  let isSearching = false;
+
+  async function handleSearchInput(query) {
+    if (searchTimeout) clearTimeout(searchTimeout);
+
+    if (!query || query.length < 2) {
+      searchResults = null;
+      return;
+    }
+
+    // Debounce search requests
+    searchTimeout = setTimeout(async () => {
+      isSearching = true;
+      try {
+        const response = await api.searchConversations(query);
+        searchResults = response.conversations || [];
+      } catch (e) {
+        console.error('Search failed:', e);
+        searchResults = null;
+      } finally {
+        isSearching = false;
+      }
+    }, 300);
+  }
+
+  // Watch searchQuery changes
+  $: handleSearchInput(searchQuery);
+
+  // Use search results when available, otherwise show all conversations
+  $: filteredConversations = searchResults !== null ? searchResults : conversations;
 
   onMount(async () => {
     // Load saved model preference from localStorage
@@ -689,8 +717,8 @@
         </div>
 
         <div class="conversations-list">
-          {#if conversationsLoading}
-            <div class="conversations-loading">Loading...</div>
+          {#if conversationsLoading || isSearching}
+            <div class="conversations-loading">{isSearching ? 'Searching...' : 'Loading...'}</div>
           {:else if filteredConversations.length === 0}
             <div class="no-conversations">
               {searchQuery ? 'No matches found' : 'No conversations yet'}
