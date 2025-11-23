@@ -77,25 +77,45 @@ class ConversationService:
         """Initialize service. No configuration needed - uses SurrealDB config."""
         pass
 
-    async def list_conversations(self) -> list[ConversationMeta]:
-        """List all conversations (metadata only).
+    async def list_conversations(
+        self, user_id: Optional[str] = None
+    ) -> list[ConversationMeta]:
+        """List conversations (metadata only).
 
-        Returns conversations sorted by updated_at descending.
+        Args:
+            user_id: If provided, only return conversations owned by this user
+
+        Returns:
+            Conversations sorted by updated_at descending
         """
         # Get conversations with message count
-        query = """
-        SELECT
-            id,
-            title,
-            model,
-            created_at,
-            updated_at,
-            (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
-        FROM conversation
-        ORDER BY updated_at DESC;
-        """
-
-        results = await execute_query(query)
+        if user_id:
+            query = """
+            SELECT
+                id,
+                title,
+                model,
+                created_at,
+                updated_at,
+                (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
+            FROM conversation
+            WHERE user_id = $user_id
+            ORDER BY updated_at DESC;
+            """
+            results = await execute_query(query, {"user_id": user_id})
+        else:
+            query = """
+            SELECT
+                id,
+                title,
+                model,
+                created_at,
+                updated_at,
+                (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
+            FROM conversation
+            ORDER BY updated_at DESC;
+            """
+            results = await execute_query(query)
 
         conversations = []
         for r in results:
@@ -125,13 +145,17 @@ class ConversationService:
         return conversations
 
     async def create_conversation(
-        self, title: str = "New conversation", model: str = ""
+        self,
+        title: str = "New conversation",
+        model: str = "",
+        user_id: Optional[str] = None,
     ) -> Conversation:
         """Create a new conversation.
 
         Args:
             title: Initial title
             model: Model ID being used
+            user_id: Owner user ID (optional)
 
         Returns:
             The created conversation
@@ -144,6 +168,7 @@ class ConversationService:
             id: $id,
             title: $title,
             model: $model,
+            user_id: $user_id,
             created_at: time::now(),
             updated_at: time::now()
         };
@@ -153,6 +178,7 @@ class ConversationService:
             "id": conversation_id,
             "title": title,
             "model": model,
+            "user_id": user_id,
         })
 
         return Conversation(
@@ -223,6 +249,30 @@ class ConversationService:
             model=conv_data.get("model") or "",
             messages=messages,
         )
+
+    async def get_conversation_user_id(self, conversation_id: str) -> Optional[str]:
+        """Get the user_id for a conversation.
+
+        Args:
+            conversation_id: The conversation ID
+
+        Returns:
+            The user_id or None if not set/not found
+        """
+        results = await execute_query(
+            f"SELECT user_id FROM conversation:`{conversation_id}`"
+        )
+        if not results:
+            return None
+
+        user_id = results[0].get("user_id")
+        if user_id:
+            # Handle SurrealDB RecordID format if needed
+            user_id = str(user_id)
+            if ":" in user_id:
+                user_id = user_id.split(":", 1)[1]
+
+        return user_id
 
     async def update_conversation(
         self,
@@ -347,34 +397,58 @@ class ConversationService:
             sources=sources or [],
         )
 
-    async def search_conversations(self, query: str) -> list[ConversationMeta]:
+    async def search_conversations(
+        self, query: str, user_id: Optional[str] = None
+    ) -> list[ConversationMeta]:
         """Search conversations by title and content.
 
         Args:
             query: Search query (case-insensitive)
+            user_id: If provided, only search conversations owned by this user
 
         Returns:
             List of matching conversation metadata
         """
         # Search in conversation titles and message content using CONTAINS
-        search_query = """
-        SELECT DISTINCT
-            c.id AS id,
-            c.title AS title,
-            c.model AS model,
-            c.created_at AS created_at,
-            c.updated_at AS updated_at,
-            (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
-        FROM conversation AS c
-        WHERE
-            string::lowercase(c.title) CONTAINS string::lowercase($query)
-            OR c.id IN (
-                SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
-            )
-        ORDER BY c.updated_at DESC;
-        """
-
-        results = await execute_query(search_query, {"query": query})
+        if user_id:
+            search_query = """
+            SELECT DISTINCT
+                c.id AS id,
+                c.title AS title,
+                c.model AS model,
+                c.created_at AS created_at,
+                c.updated_at AS updated_at,
+                (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
+            FROM conversation AS c
+            WHERE
+                c.user_id = $user_id
+                AND (
+                    string::lowercase(c.title) CONTAINS string::lowercase($query)
+                    OR c.id IN (
+                        SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
+                    )
+                )
+            ORDER BY c.updated_at DESC;
+            """
+            results = await execute_query(search_query, {"query": query, "user_id": user_id})
+        else:
+            search_query = """
+            SELECT DISTINCT
+                c.id AS id,
+                c.title AS title,
+                c.model AS model,
+                c.created_at AS created_at,
+                c.updated_at AS updated_at,
+                (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
+            FROM conversation AS c
+            WHERE
+                string::lowercase(c.title) CONTAINS string::lowercase($query)
+                OR c.id IN (
+                    SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
+                )
+            ORDER BY c.updated_at DESC;
+            """
+            results = await execute_query(search_query, {"query": query})
 
         conversations = []
         for r in results:
@@ -458,6 +532,7 @@ class ConversationService:
         content: str,
         model: str = "ollama:llama3.2",
         content_type: str = "conversation",
+        custom_prompt: Optional[str] = None,
     ) -> str:
         """Generate a descriptive filename for content using LLM.
 
@@ -465,6 +540,7 @@ class ConversationService:
             content: The content to generate a filename for (truncated to 1000 chars)
             model: Model to use (ollama:*, openai:*, or openrouter model)
             content_type: Type of content ("message" or "conversation")
+            custom_prompt: Custom prompt template (uses {content_type} and {content} placeholders)
 
         Returns:
             Generated filename (filesystem-safe, no extension)
@@ -481,7 +557,11 @@ class ConversationService:
         if len(content) > 1000:
             content_snippet += "..."
 
-        prompt = f"""Generate a short, descriptive filename for this {content_type}.
+        # Use custom prompt if provided, otherwise use default
+        if custom_prompt:
+            prompt = custom_prompt.replace("{content_type}", content_type).replace("{content}", content_snippet)
+        else:
+            prompt = f"""Generate a short, descriptive filename for this {content_type}.
 Requirements:
 - 3-6 words maximum
 - Lowercase only
