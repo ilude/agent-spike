@@ -2,6 +2,8 @@
   import { onMount, onDestroy, tick } from 'svelte';
   import { browser } from '$app/environment';
   import { api } from '$lib/api.js';
+  import { auth, currentUser } from '$lib/stores/auth.js';
+  import SettingsModal from '$lib/components/SettingsModal.svelte';
   import { marked } from 'marked';
   import DOMPurify from 'dompurify';
   import hljs from 'highlight.js';
@@ -47,6 +49,10 @@
   let selectedStyle = 'default';
   let stylesLoading = true;
   let styleDropdownOpen = false;
+  let actionsDropdownOpen = false;
+
+  // Settings modal state
+  let settingsModalOpen = false;
 
   // Memory state
   let useMemory = true; // Memory enabled by default
@@ -133,6 +139,94 @@
     });
 
     return html;
+  }
+
+  // === Markdown Export Functions ===
+
+  // Format a single message as Obsidian-style markdown
+  function formatMessageAsMarkdown(msg) {
+    const role = msg.role === 'user' ? 'user' : 'assistant';
+    // Escape content for callout (indent each line with >)
+    const contentLines = msg.content.split('\n').map(line => `> ${line}`).join('\n');
+    return `> [!${role}]\n${contentLines}`;
+  }
+
+  // Format entire conversation as Obsidian-style markdown
+  function formatConversationAsMarkdown() {
+    const conv = conversations.find(c => c.id === activeConversationId);
+    const title = conv?.title || 'Untitled Conversation';
+    const date = new Date().toISOString().split('T')[0];
+    const model = selectedModel || 'unknown';
+
+    const frontmatter = `---
+title: "${title.replace(/"/g, '\\"')}"
+date: ${date}
+model: ${model}
+---`;
+
+    const messagesMarkdown = messages.map(msg => formatMessageAsMarkdown(msg)).join('\n\n');
+
+    return `${frontmatter}\n\n${messagesMarkdown}`;
+  }
+
+  // Copy text to clipboard with toast notification
+  async function copyToClipboard(text, successMessage = 'Copied to clipboard') {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(successMessage);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      showToast('Failed to copy to clipboard', 'error');
+    }
+  }
+
+  // Download text as a file
+  function downloadAsFile(content, filename) {
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`Downloaded ${filename}`);
+  }
+
+  // Simple toast notification
+  let toastMessage = '';
+  let toastType = 'success';
+  let toastVisible = false;
+
+  function showToast(message, type = 'success') {
+    toastMessage = message;
+    toastType = type;
+    toastVisible = true;
+    setTimeout(() => {
+      toastVisible = false;
+    }, 2500);
+  }
+
+  // Export handlers
+  function copyMessageAsMarkdown(msg) {
+    copyToClipboard(formatMessageAsMarkdown(msg), 'Message copied');
+  }
+
+  function downloadMessageAsMarkdown(msg) {
+    const timestamp = msg.timestamp.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    downloadAsFile(formatMessageAsMarkdown(msg), `message-${timestamp}.md`);
+  }
+
+  function copyConversationAsMarkdown() {
+    copyToClipboard(formatConversationAsMarkdown(), 'Conversation copied');
+  }
+
+  function downloadConversationAsMarkdown() {
+    const conv = conversations.find(c => c.id === activeConversationId);
+    const title = (conv?.title || 'conversation').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    const date = new Date().toISOString().split('T')[0];
+    downloadAsFile(formatConversationAsMarkdown(), `${title}-${date}.md`);
   }
 
   // Handle hover over inline video links
@@ -435,6 +529,9 @@
     }
     if (styleDropdownOpen && !event.target.closest('.style-dropdown')) {
       styleDropdownOpen = false;
+    }
+    if (actionsDropdownOpen && !event.target.closest('.actions-dropdown')) {
+      actionsDropdownOpen = false;
     }
   }
 
@@ -838,6 +935,9 @@
   $: filteredConversations = searchResults !== null ? searchResults : projectConversations;
 
   onMount(async () => {
+    // Set up API auth token getter
+    api.setTokenGetter(() => auth.getToken());
+
     // Load saved model preference from localStorage
     const savedModel = localStorage.getItem('mentat_model');
     if (savedModel) {
@@ -1113,6 +1213,18 @@
             {/each}
           {/if}
         </div>
+
+        <!-- Settings button at bottom of sidebar -->
+        <div class="sidebar-footer">
+          <button class="settings-btn" on:click={() => settingsModalOpen = true}>
+            <span class="settings-icon">⚙️</span>
+            {#if $currentUser}
+              <span class="user-name">{$currentUser.display_name || $currentUser.email}</span>
+            {:else}
+              <span class="user-name">Settings</span>
+            {/if}
+          </button>
+        </div>
       {/if}
     </aside>
 
@@ -1125,93 +1237,130 @@
         </div>
       {/if}
 
-      <!-- ChatGPT-style model selector -->
-      <div class="model-dropdown" class:open={modelDropdownOpen}>
-        <button
-          class="model-dropdown-trigger"
-          on:click={toggleModelDropdown}
-          disabled={modelsLoading || isStreaming}
-        >
-          <span class="model-name">{selectedModelName}</span>
-          <span class="dropdown-arrow">▼</span>
-        </button>
+      <!-- Model and Style selectors row -->
+      <div class="selectors-row">
+        <!-- ChatGPT-style model selector -->
+        <div class="model-dropdown" class:open={modelDropdownOpen}>
+          <button
+            class="model-dropdown-trigger"
+            on:click={toggleModelDropdown}
+            disabled={modelsLoading || isStreaming}
+          >
+            <span class="model-name">{selectedModelName}</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
 
-        {#if modelDropdownOpen}
-          <div class="model-dropdown-menu">
-            {#if availableModels.some(m => m.is_local)}
-              <div class="model-group">
-                <div class="model-group-label">Ollama</div>
-                {#each availableModels.filter(m => m.is_local) as model}
-                  <button
-                    class="model-option"
-                    class:selected={model.id === selectedModel}
-                    on:click={() => selectModel(model.id)}
-                  >
-                    {model.name}
-                  </button>
-                {/each}
-              </div>
-            {/if}
+          {#if modelDropdownOpen}
+            <div class="model-dropdown-menu">
+              {#if availableModels.some(m => m.is_local)}
+                <div class="model-group">
+                  <div class="model-group-label">Ollama</div>
+                  {#each availableModels.filter(m => m.is_local) as model}
+                    <button
+                      class="model-option"
+                      class:selected={model.id === selectedModel}
+                      on:click={() => selectModel(model.id)}
+                    >
+                      {model.name}
+                    </button>
+                  {/each}
+                </div>
+              {/if}
 
-            {#if availableModels.some(m => m.is_free && !m.is_local)}
-              <div class="model-group">
-                <div class="model-group-label">Free Models</div>
-                {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
-                  <button
-                    class="model-option"
-                    class:selected={model.id === selectedModel}
-                    on:click={() => selectModel(model.id)}
-                  >
-                    {model.name}
-                  </button>
-                {/each}
-              </div>
-            {/if}
+              {#if availableModels.some(m => m.is_free && !m.is_local)}
+                <div class="model-group">
+                  <div class="model-group-label">Free Models</div>
+                  {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
+                    <button
+                      class="model-option"
+                      class:selected={model.id === selectedModel}
+                      on:click={() => selectModel(model.id)}
+                    >
+                      {model.name}
+                    </button>
+                  {/each}
+                </div>
+              {/if}
 
-            {#if availableModels.some(m => !m.is_free && !m.is_local)}
-              <div class="model-group">
-                <div class="model-group-label">Paid Models</div>
-                {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
-                  <button
-                    class="model-option"
-                    class:selected={model.id === selectedModel}
-                    on:click={() => selectModel(model.id)}
-                  >
-                    {model.name}
-                  </button>
-                {/each}
-              </div>
-            {/if}
-          </div>
-        {/if}
-      </div>
+              {#if availableModels.some(m => !m.is_free && !m.is_local)}
+                <div class="model-group">
+                  <div class="model-group-label">Paid Models</div>
+                  {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
+                    <button
+                      class="model-option"
+                      class:selected={model.id === selectedModel}
+                      on:click={() => selectModel(model.id)}
+                    >
+                      {model.name}
+                    </button>
+                  {/each}
+                </div>
+              {/if}
+            </div>
+          {/if}
+        </div>
 
-      <!-- Style selector dropdown -->
-      <div class="style-dropdown" class:open={styleDropdownOpen}>
-        <button
-          class="style-dropdown-trigger"
-          on:click={() => styleDropdownOpen = !styleDropdownOpen}
-          disabled={stylesLoading || isStreaming}
-          title="Select writing style"
-        >
-          <span class="style-name">{styles.find(s => s.id === selectedStyle)?.name || 'Default'}</span>
-          <span class="dropdown-arrow">▼</span>
-        </button>
+        <!-- Style selector dropdown -->
+        <div class="style-dropdown" class:open={styleDropdownOpen}>
+          <button
+            class="style-dropdown-trigger"
+            on:click={() => styleDropdownOpen = !styleDropdownOpen}
+            disabled={stylesLoading || isStreaming}
+            title="Select writing style"
+          >
+            <span class="style-name">{styles.find(s => s.id === selectedStyle)?.name || 'Default'}</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
 
-        {#if styleDropdownOpen}
-          <div class="style-dropdown-menu">
-            {#each styles as style}
+          {#if styleDropdownOpen}
+            <div class="style-dropdown-menu">
+              {#each styles as style}
+                <button
+                  class="style-option"
+                  class:selected={style.id === selectedStyle}
+                  on:click={() => selectStyle(style.id)}
+                >
+                  <span class="style-option-name">{style.name}</span>
+                  <span class="style-option-desc">{style.description}</span>
+                </button>
+              {/each}
+            </div>
+          {/if}
+        </div>
+
+        <!-- Spacer to push actions to right -->
+        <div class="selectors-spacer"></div>
+
+        <!-- Actions dropdown -->
+        <div class="actions-dropdown" class:open={actionsDropdownOpen}>
+          <button
+            class="actions-dropdown-trigger"
+            on:click={() => actionsDropdownOpen = !actionsDropdownOpen}
+            disabled={messages.length === 0}
+            title="Actions"
+          >
+            ⋮
+          </button>
+
+          {#if actionsDropdownOpen}
+            <div class="actions-dropdown-menu">
               <button
-                class="style-option"
-                class:selected={style.id === selectedStyle}
-                on:click={() => selectStyle(style.id)}
+                class="action-option"
+                on:click={() => { copyConversationAsMarkdown(); actionsDropdownOpen = false; }}
               >
-                <span class="style-option-name">{style.name}</span>
-                <span class="style-option-desc">{style.description}</span>
+                <span class="action-icon">📋</span>
+                <span class="action-label">Copy as Markdown</span>
               </button>
-            {/each}
-          </div>
-        {/if}
+              <button
+                class="action-option"
+                on:click={() => { downloadConversationAsMarkdown(); actionsDropdownOpen = false; }}
+              >
+                <span class="action-icon">⬇</span>
+                <span class="action-label">Download as Markdown</span>
+              </button>
+            </div>
+          {/if}
+        </div>
       </div>
 
       <div class="messages-wrapper">
@@ -1239,6 +1388,23 @@
                     ↻
                   </button>
                 {/if}
+                <span class="metadata-spacer"></span>
+                <div class="message-export-btns">
+                  <button
+                    class="export-btn"
+                    on:click={() => copyMessageAsMarkdown(msg)}
+                    title="Copy as Markdown"
+                  >
+                    📋
+                  </button>
+                  <button
+                    class="export-btn"
+                    on:click={() => downloadMessageAsMarkdown(msg)}
+                    title="Download as Markdown"
+                  >
+                    ⬇
+                  </button>
+                </div>
               </div>
             </div>
           {/each}
@@ -1425,6 +1591,9 @@
   </div><!-- /.app-layout -->
 </main>
 
+<!-- Settings Modal -->
+<SettingsModal bind:show={settingsModalOpen} />
+
 <!-- Custom Tooltip -->
 {#if tooltipVisible}
   <div
@@ -1437,6 +1606,13 @@
         {tooltipContent.tags.join(', ')}
       </div>
     {/if}
+  </div>
+{/if}
+
+<!-- Toast notification -->
+{#if toastVisible}
+  <div class="toast toast-{toastType}">
+    {toastMessage}
   </div>
 {/if}
 
@@ -1688,6 +1864,44 @@
     color: #666;
   }
 
+  /* Sidebar footer with settings button */
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 0.75rem;
+    border-top: 1px solid #222;
+  }
+
+  .settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #888;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .settings-btn:hover {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    border-color: #444;
+  }
+
+  .settings-icon {
+    font-size: 1rem;
+  }
+
+  .settings-btn .user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .conversations-list {
     flex: 1;
     overflow-y: auto;
@@ -1799,11 +2013,18 @@
     overflow: hidden;
   }
 
+  /* Selectors row - contains model and style dropdowns */
+  .selectors-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 2rem;
+    background: #0a0a0a;
+  }
+
   /* ChatGPT-style model dropdown */
   .model-dropdown {
     position: relative;
-    padding: 0.5rem 2rem;
-    background: #0a0a0a;
   }
 
   .model-dropdown-trigger {
@@ -1925,12 +2146,9 @@
     color: #3b82f6;
   }
 
-  /* Style dropdown (next to model dropdown) */
+  /* Style dropdown (matches model dropdown style) */
   .style-dropdown {
-    position: absolute;
-    top: 0.5rem;
-    left: 220px; /* Position after model dropdown */
-    z-index: 90;
+    position: relative;
   }
 
   .style-dropdown-trigger {
@@ -1939,9 +2157,8 @@
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
     background: transparent;
-    border: 1px solid #333;
-    border-radius: 0.375rem;
-    color: #a0a0a0;
+    border: none;
+    color: #888;
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -1949,8 +2166,8 @@
 
   .style-dropdown-trigger:hover:not(:disabled) {
     background: #1a1a1a;
+    border-radius: 0.375rem;
     color: #e5e5e5;
-    border-color: #444;
   }
 
   .style-dropdown-trigger:disabled {
@@ -1983,6 +2200,28 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     padding: 0.5rem 0;
     margin-top: 0.25rem;
+
+    /* Dark mode scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #3a3a3a #1a1a1a;
+  }
+
+  .style-dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .style-dropdown-menu::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+  }
+
+  .style-dropdown-menu::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 4px;
+  }
+
+  .style-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
   }
 
   .style-option {
@@ -2920,5 +3159,152 @@
   .artifact-delete-btn:hover {
     background: rgba(239, 68, 68, 0.2);
     color: #ef4444;
+  }
+
+  /* Selectors spacer - pushes actions dropdown to right */
+  .selectors-spacer {
+    flex: 1;
+  }
+
+  /* Actions dropdown (conversation export) */
+  .actions-dropdown {
+    position: relative;
+  }
+
+  .actions-dropdown-trigger {
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 0.375rem;
+    color: #888;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+
+  .actions-dropdown-trigger:hover:not(:disabled) {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    border-color: #444;
+  }
+
+  .actions-dropdown-trigger:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .actions-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    z-index: 50;
+    min-width: 180px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .action-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-align: left;
+  }
+
+  .action-option:hover {
+    background: #2a2a2a;
+  }
+
+  .action-icon {
+    font-size: 1rem;
+    width: 1.25rem;
+    text-align: center;
+  }
+
+  .action-label {
+    flex: 1;
+  }
+
+  /* Message metadata spacer and export buttons */
+  .metadata-spacer {
+    flex: 1;
+  }
+
+  .message-export-btns {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .message-wrapper:hover .message-export-btns {
+    opacity: 1;
+  }
+
+  .export-btn {
+    padding: 0.125rem 0.375rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #666;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+
+  .export-btn:hover {
+    background: #2a2a2a;
+    color: #e5e5e5;
+  }
+
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    color: #e5e5e5;
+    font-size: 0.875rem;
+    z-index: 1000;
+    animation: toast-in 0.2s ease-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .toast-success {
+    border-color: #10b981;
+  }
+
+  .toast-error {
+    border-color: #ef4444;
+    color: #fca5a5;
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   }
 </style>
