@@ -74,12 +74,12 @@ A coordinator agent that routes URLs to specialized agents using pattern-based c
    - Dependency groups manage lesson-specific packages
    - Saves disk space and installation time
 
-### ⚠️ Challenges Encountered
+### ⚠️ Challenges Encountered (Historical)
 
-1. **Python Path Management**
-   - Subdirectory execution requires explicit venv Python
-   - `uv run python -m ...` doesn't work from lesson dirs
-   - Solution: Use `../../../.venv/Scripts/python.exe` directly
+1. **Python Path Management** (RESOLVED)
+   - Original issue: Subdirectory execution was problematic
+   - Solution: UV workspace configuration with shared root `.venv`
+   - Now: Always use `uv run python` from any lesson directory
 
 2. **Dependency Group Syntax**
    - Include-group syntax: `{include-group = "lesson-001"}`

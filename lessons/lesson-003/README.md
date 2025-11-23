@@ -68,7 +68,7 @@ uv run python demo.py "https://github.com/..."
 ### Interactive Mode
 
 ```bash
-../../../.venv/Scripts/python.exe -m coordinator_agent.cli interactive
+uv run python -m coordinator_agent.cli interactive
 ```
 
 Enter any URL and it will automatically route to the correct agent.
@@ -78,7 +78,7 @@ Enter any URL and it will automatically route to the correct agent.
 1. **Router Pattern**: Simple pattern-based routing is faster and more reliable than LLM-based classification
 2. **Agent Composition**: Reusing existing agents through imports is simpler than rebuilding
 3. **Unified Interface**: A single entry point improves user experience
-4. **Path Management**: Python path management across lesson directories requires careful setup
+4. **UV Workspace**: Using a shared root `.venv` with UV workspace configuration resolves path issues
 
 ## Dependencies
 
@@ -88,11 +88,10 @@ Lesson 003 depends on:
 
 No new dependencies required - just orchestration code.
 
-## Known Issues
+## Notes
 
-- Must use venv Python explicitly (`../../../.venv/Scripts/python.exe`) due to path issues
-- CLI commands like `uv run python -m ...` don't work from subdirectories
-- Windows/MSYS path resolution can be tricky
+- Always use `uv run python` from any lesson directory (UV finds the root venv automatically)
+- The project uses a UV workspace with a single shared `.venv` at project root
 
 ## Next Steps
 
