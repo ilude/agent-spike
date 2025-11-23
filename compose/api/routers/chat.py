@@ -15,7 +15,7 @@ from compose.services.conversations import get_conversation_service
 from compose.services.memory import get_memory_service
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
-from compose.services.surrealdb import semantic_search
+from compose.services.surrealdb import execute_query, get_video_count, semantic_search
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -230,76 +230,59 @@ def _fallback_models(
 @router.get("/random-question")
 async def get_random_question():
     """Generate a random question based on indexed video content."""
+    default_question = {"question": "What are the best practices for building AI agents?"}
     try:
-        qdrant = get_qdrant_client()
-        collection_info = qdrant.get_collection(COLLECTION_NAME)
-        points_count = collection_info.points_count
+        video_count = await get_video_count()
+        if video_count == 0:
+            return default_question
 
-        if points_count == 0:
-            return {"question": "What are the best practices for building AI agents?"}
+        # Get random videos with their topics from SurrealDB
+        query = """
+            SELECT title, channel_name,
+                   array::distinct((SELECT VALUE name FROM ->has_topic->topic)) AS topics
+            FROM video
+            WHERE title != NONE
+            ORDER BY rand()
+            LIMIT 10;
+        """
+        results = await execute_query(query)
 
-        random_offset = random.randint(0, max(0, points_count - 10))
-        scroll_result = qdrant.scroll(
-            collection_name=COLLECTION_NAME,
-            limit=10,
-            offset=random_offset,
-            with_payload=True,
-        )
-        points = scroll_result[0]
+        if not results:
+            return default_question
 
-        if not points:
-            return {"question": "What are the best practices for building AI agents?"}
-
-        # Extract tags and titles
-        all_tags = set()
+        # Extract titles and topics
         video_titles = set()
-        for point in points:
-            payload = point.payload or {}
-            # Handle different metadata formats
-            if 'tags' in payload:
-                all_tags.update(payload['tags'])
-            if 'metadata' in payload:
-                meta = payload['metadata']
-                if 'subject' in meta:
-                    subjects = meta['subject']
-                    if isinstance(subjects, list):
-                        all_tags.update(subjects)
-                    elif isinstance(subjects, str):
-                        all_tags.add(subjects)
-                if 'title' in meta:
-                    video_titles.add(meta['title'])
-            if 'meta_youtube_title' in payload:
-                video_titles.add(payload['meta_youtube_title'])
-            # Also check value.title (fast_reingest stores here)
-            if 'value' in payload and payload['value'].get('title'):
-                video_titles.add(payload['value']['title'])
-
-        all_tags = [t for t in all_tags if t]
-        video_titles = list(video_titles)
+        all_topics = set()
+        for video in results:
+            if video.get("title"):
+                video_titles.add(video["title"])
+            topics = video.get("topics", [])
+            if topics:
+                all_topics.update(topics)
 
         question_templates = []
-        if all_tags:
-            tag = random.choice(list(all_tags))
+        if all_topics:
+            topic = random.choice(list(all_topics))
             question_templates.extend([
-                f"What videos discuss {tag}?",
-                f"Tell me about {tag}",
-                f"What are the key concepts related to {tag}?",
+                f"What videos discuss {topic}?",
+                f"Tell me about {topic}",
+                f"What are the key concepts related to {topic}?",
             ])
         if video_titles:
-            title = random.choice(video_titles)
+            title = random.choice(list(video_titles))
             question_templates.extend([
                 f"What does {title} cover?",
                 f"Summarize {title}",
             ])
 
         if not question_templates:
-            return {"question": "What are the best practices for building AI agents?"}
+            return default_question
 
         return {"question": random.choice(question_templates)}
 
     except Exception as e:
         print(f"Error generating question: {e}")
-        return {"question": "What are the best practices for building AI agents?"}
+        return default_question
 
 
 @router.websocket("/ws/chat")
