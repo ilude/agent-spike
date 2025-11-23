@@ -19,6 +19,11 @@
   let channelLimitOpen = false;
   let detectedType = null;
 
+  // Backup state
+  let backups = [];
+  let backupLoading = false;
+  let backupError = '';
+
   // Detect URL type as user types
   async function detectUrlType() {
     if (!ingestUrl.trim()) {
@@ -67,6 +72,42 @@
     }
   }
 
+  // Load backups from API
+  async function loadBackups() {
+    try {
+      const result = await api.listBackups();
+      backups = result.backups || [];
+      backupError = '';
+    } catch (e) {
+      backupError = e.message;
+    }
+  }
+
+  // Start a new backup
+  async function startBackup() {
+    if (backupLoading) return;
+    backupLoading = true;
+    backupError = '';
+    try {
+      await api.startBackup();
+      await loadBackups();
+    } catch (e) {
+      backupError = e.message;
+    } finally {
+      backupLoading = false;
+    }
+  }
+
+  // Delete a backup
+  async function deleteBackup(id) {
+    try {
+      await api.deleteBackup(id);
+      await loadBackups();
+    } catch (e) {
+      backupError = e.message;
+    }
+  }
+
   async function checkFrontendHealth() {
     try {
       const response = await fetch('/api/health');
@@ -79,6 +120,8 @@
   onMount(() => {
     // Check SvelteKit server health periodically
     checkFrontendHealth();
+    // Load backups on mount
+    loadBackups();
     healthCheckInterval = setInterval(checkFrontendHealth, 5000);
     // Connect to SSE stream for real-time updates
     eventSource = api.connectStatsStream(
@@ -357,6 +400,49 @@
             <div class="proxy-error">{stats.webshare.message}</div>
           {:else}
             <div class="proxy-loading">Loading...</div>
+          {/if}
+        </div>
+        <!-- Backup Management -->
+        <div class="stat-card backup">
+          <h3>Backup Management</h3>
+          <div class="backup-actions">
+            <button
+              class="backup-btn primary"
+              on:click={startBackup}
+              disabled={backupLoading}
+            >
+              {backupLoading ? 'Creating...' : 'Create Backup'}
+            </button>
+          </div>
+
+          {#if backupError}
+            <div class="backup-error">{backupError}</div>
+          {/if}
+
+          {#if backups.length > 0}
+            <div class="backup-list">
+              {#each backups.slice(0, 5) as backup}
+                <div class="backup-item">
+                  <div class="backup-info">
+                    <span class="backup-date">
+                      {new Date(backup.started_at).toLocaleDateString()}
+                    </span>
+                    <span class="backup-status" class:completed={backup.status === 'completed'} class:failed={backup.status === 'failed'} class:in_progress={backup.status === 'in_progress'}>
+                      {backup.status}
+                    </span>
+                  </div>
+                  <div class="backup-meta">
+                    {backup.tables_backed_up?.length || 0} tables
+                    {#if backup.size_bytes}
+                      - {(backup.size_bytes / 1024 / 1024).toFixed(1)} MB
+                    {/if}
+                  </div>
+                  <button class="backup-delete" on:click={() => deleteBackup(backup.id)}>x</button>
+                </div>
+              {/each}
+            </div>
+          {:else}
+            <div class="no-backups">No backups yet</div>
           {/if}
         </div>
       </div>
@@ -1068,5 +1154,118 @@
   .proxy-error {
     color: #f87171;
     font-size: 0.75rem;
+  }
+
+  /* Backup Management Card */
+  .backup-actions {
+    margin-bottom: 1rem;
+  }
+
+  .backup-btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .backup-btn.primary {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .backup-btn.primary:hover:not(:disabled) {
+    background: #2563eb;
+  }
+
+  .backup-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .backup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .backup-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #0a0a0a;
+    border-radius: 0.375rem;
+  }
+
+  .backup-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .backup-date {
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .backup-status {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .backup-status.completed {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .backup-status.failed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+  }
+
+  .backup-status.in_progress {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+  }
+
+  .backup-meta {
+    font-size: 0.625rem;
+    color: #666;
+  }
+
+  .backup-delete {
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+  }
+
+  .backup-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+  }
+
+  .backup-error {
+    color: #f87171;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .no-backups {
+    color: #666;
+    font-size: 0.875rem;
   }
 </style>

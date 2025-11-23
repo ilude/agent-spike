@@ -282,6 +282,12 @@ Code quality standards (applies to production code in `src/`):
 
 **For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
 
+**Frontend service**: The frontend (SvelteKit) runs as a **local service, not in a container**. Hot reloading does not work correctly with Docker containers and Windows bind mounts. Start it locally with:
+```bash
+cd compose/frontend && bun run dev
+```
+The frontend connects to the API via `https://api.local.ilude.com` (traefik) or directly at `http://localhost:8000`.
+
 ---
 
 Happy learning!

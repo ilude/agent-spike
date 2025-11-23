@@ -209,6 +209,8 @@ platform-api = [
     "typer>=0.9",
     "mcp>=1.20.0",
     "python-multipart>=0.0.20",
+    "surrealdb>=1.0.0",
+    "minio>=7.2.0",
 ]
 platform-embeddings = [
     # Heavy ML service for embeddings (PyTorch + CUDA)

@@ -44,7 +44,7 @@ class SearchRequest(BaseModel):
 async def list_conversations():
     """List all conversations (metadata only, sorted by most recent)."""
     service = get_conversation_service()
-    conversations = service.list_conversations()
+    conversations = await service.list_conversations()
     return ConversationListResponse(conversations=conversations)
 
 
@@ -52,7 +52,7 @@ async def list_conversations():
 async def create_conversation(request: CreateConversationRequest):
     """Create a new conversation."""
     service = get_conversation_service()
-    conversation = service.create_conversation(
+    conversation = await service.create_conversation(
         title=request.title,
         model=request.model,
     )
@@ -68,7 +68,7 @@ async def search_conversations(q: str):
         )
 
     service = get_conversation_service()
-    results = service.search_conversations(q)
+    results = await service.search_conversations(q)
     return ConversationListResponse(conversations=results)
 
 
@@ -76,7 +76,7 @@ async def search_conversations(q: str):
 async def get_conversation(conversation_id: str):
     """Get a conversation by ID (includes all messages)."""
     service = get_conversation_service()
-    conversation = service.get_conversation(conversation_id)
+    conversation = await service.get_conversation(conversation_id)
 
     if not conversation:
         raise HTTPException(status_code=404, detail="Conversation not found")
@@ -90,7 +90,7 @@ async def update_conversation(
 ):
     """Update conversation metadata (title, model)."""
     service = get_conversation_service()
-    conversation = service.update_conversation(
+    conversation = await service.update_conversation(
         conversation_id,
         title=request.title,
         model=request.model,
@@ -106,7 +106,7 @@ async def update_conversation(
 async def delete_conversation(conversation_id: str):
     """Delete a conversation."""
     service = get_conversation_service()
-    deleted = service.delete_conversation(conversation_id)
+    deleted = await service.delete_conversation(conversation_id)
 
     if not deleted:
         raise HTTPException(status_code=404, detail="Conversation not found")

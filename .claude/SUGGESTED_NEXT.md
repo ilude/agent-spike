@@ -16,11 +16,12 @@ Each suggestion is rated on:
 
 ---
 
-## 1. Implement Dual-Collection Embedding Architecture
+## 1. ✅ COMPLETE - Implement Dual-Collection Embedding Architecture
 
 **Vision Alignment**: ⭐⭐⭐⭐⭐ (Core infrastructure for recommendations)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean separation, minimal conflicts)
 **Complexity**: Medium (2-3 days)
+**Status**: COMPLETE (2025-11-23)
 
 ### What
 Implement the dual-collection strategy from the embedding pipeline spec:
@@ -145,11 +146,12 @@ git worktree add ../agent-spike-monitor -b feature/channel-monitor
 
 ---
 
-## 4. Implement Chunking Strategy for Long Videos
+## 4. ✅ COMPLETE - Implement Chunking Strategy for Long Videos
 
 **Vision Alignment**: ⭐⭐⭐⭐ (Improves search precision)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean feature addition)
 **Complexity**: Medium (2-3 days)
+**Status**: COMPLETE (2025-11-23)
 
 ### What
 Implement time-based + token hybrid chunking for YouTube transcripts:
@@ -408,15 +410,16 @@ uv run python -m compose.cli.ingest repl
 
 ---
 
-**Last Updated**: 2025-11-22 - Added SurrealDB/MinIO migration plan
+**Last Updated**: 2025-11-23 - Backup service working, SurrealDB syntax documented
 
 ---
 
-## 6. Migrate Conversations & Projects to SurrealDB/MinIO
+## 6. ✅ COMPLETE - Migrate Conversations & Projects to SurrealDB/MinIO
 
 **Vision Alignment**: ⭐⭐⭐⭐⭐ (Unified data layer, essential for production)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Self-contained migration)
 **Complexity**: Medium (2-3 days)
+**Status**: COMPLETE (2025-11-23)
 
 ### Current State
 
@@ -553,11 +556,48 @@ Create `compose/cli/migrate_to_surrealdb.py`:
 
 ### Success Criteria
 
-- [ ] All CRUD operations work via SurrealDB
-- [ ] Project files stored in MinIO, retrievable via API
-- [ ] Existing conversations/projects migrated without data loss
-- [ ] API routers unchanged (services maintain same interface)
-- [ ] Tests pass with new backend
+- [x] Backup service working with SurrealDB + MinIO (2025-11-23)
+- [x] All CRUD operations work via SurrealDB (2025-11-23)
+- [x] Project files stored in MinIO, retrievable via API (2025-11-23)
+- [x] Existing conversations/projects migrated without data loss (2025-11-23)
+- [x] API routers unchanged (services maintain same interface) (2025-11-23)
+- [x] Tests pass with new backend (2025-11-23)
+
+### SurrealDB Syntax Lessons Learned (2025-11-23)
+
+**Record ID syntax for UUIDs with dashes**: Use backticks around the ID value.
+
+```surql
+-- CORRECT: Creates record with specific ID
+CREATE backup:`3810d02f-552b-453e-86ed-b0f5677181c2` SET status = 'pending';
+
+-- WRONG: Creates a field called 'id', not a record ID
+CREATE backup SET id = '3810d02f-552b-453e-86ed-b0f5677181c2', status = 'pending';
+```
+
+**Python f-string pattern**:
+```python
+backup_id = str(uuid4())  # e.g., "3810d02f-552b-453e-86ed-b0f5677181c2"
+
+# CREATE with specific record ID
+await execute_query(f"CREATE backup:`{backup_id}` SET status = $status", {"status": "pending"})
+
+# SELECT by record ID
+await execute_query(f"SELECT * FROM backup:`{backup_id}`")
+
+# UPDATE by record ID
+await execute_query(f"UPDATE backup:`{backup_id}` SET status = $status", {"status": "completed"})
+
+# DELETE by record ID
+await execute_query(f"DELETE backup:`{backup_id}`")
+```
+
+**RecordID object handling**: SurrealDB returns `RecordID` objects, not strings. Convert with `str()`:
+```python
+record_id = str(record.get("id", ""))  # e.g., "backup:3810d02f-..."
+if ":" in record_id:
+    record_id = record_id.split(":")[1]  # Extract just the UUID part
+```
 
 ### Benefits
 

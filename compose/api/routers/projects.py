@@ -52,7 +52,7 @@ class AddConversationRequest(BaseModel):
 async def list_projects():
     """List all projects (metadata only, sorted by most recent)."""
     service = get_project_service()
-    projects = service.list_projects()
+    projects = await service.list_projects()
     return ProjectListResponse(projects=projects)
 
 
@@ -60,7 +60,7 @@ async def list_projects():
 async def create_project(request: CreateProjectRequest):
     """Create a new project."""
     service = get_project_service()
-    project = service.create_project(
+    project = await service.create_project(
         name=request.name,
         description=request.description,
     )
@@ -71,7 +71,7 @@ async def create_project(request: CreateProjectRequest):
 async def get_project(project_id: str):
     """Get a project by ID (includes all settings and file list)."""
     service = get_project_service()
-    project = service.get_project(project_id)
+    project = await service.get_project(project_id)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -83,7 +83,7 @@ async def get_project(project_id: str):
 async def update_project(project_id: str, request: UpdateProjectRequest):
     """Update project settings (name, description, custom instructions)."""
     service = get_project_service()
-    project = service.update_project(
+    project = await service.update_project(
         project_id,
         name=request.name,
         description=request.description,
@@ -100,7 +100,7 @@ async def update_project(project_id: str, request: UpdateProjectRequest):
 async def delete_project(project_id: str):
     """Delete a project and all its files."""
     service = get_project_service()
-    deleted = service.delete_project(project_id)
+    deleted = await service.delete_project(project_id)
 
     if not deleted:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -114,7 +114,7 @@ async def add_conversation_to_project(
 ):
     """Add a conversation to a project."""
     service = get_project_service()
-    project = service.add_conversation_to_project(
+    project = await service.add_conversation_to_project(
         project_id, request.conversation_id
     )
 
@@ -128,7 +128,7 @@ async def add_conversation_to_project(
 async def remove_conversation_from_project(project_id: str, conversation_id: str):
     """Remove a conversation from a project."""
     service = get_project_service()
-    project = service.remove_conversation_from_project(project_id, conversation_id)
+    project = await service.remove_conversation_from_project(project_id, conversation_id)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -158,7 +158,7 @@ async def process_file_background(
         )
 
         # Update file record with processing status
-        service.mark_file_processed(
+        await service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
             qdrant_indexed=result.get("success", False),
@@ -172,7 +172,7 @@ async def process_file_background(
 
     except Exception as e:
         print(f"Background file processing error: {e}")
-        service.mark_file_processed(
+        await service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
             qdrant_indexed=False,
@@ -193,7 +193,7 @@ async def upload_file(
     service = get_project_service()
 
     # Check project exists
-    project = service.get_project(project_id)
+    project = await service.get_project(project_id)
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
@@ -213,7 +213,7 @@ async def upload_file(
     safe_filename = re.sub(r'[^\w\-_\.]', '_', file.filename)
 
     # Add file to project
-    file_record = service.add_file(
+    file_record = await service.add_file(
         project_id=project_id,
         filename=safe_filename,
         original_filename=file.filename,
@@ -225,7 +225,7 @@ async def upload_file(
         raise HTTPException(status_code=500, detail="Failed to save file")
 
     # Get file path for processing
-    file_path = service.get_file_path(project_id, file_record.id)
+    file_path = await service.get_file_path(project_id, file_record.id)
 
     # Queue background processing
     if file_path:
@@ -245,7 +245,7 @@ async def upload_file(
 async def get_file_info(project_id: str, file_id: str):
     """Get information about a specific file."""
     service = get_project_service()
-    project = service.get_project(project_id)
+    project = await service.get_project(project_id)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -261,7 +261,7 @@ async def get_file_info(project_id: str, file_id: str):
 async def delete_file(project_id: str, file_id: str):
     """Delete a file from a project and remove from index."""
     service = get_project_service()
-    deleted = service.delete_file(project_id, file_id)
+    deleted = await service.delete_file(project_id, file_id)
 
     if not deleted:
         raise HTTPException(status_code=404, detail="File not found")
@@ -301,7 +301,7 @@ async def search_files(project_id: str, request: SearchFilesRequest):
     service = get_project_service()
 
     # Check project exists
-    project = service.get_project(project_id)
+    project = await service.get_project(project_id)
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 

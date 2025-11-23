@@ -1,4 +1,4 @@
-"""Artifact storage service for Canvas documents.
+"""Artifact storage service for Canvas documents (SurrealDB backend).
 
 Artifacts are documents created during conversations that can be:
 - Standalone documents (markdown, code, etc.)
@@ -7,14 +7,13 @@ Artifacts are documents created during conversations that can be:
 - Browsed across all conversations in the artifacts browser
 """
 
-import json
-import os
 import uuid
 from datetime import datetime
-from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+from .surrealdb.driver import execute_query
 
 
 class ArtifactMeta(BaseModel):
@@ -37,72 +36,60 @@ class Artifact(ArtifactMeta):
     content: str
 
 
-class ArtifactIndex(BaseModel):
-    """Index of all artifacts for fast listing."""
+def _parse_datetime(value) -> datetime:
+    """Parse datetime from SurrealDB result."""
+    if isinstance(value, datetime):
+        return value
+    if isinstance(value, str):
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return datetime.now()
 
-    artifacts: dict[str, ArtifactMeta] = Field(default_factory=dict)
+
+def _record_to_artifact(record: dict) -> Artifact:
+    """Convert SurrealDB record to Artifact model."""
+    # Handle SurrealDB record ID format (artifact:uuid)
+    record_id = str(record.get("id", ""))
+    if ":" in record_id:
+        record_id = record_id.split(":", 1)[1]
+
+    return Artifact(
+        id=record_id,
+        title=record.get("title", ""),
+        artifact_type=record.get("artifact_type", "document"),
+        language=record.get("language"),
+        conversation_id=record.get("conversation_id"),
+        project_id=record.get("project_id"),
+        created_at=_parse_datetime(record.get("created_at")),
+        updated_at=_parse_datetime(record.get("updated_at")),
+        preview=record.get("preview", ""),
+        content=record.get("content", ""),
+    )
+
+
+def _record_to_meta(record: dict) -> ArtifactMeta:
+    """Convert SurrealDB record to ArtifactMeta model."""
+    # Handle SurrealDB record ID format (artifact:uuid)
+    record_id = str(record.get("id", ""))
+    if ":" in record_id:
+        record_id = record_id.split(":", 1)[1]
+
+    return ArtifactMeta(
+        id=record_id,
+        title=record.get("title", ""),
+        artifact_type=record.get("artifact_type", "document"),
+        language=record.get("language"),
+        conversation_id=record.get("conversation_id"),
+        project_id=record.get("project_id"),
+        created_at=_parse_datetime(record.get("created_at")),
+        updated_at=_parse_datetime(record.get("updated_at")),
+        preview=record.get("preview", ""),
+    )
 
 
 class ArtifactService:
-    """Service for managing artifact storage."""
+    """Service for managing artifact storage in SurrealDB."""
 
-    def __init__(self, data_dir: Optional[Path] = None):
-        """Initialize artifact service with data directory."""
-        if data_dir is None:
-            # Default to compose/data/artifacts
-            base = Path(__file__).parent.parent / "data" / "artifacts"
-        else:
-            base = data_dir
-        self.data_dir = base
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-        self.index_path = self.data_dir / "index.json"
-        self._index: Optional[ArtifactIndex] = None
-
-    def _load_index(self) -> ArtifactIndex:
-        """Load artifact index from disk."""
-        if self._index is not None:
-            return self._index
-
-        if self.index_path.exists():
-            try:
-                data = json.loads(self.index_path.read_text(encoding="utf-8"))
-                # Parse datetime strings
-                for artifact_id, meta in data.get("artifacts", {}).items():
-                    meta["created_at"] = datetime.fromisoformat(meta["created_at"])
-                    meta["updated_at"] = datetime.fromisoformat(meta["updated_at"])
-                self._index = ArtifactIndex(**data)
-            except Exception as e:
-                print(f"Error loading artifact index: {e}")
-                self._index = ArtifactIndex()
-        else:
-            self._index = ArtifactIndex()
-
-        return self._index
-
-    def _save_index(self) -> None:
-        """Save artifact index to disk."""
-        if self._index is None:
-            return
-
-        data = {
-            "artifacts": {
-                k: {
-                    **v.model_dump(),
-                    "created_at": v.created_at.isoformat(),
-                    "updated_at": v.updated_at.isoformat(),
-                }
-                for k, v in self._index.artifacts.items()
-            }
-        }
-        self.index_path.write_text(
-            json.dumps(data, indent=2), encoding="utf-8"
-        )
-
-    def _artifact_path(self, artifact_id: str) -> Path:
-        """Get path to artifact content file."""
-        return self.data_dir / f"{artifact_id}.json"
-
-    def list_artifacts(
+    async def list_artifacts(
         self,
         conversation_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -116,20 +103,32 @@ class ArtifactService:
         Returns:
             List of artifact metadata sorted by updated_at desc
         """
-        index = self._load_index()
-        artifacts = list(index.artifacts.values())
+        # Build query with optional filters
+        conditions = []
+        params = {}
 
         if conversation_id:
-            artifacts = [a for a in artifacts if a.conversation_id == conversation_id]
+            conditions.append("conversation_id = $conversation_id")
+            params["conversation_id"] = conversation_id
 
         if project_id:
-            artifacts = [a for a in artifacts if a.project_id == project_id]
+            conditions.append("project_id = $project_id")
+            params["project_id"] = project_id
 
-        # Sort by most recently updated
-        artifacts.sort(key=lambda a: a.updated_at, reverse=True)
-        return artifacts
+        where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 
-    def create_artifact(
+        query = f"""
+        SELECT id, title, artifact_type, language, conversation_id, project_id,
+               created_at, updated_at, preview
+        FROM artifact
+        {where_clause}
+        ORDER BY updated_at DESC;
+        """
+
+        results = await execute_query(query, params)
+        return [_record_to_meta(r) for r in results]
+
+    async def create_artifact(
         self,
         title: str,
         content: str,
@@ -152,14 +151,45 @@ class ArtifactService:
             Created artifact
         """
         artifact_id = str(uuid.uuid4())
-        now = datetime.utcnow()
 
         # Generate preview (first 200 chars, strip whitespace)
         preview = content[:200].strip() if content else ""
         if len(content) > 200:
             preview += "..."
 
-        artifact = Artifact(
+        query = """
+        CREATE artifact SET
+            id = $id,
+            title = $title,
+            artifact_type = $artifact_type,
+            language = $language,
+            content = $content,
+            preview = $preview,
+            conversation_id = $conversation_id,
+            project_id = $project_id,
+            created_at = time::now(),
+            updated_at = time::now();
+        """
+
+        params = {
+            "id": artifact_id,
+            "title": title,
+            "artifact_type": artifact_type,
+            "language": language,
+            "content": content,
+            "preview": preview,
+            "conversation_id": conversation_id,
+            "project_id": project_id,
+        }
+
+        results = await execute_query(query, params)
+
+        if results:
+            return _record_to_artifact(results[0])
+
+        # Return constructed artifact if no result returned
+        now = datetime.utcnow()
+        return Artifact(
             id=artifact_id,
             title=title,
             artifact_type=artifact_type,
@@ -172,34 +202,7 @@ class ArtifactService:
             content=content,
         )
 
-        # Save content
-        artifact_data = {
-            **artifact.model_dump(),
-            "created_at": artifact.created_at.isoformat(),
-            "updated_at": artifact.updated_at.isoformat(),
-        }
-        self._artifact_path(artifact_id).write_text(
-            json.dumps(artifact_data, indent=2), encoding="utf-8"
-        )
-
-        # Update index
-        index = self._load_index()
-        index.artifacts[artifact_id] = ArtifactMeta(
-            id=artifact.id,
-            title=artifact.title,
-            artifact_type=artifact.artifact_type,
-            language=artifact.language,
-            conversation_id=artifact.conversation_id,
-            project_id=artifact.project_id,
-            created_at=artifact.created_at,
-            updated_at=artifact.updated_at,
-            preview=preview,
-        )
-        self._save_index()
-
-        return artifact
-
-    def get_artifact(self, artifact_id: str) -> Optional[Artifact]:
+    async def get_artifact(self, artifact_id: str) -> Optional[Artifact]:
         """Get artifact by ID.
 
         Args:
@@ -208,20 +211,16 @@ class ArtifactService:
         Returns:
             Artifact or None if not found
         """
-        path = self._artifact_path(artifact_id)
-        if not path.exists():
+        query = "SELECT * FROM artifact WHERE id = $id LIMIT 1;"
+
+        results = await execute_query(query, {"id": artifact_id})
+
+        if not results:
             return None
 
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-            data["created_at"] = datetime.fromisoformat(data["created_at"])
-            data["updated_at"] = datetime.fromisoformat(data["updated_at"])
-            return Artifact(**data)
-        except Exception as e:
-            print(f"Error loading artifact {artifact_id}: {e}")
-            return None
+        return _record_to_artifact(results[0])
 
-    def update_artifact(
+    async def update_artifact(
         self,
         artifact_id: str,
         title: Optional[str] = None,
@@ -241,55 +240,45 @@ class ArtifactService:
         Returns:
             Updated artifact or None if not found
         """
-        artifact = self.get_artifact(artifact_id)
-        if not artifact:
+        # Build SET clause dynamically based on provided fields
+        set_parts = ["updated_at = time::now()"]
+        params = {"id": artifact_id}
+
+        if title is not None:
+            set_parts.append("title = $title")
+            params["title"] = title
+
+        if content is not None:
+            set_parts.append("content = $content")
+            params["content"] = content
+            # Update preview
+            preview = content[:200].strip() if content else ""
+            if len(content) > 200:
+                preview += "..."
+            set_parts.append("preview = $preview")
+            params["preview"] = preview
+
+        if artifact_type is not None:
+            set_parts.append("artifact_type = $artifact_type")
+            params["artifact_type"] = artifact_type
+
+        if language is not None:
+            set_parts.append("language = $language")
+            params["language"] = language
+
+        query = f"""
+        UPDATE artifact SET {", ".join(set_parts)}
+        WHERE id = $id;
+        """
+
+        results = await execute_query(query, params)
+
+        if not results:
             return None
 
-        # Update fields
-        if title is not None:
-            artifact.title = title
-        if content is not None:
-            artifact.content = content
-            # Update preview
-            artifact.preview = content[:200].strip() if content else ""
-            if len(content) > 200:
-                artifact.preview += "..."
-        if artifact_type is not None:
-            artifact.artifact_type = artifact_type
-        if language is not None:
-            artifact.language = language
+        return _record_to_artifact(results[0])
 
-        artifact.updated_at = datetime.utcnow()
-
-        # Save content
-        artifact_data = {
-            **artifact.model_dump(),
-            "created_at": artifact.created_at.isoformat(),
-            "updated_at": artifact.updated_at.isoformat(),
-        }
-        self._artifact_path(artifact_id).write_text(
-            json.dumps(artifact_data, indent=2), encoding="utf-8"
-        )
-
-        # Update index
-        index = self._load_index()
-        if artifact_id in index.artifacts:
-            index.artifacts[artifact_id] = ArtifactMeta(
-                id=artifact.id,
-                title=artifact.title,
-                artifact_type=artifact.artifact_type,
-                language=artifact.language,
-                conversation_id=artifact.conversation_id,
-                project_id=artifact.project_id,
-                created_at=artifact.created_at,
-                updated_at=artifact.updated_at,
-                preview=artifact.preview,
-            )
-            self._save_index()
-
-        return artifact
-
-    def delete_artifact(self, artifact_id: str) -> bool:
+    async def delete_artifact(self, artifact_id: str) -> bool:
         """Delete an artifact.
 
         Args:
@@ -298,22 +287,18 @@ class ArtifactService:
         Returns:
             True if deleted, False if not found
         """
-        path = self._artifact_path(artifact_id)
-        if not path.exists():
+        # Check if exists first
+        check_query = "SELECT id FROM artifact WHERE id = $id LIMIT 1;"
+        exists = await execute_query(check_query, {"id": artifact_id})
+
+        if not exists:
             return False
 
-        # Remove file
-        path.unlink()
-
-        # Remove from index
-        index = self._load_index()
-        if artifact_id in index.artifacts:
-            del index.artifacts[artifact_id]
-            self._save_index()
-
+        query = "DELETE artifact WHERE id = $id;"
+        await execute_query(query, {"id": artifact_id})
         return True
 
-    def link_to_conversation(
+    async def link_to_conversation(
         self, artifact_id: str, conversation_id: str
     ) -> Optional[Artifact]:
         """Link an artifact to a conversation.
@@ -325,33 +310,24 @@ class ArtifactService:
         Returns:
             Updated artifact or None if not found
         """
-        artifact = self.get_artifact(artifact_id)
-        if not artifact:
+        query = """
+        UPDATE artifact SET
+            conversation_id = $conversation_id,
+            updated_at = time::now()
+        WHERE id = $id;
+        """
+
+        results = await execute_query(query, {
+            "id": artifact_id,
+            "conversation_id": conversation_id,
+        })
+
+        if not results:
             return None
 
-        artifact.conversation_id = conversation_id
-        artifact.updated_at = datetime.utcnow()
+        return _record_to_artifact(results[0])
 
-        # Save
-        artifact_data = {
-            **artifact.model_dump(),
-            "created_at": artifact.created_at.isoformat(),
-            "updated_at": artifact.updated_at.isoformat(),
-        }
-        self._artifact_path(artifact_id).write_text(
-            json.dumps(artifact_data, indent=2), encoding="utf-8"
-        )
-
-        # Update index
-        index = self._load_index()
-        if artifact_id in index.artifacts:
-            index.artifacts[artifact_id].conversation_id = conversation_id
-            index.artifacts[artifact_id].updated_at = artifact.updated_at
-            self._save_index()
-
-        return artifact
-
-    def link_to_project(
+    async def link_to_project(
         self, artifact_id: str, project_id: str
     ) -> Optional[Artifact]:
         """Link an artifact to a project.
@@ -363,31 +339,22 @@ class ArtifactService:
         Returns:
             Updated artifact or None if not found
         """
-        artifact = self.get_artifact(artifact_id)
-        if not artifact:
+        query = """
+        UPDATE artifact SET
+            project_id = $project_id,
+            updated_at = time::now()
+        WHERE id = $id;
+        """
+
+        results = await execute_query(query, {
+            "id": artifact_id,
+            "project_id": project_id,
+        })
+
+        if not results:
             return None
 
-        artifact.project_id = project_id
-        artifact.updated_at = datetime.utcnow()
-
-        # Save
-        artifact_data = {
-            **artifact.model_dump(),
-            "created_at": artifact.created_at.isoformat(),
-            "updated_at": artifact.updated_at.isoformat(),
-        }
-        self._artifact_path(artifact_id).write_text(
-            json.dumps(artifact_data, indent=2), encoding="utf-8"
-        )
-
-        # Update index
-        index = self._load_index()
-        if artifact_id in index.artifacts:
-            index.artifacts[artifact_id].project_id = project_id
-            index.artifacts[artifact_id].updated_at = artifact.updated_at
-            self._save_index()
-
-        return artifact
+        return _record_to_artifact(results[0])
 
 
 # Singleton service instance

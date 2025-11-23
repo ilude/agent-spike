@@ -18,7 +18,7 @@ Example:
     >>> metadata, error = fetch_video_metadata(video_id)
 """
 
-from .utils import extract_video_id, get_video_info, get_transcript
+from .utils import extract_video_id, get_video_info, get_transcript, get_timed_transcript
 from .transcript_service import YouTubeTranscriptService, get_default_service
 from .metadata_service import YouTubeMetadataService, fetch_video_metadata
 from .url_filter import (
@@ -33,6 +33,7 @@ __all__ = [
     "extract_video_id",
     "get_video_info",
     "get_transcript",
+    "get_timed_transcript",
     "YouTubeTranscriptService",
     "get_default_service",
     "YouTubeMetadataService",

@@ -15,8 +15,10 @@ from typing import Optional
 from .driver import execute_query
 from .models import (
     ChannelRecord,
+    ChunkSearchResult,
     StaleVideoResult,
     TopicRecord,
+    VideoChunkRecord,
     VideoRecord,
     VectorSearchResult,
 )
@@ -58,6 +60,23 @@ async def init_schema() -> None:
         DEFINE INDEX idx_video_id ON TABLE video COLUMNS video_id UNIQUE;
         DEFINE INDEX idx_video_updated ON TABLE video COLUMNS updated_at;
         DEFINE INDEX idx_video_channel ON TABLE video COLUMNS channel_id;
+        DEFINE INDEX idx_video_embedding ON TABLE video FIELDS embedding HNSW DIMENSION 1024 DIST COSINE;
+        """,
+        # Video chunk table for chunk-level embeddings
+        """
+        DEFINE TABLE video_chunk SCHEMAFULL;
+        DEFINE FIELD chunk_id ON TABLE video_chunk TYPE string;
+        DEFINE FIELD video_id ON TABLE video_chunk TYPE string;
+        DEFINE FIELD chunk_index ON TABLE video_chunk TYPE int;
+        DEFINE FIELD text ON TABLE video_chunk TYPE string;
+        DEFINE FIELD start_time ON TABLE video_chunk TYPE float;
+        DEFINE FIELD end_time ON TABLE video_chunk TYPE float;
+        DEFINE FIELD token_count ON TABLE video_chunk TYPE int;
+        DEFINE FIELD embedding ON TABLE video_chunk TYPE option<array<float>>;
+        DEFINE FIELD created_at ON TABLE video_chunk TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_chunk_id ON TABLE video_chunk COLUMNS chunk_id UNIQUE;
+        DEFINE INDEX idx_chunk_video ON TABLE video_chunk COLUMNS video_id;
+        DEFINE INDEX idx_chunk_embedding ON TABLE video_chunk FIELDS embedding HNSW DIMENSION 1024 DIST COSINE;
         """,
         # Channel table
         """
@@ -91,6 +110,80 @@ async def init_schema() -> None:
         DEFINE FIELD video_id ON TABLE video_topic TYPE string;
         DEFINE FIELD topic_id ON TABLE video_topic TYPE string;
         DEFINE FIELD created_at ON TABLE video_topic TYPE datetime VALUE time::now();
+        """,
+        # Conversation table
+        """
+        DEFINE TABLE conversation SCHEMAFULL;
+        DEFINE FIELD id ON TABLE conversation TYPE string;
+        DEFINE FIELD title ON TABLE conversation TYPE string;
+        DEFINE FIELD model ON TABLE conversation TYPE option<string>;
+        DEFINE FIELD created_at ON TABLE conversation TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE conversation TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_conversation_id ON TABLE conversation COLUMNS id UNIQUE;
+        """,
+        # Message table
+        """
+        DEFINE TABLE message SCHEMAFULL;
+        DEFINE FIELD id ON TABLE message TYPE string;
+        DEFINE FIELD conversation_id ON TABLE message TYPE string;
+        DEFINE FIELD role ON TABLE message TYPE string;
+        DEFINE FIELD content ON TABLE message TYPE string;
+        DEFINE FIELD sources ON TABLE message TYPE option<array>;
+        DEFINE FIELD timestamp ON TABLE message TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_message_id ON TABLE message COLUMNS id UNIQUE;
+        DEFINE INDEX idx_message_conversation ON TABLE message COLUMNS conversation_id;
+        """,
+        # Project table
+        """
+        DEFINE TABLE project SCHEMAFULL;
+        DEFINE FIELD id ON TABLE project TYPE string;
+        DEFINE FIELD name ON TABLE project TYPE string;
+        DEFINE FIELD description ON TABLE project TYPE option<string>;
+        DEFINE FIELD custom_instructions ON TABLE project TYPE option<string>;
+        DEFINE FIELD created_at ON TABLE project TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE project TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_project_id ON TABLE project COLUMNS id UNIQUE;
+        """,
+        # Project file table
+        """
+        DEFINE TABLE project_file SCHEMAFULL;
+        DEFINE FIELD id ON TABLE project_file TYPE string;
+        DEFINE FIELD project_id ON TABLE project_file TYPE string;
+        DEFINE FIELD filename ON TABLE project_file TYPE string;
+        DEFINE FIELD original_filename ON TABLE project_file TYPE string;
+        DEFINE FIELD content_type ON TABLE project_file TYPE string;
+        DEFINE FIELD size_bytes ON TABLE project_file TYPE int;
+        DEFINE FIELD minio_key ON TABLE project_file TYPE string;
+        DEFINE FIELD uploaded_at ON TABLE project_file TYPE datetime VALUE time::now();
+        DEFINE FIELD processed ON TABLE project_file TYPE bool DEFAULT false;
+        DEFINE FIELD qdrant_indexed ON TABLE project_file TYPE bool DEFAULT false;
+        DEFINE FIELD processing_error ON TABLE project_file TYPE option<string>;
+        DEFINE INDEX idx_project_file_id ON TABLE project_file COLUMNS id UNIQUE;
+        DEFINE INDEX idx_project_file_project ON TABLE project_file COLUMNS project_id;
+        """,
+        # Project-conversation relationship table
+        """
+        DEFINE TABLE project_conversation SCHEMAFULL;
+        DEFINE FIELD project_id ON TABLE project_conversation TYPE string;
+        DEFINE FIELD conversation_id ON TABLE project_conversation TYPE string;
+        DEFINE FIELD created_at ON TABLE project_conversation TYPE datetime VALUE time::now();
+        """,
+        # Artifact table
+        """
+        DEFINE TABLE artifact SCHEMAFULL;
+        DEFINE FIELD id ON TABLE artifact TYPE string;
+        DEFINE FIELD title ON TABLE artifact TYPE string;
+        DEFINE FIELD artifact_type ON TABLE artifact TYPE string;
+        DEFINE FIELD language ON TABLE artifact TYPE option<string>;
+        DEFINE FIELD content ON TABLE artifact TYPE string;
+        DEFINE FIELD preview ON TABLE artifact TYPE string;
+        DEFINE FIELD conversation_id ON TABLE artifact TYPE option<string>;
+        DEFINE FIELD project_id ON TABLE artifact TYPE option<string>;
+        DEFINE FIELD created_at ON TABLE artifact TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE artifact TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_artifact_id ON TABLE artifact COLUMNS id UNIQUE;
+        DEFINE INDEX idx_artifact_conversation ON TABLE artifact COLUMNS conversation_id;
+        DEFINE INDEX idx_artifact_project ON TABLE artifact COLUMNS project_id;
         """,
     ]
 
@@ -445,5 +538,171 @@ async def get_channel_count() -> int:
 async def get_topic_count() -> int:
     """Get total number of topics in the database."""
     query = "SELECT COUNT() AS count FROM topic GROUP ALL;"
+    results = await execute_query(query)
+    return int(results[0].get("count", 0)) if results else 0
+
+
+# =============================================================================
+# Video Chunk Operations (for fine-grained semantic search)
+# =============================================================================
+
+
+async def upsert_chunk(chunk: VideoChunkRecord) -> dict:
+    """Create or update a video chunk.
+
+    Args:
+        chunk: VideoChunkRecord to upsert
+
+    Returns:
+        Query result with created record
+    """
+    query = """
+    UPSERT type::thing('video_chunk', $chunk_id) SET
+        chunk_id = $chunk_id,
+        video_id = $video_id,
+        chunk_index = $chunk_index,
+        text = $text,
+        start_time = $start_time,
+        end_time = $end_time,
+        token_count = $token_count,
+        embedding = $embedding;
+    """
+
+    params = {
+        "chunk_id": chunk.chunk_id,
+        "video_id": chunk.video_id,
+        "chunk_index": chunk.chunk_index,
+        "text": chunk.text,
+        "start_time": chunk.start_time,
+        "end_time": chunk.end_time,
+        "token_count": chunk.token_count,
+        "embedding": chunk.embedding,
+    }
+
+    result = await execute_query(query, params)
+    return {"created": len(result) > 0}
+
+
+async def upsert_chunks(chunks: list[VideoChunkRecord]) -> int:
+    """Upsert multiple chunks for a video.
+
+    Args:
+        chunks: List of VideoChunkRecord to upsert
+
+    Returns:
+        Number of chunks upserted
+    """
+    count = 0
+    for chunk in chunks:
+        await upsert_chunk(chunk)
+        count += 1
+    return count
+
+
+async def get_chunks_for_video(video_id: str) -> list[VideoChunkRecord]:
+    """Get all chunks for a video, ordered by chunk_index.
+
+    Args:
+        video_id: YouTube video ID
+
+    Returns:
+        List of VideoChunkRecord ordered by chunk_index
+    """
+    query = """
+    SELECT * FROM video_chunk
+    WHERE video_id = $video_id
+    ORDER BY chunk_index ASC;
+    """
+
+    results = await execute_query(query, {"video_id": video_id})
+
+    chunks = []
+    for r in results:
+        chunks.append(VideoChunkRecord(
+            chunk_id=r.get("chunk_id"),
+            video_id=r.get("video_id"),
+            chunk_index=r.get("chunk_index"),
+            text=r.get("text"),
+            start_time=r.get("start_time"),
+            end_time=r.get("end_time"),
+            token_count=r.get("token_count"),
+            embedding=r.get("embedding"),
+            created_at=datetime.fromisoformat(r.get("created_at", datetime.now().isoformat())),
+        ))
+
+    return chunks
+
+
+async def delete_chunks_for_video(video_id: str) -> int:
+    """Delete all chunks for a video.
+
+    Args:
+        video_id: YouTube video ID
+
+    Returns:
+        Number of chunks deleted
+    """
+    query = "DELETE FROM video_chunk WHERE video_id = $video_id RETURN BEFORE;"
+    results = await execute_query(query, {"video_id": video_id})
+    return len(results) if results else 0
+
+
+async def semantic_search_chunks(
+    embedding: list[float],
+    limit: int = 10,
+) -> list[ChunkSearchResult]:
+    """Search for similar chunks using vector embeddings.
+
+    Enables timestamp-level search: "find where they discussed X"
+
+    Args:
+        embedding: Query embedding vector
+        limit: Maximum number of results
+
+    Returns:
+        List of matching chunks with similarity scores and parent video info
+    """
+    query = """
+    SELECT
+        chunk_id,
+        video_id,
+        chunk_index,
+        text,
+        start_time,
+        end_time,
+        vector::similarity::cosine(embedding, $embedding) AS similarity_score,
+        (SELECT title, url FROM video WHERE video_id = $parent.video_id)[0] AS parent_video
+    FROM video_chunk
+    WHERE embedding IS NOT NONE AND array::len(embedding) > 0
+    ORDER BY similarity_score DESC
+    LIMIT $limit;
+    """
+
+    results = await execute_query(query, {
+        "embedding": embedding,
+        "limit": limit,
+    })
+
+    search_results = []
+    for r in results:
+        parent = r.get("parent_video") or {}
+        search_results.append(ChunkSearchResult(
+            chunk_id=r.get("chunk_id"),
+            video_id=r.get("video_id"),
+            chunk_index=r.get("chunk_index"),
+            text=r.get("text", ""),
+            start_time=float(r.get("start_time", 0)),
+            end_time=float(r.get("end_time", 0)),
+            similarity_score=float(r.get("similarity_score", 0)),
+            video_title=parent.get("title"),
+            video_url=parent.get("url"),
+        ))
+
+    return search_results
+
+
+async def get_chunk_count() -> int:
+    """Get total number of chunks in the database."""
+    query = "SELECT COUNT() AS count FROM video_chunk GROUP ALL;"
     results = await execute_query(query)
     return int(results[0].get("count", 0)) if results else 0

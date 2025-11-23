@@ -1,18 +1,19 @@
-"""Conversation storage service for persisting chat history.
+"""Conversation storage service using SurrealDB.
 
-Stores conversations as JSON files in compose/data/conversations/
-with an index.json for fast listing.
+Stores conversations and messages in SurrealDB tables:
+- conversation: metadata (id, title, model, created_at, updated_at)
+- message: individual messages linked by conversation_id
 """
 
-import json
 import os
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Optional
 
 import httpx
 from pydantic import BaseModel, Field
+
+from .surrealdb.driver import execute_query
 
 # Configuration for auto-title generation
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
@@ -57,78 +58,73 @@ class Conversation(BaseModel):
     model: str = ""
     messages: list[Message] = Field(default_factory=list)
 
-    def to_meta(self) -> ConversationMeta:
+    def to_meta(self, message_count: Optional[int] = None) -> ConversationMeta:
         """Convert to metadata for index."""
         return ConversationMeta(
             id=self.id,
             title=self.title,
             created_at=self.created_at,
             updated_at=self.updated_at,
-            message_count=len(self.messages),
+            message_count=message_count if message_count is not None else len(self.messages),
             model=self.model,
         )
 
 
-class ConversationIndex(BaseModel):
-    """Index of all conversations."""
-
-    conversations: list[ConversationMeta] = Field(default_factory=list)
-
-
 class ConversationService:
-    """Service for managing conversation storage."""
+    """Service for managing conversation storage in SurrealDB."""
 
-    def __init__(self, data_dir: Optional[str] = None):
-        """Initialize service with data directory.
+    def __init__(self):
+        """Initialize service. No configuration needed - uses SurrealDB config."""
+        pass
 
-        Args:
-            data_dir: Path to conversations directory.
-                      Defaults to compose/data/conversations/
-        """
-        if data_dir is None:
-            # Default to compose/data/conversations relative to this file
-            base = Path(__file__).parent.parent / "data" / "conversations"
-            self.data_dir = base
-        else:
-            self.data_dir = Path(data_dir)
-
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-        self.index_path = self.data_dir / "index.json"
-
-        # Ensure index exists
-        if not self.index_path.exists():
-            self._save_index(ConversationIndex())
-
-    def _load_index(self) -> ConversationIndex:
-        """Load the conversation index."""
-        try:
-            with open(self.index_path, "r") as f:
-                data = json.load(f)
-                return ConversationIndex(**data)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return ConversationIndex()
-
-    def _save_index(self, index: ConversationIndex) -> None:
-        """Save the conversation index."""
-        with open(self.index_path, "w") as f:
-            json.dump(index.model_dump(), f, indent=2)
-
-    def _conversation_path(self, conversation_id: str) -> Path:
-        """Get path to conversation file."""
-        return self.data_dir / f"{conversation_id}.json"
-
-    def list_conversations(self) -> list[ConversationMeta]:
+    async def list_conversations(self) -> list[ConversationMeta]:
         """List all conversations (metadata only).
 
         Returns conversations sorted by updated_at descending.
         """
-        index = self._load_index()
-        # Sort by updated_at descending (most recent first)
-        return sorted(
-            index.conversations, key=lambda c: c.updated_at, reverse=True
-        )
+        # Get conversations with message count
+        query = """
+        SELECT
+            id,
+            title,
+            model,
+            created_at,
+            updated_at,
+            (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
+        FROM conversation
+        ORDER BY updated_at DESC;
+        """
 
-    def create_conversation(
+        results = await execute_query(query)
+
+        conversations = []
+        for r in results:
+            # Handle SurrealDB record ID format (e.g., "conversation:abc123")
+            # RecordID objects need str() conversion first
+            conv_id = str(r.get("id", ""))
+            if ":" in conv_id:
+                conv_id = conv_id.split(":", 1)[1]
+
+            # Handle datetime conversion
+            created_at = r.get("created_at", "")
+            updated_at = r.get("updated_at", "")
+            if hasattr(created_at, "isoformat"):
+                created_at = created_at.isoformat()
+            if hasattr(updated_at, "isoformat"):
+                updated_at = updated_at.isoformat()
+
+            conversations.append(ConversationMeta(
+                id=conv_id,
+                title=r.get("title", "New conversation"),
+                created_at=created_at,
+                updated_at=updated_at,
+                message_count=r.get("message_count") or 0,
+                model=r.get("model") or "",
+            ))
+
+        return conversations
+
+    async def create_conversation(
         self, title: str = "New conversation", model: str = ""
     ) -> Conversation:
         """Create a new conversation.
@@ -140,20 +136,35 @@ class ConversationService:
         Returns:
             The created conversation
         """
-        conversation = Conversation(title=title, model=model)
+        conversation_id = str(uuid.uuid4())
+        now = datetime.now(timezone.utc).isoformat()
 
-        # Save conversation file
-        with open(self._conversation_path(conversation.id), "w") as f:
-            json.dump(conversation.model_dump(), f, indent=2)
+        query = """
+        INSERT INTO conversation {
+            id: $id,
+            title: $title,
+            model: $model,
+            created_at: time::now(),
+            updated_at: time::now()
+        };
+        """
 
-        # Update index
-        index = self._load_index()
-        index.conversations.append(conversation.to_meta())
-        self._save_index(index)
+        await execute_query(query, {
+            "id": conversation_id,
+            "title": title,
+            "model": model,
+        })
 
-        return conversation
+        return Conversation(
+            id=conversation_id,
+            title=title,
+            model=model,
+            created_at=now,
+            updated_at=now,
+            messages=[],
+        )
 
-    def get_conversation(self, conversation_id: str) -> Optional[Conversation]:
+    async def get_conversation(self, conversation_id: str) -> Optional[Conversation]:
         """Get a conversation by ID.
 
         Args:
@@ -162,18 +173,62 @@ class ConversationService:
         Returns:
             The conversation or None if not found
         """
-        path = self._conversation_path(conversation_id)
-        if not path.exists():
+        # Get conversation metadata
+        conv_query = """
+        SELECT * FROM conversation WHERE id = $id LIMIT 1;
+        """
+
+        conv_results = await execute_query(conv_query, {"id": conversation_id})
+        if not conv_results:
             return None
 
-        try:
-            with open(path, "r") as f:
-                data = json.load(f)
-                return Conversation(**data)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return None
+        conv_data = conv_results[0]
 
-    def update_conversation(
+        # Handle datetime conversion
+        created_at = conv_data.get("created_at", "")
+        updated_at = conv_data.get("updated_at", "")
+        if hasattr(created_at, "isoformat"):
+            created_at = created_at.isoformat()
+        if hasattr(updated_at, "isoformat"):
+            updated_at = updated_at.isoformat()
+
+        # Get messages for this conversation
+        msg_query = """
+        SELECT * FROM message WHERE conversation_id = $conversation_id ORDER BY timestamp ASC;
+        """
+
+        msg_results = await execute_query(msg_query, {"conversation_id": conversation_id})
+
+        messages = []
+        for m in msg_results:
+            # Handle message ID format - RecordID objects need str() conversion first
+            msg_id = str(m.get("id", ""))
+            if ":" in msg_id:
+                msg_id = msg_id.split(":", 1)[1]
+
+            # Handle timestamp conversion
+            timestamp = m.get("timestamp", "")
+            if hasattr(timestamp, "isoformat"):
+                timestamp = timestamp.isoformat()
+
+            messages.append(Message(
+                id=msg_id,
+                role=m.get("role", "user"),
+                content=m.get("content", ""),
+                timestamp=timestamp,
+                sources=m.get("sources") or [],
+            ))
+
+        return Conversation(
+            id=conversation_id,
+            title=conv_data.get("title", "New conversation"),
+            created_at=created_at,
+            updated_at=updated_at,
+            model=conv_data.get("model") or "",
+            messages=messages,
+        )
+
+    async def update_conversation(
         self,
         conversation_id: str,
         title: Optional[str] = None,
@@ -189,32 +244,32 @@ class ConversationService:
         Returns:
             Updated conversation or None if not found
         """
-        conversation = self.get_conversation(conversation_id)
-        if not conversation:
+        # Check if conversation exists
+        existing = await self.get_conversation(conversation_id)
+        if not existing:
             return None
 
+        # Build update query dynamically
+        updates = ["updated_at = time::now()"]
+        params = {"id": conversation_id}
+
         if title is not None:
-            conversation.title = title
+            updates.append("title = $title")
+            params["title"] = title
         if model is not None:
-            conversation.model = model
+            updates.append("model = $model")
+            params["model"] = model
 
-        conversation.updated_at = datetime.now(timezone.utc).isoformat()
+        query = f"""
+        UPDATE conversation SET {", ".join(updates)} WHERE id = $id;
+        """
 
-        # Save conversation file
-        with open(self._conversation_path(conversation_id), "w") as f:
-            json.dump(conversation.model_dump(), f, indent=2)
+        await execute_query(query, params)
 
-        # Update index
-        index = self._load_index()
-        for i, meta in enumerate(index.conversations):
-            if meta.id == conversation_id:
-                index.conversations[i] = conversation.to_meta()
-                break
-        self._save_index(index)
+        # Return updated conversation
+        return await self.get_conversation(conversation_id)
 
-        return conversation
-
-    def delete_conversation(self, conversation_id: str) -> bool:
+    async def delete_conversation(self, conversation_id: str) -> bool:
         """Delete a conversation.
 
         Args:
@@ -223,23 +278,29 @@ class ConversationService:
         Returns:
             True if deleted, False if not found
         """
-        path = self._conversation_path(conversation_id)
-        if not path.exists():
+        # Check if conversation exists
+        check_query = """
+        SELECT id FROM conversation WHERE id = $id LIMIT 1;
+        """
+        results = await execute_query(check_query, {"id": conversation_id})
+        if not results:
             return False
 
-        # Delete file
-        path.unlink()
+        # Delete messages first (referential integrity)
+        msg_query = """
+        DELETE FROM message WHERE conversation_id = $conversation_id;
+        """
+        await execute_query(msg_query, {"conversation_id": conversation_id})
 
-        # Update index
-        index = self._load_index()
-        index.conversations = [
-            c for c in index.conversations if c.id != conversation_id
-        ]
-        self._save_index(index)
+        # Delete conversation
+        conv_query = """
+        DELETE FROM conversation WHERE id = $id;
+        """
+        await execute_query(conv_query, {"id": conversation_id})
 
         return True
 
-    def add_message(
+    async def add_message(
         self,
         conversation_id: str,
         role: str,
@@ -257,34 +318,52 @@ class ConversationService:
         Returns:
             The created message or None if conversation not found
         """
-        conversation = self.get_conversation(conversation_id)
-        if not conversation:
+        # Check if conversation exists
+        check_query = """
+        SELECT id FROM conversation WHERE id = $id LIMIT 1;
+        """
+        results = await execute_query(check_query, {"id": conversation_id})
+        if not results:
             return None
 
-        message = Message(
+        message_id = str(uuid.uuid4())
+        now = datetime.now(timezone.utc).isoformat()
+
+        # Insert message
+        msg_query = """
+        INSERT INTO message {
+            id: $id,
+            conversation_id: $conversation_id,
+            role: $role,
+            content: $content,
+            sources: $sources,
+            timestamp: time::now()
+        };
+        """
+
+        await execute_query(msg_query, {
+            "id": message_id,
+            "conversation_id": conversation_id,
+            "role": role,
+            "content": content,
+            "sources": sources or [],
+        })
+
+        # Update conversation updated_at
+        update_query = """
+        UPDATE conversation SET updated_at = time::now() WHERE id = $id;
+        """
+        await execute_query(update_query, {"id": conversation_id})
+
+        return Message(
+            id=message_id,
             role=role,
             content=content,
+            timestamp=now,
             sources=sources or [],
         )
 
-        conversation.messages.append(message)
-        conversation.updated_at = datetime.now(timezone.utc).isoformat()
-
-        # Save conversation file
-        with open(self._conversation_path(conversation_id), "w") as f:
-            json.dump(conversation.model_dump(), f, indent=2)
-
-        # Update index
-        index = self._load_index()
-        for i, meta in enumerate(index.conversations):
-            if meta.id == conversation_id:
-                index.conversations[i] = conversation.to_meta()
-                break
-        self._save_index(index)
-
-        return message
-
-    def search_conversations(self, query: str) -> list[ConversationMeta]:
+    async def search_conversations(self, query: str) -> list[ConversationMeta]:
         """Search conversations by title and content.
 
         Args:
@@ -293,26 +372,51 @@ class ConversationService:
         Returns:
             List of matching conversation metadata
         """
-        query_lower = query.lower()
-        results = []
+        # Search in conversation titles and message content using CONTAINS
+        search_query = """
+        SELECT DISTINCT
+            c.id AS id,
+            c.title AS title,
+            c.model AS model,
+            c.created_at AS created_at,
+            c.updated_at AS updated_at,
+            (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
+        FROM conversation AS c
+        WHERE
+            string::lowercase(c.title) CONTAINS string::lowercase($query)
+            OR c.id IN (
+                SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
+            )
+        ORDER BY c.updated_at DESC;
+        """
 
-        index = self._load_index()
-        for meta in index.conversations:
-            # Check title
-            if query_lower in meta.title.lower():
-                results.append(meta)
-                continue
+        results = await execute_query(search_query, {"query": query})
 
-            # Check message content
-            conversation = self.get_conversation(meta.id)
-            if conversation:
-                for msg in conversation.messages:
-                    if query_lower in msg.content.lower():
-                        results.append(meta)
-                        break
+        conversations = []
+        for r in results:
+            # Handle SurrealDB record ID format - RecordID objects need str() conversion first
+            conv_id = str(r.get("id", ""))
+            if ":" in conv_id:
+                conv_id = conv_id.split(":", 1)[1]
 
-        # Sort by updated_at descending
-        return sorted(results, key=lambda c: c.updated_at, reverse=True)
+            # Handle datetime conversion
+            created_at = r.get("created_at", "")
+            updated_at = r.get("updated_at", "")
+            if hasattr(created_at, "isoformat"):
+                created_at = created_at.isoformat()
+            if hasattr(updated_at, "isoformat"):
+                updated_at = updated_at.isoformat()
+
+            conversations.append(ConversationMeta(
+                id=conv_id,
+                title=r.get("title", "New conversation"),
+                created_at=created_at,
+                updated_at=updated_at,
+                message_count=r.get("message_count") or 0,
+                model=r.get("model") or "",
+            ))
+
+        return conversations
 
     async def generate_title(self, first_message: str) -> str:
         """Generate a title for a conversation using LLM.
@@ -355,7 +459,7 @@ class ConversationService:
                 data = response.json()
                 title = data["choices"][0]["message"]["content"].strip()
                 # Clean up: remove quotes if present
-                title = title.strip('"\'')
+                title = title.strip('"' + "'")
                 # Limit length
                 if len(title) > 60:
                     title = title[:57] + "..."
@@ -374,10 +478,5 @@ def get_conversation_service() -> ConversationService:
     """Get or create the conversation service singleton."""
     global _service
     if _service is None:
-        # Check for container path first, fall back to local
-        container_path = Path("/app/src/compose/data/conversations")
-        if container_path.exists():
-            _service = ConversationService(str(container_path))
-        else:
-            _service = ConversationService()
+        _service = ConversationService()
     return _service

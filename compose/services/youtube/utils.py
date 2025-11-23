@@ -99,6 +99,35 @@ def get_video_info(url: str, cache: Optional[CacheManager] = None) -> dict[str, 
         return {"error": str(e)}
 
 
+def get_timed_transcript(url: str) -> tuple[list[dict], Optional[str]]:
+    """Fetch YouTube video transcript with timestamps.
+
+    This function returns the transcript as a list of timed segments,
+    useful for chunking and timestamp-based search.
+
+    Args:
+        url: YouTube video URL
+
+    Returns:
+        Tuple of (timed_segments, error_message)
+        - If successful: (list of {"text", "start", "duration"}, None)
+        - If failed: ([], error_message)
+
+    Example:
+        >>> segments, error = get_timed_transcript("https://youtube.com/watch?v=dQw4w9WgXcQ")
+        >>> if not error:
+        ...     for seg in segments[:3]:
+        ...         print(f"{seg['start']:.1f}s: {seg['text'][:50]}")
+    """
+    try:
+        video_id = extract_video_id(url)
+        service = YouTubeTranscriptService()
+        segments = service.fetch_timed_transcript(video_id)
+        return segments, None
+    except Exception as e:
+        return [], str(e)
+
+
 def get_transcript(url: str, cache: Optional[CacheManager] = None) -> str:
     """Fetch YouTube video transcript using proxy-enabled service.
 

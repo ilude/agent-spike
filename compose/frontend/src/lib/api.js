@@ -756,6 +756,78 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+
+	// ============ Backup Methods ============
+
+	/**
+	 * List all backups
+	 * @returns {Promise<{backups: Array}>}
+	 */
+	async listBackups() {
+		const res = await fetch(`${this.baseURL}/backup`);
+		if (!res.ok) {
+			throw new Error(`Failed to list backups: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Start a new backup
+	 * @returns {Promise<Object>}
+	 */
+	async startBackup() {
+		const res = await fetch(`${this.baseURL}/backup`, {
+			method: 'POST'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to start backup: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a backup by ID
+	 * @param {string} backupId - Backup ID
+	 * @returns {Promise<Object>}
+	 */
+	async getBackup(backupId) {
+		const res = await fetch(`${this.baseURL}/backup/${backupId}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get backup: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Restore a backup
+	 * @param {string} backupId - Backup ID
+	 * @returns {Promise<Object>}
+	 */
+	async restoreBackup(backupId) {
+		const res = await fetch(`${this.baseURL}/backup/${backupId}/restore`, {
+			method: 'POST'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to restore backup: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a backup
+	 * @param {string} backupId - Backup ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteBackup(backupId) {
+		const res = await fetch(`${this.baseURL}/backup/${backupId}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete backup: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**

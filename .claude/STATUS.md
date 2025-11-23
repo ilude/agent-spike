@@ -1,6 +1,6 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-18
+**Last Updated**: 2025-11-23
 **Current Phase**: Personal AI Research Assistant - Containerized microservices architecture
 
 ## Current State
@@ -22,6 +22,17 @@
   - Infinity embedding service (BAAI/bge-m3, 1024-dim, 8K context)
 
 ## Recent Completions
+
+**SurrealDB Backup Service** ✅ COMPLETE (2025-11-23)
+- Fixed backup service for SurrealDB data to MinIO storage
+- **Root cause**: SurrealDB record ID syntax requires backticks for UUIDs with dashes
+  - Wrong: `CREATE backup SET id = $id` (creates field, not record ID)
+  - Right: `CREATE backup:`{uuid}`` (creates record with specific ID)
+- **Fix**: Updated all CRUD queries in `compose/services/backup.py` to use backtick syntax
+- **Also fixed**: `RecordID` object → string conversion for Pydantic validation
+- Backup now completes successfully: status transitions pending → in_progress → completed
+- Frontend "Create Backup" button working
+- Cleaned up 15 orphaned pending backup records from failed attempts
 
 **Mentat Chat UI - Projects & Canvas** ✅ COMPLETE (2025-11-22)
 - Built ChatGPT-replacement frontend with conversation history, projects, and canvas

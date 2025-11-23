@@ -4,16 +4,33 @@ Projects group conversations together with shared:
 - Custom instructions (system prompt)
 - Uploaded files (RAG-indexed)
 - Memory (conversation context within project)
+
+Storage:
+- SurrealDB for metadata (projects, files, conversations)
+- MinIO for file content
 """
 
-import json
-import os
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
+from io import BytesIO
 from typing import Optional
 
 from pydantic import BaseModel, Field
+
+from .minio.factory import create_minio_client
+from .surrealdb.driver import execute_query
+
+def _extract_id(record_id) -> str:
+    """Extract clean ID from SurrealDB RecordID.
+
+    SurrealDB returns RecordID objects instead of plain strings.
+    These convert to 'table:id' format when stringified.
+    This helper converts to string and strips the table prefix.
+    """
+    id_str = str(record_id)
+    if ":" in id_str:
+        return id_str.split(":", 1)[1]
+    return id_str
 
 
 class ProjectMeta(BaseModel):
@@ -81,249 +98,268 @@ class ProjectIndex(BaseModel):
 
 
 class ProjectService:
-    """Service for managing project storage."""
+    """Service for managing project storage using SurrealDB + MinIO.
 
-    def __init__(self, data_dir: Optional[str] = None):
-        """Initialize service with data directory.
+    - SurrealDB stores project metadata, file records, and conversation links
+    - MinIO stores actual file content at projects/{project_id}/{file_id}_{filename}
+    """
 
-        Args:
-            data_dir: Path to projects directory.
-                      Defaults to compose/data/projects/
-        """
-        if data_dir is None:
-            base = Path(__file__).parent.parent / "data" / "projects"
-            self.data_dir = base
-        else:
-            self.data_dir = Path(data_dir)
+    def __init__(self):
+        """Initialize service with MinIO client."""
+        self._minio = None
 
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-        self.index_path = self.data_dir / "index.json"
+    @property
+    def minio(self):
+        """Lazy-load MinIO client."""
+        if self._minio is None:
+            self._minio = create_minio_client()
+        return self._minio
 
-        # Ensure index exists
-        if not self.index_path.exists():
-            self._save_index(ProjectIndex())
+    def _minio_key(self, project_id: str, file_id: str, filename: str) -> str:
+        """Generate MinIO object key for a file."""
+        return f"projects/{project_id}/{file_id}_{filename}"
 
-    def _load_index(self) -> ProjectIndex:
-        """Load the project index."""
-        try:
-            with open(self.index_path, "r") as f:
-                data = json.load(f)
-                return ProjectIndex(**data)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return ProjectIndex()
-
-    def _save_index(self, index: ProjectIndex) -> None:
-        """Save the project index."""
-        with open(self.index_path, "w") as f:
-            json.dump(index.model_dump(), f, indent=2)
-
-    def _project_dir(self, project_id: str) -> Path:
-        """Get directory for a project."""
-        return self.data_dir / project_id
-
-    def _project_path(self, project_id: str) -> Path:
-        """Get path to project JSON file."""
-        return self._project_dir(project_id) / "project.json"
-
-    def _files_dir(self, project_id: str) -> Path:
-        """Get directory for project files."""
-        return self._project_dir(project_id) / "files"
-
-    def list_projects(self) -> list[ProjectMeta]:
+    async def list_projects(self) -> list[ProjectMeta]:
         """List all projects (metadata only).
 
         Returns projects sorted by updated_at descending.
         """
-        index = self._load_index()
-        return sorted(index.projects, key=lambda p: p.updated_at, reverse=True)
+        result = await execute_query(
+            "SELECT * FROM project ORDER BY updated_at DESC"
+        )
 
-    def create_project(
+        projects = []
+        for row in result:
+            conv_result = await execute_query(
+                "SELECT count() FROM project_conversation WHERE project_id = $project_id GROUP ALL",
+                {"project_id": row["id"]},
+            )
+            conv_count = conv_result[0].get("count", 0) if conv_result else 0
+
+            file_result = await execute_query(
+                "SELECT count() FROM project_file WHERE project_id = $project_id GROUP ALL",
+                {"project_id": row["id"]},
+            )
+            file_count = file_result[0].get("count", 0) if file_result else 0
+
+            projects.append(
+                ProjectMeta(
+                    id=_extract_id(row["id"]),
+                    name=row.get("name", ""),
+                    description=row.get("description", ""),
+                    created_at=str(row.get("created_at", "")),
+                    updated_at=str(row.get("updated_at", "")),
+                    conversation_count=conv_count,
+                    file_count=file_count,
+                )
+            )
+
+        return projects
+
+    async def create_project(
         self, name: str = "New Project", description: str = ""
     ) -> Project:
-        """Create a new project.
+        """Create a new project."""
+        project_id = str(uuid.uuid4())
+        now = datetime.now(timezone.utc).isoformat()
 
-        Args:
-            name: Project name
-            description: Optional description
+        await execute_query(
+            """
+            CREATE project CONTENT {
+                id: $id,
+                name: $name,
+                description: $description,
+                custom_instructions: '',
+                created_at: $created_at,
+                updated_at: $updated_at
+            }
+            """,
+            {
+                "id": project_id,
+                "name": name,
+                "description": description,
+                "created_at": now,
+                "updated_at": now,
+            },
+        )
 
-        Returns:
-            The created project
-        """
-        project = Project(name=name, description=description)
+        return Project(
+            id=project_id,
+            name=name,
+            description=description,
+            created_at=now,
+            updated_at=now,
+        )
 
-        # Create project directory structure
-        project_dir = self._project_dir(project.id)
-        project_dir.mkdir(parents=True, exist_ok=True)
-        self._files_dir(project.id).mkdir(exist_ok=True)
+    async def get_project(self, project_id: str) -> Optional[Project]:
+        """Get a project by ID."""
+        result = await execute_query(
+            "SELECT * FROM project WHERE id = $id",
+            {"id": project_id},
+        )
 
-        # Save project file
-        with open(self._project_path(project.id), "w") as f:
-            json.dump(project.model_dump(), f, indent=2)
-
-        # Update index
-        index = self._load_index()
-        index.projects.append(project.to_meta())
-        self._save_index(index)
-
-        return project
-
-    def get_project(self, project_id: str) -> Optional[Project]:
-        """Get a project by ID.
-
-        Args:
-            project_id: The project ID
-
-        Returns:
-            The project or None if not found
-        """
-        path = self._project_path(project_id)
-        if not path.exists():
+        if not result:
             return None
 
-        try:
-            with open(path, "r") as f:
-                data = json.load(f)
-                return Project(**data)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return None
+        row = result[0]
 
-    def update_project(
+        file_result = await execute_query(
+            "SELECT * FROM project_file WHERE project_id = $project_id ORDER BY uploaded_at DESC",
+            {"project_id": project_id},
+        )
+
+        files = []
+        for f in file_result:
+            files.append(
+                ProjectFile(
+                    id=_extract_id(f["id"]),
+                    filename=f.get("filename", ""),
+                    original_filename=f.get("original_filename", ""),
+                    content_type=f.get("content_type", ""),
+                    size_bytes=f.get("size_bytes", 0),
+                    uploaded_at=str(f.get("uploaded_at", "")),
+                    processed=f.get("processed", False),
+                    qdrant_indexed=f.get("qdrant_indexed", False),
+                    processing_error=f.get("processing_error"),
+                )
+            )
+
+        conv_result = await execute_query(
+            "SELECT conversation_id FROM project_conversation WHERE project_id = $project_id",
+            {"project_id": project_id},
+        )
+        conversation_ids = [str(c["conversation_id"]) for c in conv_result]
+
+        return Project(
+            id=_extract_id(row["id"]),
+            name=row.get("name", ""),
+            description=row.get("description", ""),
+            custom_instructions=row.get("custom_instructions", ""),
+            created_at=str(row.get("created_at", "")),
+            updated_at=str(row.get("updated_at", "")),
+            conversation_ids=conversation_ids,
+            files=files,
+        )
+
+    async def update_project(
         self,
         project_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
         custom_instructions: Optional[str] = None,
     ) -> Optional[Project]:
-        """Update project settings.
-
-        Args:
-            project_id: The project ID
-            name: New name (optional)
-            description: New description (optional)
-            custom_instructions: New custom instructions (optional)
-
-        Returns:
-            Updated project or None if not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        """Update project settings."""
+        existing = await self.get_project(project_id)
+        if not existing:
             return None
 
+        now = datetime.now(timezone.utc).isoformat()
+        updates = ["updated_at = $updated_at"]
+        params = {"id": project_id, "updated_at": now}
+
         if name is not None:
-            project.name = name
+            updates.append("name = $name")
+            params["name"] = name
         if description is not None:
-            project.description = description
+            updates.append("description = $description")
+            params["description"] = description
         if custom_instructions is not None:
-            project.custom_instructions = custom_instructions
+            updates.append("custom_instructions = $custom_instructions")
+            params["custom_instructions"] = custom_instructions
 
-        project.updated_at = datetime.now(timezone.utc).isoformat()
+        await execute_query(
+            f"UPDATE project SET {', '.join(updates)} WHERE id = $id",
+            params,
+        )
 
-        # Save project file
-        with open(self._project_path(project_id), "w") as f:
-            json.dump(project.model_dump(), f, indent=2)
+        return await self.get_project(project_id)
 
-        # Update index
-        index = self._load_index()
-        for i, meta in enumerate(index.projects):
-            if meta.id == project_id:
-                index.projects[i] = project.to_meta()
-                break
-        self._save_index(index)
-
-        return project
-
-    def delete_project(self, project_id: str) -> bool:
-        """Delete a project and all its files.
-
-        Args:
-            project_id: The project ID
-
-        Returns:
-            True if deleted, False if not found
-        """
-        project_dir = self._project_dir(project_id)
-        if not project_dir.exists():
+    async def delete_project(self, project_id: str) -> bool:
+        """Delete a project and all its files."""
+        existing = await self.get_project(project_id)
+        if not existing:
             return False
 
-        # Delete all files in project
-        import shutil
+        for file in existing.files:
+            key = self._minio_key(project_id, file.id, file.filename)
+            try:
+                self.minio.delete(key)
+            except Exception:
+                pass
 
-        shutil.rmtree(project_dir)
-
-        # Update index
-        index = self._load_index()
-        index.projects = [p for p in index.projects if p.id != project_id]
-        self._save_index(index)
+        await execute_query(
+            "DELETE FROM project_file WHERE project_id = $project_id",
+            {"project_id": project_id},
+        )
+        await execute_query(
+            "DELETE FROM project_conversation WHERE project_id = $project_id",
+            {"project_id": project_id},
+        )
+        await execute_query(
+            "DELETE FROM project WHERE id = $id",
+            {"id": project_id},
+        )
 
         return True
 
-    def add_conversation_to_project(
+    async def add_conversation_to_project(
         self, project_id: str, conversation_id: str
     ) -> Optional[Project]:
-        """Add a conversation to a project.
-
-        Args:
-            project_id: The project ID
-            conversation_id: The conversation ID to add
-
-        Returns:
-            Updated project or None if not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        """Add a conversation to a project."""
+        existing = await self.get_project(project_id)
+        if not existing:
             return None
 
-        if conversation_id not in project.conversation_ids:
-            project.conversation_ids.append(conversation_id)
-            project.updated_at = datetime.now(timezone.utc).isoformat()
+        if conversation_id in existing.conversation_ids:
+            return existing
 
-            with open(self._project_path(project_id), "w") as f:
-                json.dump(project.model_dump(), f, indent=2)
+        now = datetime.now(timezone.utc).isoformat()
 
-            # Update index
-            index = self._load_index()
-            for i, meta in enumerate(index.projects):
-                if meta.id == project_id:
-                    index.projects[i] = project.to_meta()
-                    break
-            self._save_index(index)
+        await execute_query(
+            """
+            CREATE project_conversation CONTENT {
+                project_id: $project_id,
+                conversation_id: $conversation_id,
+                created_at: $created_at
+            }
+            """,
+            {
+                "project_id": project_id,
+                "conversation_id": conversation_id,
+                "created_at": now,
+            },
+        )
 
-        return project
+        await execute_query(
+            "UPDATE project SET updated_at = $updated_at WHERE id = $id",
+            {"id": project_id, "updated_at": now},
+        )
 
-    def remove_conversation_from_project(
+        return await self.get_project(project_id)
+
+    async def remove_conversation_from_project(
         self, project_id: str, conversation_id: str
     ) -> Optional[Project]:
-        """Remove a conversation from a project.
-
-        Args:
-            project_id: The project ID
-            conversation_id: The conversation ID to remove
-
-        Returns:
-            Updated project or None if not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        """Remove a conversation from a project."""
+        existing = await self.get_project(project_id)
+        if not existing:
             return None
 
-        if conversation_id in project.conversation_ids:
-            project.conversation_ids.remove(conversation_id)
-            project.updated_at = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(timezone.utc).isoformat()
 
-            with open(self._project_path(project_id), "w") as f:
-                json.dump(project.model_dump(), f, indent=2)
+        await execute_query(
+            "DELETE FROM project_conversation WHERE project_id = $project_id AND conversation_id = $conversation_id",
+            {"project_id": project_id, "conversation_id": conversation_id},
+        )
 
-            # Update index
-            index = self._load_index()
-            for i, meta in enumerate(index.projects):
-                if meta.id == project_id:
-                    index.projects[i] = project.to_meta()
-                    break
-            self._save_index(index)
+        await execute_query(
+            "UPDATE project SET updated_at = $updated_at WHERE id = $id",
+            {"id": project_id, "updated_at": now},
+        )
 
-        return project
+        return await self.get_project(project_id)
 
-    def add_file(
+    async def add_file(
         self,
         project_id: str,
         filename: str,
@@ -331,167 +367,185 @@ class ProjectService:
         content_type: str,
         file_data: bytes,
     ) -> Optional[ProjectFile]:
-        """Add a file to a project.
-
-        Args:
-            project_id: The project ID
-            filename: Stored filename (sanitized)
-            original_filename: Original uploaded filename
-            content_type: MIME type
-            file_data: File contents
-
-        Returns:
-            The created ProjectFile or None if project not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        """Add a file to a project."""
+        existing = await self.get_project(project_id)
+        if not existing:
             return None
 
-        file_record = ProjectFile(
+        file_id = str(uuid.uuid4())
+        now = datetime.now(timezone.utc).isoformat()
+        size_bytes = len(file_data)
+
+        minio_key = self._minio_key(project_id, file_id, filename)
+        self.minio.client.put_object(
+            self.minio.bucket,
+            minio_key,
+            BytesIO(file_data),
+            size_bytes,
+            content_type=content_type,
+        )
+
+        await execute_query(
+            """
+            CREATE project_file CONTENT {
+                id: $id,
+                project_id: $project_id,
+                filename: $filename,
+                original_filename: $original_filename,
+                content_type: $content_type,
+                size_bytes: $size_bytes,
+                minio_key: $minio_key,
+                processed: false,
+                qdrant_indexed: false,
+                processing_error: NONE,
+                uploaded_at: $uploaded_at
+            }
+            """,
+            {
+                "id": file_id,
+                "project_id": project_id,
+                "filename": filename,
+                "original_filename": original_filename,
+                "content_type": content_type,
+                "size_bytes": size_bytes,
+                "minio_key": minio_key,
+                "uploaded_at": now,
+            },
+        )
+
+        await execute_query(
+            "UPDATE project SET updated_at = $updated_at WHERE id = $id",
+            {"id": project_id, "updated_at": now},
+        )
+
+        return ProjectFile(
+            id=file_id,
             filename=filename,
             original_filename=original_filename,
             content_type=content_type,
-            size_bytes=len(file_data),
+            size_bytes=size_bytes,
+            uploaded_at=now,
         )
 
-        # Save file to disk
-        files_dir = self._files_dir(project_id)
-        files_dir.mkdir(exist_ok=True)
-        file_path = files_dir / f"{file_record.id}_{filename}"
-        with open(file_path, "wb") as f:
-            f.write(file_data)
+    async def get_file_content(self, project_id: str, file_id: str) -> Optional[bytes]:
+        """Get the content of a project file from MinIO."""
+        result = await execute_query(
+            "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
+            {"id": file_id, "project_id": project_id},
+        )
 
-        # Update project
-        project.files.append(file_record)
-        project.updated_at = datetime.now(timezone.utc).isoformat()
-
-        with open(self._project_path(project_id), "w") as f:
-            json.dump(project.model_dump(), f, indent=2)
-
-        # Update index
-        index = self._load_index()
-        for i, meta in enumerate(index.projects):
-            if meta.id == project_id:
-                index.projects[i] = project.to_meta()
-                break
-        self._save_index(index)
-
-        return file_record
-
-    def get_file_path(self, project_id: str, file_id: str) -> Optional[Path]:
-        """Get the filesystem path to a project file.
-
-        Args:
-            project_id: The project ID
-            file_id: The file ID
-
-        Returns:
-            Path to the file or None if not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        if not result:
             return None
 
-        for file_record in project.files:
-            if file_record.id == file_id:
-                file_path = (
-                    self._files_dir(project_id)
-                    / f"{file_record.id}_{file_record.filename}"
-                )
-                if file_path.exists():
-                    return file_path
-                break
+        minio_key = result[0].get("minio_key")
+        if not minio_key:
+            return None
 
-        return None
+        try:
+            response = self.minio.client.get_object(self.minio.bucket, minio_key)
+            return response.read()
+        except Exception:
+            return None
 
-    def delete_file(self, project_id: str, file_id: str) -> bool:
-        """Delete a file from a project.
+    async def get_file_path(self, project_id: str, file_id: str) -> Optional[str]:
+        """Get the MinIO key for a project file.
 
-        Args:
-            project_id: The project ID
-            file_id: The file ID
-
-        Returns:
-            True if deleted, False if not found
+        Note: Returns MinIO key, not filesystem path. Use get_file_content() for data.
         """
-        project = self.get_project(project_id)
-        if not project:
-            return False
-
-        file_record = None
-        for f in project.files:
-            if f.id == file_id:
-                file_record = f
-                break
-
-        if not file_record:
-            return False
-
-        # Delete file from disk
-        file_path = (
-            self._files_dir(project_id)
-            / f"{file_record.id}_{file_record.filename}"
+        result = await execute_query(
+            "SELECT minio_key FROM project_file WHERE id = $id AND project_id = $project_id",
+            {"id": file_id, "project_id": project_id},
         )
-        if file_path.exists():
-            file_path.unlink()
 
-        # Update project
-        project.files = [f for f in project.files if f.id != file_id]
-        project.updated_at = datetime.now(timezone.utc).isoformat()
+        if not result:
+            return None
 
-        with open(self._project_path(project_id), "w") as f:
-            json.dump(project.model_dump(), f, indent=2)
+        return result[0].get("minio_key")
 
-        # Update index
-        index = self._load_index()
-        for i, meta in enumerate(index.projects):
-            if meta.id == project_id:
-                index.projects[i] = project.to_meta()
-                break
-        self._save_index(index)
+    async def delete_file(self, project_id: str, file_id: str) -> bool:
+        """Delete a file from a project."""
+        result = await execute_query(
+            "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
+            {"id": file_id, "project_id": project_id},
+        )
+
+        if not result:
+            return False
+
+        minio_key = result[0].get("minio_key")
+
+        if minio_key:
+            try:
+                self.minio.delete(minio_key)
+            except Exception:
+                pass
+
+        await execute_query(
+            "DELETE FROM project_file WHERE id = $id",
+            {"id": file_id},
+        )
+
+        now = datetime.now(timezone.utc).isoformat()
+        await execute_query(
+            "UPDATE project SET updated_at = $updated_at WHERE id = $id",
+            {"id": project_id, "updated_at": now},
+        )
 
         return True
 
-    def mark_file_processed(
+    async def mark_file_processed(
         self,
         project_id: str,
         file_id: str,
         qdrant_indexed: bool = False,
         error: Optional[str] = None,
     ) -> Optional[ProjectFile]:
-        """Mark a file as processed.
+        """Mark a file as processed."""
+        result = await execute_query(
+            "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
+            {"id": file_id, "project_id": project_id},
+        )
 
-        Args:
-            project_id: The project ID
-            file_id: The file ID
-            qdrant_indexed: Whether the file was indexed in Qdrant
-            error: Any processing error
-
-        Returns:
-            Updated file record or None if not found
-        """
-        project = self.get_project(project_id)
-        if not project:
+        if not result:
             return None
 
-        file_record = None
-        for f in project.files:
-            if f.id == file_id:
-                f.processed = True
-                f.qdrant_indexed = qdrant_indexed
-                f.processing_error = error
-                file_record = f
-                break
+        await execute_query(
+            """
+            UPDATE project_file SET
+                processed = true,
+                qdrant_indexed = $qdrant_indexed,
+                processing_error = $error
+            WHERE id = $id
+            """,
+            {"id": file_id, "qdrant_indexed": qdrant_indexed, "error": error},
+        )
 
-        if not file_record:
+        now = datetime.now(timezone.utc).isoformat()
+        await execute_query(
+            "UPDATE project SET updated_at = $updated_at WHERE id = $id",
+            {"id": project_id, "updated_at": now},
+        )
+
+        updated = await execute_query(
+            "SELECT * FROM project_file WHERE id = $id",
+            {"id": file_id},
+        )
+
+        if not updated:
             return None
 
-        project.updated_at = datetime.now(timezone.utc).isoformat()
-
-        with open(self._project_path(project_id), "w") as f:
-            json.dump(project.model_dump(), f, indent=2)
-
-        return file_record
+        f = updated[0]
+        return ProjectFile(
+            id=_extract_id(f["id"]),
+            filename=f.get("filename", ""),
+            original_filename=f.get("original_filename", ""),
+            content_type=f.get("content_type", ""),
+            size_bytes=f.get("size_bytes", 0),
+            uploaded_at=str(f.get("uploaded_at", "")),
+            processed=f.get("processed", False),
+            qdrant_indexed=f.get("qdrant_indexed", False),
+            processing_error=f.get("processing_error"),
+        )
 
 
 # Singleton instance
@@ -502,10 +556,5 @@ def get_project_service() -> ProjectService:
     """Get or create the project service singleton."""
     global _service
     if _service is None:
-        # Check for container path first, fall back to local
-        container_path = Path("/app/src/compose/data/projects")
-        if container_path.exists():
-            _service = ProjectService(str(container_path))
-        else:
-            _service = ProjectService()
+        _service = ProjectService()
     return _service

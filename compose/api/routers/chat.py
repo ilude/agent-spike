@@ -344,7 +344,7 @@ async def websocket_chat(websocket: WebSocket):
 
             # Save user message to conversation
             if conversation_id:
-                conversation_service.add_message(conversation_id, "user", message)
+                await conversation_service.add_message(conversation_id, "user", message)
 
             try:
                 # Build system message from project instructions, style, and memory
@@ -407,7 +407,7 @@ async def websocket_chat(websocket: WebSocket):
 
                 # Save assistant message to conversation
                 if conversation_id and full_response.strip():
-                    conversation_service.add_message(
+                    await conversation_service.add_message(
                         conversation_id, "assistant", full_response.strip()
                     )
 
@@ -470,7 +470,7 @@ async def websocket_rag_chat(websocket: WebSocket):
 
             # Save user message to conversation
             if conversation_id:
-                conversation_service.add_message(conversation_id, "user", message)
+                await conversation_service.add_message(conversation_id, "user", message)
 
             # Build custom instructions from project, style, and memory
             custom_parts = []
@@ -617,7 +617,7 @@ Respond helpfully and concisely."""
                         }
                         for s in sources
                     ]
-                    conversation_service.add_message(
+                    await conversation_service.add_message(
                         conversation_id, "assistant", full_response.strip(), sources_for_storage
                     )
 
