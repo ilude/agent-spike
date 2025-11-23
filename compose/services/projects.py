@@ -58,7 +58,7 @@ class ProjectFile(BaseModel):
     )
     # Processing status
     processed: bool = False
-    qdrant_indexed: bool = False
+    vector_indexed: bool = False
     processing_error: Optional[str] = None
 
 
@@ -219,7 +219,7 @@ class ProjectService:
                     size_bytes=f.get("size_bytes", 0),
                     uploaded_at=str(f.get("uploaded_at", "")),
                     processed=f.get("processed", False),
-                    qdrant_indexed=f.get("qdrant_indexed", False),
+                    vector_indexed=f.get("vector_indexed", False),
                     processing_error=f.get("processing_error"),
                 )
             )
@@ -396,7 +396,7 @@ class ProjectService:
                 size_bytes: $size_bytes,
                 minio_key: $minio_key,
                 processed: false,
-                qdrant_indexed: false,
+                vector_indexed: false,
                 processing_error: NONE,
                 uploaded_at: $uploaded_at
             }
@@ -497,7 +497,7 @@ class ProjectService:
         self,
         project_id: str,
         file_id: str,
-        qdrant_indexed: bool = False,
+        vector_indexed: bool = False,
         error: Optional[str] = None,
     ) -> Optional[ProjectFile]:
         """Mark a file as processed."""
@@ -513,11 +513,11 @@ class ProjectService:
             """
             UPDATE project_file SET
                 processed = true,
-                qdrant_indexed = $qdrant_indexed,
+                vector_indexed = $vector_indexed,
                 processing_error = $error
             WHERE id = $id
             """,
-            {"id": file_id, "qdrant_indexed": qdrant_indexed, "error": error},
+            {"id": file_id, "vector_indexed": vector_indexed, "error": error},
         )
 
         now = datetime.now(timezone.utc).isoformat()
@@ -543,7 +543,7 @@ class ProjectService:
             size_bytes=f.get("size_bytes", 0),
             uploaded_at=str(f.get("uploaded_at", "")),
             processed=f.get("processed", False),
-            qdrant_indexed=f.get("qdrant_indexed", False),
+            vector_indexed=f.get("vector_indexed", False),
             processing_error=f.get("processing_error"),
         )
 

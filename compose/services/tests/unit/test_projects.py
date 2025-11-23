@@ -135,7 +135,7 @@ class TestProjectModels:
         assert file.content_type == "text/plain"
         assert file.size_bytes == 1024
         assert file.processed is False
-        assert file.qdrant_indexed is False
+        assert file.vector_indexed is False
         assert file.processing_error is None
         assert file.uploaded_at is not None
 
@@ -801,7 +801,7 @@ class TestFileManagement:
         )
 
         assert file.processed is False
-        assert file.qdrant_indexed is False
+        assert file.vector_indexed is False
 
     def test_add_multiple_files(self, service):
         """Test adding multiple files to a project."""
@@ -988,7 +988,7 @@ class TestMarkFileProcessed:
         assert result.processed is True
 
     def test_mark_file_processed_with_qdrant(self, service):
-        """Test marking file as processed with qdrant_indexed=True."""
+        """Test marking file as processed with vector_indexed=True."""
         project = service.create_project()
         file = service.add_file(
             project_id=project.id,
@@ -999,11 +999,11 @@ class TestMarkFileProcessed:
         )
 
         result = service.mark_file_processed(
-            project.id, file.id, qdrant_indexed=True
+            project.id, file.id, vector_indexed=True
         )
 
         assert result.processed is True
-        assert result.qdrant_indexed is True
+        assert result.vector_indexed is True
 
     def test_mark_file_processed_with_error(self, service):
         """Test marking file as processed with an error."""
@@ -1021,7 +1021,7 @@ class TestMarkFileProcessed:
         )
 
         assert result.processed is True
-        assert result.qdrant_indexed is False
+        assert result.vector_indexed is False
         assert result.processing_error == "Failed to parse file"
 
     def test_mark_file_processed_persists(self, service):
@@ -1035,11 +1035,11 @@ class TestMarkFileProcessed:
             file_data=b"Content",
         )
 
-        service.mark_file_processed(project.id, file.id, qdrant_indexed=True)
+        service.mark_file_processed(project.id, file.id, vector_indexed=True)
 
         fetched = service.get_project(project.id)
         assert fetched.files[0].processed is True
-        assert fetched.files[0].qdrant_indexed is True
+        assert fetched.files[0].vector_indexed is True
 
     def test_mark_file_processed_project_not_found(self, service):
         """Test marking file processed in non-existent project."""

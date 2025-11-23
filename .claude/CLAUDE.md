@@ -24,7 +24,7 @@ enable-session-commits: true
 - Enables experimentation without re-fetching (avoid rate limits)
 - Protects against data loss (API changes, deleted content)
 - Tracks LLM costs over time
-- Allows migration between storage systems (Qdrant → Pinecone, etc.)
+- Allows migration between storage systems (SurrealDB, Pinecone, etc.)
 - Supports reprocessing with different strategies (chunking, embeddings, etc.)
 
 **Archive location:** `compose/data/archive/` (organized by source and month)
@@ -86,7 +86,7 @@ archive.add_processing_record(
 - **Lesson 004**: Observability with Logfire (tracing and monitoring)
 - **Lesson 005**: Security guardrails (input validation and safety)
 - **Lesson 006**: Memory with Mem0 (persistent agent memory)
-- **Lesson 007**: Cache Manager with Qdrant (vector database for caching)
+- **Lesson 007**: Cache Manager (vector database patterns, now using SurrealDB)
 - **Lesson 008**: Batch Processing with OpenAI (async batch operations)
 
 **Learning source**: Based on Cole Medin's "Learn 90% of Building AI Agents in 30 Minutes" video (https://www.youtube.com/watch?v=i5kwX7jeWL8).
@@ -97,6 +97,9 @@ archive.add_processing_record(
 - uv package manager (not pip)
 - Typer CLIs per lesson
 - Claude Haiku for cost-effective prototyping
+- **SurrealDB**: Unified data store with native HNSW vector search
+- **MinIO**: Object storage for binary files
+- **Infinity**: Embedding service (bge-m3, gte-large)
 
 **Virtual environment setup**:
 - **Single shared `.venv` at project root** (configured as UV workspace)

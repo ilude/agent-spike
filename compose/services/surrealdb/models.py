@@ -198,7 +198,7 @@ class ProjectFileRecord(BaseModel):
     size_bytes: int
     minio_key: str  # Path in MinIO bucket
     processed: bool = False
-    qdrant_indexed: bool = False
+    vector_indexed: bool = False
     processing_error: Optional[str] = None
     uploaded_at: datetime = Field(default_factory=datetime.now)
 

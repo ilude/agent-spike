@@ -1,27 +1,40 @@
 # Agent Spike - Current Status
 
 **Last Updated**: 2025-11-23
-**Current Phase**: Personal AI Research Assistant - Containerized microservices architecture
+**Current Phase**: Personal AI Research Assistant - SurrealDB + MinIO unified data layer
 
 ## Current State
 
 - ✅ **9 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing, Orchestrator
-- ✅ **Service layer extraction**: Production-ready `tools/` structure
+- ✅ **Service layer extraction**: Production-ready `compose/services/` structure
+- ✅ **SurrealDB migration complete**: All data (videos, conversations, projects) in SurrealDB
+- ✅ **Vector search with HNSW indexes**: Native SurrealDB vector similarity search
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
 - **Project structure**:
   - `lessons/`: Progressive agent-building lessons (001-009)
-  - `compose/services/`: Microservices (archive, cache, analytics, metadata, tagger, display, youtube)
+  - `compose/services/`: Microservices (archive, surrealdb, embeddings, chunking, metadata, tagger, youtube)
   - `compose/cli/`: Production CLI scripts (ingestion, search, verification)
-  - `compose/data/`: Git-crypt encrypted data storage (Qdrant, archives, browser history)
+  - `compose/data/`: Git-crypt encrypted data storage (archives, browser history)
 - **Production features**:
-  - Containerized services (Qdrant, Infinity embeddings, N8N workflows)
+  - **SurrealDB**: Unified data store with native HNSW vector indexes
+  - **MinIO**: Object storage for project files (PDFs, docs)
+  - **Infinity**: Embedding service (BAAI/bge-m3, gte-large-en-v1.5)
   - Archive-first strategy (all expensive data saved before processing)
   - Queue-based ingestion (pending → processing → completed workflow)
   - Webshare proxy integration (no YouTube API rate limiting)
   - Protocol-first service design (dependency injection)
-  - Infinity embedding service (BAAI/bge-m3, 1024-dim, 8K context)
 
 ## Recent Completions
+
+**Dual-Collection Embeddings + Transcript Chunking** ✅ COMPLETE (2025-11-23)
+- Migrated from Qdrant to SurrealDB native vector search
+- Added HNSW indexes to `video.embedding` (1024-dim, cosine distance)
+- Created `video_chunk` table for timestamp-level search
+- New `compose/services/embeddings/` - EmbeddingService with Infinity HTTP API
+- New `compose/services/chunking/` - Time+token hybrid chunking for YouTube transcripts
+- Updated `compose/cli/ingest_video.py` with `--chunks` flag for chunk embeddings
+- Renamed `qdrant_indexed` → `vector_indexed` across codebase
+- Embedding models: gte-large-en-v1.5 (global) + bge-m3 (chunks)
 
 **SurrealDB Backup Service** ✅ COMPLETE (2025-11-23)
 - Fixed backup service for SurrealDB data to MinIO storage
@@ -57,11 +70,12 @@
 - Frontend: Canvas UI, artifact API methods, project selector
 
 **Required services** (must be running for full functionality):
-- Qdrant: `docker compose up qdrant` (port 6335)
+- SurrealDB: `docker compose up surrealdb` (port 8001)
+- MinIO: `docker compose up minio` (ports 9000/9001)
 - Infinity embeddings: `docker compose up infinity` (port 7997)
 - Docling: `docker compose up docling` (port 5001) - for PDF/DOCX processing
 - FastAPI backend: `uv run uvicorn compose.api.main:app --reload`
-- Frontend: `cd compose/frontend && npm run dev`
+- Frontend: `cd compose/frontend && bun run dev`
 
 **API Endpoints added:**
 - `GET/POST /projects` - List/create projects
@@ -71,22 +85,20 @@
 - `GET/POST /artifacts` - List/create artifacts
 - `GET/PUT/DELETE /artifacts/{id}` - Artifact CRUD
 
-**Containerized Microservices Migration** ✅ COMPLETE (2025-11-18)
-- Migrated from embedded Qdrant to containerized qdrant/qdrant service (ports 6335-6336)
-- Added Infinity embedding service (michaelf34/infinity) with BAAI/bge-m3 model
-  - 1024-dimension embeddings (vs 384-dim from all-MiniLM-L6-v2)
-  - 8,192 token context window (vs 256 tokens)
-  - Eliminates 75% transcript truncation issue
+**Containerized Microservices Migration** ✅ COMPLETE (2025-11-18, updated 2025-11-23)
+- **Data store**: SurrealDB with native HNSW vector indexes (replaced Qdrant)
+- **Object storage**: MinIO for project files (PDFs, docs)
+- **Embeddings**: Infinity service (michaelf34/infinity) with dual models:
+  - BAAI/bge-m3: 1024-dim chunk embeddings (8K context)
+  - gte-large-en-v1.5: 1024-dim global embeddings
 - Removed ML dependencies from Docker builds
   - Removed docling>=2.60.0 (use docling-serve container instead)
   - Removed sentence-transformers>=2.2.0 (use Infinity service)
   - Reduced initial build time from 11+ minutes to ~49 seconds
-- Updated all ingestion scripts to use Infinity + containerized Qdrant HTTP APIs
 - Migrated all data paths from `projects/data/` to `compose/data/`
 - Added git-crypt encryption for `compose/data/` directories
 - Deleted obsolete `projects/` directory
 - Added comprehensive documentation (INFINITY_SETUP.md, embedding_pipeline_spec)
-- 12 commits, full test coverage
 
 **Service Layer Extraction** ✅ COMPLETE (2025-11-09)
 - Extracted stable patterns from lessons into reusable `tools/` structure
@@ -152,33 +164,35 @@
 ### Immediate Next Steps
 
 **Video Ingestion Queue Processing** (Ready to Resume)
-- **Current state**: Infrastructure ready for large-scale ingestion
+- **Current state**: Infrastructure ready for large-scale ingestion with SurrealDB
 - **Queue location**: `compose/data/queues/pending/*.csv`
-- **Command**: `cd compose && docker compose up -d && cd .. && uv run python compose/cli/ingest_youtube.py`
+- **Command**: `cd compose && docker compose up -d && cd .. && uv run python compose/cli/ingest_video.py <url> --chunks`
 - **New capabilities**:
-  - Infinity embeddings eliminate transcript truncation (8K context vs 256 tokens)
-  - Containerized Qdrant for scalable vector storage
+  - SurrealDB with HNSW vector indexes for semantic search
+  - Dual embeddings: global (recommendations) + chunks (timestamp search)
+  - Infinity embeddings eliminate transcript truncation (8K context)
   - All data encrypted with git-crypt for multi-machine workflows
 
 **Claude Code Integration with Existing Data** (Next Priority)
-- Give Claude Code access to Qdrant cache (transcript data from lesson-007)
+- Give Claude Code access to SurrealDB cache (transcript data)
 - Use Claude Code's YouTube MCP transcript tool to fetch and insert new transcripts
 - Workflow:
   1. User asks Claude Code to analyze a YouTube video
-  2. Claude Code checks if transcript exists in Qdrant cache
+  2. Claude Code checks if transcript exists in SurrealDB
   3. If not cached: Use MCP YouTube tool to fetch transcript
-  4. Insert new transcript into Qdrant for future use
+  4. Insert new transcript into SurrealDB for future use
   5. Perform analysis (tagging, summarization, etc.)
 - Benefits:
   - Leverage existing cached data (49+ videos already cached)
   - Reduce API calls for previously-processed videos
   - Build up knowledge base over time
-  - Use MCP tools directly (better than lesson-001's youtube-transcript-api)
+  - Chunk-level search: "find where they discussed X"
 
 **Related files:**
-- Cache service: `compose/services/cache/`
+- SurrealDB repository: `compose/services/surrealdb/`
+- Embedding service: `compose/services/embeddings/`
+- Chunking service: `compose/services/chunking/`
 - Ingestion scripts: `compose/cli/ingest_*.py`
-- Qdrant data: `compose/data/qdrant_storage/` (git-crypt encrypted)
 - Archive data: `compose/data/archive/` (git-crypt encrypted)
 
 ### Future Capabilities (As Needs Emerge)
@@ -305,18 +319,19 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 10. **Protocol-first services**: typing.Protocol for dependency injection and testability
 11. **Queue-based ingestion**: CSV workflow (pending → processing → completed) for resumable batch processing
 12. **Webshare proxy**: YouTube Transcript API proxy to eliminate rate limiting
-13. **Lazy imports**: Qdrant optional dependency (graceful degradation to InMemoryCache)
-14. **Containerized services**: Separate embedding/vector services from application container
-15. **BAAI/bge-m3 embeddings**: 1024-dim, 8K context for better semantic search
-16. **Git-crypt data encryption**: All data in compose/data/ encrypted before push
+13. **SurrealDB as unified data store**: Single database for videos, conversations, projects with native vector search
+14. **HNSW vector indexes**: SurrealDB native cosine similarity search (no separate vector DB needed)
+15. **Dual embedding models**: gte-large for global/recommendation, bge-m3 for chunk/search
+16. **MinIO object storage**: Binary files (PDFs, docs) separate from structured data
+17. **Git-crypt data encryption**: All data in compose/data/ encrypted before push
 
 ## File Locations
 
 - Lesson code: `lessons/lesson-XXX/`
 - Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
-- Services: `compose/services/{archive,cache,analytics,metadata,tagger,display,youtube}/`
+- Services: `compose/services/{archive,surrealdb,embeddings,chunking,metadata,tagger,youtube}/`
 - Scripts: `compose/cli/` (production CLIs)
-- Data: `compose/data/{archive,queues,qdrant_storage}/` (git-crypt encrypted)
+- Data: `compose/data/{archive,queues}/` (git-crypt encrypted)
 - Docker: `compose/docker-compose.yml`, `compose/api/Dockerfile`
 - Documentation: `compose/INFINITY_SETUP.md`, `.claude/VISION.md`
 - This status file: `.claude/STATUS.md`
@@ -330,7 +345,7 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 - Status: Clean working tree
 - All data encrypted with git-crypt before push
 
-**To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d`
+**To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d` (starts SurrealDB, MinIO, Infinity)
 
 ---
 

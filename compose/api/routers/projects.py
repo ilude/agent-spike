@@ -161,7 +161,7 @@ async def process_file_background(
         await service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
-            qdrant_indexed=result.get("success", False),
+            vector_indexed=result.get("success", False),
             error=result.get("error"),
         )
 
@@ -175,7 +175,7 @@ async def process_file_background(
         await service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
-            qdrant_indexed=False,
+            vector_indexed=False,
             error=str(e),
         )
 

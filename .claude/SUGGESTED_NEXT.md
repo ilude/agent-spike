@@ -21,40 +21,27 @@ Each suggestion is rated on:
 **Vision Alignment**: ⭐⭐⭐⭐⭐ (Core infrastructure for recommendations)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean separation, minimal conflicts)
 **Complexity**: Medium (2-3 days)
-**Status**: COMPLETE (2025-11-23)
+**Status**: COMPLETE (2025-11-23) - Implemented using SurrealDB native vector search
 
-### What
-Implement the dual-collection strategy from the embedding pipeline spec:
-- **Collection 1**: `content` - One global embedding per item (recommendations, preferences)
-- **Collection 2**: `content_chunks` - Multiple chunk embeddings per item (search, Q&A)
+### What Was Implemented
+- **SurrealDB with HNSW indexes**: Native vector search (replaced Qdrant)
+- **`video` table**: Global embedding per video (1024-dim, gte-large-en-v1.5)
+- **`video_chunk` table**: Chunk embeddings for timestamp search (bge-m3)
+- **Embedding service**: `compose/services/embeddings/` - Infinity HTTP API wrapper
+- **Chunking service**: `compose/services/chunking/` - Time+token hybrid chunking
 
-### Why
-Currently we only have chunk-level embeddings. For preference-based recommendations, we need whole-document embeddings to understand overall content relevance.
+### Files Changed/Created
+- `compose/services/surrealdb/repository.py` - Added HNSW indexes and chunk CRUD
+- `compose/services/surrealdb/models.py` - VideoChunkRecord, ChunkSearchResult models
+- `compose/services/embeddings/__init__.py` - EmbeddingService class
+- `compose/services/chunking/{models.py, youtube_chunker.py}` - Chunking algorithm
+- `compose/cli/ingest_video.py` - Updated with `--chunks` flag
 
-### Worktree Approach
-```bash
-# Main branch: Continue ingestion with current setup
-git worktree add ../agent-spike-dual-embeddings -b feature/dual-embeddings
-
-# In worktree: Implement dual-collection architecture
-# - Add `content` collection with gte-large-en-v1.5 embeddings
-# - Migrate existing data to dual-collection structure
-# - Update ingestion scripts to populate both collections
-# - Add tests for dual retrieval modes
-```
-
-### Files to Change
-- `compose/services/cache/qdrant_cache.py` - Add dual-collection support
-- `compose/services/cache/config.py` - Configure both embedding models
-- `compose/cli/ingest_*.py` - Generate both embeddings during ingestion
-- `compose/docker-compose.yml` - Add gte-large-en-v1.5 to Infinity service
-- New: `compose/services/cache/retrieval_modes.py` - Search vs Recommendation modes
-
-### Success Criteria
-- Two Qdrant collections: `content` (global) and `content_chunks` (local)
-- Ingestion generates both embedding types
-- Can search by chunks (precise) or by global vector (thematic)
-- Tests verify both retrieval modes work
+### Success Criteria ✅
+- [x] HNSW indexes on video.embedding and video_chunk.embedding
+- [x] Ingestion generates both embedding types (`--chunks` flag)
+- [x] Can search by chunks (precise) or by global vector (thematic)
+- [x] Chunk search returns timestamp ranges for navigation
 
 ---
 
@@ -151,42 +138,31 @@ git worktree add ../agent-spike-monitor -b feature/channel-monitor
 **Vision Alignment**: ⭐⭐⭐⭐ (Improves search precision)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean feature addition)
 **Complexity**: Medium (2-3 days)
-**Status**: COMPLETE (2025-11-23)
+**Status**: COMPLETE (2025-11-23) - Implemented as part of dual-collection work
 
-### What
-Implement time-based + token hybrid chunking for YouTube transcripts:
-- Split transcripts into 2-3K token chunks
-- Respect natural pause boundaries (sentence breaks)
-- Store chunk metadata (timestamp ranges)
-- Enable timestamp-level search ("find where they discussed X")
+### What Was Implemented
+- **Time+token hybrid chunking**: `compose/services/chunking/youtube_chunker.py`
+- **Chunk models**: TranscriptChunk, ChunkingConfig, ChunkingResult
+- **SurrealDB storage**: `video_chunk` table with HNSW index
+- **Chunk search**: `semantic_search_chunks()` returns timestamp ranges
 
-### Why
-Current approach embeds entire transcripts. For 2-hour videos, this loses precision. Chunking enables "find the 5-minute segment about topic X" searches.
+### Chunking Algorithm
+- Target: 2500 tokens per chunk (configurable)
+- Splits at natural pause boundaries (8+ second gaps in transcript)
+- Falls back to token-count splits when no pauses found
+- Preserves start/end timestamps for each chunk
 
-### Worktree Approach
-```bash
-git worktree add ../agent-spike-chunking -b feature/transcript-chunking
+### Files Created
+- `compose/services/chunking/__init__.py` - Public API
+- `compose/services/chunking/models.py` - TranscriptChunk, ChunkingConfig
+- `compose/services/chunking/youtube_chunker.py` - Chunking algorithm
+- `compose/services/surrealdb/models.py` - VideoChunkRecord, ChunkSearchResult
 
-# In worktree: Implement chunking system
-# - Chunking algorithm (time + token hybrid)
-# - Metadata storage (start/end timestamps)
-# - Update ingestion to chunk long transcripts
-# - Search returns timestamp ranges
-```
-
-### Files to Change/Create
-- New: `compose/services/chunking/`
-  - `youtube_chunker.py` - Time-aware chunking
-  - `chunk_metadata.py` - Timestamp tracking
-- Update: `compose/cli/ingest_youtube.py` - Chunk before embedding
-- Update: `compose/services/cache/qdrant_cache.py` - Store chunk metadata
-- New: `compose/cli/search_with_timestamps.py` - Return timestamp ranges
-
-### Success Criteria
-- Long videos (>1 hour) split into 2-3K token chunks
-- Each chunk has start/end timestamp metadata
-- Search returns: "Found in video X at 15:30-18:45"
-- Can navigate directly to relevant segment
+### Success Criteria ✅
+- [x] Long videos split into ~2.5K token chunks
+- [x] Each chunk has start/end timestamp metadata
+- [x] `semantic_search_chunks()` returns matching chunks with timestamps
+- [x] Chunk results include parent video info (title, URL)
 
 ---
 

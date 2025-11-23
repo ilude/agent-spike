@@ -417,7 +417,7 @@ async def migrate_projects(
                         size_bytes: $size_bytes,
                         minio_key: $minio_key,
                         processed: $processed,
-                        qdrant_indexed: $qdrant_indexed,
+                        vector_indexed: $vector_indexed,
                         uploaded_at: $uploaded_at
                     };
                     """
@@ -436,7 +436,7 @@ async def migrate_projects(
                         "size_bytes": size_bytes,
                         "minio_key": minio_key,
                         "processed": file_info.get("processed", False),
-                        "qdrant_indexed": file_info.get("qdrant_indexed", False),
+                        "vector_indexed": file_info.get("vector_indexed", False),
                         "uploaded_at": file_info.get("uploaded_at") or datetime.now().isoformat(),
                     })
                     stats.files += 1

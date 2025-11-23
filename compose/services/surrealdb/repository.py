@@ -156,7 +156,7 @@ async def init_schema() -> None:
         DEFINE FIELD minio_key ON TABLE project_file TYPE string;
         DEFINE FIELD uploaded_at ON TABLE project_file TYPE datetime VALUE time::now();
         DEFINE FIELD processed ON TABLE project_file TYPE bool DEFAULT false;
-        DEFINE FIELD qdrant_indexed ON TABLE project_file TYPE bool DEFAULT false;
+        DEFINE FIELD vector_indexed ON TABLE project_file TYPE bool DEFAULT false;
         DEFINE FIELD processing_error ON TABLE project_file TYPE option<string>;
         DEFINE INDEX idx_project_file_id ON TABLE project_file COLUMNS id UNIQUE;
         DEFINE INDEX idx_project_file_project ON TABLE project_file COLUMNS project_id;
