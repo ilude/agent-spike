@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, backup
+from compose.api.routers import auth, settings, health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, backup
 
 # Create FastAPI app
 app = FastAPI(
@@ -30,6 +30,8 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth.router)
+app.include_router(settings.router)
 app.include_router(health.router)
 app.include_router(youtube.router, prefix="/youtube", tags=["youtube"])
 app.include_router(cache.router, prefix="/cache", tags=["cache"])
@@ -56,6 +58,10 @@ async def root():
         "docs": "/docs",
         "health": "/health",
         "endpoints": {
+            "auth_check": "GET /auth/check",
+            "auth_register": "POST /auth/register",
+            "auth_login": "POST /auth/login",
+            "auth_me": "GET /auth/me",
             "youtube_analyze": "POST /youtube/analyze",
             "cache_search": "POST /cache/search",
             "chat_models": "GET /chat/models",
