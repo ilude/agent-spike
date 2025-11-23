@@ -67,6 +67,35 @@
         state: present
       register: compose_result
 
+    # Pull required Ollama models (idempotent - skips if already present)
+    - name: Wait for Ollama to be ready
+      ansible.builtin.uri:
+        url: "http://localhost:11434/api/tags"
+        method: GET
+        status_code: 200
+      register: ollama_ready
+      retries: 30
+      delay: 2
+      until: ollama_ready.status == 200
+      ignore_errors: true
+
+    - name: Pull Ollama models
+      ansible.builtin.uri:
+        url: "http://localhost:11434/api/pull"
+        method: POST
+        body_format: json
+        body:
+          name: "{{ item }}"
+        status_code: [200]
+        timeout: 600  # 10 min timeout for large model downloads
+      loop:
+        - qwen3:8b
+      when: ollama_ready.status | default(0) == 200
+      register: ollama_pull_result
+      ignore_errors: true
+      async: 1200  # 20 min async timeout
+      poll: 30     # Check every 30 seconds
+
     - name: Show running containers
       community.docker.docker_container_info:
         name: "{{ item }}"

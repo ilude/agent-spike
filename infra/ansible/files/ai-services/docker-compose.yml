@@ -21,7 +21,15 @@ services:
     image: michaelf34/infinity:latest
     container_name: infinity
     restart: unless-stopped
-    command: v2 --model-id Alibaba-NLP/gte-large-en-v1.5 --port 7997 --batch-size 16 --engine torch
+    # Multi-model setup: gte-large for global embeddings, bge-m3 for chunk embeddings
+    # Models are downloaded on first use and cached in ./data/infinity
+    command: >
+      v2
+      --model-id Alibaba-NLP/gte-large-en-v1.5
+      --model-id BAAI/bge-m3
+      --port 7997
+      --batch-size 16
+      --engine torch
     ports:
       - "7997:7997"
     volumes:
