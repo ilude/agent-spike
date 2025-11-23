@@ -86,8 +86,10 @@ archive.add_processing_record(
 - **Lesson 004**: Observability with Logfire (tracing and monitoring)
 - **Lesson 005**: Security guardrails (input validation and safety)
 - **Lesson 006**: Memory with Mem0 (persistent agent memory)
-- **Lesson 007**: Cache Manager (vector database patterns, now using SurrealDB)
+- **Lesson 007**: Cache Manager (vector database patterns, SurrealDB)
 - **Lesson 008**: Batch Processing with OpenAI (async batch operations)
+- **Lesson 009**: Agent Orchestrator (multi-agent coordination)
+- **Lesson 010**: Semantic Tag Normalization (taxonomy clustering)
 
 **Learning source**: Based on Cole Medin's "Learn 90% of Building AI Agents in 30 Minutes" video (https://www.youtube.com/watch?v=i5kwX7jeWL8).
 
@@ -122,8 +124,10 @@ lessons/               # Progressive agent-building lessons
 ├── lesson-004/       # Observability (Logfire)
 ├── lesson-005/       # Security guardrails
 ├── lesson-006/       # Memory (Mem0)
-├── lesson-007/       # Cache Manager (Qdrant)
-└── lesson-008/       # Batch Processing (OpenAI)
+├── lesson-007/       # Cache Manager (SurrealDB)
+├── lesson-008/       # Batch Processing (OpenAI)
+├── lesson-009/       # Agent Orchestrator
+└── lesson-010/       # Semantic Tag Normalization
 .claude/STATUS.md     # Current progress, known issues, resume instructions
 ```
 
@@ -265,7 +269,7 @@ Code quality standards (applies to production code in `src/`):
 ## Summary for New Claude Sessions
 
 1. ✅ **This is a learning project** - Multi-agent AI spike, not production app
-2. ✅ **Work in `lessons/`** - 9 lessons total, all complete (001-009)
+2. ✅ **Work in `lessons/`** - 10 lessons total, all complete (001-010)
 3. ✅ **Check STATUS.md first** - Current state and progress
 4. ✅ **Use `uv run python`** - Handles virtual environments automatically
 5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything
@@ -285,11 +289,30 @@ Code quality standards (applies to production code in `src/`):
 
 **For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
 
-**Frontend service**: The frontend (SvelteKit) runs as a **local service, not in a container**. Hot reloading does not work correctly with Docker containers and Windows bind mounts. Start it locally with:
-```bash
-cd compose/frontend && bun run dev
-```
-The frontend connects to the API via `https://api.local.ilude.com` (traefik) or directly at `http://localhost:8000`.
+## Local Development Architecture
+
+**Container vs Local Services:**
+- **API**: Runs in container (`docker compose up api`) at `localhost:8000`
+- **Worker**: Runs in container (`docker compose up queue-worker`)
+- **Frontend**: Runs LOCALLY with `cd compose/frontend && bun run dev` (NOT in container - hot reload broken on Windows)
+
+**Traefik Routing (HTTPS):**
+- `https://mentat.local.ilude.com` → Frontend (local dev server) - **ALWAYS USE THIS URL**
+- `https://api.local.ilude.com` → API container
+- **Never use `localhost:5173`** - different origin = separate localStorage/auth state
+- If traefik shows "Error response from daemon" → Restart Docker Desktop
+
+**Environment Files:**
+- **Single `.env` at project root ONLY** - git-crypt encrypted
+- **NO subdirectory `.env` files** - they cause override issues and unexpected behavior
+- Frontend reads `VITE_API_URL` env var, falls back to `http://localhost:8000`
+- When running frontend locally behind traefik (HTTPS), don't set `VITE_API_URL` - let SvelteKit proxy handle it
+
+**Common Issues:**
+- **Mixed content errors**: Frontend served via HTTPS cannot call HTTP API - use traefik routes
+- **Worker showing unhealthy**: Check if queue dirs are mounted in API container (`/app/src/compose/data/queues`)
+- **Traefik 404s**: Docker socket connection broken, restart Docker Desktop
+- **API unhealthy after code changes**: Rebuild with `docker compose build api && docker compose up -d api`
 
 ---
 

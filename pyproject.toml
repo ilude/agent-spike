@@ -188,6 +188,11 @@ lesson-009 = [
     {include-group = "lesson-003"},  # Needs youtube + webpage sub-agents
     "openai>=1.54.0",  # For gpt-5-nano
 ]
+lesson-010 = [
+    # Semantic Tag Normalization (taxonomy clustering)
+    {include-group = "lesson-001"},  # Base dependencies (typer, rich)
+    {include-group = "lesson-007"},  # Archive/cache services
+]
 api = [
     # FastAPI service for N8N integration (DEPRECATED - use platform instead)
     {include-group = "lesson-001"},  # YouTube agent

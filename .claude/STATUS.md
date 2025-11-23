@@ -53,7 +53,7 @@
 - **Phase 2 - Projects**:
   - Project grouping for conversations
   - File upload with Docling text extraction (PDF, DOCX, etc.)
-  - RAG indexing via Qdrant for semantic search
+  - RAG indexing via SurrealDB for semantic search
   - Custom instructions injected into chat context
 - **Phase 3 - Canvas/Artifacts**:
   - Right sidebar with document editor
@@ -64,7 +64,7 @@
 **New files created:**
 - `compose/services/projects.py` - Project storage with file management
 - `compose/services/artifacts.py` - Artifact storage service
-- `compose/services/file_processor.py` - Docling extraction + Qdrant indexing
+- `compose/services/file_processor.py` - Docling extraction + SurrealDB indexing
 - `compose/api/routers/projects.py` - Projects REST API
 - `compose/api/routers/artifacts.py` - Artifacts REST API
 - Frontend: Canvas UI, artifact API methods, project selector
@@ -149,7 +149,7 @@
 - CacheManager protocol with QdrantCache implementation
 - Semantic search with sentence-transformers embeddings
 - Generic CSV ingestion script with progress tracking
-- Centralized cache storage in `compose/data/qdrant_storage/`
+- Centralized cache storage (migrated from Qdrant to SurrealDB)
 - Successfully cached 49+ items from video lists
 
 **Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE

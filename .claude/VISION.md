@@ -87,7 +87,7 @@ A multi-agent system that acts as a **personal research assistant**:
          ▼
 ┌─────────────────┐
 │ Cache Manager   │
-│ (Qdrant)        │──── Content storage with embeddings
+│ (SurrealDB)     │──── Content storage with embeddings
 │                 │     • Semantic search
 │                 │     • Metadata filtering
 └─────────────────┘
@@ -104,7 +104,7 @@ A multi-agent system that acts as a **personal research assistant**:
          ▼
 ┌─────────────────┐
 │ Memory Layer    │
-│ (Mem0/Qdrant)   │──── User preferences, project context
+│ (Mem0/SurrealDB)│──── User preferences, project context
 │                 │     • Ratings and feedback
 │                 │     • Learning history
 └─────────────────┘
@@ -131,7 +131,7 @@ A multi-agent system that acts as a **personal research assistant**:
 ## Technical Stack
 
 ### Core Infrastructure
-- **Vector Database**: Qdrant (semantic search, metadata filtering)
+- **Vector Database**: SurrealDB (semantic search, metadata filtering, native HNSW)
 - **Memory System**: Mem0 (user preferences, conversation history)
 - **Agents**: Pydantic AI (analysis, tagging, summarization)
 - **Batch Processing**: OpenAI Batch API (cost-effective large-scale analysis)
@@ -162,8 +162,8 @@ The system uses a **microservices pattern** with Docker containers:
                                                 │
                                                 ▼ Vectors (1024-dim)
                                          ┌──────────────┐
-                                         │   Qdrant     │  (Vector database)
-                                         │ Port: 6335   │  Web UI, persistence
+                                         │  SurrealDB   │  (Vector database)
+                                         │ Port: 8080   │  SQL + vector search
                                          └──────────────┘
 ```
 
@@ -187,7 +187,7 @@ The system uses a **microservices pattern** with Docker containers:
 #### Phase 2 (Planned): Global + Chunk Embeddings
 - **Global model**: `Alibaba-NLP/gte-large-en-v1.5` (whole-document embeddings)
 - **Chunk model**: `BAAI/bge-m3` (local semantic search)
-- **Collections**: Dual collections in Qdrant
+- **Collections**: Video table in SurrealDB with vector indexes
   - `content`: One vector per item (recommendations, preferences)
   - `content_chunks`: Multiple vectors per item (search, Q&A)
 
@@ -216,7 +216,7 @@ The system uses a **microservices pattern** with Docker containers:
 
 ## Data Models
 
-### Content (Qdrant Collection: "content")
+### Content (SurrealDB: "video" table)
 
 ```python
 {
@@ -283,7 +283,7 @@ The system uses a **microservices pattern** with Docker containers:
                 "build research assistant",
                 "explore caching patterns"
             ],
-            "tech_stack": ["python", "pydantic-ai", "qdrant", "mem0"],
+            "tech_stack": ["python", "pydantic-ai", "surrealdb", "mem0"],
             "current_challenges": [
                 "batch processing 169 videos",
                 "cost-effective analysis"
@@ -327,7 +327,7 @@ Start with immediate needs (caching, batch processing), let the system grow natu
 **🚧 Lesson 007: Cache Manager & Content Ingestion** (In Progress)
 - Dependency injection pattern
 - CacheManager protocol
-- Qdrant implementation
+- SurrealDB implementation
 - Generic CSV ingestion (supports any URL list)
 - Router integration for multi-source content
 
@@ -358,15 +358,15 @@ Start with immediate needs (caching, batch processing), let the system grow natu
 
 ## Key Architectural Decisions
 
-### 1. Qdrant for Content Storage
-**Why**: Already installed (Mem0 dependency), excellent semantic search, flexible schema, local-first
+### 1. SurrealDB for Content Storage
+**Why**: Unified data store with native HNSW vector indexes, SQL-like queries, graph capabilities
 
 **Alternatives considered**:
 - ChromaDB (simpler but less mature, would duplicate vector DB)
 - Neo4j (great for relationships but no native vector search)
 - SQLite (no semantic search)
 
-**Decision**: Single Qdrant collection "content" with type-based metadata
+**Decision**: SurrealDB "video" table with vector index and graph relationships
 
 ---
 
@@ -388,14 +388,14 @@ def get_transcript(url: str, cache: Optional[CacheManager] = None) -> str:
 
 ---
 
-### 3. Integrated Storage (Mem0 + Qdrant)
-**Why**: Mem0 uses Qdrant as backend - leverage same infrastructure
+### 3. Integrated Storage (Mem0 + SurrealDB)
+**Why**: Unified storage layer with graph capabilities
 
 **Model**:
 - Mem0 → High-level user preferences and memories
-- Direct Qdrant → Content storage with fine-grained control
+- SurrealDB → Content storage with vector search and graph relationships
 
-**Future**: May consolidate to pure Qdrant if Mem0 abstraction becomes limiting
+**Future**: Full migration to SurrealDB for all storage needs
 
 ---
 
@@ -456,7 +456,7 @@ python ingest_csv.py --csv projects/video-lists/nate_jones_videos.csv
 User: "Find content about multi-agent orchestration"
 
 System:
-1. Semantic search in Qdrant
+1. Semantic search in SurrealDB
 2. Filter by user rating > 3
 3. Rank by relevance + recency
 4. Present top 10 with summaries
@@ -542,7 +542,7 @@ Output:
 ## Open Questions
 
 ### Infrastructure & Architecture
-1. **Memory integration**: How should Mem0 preferences relate to Qdrant content?
+1. **Memory integration**: How should Mem0 preferences relate to SurrealDB content?
 2. **Relationship modeling**: Do we need graph capabilities, or is metadata sufficient?
 3. **Feedback loops**: How to capture user ratings and improve recommendations?
 4. **Automation**: When/how should the system proactively fetch new content?
@@ -566,7 +566,7 @@ Output:
 
 ### Technical Resources
 - [Pydantic AI Documentation](https://ai.pydantic.dev/)
-- [Qdrant Documentation](https://qdrant.tech/documentation/)
+- [SurrealDB Documentation](https://surrealdb.com/docs)
 - [Mem0 Documentation](https://docs.mem0.ai/)
 - [OpenAI Batch API](https://platform.openai.com/docs/guides/batch)
 
