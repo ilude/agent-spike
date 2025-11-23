@@ -27,17 +27,20 @@ if [ "$3" = "1" ]; then
     echo "  • Deduplicating records"
     echo ""
 
-    # Run incremental sync automatically (no prompt)
-    cd projects/data/brave_history 2>/dev/null || cd projects/brave_history 2>/dev/null || {
-        echo "${YELLOW}⚠ Brave history directory not found. Skipping sync.${NC}"
+    # Run incremental sync from repo root
+    DATA_DIR="compose/data/queues/brave_history"
+    SCRIPT="compose/cli/brave_history/copy_brave_history.py"
+
+    if [ ! -d "$DATA_DIR" ]; then
+        echo "${YELLOW}⚠ Brave history directory not found at $DATA_DIR. Skipping sync.${NC}"
         exit 0
-    }
+    fi
 
     # Use incremental sync for speed and safety
     if command -v uv >/dev/null 2>&1; then
-        uv run python ../../../tools/scripts/brave_history/copy_brave_history.py --incremental --dest .
+        uv run python "$SCRIPT" --incremental --dest "$DATA_DIR"
     else
-        python ../../../tools/scripts/brave_history/copy_brave_history.py --incremental --dest .
+        python "$SCRIPT" --incremental --dest "$DATA_DIR"
     fi
 
     if [ $? -eq 0 ]; then
@@ -45,19 +48,17 @@ if [ "$3" = "1" ]; then
         echo "${GREEN}✓ Brave history synced successfully!${NC}"
 
         # Check if there are changes to commit
-        if git diff --quiet brave_history.sqlite 2>/dev/null; then
+        if git diff --quiet "$DATA_DIR/brave_history.sqlite" 2>/dev/null; then
             echo "  (No changes detected in consolidated history)"
         else
             echo "  Changes detected. To commit:"
-            echo "    git add projects/data/brave_history/brave_history.sqlite"
+            echo "    git add $DATA_DIR/brave_history.sqlite"
             echo "    git commit -m 'chore: update consolidated Brave history'"
         fi
     else
         echo "${YELLOW}⚠ Sync encountered an issue. See errors above.${NC}"
-        echo "  To run manually: cd projects/data/brave_history && python ../../../tools/scripts/brave_history/copy_brave_history.py --incremental --dest ."
+        echo "  To run manually: uv run python $SCRIPT --incremental --dest $DATA_DIR"
     fi
-
-    cd - >/dev/null 2>&1
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""

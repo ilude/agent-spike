@@ -1,20 +1,27 @@
 """Health check endpoints."""
 
 import os
-from pathlib import Path
 
+import httpx
 from fastapi import APIRouter
+
 from compose.api.models import HealthCheckResponse
 
 router = APIRouter(tags=["health"])
+
+# Service URLs (container networking)
+SURREALDB_URL = os.getenv("SURREALDB_URL", "http://localhost:8000")
+MINIO_URL = os.getenv("MINIO_URL", "http://localhost:9000")
+INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 
 
 @router.get("/health", response_model=HealthCheckResponse)
 async def health_check():
     """Check overall service health."""
     checks = {
-        "archive": await check_archive(),
-        "cache": await check_cache(),
+        "surrealdb": await check_surrealdb(),
+        "minio": await check_minio(),
+        "infinity": await check_infinity(),
     }
 
     # Determine overall status
@@ -24,49 +31,42 @@ async def health_check():
     return HealthCheckResponse(status=status, checks=checks)
 
 
-async def check_archive() -> dict:
-    """Check if archive directory is accessible."""
+async def check_surrealdb() -> dict:
+    """Check if SurrealDB is accessible."""
     try:
-        archive_path = Path("platform/data/archive/youtube")
-        exists = archive_path.exists()
-        writable = os.access(archive_path, os.W_OK) if exists else False
-
-        if not exists:
-            return {
-                "status": "error",
-                "message": "Archive directory does not exist",
-                "path": str(archive_path.absolute()),
-            }
-
-        if not writable:
-            return {
-                "status": "error",
-                "message": "Archive directory is not writable",
-                "path": str(archive_path.absolute()),
-            }
-
-        # Count archived videos
-        video_count = len(list(archive_path.glob("**/*.json")))
+        from compose.services.surrealdb import verify_connection
+        await verify_connection()
 
         return {
             "status": "ok",
-            "message": f"Archive accessible with {video_count} videos",
-            "path": str(archive_path.absolute()),
+            "message": "SurrealDB accessible",
         }
     except Exception as e:
-        return {"status": "error", "message": f"Archive check failed: {str(e)}"}
+        return {"status": "error", "message": f"SurrealDB check failed: {str(e)}"}
 
 
-async def check_cache() -> dict:
-    """Check if Qdrant cache is accessible."""
+async def check_minio() -> dict:
+    """Check if MinIO is accessible."""
     try:
-        from compose.services.cache import create_qdrant_cache
+        from compose.services.minio import create_minio_client
+        client = create_minio_client()
+        client.ensure_bucket()
 
-        cache = create_qdrant_cache()
-
-        # Try a simple operation
-        cache.exists("test-key")
-
-        return {"status": "ok", "message": "Qdrant cache accessible"}
+        return {
+            "status": "ok",
+            "message": "MinIO accessible",
+        }
     except Exception as e:
-        return {"status": "error", "message": f"Cache check failed: {str(e)}"}
+        return {"status": "error", "message": f"MinIO check failed: {str(e)}"}
+
+
+async def check_infinity() -> dict:
+    """Check if Infinity embedding service is accessible."""
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(f"{INFINITY_URL}/health")
+            if response.status_code == 200:
+                return {"status": "ok", "message": "Infinity embedding service accessible"}
+            return {"status": "error", "message": f"Infinity returned {response.status_code}"}
+    except Exception as e:
+        return {"status": "error", "message": f"Infinity check failed: {str(e)}"}

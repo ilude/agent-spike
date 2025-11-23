@@ -3,7 +3,7 @@ import sqlite3
 from pathlib import Path
 
 # Use relative data directory - finds the most recent history file
-data_dir = Path(__file__).parent.parent / "data" / "brave_history"
+data_dir = Path(__file__).parent.parent / "data" / "queues" / "brave_history"
 history_files = sorted(data_dir.glob("brave_history.*.sqlite"), reverse=True)
 if not history_files:
     raise FileNotFoundError(f"No brave_history.*.sqlite files found in {data_dir}")

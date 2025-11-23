@@ -258,26 +258,43 @@ class SemanticTagRetriever:
 
 def create_retriever(
     collection_name: str = "cached_content",
-    qdrant_path: Optional[Path] = None
+    qdrant_path: Optional[Path] = None,
+    qdrant_url: Optional[str] = None,
+    infinity_url: Optional[str] = None,
+    infinity_model: str = "Alibaba-NLP/gte-large-en-v1.5"
 ) -> SemanticTagRetriever:
     """Create a semantic tag retriever.
 
     Args:
         collection_name: Qdrant collection name
-        qdrant_path: Path to Qdrant storage (if None, uses default)
+        qdrant_path: Path to Qdrant storage (for local mode, if no qdrant_url)
+        qdrant_url: URL for remote Qdrant server (e.g., "http://192.168.16.241:6333")
+        infinity_url: URL for Infinity embedding server (e.g., "http://192.168.16.241:7997")
+        infinity_model: Embedding model for Infinity (default: gte-large-en-v1.5)
 
     Returns:
         SemanticTagRetriever instance
     """
-    if qdrant_path is None:
-        # Use default path from project
+    import os
+
+    # Check environment variables for defaults
+    if qdrant_url is None:
+        qdrant_url = os.getenv("QDRANT_URL")
+    if infinity_url is None:
+        infinity_url = os.getenv("INFINITY_URL")
+
+    if qdrant_path is None and qdrant_url is None:
+        # Use default path from project (local mode)
         project_root = Path(__file__).parent.parent.parent.parent
-        qdrant_path = project_root / "projects" / "data" / "qdrant"
+        qdrant_path = project_root / "compose" / "data" / "qdrant_storage"
 
     config = CacheConfig(
-        cache_dir=qdrant_path,
+        cache_dir=qdrant_path or Path("."),  # Fallback path for config validation
         collection_name=collection_name,
-        embedding_model="all-MiniLM-L6-v2"
+        embedding_model="BAAI/bge-m3",
+        qdrant_url=qdrant_url,
+        infinity_url=infinity_url,
+        infinity_model=infinity_model
     )
 
     cache = QdrantCache(config)

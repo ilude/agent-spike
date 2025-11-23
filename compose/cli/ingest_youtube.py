@@ -60,7 +60,11 @@ async def ingest_video(
     """
     cache = None
     try:
-        cache = create_qdrant_cache(collection_name=collection_name)
+        cache = create_qdrant_cache(
+            collection_name=collection_name,
+            qdrant_url="http://localhost:6335",
+            infinity_url="http://localhost:7997"
+        )
 
         # Extract video ID
         video_id = extract_video_id(url)
@@ -252,7 +256,11 @@ async def process_csv_file(
 
         # Find unprocessed videos
         unprocessed = []
-        cache = create_qdrant_cache(collection_name=collection_name)
+        cache = create_qdrant_cache(
+            collection_name=collection_name,
+            qdrant_url="http://localhost:6335",
+            infinity_url="http://localhost:7997"
+        )
         try:
             for video in videos:
                 if stop_event.is_set():
@@ -516,7 +524,11 @@ async def interactive_repl(
 
                 elif user_input.lower() == 'list':
                     print("\nFetching cached videos...")
-                    cache = create_qdrant_cache(collection_name=collection_name)
+                    cache = create_qdrant_cache(
+                        collection_name=collection_name,
+                        qdrant_url="http://localhost:6335",
+                        infinity_url="http://localhost:7997"
+                    )
                     try:
                         videos = cache.filter({"type": "youtube_video"}, limit=100)
                         if videos:
@@ -532,7 +544,11 @@ async def interactive_repl(
                     print()
 
                 elif user_input.lower() == 'count':
-                    cache = create_qdrant_cache(collection_name=collection_name)
+                    cache = create_qdrant_cache(
+                        collection_name=collection_name,
+                        qdrant_url="http://localhost:6335",
+                        infinity_url="http://localhost:7997"
+                    )
                     try:
                         videos = cache.filter({"type": "youtube_video"}, limit=1000)
                         print(f"\nTotal cached videos: {len(videos)}\n")
@@ -582,7 +598,7 @@ async def main():
     """Main entry point."""
     try:
         # Setup queue directories
-        queue_base = project_root / "projects" / "data" / "queues"
+        queue_base = project_root / "compose" / "data" / "queues"
         queue_dirs = {
             'pending': queue_base / "pending",
             'processing': queue_base / "processing",

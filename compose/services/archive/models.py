@@ -59,7 +59,7 @@ class ImportMetadata(BaseModel):
 
     source_type: Literal["single_import", "repl_import", "bulk_channel", "bulk_multi_channel"]
     imported_at: datetime
-    import_method: Literal["cli", "repl", "scheduled"]
+    import_method: Literal["cli", "repl", "scheduled", "pipeline", "backfill"]
     channel_context: ChannelContext = Field(default_factory=ChannelContext)
     recommendation_weight: float  # 1.0 for single/repl, 0.5 for bulk_channel, 0.2 for bulk_multi_channel
 

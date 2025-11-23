@@ -7,8 +7,11 @@ This directory contains git hooks that enhance the Brave history workflow.
 ### post-checkout
 Prompts to update Brave history after checking out a branch.
 
-### post-merge  
+### post-merge
 Prompts to update Brave history after pulling changes.
+
+### pre-commit
+Verifies git-crypt encryption for sensitive brave_history files.
 
 ## Installation
 
@@ -25,7 +28,7 @@ Copy the hooks to your `.git/hooks` directory:
 **Unix/Linux/macOS:**
 ```bash
 cp .githooks/* .git/hooks/
-chmod +x .git/hooks/post-checkout .git/hooks/post-merge
+chmod +x .git/hooks/post-checkout .git/hooks/post-merge .git/hooks/pre-commit
 ```
 
 **Windows (Git Bash):**
@@ -50,6 +53,10 @@ You can choose to update (y) or skip (n) the prompt.
 
 You can always run the update manually:
 ```bash
-cd projects/brave_history
-python copy_brave_history.py
+uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
+```
+
+Or use the Makefile target:
+```bash
+make brave-sync
 ```

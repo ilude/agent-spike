@@ -49,7 +49,7 @@ def safe_print(text: str, **kwargs) -> None:
 
 
 # Progress tracking
-PROGRESS_FILE = Path("projects/data/archive/.url_filter_progress.json")
+PROGRESS_FILE = Path("compose/data/archive/.url_filter_progress.json")
 
 
 def update_progress(

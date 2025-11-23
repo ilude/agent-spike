@@ -9,7 +9,14 @@
       "Bash(then echo \"MISSING: $dir/__init__.py\")",
       "Bash(else echo \"OK: $dir/__init__.py\")",
       "Bash(fi)",
-      "Bash(cloc:*)"
+      "Bash(cloc:*)",
+      "Bash(pip index:*)",
+      "Bash(git-crypt status:*)",
+      "Bash(curl:*)",
+      "Bash(docker logs:*)",
+      "Bash(dir:*)",
+      "Bash(sed:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": [],

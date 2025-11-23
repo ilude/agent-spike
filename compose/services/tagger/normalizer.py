@@ -1,13 +1,23 @@
 """Two-phase tag normalization agent."""
 
 import json
+import os
 from typing import Dict, List, Optional, Set
 
 from pydantic_ai import Agent
 
+from .config import DEFAULT_MODEL, get_ollama_url
 from .models import StructuredMetadata, NormalizedMetadata
 from .retriever import SemanticTagRetriever
 from .vocabulary import VocabularyManager
+
+
+def _configure_ollama_host(model: str) -> None:
+    """Configure OLLAMA_BASE_URL environment variable for remote Ollama server."""
+    if model.startswith("ollama:"):
+        ollama_url = get_ollama_url()
+        # pydantic-ai uses OLLAMA_BASE_URL env var
+        os.environ["OLLAMA_BASE_URL"] = ollama_url
 
 
 class TagNormalizer:
@@ -15,20 +25,23 @@ class TagNormalizer:
 
     def __init__(
         self,
-        model: str = "claude-3-5-haiku-20241022",
+        model: str = DEFAULT_MODEL,
         retriever: Optional[SemanticTagRetriever] = None,
         vocabulary: Optional[VocabularyManager] = None,
     ):
         """Initialize normalizer.
 
         Args:
-            model: LLM model to use
+            model: LLM model to use (e.g., "ollama:qwen2.5:7b" or "claude-3-5-haiku-20241022")
             retriever: Semantic tag retriever for context
             vocabulary: Vocabulary manager for canonical forms
         """
         self.model = model
         self.retriever = retriever
         self.vocabulary = vocabulary
+
+        # Configure Ollama host if using Ollama model
+        _configure_ollama_host(model)
 
         # Create Phase 1 agent (raw extraction)
         self.phase1_agent = Agent(
@@ -247,11 +260,23 @@ No markdown formatting, no explanations, just the JSON object.
         # Parse JSON
         data = json.loads(response_text)
 
+        # Fields that should be lists
+        list_fields = {
+            "subject_matter", "techniques_or_concepts", "tools_or_materials",
+            "key_points", "references"
+        }
+
         # Normalize field names (handle LLM returning capitalized keys)
         normalized_data = {}
         for key, value in data.items():
             # Convert to lowercase to match model field names
             normalized_key = key.lower().replace(" ", "_")
+
+            # Handle string values that should be lists
+            if normalized_key in list_fields and isinstance(value, str):
+                # Split comma-separated strings into lists
+                value = [v.strip() for v in value.split(",") if v.strip()]
+
             normalized_data[normalized_key] = value
 
         return NormalizedMetadata(**normalized_data)
@@ -304,14 +329,14 @@ No markdown formatting, no explanations, just the JSON object.
 
 
 def create_normalizer(
-    model: str = "claude-3-5-haiku-20241022",
+    model: str = DEFAULT_MODEL,
     retriever: Optional[SemanticTagRetriever] = None,
     vocabulary: Optional[VocabularyManager] = None,
 ) -> TagNormalizer:
     """Create a tag normalizer.
 
     Args:
-        model: LLM model to use
+        model: LLM model to use (default: ollama:qwen2.5:7b for free local inference)
         retriever: Optional semantic retriever for context
         vocabulary: Optional vocabulary manager
 

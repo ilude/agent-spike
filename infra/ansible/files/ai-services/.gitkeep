@@ -1,0 +1,4 @@
+# Placeholder for GPU server compose stack
+#
+# Run `make gpu-backup` to fetch the current configuration from the GPU server
+# Then edit files here and run `make gpu-deploy` to push changes

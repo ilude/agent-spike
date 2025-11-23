@@ -45,20 +45,25 @@ env/
 **/.cache/
 cached_content/
 
-# Compose: Data files - track archives, qdrant, browser_history, queues, and sync scripts
+# Compose: Let's Encrypt certificates (contains account private key)
+compose/acme/
+
+# Compose: Local .env copy (root .env is git-crypt encrypted, this is a copy for docker-compose)
+compose/.env
+
+# Compose: Data files - track archives, qdrant_storage, queues
 # Machine-specific files and temp files are ignored
 compose/data/*
 !compose/data/*.csv
 !compose/data/*.py
 !compose/data/README.md
 !compose/data/archive/
-!compose/data/qdrant/
+!compose/data/qdrant_storage/
 !compose/data/queues/
-!compose/data/browser_history/
-compose/data/browser_history/*.tmp.sqlite
-compose/data/browser_history/brave_history.*.sqlite
-!compose/data/browser_history/.sync_state
-!compose/data/browser_history/channel_cache.db
+compose/data/queues/brave_history/*.tmp.sqlite
+compose/data/queues/brave_history/brave_history.*.sqlite
+!compose/data/queues/brave_history/.sync_state
+!compose/data/queues/brave_history/channel_cache.db
 compose/data/qdrant.*/
 compose/data/qdrant.tmp/
 compose/data/queues/processing/
@@ -66,8 +71,8 @@ compose/data/n8n/
 compose/data/logs/
 *.db
 *.sqlite
-!compose/data/qdrant/**/*.sqlite
-!compose/data/browser_history/brave_history.sqlite
+!compose/data/qdrant_storage/**/*.sqlite
+!compose/data/queues/brave_history/brave_history.sqlite
 *.sqlite3
 *.sqlite-shm
 *.sqlite-wal
@@ -84,4 +89,5 @@ compose/data/logs/
 
 # Session context management (multi-instance work tracking)
 .session/
-*.log
+*.log*.sqlite-shm
+*.sqlite-wal

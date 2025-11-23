@@ -135,11 +135,75 @@ A multi-agent system that acts as a **personal research assistant**:
 - **Memory System**: Mem0 (user preferences, conversation history)
 - **Agents**: Pydantic AI (analysis, tagging, summarization)
 - **Batch Processing**: OpenAI Batch API (cost-effective large-scale analysis)
+- **Embedding Service**: Infinity (CPU-based embedding server, no PyTorch/CUDA in API)
+- **Document Processing**: Docling-serve (containerized document conversion)
+
+### Microservices Architecture
+
+The system uses a **microservices pattern** with Docker containers:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  Microservices Architecture                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────────┐
+│   API Service │  (FastAPI, lightweight - NO ML dependencies)
+│   Port: 8000  │  Build time: ~49 seconds, ~63 packages
+└───────┬───────┘
+        │
+        ├──────────────────────────────────────────┐
+        │                                          │
+        ▼                                          ▼
+┌──────────────┐  HTTP API               ┌──────────────┐
+│   Docling    │  (Document conversion)  │   Infinity   │  (Embeddings)
+│  Port: 5001  │  4.4 GB image           │ Port: 7997   │  CPU-only, bge-m3
+└──────────────┘                         └──────┬───────┘
+                                                │
+                                                ▼ Vectors (1024-dim)
+                                         ┌──────────────┐
+                                         │   Qdrant     │  (Vector database)
+                                         │ Port: 6335   │  Web UI, persistence
+                                         └──────────────┘
+```
+
+**Benefits**:
+- **Separation of concerns**: Heavy ML workloads isolated from API
+- **Independent scaling**: Can scale embedding service separately
+- **Fast builds**: API builds in 49s (no PyTorch/CUDA)
+- **Portability**: Models stored in Docker volumes, transferable between dev machines
+
+### Embedding Architecture
+
+**Dual-Model Strategy** (see [embedding_pipeline_spec_for_coding_model.md](ideas/Recommendation%20Engine/embedding_pipeline_spec_for_coding_model.md)):
+
+#### Phase 1 (Current): Chunk Embeddings
+- **Model**: `BAAI/bge-m3` via Infinity service
+- **Context window**: 8,192 tokens (handles 97% of cached videos)
+- **Dimension**: 1024
+- **Purpose**: Semantic search, chunk-level relevance
+- **Collection**: `content_chunks` (future)
+
+#### Phase 2 (Planned): Global + Chunk Embeddings
+- **Global model**: `Alibaba-NLP/gte-large-en-v1.5` (whole-document embeddings)
+- **Chunk model**: `BAAI/bge-m3` (local semantic search)
+- **Collections**: Dual collections in Qdrant
+  - `content`: One vector per item (recommendations, preferences)
+  - `content_chunks`: Multiple vectors per item (search, Q&A)
+
+**Chunking Strategies**:
+- **YouTube**: Time + token hybrid (2-3K tokens, natural pause detection)
+- **Web content**: Docling hybrid chunking (respects headings, paragraphs, code blocks)
+
+**Retrieval Modes**:
+- **Search**: High chunk weight, find matching passages
+- **Recommendation**: High persona weight, match user preferences
+- **Application Suggester**: Balanced weights, help with projects
 
 ### Content Types
 - **YouTube**: Transcripts via youtube-transcript-api
-- **Webpages**: Markdown via Docling
-- **PDFs**: (Future) Document parsing
+- **Webpages**: Markdown via Docling-serve (HTTP API)
+- **PDFs**: (Future) Document parsing via Docling
 - **Podcasts**: (Future) Audio transcription
 
 ### Analysis Capabilities

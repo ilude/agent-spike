@@ -193,7 +193,11 @@ def update_qdrant_cache(
     print("Updating Qdrant Cache")
     print("=" * 70)
 
-    cache = create_qdrant_cache(collection_name=collection_name)
+    cache = create_qdrant_cache(
+        collection_name=collection_name,
+        qdrant_url="http://localhost:6335",
+        infinity_url="http://localhost:7997"
+    )
 
     try:
         # Get all YouTube videos
@@ -300,7 +304,7 @@ def main():
     args = parser.parse_args()
 
     # Load bulk channel video IDs
-    csv_path = project_root / "projects" / "data" / "queues" / "completed" / "nate_jones_videos_12mo.csv"
+    csv_path = project_root / "compose" / "data" / "queues" / "completed" / "nate_jones_videos_12mo.csv"
     print(f"Loading bulk channel video IDs from: {csv_path}")
     bulk_channel_ids = load_bulk_channel_video_ids(csv_path)
     print(f"Found {len(bulk_channel_ids)} bulk channel video IDs\n")

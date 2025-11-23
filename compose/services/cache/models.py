@@ -2,7 +2,8 @@
 
 from datetime import datetime
 from typing import Any, Optional
-from pydantic import BaseModel, Field
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class CacheMetadata(BaseModel):
@@ -13,17 +14,15 @@ class CacheMetadata(BaseModel):
     `extra` dictionary.
     """
 
+    model_config = ConfigDict(
+        ser_json_timedelta="iso8601",
+    )
+
     type: str = Field(..., description="Content type (e.g., 'youtube_video', 'webpage')")
     source: Optional[str] = Field(None, description="Source of the content (e.g., 'Nate Jones', 'docling')")
     created_at: datetime = Field(default_factory=datetime.now, description="When this item was cached")
     tags: list[str] = Field(default_factory=list, description="Tags for categorization")
     extra: dict[str, Any] = Field(default_factory=dict, description="Additional metadata fields")
-
-    class Config:
-        """Pydantic configuration."""
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
 
 
 class CacheEntry(BaseModel):
@@ -35,11 +34,9 @@ class CacheEntry(BaseModel):
     Kept for backwards compatibility but may be removed in future.
     """
 
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     key: str = Field(..., description="Unique cache key")
     value: dict[str, Any] = Field(..., description="Cached data")
     metadata: Optional[CacheMetadata] = Field(None, description="Optional metadata for filtering")
     vector: Optional[list[float]] = Field(None, description="Embedding vector for semantic search")
-
-    class Config:
-        """Pydantic configuration."""
-        arbitrary_types_allowed = True

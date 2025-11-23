@@ -67,7 +67,11 @@ async def ingest_video(
     """
     cache = None
     try:
-        cache = create_qdrant_cache(collection_name=collection_name)
+        cache = create_qdrant_cache(
+            collection_name=collection_name,
+            qdrant_url="http://localhost:6335",
+            infinity_url="http://localhost:7997"
+        )
 
         # Extract video ID
         video_id = extract_video_id(url)
@@ -217,7 +221,11 @@ async def process_csv(csv_path: Path, collection_name: str) -> dict:
     archive_writer = create_local_archive_writer()
 
     # Check which videos need processing (skip already cached)
-    cache = create_qdrant_cache(collection_name=collection_name)
+    cache = create_qdrant_cache(
+        collection_name=collection_name,
+        qdrant_url="http://localhost:6335",
+        infinity_url="http://localhost:7997"
+    )
     try:
         unprocessed = []
         for video in videos:

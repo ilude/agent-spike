@@ -1,7 +1,7 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-09
-**Current Phase**: Personal AI Research Assistant - Production infrastructure complete
+**Last Updated**: 2025-11-18
+**Current Phase**: Personal AI Research Assistant - Containerized microservices architecture
 
 ## Current State
 
@@ -10,18 +10,72 @@
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
 - **Project structure**:
   - `lessons/`: Progressive agent-building lessons (001-009)
-  - `tools/services/`: Reusable service layer (archive, cache, youtube)
-  - `tools/scripts/`: Production CLI scripts (ingestion, search, verification)
-  - `tools/tests/`: Pytest testing infrastructure (19 tests passing)
-  - `projects/data/`: Centralized data storage (Qdrant cache, archives, queues)
+  - `compose/services/`: Microservices (archive, cache, analytics, metadata, tagger, display, youtube)
+  - `compose/cli/`: Production CLI scripts (ingestion, search, verification)
+  - `compose/data/`: Git-crypt encrypted data storage (Qdrant, archives, browser history)
 - **Production features**:
+  - Containerized services (Qdrant, Infinity embeddings, N8N workflows)
   - Archive-first strategy (all expensive data saved before processing)
   - Queue-based ingestion (pending → processing → completed workflow)
   - Webshare proxy integration (no YouTube API rate limiting)
   - Protocol-first service design (dependency injection)
-  - Comprehensive test coverage (unit + functional tests)
+  - Infinity embedding service (BAAI/bge-m3, 1024-dim, 8K context)
 
 ## Recent Completions
+
+**Mentat Chat UI - Projects & Canvas** ✅ COMPLETE (2025-11-22)
+- Built ChatGPT-replacement frontend with conversation history, projects, and canvas
+- **Phase 1 - Conversations**: Sidebar with search, rename, delete, auto-naming
+- **Phase 2 - Projects**:
+  - Project grouping for conversations
+  - File upload with Docling text extraction (PDF, DOCX, etc.)
+  - RAG indexing via Qdrant for semantic search
+  - Custom instructions injected into chat context
+- **Phase 3 - Canvas/Artifacts**:
+  - Right sidebar with document editor
+  - Artifacts browser tab
+  - Auto-save with 2-second debounce
+  - Artifacts linked to conversations/projects
+
+**New files created:**
+- `compose/services/projects.py` - Project storage with file management
+- `compose/services/artifacts.py` - Artifact storage service
+- `compose/services/file_processor.py` - Docling extraction + Qdrant indexing
+- `compose/api/routers/projects.py` - Projects REST API
+- `compose/api/routers/artifacts.py` - Artifacts REST API
+- Frontend: Canvas UI, artifact API methods, project selector
+
+**Required services** (must be running for full functionality):
+- Qdrant: `docker compose up qdrant` (port 6335)
+- Infinity embeddings: `docker compose up infinity` (port 7997)
+- Docling: `docker compose up docling` (port 5001) - for PDF/DOCX processing
+- FastAPI backend: `uv run uvicorn compose.api.main:app --reload`
+- Frontend: `cd compose/frontend && npm run dev`
+
+**API Endpoints added:**
+- `GET/POST /projects` - List/create projects
+- `GET/PUT/DELETE /projects/{id}` - Project CRUD
+- `POST /projects/{id}/files` - File upload with background RAG processing
+- `POST /projects/{id}/search` - Semantic search project files
+- `GET/POST /artifacts` - List/create artifacts
+- `GET/PUT/DELETE /artifacts/{id}` - Artifact CRUD
+
+**Containerized Microservices Migration** ✅ COMPLETE (2025-11-18)
+- Migrated from embedded Qdrant to containerized qdrant/qdrant service (ports 6335-6336)
+- Added Infinity embedding service (michaelf34/infinity) with BAAI/bge-m3 model
+  - 1024-dimension embeddings (vs 384-dim from all-MiniLM-L6-v2)
+  - 8,192 token context window (vs 256 tokens)
+  - Eliminates 75% transcript truncation issue
+- Removed ML dependencies from Docker builds
+  - Removed docling>=2.60.0 (use docling-serve container instead)
+  - Removed sentence-transformers>=2.2.0 (use Infinity service)
+  - Reduced initial build time from 11+ minutes to ~49 seconds
+- Updated all ingestion scripts to use Infinity + containerized Qdrant HTTP APIs
+- Migrated all data paths from `projects/data/` to `compose/data/`
+- Added git-crypt encryption for `compose/data/` directories
+- Deleted obsolete `projects/` directory
+- Added comprehensive documentation (INFINITY_SETUP.md, embedding_pipeline_spec)
+- 12 commits, full test coverage
 
 **Service Layer Extraction** ✅ COMPLETE (2025-11-09)
 - Extracted stable patterns from lessons into reusable `tools/` structure
@@ -72,7 +126,7 @@
 - CacheManager protocol with QdrantCache implementation
 - Semantic search with sentence-transformers embeddings
 - Generic CSV ingestion script with progress tracking
-- Centralized cache storage in `projects/data/qdrant/`
+- Centralized cache storage in `compose/data/qdrant_storage/`
 - Successfully cached 49+ items from video lists
 
 **Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE
@@ -86,19 +140,14 @@
 
 ### Immediate Next Steps
 
-**Video Ingestion Queue Processing** (In Progress)
-- **Current state**: 38 videos cached out of 459 in queue
-- **Queue location**: `projects/data/queues/pending/nate_jones_videos_12mo.csv`
-- **Command**: `make ingest` (queue-based REPL with background processing)
-- **TODO**: REPL background task should auto-commit queue state changes
-  - When background processor completes, check `git status` for `projects/data/queues/`
-  - If queue files moved (pending → processing → completed), create commit:
-    ```bash
-    git add projects/data/queues/
-    git commit -m "chore: update video ingestion queue state"
-    ```
-  - Prevents queue state from being lost if session crashes
-  - Queue CSV is tracked in git for recovery purposes
+**Video Ingestion Queue Processing** (Ready to Resume)
+- **Current state**: Infrastructure ready for large-scale ingestion
+- **Queue location**: `compose/data/queues/pending/*.csv`
+- **Command**: `cd compose && docker compose up -d && cd .. && uv run python compose/cli/ingest_youtube.py`
+- **New capabilities**:
+  - Infinity embeddings eliminate transcript truncation (8K context vs 256 tokens)
+  - Containerized Qdrant for scalable vector storage
+  - All data encrypted with git-crypt for multi-machine workflows
 
 **Claude Code Integration with Existing Data** (Next Priority)
 - Give Claude Code access to Qdrant cache (transcript data from lesson-007)
@@ -116,9 +165,10 @@
   - Use MCP tools directly (better than lesson-001's youtube-transcript-api)
 
 **Related files:**
-- Lesson-007: Cache Manager (`lessons/lesson-007/cache_manager/`)
-- Existing Qdrant cache: `projects/data/qdrant/`
-- Video lists: `projects/video-lists/*.csv`
+- Cache service: `compose/services/cache/`
+- Ingestion scripts: `compose/cli/ingest_*.py`
+- Qdrant data: `compose/data/qdrant_storage/` (git-crypt encrypted)
+- Archive data: `compose/data/archive/` (git-crypt encrypted)
 
 ### Future Capabilities (As Needs Emerge)
 
@@ -245,15 +295,19 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 11. **Queue-based ingestion**: CSV workflow (pending → processing → completed) for resumable batch processing
 12. **Webshare proxy**: YouTube Transcript API proxy to eliminate rate limiting
 13. **Lazy imports**: Qdrant optional dependency (graceful degradation to InMemoryCache)
+14. **Containerized services**: Separate embedding/vector services from application container
+15. **BAAI/bge-m3 embeddings**: 1024-dim, 8K context for better semantic search
+16. **Git-crypt data encryption**: All data in compose/data/ encrypted before push
 
 ## File Locations
 
 - Lesson code: `lessons/lesson-XXX/`
 - Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
-- Services: `tools/services/{archive,cache,youtube}/`
-- Scripts: `tools/scripts/` (production CLIs)
-- Tests: `tools/tests/{unit,functional}/`
-- Data: `projects/data/{archive,queues,qdrant}/`
+- Services: `compose/services/{archive,cache,analytics,metadata,tagger,display,youtube}/`
+- Scripts: `compose/cli/` (production CLIs)
+- Data: `compose/data/{archive,queues,qdrant_storage}/` (git-crypt encrypted)
+- Docker: `compose/docker-compose.yml`, `compose/api/Dockerfile`
+- Documentation: `compose/INFINITY_SETUP.md`, `.claude/VISION.md`
 - This status file: `.claude/STATUS.md`
 - Main config: `pyproject.toml` (project root)
 - Shared .venv: `.venv/` (project root)
@@ -261,10 +315,11 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 ## Git State
 
 - Branch: main
-- Recent commits: Lessons 001-004 implementations
+- Recent commits: Containerized services migration (12 commits on 2025-11-18)
 - Status: Clean working tree
+- All data encrypted with git-crypt before push
 
-**To Resume**: Pull latest, run `uv sync --all-groups`, create `.env` files
+**To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d`
 
 ---
 

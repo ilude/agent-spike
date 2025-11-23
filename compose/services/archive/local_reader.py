@@ -176,9 +176,9 @@ def create_local_archive_reader(base_dir: Optional[Path] = None) -> LocalArchive
         >>> reader = create_local_archive_reader(Path("/custom/archive"))
     """
     if base_dir is None:
-        # Default to projects/data/archive in project root
+        # Default to compose/data/archive in project root
         project_root = Path(__file__).parent.parent.parent.parent
-        base_dir = project_root / "projects" / "data" / "archive"
+        base_dir = project_root / "compose" / "data" / "archive"
 
     config = ArchiveConfig(base_dir=base_dir, organize_by_month=True)
     return LocalArchiveReader(config)

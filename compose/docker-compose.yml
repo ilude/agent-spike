@@ -1,4 +1,48 @@
 services:
+  traefik:
+    image: traefik:v3.4
+    container_name: traefik
+    command:
+      # API/Dashboard
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--log.level=INFO"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      # Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      # Let's Encrypt with Cloudflare DNS challenge
+      - "--certificatesresolvers.cloudflare.acme.email=mglenn@ilude.com"
+      - "--certificatesresolvers.cloudflare.acme.storage=/acme/acme.json"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_acme:/acme
+    env_file:
+      - ../.env  # Loads CF_API_EMAIL, CF_DNS_API_TOKEN for Cloudflare DNS challenge
+    labels:
+      - "traefik.enable=true"
+      # Dashboard
+      - "traefik.http.routers.traefik.rule=Host(`traefik.local.ilude.com`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik.service=api@internal"
+      # Basic auth middleware
+      - "traefik.http.routers.traefik.middlewares=traefik-auth"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_AUTH}"
+    restart: unless-stopped
+    networks:
+      - agent-network
+
   api:
     build:
       context: ..  # Root of project (to access tools/)
@@ -15,52 +59,169 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app/src  # Points to src/ to avoid shadowing stdlib
+      # Remote GPU server (192.168.16.241) - see .env for documentation
+      # Note: env_file below loads all service credentials from root .env (git-crypt encrypted)
+      # Legacy embedding service (DEPRECATED - may be replaced)
+      - INFINITY_URL=http://192.168.16.241:7997
+      - INFINITY_MODEL=Alibaba-NLP/gte-large-en-v1.5
     env_file:
-      - ../.env  # Load API keys from root .env
+      - ../.env  # Loads SurrealDB, MinIO, and API keys (git-crypt encrypted)
     command: uv run uvicorn compose.api.main:app --reload --host 0.0.0.0 --port 8000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentat-api.rule=Host(`api.local.ilude.com`)"
+      - "traefik.http.routers.mentat-api.entrypoints=websecure"
+      - "traefik.http.routers.mentat-api.tls.certresolver=cloudflare"
+      - "traefik.http.services.mentat-api.loadbalancer.server.port=8000"
     restart: unless-stopped
+    # depends_on removed - Qdrant/Infinity now on remote server (192.168.16.241)
     networks:
       - agent-network
 
-  n8n:
-    image: n8nio/n8n:latest
-    container_name: n8n
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: agent-spike-frontend
     ports:
-      - "5678:5678"
-    environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=admin
-      - N8N_HOST=0.0.0.0
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - NODE_ENV=production
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
-      - N8N_LICENSE_ACTIVATION_KEY=${N8N_LICENSE_ACTIVATION_KEY:-}
-      - DB_SQLITE_POOL_SIZE=3
-      - N8N_RUNNERS_ENABLED=true
-      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
-      - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-    env_file:
-      - ../.env
+      - "5173:5173"
     volumes:
-      - ./data/n8n:/home/node/.n8n
-      - ./data/n8n/workflows:/workflows
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        echo "Checking for workflows to import..."
-        if [ -d "/workflows" ] && ls /workflows/*.json >/dev/null 2>&1; then
-          echo "Found workflows, importing from directory..."
-          n8n import:workflow --input="/workflows" --separate 2>/dev/null || echo "Import completed or workflows already exist"
-          echo "Workflow import complete"
-        else
-          echo "No workflows found in /workflows"
-        fi
-        echo "Starting n8n..."
-        exec n8n start
+      - ./frontend:/app                # Mount entire frontend for hot reload
+      - frontend_node_modules:/app/node_modules    # Named volume (can be cleared with: docker volume rm compose_frontend_node_modules)
+      - frontend_svelte_kit:/app/.svelte-kit       # Named volume (can be cleared with: docker volume rm compose_frontend_svelte_kit)
+    environment:
+      - VITE_API_URL=https://api.local.ilude.com
+      - VITE_RUNTIME_ENV=docker
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentat.rule=Host(`mentat.local.ilude.com`)"
+      - "traefik.http.routers.mentat.entrypoints=websecure"
+      - "traefik.http.routers.mentat.tls.certresolver=cloudflare"
+      - "traefik.http.services.mentat.loadbalancer.server.port=5173"
+    restart: unless-stopped
+    depends_on:
+      - api
+    networks:
+      - agent-network
+
+  # =============================================================================
+  # DOCLING - COMMENTED OUT (using remote GPU server instead)
+  # Remote server: 192.168.16.241:5001
+  # =============================================================================
+  # docling:
+  #   image: ghcr.io/docling-project/docling-serve-cpu:latest
+  #   container_name: docling-serve
+  #   ports:
+  #     - "5001:5001"
+  #   environment:
+  #     - DOCLING_SERVE_ENABLE_UI=1
+  #     - DOCLING_NUM_THREADS=4
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 40s
+  #   restart: unless-stopped
+  #   networks:
+  #     - agent-network
+
+  # =============================================================================
+  # LOCAL QDRANT/INFINITY - DEPRECATED (using remote GPU server instead)
+  # Remote server: 192.168.16.241 - see .env for documentation
+  # These are kept for reference only. Modern architecture uses SurrealDB for
+  # vector storage instead of Qdrant. Do not uncomment without updating services.
+  # =============================================================================
+  # qdrant:
+  #   image: qdrant/qdrant:latest
+  #   container_name: qdrant
+  #   ports:
+  #     - "6335:6333"  # HTTP API + Web UI (mapped to avoid conflicts)
+  #     - "6336:6334"  # gRPC (mapped to avoid conflicts)
+  #   volumes:
+  #     - ./data/qdrant_storage:/qdrant/storage
+  #   environment:
+  #     - QDRANT__SERVICE__GRPC_PORT=6334
+  #   restart: unless-stopped
+  #   networks:
+  #     - agent-network
+
+  # infinity:
+  #   image: michaelf34/infinity:latest
+  #   container_name: infinity
+  #   command: v2 --model-id Alibaba-NLP/gte-large-en-v1.5 --port 7997 --batch-size 8 --engine torch
+  #   ports:
+  #     - "7997:7997"
+  #   volumes:
+  #     - infinity_models:/app/.cache  # Persistent model storage for portability
+  #   restart: unless-stopped
+  #   networks:
+  #     - agent-network
+
+  # =============================================================================
+  # N8N - COMMENTED OUT (using remote GPU server instead)
+  # Remote server: 192.168.16.241:5678
+  # =============================================================================
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: n8n
+  #   ports:
+  #     - "5678:5678"
+  #   environment:
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_BASIC_AUTH_USER=admin
+  #     - N8N_BASIC_AUTH_PASSWORD=admin
+  #     - N8N_HOST=0.0.0.0
+  #     - N8N_PORT=5678
+  #     - N8N_PROTOCOL=http
+  #     - NODE_ENV=production
+  #     - DB_SQLITE_POOL_SIZE=3
+  #     - N8N_RUNNERS_ENABLED=true
+  #     - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+  #     - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+  #     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+  #   env_file:
+  #     - ../.env  # Loads N8N_ENCRYPTION_KEY and N8N_LICENSE_ACTIVATION_KEY from .env
+  #   volumes:
+  #     - ./data/n8n:/home/node/.n8n
+  #     - ./data/n8n/workflows:/workflows
+  #   entrypoint:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       echo "Checking for workflows to import..."
+  #       if [ -d "/workflows" ] && ls /workflows/*.json >/dev/null 2>&1; then
+  #         echo "Found workflows, importing from directory..."
+  #         n8n import:workflow --input="/workflows" --separate 2>/dev/null || echo "Import completed or workflows already exist"
+  #         echo "Workflow import complete"
+  #       else
+  #         echo "No workflows found in /workflows"
+  #       fi
+  #       echo "Starting n8n..."
+  #       exec n8n start
+  #   restart: unless-stopped
+  #   networks:
+  #     - agent-network
+
+  queue-worker:
+    build:
+      context: ..
+      dockerfile: compose/worker/Dockerfile
+    container_name: queue-worker
+    volumes:
+      - ./data/queues:/app/data/queues
+      - ./data/archive:/app/data/archive
+    environment:
+      # Note: env_file below loads all service credentials from root .env (git-crypt encrypted)
+      # Legacy embedding service (DEPRECATED - may be replaced)
+      - INFINITY_URL=http://192.168.16.241:7997
+      # Worker configuration
+      - POLL_INTERVAL=10
+      - WORKER_POOL_SIZE=3
+    env_file:
+      - ../.env  # Loads SurrealDB, MinIO, and API keys (git-crypt encrypted)
+    # depends_on removed - Qdrant/Infinity now on remote server (192.168.16.241)
     restart: unless-stopped
     networks:
       - agent-network
@@ -68,3 +229,13 @@ services:
 networks:
   agent-network:
     driver: bridge
+
+volumes:
+  infinity_models:  # Named volume for embedding model storage (portable across dev machines)
+    driver: local
+  traefik_acme:  # Named volume for Let's Encrypt certs (Windows can't set 600 permissions on bind mounts)
+    driver: local
+  frontend_node_modules:  # Frontend deps (clear with: docker volume rm compose_frontend_node_modules)
+    driver: local
+  frontend_svelte_kit:  # SvelteKit build cache (clear with: docker volume rm compose_frontend_svelte_kit)
+    driver: local

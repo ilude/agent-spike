@@ -133,11 +133,7 @@ lessons/               # Progressive agent-building lessons
 1. ✅ **Check current state**: `cat .claude/STATUS.md`
 2. ✅ **Verify lesson structure**: `ls lessons/`
 3. ✅ **Install all dependencies**: `uv sync --all-groups`
-4. ✅ **Set up API keys**: Copy `.env` from lesson-001 or create new
-   ```bash
-   cd lessons/lesson-003
-   cp ../lesson-001/.env .
-   ```
+4. ✅ **Unlock secrets**: `git-crypt unlock` (root `.env` is encrypted)
 
 ### Resuming Work?
 
@@ -227,6 +223,19 @@ make lint                               # ruff
 make test                               # pytest
 ```
 
+### GPU Server Management
+
+Remote GPU server at `192.168.16.241` runs AI services (Qdrant, Infinity, Ollama, Docling, n8n, Neo4j). Managed via Ansible container in `infra/ansible/`.
+
+```bash
+make gpu-deploy                         # Deploy compose stack + secrets
+make gpu-update                         # Pull latest images + restart
+make gpu-backup                         # Fetch current remote config
+make gpu-shell                          # Interactive Ansible shell
+```
+
+See `infra/ansible/README.md` for details.
+
 ### Container Builds (Rarely Needed)
 
 **Note**: Lessons run directly via `uv run python`. Container builds are for the (future) production app in `src/`.
@@ -257,8 +266,8 @@ Code quality standards (applies to production code in `src/`):
 3. ✅ **Check STATUS.md first** - Current state and progress
 4. ✅ **Use `uv run python`** - Handles virtual environments automatically
 5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything
-6. ✅ **Create `.env` in lesson dir** - Add your API keys (see Project-Specific Notes)
-7. ✅ **Container/Docker stuff?** - Background info only (see below)
+6. ✅ **Unlock secrets with `git-crypt unlock`** - Root `.env` is encrypted
+7. ✅ **GPU server?** - Use `make gpu-deploy` (see `infra/ansible/`)
 8. ✅ **Questions?** - Read the lesson's README.md and COMPLETE.md
 
 ---

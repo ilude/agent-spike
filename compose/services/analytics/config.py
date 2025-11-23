@@ -10,7 +10,7 @@ class AnalyticsConfig:
 
     # Database path
     db_path: Path = field(
-        default_factory=lambda: Path("projects/data/analytics/url_patterns.db")
+        default_factory=lambda: Path("compose/data/analytics/url_patterns.db")
     )
 
     # Pattern learning thresholds

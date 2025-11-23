@@ -19,8 +19,21 @@ from qdrant_client.models import (
     Filter,
     FieldCondition,
     MatchValue,
+    FilterSelector,
+    MatchExcept,
 )
-from sentence_transformers import SentenceTransformer
+
+try:
+    from sentence_transformers import SentenceTransformer
+    _SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    _SENTENCE_TRANSFORMERS_AVAILABLE = False
+
+try:
+    import httpx
+    _HTTPX_AVAILABLE = True
+except ImportError:
+    _HTTPX_AVAILABLE = False
 
 from .config import CacheConfig
 
@@ -53,8 +66,13 @@ class QdrantCache:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.collection_name = config.collection_name
 
-        # Initialize Qdrant client (local mode)
-        self.client = QdrantClient(path=str(self.cache_dir))
+        # Initialize Qdrant client (container mode preferred, fallback to local)
+        if config.qdrant_url:
+            # Use Qdrant container via HTTP
+            self.client = QdrantClient(url=config.qdrant_url)
+        else:
+            # Fallback to local file-based storage (legacy mode)
+            self.client = QdrantClient(path=str(self.cache_dir))
 
         # Initialize embedding model (lazy load)
         self._embedding_model_name = config.embedding_model
@@ -81,20 +99,38 @@ class QdrantCache:
             )
 
     def _get_embedding_model(self) -> SentenceTransformer:
-        """Lazy load embedding model."""
+        """Lazy load embedding model (only used if no Infinity URL)."""
+        if not _SENTENCE_TRANSFORMERS_AVAILABLE:
+            raise ImportError(
+                "sentence-transformers is required for local embeddings. "
+                "Either install it or configure infinity_url for remote embeddings."
+            )
         if self._embedding_model is None:
             self._embedding_model = SentenceTransformer(self._embedding_model_name)
         return self._embedding_model
 
     def _get_embedding_dim(self) -> int:
         """Get embedding dimension for the model."""
-        model = self._get_embedding_model()
-        # Get dimension from a test encoding
-        test_embedding = model.encode("test")
-        return len(test_embedding)
+        if self.config.infinity_url:
+            # bge-m3 model dimension
+            if "bge-m3" in self.config.infinity_model:
+                return 1024
+            # gte-large dimension
+            elif "gte-large" in self.config.infinity_model:
+                return 1024
+            # Default: try to get from Infinity API
+            test_embedding = self._generate_embedding("test")
+            return len(test_embedding)
+        else:
+            # Local model
+            model = self._get_embedding_model()
+            test_embedding = model.encode("test")
+            return len(test_embedding)
 
     def _generate_embedding(self, text: str) -> list[float]:
         """Generate embedding vector for text.
+
+        Uses Infinity HTTP API if configured, otherwise falls back to local model.
 
         Args:
             text: Text to embed
@@ -102,9 +138,59 @@ class QdrantCache:
         Returns:
             Embedding vector as list of floats
         """
-        model = self._get_embedding_model()
-        embedding = model.encode(text)
-        return embedding.tolist()
+        if self.config.infinity_url:
+            # Use Infinity HTTP API
+            return self._generate_embedding_via_infinity(text)
+        else:
+            # Use local sentence-transformers model
+            model = self._get_embedding_model()
+            embedding = model.encode(text)
+            return embedding.tolist()
+
+    def _generate_embedding_via_infinity(self, text: str) -> list[float]:
+        """Generate embedding via Infinity HTTP API.
+
+        Args:
+            text: Text to embed
+
+        Returns:
+            Embedding vector as list of floats
+
+        Raises:
+            ConnectionError: If cannot connect to Infinity service
+            ValueError: If response format is unexpected
+        """
+        if not _HTTPX_AVAILABLE:
+            raise ImportError(
+                "httpx is required for Infinity embeddings. "
+                "Install with: uv sync --group platform-api"
+            )
+
+        try:
+            response = httpx.post(
+                f"{self.config.infinity_url}/embeddings",
+                json={
+                    "model": self.config.infinity_model,
+                    "input": [text]
+                },
+                timeout=120.0  # CPU embedding can be slow for large texts
+            )
+            response.raise_for_status()
+
+            data = response.json()
+
+            # Extract embedding from response
+            # Infinity format: {"data": [{"embedding": [0.1, 0.2, ...]}]}
+            if "data" not in data or not data["data"]:
+                raise ValueError(f"Unexpected Infinity response format: {data}")
+
+            embedding = data["data"][0]["embedding"]
+            return embedding
+
+        except httpx.HTTPError as e:
+            raise ConnectionError(f"Failed to connect to Infinity service: {e}")
+        except (KeyError, IndexError) as e:
+            raise ValueError(f"Unexpected response format from Infinity: {e}")
 
     def _key_to_id(self, key: str) -> str:
         """Convert cache key to Qdrant point ID.
@@ -196,26 +282,37 @@ class QdrantCache:
             ]
         )
 
-    def _extract_searchable_text(self, value: dict[str, Any]) -> str:
+    def _extract_searchable_text(self, value: dict[str, Any], max_chars: int = 8000) -> str:
         """Extract text content from value for embedding.
 
         Looks for common text fields: transcript, markdown, content, description, etc.
+        Truncates to max_chars to stay within model context limits.
 
         Args:
             value: Cache value dictionary
+            max_chars: Maximum characters for embedding (default 8K for gte-large context)
 
         Returns:
-            Text content for embedding
+            Text content for embedding (truncated if needed)
         """
         # Try common text fields
         text_fields = ["transcript", "markdown", "content", "text", "description", "title"]
 
+        text = None
         for field in text_fields:
             if field in value and isinstance(value[field], str):
-                return value[field]
+                text = value[field]
+                break
 
-        # Fallback: JSON dump (not ideal but works)
-        return json.dumps(value)
+        if text is None:
+            # Fallback: JSON dump (not ideal but works)
+            text = json.dumps(value)
+
+        # Truncate to stay within model context limits
+        if len(text) > max_chars:
+            text = text[:max_chars] + "..."
+
+        return text
 
     def exists(self, key: str) -> bool:
         """Check if key exists in cache.
@@ -282,17 +379,17 @@ class QdrantCache:
             if conditions:
                 qdrant_filter = Filter(must=conditions)
 
-        # Search
-        results = self.client.search(
+        # Search using query_points (replaces deprecated search method)
+        results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_vector,
+            query=query_vector,
             limit=limit,
             query_filter=qdrant_filter
         )
 
         # Extract and return values
         output = []
-        for hit in results:
+        for hit in results.points:
             if hit.payload and "value" in hit.payload:
                 item = hit.payload["value"].copy()
                 item["_score"] = hit.score
@@ -354,9 +451,35 @@ class QdrantCache:
         return collection_info.points_count
 
     def clear(self) -> None:
-        """Clear all items from cache."""
-        self.client.delete_collection(self.collection_name)
-        self._ensure_collection()
+        """Clear all items from cache.
+
+        Scrolls through all points and deletes them by ID for reliability
+        with embedded Qdrant on Windows.
+        """
+        # Scroll through all points and collect IDs
+        all_ids = []
+        offset = None
+
+        while True:
+            results, offset = self.client.scroll(
+                collection_name=self.collection_name,
+                limit=100,
+                offset=offset,
+                with_payload=False,
+                with_vectors=False,
+            )
+            if not results:
+                break
+            all_ids.extend([p.id for p in results])
+            if offset is None:
+                break
+
+        # Delete all points by ID
+        if all_ids:
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=all_ids,
+            )
 
     def close(self) -> None:
         """Close the Qdrant client connection.

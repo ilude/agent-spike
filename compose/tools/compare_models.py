@@ -152,7 +152,7 @@ def main():
         return
 
     client = OpenAI(api_key=api_key)
-    db_path = Path(__file__).parent.parent / "data" / "brave_history" / "channel_cache.db"
+    db_path = Path(__file__).parent.parent / "data" / "queues" / "brave_history" / "channel_cache.db"
 
     # Initialize comparison table
     init_comparison_table(db_path)

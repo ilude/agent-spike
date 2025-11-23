@@ -20,8 +20,9 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-# Setup script environment
-sys.path.insert(0, str(Path(__file__).parent))  # Add tools/scripts to path
+# Setup script environment - add project root to path
+project_root = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(project_root))
 from compose.cli.base import setup_script_environment
 setup_script_environment(needs_agent=True)
 
@@ -70,7 +71,12 @@ async def ingest_single_video(
         print(f"{'='*70}\n")
 
         # Initialize services
-        cache = create_qdrant_cache(collection_name=collection_name)
+        cache = create_qdrant_cache(
+            collection_name=collection_name,
+            qdrant_url="http://localhost:6335",
+            infinity_url="http://localhost:7997",
+            infinity_model="Alibaba-NLP/gte-large-en-v1.5"  # 1024-dim global embeddings
+        )
         archive = create_archive_manager()
 
         try:
@@ -111,7 +117,7 @@ async def ingest_single_video(
 
             if dry_run:
                 print("[DRY RUN] Would archive transcript, metadata, and generate tags")
-                print(f"  Archive path: projects/data/archive/YYYY-MM/{video_id}.json")
+                print(f"  Archive path: compose/data/archive/YYYY-MM/{video_id}.json")
                 print(f"  Cache key: {cache_key}")
                 return True, "Dry run complete (no changes made)"
 

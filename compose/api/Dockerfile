@@ -18,10 +18,9 @@ FROM python:3.14-slim AS base
 
 WORKDIR /app
 
-# Install system dependencies needed for building Python packages
+# Install system dependencies (curl for healthcheck)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv package manager
@@ -65,7 +64,7 @@ EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD python -c "import httpx; httpx.get('http://localhost:8000/health', timeout=2.0)" || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
 # Run FastAPI with uvicorn
 CMD ["uv", "run", "uvicorn", "compose.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

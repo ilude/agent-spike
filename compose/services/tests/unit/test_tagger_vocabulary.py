@@ -6,7 +6,8 @@ from compose.services.tagger import VocabularyManager
 
 def test_load_seed_vocabulary():
     """Test loading the seed vocabulary."""
-    vocab_path = Path(__file__).parent.parent.parent.parent / "lessons" / "lesson-010" / "data" / "seed_vocabulary_v1.json"
+    # Go up from compose/services/tests/unit/ to repo root, then into lessons/
+    vocab_path = Path(__file__).parent.parent.parent.parent.parent / "lessons" / "lesson-010" / "data" / "seed_vocabulary_v1.json"
 
     vocab = VocabularyManager(vocab_path)
     vocab.load()
