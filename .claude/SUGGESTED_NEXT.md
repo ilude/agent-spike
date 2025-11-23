@@ -408,4 +408,161 @@ uv run python -m compose.cli.ingest repl
 
 ---
 
-**Last Updated**: 2025-11-22 - Added test coverage analysis
+**Last Updated**: 2025-11-22 - Added SurrealDB/MinIO migration plan
+
+---
+
+## 6. Migrate Conversations & Projects to SurrealDB/MinIO
+
+**Vision Alignment**: ⭐⭐⭐⭐⭐ (Unified data layer, essential for production)
+**Worktree Suitability**: ⭐⭐⭐⭐ (Self-contained migration)
+**Complexity**: Medium (2-3 days)
+
+### Current State
+
+- **Conversations**: JSON files in `compose/data/conversations/` (index.json + {id}.json per conversation)
+- **Projects**: JSON files in `compose/data/projects/` + binary files in `{project_id}/files/`
+- Both services use file-based singletons with manual index management
+
+### Target State
+
+- **Conversations & Projects metadata**: SurrealDB tables (matches video/channel/topic pattern)
+- **Project files (PDFs, docs, etc.)**: MinIO blob storage
+- **Services**: Same public API, different backend
+
+### SurrealDB Schema
+
+Add to `compose/services/surrealdb/repository.py`:
+
+```surql
+-- Conversation table
+DEFINE TABLE conversation SCHEMAFULL;
+DEFINE FIELD title ON TABLE conversation TYPE string;
+DEFINE FIELD model ON TABLE conversation TYPE option<string>;
+DEFINE FIELD created_at ON TABLE conversation TYPE datetime VALUE time::now();
+DEFINE FIELD updated_at ON TABLE conversation TYPE datetime VALUE time::now();
+DEFINE INDEX idx_conversation_updated ON TABLE conversation COLUMNS updated_at;
+
+-- Message table (separate for efficient queries)
+DEFINE TABLE message SCHEMAFULL;
+DEFINE FIELD conversation_id ON TABLE message TYPE string;
+DEFINE FIELD role ON TABLE message TYPE string;  -- "user" | "assistant"
+DEFINE FIELD content ON TABLE message TYPE string;
+DEFINE FIELD sources ON TABLE message TYPE option<array>;
+DEFINE FIELD timestamp ON TABLE message TYPE datetime VALUE time::now();
+DEFINE INDEX idx_message_conversation ON TABLE message COLUMNS conversation_id;
+
+-- Project table
+DEFINE TABLE project SCHEMAFULL;
+DEFINE FIELD name ON TABLE project TYPE string;
+DEFINE FIELD description ON TABLE project TYPE option<string>;
+DEFINE FIELD custom_instructions ON TABLE project TYPE option<string>;
+DEFINE FIELD created_at ON TABLE project TYPE datetime VALUE time::now();
+DEFINE FIELD updated_at ON TABLE project TYPE datetime VALUE time::now();
+DEFINE INDEX idx_project_updated ON TABLE project COLUMNS updated_at;
+
+-- Project file metadata (actual files in MinIO)
+DEFINE TABLE project_file SCHEMAFULL;
+DEFINE FIELD project_id ON TABLE project_file TYPE string;
+DEFINE FIELD filename ON TABLE project_file TYPE string;
+DEFINE FIELD original_filename ON TABLE project_file TYPE string;
+DEFINE FIELD content_type ON TABLE project_file TYPE string;
+DEFINE FIELD size_bytes ON TABLE project_file TYPE int;
+DEFINE FIELD minio_key ON TABLE project_file TYPE string;  -- e.g., "projects/{project_id}/{file_id}"
+DEFINE FIELD processed ON TABLE project_file TYPE bool DEFAULT false;
+DEFINE FIELD indexed ON TABLE project_file TYPE bool DEFAULT false;
+DEFINE FIELD processing_error ON TABLE project_file TYPE option<string>;
+DEFINE FIELD uploaded_at ON TABLE project_file TYPE datetime VALUE time::now();
+DEFINE INDEX idx_file_project ON TABLE project_file COLUMNS project_id;
+
+-- Project-conversation relationship
+DEFINE TABLE project_conversation SCHEMAFULL;
+DEFINE FIELD project_id ON TABLE project_conversation TYPE string;
+DEFINE FIELD conversation_id ON TABLE project_conversation TYPE string;
+DEFINE FIELD created_at ON TABLE project_conversation TYPE datetime VALUE time::now();
+```
+
+### MinIO Integration
+
+**New file**: `compose/services/surrealdb/minio_client.py`
+
+```python
+from minio import Minio
+import os
+
+BUCKET_NAME = "project-files"
+
+def get_minio_client() -> Minio:
+    return Minio(
+        os.getenv("MINIO_ENDPOINT", "localhost:9000"),
+        access_key=os.getenv("MINIO_ACCESS_KEY", "minioadmin"),
+        secret_key=os.getenv("MINIO_SECRET_KEY", "minioadmin"),
+        secure=False,
+    )
+
+async def upload_file(project_id: str, file_id: str, filename: str, data: bytes, content_type: str) -> str:
+    """Upload file to MinIO, return object key."""
+    client = get_minio_client()
+    key = f"projects/{project_id}/{file_id}_{filename}"
+    client.put_object(BUCKET_NAME, key, io.BytesIO(data), len(data), content_type)
+    return key
+
+async def download_file(minio_key: str) -> bytes:
+    """Download file from MinIO."""
+    client = get_minio_client()
+    response = client.get_object(BUCKET_NAME, minio_key)
+    return response.read()
+
+async def delete_file(minio_key: str) -> None:
+    """Delete file from MinIO."""
+    client = get_minio_client()
+    client.remove_object(BUCKET_NAME, minio_key)
+```
+
+### Files to Modify
+
+1. **`compose/services/surrealdb/repository.py`** - Add conversation/project CRUD functions
+2. **`compose/services/surrealdb/models.py`** - Add Pydantic models for new tables
+3. **`compose/services/conversations.py`** - Replace JSON backend with SurrealDB
+4. **`compose/services/projects.py`** - Replace JSON + filesystem with SurrealDB + MinIO
+5. **New: `compose/services/surrealdb/minio_client.py`** - MinIO operations
+
+### Migration Script
+
+Create `compose/cli/migrate_to_surrealdb.py`:
+
+1. Read all conversations from `compose/data/conversations/`
+2. Insert into SurrealDB `conversation` and `message` tables
+3. Read all projects from `compose/data/projects/`
+4. Insert into SurrealDB `project`, `project_file`, `project_conversation` tables
+5. Upload project files to MinIO
+6. Verify counts match
+7. (Optional) Archive old JSON files
+
+### Implementation Order
+
+1. Add SurrealDB schema (no breaking changes to existing code)
+2. Add Pydantic models
+3. Add MinIO client
+4. Update `ConversationService` to use SurrealDB (same public API)
+5. Update `ProjectService` to use SurrealDB + MinIO (same public API)
+6. Write migration script
+7. Test with existing data
+8. Run migration
+9. Remove old JSON storage code
+
+### Success Criteria
+
+- [ ] All CRUD operations work via SurrealDB
+- [ ] Project files stored in MinIO, retrievable via API
+- [ ] Existing conversations/projects migrated without data loss
+- [ ] API routers unchanged (services maintain same interface)
+- [ ] Tests pass with new backend
+
+### Benefits
+
+- **Unified data layer**: Everything in SurrealDB (videos, conversations, projects)
+- **Scalable file storage**: MinIO handles large files properly
+- **Query capabilities**: Can search conversations, join with projects, etc.
+- **Backup simplicity**: SurrealDB export + MinIO bucket = complete backup
+- **Future features**: Conversation embeddings, semantic search over chat history
