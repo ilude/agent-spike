@@ -453,6 +453,110 @@ class ConversationService:
             print(f"Title generation failed: {e}")
             return fallback
 
+    async def generate_filename(
+        self,
+        content: str,
+        model: str = "ollama:llama3.2",
+        content_type: str = "conversation",
+    ) -> str:
+        """Generate a descriptive filename for content using LLM.
+
+        Args:
+            content: The content to generate a filename for (truncated to 1000 chars)
+            model: Model to use (ollama:*, openai:*, or openrouter model)
+            content_type: Type of content ("message" or "conversation")
+
+        Returns:
+            Generated filename (filesystem-safe, no extension)
+        """
+        import re
+        from datetime import datetime
+
+        # Fallback: simple date-based name
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        fallback = f"{content_type}-{date_str}"
+
+        # Truncate content for prompt
+        content_snippet = content[:1000]
+        if len(content) > 1000:
+            content_snippet += "..."
+
+        prompt = f"""Generate a short, descriptive filename for this {content_type}.
+Requirements:
+- 3-6 words maximum
+- Lowercase only
+- Use hyphens between words
+- No file extension
+- Filesystem-safe (no special characters)
+- Descriptive of the main topic
+
+Content:
+{content_snippet}
+
+Return ONLY the filename, nothing else."""
+
+        try:
+            # Determine which client/endpoint to use based on model prefix
+            if model.startswith("ollama:"):
+                actual_model = model.replace("ollama:", "")
+                base_url = f"{os.getenv('OLLAMA_URL', 'http://localhost:11434')}/v1"
+                api_key = "ollama"  # Ollama doesn't need a real key
+            elif model.startswith("openai:"):
+                actual_model = model.replace("openai:", "")
+                base_url = "https://api.openai.com/v1"
+                api_key = os.getenv("OPENAI_API_KEY", "")
+                if not api_key:
+                    return fallback
+            else:
+                # OpenRouter
+                actual_model = model
+                base_url = "https://openrouter.ai/api/v1"
+                api_key = OPENROUTER_API_KEY
+                if not api_key:
+                    return fallback
+
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                response = await client.post(
+                    f"{base_url}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": actual_model,
+                        "messages": [{"role": "user", "content": prompt}],
+                        "max_tokens": 30,
+                        "temperature": 0.5,
+                    },
+                )
+                response.raise_for_status()
+                data = response.json()
+                filename = data["choices"][0]["message"]["content"].strip()
+
+                # Clean up the filename
+                filename = filename.lower()
+                filename = filename.strip('"\'')
+                # Remove any file extension that might have been added
+                filename = re.sub(r'\.[a-z]+$', '', filename)
+                # Replace spaces and underscores with hyphens
+                filename = re.sub(r'[\s_]+', '-', filename)
+                # Remove any non-alphanumeric characters except hyphens
+                filename = re.sub(r'[^a-z0-9-]', '', filename)
+                # Remove multiple consecutive hyphens
+                filename = re.sub(r'-+', '-', filename)
+                # Remove leading/trailing hyphens
+                filename = filename.strip('-')
+
+                # Limit length
+                if len(filename) > 50:
+                    filename = filename[:50].rsplit('-', 1)[0]
+
+                return filename or fallback
+
+        except Exception as e:
+            print(f"Filename generation failed: {e}")
+            return fallback
+
 
 # Singleton instance
 _service: Optional[ConversationService] = None

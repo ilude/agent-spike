@@ -11,6 +11,40 @@ export class MentatAPI {
 	 */
 	constructor(baseURL = API_URL) {
 		this.baseURL = baseURL;
+		this._getToken = null;
+	}
+
+	/**
+	 * Set the token getter function (for auth integration)
+	 * @param {function(): string|null} getter
+	 */
+	setTokenGetter(getter) {
+		this._getToken = getter;
+	}
+
+	/**
+	 * Get auth headers if token is available
+	 * @returns {Object}
+	 */
+	_authHeaders() {
+		if (!this._getToken) return {};
+		const token = this._getToken();
+		if (!token) return {};
+		return { Authorization: `Bearer ${token}` };
+	}
+
+	/**
+	 * Make an authenticated fetch request
+	 * @param {string} url
+	 * @param {Object} options
+	 * @returns {Promise<Response>}
+	 */
+	async _fetch(url, options = {}) {
+		const headers = {
+			...this._authHeaders(),
+			...options.headers
+		};
+		return fetch(url, { ...options, headers });
 	}
 
 	/**
@@ -84,7 +118,12 @@ export class MentatAPI {
 	connectWebSocket(useRAG = false) {
 		const wsURL = this.baseURL.replace('http://', 'ws://').replace('https://', 'wss://');
 		const endpoint = useRAG ? '/chat/ws/rag-chat' : '/chat/ws/chat';
-		return new WebSocket(`${wsURL}${endpoint}`);
+
+		// Include auth token in query string if available
+		const token = this._getToken ? this._getToken() : null;
+		const authQuery = token ? `?token=${encodeURIComponent(token)}` : '';
+
+		return new WebSocket(`${wsURL}${endpoint}${authQuery}`);
 	}
 
 	/**
@@ -264,6 +303,25 @@ export class MentatAPI {
 		});
 		if (!res.ok) {
 			throw new Error(`Failed to generate title: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Generate a filename for content export using LLM
+	 * @param {string} content - Content to generate filename for
+	 * @param {string} model - Model to use (default: ollama:llama3.2)
+	 * @param {string} contentType - Type of content ('message' or 'conversation')
+	 * @returns {Promise<{filename: string}>}
+	 */
+	async generateFilename(content, model = 'ollama:llama3.2', contentType = 'conversation') {
+		const res = await fetch(`${this.baseURL}/conversations/generate-filename`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ content, model, content_type: contentType })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to generate filename: ${res.statusText}`);
 		}
 		return res.json();
 	}
@@ -825,6 +883,201 @@ export class MentatAPI {
 		});
 		if (!res.ok) {
 			throw new Error(`Failed to delete backup: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	// ============ Settings Methods ============
+
+	/**
+	 * Get current user's settings
+	 * @returns {Promise<Object>}
+	 */
+	async getSettings() {
+		const res = await this._fetch(`${this.baseURL}/settings`);
+		if (!res.ok) {
+			throw new Error(`Failed to get settings: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update user preferences
+	 * @param {Object} preferences
+	 * @returns {Promise<Object>}
+	 */
+	async updatePreferences(preferences) {
+		const res = await this._fetch(`${this.baseURL}/settings`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(preferences)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update preferences: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get API key status
+	 * @returns {Promise<Array>}
+	 */
+	async getApiKeys() {
+		const res = await this._fetch(`${this.baseURL}/settings/api-keys`);
+		if (!res.ok) {
+			throw new Error(`Failed to get API keys: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update user's API keys
+	 * @param {Object} keys - { anthropic?, openai?, openrouter?, youtube? }
+	 * @returns {Promise<Object>}
+	 */
+	async updateApiKeys(keys) {
+		const res = await this._fetch(`${this.baseURL}/settings/api-keys`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(keys)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update API keys: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get visible models list
+	 * @returns {Promise<Array<string>>}
+	 */
+	async getVisibleModels() {
+		const res = await this._fetch(`${this.baseURL}/settings/models`);
+		if (!res.ok) {
+			throw new Error(`Failed to get visible models: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update visible models
+	 * @param {Array<string>} models - Model IDs to show
+	 * @returns {Promise<Object>}
+	 */
+	async updateVisibleModels(models) {
+		const res = await this._fetch(`${this.baseURL}/settings/models`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ visible_models: models })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update visible models: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	// ============ Admin Settings Methods ============
+
+	/**
+	 * Get system configuration (admin only)
+	 * @returns {Promise<Object>}
+	 */
+	async getSystemConfig() {
+		const res = await this._fetch(`${this.baseURL}/settings/system`);
+		if (!res.ok) {
+			throw new Error(`Failed to get system config: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update system configuration (admin only)
+	 * @param {string} key
+	 * @param {string} value
+	 * @returns {Promise<Object>}
+	 */
+	async updateSystemConfig(key, value) {
+		const res = await this._fetch(`${this.baseURL}/settings/system`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ key, value })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update system config: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Export config to .env (admin only)
+	 * @param {Array<string>} keys - Specific keys to export (optional)
+	 * @returns {Promise<Object>}
+	 */
+	async exportConfig(keys = null) {
+		const res = await this._fetch(`${this.baseURL}/settings/system/export`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: keys ? JSON.stringify(keys) : null
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to export config: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * List all users (admin only)
+	 * @returns {Promise<Array>}
+	 */
+	async listUsers() {
+		const res = await this._fetch(`${this.baseURL}/auth/users`);
+		if (!res.ok) {
+			throw new Error(`Failed to list users: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a user (admin only)
+	 * @param {string} userId
+	 * @returns {Promise<Object>}
+	 */
+	async deleteUser(userId) {
+		const res = await this._fetch(`${this.baseURL}/auth/users/${userId}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete user: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create invite (admin only)
+	 * @param {string} email - Optional email restriction
+	 * @param {number} expiresDays
+	 * @returns {Promise<Object>}
+	 */
+	async createInvite(email = null, expiresDays = 7) {
+		const res = await this._fetch(`${this.baseURL}/auth/invites`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, expires_days: expiresDays })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create invite: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * List invites (admin only)
+	 * @returns {Promise<Array>}
+	 */
+	async listInvites() {
+		const res = await this._fetch(`${this.baseURL}/auth/invites`);
+		if (!res.ok) {
+			throw new Error(`Failed to list invites: ${res.statusText}`);
 		}
 		return res.json();
 	}

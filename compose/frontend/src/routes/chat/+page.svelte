@@ -54,6 +54,11 @@
   // Settings modal state
   let settingsModalOpen = false;
 
+  // Export filename settings
+  let enableLlmFilenames = false;
+  let filenameGenerationModel = 'ollama:llama3.2';
+  let isGeneratingFilename = false;
+
   // Memory state
   let useMemory = true; // Memory enabled by default
 
@@ -213,20 +218,66 @@ model: ${model}
     copyToClipboard(formatMessageAsMarkdown(msg), 'Message copied');
   }
 
-  function downloadMessageAsMarkdown(msg) {
-    const timestamp = msg.timestamp.toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    downloadAsFile(formatMessageAsMarkdown(msg), `message-${timestamp}.md`);
+  async function downloadMessageAsMarkdown(msg) {
+    const content = formatMessageAsMarkdown(msg);
+    let filename;
+
+    if (enableLlmFilenames) {
+      isGeneratingFilename = true;
+      showToast('Generating filename...', 'success');
+      try {
+        const result = await api.generateFilename(msg.content, filenameGenerationModel, 'message');
+        filename = `${result.filename}.md`;
+      } catch (err) {
+        console.error('Filename generation failed:', err);
+        // Fallback to timestamp
+        const timestamp = msg.timestamp.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        filename = `message-${timestamp}.md`;
+      } finally {
+        isGeneratingFilename = false;
+      }
+    } else {
+      const timestamp = msg.timestamp.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      filename = `message-${timestamp}.md`;
+    }
+
+    downloadAsFile(content, filename);
   }
 
   function copyConversationAsMarkdown() {
     copyToClipboard(formatConversationAsMarkdown(), 'Conversation copied');
   }
 
-  function downloadConversationAsMarkdown() {
-    const conv = conversations.find(c => c.id === activeConversationId);
-    const title = (conv?.title || 'conversation').replace(/[^a-z0-9]/gi, '-').toLowerCase();
-    const date = new Date().toISOString().split('T')[0];
-    downloadAsFile(formatConversationAsMarkdown(), `${title}-${date}.md`);
+  async function downloadConversationAsMarkdown() {
+    const content = formatConversationAsMarkdown();
+    let filename;
+
+    if (enableLlmFilenames) {
+      isGeneratingFilename = true;
+      showToast('Generating filename...', 'success');
+      try {
+        // Use first few messages as context for filename
+        const contextContent = messages.slice(0, 3).map(m => m.content).join('\n');
+        const result = await api.generateFilename(contextContent, filenameGenerationModel, 'conversation');
+        filename = `${result.filename}.md`;
+      } catch (err) {
+        console.error('Filename generation failed:', err);
+        // Fallback to title-based
+        const conv = conversations.find(c => c.id === activeConversationId);
+        const title = (conv?.title || 'conversation').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+        const date = new Date().toISOString().split('T')[0];
+        filename = `${title}-${date}.md`;
+      } finally {
+        isGeneratingFilename = false;
+      }
+    } else {
+      const conv = conversations.find(c => c.id === activeConversationId);
+      const title = (conv?.title || 'conversation').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+      const date = new Date().toISOString().split('T')[0];
+      filename = `${title}-${date}.md`;
+    }
+
+    downloadAsFile(content, filename);
   }
 
   // Handle hover over inline video links
@@ -944,6 +995,16 @@ model: ${model}
       selectedModel = savedModel;
     }
 
+    // Load LLM filename settings
+    const savedLlmFilenames = localStorage.getItem('mentat_enable_llm_filenames');
+    if (savedLlmFilenames !== null) {
+      enableLlmFilenames = savedLlmFilenames === 'true';
+    }
+    const savedFilenameModel = localStorage.getItem('mentat_filename_model');
+    if (savedFilenameModel) {
+      filenameGenerationModel = savedFilenameModel;
+    }
+
     // Fetch available models
     try {
       const response = await api.fetchModels();
@@ -1252,10 +1313,10 @@ model: ${model}
 
           {#if modelDropdownOpen}
             <div class="model-dropdown-menu">
-              {#if availableModels.some(m => m.is_local)}
+              {#if availableModels.some(m => m.provider === 'ollama')}
                 <div class="model-group">
-                  <div class="model-group-label">Ollama</div>
-                  {#each availableModels.filter(m => m.is_local) as model}
+                  <div class="model-group-label">Ollama (Local)</div>
+                  {#each availableModels.filter(m => m.provider === 'ollama') as model}
                     <button
                       class="model-option"
                       class:selected={model.id === selectedModel}
@@ -1267,10 +1328,10 @@ model: ${model}
                 </div>
               {/if}
 
-              {#if availableModels.some(m => m.is_free && !m.is_local)}
+              {#if availableModels.some(m => m.provider === 'anthropic')}
                 <div class="model-group">
-                  <div class="model-group-label">Free Models</div>
-                  {#each availableModels.filter(m => m.is_free && !m.is_local) as model}
+                  <div class="model-group-label">Claude</div>
+                  {#each availableModels.filter(m => m.provider === 'anthropic') as model}
                     <button
                       class="model-option"
                       class:selected={model.id === selectedModel}
@@ -1282,10 +1343,25 @@ model: ${model}
                 </div>
               {/if}
 
-              {#if availableModels.some(m => !m.is_free && !m.is_local)}
+              {#if availableModels.some(m => m.provider === 'openai')}
                 <div class="model-group">
-                  <div class="model-group-label">Paid Models</div>
-                  {#each availableModels.filter(m => !m.is_free && !m.is_local) as model}
+                  <div class="model-group-label">OpenAI</div>
+                  {#each availableModels.filter(m => m.provider === 'openai') as model}
+                    <button
+                      class="model-option"
+                      class:selected={model.id === selectedModel}
+                      on:click={() => selectModel(model.id)}
+                    >
+                      {model.name}
+                    </button>
+                  {/each}
+                </div>
+              {/if}
+
+              {#if availableModels.some(m => m.provider === 'openrouter')}
+                <div class="model-group">
+                  <div class="model-group-label">OpenRouter (Free)</div>
+                  {#each availableModels.filter(m => m.provider === 'openrouter') as model}
                     <button
                       class="model-option"
                       class:selected={model.id === selectedModel}
@@ -1354,10 +1430,40 @@ model: ${model}
               <button
                 class="action-option"
                 on:click={() => { downloadConversationAsMarkdown(); actionsDropdownOpen = false; }}
+                disabled={isGeneratingFilename}
               >
-                <span class="action-icon">⬇</span>
+                <span class="action-icon">{isGeneratingFilename ? '...' : '⬇'}</span>
                 <span class="action-label">Download as Markdown</span>
               </button>
+              <div class="action-divider"></div>
+              <button
+                class="action-option action-toggle"
+                on:click={() => {
+                  enableLlmFilenames = !enableLlmFilenames;
+                  localStorage.setItem('mentat_enable_llm_filenames', enableLlmFilenames);
+                }}
+              >
+                <span class="action-icon">{enableLlmFilenames ? '✓' : ' '}</span>
+                <span class="action-label">AI-generated filenames</span>
+              </button>
+              {#if enableLlmFilenames}
+                <div class="action-model-select">
+                  <select
+                    bind:value={filenameGenerationModel}
+                    on:change={() => localStorage.setItem('mentat_filename_model', filenameGenerationModel)}
+                  >
+                    <optgroup label="Local (Ollama)">
+                      <option value="ollama:llama3.2">Llama 3.2</option>
+                      <option value="ollama:qwen2.5:3b">Qwen 2.5 3B</option>
+                      <option value="ollama:gemma2:2b">Gemma 2 2B</option>
+                    </optgroup>
+                    <optgroup label="OpenRouter">
+                      <option value="moonshotai/kimi-k2:free">Kimi K2 (Free)</option>
+                      <option value="anthropic/claude-3-haiku">Claude Haiku</option>
+                    </optgroup>
+                  </select>
+                </div>
+              {/if}
             </div>
           {/if}
         </div>
@@ -3236,6 +3342,57 @@ model: ${model}
 
   .action-label {
     flex: 1;
+  }
+
+  .action-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .action-divider {
+    height: 1px;
+    background: #333;
+    margin: 0.25rem 0;
+  }
+
+  .action-toggle .action-icon {
+    font-weight: bold;
+    color: #10b981;
+  }
+
+  .action-model-select {
+    padding: 0.25rem 0.5rem 0.5rem;
+  }
+
+  .action-model-select select {
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 0.375rem;
+    color: #e5e5e5;
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .action-model-select select:hover {
+    border-color: #555;
+  }
+
+  .action-model-select select:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .action-model-select optgroup {
+    color: #888;
+    font-weight: 600;
+  }
+
+  .action-model-select option {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 0.25rem;
   }
 
   /* Message metadata spacer and export buttons */

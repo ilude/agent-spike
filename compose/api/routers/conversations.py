@@ -137,3 +137,34 @@ async def generate_title(request: GenerateTitleRequest):
     service = get_conversation_service()
     title = await service.generate_title(request.message)
     return GenerateTitleResponse(title=title)
+
+
+class GenerateFilenameRequest(BaseModel):
+    """Request to generate a filename."""
+
+    content: str
+    model: str = "ollama:llama3.2"
+    content_type: str = "conversation"  # "message" or "conversation"
+
+
+class GenerateFilenameResponse(BaseModel):
+    """Response with generated filename."""
+
+    filename: str
+
+
+@router.post("/generate-filename", response_model=GenerateFilenameResponse)
+async def generate_filename(request: GenerateFilenameRequest):
+    """Generate a descriptive filename for content export."""
+    if not request.content or len(request.content) < 10:
+        raise HTTPException(
+            status_code=400, detail="Content must be at least 10 characters"
+        )
+
+    service = get_conversation_service()
+    filename = await service.generate_filename(
+        content=request.content,
+        model=request.model,
+        content_type=request.content_type,
+    )
+    return GenerateFilenameResponse(filename=filename)
