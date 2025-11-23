@@ -10,25 +10,24 @@ import httpx
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from openai import AsyncOpenAI
 from pydantic import BaseModel
-from qdrant_client import QdrantClient
 
 from compose.services.conversations import get_conversation_service
 from compose.services.memory import get_memory_service
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
+from compose.services.surrealdb import semantic_search
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6335")
-COLLECTION_NAME = os.getenv("QDRANT_COLLECTION", "content")
 
 # Lazy-initialized clients (no network calls at import time)
 _openrouter_client: AsyncOpenAI | None = None
+_openai_client: AsyncOpenAI | None = None
 _ollama_client: AsyncOpenAI | None = None
-_qdrant_client: QdrantClient | None = None
 
 
 def get_openrouter_client() -> AsyncOpenAI | None:
@@ -42,6 +41,14 @@ def get_openrouter_client() -> AsyncOpenAI | None:
     return _openrouter_client
 
 
+def get_openai_client() -> AsyncOpenAI | None:
+    """Get direct OpenAI client, creating it on first use."""
+    global _openai_client
+    if _openai_client is None and OPENAI_API_KEY:
+        _openai_client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+    return _openai_client
+
+
 def get_ollama_client() -> AsyncOpenAI:
     """Get Ollama client, creating it on first use."""
     global _ollama_client
@@ -53,20 +60,12 @@ def get_ollama_client() -> AsyncOpenAI:
     return _ollama_client
 
 
-def get_qdrant_client() -> QdrantClient:
-    """Get Qdrant client, creating it on first use."""
-    global _qdrant_client
-    if _qdrant_client is None:
-        _qdrant_client = QdrantClient(url=QDRANT_URL)
-    return _qdrant_client
-
-
 def reset_clients() -> None:
     """Reset all clients to None. For testing only."""
-    global _openrouter_client, _ollama_client, _qdrant_client
+    global _openrouter_client, _openai_client, _ollama_client
     _openrouter_client = None
+    _openai_client = None
     _ollama_client = None
-    _qdrant_client = None
 
 
 async def get_embedding(text: str) -> list[float]:
@@ -95,12 +94,39 @@ class ModelsResponse(BaseModel):
     models: list[dict[str, Any]]
 
 
+async def fetch_ollama_models() -> list[dict]:
+    """Fetch available models from Ollama API."""
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(f"{OLLAMA_URL}/api/tags")
+            response.raise_for_status()
+            data = response.json()
+
+            models = []
+            for model in data.get("models", []):
+                name = model.get("name", "")
+                # Format display name nicely
+                display_name = name.replace(":", " ").replace("-", " ").title()
+                models.append({
+                    "id": f"ollama:{name}",
+                    "name": f"{display_name} (Local)",
+                    "context_length": 32000,  # Default, varies by model
+                    "is_free": True,
+                    "is_local": True,
+                })
+            return models
+    except Exception as e:
+        print(f"Failed to fetch Ollama models: {e}")
+        return []
+
+
 @router.get("/models", response_model=ModelsResponse)
 async def list_models():
     """
-    Fetch available models from OpenRouter API.
+    Fetch available models from OpenRouter API and local Ollama.
 
-    Returns free models plus GPT-5 and Claude 4.5 models.
+    Returns local Ollama models (dynamically fetched) plus OpenRouter free models,
+    GPT-5 and Claude 4.5 models.
     Results cached for 5 minutes.
     """
     now = datetime.now(timezone.utc).timestamp()
@@ -113,8 +139,32 @@ async def list_models():
     ):
         return models_cache["data"]
 
+    # Fetch Ollama models dynamically
+    ollama_models = await fetch_ollama_models()
+
+    # Add direct OpenAI models if API key available
+    openai_models = []
+    if OPENAI_API_KEY:
+        openai_models = [
+            # GPT-5.1 (latest)
+            {"id": "openai:gpt-5.1", "name": "GPT-5.1 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            # GPT-5 family
+            {"id": "openai:gpt-5", "name": "GPT-5 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-5-pro", "name": "GPT-5 Pro (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-5-mini", "name": "GPT-5 Mini (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            # Reasoning models
+            {"id": "openai:o3", "name": "o3 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            {"id": "openai:o3-mini", "name": "o3 Mini (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            {"id": "openai:o1", "name": "o1 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            # GPT-4 family
+            {"id": "openai:gpt-4.1", "name": "GPT-4.1 (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4.1-mini", "name": "GPT-4.1 Mini (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4o", "name": "GPT-4o (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
+        ]
+
     if not OPENROUTER_API_KEY:
-        return _fallback_models()
+        return _fallback_models(ollama_models, openai_models)
 
     try:
         async with httpx.AsyncClient(timeout=10.0) as http_client:
@@ -130,22 +180,14 @@ async def list_models():
             model_id = model.get("id", "")
             pricing = model.get("pricing", {})
 
+            # Only include free models from OpenRouter (paid models use direct API)
             is_free = (
                 model_id.endswith(":free") and
                 pricing.get("prompt") == "0" and
                 pricing.get("completion") == "0"
             )
-            is_gpt5 = (
-                "gpt-5" in model_id.lower() and
-                "image" not in model_id.lower() and
-                "5.1" not in model_id.lower()
-            )
-            is_anthropic = (
-                ("anthropic/" in model_id.lower() or "claude" in model_id.lower()) and
-                "4.5" in model_id.lower()
-            )
 
-            if is_free or is_gpt5 or is_anthropic:
+            if is_free:
                 name = model.get("name", model_id)
                 name = name.replace(" (free)", "").replace("(free)", "")
                 filtered_models.append({
@@ -159,14 +201,10 @@ async def list_models():
                     "is_free": is_free
                 })
 
-        filtered_models.sort(key=lambda m: (not m["is_free"], m["name"]))
+        filtered_models.sort(key=lambda m: m["name"])
 
-        # Prepend local Ollama models (no rate limits!)
-        ollama_models = [
-            {"id": "ollama:qwen3:8b", "name": "Qwen3 8B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
-            {"id": "ollama:qwen2.5:7b", "name": "Qwen2.5 7B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
-        ]
-        result = {"models": ollama_models + filtered_models}
+        # Order: Local Ollama > Direct OpenAI > Free OpenRouter
+        result = {"models": ollama_models + openai_models + filtered_models}
 
         models_cache["data"] = result
         models_cache["timestamp"] = now
@@ -174,22 +212,17 @@ async def list_models():
 
     except Exception as e:
         print(f"Error fetching models: {e}")
-        return _fallback_models()
+        return _fallback_models(ollama_models, openai_models)
 
 
-def _fallback_models() -> dict[str, Any]:
-    """Return fallback model list."""
-    return {
-        "models": [
-            # Local Ollama models (no rate limits!)
-            {"id": "ollama:qwen3:8b", "name": "Qwen3 8B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
-            {"id": "ollama:qwen2.5:7b", "name": "Qwen2.5 7B (Local)", "context_length": 32000, "is_free": True, "is_local": True},
-            # OpenRouter free models
-            {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "is_free": True},
-            {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "is_free": True},
-            {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "is_free": True}
-        ]
-    }
+def _fallback_models(ollama_models: list[dict] | None = None, openai_models: list[dict] | None = None) -> dict[str, Any]:
+    """Return fallback model list with dynamic Ollama and OpenAI models."""
+    openrouter_fallback = [
+        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "is_free": True},
+        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "is_free": True},
+        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "is_free": True}
+    ]
+    return {"models": (ollama_models or []) + (openai_models or []) + openrouter_fallback}
 
 
 @router.get("/random-question")
@@ -336,11 +369,16 @@ async def websocket_chat(websocket: WebSocket):
 
                 system_message = "\n\n".join(system_parts) if system_parts else None
 
-                # Route to Ollama or OpenRouter
+                # Route to Ollama, OpenAI, or OpenRouter
                 if model.startswith("ollama:"):
-                    ollama_model = model.replace("ollama:", "")
+                    actual_model = model.replace("ollama:", "")
                     client = get_ollama_client()
-                    actual_model = ollama_model
+                elif model.startswith("openai:"):
+                    actual_model = model.replace("openai:", "")
+                    client = get_openai_client()
+                    if not client:
+                        await websocket.send_json({"type": "error", "content": "OpenAI API key not configured"})
+                        continue
                 else:
                     client = openrouter
                     actual_model = model
@@ -466,52 +504,31 @@ async def websocket_rag_chat(websocket: WebSocket):
                     # Step 1: Embed the query using Infinity
                     query_vector = await get_embedding(message)
 
-                    # Step 2: Search Qdrant
-                    qdrant = get_qdrant_client()
-                    search_results = qdrant.query_points(
-                        collection_name=COLLECTION_NAME,
-                        query=query_vector,
-                        limit=5,
-                    )
+                    # Step 2: Search SurrealDB
+                    search_results = await semantic_search(query_vector, limit=5)
 
-                    # Step 3: Build context
+                    # Step 3: Build context from SurrealDB results
                     seen_ids = set()
 
-                    for result in search_results.points:
-                        payload = result.payload or {}
+                    for result in search_results:
+                        video_id = result.video_id
+                        title = result.title or 'Unknown Video'
+                        channel = result.channel_name or 'Unknown Channel'
+                        url = result.url or f"https://youtube.com/watch?v={video_id}"
 
-                        # Extract text and metadata (handle different formats)
-                        text = payload.get('text', payload.get('value', {}).get('transcript', ''))[:1000]
-                        video_id = payload.get('video_id', payload.get('key', ''))
-
-                        # Get title from various locations
-                        title = (
-                            payload.get('video_title') or
-                            payload.get('meta_youtube_title') or
-                            payload.get('metadata', {}).get('title') or
-                            payload.get('value', {}).get('title') or  # fast_reingest stores here
-                            'Unknown Video'
+                        # Include channel info so LLM can filter by author
+                        context_chunks.append(
+                            f"[Video: \"{title}\"]\n"
+                            f"Channel: {channel}\n"
+                            f"Relevance: {result.similarity_score:.3f}"
                         )
-
-                        # Get URL
-                        url = payload.get('url', f"https://youtube.com/watch?v={video_id.split(':')[-1]}" if 'youtube' in video_id else '')
-
-                        # Get tags
-                        tags = (
-                            payload.get('tags') or
-                            payload.get('metadata', {}).get('subject') or
-                            []
-                        )
-                        if isinstance(tags, str):
-                            tags = [tags]
-
-                        context_chunks.append(f"[Video: \"{title}\"]\n{text}")
 
                         if video_id not in seen_ids:
                             sources.append({
                                 "video_title": title,
+                                "channel": channel,
                                 "url": url,
-                                "tags": tags,
+                                "tags": [],  # Tags stored separately in SurrealDB
                             })
                             seen_ids.add(video_id)
 
@@ -527,7 +544,7 @@ async def websocket_rag_chat(websocket: WebSocket):
 
                 if rag_available and context_chunks:
                     context_section = "\n\n".join(context_chunks)
-                    video_titles_list = "\n".join([f"- {s['video_title']}" for s in sources])
+                    video_list = "\n".join([f"- {s['video_title']} (by {s.get('channel', 'Unknown')})" for s in sources])
 
                     augmented_prompt = f"""{system_prefix}You are Mentat, an AI assistant with access to video transcripts.
 
@@ -536,16 +553,18 @@ Context from videos:
 
 ---
 Available videos to cite:
-{video_titles_list}
+{video_list}
 
 ---
 User question: {message}
 
 Instructions:
 1. Answer based on the video context when relevant
-2. Cite video titles naturally in your response (no quotes around titles)
-3. If the context doesn't help, say so and answer from general knowledge
-4. Be concise and helpful"""
+2. If the user asks about a specific person/channel, filter results to only show their videos
+3. IMPORTANT: When citing videos, use the EXACT full title from the list above - do not shorten or paraphrase titles
+4. Include the channel/author name when relevant to the question
+5. If the context doesn't help, say so and answer from general knowledge
+6. Be concise and helpful"""
                 else:
                     # Fallback: no RAG context available
                     augmented_prompt = f"""{system_prefix}You are Mentat, a helpful AI assistant.
@@ -554,12 +573,18 @@ User: {message}
 
 Respond helpfully and concisely."""
 
-                # Step 5: Stream response (route to Ollama or OpenRouter)
+                # Step 5: Stream response (route to Ollama, OpenAI, or OpenRouter)
                 if model.startswith("ollama:"):
                     # Use local Ollama server
-                    ollama_model = model.replace("ollama:", "")
+                    actual_model = model.replace("ollama:", "")
                     client = get_ollama_client()
-                    actual_model = ollama_model
+                elif model.startswith("openai:"):
+                    # Use direct OpenAI API
+                    actual_model = model.replace("openai:", "")
+                    client = get_openai_client()
+                    if not client:
+                        await websocket.send_json({"type": "error", "content": "OpenAI API key not configured"})
+                        continue
                 else:
                     # Use OpenRouter
                     client = openrouter

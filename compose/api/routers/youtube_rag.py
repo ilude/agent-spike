@@ -5,6 +5,8 @@ Provides REST endpoints for:
 2. Query answering using retrieved context (RAG pattern)
 """
 
+import os
+import httpx
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException
 
@@ -13,8 +15,20 @@ from compose.services.surrealdb import semantic_search
 router = APIRouter()
 
 # Configuration
-SURREALDB_URL = "http://localhost:8000"
-INFINITY_URL = "http://localhost:7997"
+INFINITY_URL = os.getenv("INFINITY_URL", "http://192.168.16.241:7997")
+INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
+
+
+async def get_embedding(text: str) -> list[float]:
+    """Get embedding from Infinity service."""
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        response = await client.post(
+            f"{INFINITY_URL}/embeddings",
+            json={"model": INFINITY_MODEL, "input": [text]}
+        )
+        response.raise_for_status()
+        data = response.json()
+        return data["data"][0]["embedding"]
 
 
 # -----------------------------------------------------------------------------
@@ -85,50 +99,36 @@ async def search_transcripts(request: SearchRequest):
     """
     Semantic search over YouTube video transcripts.
 
-    Searches the Qdrant vector database for videos matching the query.
+    Searches the SurrealDB vector database for videos matching the query.
     Returns videos ranked by semantic similarity.
     """
     try:
-        cache = create_qdrant_cache(
-            collection_name=COLLECTION_NAME,
-            qdrant_url=QDRANT_URL,
-            infinity_url=INFINITY_URL,
-        )
+        # Step 1: Get embedding for query
+        query_vector = await get_embedding(request.query)
 
-        try:
-            # Build filters
-            filters = {"type": "youtube_video"}
-            if request.channel:
-                filters["youtube_channel"] = request.channel
+        # Step 2: Search SurrealDB
+        results = await semantic_search(query_vector, limit=request.limit)
 
-            # Perform search
-            results = cache.search(request.query, limit=request.limit, filters=filters)
-
-            # Format results
-            search_results = []
-            for r in results:
-                metadata = r.get("_metadata", {})
-                video_id = r.get("video_id", "unknown")
-                transcript = r.get("transcript", "")
-
-                search_results.append(
-                    SearchResult(
-                        video_id=video_id,
-                        title=metadata.get("youtube_title", "Unknown"),
-                        channel=metadata.get("youtube_channel", "Unknown"),
-                        score=round(r.get("_score", 0), 3),
-                        transcript_preview=transcript[:500] + "..." if len(transcript) > 500 else transcript,
-                        url=f"https://youtube.com/watch?v={video_id}",
-                    )
+        # Step 3: Format results
+        search_results = []
+        for r in results:
+            # TODO: Filter by channel if request.channel is set
+            search_results.append(
+                SearchResult(
+                    video_id=r.video_id,
+                    title=r.title or "Unknown",
+                    channel="Unknown",  # Channel stored separately in SurrealDB
+                    score=round(r.similarity_score, 3),
+                    transcript_preview="",  # Transcript in MinIO, not fetched here
+                    url=r.url or f"https://youtube.com/watch?v={r.video_id}",
                 )
-
-            return SearchResponse(
-                query=request.query,
-                results=search_results,
-                total_found=len(search_results),
             )
-        finally:
-            cache.close()
+
+        return SearchResponse(
+            query=request.query,
+            results=search_results,
+            total_found=len(search_results),
+        )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
@@ -144,65 +144,46 @@ async def query_videos(request: QueryRequest):
     For full RAG with LLM, use the WebSocket /ws/rag-chat endpoint.
     """
     try:
-        cache = create_qdrant_cache(
-            collection_name=COLLECTION_NAME,
-            qdrant_url=QDRANT_URL,
-            infinity_url=INFINITY_URL,
-        )
+        # Step 1: Get embedding for query
+        query_vector = await get_embedding(request.question)
 
-        try:
-            # Build filters
-            filters = {"type": "youtube_video"}
-            if request.channel:
-                filters["youtube_channel"] = request.channel
+        # Step 2: Search SurrealDB
+        results = await semantic_search(query_vector, limit=request.limit)
 
-            # Search for relevant context
-            results = cache.search(request.question, limit=request.limit, filters=filters)
+        # Step 3: Build sources list
+        sources = []
+        seen_ids = set()
 
-            # Build sources list
-            sources = []
-            context_chunks = []
-            seen_ids = set()
-
-            for r in results:
-                metadata = r.get("_metadata", {})
-                video_id = r.get("video_id", "unknown")
-
-                if video_id not in seen_ids:
-                    sources.append(
-                        QuerySource(
-                            video_id=video_id,
-                            title=metadata.get("youtube_title", "Unknown"),
-                            url=f"https://youtube.com/watch?v={video_id}",
-                            relevance_score=round(r.get("_score", 0), 3),
-                        )
+        for r in results:
+            if r.video_id not in seen_ids:
+                sources.append(
+                    QuerySource(
+                        video_id=r.video_id,
+                        title=r.title or "Unknown",
+                        url=r.url or f"https://youtube.com/watch?v={r.video_id}",
+                        relevance_score=round(r.similarity_score, 3),
                     )
-                    seen_ids.add(video_id)
-
-                transcript = r.get("transcript", "")
-                if transcript:
-                    context_chunks.append(transcript[:1000])
-
-            # Build answer from context (simplified - no LLM)
-            # In production, this would call an LLM with the context
-            if context_chunks:
-                answer = (
-                    f"Based on {len(sources)} relevant video(s), here is context that may help answer your question:\n\n"
-                    + "\n\n---\n\n".join(context_chunks[:3])
                 )
-                context_used = True
-            else:
-                answer = "No relevant video content found for your question."
-                context_used = False
+                seen_ids.add(r.video_id)
 
-            return QueryResponse(
-                question=request.question,
-                answer=answer,
-                sources=sources,
-                context_used=context_used,
+        # Build answer from context (simplified - no LLM)
+        if sources:
+            video_list = "\n".join([f"- {s.title} ({s.relevance_score:.3f})" for s in sources])
+            answer = (
+                f"Found {len(sources)} relevant video(s):\n\n{video_list}\n\n"
+                "Use the /ws/rag-chat WebSocket for full LLM-powered answers."
             )
-        finally:
-            cache.close()
+            context_used = True
+        else:
+            answer = "No relevant video content found for your question."
+            context_used = False
+
+        return QueryResponse(
+            question=request.question,
+            answer=answer,
+            sources=sources,
+            context_used=context_used,
+        )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
