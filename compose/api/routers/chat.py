@@ -20,6 +20,7 @@ from compose.services.surrealdb import semantic_search
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
@@ -111,8 +112,7 @@ async def fetch_ollama_models() -> list[dict]:
                     "id": f"ollama:{name}",
                     "name": f"{display_name} (Local)",
                     "context_length": 32000,  # Default, varies by model
-                    "is_free": True,
-                    "is_local": True,
+                    "provider": "ollama",
                 })
             return models
     except Exception as e:
@@ -146,25 +146,27 @@ async def list_models():
     openai_models = []
     if OPENAI_API_KEY:
         openai_models = [
-            # GPT-5.1 (latest)
-            {"id": "openai:gpt-5.1", "name": "GPT-5.1 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
-            # GPT-5 family
-            {"id": "openai:gpt-5", "name": "GPT-5 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
-            {"id": "openai:gpt-5-pro", "name": "GPT-5 Pro (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
-            {"id": "openai:gpt-5-mini", "name": "GPT-5 Mini (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            # GPT-4o family (current production)
+            {"id": "openai:gpt-4o", "name": "GPT-4o", "context_length": 128000, "provider": "openai"},
+            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini", "context_length": 128000, "provider": "openai"},
             # Reasoning models
-            {"id": "openai:o3", "name": "o3 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
-            {"id": "openai:o3-mini", "name": "o3 Mini (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
-            {"id": "openai:o1", "name": "o1 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
-            # GPT-4 family
-            {"id": "openai:gpt-4.1", "name": "GPT-4.1 (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
-            {"id": "openai:gpt-4.1-mini", "name": "GPT-4.1 Mini (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
-            {"id": "openai:gpt-4o", "name": "GPT-4o (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
-            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
+            {"id": "openai:o1", "name": "o1 Reasoning", "context_length": 200000, "provider": "openai"},
+            {"id": "openai:o1-mini", "name": "o1 Mini", "context_length": 128000, "provider": "openai"},
+            {"id": "openai:o1-preview", "name": "o1 Preview", "context_length": 128000, "provider": "openai"},
+        ]
+
+    # Add Claude models if API key available
+    claude_models = []
+    if ANTHROPIC_API_KEY:
+        claude_models = [
+            {"id": "anthropic:claude-sonnet-4-20250514", "name": "Claude Sonnet 4", "context_length": 200000, "provider": "anthropic"},
+            {"id": "anthropic:claude-3-5-sonnet-20241022", "name": "Claude 3.5 Sonnet", "context_length": 200000, "provider": "anthropic"},
+            {"id": "anthropic:claude-3-5-haiku-20241022", "name": "Claude 3.5 Haiku", "context_length": 200000, "provider": "anthropic"},
+            {"id": "anthropic:claude-3-opus-20240229", "name": "Claude 3 Opus", "context_length": 200000, "provider": "anthropic"},
         ]
 
     if not OPENROUTER_API_KEY:
-        return _fallback_models(ollama_models, openai_models)
+        return _fallback_models(ollama_models, openai_models, claude_models)
 
     try:
         async with httpx.AsyncClient(timeout=10.0) as http_client:
@@ -194,17 +196,13 @@ async def list_models():
                     "id": model_id,
                     "name": name,
                     "context_length": model.get("context_length", 0),
-                    "pricing": {
-                        "prompt": pricing.get("prompt", "0"),
-                        "completion": pricing.get("completion", "0"),
-                    },
-                    "is_free": is_free
+                    "provider": "openrouter",
                 })
 
         filtered_models.sort(key=lambda m: m["name"])
 
-        # Order: Local Ollama > Direct OpenAI > Free OpenRouter
-        result = {"models": ollama_models + openai_models + filtered_models}
+        # Order: Ollama > Claude > OpenAI > OpenRouter
+        result = {"models": ollama_models + claude_models + openai_models + filtered_models}
 
         models_cache["data"] = result
         models_cache["timestamp"] = now
@@ -212,17 +210,21 @@ async def list_models():
 
     except Exception as e:
         print(f"Error fetching models: {e}")
-        return _fallback_models(ollama_models, openai_models)
+        return _fallback_models(ollama_models, openai_models, claude_models)
 
 
-def _fallback_models(ollama_models: list[dict] | None = None, openai_models: list[dict] | None = None) -> dict[str, Any]:
-    """Return fallback model list with dynamic Ollama and OpenAI models."""
+def _fallback_models(
+    ollama_models: list[dict] | None = None,
+    openai_models: list[dict] | None = None,
+    claude_models: list[dict] | None = None
+) -> dict[str, Any]:
+    """Return fallback model list with dynamic Ollama, Claude, and OpenAI models."""
     openrouter_fallback = [
-        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "is_free": True},
-        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "is_free": True},
-        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "is_free": True}
+        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "provider": "openrouter"},
+        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "provider": "openrouter"},
+        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "provider": "openrouter"}
     ]
-    return {"models": (ollama_models or []) + (openai_models or []) + openrouter_fallback}
+    return {"models": (ollama_models or []) + (claude_models or []) + (openai_models or []) + openrouter_fallback}
 
 
 @router.get("/random-question")

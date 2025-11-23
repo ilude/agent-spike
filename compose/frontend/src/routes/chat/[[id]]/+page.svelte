@@ -1,7 +1,11 @@
 <script>
   import { onMount, onDestroy, tick } from 'svelte';
   import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
   import { api } from '$lib/api.js';
+
+  // Page data from +page.js (contains conversationId from URL)
+  export let data;
   import { auth, currentUser } from '$lib/stores/auth.js';
   import SettingsModal from '$lib/components/SettingsModal.svelte';
   import { marked } from 'marked';
@@ -57,6 +61,7 @@
   // Export filename settings
   let enableLlmFilenames = false;
   let filenameGenerationModel = 'ollama:llama3.2';
+  let customFilenamePrompt = null;
   let isGeneratingFilename = false;
 
   // Memory state
@@ -218,6 +223,17 @@ model: ${model}
     copyToClipboard(formatMessageAsMarkdown(msg), 'Message copied');
   }
 
+  function copyMessageAsText(msg) {
+    copyToClipboard(msg.content, 'Message copied');
+  }
+
+  function editMessage(msg) {
+    input = msg.content;
+    if (inputField) {
+      inputField.focus();
+    }
+  }
+
   async function downloadMessageAsMarkdown(msg) {
     const content = formatMessageAsMarkdown(msg);
     let filename;
@@ -226,7 +242,7 @@ model: ${model}
       isGeneratingFilename = true;
       showToast('Generating filename...', 'success');
       try {
-        const result = await api.generateFilename(msg.content, filenameGenerationModel, 'message');
+        const result = await api.generateFilename(msg.content, filenameGenerationModel, 'message', customFilenamePrompt);
         filename = `${result.filename}.md`;
       } catch (err) {
         console.error('Filename generation failed:', err);
@@ -258,7 +274,7 @@ model: ${model}
       try {
         // Use first few messages as context for filename
         const contextContent = messages.slice(0, 3).map(m => m.content).join('\n');
-        const result = await api.generateFilename(contextContent, filenameGenerationModel, 'conversation');
+        const result = await api.generateFilename(contextContent, filenameGenerationModel, 'conversation', customFilenamePrompt);
         filename = `${result.filename}.md`;
       } catch (err) {
         console.error('Filename generation failed:', err);
@@ -455,6 +471,8 @@ model: ${model}
         activeConversationId = conv.id;
         // Add to conversation list
         conversations = [{ ...conv, message_count: 0 }, ...conversations];
+        // Update URL to include the new conversation ID
+        goto(`/chat/${conv.id}`, { replaceState: true });
       } catch (e) {
         console.error('Failed to create conversation:', e);
         // Continue without persistence
@@ -861,9 +879,13 @@ model: ${model}
       if (conversation.model) {
         selectedModel = conversation.model;
       }
+
+      // Update URL to reflect selected conversation
+      goto(`/chat/${id}`, { replaceState: true });
     } catch (e) {
       console.error('Failed to load conversation:', e);
       error = 'Failed to load conversation';
+      throw e; // Re-throw for callers to handle
     }
   }
 
@@ -873,6 +895,9 @@ model: ${model}
     currentResponse = '';
     sessionStorage.removeItem('mentat_messages');
     sessionStorage.removeItem('mentat_current_response');
+
+    // Update URL to /chat (no conversation ID)
+    goto('/chat', { replaceState: true });
 
     if (inputField) {
       inputField.focus();
@@ -1004,6 +1029,10 @@ model: ${model}
     if (savedFilenameModel) {
       filenameGenerationModel = savedFilenameModel;
     }
+    const savedFilenamePrompt = localStorage.getItem('mentat_filename_prompt');
+    if (savedFilenamePrompt) {
+      customFilenamePrompt = savedFilenamePrompt;
+    }
 
     // Fetch available models
     try {
@@ -1075,9 +1104,21 @@ model: ${model}
 
     // Load projects, conversations, artifacts, and styles
     loadProjects();
-    loadConversations();
+    await loadConversations();
     loadArtifacts();
     loadStyles();
+
+    // If URL has a conversation ID, load that conversation
+    if (data.conversationId) {
+      try {
+        await selectConversation(data.conversationId);
+      } catch (e) {
+        console.error('Failed to load conversation from URL:', e);
+        error = 'Conversation not found or access denied';
+        // Redirect to /chat after showing error
+        setTimeout(() => goto('/chat', { replaceState: true }), 2000);
+      }
+    }
 
     // Focus input field after a short delay to ensure it's rendered
     setTimeout(() => {
@@ -1435,35 +1476,6 @@ model: ${model}
                 <span class="action-icon">{isGeneratingFilename ? '...' : '⬇'}</span>
                 <span class="action-label">Download as Markdown</span>
               </button>
-              <div class="action-divider"></div>
-              <button
-                class="action-option action-toggle"
-                on:click={() => {
-                  enableLlmFilenames = !enableLlmFilenames;
-                  localStorage.setItem('mentat_enable_llm_filenames', enableLlmFilenames);
-                }}
-              >
-                <span class="action-icon">{enableLlmFilenames ? '✓' : ' '}</span>
-                <span class="action-label">AI-generated filenames</span>
-              </button>
-              {#if enableLlmFilenames}
-                <div class="action-model-select">
-                  <select
-                    bind:value={filenameGenerationModel}
-                    on:change={() => localStorage.setItem('mentat_filename_model', filenameGenerationModel)}
-                  >
-                    <optgroup label="Local (Ollama)">
-                      <option value="ollama:llama3.2">Llama 3.2</option>
-                      <option value="ollama:qwen2.5:3b">Qwen 2.5 3B</option>
-                      <option value="ollama:gemma2:2b">Gemma 2 2B</option>
-                    </optgroup>
-                    <optgroup label="OpenRouter">
-                      <option value="moonshotai/kimi-k2:free">Kimi K2 (Free)</option>
-                      <option value="anthropic/claude-3-haiku">Claude Haiku</option>
-                    </optgroup>
-                  </select>
-                </div>
-              {/if}
             </div>
           {/if}
         </div>
@@ -1484,32 +1496,47 @@ model: ${model}
               </div>
               <div class="message-metadata">
                 <span class="timestamp">{msg.timestamp.toLocaleTimeString()}</span>
-                {#if msg.role === 'user'}
-                  <button
-                    class="retry-btn"
-                    on:click={() => retry(msg)}
-                    disabled={!connected}
-                    title="Retry this message"
-                  >
-                    ↻
-                  </button>
-                {/if}
                 <span class="metadata-spacer"></span>
-                <div class="message-export-btns">
-                  <button
-                    class="export-btn"
-                    on:click={() => copyMessageAsMarkdown(msg)}
-                    title="Copy as Markdown"
-                  >
-                    📋
-                  </button>
-                  <button
-                    class="export-btn"
-                    on:click={() => downloadMessageAsMarkdown(msg)}
-                    title="Download as Markdown"
-                  >
-                    ⬇
-                  </button>
+                <div class="message-action-btns">
+                  {#if msg.role === 'assistant'}
+                    <button
+                      class="action-btn"
+                      on:click={() => copyMessageAsMarkdown(msg)}
+                      title="Copy as Markdown"
+                    >
+                      <span class="icon-copy">⎘</span>
+                    </button>
+                    <button
+                      class="action-btn"
+                      on:click={() => downloadMessageAsMarkdown(msg)}
+                      title="Download as Markdown"
+                    >
+                      🖫
+                    </button>
+                  {:else}
+                    <button
+                      class="action-btn"
+                      on:click={() => editMessage(msg)}
+                      title="Edit"
+                    >
+                      ✎
+                    </button>
+                    <button
+                      class="action-btn"
+                      on:click={() => copyMessageAsText(msg)}
+                      title="Copy"
+                    >
+                      <span class="icon-copy">⎘</span>
+                    </button>
+                    <button
+                      class="action-btn"
+                      on:click={() => retry(msg)}
+                      disabled={!connected}
+                      title="Retry this message"
+                    >
+                      ↻
+                    </button>
+                  {/if}
                 </div>
               </div>
             </div>
@@ -2620,15 +2647,16 @@ model: ${model}
     50% { opacity: 1; }
   }
 
-  .retry-btn {
+  .action-btn {
     background: none;
     border: none;
     color: #666;
     cursor: pointer;
     font-size: 1rem;
+    line-height: 1;
     padding: 0;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2636,12 +2664,12 @@ model: ${model}
     transition: all 0.2s;
   }
 
-  .retry-btn:hover:not(:disabled) {
+  .action-btn:hover:not(:disabled) {
     color: #3b82f6;
     background: rgba(59, 130, 246, 0.1);
   }
 
-  .retry-btn:disabled {
+  .action-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
   }
@@ -3349,83 +3377,20 @@ model: ${model}
     cursor: not-allowed;
   }
 
-  .action-divider {
-    height: 1px;
-    background: #333;
-    margin: 0.25rem 0;
-  }
-
-  .action-toggle .action-icon {
-    font-weight: bold;
-    color: #10b981;
-  }
-
-  .action-model-select {
-    padding: 0.25rem 0.5rem 0.5rem;
-  }
-
-  .action-model-select select {
-    width: 100%;
-    padding: 0.375rem 0.5rem;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 0.375rem;
-    color: #e5e5e5;
-    font-size: 0.8125rem;
-    cursor: pointer;
-  }
-
-  .action-model-select select:hover {
-    border-color: #555;
-  }
-
-  .action-model-select select:focus {
-    outline: none;
-    border-color: #3b82f6;
-  }
-
-  .action-model-select optgroup {
-    color: #888;
-    font-weight: 600;
-  }
-
-  .action-model-select option {
-    background: #1a1a1a;
-    color: #e5e5e5;
-    padding: 0.25rem;
-  }
-
   /* Message metadata spacer and export buttons */
   .metadata-spacer {
     flex: 1;
   }
 
-  .message-export-btns {
+  .message-action-btns {
     display: flex;
-    gap: 0.25rem;
-    opacity: 0;
-    transition: opacity 0.15s;
+    align-items: center;
+    gap: 1px;
   }
 
-  .message-wrapper:hover .message-export-btns {
-    opacity: 1;
-  }
-
-  .export-btn {
-    padding: 0.125rem 0.375rem;
-    background: transparent;
-    border: none;
-    border-radius: 0.25rem;
-    color: #666;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    line-height: 1;
-  }
-
-  .export-btn:hover {
-    background: #2a2a2a;
-    color: #e5e5e5;
+  .icon-copy {
+    position: relative;
+    top: 2px;
   }
 
   /* Toast notification */

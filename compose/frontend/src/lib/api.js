@@ -312,13 +312,18 @@ export class MentatAPI {
 	 * @param {string} content - Content to generate filename for
 	 * @param {string} model - Model to use (default: ollama:llama3.2)
 	 * @param {string} contentType - Type of content ('message' or 'conversation')
+	 * @param {string|null} prompt - Custom prompt template (optional)
 	 * @returns {Promise<{filename: string}>}
 	 */
-	async generateFilename(content, model = 'ollama:llama3.2', contentType = 'conversation') {
+	async generateFilename(content, model = 'ollama:llama3.2', contentType = 'conversation', prompt = null) {
+		const body = { content, model, content_type: contentType };
+		if (prompt) {
+			body.prompt = prompt;
+		}
 		const res = await fetch(`${this.baseURL}/conversations/generate-filename`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ content, model, content_type: contentType })
+			body: JSON.stringify(body)
 		});
 		if (!res.ok) {
 			throw new Error(`Failed to generate filename: ${res.statusText}`);

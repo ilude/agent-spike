@@ -327,9 +327,8 @@ async def poll_and_process():
     archive_writer = create_local_archive_writer(base_dir=ARCHIVE_BASE)
     archive_manager = create_archive_manager(writer=archive_writer)
 
-    # Initialize MinIO storage
-    minio_client = create_minio_client(url=MINIO_URL, bucket=MINIO_BUCKET)
-    minio_client.ensure_bucket()
+    # Initialize MinIO storage (config loaded from env vars)
+    minio_client = create_minio_client()
     storage = ArchiveStorage(minio_client)
 
     # Semaphore to limit concurrent workers
