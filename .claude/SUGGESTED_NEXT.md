@@ -582,3 +582,66 @@ if ":" in record_id:
 - **Query capabilities**: Can search conversations, join with projects, etc.
 - **Backup simplicity**: SurrealDB export + MinIO bucket = complete backup
 - **Future features**: Conversation embeddings, semantic search over chat history
+
+---
+
+## 7. Implement Memory Service with SurrealDB
+
+**Vision Alignment**: ⭐⭐⭐⭐⭐ (Essential for personalized AI assistant)
+**Worktree Suitability**: ⭐⭐⭐⭐⭐ (Self-contained, no conflicts)
+**Complexity**: Medium (2-3 days)
+**Status**: TODO
+
+### Background
+
+The old `compose/services/memory.py` used JSON file storage (`compose/data/memory/`) for ChatGPT-style auto-extraction of user preferences. This was deleted during cleanup (2025-11-23) since all persistent data should use SurrealDB.
+
+### What
+
+Implement a memory service that:
+- Auto-extracts user preferences/facts from conversations (using Claude Haiku)
+- Stores memories in SurrealDB with vector embeddings for semantic retrieval
+- Retrieves relevant memories based on conversation context
+- Supports memory categories: preferences, facts, context, instructions
+
+### SurrealDB Schema
+
+```surql
+DEFINE TABLE memory SCHEMAFULL;
+DEFINE FIELD content ON TABLE memory TYPE string;           -- "User prefers concise code examples"
+DEFINE FIELD category ON TABLE memory TYPE string;          -- "preference" | "fact" | "context" | "instruction"
+DEFINE FIELD embedding ON TABLE memory TYPE array<float>;   -- For semantic retrieval
+DEFINE FIELD source_conversation_id ON TABLE memory TYPE option<string>;
+DEFINE FIELD relevance_score ON TABLE memory TYPE float DEFAULT 1.0;
+DEFINE FIELD created_at ON TABLE memory TYPE datetime VALUE time::now();
+DEFINE FIELD updated_at ON TABLE memory TYPE datetime VALUE time::now();
+
+-- HNSW index for semantic search
+DEFINE INDEX idx_memory_embedding ON TABLE memory FIELDS embedding HNSW DIMENSION 1024;
+DEFINE INDEX idx_memory_category ON TABLE memory COLUMNS category;
+```
+
+### Files to Create
+
+- `compose/services/memory/` - New service package
+  - `__init__.py` - Public API
+  - `models.py` - MemoryItem, MemorySearchResult models
+  - `repository.py` - SurrealDB CRUD operations
+  - `extractor.py` - LLM-based memory extraction from conversations
+  - `retriever.py` - Semantic search for relevant memories
+
+### API Integration
+
+Add to chat router:
+1. Before generating response: retrieve relevant memories
+2. Include memories in system prompt context
+3. After conversation: extract new memories from exchange
+
+### Success Criteria
+
+- [ ] Memories stored in SurrealDB with embeddings
+- [ ] Can retrieve memories semantically (not just keyword match)
+- [ ] Auto-extraction from conversations works
+- [ ] Memory deduplication (don't store same fact twice)
+- [ ] Memory relevance decay over time (optional)
+- [ ] Tests for extraction and retrieval
