@@ -400,12 +400,13 @@ async def semantic_search(
         video_id,
         title,
         url,
+        channel_name,
         archive_path,
         vector::similarity::cosine(embedding, $embedding) AS similarity_score
     FROM video
-    WHERE embedding != NULL
+    WHERE embedding IS NOT NONE AND array::len(embedding) > 0
     ORDER BY similarity_score DESC
-    LIMIT $(limit);
+    LIMIT $limit;
     """
 
     results = await execute_query(query, {
@@ -420,6 +421,7 @@ async def semantic_search(
             title=r.get("title", ""),
             url=r.get("url", ""),
             similarity_score=float(r.get("similarity_score", 0.0)),
+            channel_name=r.get("channel_name"),
             archive_path=r.get("archive_path"),
         ))
 

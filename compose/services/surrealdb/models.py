@@ -104,4 +104,5 @@ class VectorSearchResult(BaseModel):
     title: str
     url: str
     similarity_score: float
+    channel_name: Optional[str] = None
     archive_path: Optional[str] = None
