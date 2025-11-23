@@ -54,11 +54,11 @@ class LocalArchiveReader:
         """Initialize local archive reader.
 
         Args:
-            base_dir: Base directory for archives (default: projects/data/archive)
+            base_dir: Base directory for archives (default: compose/data/archive)
         """
         if base_dir is None:
-            # Default to projects/data/archive in project root
-            base_dir = Path(__file__).parent.parent.parent.parent / "projects" / "data" / "archive"
+            # Default to compose/data/archive in project root
+            base_dir = Path(__file__).parent.parent.parent.parent / "compose" / "data" / "archive"
 
         self.base_dir = Path(base_dir)
         self.youtube_dir = self.base_dir / "youtube"

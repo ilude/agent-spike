@@ -34,7 +34,7 @@ async def ingest_video(url: str, collection_name: str = "cached_content"):
 
     # Initialize cache and archive
     cache = create_qdrant_cache(collection_name=collection_name)
-    archive = create_local_archive_writer()  # Uses default projects/data/archive
+    archive = create_local_archive_writer()  # Uses default compose/data/archive
     print(f"[OK] Connected to Qdrant collection: {collection_name}")
 
     # Extract video ID

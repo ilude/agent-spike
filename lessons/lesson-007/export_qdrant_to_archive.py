@@ -1,7 +1,7 @@
 """Export existing Qdrant data to archive storage.
 
 This script reads all cached videos from Qdrant and creates archive files
-in projects/data/archive/youtube/. This is a one-time migration to establish
+in compose/data/archive/youtube/. This is a one-time migration to establish
 the archive as the source of truth.
 
 Run with: uv run python export_qdrant_to_archive.py

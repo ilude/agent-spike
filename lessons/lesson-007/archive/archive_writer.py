@@ -77,7 +77,7 @@ class LocalArchiveWriter:
     """Local filesystem implementation of ArchiveWriter.
 
     Stores archives as JSON files organized by month:
-        projects/data/archive/youtube/2024-11/VIDEO_ID.json
+        compose/data/archive/youtube/2024-11/VIDEO_ID.json
 
     Archives are stored in plain JSON (not compressed) for transparency.
     Compression can be added later if disk space becomes an issue.
@@ -87,12 +87,12 @@ class LocalArchiveWriter:
         """Initialize local archive writer.
 
         Args:
-            base_dir: Base directory for archives (default: projects/data/archive)
+            base_dir: Base directory for archives (default: compose/data/archive)
         """
         if base_dir is None:
-            # Default to projects/data/archive in project root
+            # Default to compose/data/archive in project root
             # Navigate up from lesson-007/archive/ to project root
-            base_dir = Path(__file__).parent.parent.parent.parent / "projects" / "data" / "archive"
+            base_dir = Path(__file__).parent.parent.parent.parent / "compose" / "data" / "archive"
 
         self.base_dir = Path(base_dir)
         self.youtube_dir = self.base_dir / "youtube"

@@ -65,7 +65,7 @@ For each video:
 
 1. **Check cache** - Skip if already processed
 2. **Fetch transcript** - Via Webshare proxy (no rate limit)
-3. **Archive transcript** - Save to `projects/data/archive/` (JSON)
+3. **Archive transcript** - Save to `compose/data/archive/` (JSON)
 4. **Generate tags** - Claude Haiku LLM
 5. **Archive LLM output** - Save with cost tracking
 6. **Cache result** - Store in Qdrant for semantic search
@@ -103,12 +103,12 @@ This eliminates YouTube rate limiting completely.
 ## Data Storage
 
 **Archive** (Expensive data):
-- `projects/data/archive/YYYY-MM/video_id.json`
+- `compose/data/archive/YYYY-MM/video_id.json`
 - Immutable JSON files
 - Contains: transcript, LLM outputs, metadata, costs
 
 **Cache** (Fast retrieval):
-- `projects/data/qdrant/`
+- `compose/data/qdrant/`
 - Semantic search enabled
 - Can be rebuilt from archive if needed
 
@@ -137,5 +137,5 @@ But there's no reason to use it now that we have proxy support!
 1. Run `make ingest`
 2. Let it process the CSV in background
 3. Use REPL for manual URLs as needed
-4. Check archive: `ls projects/data/archive/`
+4. Check archive: `ls compose/data/archive/`
 5. Search cache: Use `list` or `count` commands

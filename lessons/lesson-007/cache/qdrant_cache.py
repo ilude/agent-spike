@@ -51,12 +51,12 @@ class QdrantCache:
 
         Args:
             collection_name: Name of the Qdrant collection
-            cache_dir: Directory for Qdrant storage (default: projects/data/qdrant)
+            cache_dir: Directory for Qdrant storage (default: compose/data/qdrant)
             embedding_model: SentenceTransformer model for embeddings
         """
         if cache_dir is None:
-            # Default to projects/data/qdrant in project root
-            cache_dir = Path(__file__).parent.parent.parent.parent / "projects" / "data" / "qdrant"
+            # Default to compose/data/qdrant in project root (NOTE: Qdrant deprecated, use SurrealDB)
+            cache_dir = Path(__file__).parent.parent.parent.parent / "compose" / "data" / "qdrant"
 
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)

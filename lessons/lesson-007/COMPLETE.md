@@ -19,7 +19,7 @@ A comprehensive caching system for YouTube video content with semantic search ca
    - CacheManager protocol (typing.Protocol for dependency injection)
    - QdrantCache - Semantic search with sentence-transformers
    - InMemoryCache - Fallback cache implementation
-   - Centralized storage in `projects/data/qdrant/`
+   - Centralized storage in `compose/data/qdrant/`
 
 3. **Ingestion Pipeline** - Multiple ingestion workflows
    - `ingest_repl.py` - Interactive REPL for ingesting videos
@@ -41,7 +41,7 @@ A comprehensive caching system for YouTube video content with semantic search ca
 - YouTube transcripts saved immediately after fetch
 - LLM outputs archived with cost tracking
 - Processing records for version management
-- Archive location: `projects/data/archive/youtube/YYYY-MM/`
+- Archive location: `compose/data/archive/youtube/YYYY-MM/`
 
 ### Semantic Search
 - sentence-transformers embeddings (all-MiniLM-L6-v2)
@@ -148,8 +148,8 @@ Data Flow:
 - **Lines**: ~2000 lines (services + scripts)
 - **Dependencies**: qdrant-client, sentence-transformers, tqdm
 - **Data Cached**: 49+ videos successfully cached
-- **Archive Storage**: projects/data/archive/youtube/
-- **Cache Storage**: projects/data/qdrant/
+- **Archive Storage**: compose/data/archive/youtube/
+- **Cache Storage**: compose/data/qdrant/
 
 ## Challenges & Solutions
 
@@ -180,8 +180,8 @@ All tests passing
 
 ### Ingestion Results
 - 49+ videos successfully cached
-- Archive files in projects/data/archive/youtube/2025-11/
-- Qdrant cache in projects/data/qdrant/
+- Archive files in compose/data/archive/youtube/2025-11/
+- Qdrant cache in compose/data/qdrant/
 - No data loss during ingestion
 
 ## Usage Examples
