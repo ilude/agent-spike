@@ -91,3 +91,4 @@ compose/data/logs/
 .session/
 *.log*.sqlite-shm
 *.sqlite-wal
+compose/data/queues/completed/*.csv
