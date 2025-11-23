@@ -57,9 +57,15 @@ compose/data/*
 !compose/data/*.csv
 !compose/data/*.py
 !compose/data/README.md
-!compose/data/archive/
+# Archive data (YouTube transcripts, processing records) - ignore generated content
+compose/data/archive/youtube/
+compose/data/archive/webpages/
 !compose/data/qdrant_storage/
 !compose/data/queues/
+# Ignore generated queue files (CSVs, processing state)
+compose/data/queues/*.csv
+compose/data/queues/pending/
+compose/data/queues/completed/
 compose/data/queues/brave_history/*.tmp.sqlite
 compose/data/queues/brave_history/brave_history.*.sqlite
 !compose/data/queues/brave_history/.sync_state
