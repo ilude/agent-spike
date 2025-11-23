@@ -564,6 +564,12 @@
     ? conversations.filter(c => activeProject.conversation_ids?.includes(c.id))
     : conversations;
 
+  // Reactive model name - updates when selectedModel or availableModels changes
+  $: selectedModelName = (() => {
+    const model = availableModels.find(m => m.id === selectedModel);
+    return model ? model.name : selectedModel.split('/').pop();
+  })();
+
   // ============ Canvas/Artifact Functions ============
 
   async function loadArtifacts() {
@@ -1126,7 +1132,7 @@
           on:click={toggleModelDropdown}
           disabled={modelsLoading || isStreaming}
         >
-          <span class="model-name">{getSelectedModelName()}</span>
+          <span class="model-name">{selectedModelName}</span>
           <span class="dropdown-arrow">▼</span>
         </button>
 
