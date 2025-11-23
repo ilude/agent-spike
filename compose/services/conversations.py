@@ -173,12 +173,8 @@ class ConversationService:
         Returns:
             The conversation or None if not found
         """
-        # Get conversation metadata
-        conv_query = """
-        SELECT * FROM conversation WHERE id = $id LIMIT 1;
-        """
-
-        conv_results = await execute_query(conv_query, {"id": conversation_id})
+        # Get conversation metadata using record ID syntax
+        conv_results = await execute_query(f"SELECT * FROM conversation:`{conversation_id}`")
         if not conv_results:
             return None
 
@@ -260,11 +256,11 @@ class ConversationService:
             updates.append("model = $model")
             params["model"] = model
 
-        query = f"""
-        UPDATE conversation SET {", ".join(updates)} WHERE id = $id;
-        """
-
-        await execute_query(query, params)
+        # Use record ID syntax for UPDATE
+        set_clause = ", ".join(updates)
+        # Remove id from params since we use record ID syntax
+        params.pop("id", None)
+        await execute_query(f"UPDATE conversation:`{conversation_id}` SET {set_clause}", params)
 
         # Return updated conversation
         return await self.get_conversation(conversation_id)
@@ -278,25 +274,19 @@ class ConversationService:
         Returns:
             True if deleted, False if not found
         """
-        # Check if conversation exists
-        check_query = """
-        SELECT id FROM conversation WHERE id = $id LIMIT 1;
-        """
-        results = await execute_query(check_query, {"id": conversation_id})
+        # Check if conversation exists using record ID syntax
+        results = await execute_query(f"SELECT id FROM conversation:`{conversation_id}`")
         if not results:
             return False
 
         # Delete messages first (referential integrity)
-        msg_query = """
-        DELETE FROM message WHERE conversation_id = $conversation_id;
-        """
-        await execute_query(msg_query, {"conversation_id": conversation_id})
+        await execute_query(
+            "DELETE FROM message WHERE conversation_id = $conversation_id",
+            {"conversation_id": conversation_id}
+        )
 
-        # Delete conversation
-        conv_query = """
-        DELETE FROM conversation WHERE id = $id;
-        """
-        await execute_query(conv_query, {"id": conversation_id})
+        # Delete conversation using record ID syntax
+        await execute_query(f"DELETE conversation:`{conversation_id}`")
 
         return True
 
@@ -318,11 +308,8 @@ class ConversationService:
         Returns:
             The created message or None if conversation not found
         """
-        # Check if conversation exists
-        check_query = """
-        SELECT id FROM conversation WHERE id = $id LIMIT 1;
-        """
-        results = await execute_query(check_query, {"id": conversation_id})
+        # Check if conversation exists using record ID syntax
+        results = await execute_query(f"SELECT id FROM conversation:`{conversation_id}`")
         if not results:
             return None
 
@@ -349,11 +336,8 @@ class ConversationService:
             "sources": sources or [],
         })
 
-        # Update conversation updated_at
-        update_query = """
-        UPDATE conversation SET updated_at = time::now() WHERE id = $id;
-        """
-        await execute_query(update_query, {"id": conversation_id})
+        # Update conversation updated_at using record ID syntax
+        await execute_query(f"UPDATE conversation:`{conversation_id}` SET updated_at = time::now()")
 
         return Message(
             id=message_id,
