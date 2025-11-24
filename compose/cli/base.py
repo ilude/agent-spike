@@ -34,8 +34,8 @@ def setup_script_environment(
     Example (minimal script):
         >>> from compose.cli.base import setup_script_environment
         >>> setup_script_environment()  # That's it!
-        >>> from compose.services.cache import create_qdrant_cache
-        >>> cache = create_qdrant_cache()
+        >>> from compose.services.surrealdb import repository
+        >>> video = await repository.get_video("dQw4w9WgXcQ")
 
     Example (script needing agents):
         >>> from compose.cli.base import setup_script_environment

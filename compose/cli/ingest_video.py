@@ -203,8 +203,14 @@ async def ingest_single_video(
         # Store in SurrealDB with embedding
         print("[6/6] Storing in SurrealDB with embeddings...")
 
-        # Generate global embedding from transcript summary
-        summary_text = f"{tags_data.get('title', '')} {tags_data.get('summary', '')} {' '.join(tags_data.get('subject_matter', []))}"
+        # Generate global embedding from transcript summary + metadata
+        # Include video ID, channel, title, summary, and subject tags for better search
+        channel_name = youtube_metadata.get("channel_title", "")
+        title = youtube_metadata.get("title") or tags_data.get("title", "")
+        summary = tags_data.get("summary", "")
+        subjects = " ".join(tags_data.get("subject_matter", []))
+
+        summary_text = f"Video ID: {video_id}\nChannel: {channel_name}\nTitle: {title}\nSummary: {summary}\nTopics: {subjects}"
         global_embedding = global_embedder.embed(summary_text)
         print(f"  [OK] Generated global embedding ({len(global_embedding)} dims)")
 

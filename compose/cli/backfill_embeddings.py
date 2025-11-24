@@ -79,7 +79,7 @@ def generate_embedding(text: str, max_chars: int = 8000) -> list[float]:
 async def get_videos_without_embeddings(limit: int = 0) -> list[dict]:
     """Get videos that need embeddings."""
     query = """
-    SELECT video_id, url, title, archive_path, updated_at
+    SELECT video_id, url, title, channel_name, archive_path, updated_at
     FROM video
     WHERE embedding IS NONE OR array::len(embedding) = 0
     ORDER BY updated_at ASC
@@ -108,14 +108,39 @@ async def update_video_embedding(video_id: str, embedding: list[float]) -> bool:
     return len(result) > 0
 
 
-def get_transcript_from_minio(archive_path: str, minio_client) -> str | None:
-    """Fetch transcript from MinIO archive."""
+def get_metadata_text_from_minio(archive_path: str, video_id: str, title: str, channel: str, minio_client) -> str | None:
+    """Fetch video metadata and build embedding text from MinIO archive or SurrealDB.
+
+    Args:
+        archive_path: Path to archive in MinIO (may not exist for older videos)
+        video_id: Video ID for structured text
+        title: Video title from SurrealDB
+        channel: Channel name from SurrealDB
+        minio_client: MinIO client instance
+
+    Returns:
+        Formatted text including video ID, channel, title, summary, and topics
+    """
     try:
+        # Try to get full metadata from archive first
         archive_data = minio_client.get_json(archive_path)
-        return archive_data.get("raw_transcript", "")
+
+        # Extract metadata
+        youtube_meta = archive_data.get("youtube_metadata", {})
+        llm_outputs = archive_data.get("llm_outputs", {})
+        metadata_output = llm_outputs.get("metadata", {})
+
+        # Build structured text matching ingest format
+        channel_name = youtube_meta.get("channel_title", "") or channel
+        video_title = youtube_meta.get("title") or metadata_output.get("title", "") or title
+        summary = metadata_output.get("summary", "")
+        subjects = " ".join(metadata_output.get("subject_matter", []))
+
+        return f"Video ID: {video_id}\nChannel: {channel_name}\nTitle: {video_title}\nSummary: {summary}\nTopics: {subjects}"
     except Exception as e:
-        logger.warning(f"Failed to get transcript from {archive_path}: {e}")
-        return None
+        # Fallback: use basic metadata from SurrealDB
+        logger.debug(f"Archive not found, using basic metadata for {video_id}: {e}")
+        return f"Video ID: {video_id}\nChannel: {channel}\nTitle: {title}"
 
 
 @app.command()
@@ -182,26 +207,24 @@ def backfill(
 
             for video in videos:
                 video_id = video.get("video_id")
-                archive_path = video.get("archive_path")
-
-                if not archive_path:
-                    progress.console.print(f"[yellow]Skipping {video_id}: no archive_path[/]")
-                    skipped += 1
-                    progress.update(task, advance=1)
-                    continue
+                archive_path = video.get("archive_path", "")
+                title = video.get("title", "")
+                channel = video.get("channel_name", "")
 
                 try:
-                    # Get transcript from MinIO
-                    transcript = get_transcript_from_minio(archive_path, minio_client)
+                    # Get metadata text (tries archive first, falls back to basic metadata)
+                    metadata_text = get_metadata_text_from_minio(
+                        archive_path, video_id, title, channel, minio_client
+                    )
 
-                    if not transcript:
-                        progress.console.print(f"[yellow]Skipping {video_id}: no transcript[/]")
+                    if not metadata_text:
+                        progress.console.print(f"[yellow]Skipping {video_id}: no metadata[/]")
                         skipped += 1
                         progress.update(task, advance=1)
                         continue
 
-                    # Generate embedding
-                    embedding = generate_embedding(transcript)
+                    # Generate embedding from metadata
+                    embedding = generate_embedding(metadata_text)
 
                     # Store in SurrealDB
                     await update_video_embedding(video_id, embedding)
