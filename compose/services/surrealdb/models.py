@@ -9,7 +9,7 @@ Models for:
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class VideoRecord(BaseModel):
@@ -51,10 +51,7 @@ class VideoRecord(BaseModel):
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
 
-    class Config:
-        """Pydantic configuration."""
-
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class ChannelRecord(BaseModel):
