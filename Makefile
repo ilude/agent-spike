@@ -278,6 +278,11 @@ gpu-backup:
 	@echo "Backing up GPU server config..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/backup.yml
 
+## Deploy observability stack (Loki, Prometheus, Tempo, Grafana) to GPU server
+gpu-deploy-observability:
+	@echo "Deploying observability stack to GPU server..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy-observability.yml
+
 ## Open Ansible shell for manual commands
 gpu-shell:
 	@cd infra/ansible && docker compose run --rm ansible bash
