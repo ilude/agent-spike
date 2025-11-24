@@ -20,6 +20,7 @@ Usage:
 
 import sys
 import json
+import asyncio
 from pathlib import Path
 from datetime import datetime
 
@@ -28,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from compose.cli.base import setup_script_environment
 setup_script_environment()
 
-from compose.services.analytics import create_pattern_tracker
+from compose.services.analytics import create_async_pattern_tracker
 
 
 # Progress tracking
@@ -116,7 +117,7 @@ def show_batch_progress(progress: dict) -> None:
     print(f"\n{'='*70}\n")
 
 
-def show_summary(report: dict) -> None:
+async def show_summary(report: dict) -> None:
     """Show quick summary of pattern learning status.
 
     Args:
@@ -138,7 +139,7 @@ def show_summary(report: dict) -> None:
     print()
 
 
-def show_detailed(report: dict) -> None:
+async def show_detailed(report: dict) -> None:
     """Show detailed pattern statistics and effectiveness.
 
     Args:
@@ -193,16 +194,17 @@ def show_detailed(report: dict) -> None:
     print(f"{'='*70}\n")
 
 
-def show_full_report(report: dict) -> None:
+async def show_full_report(report: dict) -> None:
     """Show complete pattern effectiveness report.
 
     Args:
         report: Pattern effectiveness report from PatternTracker
     """
-    from compose.services.analytics import create_pattern_tracker
+    from compose.services.analytics import create_async_pattern_tracker
 
     # This uses the same display logic as filter_description_urls.py --show-pattern-stats
-    tracker = create_pattern_tracker()
+    tracker = await create_async_pattern_tracker()
+    await tracker.init_schema()
 
     print(f"{'='*70}")
     print(f"Pattern Effectiveness Report")
@@ -234,7 +236,7 @@ def show_full_report(report: dict) -> None:
     print(f"{'='*70}\n")
 
 
-def main():
+async def main():
     """Main entry point."""
     import argparse
 
@@ -260,7 +262,8 @@ def main():
     args = parser.parse_args()
 
     # Initialize pattern tracker
-    pattern_tracker = create_pattern_tracker()
+    pattern_tracker = await create_async_pattern_tracker()
+    await pattern_tracker.init_schema()
 
     try:
         # Check for batch processing progress
@@ -269,17 +272,17 @@ def main():
             show_batch_progress(progress)
 
         # Get pattern effectiveness report
-        report = pattern_tracker.get_pattern_effectiveness_report()
+        report = await pattern_tracker.get_pattern_effectiveness_report()
 
         if args.summary:
-            show_summary(report)
+            await show_summary(report)
         elif args.detailed:
-            show_detailed(report)
+            await show_detailed(report)
         elif args.full:
-            show_full_report(report)
+            await show_full_report(report)
         else:
             # Default: show detailed view
-            show_detailed(report)
+            await show_detailed(report)
 
     except KeyboardInterrupt:
         print("\n\nInterrupted by user")
@@ -292,4 +295,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

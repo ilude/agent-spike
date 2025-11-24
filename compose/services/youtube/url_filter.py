@@ -270,7 +270,7 @@ If confidence <= 0.7, omit suggested_pattern field."""
     return classification, confidence, reason, suggested_pattern, cost_usd
 
 
-def filter_urls(
+async def filter_urls(
     description: str,
     video_context: dict,
     video_id: Optional[str] = None,
@@ -308,10 +308,10 @@ def filter_urls(
 
     Example:
         >>> from compose.services.analytics import create_pattern_tracker
-        >>> tracker = create_pattern_tracker()
+        >>> tracker = await create_pattern_tracker()
         >>> desc = "Check https://github.com/user/repo and https://gumroad.com/product"
         >>> context = {"video_title": "Tutorial"}
-        >>> result = filter_urls(desc, context, video_id="abc123", pattern_tracker=tracker)
+        >>> result = await filter_urls(desc, context, video_id="abc123", pattern_tracker=tracker)
         >>> result['content_urls']
         ['https://github.com/user/repo']
     """
@@ -339,7 +339,7 @@ def filter_urls(
     # Record heuristic blocks (if pattern tracker provided)
     if pattern_tracker and video_id:
         for url in blocked_urls:
-            pattern_tracker.record_classification(
+            await pattern_tracker.record_classification(
                 url=url,
                 video_id=video_id,
                 classification="marketing",  # Heuristic blocks are assumed marketing
@@ -356,7 +356,7 @@ def filter_urls(
     urls_after_learned_patterns = []
     if pattern_tracker:
         for url in remaining_urls:
-            pattern_match = pattern_tracker.check_learned_patterns(url)
+            pattern_match = await pattern_tracker.check_learned_patterns(url)
             if pattern_match:
                 classification, reason, confidence = pattern_match
 
@@ -376,7 +376,7 @@ def filter_urls(
 
                 # Record classification
                 if video_id:
-                    pattern_tracker.record_classification(
+                    await pattern_tracker.record_classification(
                         url=url,
                         video_id=video_id,
                         classification=classification,
@@ -420,7 +420,7 @@ def filter_urls(
 
             # Record classification
             if pattern_tracker and video_id:
-                pattern_tracker.record_classification(
+                await pattern_tracker.record_classification(
                     url=url,
                     video_id=video_id,
                     classification=classification,
@@ -432,7 +432,7 @@ def filter_urls(
 
                 # Add high-confidence patterns to learned patterns
                 if suggested_pattern and confidence >= 0.7:
-                    pattern_tracker.add_learned_pattern(
+                    await pattern_tracker.add_learned_pattern(
                         pattern=suggested_pattern.get("pattern"),
                         pattern_type=suggested_pattern.get("type", "domain"),
                         classification=classification,
@@ -453,7 +453,7 @@ def filter_urls(
 
             # Record error classification
             if pattern_tracker and video_id:
-                pattern_tracker.record_classification(
+                await pattern_tracker.record_classification(
                     url=url,
                     video_id=video_id,
                     classification="marketing",
