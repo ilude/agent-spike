@@ -38,7 +38,7 @@ class VideosListResponse(BaseModel):
 async def list_videos(
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
-    sort_by: str = Query(default="upload_date", regex="^(upload_date|view_count|title)$"),
+    sort_by: str = Query(default="upload_date", pattern="^(upload_date|view_count|title)$"),
     hide_watched: bool = Query(default=False),
 ):
     """
