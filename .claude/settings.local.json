@@ -20,7 +20,8 @@
       "Bash(docker exec:*)",
       "Bash(docker cp:*)",
       "Bash(docker stop:*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(sqlite3:*)"
     ],
     "deny": [],
     "ask": [],
