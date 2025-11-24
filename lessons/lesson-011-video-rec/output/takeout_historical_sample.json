@@ -1,0 +1,406 @@
+{
+  "extracted_at": "2025-11-24T10:45:29.164422",
+  "sample_size": 50,
+  "videos": [
+    {
+      "video_id": "XTDeKtcB_Gc",
+      "title": "The REAL Truth About a U.S. War with China",
+      "channel_name": "Ward Carroll",
+      "channel_url": "https://www.youtube.com/channel/UCiUteckG37fXz0g5h8iZ_0g",
+      "watch_time": "2022-11-07T01:34:35.414Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "9hH9p7v-5g4",
+      "title": "The Best Mouse Bungees for Gamers in 2023: Say Goodbye to Cable Clutter",
+      "channel_name": "TechEmpire",
+      "channel_url": "https://www.youtube.com/channel/UCAxSp8w5r0SCnl7G1lGAGnw",
+      "watch_time": "2023-03-29T01:17:21.948Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "vAjle3c9Xqc",
+      "title": "Build A Full Stack Chatbot in Rust (feat. Leptos & Rustformers)",
+      "channel_name": "Code to the Moon",
+      "channel_url": "https://www.youtube.com/channel/UCjREVt2ZJU8ql-NC9Gu-TJw",
+      "watch_time": "2023-11-03T04:58:20.583Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "VrCPrVI5dCA",
+      "title": "The Pay-To-Win Gaming PC",
+      "channel_name": "Linus Tech Tips",
+      "channel_url": "https://www.youtube.com/channel/UCXuqSBlHAE6Xw-yeJA0Tunw",
+      "watch_time": "2023-01-17T03:34:32.750Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "AEOQiUYNj3E",
+      "title": "Python Automation Series #7 : How to scrap newspapers and retrieve data using newspaper module ?",
+      "channel_name": "BekBrace",
+      "channel_url": "https://www.youtube.com/channel/UC7EVSn5inapL20oPSwAwEUg",
+      "watch_time": "2024-04-09T01:32:30.468Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "9K2THwBdVF0",
+      "title": "How To Kill An Iconic Character - Chris Gore",
+      "channel_name": "Film Courage",
+      "channel_url": "https://www.youtube.com/channel/UCs8o1mdWAfefJkdBg632_tg",
+      "watch_time": "2022-07-26T17:02:28.233Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "oVqjFT54XN8",
+      "title": "Ryan's Harbor Freight U.S. General 5 Drawer Tool Cart Ultimate Toolbox Tour - Tool Box Organization",
+      "channel_name": "Jonesing For Tools",
+      "channel_url": "https://www.youtube.com/channel/UCS_FkglRTBE2oFVDhVPmkdg",
+      "watch_time": "2023-11-03T19:57:55.639Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "KHvuXZB4-Ow",
+      "title": "Windows 11 keeps breaking things",
+      "channel_name": "TechLinked",
+      "channel_url": "https://www.youtube.com/channel/UCeeFfhMcJa1kjtfZAGskOCA",
+      "watch_time": "2023-03-21T02:23:45.172Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "08UyCU6sHys",
+      "title": "Space Is Cancelled...",
+      "channel_name": "TheQuartering",
+      "channel_url": "https://www.youtube.com/channel/UCfwE_ODI1YTbdjkzuSi1Nag",
+      "watch_time": "2023-01-20T18:13:45.770Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "34FjwuYa91o",
+      "title": "'Are You Going To Answer The Questions?': Cruz's Best Witness Grillings Of Past Year | 2021 Rewind",
+      "channel_name": "Forbes Breaking News",
+      "channel_url": "https://www.youtube.com/channel/UCg40OxZ1GYh3u3jBntB6DLg",
+      "watch_time": "2024-07-19T19:57:50.993Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "-nbtOMXQ_gI",
+      "title": "Honored Matres: The Rise of the Dominatrix Sisterhood | Dune Lore Explained",
+      "channel_name": "Nerd Cookies",
+      "channel_url": "https://www.youtube.com/channel/UCXYIDTytNEO3NgDVwdOKjWw",
+      "watch_time": "2024-02-12T01:35:36.895Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "4r9dWJWM4tE",
+      "title": "Basic Training Show NAILS Drill SGTs - \"Drills\" by Vet TV",
+      "channel_name": "Angry Cops",
+      "channel_url": "https://www.youtube.com/channel/UCN3rhkHmloHwqgat8LHk2yg",
+      "watch_time": "2024-11-09T16:25:18.929Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "tq9sCeQNVYc",
+      "title": "Getting started with Ansible 14 - Roles",
+      "channel_name": "Learn Linux TV",
+      "channel_url": "https://www.youtube.com/channel/UCxQKHvKbmSzGMvUrVtJYnUA",
+      "watch_time": "2024-11-22T23:42:51.229Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "Asem0saSjmU",
+      "title": "Trying the most dangerous type of climbing: Trad with @WideBoyz",
+      "channel_name": "Mike Boyd",
+      "channel_url": "https://www.youtube.com/channel/UCIRiWCPZoUyZDbydIqitHtQ",
+      "watch_time": "2023-12-21T02:12:54.470Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "iYunYyTvFUw",
+      "title": "Stuntmen React to Bad & Great Hollywood Stunts 26 (ft. SCOTT ADKINS)",
+      "channel_name": "Corridor Crew",
+      "channel_url": "https://www.youtube.com/channel/UCSpFnDQr88xCZ80N-X7t0nQ",
+      "watch_time": "2022-08-07T23:53:57.384Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "-7UWrIKgmbE",
+      "title": "Torsion Boxes Overrated? - My New BIG Assembly Table",
+      "channel_name": "The Wood Whisperer",
+      "channel_url": "https://www.youtube.com/channel/UCKp44bWWZIiOPShPN_ytShw",
+      "watch_time": "2023-09-17T01:22:19.097Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "6RFRRRJxLmk",
+      "title": "The Giant Hogg Horn That Discovered the Big Bang",
+      "channel_name": "Scott Manley",
+      "channel_url": "https://www.youtube.com/channel/UCxzC4EngIsMrPmbm6Nxvb-A",
+      "watch_time": "2022-04-12T04:04:14.657Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "2FecbRWJ1OM",
+      "title": "KSP 2: Discovering the SECRET STARGATE! The Kraken hated this one...",
+      "channel_name": "Matt Lowne",
+      "channel_url": "https://www.youtube.com/channel/UCiW7-IEQCTqS9l7223whHZA",
+      "watch_time": "2023-02-26T11:33:42.954Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "ZRBJKeRfox8",
+      "title": "5 Misconceptions about Medieval Sieges in Movies",
+      "channel_name": "SandRhoman History",
+      "channel_url": "https://www.youtube.com/channel/UC7pr_dQxm2Ns2KlzRSx5FZA",
+      "watch_time": "2024-10-22T02:44:07.127Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "LdoImzaY6M4",
+      "title": "How to Talk to NPCs! (or Interact with any Object, Open Doors, Push Buttons, Unity Tutorial)",
+      "channel_name": "Code Monkey",
+      "channel_url": "https://www.youtube.com/channel/UCFK6NCbuCIVzA6Yj1G_ZqCg",
+      "watch_time": "2022-10-12T18:07:49.748Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "5qIXfz_FZIU",
+      "title": "The Wall of Storage: a Backlit Hardware Store at Home",
+      "channel_name": "Eiki Martinson",
+      "channel_url": "https://www.youtube.com/channel/UCz7BMgeINKzSSfQ-Ymgo2yA",
+      "watch_time": "2024-05-25T22:23:22.398Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "GCSFXwPx2ms",
+      "title": "Every Member of The Endless Family Explained In Detail",
+      "channel_name": "Tsaava",
+      "channel_url": "https://www.youtube.com/channel/UCg5tgIQRDp-cOB5-lrm0X8g",
+      "watch_time": "2025-07-09T01:31:56.207Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "DGPFwGFMm8Q",
+      "title": "Voters are DITCHING the Democrat Party at unprecedented rate!!!!",
+      "channel_name": "Liberal Hivemind",
+      "channel_url": "https://www.youtube.com/channel/UCIr4vkCsn0tdTW2xZ1jRG1g",
+      "watch_time": "2025-02-24T22:35:30.739Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "2YZ6E7hn45g",
+      "title": "Heat (1995) - Car Chase Scene ft. Moby's New Dawn Fades",
+      "channel_name": "Panzer Runner",
+      "channel_url": "https://www.youtube.com/channel/UCmf49KuQl-wrUsObOA9DJ1A",
+      "watch_time": "2025-01-20T02:55:41.142Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "ivJgijh0fXQ",
+      "title": "Warhammer 40k: SALAMANDERS",
+      "channel_name": "Midwinter Minis",
+      "channel_url": "https://www.youtube.com/channel/UC9XTzwex6rGLVUGS9cLKFLw",
+      "watch_time": "2024-12-31T06:30:00.724Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "kpagayMb3aw",
+      "title": "The One Who Knew: Who First Realised Saruman Turned Evil?",
+      "channel_name": "Realms Unravelled",
+      "channel_url": "https://www.youtube.com/channel/UCTGawHS-MUVEEKll4KIKQFg",
+      "watch_time": "2025-01-09T04:15:34.629Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "5EDB1ZXTvPY",
+      "title": "Upcycling An Old Book: Reclaiming Materials - Making A Piercing Cradle - Making a Pocket Notebook",
+      "channel_name": "Four Keys Book Arts",
+      "channel_url": "https://www.youtube.com/channel/UCwjz7_xH_1Sehw5W-qIDLeg",
+      "watch_time": "2024-01-12T04:02:25.770Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "d_cOb5ptPwA",
+      "title": "SpaceX's Private Spaceflights Take Off - RFA's Rocket Burns Up - Starliner Still Waiting",
+      "channel_name": "Scott Manley",
+      "channel_url": "https://www.youtube.com/channel/UCxzC4EngIsMrPmbm6Nxvb-A",
+      "watch_time": "2024-08-22T04:26:01.408Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "IBjePjx8V9o",
+      "title": "The Legend of Twinkleberry - RPG War Stories",
+      "channel_name": "Seth Skorkowsky",
+      "channel_url": "https://www.youtube.com/channel/UCQs8-UJ7IHsrzhQ-OQOYBmg",
+      "watch_time": "2024-09-30T18:16:44.632Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "eewlYa6IQPg",
+      "title": "How Strong is Forged Carbon Fibre? Forged Carbon vs Aluminium vs Markforged vs Onyx",
+      "channel_name": "Easy Composites Ltd",
+      "channel_url": "https://www.youtube.com/channel/UC7F-suscQATns3qRYHpyijw",
+      "watch_time": "2022-12-06T04:07:19.642Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "yX8uwjDSwwM",
+      "title": "How to Shade in Procreate | Tattoo Tutorial for stunning designs",
+      "channel_name": "Geometrical Supply",
+      "channel_url": "https://www.youtube.com/channel/UCIIcYNqbrYCpfSy2p8aOAYw",
+      "watch_time": "2024-02-13T03:02:43.829Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "R344Mu_SnQw",
+      "title": "Nether Portal & Exploration In My Minecraft Forever World | Episode 5",
+      "channel_name": "Kingelffe",
+      "channel_url": "https://www.youtube.com/channel/UC-xYT1pHneV8_rFMXqaTaYw",
+      "watch_time": "2025-06-10T19:18:37.115Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "6akmv1bsz1M",
+      "title": "Something Strange Happens When You Follow Einstein's Math",
+      "channel_name": "Veritasium",
+      "channel_url": "https://www.youtube.com/channel/UCHnyfMqiRRG1u-2MsSQLbXA",
+      "watch_time": "2025-07-08T20:26:54.819Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "Qg7dMJNQrXM",
+      "title": "BELIEVER | IMAGINE DRAGONS - DRUM COVER",
+      "channel_name": "El Estepario Siberiano",
+      "channel_url": "https://www.youtube.com/channel/UCskD50ri3723Tk1SkS-qAIA",
+      "watch_time": "2024-01-13T18:23:28.078Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "9qLhSjKMTjE",
+      "title": "23 Mar: Genius. Ukrainians USE JAVELINS TO DESTROY RUSSIAN ATGM SYSTEMS | War in Ukraine Explained",
+      "channel_name": "RFU News \u2014 Reporting from Ukraine",
+      "channel_url": "https://www.youtube.com/channel/UCcNB1tZYpeDetqCadElv9Ow",
+      "watch_time": "2023-03-24T02:16:32.010Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "t9aMSNTsi1c",
+      "title": "DEI Training Investigation EXPOSES Rockstar: GTA6 Has Been Compromised\u2026",
+      "channel_name": "Smash JT",
+      "channel_url": "https://www.youtube.com/channel/UCih0X9u7oBsYQA_wys_XrZQ",
+      "watch_time": "2024-12-06T04:39:19.046Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "J6VpglZyFSo",
+      "title": "Saw Blade Tooth Setter Machine | Restoration",
+      "channel_name": "Mister Patina",
+      "channel_url": "https://www.youtube.com/channel/UCNBN5cN0UHyTsBmY3vs36xQ",
+      "watch_time": "2023-09-08T04:03:28.837Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "lGJD1qeJnL8",
+      "title": "MORE D&D Youtubers Learn Pathfinder 2e! Abomination Vaults, Session #1",
+      "channel_name": "The Rules Lawyer",
+      "channel_url": "https://www.youtube.com/channel/UCYzLQM31VrbDEH8lNaBBLWQ",
+      "watch_time": "2023-12-04T05:59:45.233Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "O1tBeea603o",
+      "title": "My Top 10 Favourite Old School D&D Books  2023 Edition (Basic, 1st & 2nd Edition AD&D)",
+      "channel_name": "DravenSwiftbow",
+      "channel_url": "https://www.youtube.com/channel/UCHbewR6SV4YBmfGWsjzSqrw",
+      "watch_time": "2024-01-18T07:30:05.390Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "dKUiCF3abHc",
+      "title": "How to EFFICIENTLY Handle Errors in Golang APIs",
+      "channel_name": "Tiago",
+      "channel_url": "https://www.youtube.com/channel/UCZwW2PXNovXy_xUIhmYv7cg",
+      "watch_time": "2024-04-05T00:08:41.231Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "2mZgRdcyN8w",
+      "title": "Full AI Art Workflow. ControlNet & Stable diffusion.",
+      "channel_name": "Sebastian Kamph",
+      "channel_url": "https://www.youtube.com/channel/UCvKqTb-65iAmXK59sFNKINQ",
+      "watch_time": "2023-04-18T03:49:00.358Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "h5C7pxQ8wY0",
+      "title": "Google AI Documents Leak about \"Google and OpenAI\"",
+      "channel_name": "Wes Roth",
+      "channel_url": "https://www.youtube.com/channel/UCqcbQf6yw5KzRoDDcZ_wBSw",
+      "watch_time": "2023-05-06T03:45:45.265Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "2ch1xgUTO0U",
+      "title": "Do I regret using the 7950X3D CPU in my rig? Let's talk about it!",
+      "channel_name": "JayzTwoCents",
+      "channel_url": "https://www.youtube.com/channel/UCkWQ0gDrqOCarmUKmppD7GQ",
+      "watch_time": "2023-03-20T20:08:53.912Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "DLu2CFDBJk0",
+      "title": "Paul Rugg: People ask me how I relax",
+      "channel_name": "Klim Paleha",
+      "channel_url": "https://www.youtube.com/channel/UCHP48c7q9utdfsDNjpcLMFw",
+      "watch_time": "2024-01-07T21:51:45.583Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "OwLk7lCTK3I",
+      "title": "Is it Too Late To Start Mining Crypto",
+      "channel_name": "Son of a Tech",
+      "channel_url": "https://www.youtube.com/channel/UC0WNX0de8I1fgKUrjxiPaRA",
+      "watch_time": "2022-04-28T04:26:22.797Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "PuGeR075MkE",
+      "title": "Immutable Linux, without the hassle? Vanilla OS 2 Orchid",
+      "channel_name": "The Linux Experiment",
+      "channel_url": "https://www.youtube.com/channel/UC5UAwBUum7CPN5buc-_N1Fw",
+      "watch_time": "2024-08-06T15:08:30.872Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "gH2yDhFeRsk",
+      "title": "how does a goblin dancer react to a bad review? (Dwarf Fortress)",
+      "channel_name": "hoodie hair",
+      "channel_url": "https://www.youtube.com/channel/UCcI4k9y7RTGGN-_mnGy0oqQ",
+      "watch_time": "2022-10-01T02:47:51.929Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "XlljhoQH5HU",
+      "title": "Say Anything \u2022 In Your Eyes \u2022 Peter Gabriel",
+      "channel_name": "HD Film Tributes",
+      "channel_url": "https://www.youtube.com/channel/UCK6cr8UqdrKZ4213X-FOStQ",
+      "watch_time": "2023-01-13T00:50:14.725Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "20zyW0qoSTE",
+      "title": "We FINALLY Proved Why Ice Is Slippery",
+      "channel_name": "Dr Ben Miles",
+      "channel_url": "https://www.youtube.com/channel/UCUeZBocfxALSUdOgNJB5ySA",
+      "watch_time": "2024-09-18T20:14:39.273Z",
+      "source": "takeout"
+    },
+    {
+      "video_id": "MnpXjnFYinc",
+      "title": "If your dryer isn't spinning or heating, but the light comes on, likely this is your fix",
+      "channel_name": "Derrickwith2rs",
+      "channel_url": "https://www.youtube.com/channel/UCSMvlpsjXmNjtorEh-XVgUg",
+      "watch_time": "2025-07-20T23:08:56.067Z",
+      "source": "takeout"
+    }
+  ]
+}
