@@ -199,6 +199,72 @@ export class MentatAPI {
 		return res.json();
 	}
 
+	/**
+	 * Ingest a URL with real-time progress streaming (SSE)
+	 * @param {string} url - URL to ingest
+	 * @param {string} channelLimit - For channels: 'month', 'year', '50', '100', 'all'
+	 * @param {function} onProgress - Callback for progress events: ({step, message, ...})
+	 * @param {function} onComplete - Callback for completion: ({type, status, message, details})
+	 * @param {function} onError - Callback for errors
+	 * @returns {Promise<void>}
+	 */
+	async ingestUrlStream(url, channelLimit = 'all', onProgress, onComplete, onError) {
+		try {
+			const res = await fetch(`${this.baseURL}/ingest/stream`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ url, channel_limit: channelLimit })
+			});
+
+			if (!res.ok) {
+				const error = await res.json().catch(() => ({ detail: res.statusText }));
+				onError(new Error(error.detail || `Ingest failed: ${res.statusText}`));
+				return;
+			}
+
+			const reader = res.body.getReader();
+			const decoder = new TextDecoder();
+			let buffer = '';
+
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) break;
+
+				buffer += decoder.decode(value, { stream: true });
+
+				// Parse SSE events from buffer
+				const lines = buffer.split('\n');
+				buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+				let currentEvent = null;
+				for (const line of lines) {
+					if (line.startsWith('event: ')) {
+						currentEvent = line.slice(7).trim();
+					} else if (line.startsWith('data: ')) {
+						const data = line.slice(6);
+						try {
+							const parsed = JSON.parse(data);
+							if (currentEvent === 'progress' && onProgress) {
+								onProgress(parsed);
+							} else if (currentEvent === 'complete' && onComplete) {
+								onComplete(parsed);
+							}
+						} catch (e) {
+							console.error('Failed to parse SSE data:', e, data);
+						}
+						currentEvent = null;
+					}
+				}
+			}
+		} catch (e) {
+			if (onError) {
+				onError(e);
+			}
+		}
+	}
+
 	// ============ Conversation Methods ============
 
 	/**

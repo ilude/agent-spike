@@ -16,6 +16,7 @@
   let ingestUrl = '';
   let ingestLoading = false;
   let ingestResult = null;
+  let ingestProgress = null;  // Current progress step message
   let channelLimitOpen = false;
   let detectedType = null;
 
@@ -43,26 +44,42 @@
 
     ingestLoading = true;
     ingestResult = null;
+    ingestProgress = null;
     channelLimitOpen = false;
 
-    try {
-      const result = await api.ingestUrl(ingestUrl, channelLimit);
-      ingestResult = result;
-      if (result.status === 'success' || result.status === 'queued') {
-        ingestUrl = '';
-        detectedType = null;
-        // Auto-fade success/queued messages after 5 seconds
-        setTimeout(() => {
-          if (ingestResult?.status === 'success' || ingestResult?.status === 'queued') {
-            ingestResult = null;
-          }
-        }, 5000);
+    const urlToIngest = ingestUrl;
+
+    await api.ingestUrlStream(
+      urlToIngest,
+      channelLimit,
+      // onProgress
+      (progress) => {
+        ingestProgress = progress.message;
+      },
+      // onComplete
+      (result) => {
+        ingestResult = result;
+        ingestProgress = null;
+        ingestLoading = false;
+
+        if (result.status === 'success' || result.status === 'queued') {
+          ingestUrl = '';
+          detectedType = null;
+          // Auto-fade success/queued messages after 5 seconds
+          setTimeout(() => {
+            if (ingestResult?.status === 'success' || ingestResult?.status === 'queued') {
+              ingestResult = null;
+            }
+          }, 5000);
+        }
+      },
+      // onError
+      (error) => {
+        ingestResult = { status: 'error', message: error.message };
+        ingestProgress = null;
+        ingestLoading = false;
       }
-    } catch (e) {
-      ingestResult = { status: 'error', message: e.message };
-    } finally {
-      ingestLoading = false;
-    }
+    );
   }
 
   function handleIngestKeypress(e) {
@@ -220,7 +237,12 @@
           {/if}
         </div>
       </div>
-      {#if ingestResult}
+      {#if ingestProgress}
+        <div class="ingest-result progress">
+          <span class="result-status">processing</span>
+          <span class="result-message">{ingestProgress}</span>
+        </div>
+      {:else if ingestResult}
         <div class="ingest-result" class:success={ingestResult.status === 'success' || ingestResult.status === 'queued'} class:error={ingestResult.status === 'error'} class:skipped={ingestResult.status === 'skipped'}>
           <span class="result-status">{ingestResult.status}</span>
           <span class="result-message">{ingestResult.message}</span>
@@ -287,9 +309,9 @@
             </div>
           </div>
 
-          {#if stats.queue?.active_workers?.length > 0}
+          {#if stats.queue?.active_workers?.length > 0 || stats.queue?.active_ingests?.length > 0}
             <div class="workers-section">
-              {#each stats.queue.active_workers as worker}
+              {#each stats.queue.active_workers || [] as worker}
                 <div class="progress-section">
                   <div class="progress-label">
                     <span class="worker-id">{worker.worker_id}</span>
@@ -305,6 +327,15 @@
                     {worker.completed} / {worker.total}
                     ({getProgressPercent(worker)}%)
                   </div>
+                </div>
+              {/each}
+              {#each stats.queue.active_ingests || [] as ingest}
+                <div class="progress-section ingest-active">
+                  <div class="progress-label">
+                    <span class="ingest-badge">INGEST</span>
+                    <strong>{ingest.video_id}</strong>
+                  </div>
+                  <div class="ingest-step">{ingest.step}</div>
                 </div>
               {/each}
             </div>
@@ -352,8 +383,16 @@
             <div class="activity-list">
               {#each stats.recent_activity as activity}
                 <div class="activity-item">
-                  <span class="activity-type">{activity.type}</span>
-                  <span class="activity-file">{activity.file}</span>
+                  <span class="activity-type" class:success={activity.status === 'success'} class:error={activity.status === 'error'} class:skipped={activity.status === 'skipped'}>{activity.type.replace('_', ' ')}</span>
+                  <span class="activity-detail">
+                    {#if activity.file}
+                      {activity.file}
+                    {:else if activity.video_id}
+                      {activity.video_id}
+                    {:else if activity.message}
+                      {activity.message.slice(0, 40)}{activity.message.length > 40 ? '...' : ''}
+                    {/if}
+                  </span>
                 </div>
               {/each}
             </div>
@@ -640,6 +679,27 @@
     font-weight: 600;
   }
 
+  .ingest-badge {
+    background: #10b981;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .ingest-step {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+    text-transform: capitalize;
+  }
+
+  .ingest-active {
+    border-left: 2px solid #10b981;
+    padding-left: 0.5rem;
+  }
+
   .progress-bar {
     height: 8px;
     background: #2a2a2a;
@@ -815,7 +875,19 @@
     color: #3b82f6;
   }
 
-  .activity-file {
+  .activity-type.success {
+    color: #10b981;
+  }
+
+  .activity-type.error {
+    color: #ef4444;
+  }
+
+  .activity-type.skipped {
+    color: #eab308;
+  }
+
+  .activity-detail {
     font-size: 0.75rem;
     color: #888;
     word-break: break-all;
@@ -1040,6 +1112,11 @@
     border: 1px solid rgba(234, 179, 8, 0.3);
   }
 
+  .ingest-result.progress {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
   .result-status {
     font-size: 0.625rem;
     font-weight: 600;
@@ -1062,6 +1139,11 @@
   .ingest-result.skipped .result-status {
     background: rgba(234, 179, 8, 0.2);
     color: #eab308;
+  }
+
+  .ingest-result.progress .result-status {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
   }
 
   .result-message {
