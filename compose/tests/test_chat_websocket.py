@@ -36,7 +36,6 @@ class TestClientManagement:
         # Access internal state
         assert chat._openrouter_client is None
         assert chat._ollama_client is None
-        assert chat._qdrant_client is None
 
     def test_get_openrouter_client_creates_on_first_use(self):
         """get_openrouter_client() should create client on first use."""
@@ -84,19 +83,6 @@ class TestClientManagement:
             assert client is not None
             mock_openai.assert_called_once()
 
-    def test_get_qdrant_client_creates_on_first_use(self):
-        """get_qdrant_client() should create client on first use."""
-        chat.reset_clients()
-
-        with patch("compose.api.routers.chat.QdrantClient") as mock_qdrant:
-            mock_client = MagicMock()
-            mock_qdrant.return_value = mock_client
-
-            client = chat.get_qdrant_client()
-
-            assert client is not None
-            mock_qdrant.assert_called_once()
-
 
 # ============ Models Endpoint Tests ============
 
@@ -121,8 +107,12 @@ class TestModelsEndpoint:
             assert "is_free" in model
 
     def test_fallback_models_includes_ollama(self):
-        """_fallback_models() should include local Ollama models."""
-        result = chat._fallback_models()
+        """_fallback_models() should include local Ollama models when provided."""
+        ollama_test_models = [
+            {"id": "ollama:llama2", "name": "Llama2 (Local)", "context_length": 32000, "provider": "ollama", "is_free": True},
+            {"id": "ollama:mistral", "name": "Mistral (Local)", "context_length": 32000, "provider": "ollama", "is_free": True},
+        ]
+        result = chat._fallback_models(ollama_models=ollama_test_models)
 
         ollama_models = [m for m in result["models"] if m["id"].startswith("ollama:")]
         assert len(ollama_models) >= 2
@@ -154,13 +144,19 @@ class TestModelsEndpoint:
 
     @pytest.mark.asyncio
     @patch("httpx.AsyncClient")
-    async def test_list_models_fetches_from_openrouter(self, mock_client_class):
+    @patch("compose.api.routers.chat.fetch_ollama_models")
+    async def test_list_models_fetches_from_openrouter(self, mock_fetch_ollama, mock_client_class):
         """list_models() should fetch from OpenRouter API."""
         chat.models_cache["data"] = None
         original_key = chat.OPENROUTER_API_KEY
         chat.OPENROUTER_API_KEY = "test-key"
 
-        # Mock response
+        # Mock Ollama models
+        mock_fetch_ollama.return_value = [
+            {"id": "ollama:llama2", "name": "Llama2 (Local)", "context_length": 32000, "provider": "ollama", "is_free": True}
+        ]
+
+        # Mock OpenRouter response
         mock_response = MagicMock()
         mock_response.raise_for_status = MagicMock()
         mock_response.json.return_value = {
@@ -220,13 +216,7 @@ class TestRandomQuestionEndpoint:
     @pytest.mark.asyncio
     async def test_random_question_returns_default_on_empty_collection(self):
         """get_random_question() should return default if collection is empty."""
-        with patch.object(chat, "get_qdrant_client") as mock_get_client:
-            mock_client = MagicMock()
-            mock_collection = MagicMock()
-            mock_collection.points_count = 0
-            mock_client.get_collection.return_value = mock_collection
-            mock_get_client.return_value = mock_client
-
+        with patch("compose.api.routers.chat.get_video_count", return_value=0):
             result = await chat.get_random_question()
 
             assert "question" in result
@@ -234,34 +224,27 @@ class TestRandomQuestionEndpoint:
 
     @pytest.mark.asyncio
     async def test_random_question_uses_tags(self):
-        """get_random_question() should use tags from indexed content."""
-        with patch.object(chat, "get_qdrant_client") as mock_get_client:
-            mock_client = MagicMock()
-            mock_collection = MagicMock()
-            mock_collection.points_count = 100
-            mock_client.get_collection.return_value = mock_collection
-
-            # Mock scroll result with tags
-            mock_point = MagicMock()
-            mock_point.payload = {
-                "tags": ["Python", "AI"],
-                "metadata": {"title": "Test Video"}
+        """get_random_question() should use topics from indexed content."""
+        mock_videos = [
+            {
+                "title": "Test Video",
+                "channel_name": "Test Channel",
+                "topics": ["Python", "AI"]
             }
-            mock_client.scroll.return_value = ([mock_point], None)
-            mock_get_client.return_value = mock_client
+        ]
 
-            result = await chat.get_random_question()
+        with patch("compose.api.routers.chat.get_video_count", return_value=100):
+            with patch("compose.api.routers.chat.execute_query", return_value=mock_videos):
+                result = await chat.get_random_question()
 
-            assert "question" in result
-            # Should be one of the tag-based or title-based questions
-            assert any(keyword in result["question"] for keyword in ["Python", "AI", "Test Video", "What", "Tell", "Summarize"])
+                assert "question" in result
+                # Should be one of the topic-based or title-based questions
+                assert any(keyword in result["question"] for keyword in ["Python", "AI", "Test Video", "What", "Tell", "Summarize"])
 
     @pytest.mark.asyncio
     async def test_random_question_handles_error(self):
         """get_random_question() should return default on error."""
-        with patch.object(chat, "get_qdrant_client") as mock_get_client:
-            mock_get_client.side_effect = Exception("Connection failed")
-
+        with patch("compose.api.routers.chat.get_video_count", side_effect=Exception("Connection failed")):
             result = await chat.get_random_question()
 
             assert "question" in result
@@ -481,50 +464,54 @@ class TestWebSocketRAGChat:
 
         mock_openrouter.chat.completions.create = create_stream
 
-        # Mock Qdrant search results
-        mock_qdrant = MagicMock()
-        mock_point = MagicMock()
-        mock_point.payload = {
-            "text": "Sample content",
-            "video_id": "youtube:abc123",
-            "video_title": "Test Video",
-            "url": "https://youtube.com/watch?v=abc123",
-            "tags": ["Python", "AI"],
-        }
-        mock_qdrant.query_points.return_value = MagicMock(points=[mock_point])
+        # Mock SurrealDB search results
+        from compose.services.surrealdb.models import VectorSearchResult
+
+        mock_search_result = VectorSearchResult(
+            video_id="abc123",
+            title="Test Video",
+            url="https://youtube.com/watch?v=abc123",
+            similarity_score=0.95,
+            channel_name="Test Channel",
+            archive_path=None
+        )
 
         async def mock_embedding(text):
             return [0.1] * 384
 
+        async def mock_semantic_search(embedding, limit=5):
+            return [mock_search_result]
+
         with patch.object(chat, "get_openrouter_client", return_value=mock_openrouter):
-            with patch.object(chat, "get_qdrant_client", return_value=mock_qdrant):
+            with patch("compose.api.routers.chat.semantic_search", side_effect=mock_semantic_search):
                 with patch.object(chat, "get_embedding", side_effect=mock_embedding):
-                    with patch.object(chat, "get_conversation_service") as mock_conv_svc:
-                        with patch.object(chat, "get_project_service") as mock_proj_svc:
-                            mock_conv_svc.return_value = MagicMock()
-                            mock_proj_svc.return_value = MagicMock()
-                            mock_proj_svc.return_value.get_project.return_value = None
+                    with patch("compose.api.routers.chat.get_transcript_from_minio", return_value="Sample transcript content"):
+                        with patch.object(chat, "get_conversation_service") as mock_conv_svc:
+                            with patch.object(chat, "get_project_service") as mock_proj_svc:
+                                mock_conv_svc.return_value = MagicMock()
+                                mock_proj_svc.return_value = MagicMock()
+                                mock_proj_svc.return_value.get_project.return_value = None
 
-                            with client.websocket_connect("/chat/ws/rag-chat") as websocket:
-                                websocket.send_text(json.dumps({
-                                    "message": "Tell me about Python",
-                                    "model": "test-model"
-                                }))
+                                with client.websocket_connect("/chat/ws/rag-chat") as websocket:
+                                    websocket.send_text(json.dumps({
+                                        "message": "Tell me about Python",
+                                        "model": "test-model"
+                                    }))
 
-                                # Collect all responses
-                                responses = []
-                                while True:
-                                    response = websocket.receive_json()
-                                    responses.append(response)
-                                    if response["type"] == "done":
-                                        break
+                                    # Collect all responses
+                                    responses = []
+                                    while True:
+                                        response = websocket.receive_json()
+                                        responses.append(response)
+                                        if response["type"] == "done":
+                                            break
 
-                                # Check done response has sources
-                                done_response = responses[-1]
-                                assert done_response["type"] == "done"
-                                assert "sources" in done_response
-                                if done_response["sources"]:
-                                    assert done_response["sources"][0]["video_title"] == "Test Video"
+                                    # Check done response has sources
+                                    done_response = responses[-1]
+                                    assert done_response["type"] == "done"
+                                    assert "sources" in done_response
+                                    if done_response["sources"]:
+                                        assert done_response["sources"][0]["video_title"] == "Test Video"
 
 
 # ============ Embedding Tests ============

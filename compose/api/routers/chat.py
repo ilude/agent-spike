@@ -137,6 +137,7 @@ async def fetch_ollama_models() -> list[dict]:
                     "name": f"{display_name} (Local)",
                     "context_length": 32000,  # Default, varies by model
                     "provider": "ollama",
+                    "is_free": True,
                 })
             return models
     except Exception as e:
@@ -171,22 +172,22 @@ async def list_models():
     if OPENAI_API_KEY:
         openai_models = [
             # GPT-4o family (current production)
-            {"id": "openai:gpt-4o", "name": "GPT-4o", "context_length": 128000, "provider": "openai"},
-            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini", "context_length": 128000, "provider": "openai"},
+            {"id": "openai:gpt-4o", "name": "GPT-4o", "context_length": 128000, "provider": "openai", "is_free": False},
+            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini", "context_length": 128000, "provider": "openai", "is_free": False},
             # Reasoning models
-            {"id": "openai:o1", "name": "o1 Reasoning", "context_length": 200000, "provider": "openai"},
-            {"id": "openai:o1-mini", "name": "o1 Mini", "context_length": 128000, "provider": "openai"},
-            {"id": "openai:o1-preview", "name": "o1 Preview", "context_length": 128000, "provider": "openai"},
+            {"id": "openai:o1", "name": "o1 Reasoning", "context_length": 200000, "provider": "openai", "is_free": False},
+            {"id": "openai:o1-mini", "name": "o1 Mini", "context_length": 128000, "provider": "openai", "is_free": False},
+            {"id": "openai:o1-preview", "name": "o1 Preview", "context_length": 128000, "provider": "openai", "is_free": False},
         ]
 
     # Add Claude models if API key available
     claude_models = []
     if ANTHROPIC_API_KEY:
         claude_models = [
-            {"id": "anthropic:claude-sonnet-4-20250514", "name": "Claude Sonnet 4", "context_length": 200000, "provider": "anthropic"},
-            {"id": "anthropic:claude-3-5-sonnet-20241022", "name": "Claude 3.5 Sonnet", "context_length": 200000, "provider": "anthropic"},
-            {"id": "anthropic:claude-3-5-haiku-20241022", "name": "Claude 3.5 Haiku", "context_length": 200000, "provider": "anthropic"},
-            {"id": "anthropic:claude-3-opus-20240229", "name": "Claude 3 Opus", "context_length": 200000, "provider": "anthropic"},
+            {"id": "anthropic:claude-sonnet-4-20250514", "name": "Claude Sonnet 4", "context_length": 200000, "provider": "anthropic", "is_free": False},
+            {"id": "anthropic:claude-3-5-sonnet-20241022", "name": "Claude 3.5 Sonnet", "context_length": 200000, "provider": "anthropic", "is_free": False},
+            {"id": "anthropic:claude-3-5-haiku-20241022", "name": "Claude 3.5 Haiku", "context_length": 200000, "provider": "anthropic", "is_free": False},
+            {"id": "anthropic:claude-3-opus-20240229", "name": "Claude 3 Opus", "context_length": 200000, "provider": "anthropic", "is_free": False},
         ]
 
     if not OPENROUTER_API_KEY:
@@ -244,9 +245,9 @@ def _fallback_models(
 ) -> dict[str, Any]:
     """Return fallback model list with dynamic Ollama, Claude, and OpenAI models."""
     openrouter_fallback = [
-        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "provider": "openrouter"},
-        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "provider": "openrouter"},
-        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "provider": "openrouter"}
+        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "provider": "openrouter", "is_free": True},
+        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "provider": "openrouter", "is_free": True},
+        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "provider": "openrouter", "is_free": True}
     ]
     return {"models": (ollama_models or []) + (claude_models or []) + (openai_models or []) + openrouter_fallback}
 
