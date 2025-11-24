@@ -19,7 +19,7 @@ class MinIOClient:
         """
         endpoint = config.url.replace("http://", "").replace("https://", "")
         self.client = Minio(
-            endpoint,
+            endpoint=endpoint,
             access_key=config.access_key,
             secret_key=config.secret_key,
             secure=config.secure,
@@ -28,8 +28,8 @@ class MinIOClient:
 
     def ensure_bucket(self) -> None:
         """Create bucket if it doesn't exist."""
-        if not self.client.bucket_exists(self.bucket):
-            self.client.make_bucket(self.bucket)
+        if not self.client.bucket_exists(bucket_name=self.bucket):
+            self.client.make_bucket(bucket_name=self.bucket)
 
     def put_json(self, path: str, data: dict) -> str:
         """Store JSON data in MinIO.
@@ -43,10 +43,10 @@ class MinIOClient:
         """
         content = json.dumps(data, default=str).encode()
         self.client.put_object(
-            self.bucket,
-            path,
-            BytesIO(content),
-            len(content),
+            bucket_name=self.bucket,
+            object_name=path,
+            data=BytesIO(content),
+            length=len(content),
             content_type="application/json",
         )
         return path
@@ -60,7 +60,7 @@ class MinIOClient:
         Returns:
             Deserialized JSON data.
         """
-        response = self.client.get_object(self.bucket, path)
+        response = self.client.get_object(bucket_name=self.bucket, object_name=path)
         return json.loads(response.read().decode())
 
     def put_text(self, path: str, text: str) -> str:
@@ -75,10 +75,10 @@ class MinIOClient:
         """
         content = text.encode()
         self.client.put_object(
-            self.bucket,
-            path,
-            BytesIO(content),
-            len(content),
+            bucket_name=self.bucket,
+            object_name=path,
+            data=BytesIO(content),
+            length=len(content),
             content_type="text/plain",
         )
         return path
@@ -92,7 +92,7 @@ class MinIOClient:
         Returns:
             Text content.
         """
-        response = self.client.get_object(self.bucket, path)
+        response = self.client.get_object(bucket_name=self.bucket, object_name=path)
         return response.read().decode()
 
     def exists(self, path: str) -> bool:
@@ -105,7 +105,7 @@ class MinIOClient:
             True if object exists, False otherwise.
         """
         try:
-            self.client.stat_object(self.bucket, path)
+            self.client.stat_object(bucket_name=self.bucket, object_name=path)
             return True
         except Exception:
             return False
@@ -116,7 +116,7 @@ class MinIOClient:
         Args:
             path: Object path in bucket.
         """
-        self.client.remove_object(self.bucket, path)
+        self.client.remove_object(bucket_name=self.bucket, object_name=path)
 
     def list_objects(self, prefix: str = "") -> list:
         """List objects in MinIO bucket.
@@ -128,5 +128,5 @@ class MinIOClient:
             List of objects matching prefix.
         """
         return list(
-            self.client.list_objects(self.bucket, prefix=prefix, recursive=True)
+            self.client.list_objects(bucket_name=self.bucket, prefix=prefix, recursive=True)
         )

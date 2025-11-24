@@ -26,6 +26,30 @@ from .models import (
 logger = logging.getLogger(__name__)
 
 
+def _parse_datetime(value, default: datetime | None = None) -> datetime:
+    """Parse datetime from SurrealDB result.
+
+    SurrealDB can return datetimes as either ISO strings or native datetime objects.
+    This handles both cases safely.
+    """
+    if isinstance(value, datetime):
+        return value
+    if isinstance(value, str):
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return default if default is not None else datetime.now()
+
+
+def _parse_datetime_optional(value) -> datetime | None:
+    """Parse optional datetime from SurrealDB result."""
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value
+    if isinstance(value, str):
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return None
+
+
 async def init_schema() -> None:
     """Initialize SurrealDB schema with tables and indexes.
 
@@ -272,30 +296,22 @@ async def get_video(video_id: str) -> Optional[VideoRecord]:
     return VideoRecord(
         video_id=record.get("video_id"),
         url=record.get("url"),
-        fetched_at=datetime.fromisoformat(record.get("fetched_at", datetime.now().isoformat())),
+        fetched_at=_parse_datetime(record.get("fetched_at")),
         title=record.get("title"),
         channel_id=record.get("channel_id"),
         channel_name=record.get("channel_name"),
         duration_seconds=record.get("duration_seconds"),
         view_count=record.get("view_count"),
-        published_at=(
-            datetime.fromisoformat(record.get("published_at"))
-            if record.get("published_at")
-            else None
-        ),
+        published_at=_parse_datetime_optional(record.get("published_at")),
         source_type=record.get("source_type"),
         import_method=record.get("import_method"),
         recommendation_weight=record.get("recommendation_weight", 1.0),
         pipeline_state=record.get("pipeline_state") or {},
         embedding=record.get("embedding"),
         archive_path=record.get("archive_path"),
-        last_processed_at=(
-            datetime.fromisoformat(record.get("last_processed_at"))
-            if record.get("last_processed_at")
-            else None
-        ),
-        created_at=datetime.fromisoformat(record.get("created_at", datetime.now().isoformat())),
-        updated_at=datetime.fromisoformat(record.get("updated_at", datetime.now().isoformat())),
+        last_processed_at=_parse_datetime_optional(record.get("last_processed_at")),
+        created_at=_parse_datetime(record.get("created_at")),
+        updated_at=_parse_datetime(record.get("updated_at")),
     )
 
 
@@ -627,7 +643,7 @@ async def get_chunks_for_video(video_id: str) -> list[VideoChunkRecord]:
             end_time=r.get("end_time"),
             token_count=r.get("token_count"),
             embedding=r.get("embedding"),
-            created_at=datetime.fromisoformat(r.get("created_at", datetime.now().isoformat())),
+            created_at=_parse_datetime(r.get("created_at")),
         ))
 
     return chunks
