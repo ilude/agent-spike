@@ -15,9 +15,10 @@ Personal YouTube home page that shows **unwatched videos from topics you enjoy**
 | [PRD.md](PRD.md) | Product requirements, MVP scope, user stories |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Technical design, schema, APIs |
 | [DATA-SOURCES.md](DATA-SOURCES.md) | Import strategies, signal collection |
-| [ML-DISCUSSION.md](ML-DISCUSSION.md) | ML approaches education (discussion guide) |
+| [ML-DISCUSSION.md](ML-DISCUSSION.md) | ML approaches education (chose multi-persona embeddings) |
 | [IMPLEMENTATION-PHASES.md](IMPLEMENTATION-PHASES.md) | Phased rollout plan |
 | [DEFERRED.md](DEFERRED.md) | Explicit v2 backlog |
+| [EXPERIMENTATION-VISION.md](EXPERIMENTATION-VISION.md) | Future: self-improving recommendations via agent experiments |
 
 ## Quick Summary
 
@@ -41,9 +42,9 @@ Personal YouTube home page that shows **unwatched videos from topics you enjoy**
 
 **In scope:**
 - Unwatched video display with topic filtering
-- Brave history + Google Takeout import
+- Brave history + Google Takeout import (3 months + 50 random historical)
 - YouTube API discovery
-- RandomForest preference learning
+- Multi-persona embedding model (k-means clustering)
 - Thumbs rating
 - On-demand category suggestions
 

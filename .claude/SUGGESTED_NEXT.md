@@ -66,7 +66,7 @@ Without preference learning, the system is just search. This makes it a true rec
 git worktree add ../agent-spike-preferences -b feature/preference-learning
 
 # In worktree: Build preference infrastructure
-# - Create preferences storage (Mem0 or separate Qdrant collection)
+# - Create preferences storage (Mem0 or separate SurrealDB collection)
 # - Build CLI for rating content
 # - Implement preference extraction from ratings
 # - Create recommendation scoring algorithm
@@ -75,7 +75,7 @@ git worktree add ../agent-spike-preferences -b feature/preference-learning
 ### Files to Create
 - `compose/services/preferences/` - New service
   - `preference_manager.py` - Interface for tracking preferences
-  - `preference_storage.py` - Mem0 or Qdrant backend
+  - `preference_storage.py` - Mem0 or SurrealDB backend
   - `recommendation_scorer.py` - Score content by preferences
 - `compose/cli/rate_content.py` - CLI to rate items
 - `compose/cli/show_recommendations.py` - Get personalized recommendations

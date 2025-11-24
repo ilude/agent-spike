@@ -13,32 +13,63 @@ Each phase delivers working functionality. No phase depends on future phases.
 
 ---
 
-## Phase 0: RandomForest Spike
+## Phase 0: Persona Clustering Spike
 
-**Goal**: Learn what features RandomForest needs before designing schema.
+**Goal**: Validate that user watch history clusters into coherent interest personas.
 
-**Why first**: Schema design depends on knowing what data to store. We don't want to redesign tables mid-project.
+**Why first**: The multi-persona approach assumes interests are clusterable. If clustering produces muddy results, we need to know before building the full system.
+
+**Approach change**: Originally planned RandomForest on hand-crafted features. After discussion, pivoted to multi-persona embeddings because:
+- We have diverse, temporal interests that don't fit a single profile
+- We have embedding infrastructure (Infinity) already running
+- Content understanding matters more than metadata patterns
+- See ML-DISCUSSION.md "Approach 4" for full reasoning
+
+### Data Scope
+
+**Primary (last 3 months)**:
+- Brave browser history (YouTube URLs)
+- Google Takeout watch history (`compose/data/google-takeout-20250723T204430Z-1-001.zip`)
+- Already-ingested videos in archive
+
+**Historical sample (older than 3 months)**:
+- ~50 random videos from older history
+- Prevents recency bias, catches dormant interests
 
 ### Deliverables
-- [ ] Minimal Python script that trains RandomForest on sample data
-- [ ] List of features that work well
-- [ ] Understanding of data types needed
+- [ ] Script to extract video IDs from Brave + Takeout (with date filtering)
+- [ ] Transcripts fetched for videos not in archive
+- [ ] Embeddings generated via Infinity
+- [ ] k-means clustering into personas (k=5-8)
+- [ ] Visualization/report of cluster contents
+- [ ] Manual validation: do clusters represent coherent interests?
 
 ### Tasks
-1. Create sample dataset (50 videos with fake ratings)
-2. Implement basic feature extraction
-3. Train RandomForest, check accuracy
-4. Identify which features have highest importance
-5. Document findings → inform schema design
+1. Parse Brave history, extract YouTube video IDs (last 3 months)
+2. Parse Google Takeout watch-history.json (last 3 months + 50 random older)
+3. Deduplicate video IDs across sources
+4. For videos not in archive: fetch transcripts (respect rate limits, archive immediately)
+5. Generate embeddings via Infinity service
+6. Run k-means with varying k (5, 6, 7, 8), evaluate silhouette scores
+7. For best k: inspect clusters, label them manually ("AI cluster", "homelab cluster", etc.)
+8. Test scoring: pick 5 new videos, check if max-similarity-to-persona feels right
 
 ### Success Criteria
-- Can train model on sample data
-- Accuracy > random (>50% on binary classification)
-- Clear list of features to store in database
+- Clusters are interpretable (can assign human-readable labels)
+- At least 3-4 distinct interest areas emerge
+- New video scoring produces sensible results
+- Clear path forward for building the full system
+
+### Failure Modes
+- **Clusters are muddy**: One cluster contains unrelated topics → may need different k or hierarchical clustering
+- **Not enough data**: 3 months doesn't produce enough videos → extend time range or rely more on historical sample
+- **Transcripts unavailable**: Many videos lack transcripts → fall back to title/description embeddings
 
 ### Estimated Effort
-- 2-4 hours of focused work
-- Can be done in isolation (no infrastructure changes)
+- Data extraction: 2-3 hours
+- Transcript fetching: depends on rate limits (may need to batch over days)
+- Embedding + clustering: 2-3 hours
+- Validation: 1-2 hours
 
 ---
 
@@ -198,60 +229,85 @@ TranscriptFetchJob - Get transcript for single video
 
 ---
 
-## Phase 4: Feature Extraction + RandomForest
+## Phase 4: Persona Scoring + Recommendations
 
-**Goal**: ML model that predicts video interest.
+**Goal**: Score videos using multi-persona embeddings with metadata multipliers.
+
+**Approach change**: Originally planned RandomForest classifier. Now using persona-based scoring:
+1. Match video embedding to user's persona clusters
+2. Weight by persona activity
+3. Apply metadata multipliers (channel affinity, view health, recency)
 
 ### Deliverables
-- [ ] Feature extraction pipeline
-- [ ] RandomForest training service
-- [ ] Prediction endpoint
+- [ ] PersonaManager service (create, update, query personas)
+- [ ] VideoScorer service (score videos against personas)
+- [ ] Metadata multiplier functions
+- [ ] Recommendation endpoint with confidence scores
 - [ ] Confidence scores in UI
 
 ### Tasks
-1. Implement FeatureExtractor class
-   - Extract features defined in Phase 0 spike
-   - Handle missing data gracefully
-2. Build ModelTrainer service
-   - Load user signals as training data
-   - Train RandomForest
-   - Save model to database
-   - Track model metrics
-3. Implement prediction service
-   - Load trained model
-   - Score new videos
-   - Cache predictions
-4. Add confidence scores to video API
-5. Update UI to show confidence
-6. Implement retrain trigger (after N ratings)
+1. Implement PersonaManager
+   - Load/save personas from database
+   - Compute cluster centroids
+   - Track activity scores with decay
+2. Implement VideoScorer
+   - Compute cosine similarity to each persona
+   - Apply activity weighting
+   - Apply metadata multipliers
+3. Implement metadata multipliers
+   - Channel affinity (subscribed, watch history, thumbs ratio)
+   - View count health (sigmoid curve)
+   - Recency factor (upload date decay)
+4. Add scoring to video API
+5. Update UI to show match score per video
+6. Implement persona refresh trigger (after N ratings)
+
+### Scoring Formula
+```python
+# Persona matching
+persona_scores = [
+    cosine_sim(video_emb, persona.centroid) * persona.activity
+    for persona in user_personas
+]
+content_score = max(persona_scores)
+
+# Metadata multipliers
+channel_boost = get_channel_affinity(user, video.channel_id)  # 0.5 - 2.0
+view_health = view_health_curve(video.view_count)             # 0.7 - 1.2
+recency = recency_curve(video.upload_date)                    # 0.8 - 1.1
+
+# Final score
+final_score = content_score * channel_boost * view_health * recency
+```
 
 ### API Endpoints
 ```
-GET  /api/videos/model/status
-POST /api/videos/model/train
-GET  /api/videos (now includes confidence_score)
+GET  /api/videos/personas
+POST /api/videos/personas/refresh
+GET  /api/videos (now includes match_score, matching_persona)
 ```
 
 ### Background Jobs
 ```
-FeatureExtractionJob - Extract features for batch of videos
-ModelTrainJob - Train RandomForest model
+PersonaRefreshJob - Re-cluster based on new ratings
+EmbeddingGenerationJob - Embed new videos via Infinity
 ```
 
 ### Success Criteria
-- Model trains on user's rating history
-- Predictions have confidence scores
-- UI shows confidence per video
-- Accuracy is trackable
+- Videos ranked by persona match + metadata
+- Scores feel reasonable (highly-matched videos at top)
+- Persona activity updates on user interactions
+- Can refresh personas on demand
 
 ### Dependencies
-- Phase 3 complete (videos have transcripts for features)
-- Minimum 10 ratings from imported data
+- Phase 3 complete (videos have embeddings)
+- Phase 0 persona clustering validated
 
 ### Estimated Effort
-- Feature extraction: 3-4 hours
-- Model training: 2-3 hours
-- Prediction service: 2-3 hours
+- PersonaManager: 2-3 hours
+- VideoScorer: 2-3 hours
+- Metadata multipliers: 2 hours
+- API integration: 1-2 hours
 - UI integration: 1-2 hours
 - Testing: 2 hours
 
@@ -397,22 +453,23 @@ DELETE /api/videos/categories/{id}
 
 | Phase | Focus | Key Deliverable |
 |-------|-------|-----------------|
-| 0 | Spike | Feature requirements for schema |
+| 0 | Spike | Persona clustering validated |
 | 1 | Data | Import pipeline working |
 | 2 | UI | Basic /videos page |
-| 3 | Discovery | New videos from YouTube |
-| 4 | ML | Predictions with confidence |
-| 5 | Feedback | Ratings improve model |
+| 3 | Discovery | New videos from YouTube + embeddings |
+| 4 | ML | Persona scoring with metadata multipliers |
+| 5 | Feedback | Ratings update personas |
 | 6 | Agent | Category suggestions |
 
 ## Risk Mitigation
 
 | Risk | Mitigation |
 |------|------------|
-| Schema redesign needed | Phase 0 spike validates features first |
-| Not enough rating data | Import Brave + Takeout provides cold start |
+| Clusters are muddy | Try different k values, hierarchical clustering, or fall back to simpler approach |
+| Not enough data | 3 months + 50 historical should be sufficient; extend range if needed |
+| Transcripts unavailable | Fall back to title/description embeddings |
 | YouTube API quota | Quota tracking + conservative defaults |
-| Model accuracy poor | Fallback to recency sort |
+| Scoring feels wrong | Tune metadata multiplier weights; add manual override |
 | Agent suggestions irrelevant | Human review + accept/dismiss UX |
 
 ## Decision Points

@@ -32,7 +32,7 @@
 
 ## SurrealDB Schema
 
-**Note**: Schema design depends on Phase 0 RandomForest spike. Below is initial design.
+**Note**: Schema informed by Phase 0 persona clustering spike. Using multi-persona embeddings approach (see ML-DISCUSSION.md "Approach 4").
 
 ### Tables
 
@@ -129,16 +129,57 @@ DEFINE FIELD created_at ON user_category TYPE datetime DEFAULT time::now();
 DEFINE INDEX idx_user_category ON user_category FIELDS user_id, category_name UNIQUE;
 ```
 
-#### `ml_model` (trained models)
+#### `user_persona` (interest clusters)
+```sql
+DEFINE TABLE user_persona SCHEMAFULL;
+
+DEFINE FIELD user_id ON user_persona TYPE string;
+DEFINE FIELD persona_index ON user_persona TYPE int;  -- 0, 1, 2, ... (cluster number)
+DEFINE FIELD label ON user_persona TYPE option<string>;  -- Human-assigned label ("AI/ML", "Homelab", etc.)
+DEFINE FIELD centroid ON user_persona TYPE array<float>;  -- Embedding centroid (1024 dims for bge-m3)
+DEFINE FIELD activity_score ON user_persona TYPE float DEFAULT 0.5;  -- 0.0 - 1.0
+DEFINE FIELD last_activity ON user_persona TYPE datetime;  -- Last watch/like in this cluster
+DEFINE FIELD video_count ON user_persona TYPE int DEFAULT 0;  -- Videos in this cluster
+DEFINE FIELD sample_video_ids ON user_persona TYPE array<string>;  -- Example videos for inspection
+
+DEFINE FIELD created_at ON user_persona TYPE datetime DEFAULT time::now();
+DEFINE FIELD updated_at ON user_persona TYPE datetime DEFAULT time::now();
+
+DEFINE INDEX idx_user_persona ON user_persona FIELDS user_id, persona_index UNIQUE;
+```
+
+#### `persona_config` (clustering configuration)
+```sql
+DEFINE TABLE persona_config SCHEMAFULL;
+
+DEFINE FIELD user_id ON persona_config TYPE string;
+DEFINE FIELD k ON persona_config TYPE int;  -- Number of clusters
+DEFINE FIELD last_clustered ON persona_config TYPE datetime;
+DEFINE FIELD clustering_samples ON persona_config TYPE int;  -- Videos used in last clustering
+DEFINE FIELD silhouette_score ON persona_config TYPE option<float>;  -- Quality metric
+
+-- Decay parameters
+DEFINE FIELD activity_half_life_days ON persona_config TYPE float DEFAULT 14.0;
+DEFINE FIELD activity_floor ON persona_config TYPE float DEFAULT 0.1;
+
+-- Metadata multiplier weights (tunable)
+DEFINE FIELD channel_boost_weight ON persona_config TYPE float DEFAULT 1.0;
+DEFINE FIELD view_health_weight ON persona_config TYPE float DEFAULT 1.0;
+DEFINE FIELD recency_weight ON persona_config TYPE float DEFAULT 1.0;
+
+DEFINE INDEX idx_user_config ON persona_config FIELDS user_id UNIQUE;
+```
+
+#### `ml_model` (trained models - kept for potential future use)
 ```sql
 DEFINE TABLE ml_model SCHEMAFULL;
 
 DEFINE FIELD user_id ON ml_model TYPE string;
-DEFINE FIELD model_type ON ml_model TYPE string;  -- 'random_forest', 'embedding_sim'
+DEFINE FIELD model_type ON ml_model TYPE string;  -- 'kmeans', 'random_forest' (future)
 DEFINE FIELD version ON ml_model TYPE int;
 DEFINE FIELD model_data ON ml_model TYPE bytes;  -- Serialized model (pickle/joblib)
 DEFINE FIELD training_samples ON ml_model TYPE int;
-DEFINE FIELD metrics ON ml_model TYPE object;  -- accuracy, etc.
+DEFINE FIELD metrics ON ml_model TYPE object;  -- silhouette_score, etc.
 DEFINE FIELD created_at ON ml_model TYPE datetime DEFAULT time::now();
 
 DEFINE INDEX idx_user_model ON ml_model FIELDS user_id, model_type;
@@ -191,7 +232,34 @@ DELETE /api/videos/categories/{id}
      Deactivate category
 ```
 
-### Model
+### Personas
+
+```
+GET  /api/videos/personas
+     Returns: List of user's personas with activity scores and sample videos
+     Response: {
+       personas: [{
+         index: int,
+         label: string | null,
+         activity_score: float,
+         video_count: int,
+         sample_videos: [{ id, title, thumbnail }]
+       }],
+       config: { k, last_clustered, silhouette_score }
+     }
+
+POST /api/videos/personas/refresh
+     Re-cluster based on current watch history
+     Body: { k?: int }  // Optional override for cluster count
+     Returns: { job_id, estimated_time }
+
+PUT  /api/videos/personas/{index}/label
+     Set human-readable label for persona
+     Body: { label: string }
+     Returns: { success: true }
+```
+
+### Model (legacy, kept for future use)
 
 ```
 GET  /api/videos/model/status
@@ -242,26 +310,110 @@ class VideoRecommendationService:
         pass
 ```
 
-### FeatureExtractor
+### PersonaManager
 
 ```python
-class FeatureExtractor:
-    """Extract ML features from video data."""
+class PersonaManager:
+    """Manage user interest personas (embedding clusters)."""
 
-    def extract(self, video: VideoRec) -> dict:
-        """
-        Extract features for RandomForest.
+    async def get_personas(self, user_id: str) -> list[UserPersona]:
+        """Load user's personas with current activity scores."""
+        pass
 
-        Features (TBD after Phase 0 spike):
-        - duration_bucket: short/medium/long
-        - view_count_log: log10 of views
-        - like_ratio: likes / views
-        - channel_subscriber_bucket: small/medium/large
-        - has_transcript: bool
-        - tag_embeddings: aggregated tag vectors
-        - title_keywords: presence of interest keywords
-        - upload_recency: days since upload
+    async def refresh_personas(
+        self,
+        user_id: str,
+        video_embeddings: list[tuple[str, np.ndarray]],  # (video_id, embedding)
+        k: int = 6,
+    ) -> list[UserPersona]:
         """
+        Re-cluster user's liked videos into personas.
+
+        Uses k-means on embeddings, computes centroids,
+        assigns activity scores based on recency.
+        """
+        pass
+
+    async def update_activity(
+        self,
+        user_id: str,
+        video_id: str,
+        video_embedding: np.ndarray,
+    ) -> None:
+        """
+        Update persona activity when user interacts with video.
+
+        Finds closest persona, boosts its activity score.
+        """
+        pass
+
+    async def decay_activities(self, user_id: str) -> None:
+        """Apply time-based decay to all persona activities."""
+        pass
+```
+
+### VideoScorer
+
+```python
+class VideoScorer:
+    """Score videos using persona matching + metadata multipliers."""
+
+    def score(
+        self,
+        video: VideoRec,
+        personas: list[UserPersona],
+        channel_prefs: dict[str, float],  # channel_id -> affinity
+    ) -> VideoScore:
+        """
+        Score a video for recommendation.
+
+        Returns:
+            VideoScore with:
+            - final_score: combined score
+            - content_score: persona match (0-1)
+            - matching_persona: best matching persona index
+            - channel_boost: channel affinity multiplier
+            - view_health: view count health multiplier
+            - recency_factor: upload recency multiplier
+        """
+        pass
+
+    def _persona_score(
+        self,
+        video_embedding: np.ndarray,
+        personas: list[UserPersona],
+    ) -> tuple[float, int]:
+        """
+        Compute content score from persona matching.
+
+        Returns (score, best_persona_index).
+        """
+        scores = [
+            cosine_sim(video_embedding, p.centroid) * p.activity_score
+            for p in personas
+        ]
+        best_idx = np.argmax(scores)
+        return scores[best_idx], best_idx
+
+    def _channel_boost(
+        self,
+        channel_id: str,
+        channel_prefs: dict[str, float],
+    ) -> float:
+        """Channel affinity multiplier (0.5 - 2.0)."""
+        return channel_prefs.get(channel_id, 1.0)
+
+    def _view_health(self, view_count: int) -> float:
+        """
+        View count health curve (0.7 - 1.2).
+
+        Penalizes extremes: viral spam OR dead content.
+        Sweet spot around 10k-500k views.
+        """
+        pass
+
+    def _recency_factor(self, upload_date: datetime) -> float:
+        """Upload recency multiplier (0.8 - 1.1)."""
         pass
 ```
 
@@ -331,13 +483,18 @@ class TranscriptFetchJob(BaseJob):
     """Fetch transcript for a video."""
     video_id: str
 
-class ModelTrainJob(BaseJob):
-    """Retrain recommendation model."""
-    user_id: str
-
-class FeatureExtractionJob(BaseJob):
-    """Extract features for new videos."""
+class EmbeddingGenerationJob(BaseJob):
+    """Generate embeddings for videos via Infinity."""
     video_ids: list[str]
+
+class PersonaRefreshJob(BaseJob):
+    """Re-cluster user's liked videos into personas."""
+    user_id: str
+    k: int = 6  # Number of clusters
+
+class ActivityDecayJob(BaseJob):
+    """Apply time-based decay to persona activities (scheduled daily)."""
+    pass  # Runs for all users
 ```
 
 ## Integration Points
@@ -357,18 +514,22 @@ class FeatureExtractionJob(BaseJob):
 |-----------|---------|
 | YouTube API client | Video metadata + search |
 | youtube-transcript-api | Transcript fetching |
-| scikit-learn | RandomForest model |
-| CategoryAgent | Pydantic AI agent |
+| scikit-learn | k-means clustering for personas |
+| PersonaManager | Manage user interest clusters |
+| VideoScorer | Score videos with persona matching + metadata |
+| CategoryAgent | Pydantic AI agent (Phase 6) |
 
 ## Error Handling
 
 ### API Errors
 - YouTube quota exceeded: Return cached data, disable discovery
-- Transcript unavailable: Store null, don't fail import
-- Model not trained: Return recency-sorted (fallback)
+- Transcript unavailable: Store null, fall back to title/description embedding
+- Personas not built: Return recency-sorted (fallback)
+- Embedding service unavailable: Queue for retry, return cached scores
 
 ### UI Error States
 - No videos: Empty state with "Import history" CTA
 - All watched: "Discover more" CTA
-- Model training: "Learning your preferences..." indicator
+- Personas building: "Learning your interests..." indicator
+- No personas yet: "Rate more videos to build your profile" (need ~30)
 - Quota exhausted: "Discovery paused until tomorrow"

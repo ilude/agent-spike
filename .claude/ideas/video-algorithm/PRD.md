@@ -116,10 +116,11 @@ v2: Rich reasons (already watched, topic not interesting, poor quality, clickbai
 - Queue background jobs for batch discovery
 
 ### FR-4: Preference Learning
-- RandomForest model trained on user ratings
-- Features: video metadata, channel data, content tags, embeddings
-- Retrain when sufficient new ratings collected
-- Minimum threshold before predictions (10 ratings)
+- Multi-persona embedding model using k-means clustering
+- User interests clustered into distinct personas (AI, homelab, etc.)
+- Scoring: persona similarity × activity weight × metadata multipliers
+- Personas refresh when sufficient new ratings collected
+- Minimum threshold before predictions (~30 rated videos)
 
 ### FR-5: Category Agent
 - On-demand invocation via UI button

@@ -1,13 +1,13 @@
 ---
 name: youtube-cache
-description: YouTube video cache operations with Qdrant. Auto-checks cache when YouTube URLs detected. Provides semantic search, verification, ingestion, and archive access. Shows metadata by default, transcript on request.
+description: YouTube video cache operations with SurrealDB. Auto-checks cache when YouTube URLs detected. Provides semantic search, verification, ingestion, and archive access. Shows metadata by default, transcript on request.
 ---
 
 # YouTube Cache Operations
 
 **Activation triggers:**
 - YouTube URLs in conversation (`youtube.com/watch?v=...`, `youtu.be/...`)
-- Mentions: "youtube", "video", "cache", "qdrant", "transcript"
+- Mentions: "youtube", "video", "cache", "surrealdb", "transcript"
 - Working with `compose/cli/` or `compose/services/` directories
 
 **Token efficiency:**
@@ -19,7 +19,7 @@ description: YouTube video cache operations with Qdrant. Auto-checks cache when 
 
 1. **Auto-check YouTube URLs** - When user pastes URL, immediately verify cache status
 2. **Metadata-first display** - Show title, summary, tags by default (NOT full transcript)
-3. **Archive-aware** - Check both Qdrant cache and archive for historical data
+3. **Archive-aware** - Check both SurrealDB and archive for historical data
 4. **Leverage existing scripts** - All operations use tested `compose/cli/*` commands
 
 ## Quick Commands
@@ -101,10 +101,10 @@ make ingest
 
 **What happens:**
 1. Fetch transcript (via Webshare proxy if configured)
-2. Archive transcript immediately → `projects/data/archive/youtube/YYYY-MM/`
+2. Archive transcript immediately → `compose/data/archive/youtube/YYYY-MM/`
 3. Generate metadata with Claude Haiku (title, summary, tags)
 4. Archive LLM output
-5. Cache in Qdrant with embeddings
+5. Cache in SurrealDB with embeddings
 
 **Features:**
 - Dry run: `--dry-run` flag
@@ -124,7 +124,7 @@ uv run python compose/cli/delete_video.py VIDEO_ID --collection my_collection
 uv run python compose/cli/delete_video.py VIDEO_ID --yes
 ```
 
-**Note:** Only deletes from Qdrant cache, NOT from archive. Always prompts for confirmation unless `--yes` flag is used.
+**Note:** Only deletes from SurrealDB, NOT from archive. Always prompts for confirmation unless `--yes` flag is used.
 
 ## Advanced Operations
 
@@ -142,7 +142,7 @@ uv run python compose/cli/search_by_reference.py "MCP"
 
 ### Archive Access
 
-**Location:** `projects/data/archive/youtube/YYYY-MM/VIDEO_ID.json`
+**Location:** `compose/data/archive/youtube/YYYY-MM/VIDEO_ID.json`
 
 **Structure:**
 ```json
@@ -219,7 +219,7 @@ Subject: MCP protocol and token inefficiency, context window and context rot, re
 Style: demonstration
 Transcript: 11,460 characters
 
-[FOUND] Video is cached in Qdrant.
+[FOUND] Video is cached in SurrealDB.
 ```
 
 ### Example 2: Search for Related Content
@@ -259,7 +259,7 @@ uv run python compose/cli/ingest_video.py "https://youtube.com/watch?v=ABC123"
 [2/5] Fetching transcript...
 [3/5] Archiving transcript...
 [4/5] Generating metadata...
-[5/5] Caching in Qdrant...
+[5/5] Caching in SurrealDB...
 
 SUCCESS! Video cached.
 ```
@@ -388,21 +388,19 @@ YOUTUBE_API_KEY=...              # For fetch_channel_videos.py
 ```
 
 **Data paths (auto-created):**
-- Qdrant: `projects/data/qdrant/`
-- Archive: `projects/data/archive/youtube/YYYY-MM/`
+- SurrealDB: `surrealdb://localhost:8000` (via Docker)
+- Archive: `compose/data/archive/youtube/YYYY-MM/`
 
 ## Service Layer Reference
 
 **If direct Python imports needed:**
 
 ```python
-# Cache operations
-from compose.services.cache import create_qdrant_cache
+# SurrealDB operations
+from compose.services.surrealdb import repository
 
-cache = create_qdrant_cache(collection_name="cached_content")
-results = cache.search("query", limit=10)
-exists = cache.exists("youtube:video:VIDEO_ID")
-cache.close()
+video = await repository.get_video("VIDEO_ID")
+results = await repository.semantic_search("query", limit=10)
 
 # Archive operations
 from compose.services.archive import create_local_archive_reader
