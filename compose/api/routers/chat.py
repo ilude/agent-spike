@@ -13,6 +13,7 @@ from pydantic import BaseModel
 
 from compose.services.conversations import get_conversation_service
 from compose.services.memory import get_memory_service
+from compose.services.minio import ArchiveStorage, create_minio_client
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
 from compose.services.surrealdb import execute_query, get_video_count, semantic_search
@@ -67,6 +68,29 @@ def reset_clients() -> None:
     _openrouter_client = None
     _openai_client = None
     _ollama_client = None
+
+
+def get_transcript_from_minio(video_id: str, max_chars: int = 8000) -> str | None:
+    """Fetch transcript from MinIO storage.
+
+    Args:
+        video_id: YouTube video ID.
+        max_chars: Maximum characters to return (to fit context window).
+
+    Returns:
+        Transcript text (truncated if needed) or None if not found.
+    """
+    try:
+        minio_client = create_minio_client()
+        archive = ArchiveStorage(minio_client)
+        transcript = archive.get_transcript(video_id)
+        if transcript and len(transcript) > max_chars:
+            # Truncate and indicate more content exists
+            return transcript[:max_chars] + "\n\n[... transcript truncated ...]"
+        return transcript
+    except Exception as e:
+        print(f"Failed to fetch transcript for {video_id}: {e}")
+        return None
 
 
 async def get_embedding(text: str) -> list[float]:
@@ -501,12 +525,22 @@ async def websocket_rag_chat(websocket: WebSocket):
                         channel = result.channel_name or 'Unknown Channel'
                         url = result.url or f"https://youtube.com/watch?v={video_id}"
 
-                        # Include channel info so LLM can filter by author
-                        context_chunks.append(
+                        # Fetch transcript from MinIO for context
+                        # Limit to 4000 chars per video to fit context window
+                        transcript_excerpt = get_transcript_from_minio(video_id, max_chars=4000)
+
+                        # Build context with transcript content
+                        context_entry = (
                             f"[Video: \"{title}\"]\n"
                             f"Channel: {channel}\n"
                             f"Relevance: {result.similarity_score:.3f}"
                         )
+                        if transcript_excerpt:
+                            context_entry += f"\n\nTranscript:\n{transcript_excerpt}"
+                        else:
+                            context_entry += "\n\n(Transcript not available)"
+
+                        context_chunks.append(context_entry)
 
                         if video_id not in seen_ids:
                             sources.append({

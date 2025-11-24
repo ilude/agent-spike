@@ -3,7 +3,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import auth, settings, health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, backup
+from compose.api.routers import auth, settings, health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, backup, video_rec
+
+# Initialize observability (logging + tracing)
+from compose.lib.logging_config import setup_logging
+from compose.lib.telemetry import setup_telemetry
+from compose.api.middleware import CorrelationMiddleware
+
+# Setup structured logging
+correlation_filter = setup_logging("api", level="INFO")
+
+# Setup OpenTelemetry tracing
+tracer, meter = setup_telemetry("api")
 
 # Create FastAPI app
 app = FastAPI(
@@ -29,6 +40,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Add correlation ID middleware for request tracking
+app.add_middleware(CorrelationMiddleware)
+
 # Include routers
 app.include_router(auth.router)
 app.include_router(settings.router)
@@ -47,6 +61,7 @@ app.include_router(websearch.router, tags=["search"])
 app.include_router(sandbox.router, tags=["sandbox"])
 app.include_router(imagegen.router, tags=["imagegen"])
 app.include_router(backup.router, tags=["backup"])
+app.include_router(video_rec.router, tags=["video-recommendations"])
 
 
 @app.get("/")
