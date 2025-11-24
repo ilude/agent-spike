@@ -97,3 +97,7 @@ compose/data/logs/
 .session/
 *.log*.sqlite-shm
 *.sqlite-wal
+
+# Development logs (frontend dev server output)
+logs/*
+!logs/.keep

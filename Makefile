@@ -1,13 +1,36 @@
-# Docker and build configuration
+# =============================================================================
+# Agent-Spike Platform Makefile
+# =============================================================================
+#
+# Platform Architecture:
+#   - Traefik: HTTPS reverse proxy (Let's Encrypt via Cloudflare)
+#   - API: FastAPI backend container
+#   - Worker: Background queue processor
+#   - Frontend: SvelteKit (runs LOCALLY - see compose/frontend/)
+#
+# Quick Start:
+#   make up                              # Start backend (traefik, api, worker)
+#   cd compose/frontend && bun run dev   # Start frontend locally
+#   make logs                            # View service logs
+#   make down                            # Stop everything
+#
+# URLs (HTTPS via Traefik):
+#   https://mentat.local.ilude.com     - Frontend (local dev server)
+#   https://api.local.ilude.com        - API
+#   https://traefik.local.ilude.com    - Traefik dashboard
+#
+# =============================================================================
+
+# Docker configuration
 export DOCKER_BUILDKIT := 1
 export DOCKER_SCAN_SUGGEST := false
 export COMPOSE_DOCKER_CLI_BUILD := 1
 
-# Include development targets
--include .devcontainer/Makefile
+# Compose file location
+COMPOSE_DIR := compose
+COMPOSE_CMD := docker compose -f $(COMPOSE_DIR)/docker-compose.yml -f $(COMPOSE_DIR)/docker-compose.override.yml
 
 # Include .env if it exists and is not encrypted by git-crypt
-# Skip if file is binary data (encrypted)
 ifneq (,$(wildcard .env))
 	ifeq (,$(shell file .env 2>/dev/null | grep -q "data" && echo binary))
 		-include .env
@@ -28,38 +51,77 @@ else
 	endif
 endif
 
-# Host IP detection
-ifndef HOSTIP
-	ifeq ($(DETECTED_OS),linux)
-		HOSTIP := $(shell ip route get 1 2>/dev/null | head -1 | awk '{print $$7}' || echo "127.0.0.1")
-	else ifeq ($(DETECTED_OS),macos)
-		HOSTIP := $(shell ifconfig 2>/dev/null | grep "inet " | grep -Fv 127.0.0.1 | head -1 | awk '{print $$2}' || echo "127.0.0.1")
-	else
-		HOSTIP := 127.0.0.1
-	endif
-endif
-
-# Container runtime detection
-ifndef CONTAINER_RUNTIME
-	ifneq (, $(shell which podman 2>/dev/null))
-		CONTAINER_RUNTIME := podman
-	else
-		CONTAINER_RUNTIME := docker
-	endif
-endif
-
 # Semantic versioning
 SEMANTIC_VERSION := $(shell git tag --list 'v*.*.*' --sort=-v:refname 2>/dev/null | head -n 1)
 VERSION := $(shell if [ -z "$(SEMANTIC_VERSION)" ]; then echo "0.0.0"; else echo $(SEMANTIC_VERSION) | sed 's/^v//'; fi)
 
-# Export variables
-export HOSTIP DETECTED_OS CONTAINER_RUNTIME SEMANTIC_VERSION
+export DETECTED_OS SEMANTIC_VERSION
 
-.PHONY: .env
-.env:
-	touch .env
+# =============================================================================
+# PLATFORM TARGETS (Primary workflow)
+# =============================================================================
+.PHONY: up start down logs status restart rebuild
 
-# Setup targets
+## Start platform services (traefik, api, worker)
+up:
+	@echo "Starting platform services at https://mentat.local.ilude.com/ ..."
+	$(COMPOSE_CMD) up -d
+	cd compose/frontend && bun run dev
+
+## Start all services including frontend (background)
+start:
+	@echo "Starting platform services at https://mentat.local.ilude.com/ ..."
+	
+	$(COMPOSE_CMD) up -d
+	@cd compose/frontend && nohup bun run dev > ../../logs/frontend.log 2>&1 & echo $$! > ../../logs/frontend.pid
+	@echo ""
+	@echo "Logs: tail -f logs/frontend.log"
+
+## Stop all platform services (including frontend if running)
+down:
+	@if [ -f logs/frontend.pid ]; then echo "Stopping frontend..."; kill $$(cat logs/frontend.pid) 2>/dev/null || true; rm -f logs/frontend.pid; fi
+	@echo "Stopping platform services..."
+	$(COMPOSE_CMD) down
+
+## View service logs (all services, follow mode)
+logs:
+	$(COMPOSE_CMD) logs -f
+
+## View logs for specific service (usage: make logs-api, logs-worker, logs-traefik)
+logs-%:
+	$(COMPOSE_CMD) logs -f $*
+
+## Show status of all services
+status:
+	@echo "=== Platform Status ==="
+	@$(COMPOSE_CMD) ps
+	@echo ""
+	@echo "=== Service Health ==="
+	@docker inspect --format='{{.Name}}: {{if .State.Health}}{{.State.Health.Status}}{{else}}no healthcheck{{end}}' $$(docker ps -q --filter "name=agent-spike" --filter "name=traefik" --filter "name=queue-worker" 2>/dev/null) 2>/dev/null || echo "No services running"
+
+## Restart all services (or specific: make restart-api)
+restart:
+	$(COMPOSE_CMD) restart
+
+restart-%:
+	$(COMPOSE_CMD) restart $*
+
+## Rebuild and restart services
+rebuild:
+	@echo "Rebuilding services..."
+	$(COMPOSE_CMD) build
+	$(COMPOSE_CMD) up -d
+	@echo "Rebuild complete"
+
+## Rebuild specific service (usage: make rebuild-api, rebuild-worker)
+rebuild-%:
+	$(COMPOSE_CMD) build $*
+	$(COMPOSE_CMD) up -d $*
+
+
+# =============================================================================
+# SETUP TARGETS
+# =============================================================================
 .PHONY: setup setup-gpg
 
 setup:
@@ -78,140 +140,65 @@ else
 	@echo "Run: gpg --full-generate-key"
 endif
 
-# Build targets
-.PHONY: build build-dev start up down logs restart
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+.PHONY: sync-dev lint format test test-backend test-frontend test-coverage test-tools
 
-build: .env
-	$(CONTAINER_RUNTIME) build -t app:prod --target production .
+## Sync development dependencies
+sync-dev:
+	@uv sync --group dev --group platform-api
 
-build-dev: .env
-	$(CONTAINER_RUNTIME) build --target devcontainer -t app .
-
-
-
-# Container run targets
-.PHONY: 
-
-start: build
-	$(CONTAINER_RUNTIME) run --rm -d --name app_prod -p 8000:8000 app:prod
-
-up: build
-	$(CONTAINER_RUNTIME) run --rm --name app_prod -p 8000:8000 app:prod
-
-down:
-	$(CONTAINER_RUNTIME) stop app_prod 2>/dev/null || true
-
-logs:
-	$(CONTAINER_RUNTIME) logs app_prod -f
-
-restart: build down start
-
-# Lesson 007: Video Ingestion Tools
-.PHONY: ingest ingest-old
-
-ingest:
-	@echo "Starting YouTube Video Queue Ingestion REPL..."
-	@echo "Features:"
-	@echo "  - Queue-based processing (all CSVs in pending/ directory)"
-	@echo "  - Workflow: pending/ -> processing/ -> completed/"
-	@echo "  - Manual ingestion (instant, no rate limit)"
-	@echo "  - Webshare proxy enabled (no rate limiting)"
-	@echo "  - Archive-first pipeline (all expensive data saved)"
-	@echo ""
-	@echo "Queue: projects/data/queues/pending/"
-	@echo "Press Ctrl+C to stop (progress is saved)"
-	@echo ""
-	@uv run python tools/scripts/ingest_youtube.py
-
-ingest-old:
-	@echo "Starting OLD Hybrid REPL (rate limited)..."
-	@echo "Note: Use 'make ingest' for the new fast version"
-	@echo ""
-	@uv run python lessons/lesson-007/hybrid_ingest_repl.py
-
-# API Credits Management
-.PHONY: credit
-
-credit:
-	@echo "Opening API billing dashboards..."
-	@echo ""
-	@echo "Anthropic (Claude) Usage & Cost:"
-	@echo "  https://console.anthropic.com/workspaces/default/cost"
-	@echo "Anthropic Billing:"
-	@echo "  https://console.anthropic.com/settings/billing"
-	@echo ""
-	@echo "OpenAI Billing:"
-	@echo "  https://platform.openai.com/settings/organization/billing"
-	@echo ""
-ifeq ($(DETECTED_OS),windows)
-	@cmd.exe /c start https://console.anthropic.com/workspaces/default/cost
-	@cmd.exe /c start https://console.anthropic.com/settings/billing
-	@cmd.exe /c start https://platform.openai.com/settings/organization/billing
-else ifeq ($(DETECTED_OS),macos)
-	@open https://console.anthropic.com/workspaces/default/cost
-	@open https://console.anthropic.com/settings/billing
-	@open https://platform.openai.com/settings/organization/billing
-else
-	@xdg-open https://console.anthropic.com/workspaces/default/cost 2>/dev/null || echo "Please open manually"
-	@xdg-open https://console.anthropic.com/settings/billing 2>/dev/null || echo "Please open manually"
-	@xdg-open https://platform.openai.com/settings/organization/billing 2>/dev/null || echo "Please open manually"
-endif
-
-# Install development dependencies
+## Lock and sync dependencies
 uv.lock:
 	uv lock
 	uv sync --group dev --group platform-api
 
-# Run linting
+## Run linter
 lint:
 	@echo "Running ruff check..."
 	uv run ruff check .
-	@echo "Linting completed!"
 
-# Run tests
-.PHONY: test test-backend test-frontend test-coverage test-tools sync-dev
+## Format code (black + isort)
+format: uv.lock
+	@echo "Formatting code..."
+	uv run black src tests
+	uv run isort src tests --profile black
 
-sync-dev:
-	@uv sync --group dev --group platform-api
-
+## Run all tests
 test: test-backend test-frontend
 	@echo "All tests completed!"
 
+## Run backend tests only
 test-backend: sync-dev
 	@echo "Running backend tests..."
 	uv run python -m pytest compose/tests/ -v
 
+## Run frontend tests only
 test-frontend:
 	@echo "Running frontend tests..."
-	cd compose/frontend && npm test
+	cd compose/frontend && bun test
 
+## Run tests with coverage reports
 test-coverage: sync-dev
 	@echo "Running tests with coverage..."
-	@echo ""
-	@echo "=== Backend Coverage ==="
 	uv run python -m pytest compose/tests/ --cov=compose --cov-report=term-missing --cov-report=html:htmlcov-backend -v
-	@echo ""
-	@echo "=== Frontend Coverage ==="
-	cd compose/frontend && npm run test:coverage
+	cd compose/frontend && bun run test:coverage
 	@echo ""
 	@echo "Coverage reports:"
 	@echo "  Backend:  htmlcov-backend/index.html"
 	@echo "  Frontend: compose/frontend/coverage/index.html"
 
-# Legacy test target for tools/
+## Run tools tests (legacy)
 test-tools: sync-dev
-	@echo "Running tools tests with coverage..."
-	uv run python -m pytest tools/tests/ --cov=tools --cov-report=term-missing --cov-report=html -v
+	uv run python -m pytest tools/tests/ --cov=tools --cov-report=term-missing -v
 
-# Format code with black and isort
-format: uv.lock
-	@echo "Formatting code with black..."
-	uv run black src tests
-	@echo "Organizing imports with isort..."
-	uv run isort src tests --profile black
-	@echo "Code formatting completed!"
+# =============================================================================
+# CLEANUP & MAINTENANCE
+# =============================================================================
+.PHONY: clean
 
-# Clean Python cache files and build artifacts
+## Clean Python cache and build artifacts
 clean:
 	@echo "Cleaning Python cache and build artifacts..."
 	find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
@@ -227,19 +214,17 @@ clean:
 	find . -type f -name '*.pyd' -delete 2>/dev/null || true
 	find . -type f -name '.DS_Store' -delete 2>/dev/null || true
 	uv cache clean 2>/dev/null || true
-	@echo "✓ Cleanup complete"
+	@echo "Cleanup complete"
 
-# Version management
-.PHONY: version bump-patch bump-minor bump-major publish
+# =============================================================================
+# VERSION MANAGEMENT
+# =============================================================================
+.PHONY: version bump-patch bump-minor bump-major
 
+## Show version info
 version:
-	@echo "=============================================="
-	@echo "Semantic Version: $(SEMANTIC_VERSION)"
-	@echo "Version (without v prefix): $(VERSION)"
-	@echo "Host IP: $(HOSTIP)"
-	@echo "Detected OS: $(DETECTED_OS)"
-	@echo "Container Runtime: $(CONTAINER_RUNTIME)"
-	@echo ""
+	@echo "Version: $(VERSION) ($(SEMANTIC_VERSION))"
+	@echo "OS: $(DETECTED_OS)"
 
 define bump_version
 	@echo "Latest version: $(SEMANTIC_VERSION)"
@@ -263,30 +248,36 @@ bump-minor:
 bump-major:
 	$(call bump_version,major)
 
-publish: bump-patch
-	@git push --all
+# =============================================================================
+# UTILITIES
+# =============================================================================
+.PHONY: brave-sync
 
-# Brave History Sync
-.PHONY: brave-sync brave-full-sync
-
+## Sync Brave browser history to queue
 brave-sync:
 	@uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
 
-# GPU Server Management (Ansible)
+# =============================================================================
+# GPU SERVER MANAGEMENT (Ansible)
+# Remote server: 192.168.16.241
+# =============================================================================
 .PHONY: gpu-deploy gpu-update gpu-backup gpu-shell
 
+## Deploy AI services to GPU server
 gpu-deploy:
 	@echo "Deploying AI services to GPU server..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy.yml
 
+## Update AI services on GPU server (pull + restart)
 gpu-update:
-	@echo "Updating AI services on GPU server (pull + restart)..."
+	@echo "Updating AI services on GPU server..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/update.yml
 
+## Backup current GPU server config
 gpu-backup:
-	@echo "Backing up current GPU server config..."
+	@echo "Backing up GPU server config..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/backup.yml
 
+## Open Ansible shell for manual commands
 gpu-shell:
-	@echo "Opening Ansible shell for manual commands..."
 	@cd infra/ansible && docker compose run --rm ansible bash

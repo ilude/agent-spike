@@ -214,25 +214,39 @@ uv run python <script>.py
 uv sync --group lesson-001              # Single lesson
 uv sync --all-groups                    # All lessons
 
-# Check what's installed
-uv pip list
-
 # Run lesson CLI (if available)
 cd lessons/lesson-001
 uv run python -m youtube_agent.cli analyze "https://youtube.com/..."
 ```
 
-### Code Quality (Less Common)
+### Platform (API + Worker)
+
+```bash
+make up                                 # Start backend (traefik, api, worker)
+make down                               # Stop all services
+make logs                               # View all service logs
+make logs-api                           # View specific service logs
+make status                             # Show service status
+make rebuild                            # Rebuild and restart all
+make rebuild-api                        # Rebuild specific service
+```
+
+Frontend runs locally (not in container):
+```bash
+cd compose/frontend && bun run dev      # Start frontend dev server
+```
+
+### Code Quality
 
 ```bash
 make format                             # black + isort
 make lint                               # ruff
-make test                               # pytest
+make test                               # pytest (backend + frontend)
 ```
 
 ### GPU Server Management
 
-Remote GPU server at `192.168.16.241` runs AI services (Qdrant, Infinity, Ollama, Docling, n8n, Neo4j). Managed via Ansible container in `infra/ansible/`.
+Remote GPU server at `192.168.16.241` runs AI services (Infinity, Ollama, Docling). Managed via Ansible in `infra/ansible/`.
 
 ```bash
 make gpu-deploy                         # Deploy compose stack + secrets
@@ -240,19 +254,6 @@ make gpu-update                         # Pull latest images + restart
 make gpu-backup                         # Fetch current remote config
 make gpu-shell                          # Interactive Ansible shell
 ```
-
-See `infra/ansible/README.md` for details.
-
-### Container Builds (Rarely Needed)
-
-**Note**: Lessons run directly via `uv run python`. Container builds are for the (future) production app in `src/`.
-
-```bash
-make build-dev                          # Build devcontainer
-make build                              # Build production image
-```
-
-For full command reference, see `.devcontainer/Makefile` and root `Makefile`.
 
 ## Python Configuration
 
@@ -281,38 +282,43 @@ Code quality standards (applies to production code in `src/`):
 
 ## Background: Infrastructure & Architecture
 
-**Note**: This infrastructure exists for potential future production deployment, not for daily lesson development. Work directly on host machine with `uv run python`.
+**Note**: Infrastructure is for the platform (API, worker, frontend). Lessons run directly on host with `uv run python`.
 
-**Container setup**: Multi-stage Dockerfile (base, build-base, production, devcontainer). Two-level Makefile system (root for builds, `.devcontainer/` for dev tasks). Uses uv for fast package management (10-100x faster than pip).
+**Compose files** (in `compose/`):
+- `docker-compose.yml` - Main services (traefik, api, worker)
+- `docker-compose.override.yml` - Local dev overrides (routes frontend to localhost)
+- `docker-compose.production.yml` - Containerized frontend (NOT for local dev)
 
-**Current state**: All working code is in `lessons/`. A future `src/` directory would contain production code (doesn't exist yet).
+**Current state**: All working code is in `lessons/`. Platform code is in `compose/`.
 
-**For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
+**For lesson work**: Just need API keys in `.env` and `uv sync --all-groups`.
 
 ## Local Development Architecture
 
-**Container vs Local Services:**
-- **API**: Runs in container (`docker compose up api`) at `localhost:8000`
-- **Worker**: Runs in container (`docker compose up queue-worker`)
-- **Frontend**: Runs LOCALLY with `cd compose/frontend && bun run dev` (NOT in container - hot reload broken on Windows)
+**Starting the platform:**
+```bash
+make up                              # Start backend (traefik, api, worker)
+cd compose/frontend && bun run dev   # Start frontend locally
+```
 
-**Traefik Routing (HTTPS):**
-- `https://mentat.local.ilude.com` → Frontend (local dev server) - **ALWAYS USE THIS URL**
+**Services:**
+- **API + Worker**: Run in containers via `make up`
+- **Frontend**: Runs LOCALLY (hot reload broken in container on Windows)
+
+**URLs (HTTPS via Traefik):**
+- `https://mentat.local.ilude.com` → Frontend (local dev server) - **ALWAYS USE THIS**
 - `https://api.local.ilude.com` → API container
+- `https://traefik.local.ilude.com` → Traefik dashboard
 - **Never use `localhost:5173`** - different origin = separate localStorage/auth state
-- If traefik shows "Error response from daemon" → Restart Docker Desktop
 
 **Environment Files:**
 - **Single `.env` at project root ONLY** - git-crypt encrypted
-- **NO subdirectory `.env` files** - they cause override issues and unexpected behavior
-- Frontend reads `VITE_API_URL` env var, falls back to `http://localhost:8000`
-- When running frontend locally behind traefik (HTTPS), don't set `VITE_API_URL` - let SvelteKit proxy handle it
+- **NO subdirectory `.env` files** - they cause override issues
 
 **Common Issues:**
-- **Mixed content errors**: Frontend served via HTTPS cannot call HTTP API - use traefik routes
-- **Worker showing unhealthy**: Check if queue dirs are mounted in API container (`/app/src/compose/data/queues`)
-- **Traefik 404s**: Docker socket connection broken, restart Docker Desktop
-- **API unhealthy after code changes**: Rebuild with `docker compose build api && docker compose up -d api`
+- **Traefik 404s**: Docker socket connection broken → Restart Docker Desktop
+- **API unhealthy after code changes**: `make rebuild-api`
+- **Mixed content errors**: Use traefik HTTPS routes, not localhost
 
 ---
 
