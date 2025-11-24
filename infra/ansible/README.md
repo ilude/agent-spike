@@ -53,7 +53,7 @@ Edit `inventory/hosts.yml` to update:
 ## Secrets Management
 
 The deploy playbook copies the root `.env` (git-crypt encrypted) to the remote server.
-This allows `docker-compose.yml` to use environment variables like `${NEO4J_AUTH}` instead of hardcoded secrets.
+This allows `docker-compose.yml` to use environment variables like `${SURREALDB_PASSWORD}` instead of hardcoded secrets.
 
 - Root `.env` is the source of truth for all secrets
 - Remote `.env` is deployed with `600` permissions (owner read-only)

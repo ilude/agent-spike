@@ -6,7 +6,7 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ./data/ollama:/root/.ollama
+      - /data/ollama:/root/.ollama
     deploy:
       resources:
         reservations:
@@ -22,7 +22,7 @@ services:
     container_name: infinity
     restart: unless-stopped
     # Multi-model setup: gte-large for global embeddings, bge-m3 for chunk embeddings
-    # Models are downloaded on first use and cached in ./data/infinity
+    # Models are downloaded on first use and cached in /data/infinity
     command: >
       v2
       --model-id Alibaba-NLP/gte-large-en-v1.5
@@ -33,7 +33,7 @@ services:
     ports:
       - "7997:7997"
     volumes:
-      - ./data/infinity:/app/.cache
+      - /data/infinity:/app/.cache
     deploy:
       resources:
         reservations:
@@ -72,7 +72,7 @@ services:
     ports:
       - "5678:5678"
     volumes:
-      - ./data/n8n:/home/node/.n8n
+      - /data/n8n:/home/node/.n8n
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
@@ -90,7 +90,7 @@ services:
     ports:
       - "8080:8000"  # External 8080 to avoid conflict with whisper on 8000
     volumes:
-      - ./data/surrealdb:/data
+      - /data/surrealdb:/data
     command: start --user root --pass ${SURREALDB_PASSWORD} file:/data/database.db
     environment:
       - SURREAL_CAPS_ALLOW_ALL=true
@@ -103,47 +103,9 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - ./data/minio:/data
+      - /data/minio:/data
     environment:
       - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
       - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
     command: server /data --console-address ":9001"
 
-  # neo4j:
-  #   image: neo4j:5-community
-  #   container_name: neo4j
-  #   restart: unless-stopped
-  #   ports:
-  #     - "7474:7474"
-  #     - "7687:7687"
-  #   volumes:
-  #     - ./data/neo4j:/data
-  #   environment:
-  #     - NEO4J_AUTH=${NEO4J_AUTH}
-
-  whisper:
-    image: fedirz/faster-whisper-server:latest-cuda
-    container_name: whisper
-    restart: unless-stopped
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./data/whisper:/root/.cache/huggingface
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    environment:
-      - WHISPER__MODEL=Systran/faster-whisper-large-v3-turbo
-    healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 120s
-
-# All data stored in ./data/ bind mounts for durability
-# Run migrate-volumes.sh to copy existing named volume data before first deploy
