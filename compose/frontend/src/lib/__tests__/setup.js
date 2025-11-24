@@ -1,6 +1,7 @@
 // Vitest test setup file
 // This runs before each test file
 
+import { vi, beforeEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 
 // Mock import.meta.env for tests
