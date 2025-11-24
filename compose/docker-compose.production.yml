@@ -1,0 +1,65 @@
+# =============================================================================
+#
+#     ██████╗ ██████╗  ██████╗ ██████╗ ██╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗
+#     ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██║   ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║
+#     ██████╔╝██████╔╝██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██╔██╗ ██║
+#     ██╔═══╝ ██╔══██╗██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██║╚██╗██║
+#     ██║     ██║  ██║╚██████╔╝██████╔╝╚██████╔╝╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║
+#     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+#
+#                              *** PRODUCTION ONLY ***
+#
+# =============================================================================
+#
+# DO NOT USE THIS FILE FOR LOCAL DEVELOPMENT!
+#
+# This file contains the containerized frontend service which is ONLY useful
+# for production deployments. We are NOWHERE NEAR production at this time.
+#
+# For local development:
+#   1. Run backend services:  docker compose up -d
+#   2. Run frontend locally:  cd compose/frontend && bun run dev
+#
+# The frontend runs locally because:
+#   - Hot reload is broken in containers on Windows
+#   - Local dev is faster and more responsive
+#   - Traefik routes https://mentat.local.ilude.com to localhost:5173
+#
+# When/if we ever need production deployment, use:
+#   docker compose -f docker-compose.yml -f docker-compose.production.yml up -d
+#
+# =============================================================================
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development  # TODO: Add production target when needed
+    container_name: agent-spike-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+      - frontend_svelte_kit:/app/.svelte-kit
+    environment:
+      - VITE_API_URL=https://api.local.ilude.com
+      - VITE_RUNTIME_ENV=docker
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentat.rule=Host(`mentat.local.ilude.com`)"
+      - "traefik.http.routers.mentat.entrypoints=websecure"
+      - "traefik.http.routers.mentat.tls.certresolver=cloudflare"
+      - "traefik.http.services.mentat.loadbalancer.server.port=5173"
+    restart: unless-stopped
+    depends_on:
+      - api
+    networks:
+      - agent-network
+
+volumes:
+  frontend_node_modules:
+    driver: local
+  frontend_svelte_kit:
+    driver: local

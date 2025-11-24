@@ -1,12 +1,12 @@
 # Local development override
-# Runs SvelteKit on host machine for instant hot reload
+# Routes frontend traffic to local dev server (not containerized)
 #
 # Usage:
-#   docker compose up -d          # starts traefik, api, qdrant, etc. (no frontend)
+#   docker compose up -d          # starts traefik, api, worker
 #   cd frontend && bun run dev    # run SvelteKit locally on port 5173
 #
-# To run with containerized frontend instead:
-#   docker compose -f docker-compose.yml up -d
+# Traefik routes https://mentat.local.ilude.com -> localhost:5173
+# via file provider config in ./traefik/
 
 services:
   traefik:
@@ -36,8 +36,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik_acme:/acme
       - ./traefik:/etc/traefik/dynamic:ro
-
-  # Disable containerized frontend - run locally instead
-  frontend:
-    profiles:
-      - containerized
