@@ -1,17 +1,36 @@
 """Configuration for analytics service."""
 
+import os
+from enum import Enum
 from pathlib import Path
 from dataclasses import dataclass, field
+
+
+class PatternTrackerBackend(Enum):
+    """Backend storage for pattern tracker."""
+
+    SQLITE = "sqlite"
+    SURREALDB = "surrealdb"
 
 
 @dataclass
 class AnalyticsConfig:
     """Configuration for pattern tracker analytics."""
 
-    # Database path
+    # Backend selection
+    backend: PatternTrackerBackend = field(
+        default_factory=lambda: PatternTrackerBackend(
+            os.getenv("PATTERN_TRACKER_BACKEND", "sqlite")
+        )
+    )
+
+    # Database path (SQLite only)
     db_path: Path = field(
         default_factory=lambda: Path("compose/data/analytics/url_patterns.db")
     )
+
+    # SurrealDB table prefix
+    surrealdb_table_prefix: str = "pattern_"
 
     # Pattern learning thresholds
     pattern_suggestion_threshold: float = 0.7  # Confidence needed to suggest pattern
