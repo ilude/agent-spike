@@ -1,6 +1,6 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-24
+**Last Updated**: 2025-11-25
 **Current Phase**: Personal AI Research Assistant - SurrealDB + MinIO unified data layer
 
 ## Current State
@@ -25,6 +25,22 @@
   - Protocol-first service design (dependency injection)
 
 ## Recent Completions
+
+**SurrealDB Backup System** ✅ COMPLETE (2025-11-25)
+- Implemented zero-downtime SurrealDB backup system using Ansible automation
+- Created `infra/ansible/playbooks/backup-surrealdb.yml` - Full backup playbook (99 lines)
+- Added `make surrealdb-backup` Makefile target for one-command backups
+- Comprehensive recovery documentation: `docs/SURREALDB-BACKUP.md` (280+ lines)
+- **Key features**:
+  - Zero-downtime: Uses `surreal export` while database is running
+  - Secure: Reads SURREALDB_PASSWORD from remote GPU server `.env` file
+  - Validated: Pre-flight checks (container health), post-export validation (file size)
+  - 7-day retention: Auto-cleanup of backups older than 7 days
+  - **45.57 MB** backup includes full schema, data, and indexes
+- **Backup location**: `infra/ansible/backups/surrealdb/` (gitignored)
+- **Recovery procedures**: 4 disaster scenarios documented (corruption, deletion, server failure, backup corruption)
+- Tested end-to-end: Successfully exported from namespace `data`, database `graph_db`
+- Time: ~2.5 hours (including debugging namespace/path issues)
 
 **URL Pattern Analytics SurrealDB Migration (Phase 4)** ✅ COMPLETE (2025-11-24)
 - Migrated URL pattern analytics from SQLite to SurrealDB with full async refactor
@@ -381,7 +397,9 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
   - be11316 - test: add TDD test suite for pattern tracker
   - d70f597 - feat: add SurrealDB PatternTracker implementation
   - f10f6d4 - feat: implement SurrealDB repository for analytics
-- Status: Clean working tree, all changes pushed
+- **Pending commit (2025-11-25)**: SurrealDB backup system implementation
+  - Modified: `.gitignore`, `Makefile`
+  - Created: `infra/ansible/playbooks/backup-surrealdb.yml`, `docs/SURREALDB-BACKUP.md`
 - All data encrypted with git-crypt before push
 
 **To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d` (starts SurrealDB, MinIO, Infinity)
