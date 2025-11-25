@@ -143,7 +143,7 @@ endif
 # =============================================================================
 # DEVELOPMENT & TESTING
 # =============================================================================
-.PHONY: sync-dev lint format test test-backend test-frontend test-coverage test-tools test-sse test-concurrency test-ingestion
+.PHONY: sync-dev lint format test test-backend test-frontend test-coverage test-tools test-sse test-concurrency test-ingestion test-e2e
 
 ## Sync development dependencies
 sync-dev:
@@ -207,6 +207,12 @@ test-concurrency: sync-dev
 test-ingestion: sync-dev
 	@echo "Running ingestion tests..."
 	uv run python -m pytest compose/tests/streaming/ compose/tests/concurrency/ -m ingestion -v
+
+## Run E2E tests with Playwright (requires backend running)
+test-e2e:
+	@echo "Running E2E tests with Playwright..."
+	@echo "NOTE: Backend must be running (make up) for E2E tests to work"
+	cd compose/frontend && bun run test:e2e
 
 # =============================================================================
 # CLEANUP & MAINTENANCE
