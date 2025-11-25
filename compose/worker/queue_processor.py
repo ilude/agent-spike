@@ -282,10 +282,21 @@ async def process_single_file(csv_file: Path, archive_manager, storage: ArchiveS
             # Process
             await process_csv(processing_path, archive_manager, storage, worker_id)
 
-            # Move to completed
-            completed_path = COMPLETED_DIR / csv_file.name
-            shutil.move(str(processing_path), str(completed_path))
-            log(f"[{worker_id}] Moved {csv_file.name} to completed/")
+            # Upload to MinIO completed-queues bucket instead of local directory
+            month = datetime.now().strftime("%Y-%m")
+            minio_path = f"completed-queues/{month}/{csv_file.name}"
+            try:
+                minio = create_minio_client()
+                csv_content = processing_path.read_text(encoding="utf-8")
+                minio.put_text(minio_path, csv_content)
+                processing_path.unlink()  # Delete local file after upload
+                log(f"[{worker_id}] Uploaded {csv_file.name} to MinIO {minio_path}")
+            except Exception as upload_err:
+                log(f"[{worker_id}] MinIO upload failed, falling back to local: {upload_err}")
+                # Fallback to local completed directory
+                completed_path = COMPLETED_DIR / csv_file.name
+                shutil.move(str(processing_path), str(completed_path))
+                log(f"[{worker_id}] Moved {csv_file.name} to completed/")
 
         except Exception as e:
             log(f"[{worker_id}] Error processing {csv_file.name}: {e}")
