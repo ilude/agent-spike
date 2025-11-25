@@ -307,3 +307,11 @@ gpu-deploy-observability:
 ## Open Ansible shell for manual commands
 gpu-shell:
 	@cd infra/ansible && docker compose run --rm ansible bash
+
+## Backup SurrealDB database to local machine
+surrealdb-backup:
+	@echo "Backing up SurrealDB from GPU server..."
+	@mkdir -p infra/ansible/backups/surrealdb
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/backup-surrealdb.yml
+	@echo "Backup complete: infra/ansible/backups/surrealdb/"
+	@ls -lh infra/ansible/backups/surrealdb/ | tail -5

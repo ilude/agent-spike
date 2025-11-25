@@ -75,6 +75,10 @@ compose/data/qdrant.tmp/
 compose/data/queues/processing/
 compose/data/n8n/
 compose/data/logs/
+
+# SurrealDB backups (local disaster recovery)
+backups/
+infra/ansible/backups/
 *.db
 *.sqlite
 !compose/data/qdrant_storage/**/*.sqlite
