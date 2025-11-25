@@ -3,7 +3,6 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { auth, isAuthenticated } from '$lib/stores/auth.js';
-  import { setupTelemetry } from '$lib/telemetry';
   import { logger } from '$lib/logger';
 
   // Public routes that don't require authentication
@@ -11,16 +10,17 @@
 
   let initialized = false;
 
-  // Initialize OpenTelemetry on client side only
-  if (typeof window !== 'undefined') {
+  // Initialize OpenTelemetry on client side only (after mount to avoid SSR)
+  onMount(async () => {
+    // Dynamically import telemetry to prevent SSR loading
+    const { setupTelemetry } = await import('$lib/telemetry');
     setupTelemetry();
+
     logger.info('Frontend initialized', {
       version: '0.2.0',
       environment: 'production',
     });
-  }
 
-  onMount(async () => {
     await auth.initialize();
     initialized = true;
   });
