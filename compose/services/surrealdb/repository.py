@@ -722,3 +722,40 @@ async def get_chunk_count() -> int:
     query = "SELECT COUNT() AS count FROM video_chunk GROUP ALL;"
     results = await execute_query(query)
     return int(results[0].get("count", 0)) if results else 0
+
+
+# =============================================================================
+# Validation and Migration Helpers
+# =============================================================================
+
+
+async def get_random_video_ids(limit: int = 10) -> list[str]:
+    """Get random video IDs for sampling validation.
+
+    Args:
+        limit: Maximum number of random video IDs to return
+
+    Returns:
+        List of random video IDs
+    """
+    query = """
+    SELECT video_id FROM video
+    ORDER BY rand()
+    LIMIT $limit;
+    """
+
+    results = await execute_query(query, {"limit": limit})
+    return [r.get("video_id") for r in results if r.get("video_id")]
+
+
+async def get_all_video_ids() -> list[str]:
+    """Get all video IDs from the database.
+
+    Useful for comparing archive contents with database records.
+
+    Returns:
+        List of all video IDs
+    """
+    query = "SELECT video_id FROM video;"
+    results = await execute_query(query)
+    return [r.get("video_id") for r in results if r.get("video_id")]
