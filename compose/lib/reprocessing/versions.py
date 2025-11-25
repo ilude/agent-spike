@@ -24,7 +24,7 @@ VERSIONS: Dict[str, str] = {
     "weight_calculator": "v1.0",        # Recommendation weight calculation
 
     # Data schema
-    "qdrant_schema": "v1",              # Qdrant payload structure
+    "qdrant_schema": "v1",              # SurrealDB payload structure
     "archive_schema": "v1",             # Archive JSON structure
 
     # Models used

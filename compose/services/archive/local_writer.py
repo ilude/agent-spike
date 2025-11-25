@@ -247,7 +247,7 @@ class LocalArchiveWriter:
         Args:
             video_id: YouTube video ID
             version: Processing version (e.g., "v1_full_embed", "v2_chunked")
-            collection_name: Optional Qdrant collection name
+            collection_name: Optional collection name (deprecated)
             notes: Optional notes about processing
 
         Returns:

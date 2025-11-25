@@ -50,9 +50,6 @@ class TaggerConfig:
     use_vocabulary: bool = True
     similar_videos_limit: int = 5
 
-    # Qdrant configuration
-    qdrant_collection: str = "cached_content"
-    qdrant_path: Optional[Path] = None
 
     # Ollama configuration
     ollama_url: str = field(default_factory=get_ollama_url)

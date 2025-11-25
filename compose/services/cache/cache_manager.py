@@ -84,7 +84,7 @@ class CacheManager(Protocol):
         """Semantic search with optional metadata filters.
 
         Note: This method is optional for basic caching implementations.
-        Vector-based implementations (like Qdrant) can provide semantic search.
+        Vector-based implementations (like SurrealDB) can provide semantic search.
 
         Args:
             query: Search query string

@@ -47,66 +47,6 @@ def create_mock_openai_client(
     return mock_client
 
 
-def create_mock_qdrant_client(
-    collection_exists: bool = True,
-    points_count: int = 100,
-    search_results: list[dict] | None = None,
-    scroll_results: list[dict] | None = None,
-) -> MagicMock:
-    """Create a mock QdrantClient.
-
-    Args:
-        collection_exists: Whether the collection should appear to exist
-        points_count: Number of points in the collection
-        search_results: Results for query_points calls
-        scroll_results: Results for scroll calls
-
-    Returns:
-        Mock client that can be used in place of QdrantClient
-    """
-    mock_client = MagicMock()
-
-    # get_collection
-    if collection_exists:
-        collection_info = MagicMock()
-        collection_info.points_count = points_count
-        mock_client.get_collection.return_value = collection_info
-    else:
-        mock_client.get_collection.side_effect = Exception("Collection not found")
-
-    # query_points (for RAG search)
-    if search_results is None:
-        search_results = [
-            {
-                "payload": {
-                    "text": "Sample video content about AI agents",
-                    "video_id": "youtube:test123",
-                    "video_title": "Test Video Title",
-                    "url": "https://youtube.com/watch?v=test123",
-                    "tags": ["ai", "agents"],
-                }
-            }
-        ]
-
-    mock_search = MagicMock()
-    mock_search.points = [
-        MagicMock(payload=r["payload"]) for r in search_results
-    ]
-    mock_client.query_points.return_value = mock_search
-
-    # scroll (for random questions)
-    if scroll_results is None:
-        scroll_results = search_results
-
-    scroll_points = [MagicMock(payload=r["payload"]) for r in scroll_results]
-    mock_client.scroll.return_value = (scroll_points, None)
-
-    # upsert
-    mock_client.upsert.return_value = MagicMock()
-
-    return mock_client
-
-
 def create_mock_websocket(
     messages: list[str] | None = None,
 ) -> MagicMock:

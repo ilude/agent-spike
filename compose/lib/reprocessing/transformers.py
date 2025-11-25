@@ -81,10 +81,10 @@ class BaseTransformer(ABC):
 
 
 class QdrantMetadataFlattener(BaseTransformer):
-    """Flattens structured metadata into Qdrant-compatible filter fields.
+    """Flattens structured metadata into SurrealDB-compatible filter fields.
 
     Transforms nested tag structures into flat boolean fields for efficient
-    Qdrant filtering (e.g., subject_ai_agents=True, entity_claude=True).
+    SurrealDB filtering (e.g., subject_ai_agents=True, entity_claude=True).
 
     Version tracking: Uses qdrant_flattener version
     """

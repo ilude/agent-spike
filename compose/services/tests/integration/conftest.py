@@ -10,15 +10,10 @@ import os
 import pytest
 
 # Remote service URLs (GPU server)
-REMOTE_QDRANT_URL = "http://192.168.16.241:6333"
 REMOTE_INFINITY_URL = "http://192.168.16.241:7997"
 REMOTE_OLLAMA_URL = "http://192.168.16.241:11434"
 
 
-@pytest.fixture
-def qdrant_url():
-    """Remote Qdrant URL."""
-    return os.getenv("QDRANT_URL", REMOTE_QDRANT_URL)
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
-"""Flatten structured video metadata for Qdrant storage.
+"""Flatten structured video metadata for SurrealDB storage.
 
 This module converts nested tag structures into flat key-value pairs
-suitable for Qdrant metadata filtering and search.
+suitable for SurrealDB metadata filtering and search.
 
 Example:
     >>> from compose.services.metadata import flatten_video_metadata
@@ -23,7 +23,7 @@ from typing import Any
 
 
 def flatten_video_metadata(tags_data: dict[str, Any]) -> dict[str, Any]:
-    """Convert structured tags to flat Qdrant metadata.
+    """Convert structured tags to flat SurrealDB metadata.
 
     Handles flattening of:
     - subject_matter: List of topics -> subject_{topic} = True
@@ -38,7 +38,7 @@ def flatten_video_metadata(tags_data: dict[str, Any]) -> dict[str, Any]:
         tags_data: Structured metadata dict with subject_matter, entities, etc.
 
     Returns:
-        Flat dict with safe keys for Qdrant filtering + tags_json backup
+        Flat dict with safe keys for SurrealDB filtering + tags_json backup
 
     Example:
         >>> tags = {

@@ -266,7 +266,7 @@ async def delete_file(project_id: str, file_id: str):
     if not deleted:
         raise HTTPException(status_code=404, detail="File not found")
 
-    # Remove from Qdrant index
+    # Remove from SurrealDB index
     delete_file_from_index(project_id, file_id)
 
     return {"status": "deleted", "project_id": project_id, "file_id": file_id}

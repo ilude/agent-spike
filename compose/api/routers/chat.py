@@ -448,7 +448,7 @@ async def websocket_rag_chat(websocket: WebSocket):
     """
     WebSocket endpoint for RAG-powered streaming chat.
 
-    Searches Qdrant for relevant content, builds context, streams response.
+    Searches SurrealDB for relevant content, builds context, streams response.
     """
     await websocket.accept()
     print(f"RAG WebSocket connected: {websocket.client}")

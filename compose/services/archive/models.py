@@ -10,7 +10,7 @@ class ProcessingRecord(BaseModel):
 
     version: str  # e.g., "v1_full_embed", "v2_chunked"
     processed_at: datetime
-    collection_name: Optional[str] = None  # Qdrant collection name
+    # Removed: collection_name field (Qdrant-specific)
     notes: Optional[str] = None
 
 
@@ -34,7 +34,7 @@ class DerivedOutput(BaseModel):
     regenerated at any time and are version-tracked for staleness detection.
     """
 
-    output_type: str  # e.g., "normalized_metadata_v1", "qdrant_metadata"
+    output_type: str  # e.g., "normalized_metadata_v1", "surrealdb_metadata"
     output_value: str  # JSON-serialized output
     generated_at: datetime
     transformer_version: str  # Version of transformer that produced this
