@@ -279,6 +279,96 @@ def websocket_client(client):
     return create_ws
 
 
+# ============ SSE Streaming Tests ============
+
+
+@pytest.fixture
+def mock_sse_client():
+    """Mock SSE client for testing Server-Sent Events."""
+
+    class MockSSEClient:
+        """Mock client that simulates SSE event stream."""
+
+        def __init__(self):
+            self.events = []
+            self.closed = False
+
+        async def __aiter__(self):
+            """Async iterator for events."""
+            for event in self.events:
+                if self.closed:
+                    break
+                yield event
+
+        def add_event(self, event_type: str, data: dict):
+            """Add an event to the stream."""
+            self.events.append({"type": event_type, "data": data})
+
+        def close(self):
+            """Simulate client disconnect."""
+            self.closed = True
+
+    return MockSSEClient()
+
+
+@pytest.fixture
+def mock_video_metadata():
+    """Standard test video metadata."""
+    return {
+        "video_id": "test_vid123",  # Must be 11 chars for YouTube ID format
+        "title": "Test Video Title",
+        "url": "https://youtube.com/watch?v=test_vid123",
+        "channel_id": "test_channel",
+        "channel_name": "Test Channel",
+        "duration_seconds": 300,
+        "view_count": 1000,
+        "published_at": "2025-01-01T00:00:00Z",
+        "fetched_at": "2025-01-24T00:00:00Z",
+    }
+
+
+@pytest.fixture
+def mock_transcript():
+    """Standard test transcript."""
+    return """This is a test transcript for video ingestion testing.
+It contains multiple sentences across several lines.
+This simulates a real YouTube transcript with meaningful content.
+The transcript should be long enough to test chunking and embedding."""
+
+
+@pytest.fixture
+def mock_youtube_service():
+    """Mock YouTube service for ingestion testing."""
+    with patch("compose.services.youtube.get_transcript") as mock_get_transcript:
+        # Mock successful transcript fetch
+        mock_get_transcript.return_value = """This is a test transcript for video ingestion testing.
+It contains multiple sentences across several lines.
+This simulates a real YouTube transcript with meaningful content."""
+        yield mock_get_transcript
+
+
+@pytest.fixture
+def mock_surrealdb_repository():
+    """Mock SurrealDB repository operations."""
+    # Create async mock functions
+    mock_get = AsyncMock(return_value=None)  # Video doesn't exist
+    mock_upsert = AsyncMock(return_value={"video_id": "test_vid123"})
+
+    with patch("compose.services.surrealdb.get_video", mock_get), \
+         patch("compose.services.surrealdb.upsert_video", mock_upsert):
+        yield {"get_video": mock_get, "upsert_video": mock_upsert}
+
+
+@pytest.fixture
+def mock_minio_archive():
+    """Mock MinIO archive writer."""
+    mock_instance = MagicMock()
+    mock_instance.archive_youtube_video.return_value = "archive/test_vid123.json"
+
+    with patch("compose.services.archive.create_local_archive_writer", return_value=mock_instance):
+        yield mock_instance
+
+
 # ============ Temporary Data Directory ============
 
 

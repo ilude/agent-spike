@@ -119,6 +119,14 @@ asyncio_default_fixture_loop_scope = "function"
 markers = [
     "unit: marks tests as unit tests (fast, no external deps)",
     "integration: marks tests as integration tests (requires external services)",
+    "sse: marks tests for SSE streaming functionality",
+    "ingestion: marks tests for video ingestion workflows",
+    "concurrency: marks tests for concurrent operations",
+    "e2e: marks tests as end-to-end tests",
+    "slow: marks tests that are slow to run",
+    "chat: marks tests for chat functionality",
+    "memory: marks tests for memory functionality",
+    "projects: marks tests for project functionality",
 ]
 filterwarnings = [
     "ignore::DeprecationWarning:pydantic.*:",
