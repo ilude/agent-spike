@@ -3,6 +3,31 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+
+	// Pre-bundle CommonJS OpenTelemetry packages for browser use
+	optimizeDeps: {
+		include: [
+			'@opentelemetry/api',
+			'@opentelemetry/sdk-trace-web',
+			'@opentelemetry/sdk-trace-base',
+			'@opentelemetry/resources',
+			'@opentelemetry/semantic-conventions',
+			'@opentelemetry/instrumentation',
+			'@opentelemetry/instrumentation-fetch',
+			'@opentelemetry/exporter-trace-otlp-http'
+		]
+	},
+
+	// Prevent externalizing OTel packages during SSR
+	ssr: {
+		noExternal: [
+			'@opentelemetry/api',
+			'@opentelemetry/sdk-trace-web',
+			'@opentelemetry/resources',
+			'@opentelemetry/semantic-conventions'
+		]
+	},
+
 	server: {
 		host: '0.0.0.0',  // Listen on all interfaces
 		port: 5173,

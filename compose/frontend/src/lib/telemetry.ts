@@ -58,7 +58,7 @@ export function setupTelemetry() {
     // Auto-instrument fetch API
     registerInstrumentations({
       instrumentations: [
-        new FetchInstrument ation({
+        new FetchInstrumentation({
           // Propagate trace context to backend
           propagateTraceHeaderCorsUrls: [
             /https:\/\/api\.local\.ilude\.com.*/,
