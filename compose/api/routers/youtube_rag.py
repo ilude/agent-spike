@@ -10,7 +10,8 @@ import httpx
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException
 
-from compose.services.surrealdb import semantic_search
+# from compose.services.surrealdb import semantic_search  # OLD: inline RAG
+from compose.services.rag import SurrealDBRAG
 
 router = APIRouter()
 
@@ -19,16 +20,18 @@ INFINITY_URL = os.getenv("INFINITY_URL", "http://192.168.16.241:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
 
 
-async def get_embedding(text: str) -> list[float]:
-    """Get embedding from Infinity service."""
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        response = await client.post(
-            f"{INFINITY_URL}/embeddings",
-            json={"model": INFINITY_MODEL, "input": [text]}
-        )
-        response.raise_for_status()
-        data = response.json()
-        return data["data"][0]["embedding"]
+# OLD: get_embedding (now handled by SurrealDBRAG service)
+# async def get_embedding(text: str) -> list[float]:
+#     """Get embedding from Infinity service."""
+#     async with httpx.AsyncClient(timeout=60.0) as client:
+#         response = await client.post(
+#             f"{INFINITY_URL}/embeddings",
+#             json={"model": INFINITY_MODEL, "input": [text]}
+#         )
+#         response.raise_for_status()
+#         data = response.json()
+#         return data["data"][0]["embedding"]
+#
 
 
 # -----------------------------------------------------------------------------
@@ -103,24 +106,25 @@ async def search_transcripts(request: SearchRequest):
     Returns videos ranked by semantic similarity.
     """
     try:
-        # Step 1: Get embedding for query
-        query_vector = await get_embedding(request.query)
+        # NEW: Use SurrealDBRAG service
+        rag = SurrealDBRAG()
+        results = await rag.retrieve_context(
+            query=request.query,
+            limit=request.limit,
+            channel_filter=request.channel
+        )
 
-        # Step 2: Search SurrealDB
-        results = await semantic_search(query_vector, limit=request.limit)
-
-        # Step 3: Format results
+        # Format results
         search_results = []
         for r in results:
-            # TODO: Filter by channel if request.channel is set
             search_results.append(
                 SearchResult(
-                    video_id=r.video_id,
-                    title=r.title or "Unknown",
-                    channel="Unknown",  # Channel stored separately in SurrealDB
-                    score=round(r.similarity_score, 3),
+                    video_id=r.get("video_id", ""),
+                    title=r.get("title", "Unknown"),
+                    channel=r.get("channel_name", "Unknown"),
+                    score=round(r.get("score", 0.0), 3),
                     transcript_preview="",  # Transcript in MinIO, not fetched here
-                    url=r.url or f"https://youtube.com/watch?v={r.video_id}",
+                    url=r.get("url", f"https://youtube.com/watch?v={r.get('video_id', '')}"),
                 )
             )
 
@@ -130,8 +134,31 @@ async def search_transcripts(request: SearchRequest):
             total_found=len(search_results),
         )
 
+        # OLD: Inline RAG (commented out - delete in Phase 4)
+        # # Step 1: Get embedding for query
+        # query_vector = await get_embedding(request.query)
+        #
+        # # Step 2: Search SurrealDB
+        # results = await semantic_search(query_vector, limit=request.limit)
+        #
+        # # Step 3: Format results
+        # search_results = []
+        # for r in results:
+        #     # TODO: Filter by channel if request.channel is set
+        #     search_results.append(
+        #         SearchResult(
+        #             video_id=r.video_id,
+        #             title=r.title or "Unknown",
+        #             channel="Unknown",  # Channel stored separately in SurrealDB
+        #             score=round(r.similarity_score, 3),
+        #             transcript_preview="",  # Transcript in MinIO, not fetched here
+        #             url=r.url or f"https://youtube.com/watch?v={r.video_id}",
+        #         )
+        #     )
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
+
 
 
 @router.post("/query", response_model=QueryResponse)

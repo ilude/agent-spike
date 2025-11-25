@@ -16,7 +16,8 @@ from compose.services.memory import get_memory_service
 from compose.services.minio import ArchiveStorage, create_minio_client
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
-from compose.services.surrealdb import execute_query, get_video_count, semantic_search
+from compose.services.surrealdb import execute_query, get_video_count
+from compose.services.rag import SurrealDBRAG
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
