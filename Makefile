@@ -143,7 +143,7 @@ endif
 # =============================================================================
 # DEVELOPMENT & TESTING
 # =============================================================================
-.PHONY: sync-dev lint format test test-backend test-frontend test-coverage test-tools
+.PHONY: sync-dev lint format test test-backend test-frontend test-coverage test-tools test-sse test-concurrency test-ingestion
 
 ## Sync development dependencies
 sync-dev:
@@ -192,6 +192,21 @@ test-coverage: sync-dev
 ## Run tools tests (legacy)
 test-tools: sync-dev
 	uv run python -m pytest tools/tests/ --cov=tools --cov-report=term-missing -v
+
+## Run SSE streaming tests
+test-sse: sync-dev
+	@echo "Running SSE streaming tests..."
+	uv run python -m pytest compose/tests/streaming/ -m sse -v
+
+## Run concurrency tests
+test-concurrency: sync-dev
+	@echo "Running concurrency tests..."
+	uv run python -m pytest compose/tests/concurrency/ -m concurrency -v
+
+## Run ingestion tests (SSE + concurrency + cancellation)
+test-ingestion: sync-dev
+	@echo "Running ingestion tests..."
+	uv run python -m pytest compose/tests/streaming/ compose/tests/concurrency/ -m ingestion -v
 
 # =============================================================================
 # CLEANUP & MAINTENANCE
