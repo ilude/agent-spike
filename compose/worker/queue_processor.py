@@ -54,6 +54,8 @@ PROGRESS_FILE = QUEUE_BASE / ".progress.json"
 from compose.services.youtube import get_transcript, extract_video_id, fetch_video_metadata
 from compose.services.minio import create_minio_client, ArchiveStorage
 from compose.services.archive import create_archive_manager, create_local_archive_writer, ImportMetadata, ChannelContext
+from compose.services.surrealdb.repository import get_video, upsert_video
+from compose.services.surrealdb.models import VideoRecord
 
 
 def log(msg: str):
@@ -107,10 +109,14 @@ async def ingest_video(
     channel_id: str = None,
     channel_name: str = None,
 ) -> tuple[bool, str]:
-    """Fetch transcript and metadata, archive, and cache.
+    """Fetch transcript and metadata, archive, and cache to SurrealDB.
 
-    Simplified version - skips LLM tagging for speed.
-    Tags can be regenerated later from archive.
+    Pipeline:
+    1. Check SurrealDB for existing video (skip if exists)
+    2. Fetch transcript → Archive immediately
+    3. Fetch YouTube metadata → Archive immediately
+    4. Create SurrealDB record (without embedding - async backfill)
+    5. Cache to MinIO (legacy, for backward compatibility)
 
     Args:
         source_type: Must be one of: single_import, repl_import, bulk_channel, bulk_multi_channel
@@ -119,8 +125,10 @@ async def ingest_video(
         video_id = extract_video_id(url)
         cache_key = f"youtube:video:{video_id}"
 
-        if storage.client.exists(cache_key):
-            return True, f"SKIP: Already cached ({video_id})"
+        # Check SurrealDB first (primary cache)
+        existing = await get_video(video_id)
+        if existing:
+            return True, f"SKIP: Already in SurrealDB ({video_id})"
 
         log(f"  Fetching transcript for {video_id}...")
         transcript = get_transcript(url, cache=None)
@@ -171,7 +179,37 @@ async def ingest_video(
                 metadata=youtube_metadata
             )
 
-        # Cache with YouTube metadata
+        # Convert published_at to datetime if needed
+        published_at = youtube_metadata.get("published_at")
+        if published_at and isinstance(published_at, str):
+            try:
+                published_at = datetime.fromisoformat(published_at)
+            except (ValueError, TypeError):
+                published_at = None
+
+        # Create SurrealDB record (without embedding - will be backfilled async)
+        month = datetime.now().strftime("%Y-%m")
+        video_record = VideoRecord(
+            video_id=video_id,
+            url=url,
+            fetched_at=datetime.now(),
+            title=youtube_metadata.get("title"),
+            channel_id=channel_id or youtube_metadata.get("channel_id"),
+            channel_name=channel_name or youtube_metadata.get("channel_title"),
+            duration_seconds=youtube_metadata.get("duration_seconds"),
+            view_count=youtube_metadata.get("view_count"),
+            published_at=published_at,
+            source_type=source_type,
+            import_method="scheduled",
+            recommendation_weight=weight_map.get(source_type, 0.8),
+            archive_path=f"youtube/{month}/{video_id}.json",
+            embedding=None,  # Will be backfilled by separate process
+        )
+
+        log(f"  Creating SurrealDB record for {video_id}...")
+        await upsert_video(video_record)
+
+        # Also cache to MinIO for backward compatibility
         cache_data = {
             "video_id": video_id,
             "url": url,

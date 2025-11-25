@@ -759,3 +759,168 @@ async def get_all_video_ids() -> list[str]:
     query = "SELECT video_id FROM video;"
     results = await execute_query(query)
     return [r.get("video_id") for r in results if r.get("video_id")]
+
+
+# =============================================================================
+# Vector Search (SurrealDB Migration - Phase 1)
+# =============================================================================
+
+
+async def search_videos_by_embedding(
+    query_embedding: list[float],
+    limit: int = 10,
+    offset: int = 0,
+    channel_filter: str | None = None,
+    min_date: datetime | None = None,
+    max_date: datetime | None = None,
+) -> list[dict]:
+    """Search videos by embedding similarity using HNSW index.
+
+    Uses SurrealDB's native vector similarity search with cosine distance.
+
+    Args:
+        query_embedding: Query embedding vector (1024-dim, gte-large-en-v1.5)
+        limit: Maximum number of results (default: 10)
+        offset: Skip first N results for pagination (default: 0)
+        channel_filter: Filter by channel_name (optional)
+        min_date: Filter by created_at >= min_date (optional)
+        max_date: Filter by created_at <= max_date (optional)
+
+    Returns:
+        List of video records with similarity scores, ordered by score DESC
+
+    Raises:
+        ValueError: If embedding dimension is incorrect or parameters invalid
+    """
+    # Validate inputs
+    if len(query_embedding) != 1024:
+        raise ValueError(
+            f"Embedding dimension must be 1024, got {len(query_embedding)}"
+        )
+
+    if limit < 0:
+        raise ValueError(f"limit must be non-negative, got {limit}")
+
+    if offset < 0:
+        raise ValueError(f"offset must be non-negative, got {offset}")
+
+    if min_date and max_date and min_date > max_date:
+        raise ValueError("min_date must be <= max_date")
+
+    # Build query with optional filters
+    where_clauses = ["embedding IS NOT NONE"]
+
+    if channel_filter:
+        where_clauses.append("channel_name = $channel_filter")
+
+    if min_date:
+        where_clauses.append("created_at >= $min_date")
+
+    if max_date:
+        where_clauses.append("created_at <= $max_date")
+
+    where_clause = " AND ".join(where_clauses)
+
+    query = f"""
+    SELECT
+        video_id,
+        title,
+        url,
+        channel_name,
+        created_at,
+        archive_path,
+        vector::similarity::cosine(embedding, $query_embedding) AS score
+    FROM video
+    WHERE {where_clause}
+    ORDER BY score DESC
+    LIMIT $limit
+    START $offset;
+    """
+
+    params = {
+        "query_embedding": query_embedding,
+        "limit": limit,
+        "offset": offset,
+    }
+
+    if channel_filter:
+        params["channel_filter"] = channel_filter
+
+    if min_date:
+        params["min_date"] = min_date
+
+    if max_date:
+        params["max_date"] = max_date
+
+    results = await execute_query(query, params)
+    return results
+
+
+async def search_videos_by_text(
+    query_text: str,
+    limit: int = 10,
+    offset: int = 0,
+    channel_filter: str | None = None,
+) -> list[dict]:
+    """Search videos by text - generates embedding and searches.
+
+    Integrates with Infinity API to generate embeddings from text queries,
+    then performs vector similarity search.
+
+    Args:
+        query_text: Text query to search for
+        limit: Maximum number of results (default: 10)
+        offset: Skip first N results for pagination (default: 0)
+        channel_filter: Filter by channel_name (optional)
+
+    Returns:
+        List of video records with similarity scores, ordered by score DESC
+
+    Raises:
+        ValueError: If query_text is empty or parameters invalid
+        Exception: If Infinity API call fails
+    """
+    import httpx
+
+    # Validate input
+    if not query_text or not query_text.strip():
+        raise ValueError("query_text cannot be empty")
+
+    if limit < 0:
+        raise ValueError(f"limit must be non-negative, got {limit}")
+
+    if offset < 0:
+        raise ValueError(f"offset must be non-negative, got {offset}")
+
+    # Generate embedding using Infinity API
+    infinity_url = "http://192.168.16.241:7997/embeddings"
+    model = "Alibaba-NLP/gte-large-en-v1.5"
+
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(
+                infinity_url,
+                json={
+                    "model": model,
+                    "input": [query_text],
+                },
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            query_embedding = data["data"][0]["embedding"]
+
+    except httpx.HTTPError as e:
+        logger.error(f"Infinity API call failed: {e}")
+        raise Exception(f"Failed to generate embedding: {e}")
+    except (KeyError, IndexError) as e:
+        logger.error(f"Unexpected Infinity API response format: {e}")
+        raise Exception(f"Invalid response from embedding service: {e}")
+
+    # Use embedding search
+    return await search_videos_by_embedding(
+        query_embedding=query_embedding,
+        limit=limit,
+        offset=offset,
+        channel_filter=channel_filter,
+    )
