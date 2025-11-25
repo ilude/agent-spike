@@ -1,6 +1,6 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-23
+**Last Updated**: 2025-11-24
 **Current Phase**: Personal AI Research Assistant - SurrealDB + MinIO unified data layer
 
 ## Current State
@@ -25,6 +25,35 @@
   - Protocol-first service design (dependency injection)
 
 ## Recent Completions
+
+**URL Pattern Analytics SurrealDB Migration (Phase 4)** ✅ COMPLETE (2025-11-24)
+- Migrated URL pattern analytics from SQLite to SurrealDB with full async refactor
+- Created comprehensive TDD test suite (27 tests) establishing behavioral baseline
+- Implemented `AsyncPatternTracker` protocol with SurrealDB backend
+- Extracted reusable pattern matching logic to `compose/services/analytics/pattern_matcher.py`
+- Converted 3 consumer files to async (`url_filter.py`, `filter_description_urls.py`, `url_filter_status.py`)
+- Created migration script: `compose/cli/migrate_url_patterns.py` with dry-run and batch modes
+- SurrealDB tables: `pattern_classification`, `pattern_learned`, `pattern_pending_reeval`
+- All tests passing, 6 commits pushed
+
+**GitHooks Performance Optimization** ✅ COMPLETE (2025-11-24)
+- Optimized pre-commit hook: **1min 15sec → 1-2 seconds** (75-second improvement)
+- Pre-commit now only scans staged files instead of all 1,633 encrypted files
+- Removed post-checkout and post-merge auto-sync hooks (use `make brave-sync` manually)
+- Updated .gitattributes: removed obsolete archive/qdrant/cache encryption
+- Removed ~1,500 archive files from git tracking (now stored in MinIO, local files remain)
+- Git operations now instant (no 30-second auto-sync delays)
+
+**MinIO Integration Enhancements** ✅ COMPLETE (2025-11-24)
+- Worker queue processor uploads completed CSVs to MinIO `completed-queues` bucket
+- Created archive-to-MinIO migration CLI: `compose/cli/migrate_archive_to_minio.py`
+- Supports dry-run, stats, verify commands for archive migration
+- Month-based organization for completed queues and archives
+
+**Frontend Observability Updates** ✅ COMPLETE (2025-11-24)
+- Updated OpenTelemetry dependencies to stable v1.x releases
+- Added explicit @opentelemetry/api dependency
+- Improved compatibility with latest OpenTelemetry SDK
 
 **Dual-Collection Embeddings + Transcript Chunking** ✅ COMPLETE (2025-11-23)
 - Migrated from Qdrant to SurrealDB native vector search
@@ -341,8 +370,18 @@ uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
 ## Git State
 
 - Branch: main
-- Recent commits: Containerized services migration (12 commits on 2025-11-18)
-- Status: Clean working tree
+- Recent commits (2025-11-24):
+  - 5418aaa - docs: add proactive memory system design
+  - 65ca4b8 - feat: add archive-to-MinIO migration script
+  - 16d5329 - feat: upload completed queue files to MinIO
+  - 2769894 - build: update OpenTelemetry dependencies
+  - d3cf26c - chore: complete githook cleanup
+  - bd020a2 - perf: optimize githooks (75-second improvement)
+  - 21ba237 - feat: add migration script and async URL filter (Phase 4)
+  - be11316 - test: add TDD test suite for pattern tracker
+  - d70f597 - feat: add SurrealDB PatternTracker implementation
+  - f10f6d4 - feat: implement SurrealDB repository for analytics
+- Status: Clean working tree, all changes pushed
 - All data encrypted with git-crypt before push
 
 **To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d` (starts SurrealDB, MinIO, Infinity)
