@@ -157,16 +157,16 @@ persona_vector = embed([
 
 | Component | EverMemOS | Agent-Spike |
 |-----------|-----------|-------------|
-| **Vector DB** | Milvus | SurrealDB (native HNSW) |
-| **Keyword Search** | Elasticsearch | SurrealDB (hybrid) |
-| **Primary Storage** | MongoDB | SurrealDB records |
-| **Cache** | Redis | None (SurrealDB is fast) |
+| **Vector DB** | Milvus | Qdrant |
+| **Keyword Search** | Elasticsearch | Qdrant (hybrid) |
+| **Primary Storage** | MongoDB | Qdrant payloads |
+| **Cache** | Redis | None (Qdrant is fast) |
 | **Memory Layer** | Custom | Mem0 |
 | **Embeddings** | Not specified | Infinity (bge-m3) |
 | **API** | FastAPI | FastAPI |
 | **Package Manager** | uv | uv |
 
-**Verdict**: Their stack is more complex (4 databases). SurrealDB can handle vector + records + hybrid search in one system. Keep it simple.
+**Verdict**: Their stack is more complex (4 databases). Qdrant can handle vector + payload + hybrid search in one system. Keep it simple.
 
 ---
 

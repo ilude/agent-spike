@@ -206,7 +206,7 @@ if __name__ == "__main__":
 ## Future Scripts
 
 Candidates for extraction from lessons:
-- **export_cache.py** - Export SurrealDB videos to archive or other formats
+- **export_cache.py** - Export Qdrant cache to archive or other formats
 - **batch_tag.py** - Batch re-tagging of videos with different LLM
 - **compare_models.py** - Compare different LLM models for tagging
 - **archive_stats.py** - Show statistics from archive (costs, counts, etc.)

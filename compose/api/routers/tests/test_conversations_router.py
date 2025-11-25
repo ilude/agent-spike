@@ -37,17 +37,8 @@ def client():
 
 @pytest.fixture
 def mock_service():
-    """Create a mock conversation service with async methods."""
+    """Create a mock conversation service."""
     service = MagicMock()
-    # Make all service methods async
-    service.list_conversations = AsyncMock(return_value=[])
-    service.create_conversation = AsyncMock()
-    service.get_conversation = AsyncMock()
-    service.update_conversation = AsyncMock()
-    service.delete_conversation = AsyncMock()
-    service.add_message = AsyncMock()
-    service.search_conversations = AsyncMock(return_value=[])
-    service.generate_title = AsyncMock()
     return service
 
 

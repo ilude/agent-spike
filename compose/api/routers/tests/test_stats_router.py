@@ -221,6 +221,23 @@ class TestGetCacheStats:
         mock_client.get_collection.return_value = mock_collection
         mock_client.count.side_effect = [mock_videos_result, mock_articles_result]
 
+        with patch("compose.api.routers.stats.QdrantClient", return_value=mock_client):
+            result = get_cache_stats()
+
+        assert result["status"] == "ok"
+        assert result["total"] == 150
+        assert result["videos"] == 100
+        assert result["articles"] == 50
+        assert "collection_name" in result
+
+    def test_error_returns_error_status(self):
+        """Connection error returns error status."""
+        with patch(
+            "compose.api.routers.stats.QdrantClient",
+            side_effect=Exception("Connection refused"),
+        ):
+            result = get_cache_stats()
+
         assert result["status"] == "error"
         assert "Connection refused" in result["message"]
         assert result["total"] == 0
@@ -235,6 +252,19 @@ class TestGetCacheStats:
         mock_client = MagicMock()
         mock_client.get_collection.return_value = mock_collection
         mock_client.count.side_effect = Exception("Filter not supported")
+
+        with patch("compose.api.routers.stats.QdrantClient", return_value=mock_client):
+            result = get_cache_stats()
+
+        assert result["status"] == "ok"
+        assert result["total"] == 100
+        assert result["videos"] == 100  # Falls back to total
+        assert result["articles"] == 0
+
+
+# -----------------------------------------------------------------------------
+# get_archive_stats Tests
+# -----------------------------------------------------------------------------
 
 
 @pytest.mark.unit

@@ -54,7 +54,7 @@ async def list_artifacts(
 ):
     """List all artifacts, optionally filtered by conversation or project."""
     service = get_artifact_service()
-    artifacts = await service.list_artifacts(
+    artifacts = service.list_artifacts(
         conversation_id=conversation_id,
         project_id=project_id,
     )
@@ -65,7 +65,7 @@ async def list_artifacts(
 async def create_artifact(request: CreateArtifactRequest):
     """Create a new artifact."""
     service = get_artifact_service()
-    artifact = await service.create_artifact(
+    artifact = service.create_artifact(
         title=request.title,
         content=request.content,
         artifact_type=request.artifact_type,
@@ -80,7 +80,7 @@ async def create_artifact(request: CreateArtifactRequest):
 async def get_artifact(artifact_id: str):
     """Get an artifact by ID."""
     service = get_artifact_service()
-    artifact = await service.get_artifact(artifact_id)
+    artifact = service.get_artifact(artifact_id)
 
     if not artifact:
         raise HTTPException(status_code=404, detail="Artifact not found")
@@ -92,7 +92,7 @@ async def get_artifact(artifact_id: str):
 async def update_artifact(artifact_id: str, request: UpdateArtifactRequest):
     """Update an artifact."""
     service = get_artifact_service()
-    artifact = await service.update_artifact(
+    artifact = service.update_artifact(
         artifact_id,
         title=request.title,
         content=request.content,
@@ -110,7 +110,7 @@ async def update_artifact(artifact_id: str, request: UpdateArtifactRequest):
 async def delete_artifact(artifact_id: str):
     """Delete an artifact."""
     service = get_artifact_service()
-    deleted = await service.delete_artifact(artifact_id)
+    deleted = service.delete_artifact(artifact_id)
 
     if not deleted:
         raise HTTPException(status_code=404, detail="Artifact not found")
@@ -122,15 +122,15 @@ async def delete_artifact(artifact_id: str):
 async def link_artifact(artifact_id: str, request: LinkRequest):
     """Link an artifact to a conversation and/or project."""
     service = get_artifact_service()
-    artifact = await service.get_artifact(artifact_id)
+    artifact = service.get_artifact(artifact_id)
 
     if not artifact:
         raise HTTPException(status_code=404, detail="Artifact not found")
 
     if request.conversation_id:
-        artifact = await service.link_to_conversation(artifact_id, request.conversation_id)
+        artifact = service.link_to_conversation(artifact_id, request.conversation_id)
 
     if request.project_id:
-        artifact = await service.link_to_project(artifact_id, request.project_id)
+        artifact = service.link_to_project(artifact_id, request.project_id)
 
     return artifact

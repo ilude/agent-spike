@@ -88,7 +88,7 @@ This document captures the research, decisions, and implementation plan for exte
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Server IP 192.168.16.241 | Keep (intentional) | Home GPU server for Ollama/SurrealDB/etc. |
+| Server IP 192.168.16.241 | Keep (intentional) | Home GPU server for Ollama/Qdrant/etc. |
 | Web search backend | flaresolverr MCP | Already built, reuse existing work |
 | Code sandbox | Docker container | Server-side, more powerful than browser |
 | Memory style | Auto-extract | ChatGPT approach (vs Claude's explicit save) |

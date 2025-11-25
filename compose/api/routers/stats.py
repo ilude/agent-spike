@@ -12,13 +12,6 @@ from fastapi.responses import StreamingResponse
 
 router = APIRouter(tags=["stats"])
 
-# Import LGTM client for observability metrics (Loki, Grafana, Tempo, Prometheus)
-try:
-    from compose.services.observability import LGTMClient
-    OBSERVABILITY_ENABLED = True
-except ImportError:
-    OBSERVABILITY_ENABLED = False
-
 # Configuration
 SURREALDB_URL = os.getenv("SURREALDB_URL", "http://localhost:8000")
 MINIO_URL = os.getenv("MINIO_URL", "http://localhost:9000")
@@ -32,8 +25,6 @@ ARCHIVE_BASE = Path(os.getenv("ARCHIVE_BASE", "/app/src/compose/data/archive"))
 
 def get_queue_stats() -> dict:
     """Get queue directory statistics."""
-    from compose.api.routers.ingest import get_active_ingests, get_active_ingest_count
-
     pending_dir = QUEUE_BASE / "pending"
     processing_dir = QUEUE_BASE / "processing"
     completed_dir = QUEUE_BASE / "completed"
@@ -58,19 +49,14 @@ def get_queue_stats() -> dict:
         except (json.JSONDecodeError, IOError):
             pass
 
-    # Include active API ingests (single video/article imports)
-    active_ingests = get_active_ingests()
-    active_ingest_count = get_active_ingest_count()
-
     return {
         "pending_count": len(pending_files),
         "pending_files": [f.name for f in pending_files],
-        "processing_count": len(processing_files) + active_ingest_count,  # Include active ingests
+        "processing_count": len(processing_files),
         "processing_files": [f.name for f in processing_files],
         "completed_count": len(completed_files),
         "completed_files": [f.name for f in completed_files[-5:]],  # Last 5
         "active_workers": active_workers,  # List of worker progress objects
-        "active_ingests": active_ingests,  # List of active API ingests
     }
 
 
@@ -302,94 +288,24 @@ async def get_service_health() -> dict:
 
 
 def get_recent_activity() -> list:
-    """Get recent activity from completed queue files and individual ingests."""
-    from compose.api.routers.ingest import get_recent_ingests
+    """Get recent activity from completed queue files and archive."""
+    completed_dir = QUEUE_BASE / "completed"
+    if not completed_dir.exists():
+        return []
+
+    # Get recently modified completed files
+    files = sorted(completed_dir.glob("*.csv"), key=lambda f: f.stat().st_mtime, reverse=True)
 
     activity = []
+    for f in files[:3]:  # Last 3 files
+        mtime = datetime.fromtimestamp(f.stat().st_mtime)
+        activity.append({
+            "type": "queue_completed",
+            "file": f.name,
+            "timestamp": mtime.isoformat(),
+        })
 
-    # Get recent individual ingests (API/web UI)
-    recent_ingests = get_recent_ingests()
-    activity.extend(recent_ingests)
-
-    # Get recently modified completed queue files
-    completed_dir = QUEUE_BASE / "completed"
-    if completed_dir.exists():
-        files = sorted(completed_dir.glob("*.csv"), key=lambda f: f.stat().st_mtime, reverse=True)
-        for f in files[:3]:  # Last 3 files
-            mtime = datetime.fromtimestamp(f.stat().st_mtime)
-            activity.append({
-                "type": "queue_completed",
-                "file": f.name,
-                "timestamp": mtime.isoformat(),
-            })
-
-    # Sort all activity by timestamp (most recent first)
-    activity.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
-
-    return activity[:5]  # Return top 5 most recent
-
-
-async def get_observability_stats() -> dict:
-    """Get observability metrics from LGTM stack (Loki, Grafana, Tempo, Prometheus)."""
-    if not OBSERVABILITY_ENABLED:
-        return {
-            "status": "unavailable",
-            "message": "LGTM observability stack not configured",
-        }
-
-    try:
-        async with LGTMClient() as lgtm:
-            # Query service health
-            health = await lgtm.query_service_health("agent-spike-api")
-
-            # Query error patterns (last 24h, min 5 occurrences)
-            error_patterns = await lgtm.query_error_patterns(
-                service_name="agent-spike-api",
-                lookback_hours=24,
-                min_count=5
-            )
-
-            # Query performance bottlenecks (P95 > 1000ms)
-            bottlenecks = await lgtm.query_performance_bottlenecks(
-                service_name="agent-spike-api",
-                p95_threshold_ms=1000
-            )
-
-            # Format slowest endpoints
-            slowest_endpoints = [
-                {
-                    "operation": b.operation,
-                    "p95_ms": b.p95_duration_ms,
-                }
-                for b in bottlenecks[:5]  # Top 5 slowest
-            ]
-
-            # Format error patterns
-            top_errors = [
-                {
-                    "message": e.message[:100],  # Truncate long messages
-                    "count": e.count,
-                    "last_seen": e.last_seen.isoformat(),
-                }
-                for e in error_patterns[:5]  # Top 5 errors
-            ]
-
-            return {
-                "status": health.status,
-                "service_name": health.service_name,
-                "error_rate": health.error_rate,
-                "avg_response_time_ms": health.avg_response_time_ms,
-                "requests_per_minute": health.requests_per_minute,
-                "issues": health.issues,
-                "top_errors": top_errors,
-                "slowest_endpoints": slowest_endpoints,
-                "has_performance_issues": len(slowest_endpoints) > 0,
-            }
-    except Exception as e:
-        return {
-            "status": "error",
-            "message": str(e),
-        }
+    return activity
 
 
 async def generate_stats():
@@ -404,7 +320,6 @@ async def generate_stats():
                 "health": await get_service_health(),
                 "recent_activity": get_recent_activity(),
                 "webshare": await get_webshare_stats(),
-                "observability": await get_observability_stats(),
             }
             yield f"data: {json.dumps(stats)}\n\n"
         except Exception as e:
@@ -425,7 +340,6 @@ async def get_stats():
         "health": await get_service_health(),
         "recent_activity": get_recent_activity(),
         "webshare": await get_webshare_stats(),
-        "observability": await get_observability_stats(),
     }
 
 

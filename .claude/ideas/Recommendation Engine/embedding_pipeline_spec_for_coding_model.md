@@ -19,7 +19,7 @@ To accomplish this, every content item will have **two types of embeddings**:
 1. A **global embedding** (one vector per item) representing the whole document.
 2. Multiple **chunk embeddings** (many vectors per item) representing local regions.
 
-These two representations will be stored in **SurrealDB tables** with native HNSW vector indexes and used for different tasks.
+These two representations will be stored in **separate Qdrant collections** and used for different tasks.
 
 ---
 
@@ -82,11 +82,11 @@ Each type has its own chunking strategy, but both share the same embedding model
 
 ---
 
-## 4. Tables in SurrealDB
+## 4. Collections in Qdrant
 
-We will maintain **two SurrealDB tables**:
+We will maintain **two Qdrant collections**:
 
-### 4.1 `content` Table (Global Level)
+### 4.1 `content` Collection (Global Level)
 
 One record per logical content item (e.g., per video, per article).
 
@@ -111,14 +111,14 @@ One record per logical content item (e.g., per video, per article).
 **Vector field:**
 - `global_embedding` (1024-dim float vector from `gte-large-en-v1.5`).
 
-### 4.2 `content_chunks` Table (Chunk Level)
+### 4.2 `content_chunks` Collection (Chunk Level)
 
 Multiple records per content item.
 
 - **Vector model:** `BAAI/bge-m3`.
 - **Vector dimension:** 1024.
 
-**Suggested schema (fields):**
+**Suggested schema (payload fields):**
 
 - `id` (string): unique chunk ID, e.g. `"youtube:<video_id>:chunk_<index>"`.
 - `doc_id` (string): ID of the parent item (matches `content.id`).
@@ -175,7 +175,7 @@ They do NOT have structural headings, so we build chunk structure based on **tim
    - The above logic will naturally produce multiple chunks.
    - Ensure individual chunks stay well under 8,192 tokens (target 2k–3k, hard cap at ~6k–7k).
 
-Each finalized chunk is then embedded with **`bge-m3`** and stored in the `content_chunks` table.
+Each finalized chunk is then embedded with **`bge-m3`** and stored in the `content_chunks` collection.
 
 ### 5.2 Web Content (Blogs, Articles, Docs) via Docling
 
@@ -194,7 +194,7 @@ Web content is processed with **Docling**, which emits a structured representati
    - Extract chunk text.
    - Track `start_char`/`end_char` offsets into the full text if Docling provides this.
    - Generate a `chunk_index` and any local summaries or tags.
-5. Embed each chunk with **`bge-m3`** and store in the `content_chunks` table.
+5. Embed each chunk with **`bge-m3`** and store in `content_chunks`.
 
 Docling's hybrid chunking is not used for YouTube transcripts, only for structured web content.
 
@@ -210,7 +210,7 @@ For each content item (video or web page), we also compute a **global embedding*
    - For videos: full transcript text.
    - For web pages: Docling-flattened body text (or a cleaned, linearized form).
 2. Feed this text to `gte-large-en-v1.5` once.
-3. Store the resulting 1024-dim vector as `global_embedding` in the `content` table.
+3. Store the resulting 1024-dim vector as `global_embedding` in the `content` collection.
 
 ### 6.2 For Items > 8,192 Tokens
 
@@ -219,7 +219,7 @@ For each content item (video or web page), we also compute a **global embedding*
 3. Take the **mean** of these slice embeddings → final `global_embedding`.
 4. Store this pooled embedding in `content`.
 
-Do not store slice-level `gte` vectors in SurrealDB; only store the final pooled vector.
+Do not store slice-level `gte` vectors in Qdrant; only store the final pooled vector.
 
 ---
 
@@ -255,7 +255,7 @@ This is the high-level ingestion pipeline you should implement in code.
 6. **Run Docling hybrid chunking** to generate chunks.
 7. For each chunk:
    - Compute `bge-m3` embedding.
-   - Create `content_chunks` record with appropriate fields.
+   - Create `content_chunks` record with appropriate payload.
 
 ---
 
@@ -306,7 +306,7 @@ This section is for context; the exact scoring formula can be refined later. Sti
    - `query_chunk_vec` = `bge-m3(query_text)`.
    - `query_global_vec` = `gte-large-en-v1.5(query_text)`.
 2. **Chunk search:**
-   - Use `query_chunk_vec` against `content_chunks` table with HNSW index.
+   - Use `query_chunk_vec` against `content_chunks` collection.
    - Retrieve top N chunks (e.g., 50–200).
 3. **Group by `doc_id`** and compute a per-document **chunk score** (e.g., max or top-k mean similarity).
 4. **Global similarity:**
@@ -341,9 +341,9 @@ Each persona is:
 - updated incrementally as I interact with the system.
 
 ### 9.2 Persona Storage
-Store personas in **Mem0** or a dedicated SurrealDB table:
+Store personas in **Mem0** or a dedicated Qdrant collection:
 
-**Table name:** `personas`
+**Collection name:** `personas`
 
 **Fields:**
 - `id`: persona name (e.g., `"technical_deep"`).

@@ -178,7 +178,7 @@ Response:
     },
     "cache": {
       "status": "ok",
-      "message": "SurrealDB cache accessible"
+      "message": "Qdrant cache accessible"
     }
   }
 }
@@ -299,5 +299,5 @@ api/
 ## See Also
 
 - Lesson 001: YouTube agent implementation
-- Lesson 007: Cache manager with SurrealDB
+- Lesson 007: Cache manager with Qdrant
 - Archive service: `tools/services/archive/`

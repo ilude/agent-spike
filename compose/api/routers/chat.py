@@ -13,16 +13,13 @@ from pydantic import BaseModel
 
 from compose.services.conversations import get_conversation_service
 from compose.services.memory import get_memory_service
-from compose.services.minio import ArchiveStorage, create_minio_client
 from compose.services.projects import get_project_service
 from compose.services.styles import get_styles_service
-from compose.services.surrealdb import execute_query, get_video_count
-from compose.services.rag import SurrealDBRAG
+from compose.services.surrealdb import semantic_search
 
 # Configuration (read at import - no side effects)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.16.241:11434")
 INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 INFINITY_MODEL = os.getenv("INFINITY_MODEL", "Alibaba-NLP/gte-large-en-v1.5")
@@ -71,29 +68,6 @@ def reset_clients() -> None:
     _ollama_client = None
 
 
-def get_transcript_from_minio(video_id: str, max_chars: int = 8000) -> str | None:
-    """Fetch transcript from MinIO storage.
-
-    Args:
-        video_id: YouTube video ID.
-        max_chars: Maximum characters to return (to fit context window).
-
-    Returns:
-        Transcript text (truncated if needed) or None if not found.
-    """
-    try:
-        minio_client = create_minio_client()
-        archive = ArchiveStorage(minio_client)
-        transcript = archive.get_transcript(video_id)
-        if transcript and len(transcript) > max_chars:
-            # Truncate and indicate more content exists
-            return transcript[:max_chars] + "\n\n[... transcript truncated ...]"
-        return transcript
-    except Exception as e:
-        print(f"Failed to fetch transcript for {video_id}: {e}")
-        return None
-
-
 async def get_embedding(text: str) -> list[float]:
     """Get embedding from Infinity service."""
     async with httpx.AsyncClient(timeout=60.0) as client:
@@ -137,8 +111,8 @@ async def fetch_ollama_models() -> list[dict]:
                     "id": f"ollama:{name}",
                     "name": f"{display_name} (Local)",
                     "context_length": 32000,  # Default, varies by model
-                    "provider": "ollama",
                     "is_free": True,
+                    "is_local": True,
                 })
             return models
     except Exception as e:
@@ -172,27 +146,25 @@ async def list_models():
     openai_models = []
     if OPENAI_API_KEY:
         openai_models = [
-            # GPT-4o family (current production)
-            {"id": "openai:gpt-4o", "name": "GPT-4o", "context_length": 128000, "provider": "openai", "is_free": False},
-            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini", "context_length": 128000, "provider": "openai", "is_free": False},
+            # GPT-5.1 (latest)
+            {"id": "openai:gpt-5.1", "name": "GPT-5.1 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            # GPT-5 family
+            {"id": "openai:gpt-5", "name": "GPT-5 (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-5-pro", "name": "GPT-5 Pro (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-5-mini", "name": "GPT-5 Mini (Direct)", "context_length": 1000000, "is_free": False, "is_openai": True},
             # Reasoning models
-            {"id": "openai:o1", "name": "o1 Reasoning", "context_length": 200000, "provider": "openai", "is_free": False},
-            {"id": "openai:o1-mini", "name": "o1 Mini", "context_length": 128000, "provider": "openai", "is_free": False},
-            {"id": "openai:o1-preview", "name": "o1 Preview", "context_length": 128000, "provider": "openai", "is_free": False},
-        ]
-
-    # Add Claude models if API key available
-    claude_models = []
-    if ANTHROPIC_API_KEY:
-        claude_models = [
-            {"id": "anthropic:claude-sonnet-4-20250514", "name": "Claude Sonnet 4", "context_length": 200000, "provider": "anthropic", "is_free": False},
-            {"id": "anthropic:claude-3-5-sonnet-20241022", "name": "Claude 3.5 Sonnet", "context_length": 200000, "provider": "anthropic", "is_free": False},
-            {"id": "anthropic:claude-3-5-haiku-20241022", "name": "Claude 3.5 Haiku", "context_length": 200000, "provider": "anthropic", "is_free": False},
-            {"id": "anthropic:claude-3-opus-20240229", "name": "Claude 3 Opus", "context_length": 200000, "provider": "anthropic", "is_free": False},
+            {"id": "openai:o3", "name": "o3 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            {"id": "openai:o3-mini", "name": "o3 Mini (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            {"id": "openai:o1", "name": "o1 Reasoning (Direct)", "context_length": 200000, "is_free": False, "is_openai": True},
+            # GPT-4 family
+            {"id": "openai:gpt-4.1", "name": "GPT-4.1 (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4.1-mini", "name": "GPT-4.1 Mini (Direct)", "context_length": 1047576, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4o", "name": "GPT-4o (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
+            {"id": "openai:gpt-4o-mini", "name": "GPT-4o Mini (Direct)", "context_length": 128000, "is_free": False, "is_openai": True},
         ]
 
     if not OPENROUTER_API_KEY:
-        return _fallback_models(ollama_models, openai_models, claude_models)
+        return _fallback_models(ollama_models, openai_models)
 
     try:
         async with httpx.AsyncClient(timeout=10.0) as http_client:
@@ -222,13 +194,17 @@ async def list_models():
                     "id": model_id,
                     "name": name,
                     "context_length": model.get("context_length", 0),
-                    "provider": "openrouter",
+                    "pricing": {
+                        "prompt": pricing.get("prompt", "0"),
+                        "completion": pricing.get("completion", "0"),
+                    },
+                    "is_free": is_free
                 })
 
         filtered_models.sort(key=lambda m: m["name"])
 
-        # Order: Ollama > Claude > OpenAI > OpenRouter
-        result = {"models": ollama_models + claude_models + openai_models + filtered_models}
+        # Order: Local Ollama > Direct OpenAI > Free OpenRouter
+        result = {"models": ollama_models + openai_models + filtered_models}
 
         models_cache["data"] = result
         models_cache["timestamp"] = now
@@ -236,79 +212,92 @@ async def list_models():
 
     except Exception as e:
         print(f"Error fetching models: {e}")
-        return _fallback_models(ollama_models, openai_models, claude_models)
+        return _fallback_models(ollama_models, openai_models)
 
 
-def _fallback_models(
-    ollama_models: list[dict] | None = None,
-    openai_models: list[dict] | None = None,
-    claude_models: list[dict] | None = None
-) -> dict[str, Any]:
-    """Return fallback model list with dynamic Ollama, Claude, and OpenAI models."""
+def _fallback_models(ollama_models: list[dict] | None = None, openai_models: list[dict] | None = None) -> dict[str, Any]:
+    """Return fallback model list with dynamic Ollama and OpenAI models."""
     openrouter_fallback = [
-        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "provider": "openrouter", "is_free": True},
-        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "provider": "openrouter", "is_free": True},
-        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "provider": "openrouter", "is_free": True}
+        {"id": "moonshotai/kimi-k2:free", "name": "Moonshot Kimi K2", "context_length": 128000, "is_free": True},
+        {"id": "google/gemini-2.5-pro-exp-03-25:free", "name": "Gemini 2.5 Pro", "context_length": 1000000, "is_free": True},
+        {"id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek V3", "context_length": 64000, "is_free": True}
     ]
-    return {"models": (ollama_models or []) + (claude_models or []) + (openai_models or []) + openrouter_fallback}
+    return {"models": (ollama_models or []) + (openai_models or []) + openrouter_fallback}
 
 
 @router.get("/random-question")
 async def get_random_question():
     """Generate a random question based on indexed video content."""
-    default_question = {"question": "What are the best practices for building AI agents?"}
     try:
-        video_count = await get_video_count()
-        if video_count == 0:
-            return default_question
+        qdrant = get_qdrant_client()
+        collection_info = qdrant.get_collection(COLLECTION_NAME)
+        points_count = collection_info.points_count
 
-        # Get random videos with their topics from SurrealDB
-        query = """
-            SELECT title, channel_name,
-                   array::distinct((SELECT VALUE name FROM ->has_topic->topic)) AS topics
-            FROM video
-            WHERE title != NONE
-            ORDER BY rand()
-            LIMIT 10;
-        """
-        results = await execute_query(query)
+        if points_count == 0:
+            return {"question": "What are the best practices for building AI agents?"}
 
-        if not results:
-            return default_question
+        random_offset = random.randint(0, max(0, points_count - 10))
+        scroll_result = qdrant.scroll(
+            collection_name=COLLECTION_NAME,
+            limit=10,
+            offset=random_offset,
+            with_payload=True,
+        )
+        points = scroll_result[0]
 
-        # Extract titles and topics
+        if not points:
+            return {"question": "What are the best practices for building AI agents?"}
+
+        # Extract tags and titles
+        all_tags = set()
         video_titles = set()
-        all_topics = set()
-        for video in results:
-            if video.get("title"):
-                video_titles.add(video["title"])
-            topics = video.get("topics", [])
-            if topics:
-                all_topics.update(topics)
+        for point in points:
+            payload = point.payload or {}
+            # Handle different metadata formats
+            if 'tags' in payload:
+                all_tags.update(payload['tags'])
+            if 'metadata' in payload:
+                meta = payload['metadata']
+                if 'subject' in meta:
+                    subjects = meta['subject']
+                    if isinstance(subjects, list):
+                        all_tags.update(subjects)
+                    elif isinstance(subjects, str):
+                        all_tags.add(subjects)
+                if 'title' in meta:
+                    video_titles.add(meta['title'])
+            if 'meta_youtube_title' in payload:
+                video_titles.add(payload['meta_youtube_title'])
+            # Also check value.title (fast_reingest stores here)
+            if 'value' in payload and payload['value'].get('title'):
+                video_titles.add(payload['value']['title'])
+
+        all_tags = [t for t in all_tags if t]
+        video_titles = list(video_titles)
 
         question_templates = []
-        if all_topics:
-            topic = random.choice(list(all_topics))
+        if all_tags:
+            tag = random.choice(list(all_tags))
             question_templates.extend([
-                f"What videos discuss {topic}?",
-                f"Tell me about {topic}",
-                f"What are the key concepts related to {topic}?",
+                f"What videos discuss {tag}?",
+                f"Tell me about {tag}",
+                f"What are the key concepts related to {tag}?",
             ])
         if video_titles:
-            title = random.choice(list(video_titles))
+            title = random.choice(video_titles)
             question_templates.extend([
                 f"What does {title} cover?",
                 f"Summarize {title}",
             ])
 
         if not question_templates:
-            return default_question
+            return {"question": "What are the best practices for building AI agents?"}
 
         return {"question": random.choice(question_templates)}
 
     except Exception as e:
         print(f"Error generating question: {e}")
-        return default_question
+        return {"question": "What are the best practices for building AI agents?"}
 
 
 @router.websocket("/ws/chat")
@@ -355,7 +344,7 @@ async def websocket_chat(websocket: WebSocket):
 
             # Save user message to conversation
             if conversation_id:
-                await conversation_service.add_message(conversation_id, "user", message)
+                conversation_service.add_message(conversation_id, "user", message)
 
             try:
                 # Build system message from project instructions, style, and memory
@@ -418,7 +407,7 @@ async def websocket_chat(websocket: WebSocket):
 
                 # Save assistant message to conversation
                 if conversation_id and full_response.strip():
-                    await conversation_service.add_message(
+                    conversation_service.add_message(
                         conversation_id, "assistant", full_response.strip()
                     )
 
@@ -448,7 +437,7 @@ async def websocket_rag_chat(websocket: WebSocket):
     """
     WebSocket endpoint for RAG-powered streaming chat.
 
-    Searches SurrealDB for relevant content, builds context, streams response.
+    Searches Qdrant for relevant content, builds context, streams response.
     """
     await websocket.accept()
     print(f"RAG WebSocket connected: {websocket.client}")
@@ -481,7 +470,7 @@ async def websocket_rag_chat(websocket: WebSocket):
 
             # Save user message to conversation
             if conversation_id:
-                await conversation_service.add_message(conversation_id, "user", message)
+                conversation_service.add_message(conversation_id, "user", message)
 
             # Build custom instructions from project, style, and memory
             custom_parts = []
@@ -527,22 +516,12 @@ async def websocket_rag_chat(websocket: WebSocket):
                         channel = result.channel_name or 'Unknown Channel'
                         url = result.url or f"https://youtube.com/watch?v={video_id}"
 
-                        # Fetch transcript from MinIO for context
-                        # Limit to 4000 chars per video to fit context window
-                        transcript_excerpt = get_transcript_from_minio(video_id, max_chars=4000)
-
-                        # Build context with transcript content
-                        context_entry = (
+                        # Include channel info so LLM can filter by author
+                        context_chunks.append(
                             f"[Video: \"{title}\"]\n"
                             f"Channel: {channel}\n"
                             f"Relevance: {result.similarity_score:.3f}"
                         )
-                        if transcript_excerpt:
-                            context_entry += f"\n\nTranscript:\n{transcript_excerpt}"
-                        else:
-                            context_entry += "\n\n(Transcript not available)"
-
-                        context_chunks.append(context_entry)
 
                         if video_id not in seen_ids:
                             sources.append({
@@ -638,7 +617,7 @@ Respond helpfully and concisely."""
                         }
                         for s in sources
                     ]
-                    await conversation_service.add_message(
+                    conversation_service.add_message(
                         conversation_id, "assistant", full_response.strip(), sources_for_storage
                     )
 

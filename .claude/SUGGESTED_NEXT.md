@@ -16,32 +16,44 @@ Each suggestion is rated on:
 
 ---
 
-## 1. ✅ COMPLETE - Implement Dual-Collection Embedding Architecture
+## 1. Implement Dual-Collection Embedding Architecture
 
 **Vision Alignment**: ⭐⭐⭐⭐⭐ (Core infrastructure for recommendations)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean separation, minimal conflicts)
 **Complexity**: Medium (2-3 days)
-**Status**: COMPLETE (2025-11-23) - Implemented using SurrealDB native vector search
 
-### What Was Implemented
-- **SurrealDB with HNSW indexes**: Native vector search (replaced Qdrant)
-- **`video` table**: Global embedding per video (1024-dim, gte-large-en-v1.5)
-- **`video_chunk` table**: Chunk embeddings for timestamp search (bge-m3)
-- **Embedding service**: `compose/services/embeddings/` - Infinity HTTP API wrapper
-- **Chunking service**: `compose/services/chunking/` - Time+token hybrid chunking
+### What
+Implement the dual-collection strategy from the embedding pipeline spec:
+- **Collection 1**: `content` - One global embedding per item (recommendations, preferences)
+- **Collection 2**: `content_chunks` - Multiple chunk embeddings per item (search, Q&A)
 
-### Files Changed/Created
-- `compose/services/surrealdb/repository.py` - Added HNSW indexes and chunk CRUD
-- `compose/services/surrealdb/models.py` - VideoChunkRecord, ChunkSearchResult models
-- `compose/services/embeddings/__init__.py` - EmbeddingService class
-- `compose/services/chunking/{models.py, youtube_chunker.py}` - Chunking algorithm
-- `compose/cli/ingest_video.py` - Updated with `--chunks` flag
+### Why
+Currently we only have chunk-level embeddings. For preference-based recommendations, we need whole-document embeddings to understand overall content relevance.
 
-### Success Criteria ✅
-- [x] HNSW indexes on video.embedding and video_chunk.embedding
-- [x] Ingestion generates both embedding types (`--chunks` flag)
-- [x] Can search by chunks (precise) or by global vector (thematic)
-- [x] Chunk search returns timestamp ranges for navigation
+### Worktree Approach
+```bash
+# Main branch: Continue ingestion with current setup
+git worktree add ../agent-spike-dual-embeddings -b feature/dual-embeddings
+
+# In worktree: Implement dual-collection architecture
+# - Add `content` collection with gte-large-en-v1.5 embeddings
+# - Migrate existing data to dual-collection structure
+# - Update ingestion scripts to populate both collections
+# - Add tests for dual retrieval modes
+```
+
+### Files to Change
+- `compose/services/cache/qdrant_cache.py` - Add dual-collection support
+- `compose/services/cache/config.py` - Configure both embedding models
+- `compose/cli/ingest_*.py` - Generate both embeddings during ingestion
+- `compose/docker-compose.yml` - Add gte-large-en-v1.5 to Infinity service
+- New: `compose/services/cache/retrieval_modes.py` - Search vs Recommendation modes
+
+### Success Criteria
+- Two Qdrant collections: `content` (global) and `content_chunks` (local)
+- Ingestion generates both embedding types
+- Can search by chunks (precise) or by global vector (thematic)
+- Tests verify both retrieval modes work
 
 ---
 
@@ -66,7 +78,7 @@ Without preference learning, the system is just search. This makes it a true rec
 git worktree add ../agent-spike-preferences -b feature/preference-learning
 
 # In worktree: Build preference infrastructure
-# - Create preferences storage (Mem0 or separate SurrealDB collection)
+# - Create preferences storage (Mem0 or separate Qdrant collection)
 # - Build CLI for rating content
 # - Implement preference extraction from ratings
 # - Create recommendation scoring algorithm
@@ -75,7 +87,7 @@ git worktree add ../agent-spike-preferences -b feature/preference-learning
 ### Files to Create
 - `compose/services/preferences/` - New service
   - `preference_manager.py` - Interface for tracking preferences
-  - `preference_storage.py` - Mem0 or SurrealDB backend
+  - `preference_storage.py` - Mem0 or Qdrant backend
   - `recommendation_scorer.py` - Score content by preferences
 - `compose/cli/rate_content.py` - CLI to rate items
 - `compose/cli/show_recommendations.py` - Get personalized recommendations
@@ -133,36 +145,46 @@ git worktree add ../agent-spike-monitor -b feature/channel-monitor
 
 ---
 
-## 4. ✅ COMPLETE - Implement Chunking Strategy for Long Videos
+## 4. Implement Chunking Strategy for Long Videos
 
 **Vision Alignment**: ⭐⭐⭐⭐ (Improves search precision)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Clean feature addition)
 **Complexity**: Medium (2-3 days)
-**Status**: COMPLETE (2025-11-23) - Implemented as part of dual-collection work
 
-### What Was Implemented
-- **Time+token hybrid chunking**: `compose/services/chunking/youtube_chunker.py`
-- **Chunk models**: TranscriptChunk, ChunkingConfig, ChunkingResult
-- **SurrealDB storage**: `video_chunk` table with HNSW index
-- **Chunk search**: `semantic_search_chunks()` returns timestamp ranges
+### What
+Implement time-based + token hybrid chunking for YouTube transcripts:
+- Split transcripts into 2-3K token chunks
+- Respect natural pause boundaries (sentence breaks)
+- Store chunk metadata (timestamp ranges)
+- Enable timestamp-level search ("find where they discussed X")
 
-### Chunking Algorithm
-- Target: 2500 tokens per chunk (configurable)
-- Splits at natural pause boundaries (8+ second gaps in transcript)
-- Falls back to token-count splits when no pauses found
-- Preserves start/end timestamps for each chunk
+### Why
+Current approach embeds entire transcripts. For 2-hour videos, this loses precision. Chunking enables "find the 5-minute segment about topic X" searches.
 
-### Files Created
-- `compose/services/chunking/__init__.py` - Public API
-- `compose/services/chunking/models.py` - TranscriptChunk, ChunkingConfig
-- `compose/services/chunking/youtube_chunker.py` - Chunking algorithm
-- `compose/services/surrealdb/models.py` - VideoChunkRecord, ChunkSearchResult
+### Worktree Approach
+```bash
+git worktree add ../agent-spike-chunking -b feature/transcript-chunking
 
-### Success Criteria ✅
-- [x] Long videos split into ~2.5K token chunks
-- [x] Each chunk has start/end timestamp metadata
-- [x] `semantic_search_chunks()` returns matching chunks with timestamps
-- [x] Chunk results include parent video info (title, URL)
+# In worktree: Implement chunking system
+# - Chunking algorithm (time + token hybrid)
+# - Metadata storage (start/end timestamps)
+# - Update ingestion to chunk long transcripts
+# - Search returns timestamp ranges
+```
+
+### Files to Change/Create
+- New: `compose/services/chunking/`
+  - `youtube_chunker.py` - Time-aware chunking
+  - `chunk_metadata.py` - Timestamp tracking
+- Update: `compose/cli/ingest_youtube.py` - Chunk before embedding
+- Update: `compose/services/cache/qdrant_cache.py` - Store chunk metadata
+- New: `compose/cli/search_with_timestamps.py` - Return timestamp ranges
+
+### Success Criteria
+- Long videos (>1 hour) split into 2-3K token chunks
+- Each chunk has start/end timestamp metadata
+- Search returns: "Found in video X at 15:30-18:45"
+- Can navigate directly to relevant segment
 
 ---
 
@@ -386,16 +408,15 @@ uv run python -m compose.cli.ingest repl
 
 ---
 
-**Last Updated**: 2025-11-23 - Backup service working, SurrealDB syntax documented
+**Last Updated**: 2025-11-22 - Added SurrealDB/MinIO migration plan
 
 ---
 
-## 6. ✅ COMPLETE - Migrate Conversations & Projects to SurrealDB/MinIO
+## 6. Migrate Conversations & Projects to SurrealDB/MinIO
 
 **Vision Alignment**: ⭐⭐⭐⭐⭐ (Unified data layer, essential for production)
 **Worktree Suitability**: ⭐⭐⭐⭐ (Self-contained migration)
 **Complexity**: Medium (2-3 days)
-**Status**: COMPLETE (2025-11-23)
 
 ### Current State
 
@@ -532,48 +553,11 @@ Create `compose/cli/migrate_to_surrealdb.py`:
 
 ### Success Criteria
 
-- [x] Backup service working with SurrealDB + MinIO (2025-11-23)
-- [x] All CRUD operations work via SurrealDB (2025-11-23)
-- [x] Project files stored in MinIO, retrievable via API (2025-11-23)
-- [x] Existing conversations/projects migrated without data loss (2025-11-23)
-- [x] API routers unchanged (services maintain same interface) (2025-11-23)
-- [x] Tests pass with new backend (2025-11-23)
-
-### SurrealDB Syntax Lessons Learned (2025-11-23)
-
-**Record ID syntax for UUIDs with dashes**: Use backticks around the ID value.
-
-```surql
--- CORRECT: Creates record with specific ID
-CREATE backup:`3810d02f-552b-453e-86ed-b0f5677181c2` SET status = 'pending';
-
--- WRONG: Creates a field called 'id', not a record ID
-CREATE backup SET id = '3810d02f-552b-453e-86ed-b0f5677181c2', status = 'pending';
-```
-
-**Python f-string pattern**:
-```python
-backup_id = str(uuid4())  # e.g., "3810d02f-552b-453e-86ed-b0f5677181c2"
-
-# CREATE with specific record ID
-await execute_query(f"CREATE backup:`{backup_id}` SET status = $status", {"status": "pending"})
-
-# SELECT by record ID
-await execute_query(f"SELECT * FROM backup:`{backup_id}`")
-
-# UPDATE by record ID
-await execute_query(f"UPDATE backup:`{backup_id}` SET status = $status", {"status": "completed"})
-
-# DELETE by record ID
-await execute_query(f"DELETE backup:`{backup_id}`")
-```
-
-**RecordID object handling**: SurrealDB returns `RecordID` objects, not strings. Convert with `str()`:
-```python
-record_id = str(record.get("id", ""))  # e.g., "backup:3810d02f-..."
-if ":" in record_id:
-    record_id = record_id.split(":")[1]  # Extract just the UUID part
-```
+- [ ] All CRUD operations work via SurrealDB
+- [ ] Project files stored in MinIO, retrievable via API
+- [ ] Existing conversations/projects migrated without data loss
+- [ ] API routers unchanged (services maintain same interface)
+- [ ] Tests pass with new backend
 
 ### Benefits
 
@@ -582,66 +566,3 @@ if ":" in record_id:
 - **Query capabilities**: Can search conversations, join with projects, etc.
 - **Backup simplicity**: SurrealDB export + MinIO bucket = complete backup
 - **Future features**: Conversation embeddings, semantic search over chat history
-
----
-
-## 7. Implement Memory Service with SurrealDB
-
-**Vision Alignment**: ⭐⭐⭐⭐⭐ (Essential for personalized AI assistant)
-**Worktree Suitability**: ⭐⭐⭐⭐⭐ (Self-contained, no conflicts)
-**Complexity**: Medium (2-3 days)
-**Status**: TODO
-
-### Background
-
-The old `compose/services/memory.py` used JSON file storage (`compose/data/memory/`) for ChatGPT-style auto-extraction of user preferences. This was deleted during cleanup (2025-11-23) since all persistent data should use SurrealDB.
-
-### What
-
-Implement a memory service that:
-- Auto-extracts user preferences/facts from conversations (using Claude Haiku)
-- Stores memories in SurrealDB with vector embeddings for semantic retrieval
-- Retrieves relevant memories based on conversation context
-- Supports memory categories: preferences, facts, context, instructions
-
-### SurrealDB Schema
-
-```surql
-DEFINE TABLE memory SCHEMAFULL;
-DEFINE FIELD content ON TABLE memory TYPE string;           -- "User prefers concise code examples"
-DEFINE FIELD category ON TABLE memory TYPE string;          -- "preference" | "fact" | "context" | "instruction"
-DEFINE FIELD embedding ON TABLE memory TYPE array<float>;   -- For semantic retrieval
-DEFINE FIELD source_conversation_id ON TABLE memory TYPE option<string>;
-DEFINE FIELD relevance_score ON TABLE memory TYPE float DEFAULT 1.0;
-DEFINE FIELD created_at ON TABLE memory TYPE datetime VALUE time::now();
-DEFINE FIELD updated_at ON TABLE memory TYPE datetime VALUE time::now();
-
--- HNSW index for semantic search
-DEFINE INDEX idx_memory_embedding ON TABLE memory FIELDS embedding HNSW DIMENSION 1024;
-DEFINE INDEX idx_memory_category ON TABLE memory COLUMNS category;
-```
-
-### Files to Create
-
-- `compose/services/memory/` - New service package
-  - `__init__.py` - Public API
-  - `models.py` - MemoryItem, MemorySearchResult models
-  - `repository.py` - SurrealDB CRUD operations
-  - `extractor.py` - LLM-based memory extraction from conversations
-  - `retriever.py` - Semantic search for relevant memories
-
-### API Integration
-
-Add to chat router:
-1. Before generating response: retrieve relevant memories
-2. Include memories in system prompt context
-3. After conversation: extract new memories from exchange
-
-### Success Criteria
-
-- [ ] Memories stored in SurrealDB with embeddings
-- [ ] Can retrieve memories semantically (not just keyword match)
-- [ ] Auto-extraction from conversations works
-- [ ] Memory deduplication (don't store same fact twice)
-- [ ] Memory relevance decay over time (optional)
-- [ ] Tests for extraction and retrieval

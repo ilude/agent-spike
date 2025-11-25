@@ -8,7 +8,7 @@ from unittest.mock import patch, MagicMock, AsyncMock
 
 from pydantic import ValidationError
 
-from compose.api.routers.health import check_infinity, health_check
+from compose.api.routers.health import check_qdrant, check_infinity, health_check
 from compose.api.models import HealthCheckResponse
 
 
@@ -74,6 +74,79 @@ class TestHealthCheckResponseModel:
 
 
 @pytest.mark.unit
+class TestCheckQdrant:
+    """Test Qdrant health check."""
+
+    @pytest.mark.asyncio
+    async def test_success_returns_ok_status(self):
+        """Successful Qdrant connection returns status 'ok'."""
+        mock_collection1 = MagicMock()
+        mock_collection1.name = "collection_a"
+        mock_collection2 = MagicMock()
+        mock_collection2.name = "collection_b"
+
+        mock_collections_response = MagicMock()
+        mock_collections_response.collections = [mock_collection1, mock_collection2]
+
+        mock_client = MagicMock()
+        mock_client.get_collections.return_value = mock_collections_response
+
+        with patch(
+            "compose.api.routers.health.QdrantClient", return_value=mock_client
+        ):
+            result = await check_qdrant()
+
+        assert result["status"] == "ok"
+        assert "2 collections" in result["message"]
+        assert result["collections"] == ["collection_a", "collection_b"]
+
+    @pytest.mark.asyncio
+    async def test_success_with_no_collections(self):
+        """Successful Qdrant connection with zero collections."""
+        mock_collections_response = MagicMock()
+        mock_collections_response.collections = []
+
+        mock_client = MagicMock()
+        mock_client.get_collections.return_value = mock_collections_response
+
+        with patch(
+            "compose.api.routers.health.QdrantClient", return_value=mock_client
+        ):
+            result = await check_qdrant()
+
+        assert result["status"] == "ok"
+        assert "0 collections" in result["message"]
+        assert result["collections"] == []
+
+    @pytest.mark.asyncio
+    async def test_error_on_connection_failure(self):
+        """Connection failure returns status 'error'."""
+        with patch(
+            "compose.api.routers.health.QdrantClient",
+            side_effect=Exception("Connection refused"),
+        ):
+            result = await check_qdrant()
+
+        assert result["status"] == "error"
+        assert "Qdrant check failed" in result["message"]
+        assert "Connection refused" in result["message"]
+        assert "collections" not in result
+
+    @pytest.mark.asyncio
+    async def test_error_on_get_collections_failure(self):
+        """Failure during get_collections returns status 'error'."""
+        mock_client = MagicMock()
+        mock_client.get_collections.side_effect = Exception("Timeout")
+
+        with patch(
+            "compose.api.routers.health.QdrantClient", return_value=mock_client
+        ):
+            result = await check_qdrant()
+
+        assert result["status"] == "error"
+        assert "Qdrant check failed" in result["message"]
+        assert "Timeout" in result["message"]
+
 
 # -----------------------------------------------------------------------------
 # check_infinity Tests

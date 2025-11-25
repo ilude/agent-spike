@@ -4,7 +4,10 @@
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
 
-# Encrypt data storage (sensitive only)
+# Encrypt data storage
+compose/data/archive/** filter=git-crypt diff=git-crypt
+compose/data/qdrant/** filter=git-crypt diff=git-crypt
+compose/data/cache/** filter=git-crypt diff=git-crypt
 compose/data/browser_history/** filter=git-crypt diff=git-crypt
 compose/data/queues/** filter=git-crypt diff=git-crypt
 

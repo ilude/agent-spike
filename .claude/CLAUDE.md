@@ -24,7 +24,7 @@ enable-session-commits: true
 - Enables experimentation without re-fetching (avoid rate limits)
 - Protects against data loss (API changes, deleted content)
 - Tracks LLM costs over time
-- Allows migration between storage systems (SurrealDB, Pinecone, etc.)
+- Allows migration between storage systems (Qdrant → Pinecone, etc.)
 - Supports reprocessing with different strategies (chunking, embeddings, etc.)
 
 **Archive location:** `compose/data/archive/` (organized by source and month)
@@ -86,10 +86,8 @@ archive.add_processing_record(
 - **Lesson 004**: Observability with Logfire (tracing and monitoring)
 - **Lesson 005**: Security guardrails (input validation and safety)
 - **Lesson 006**: Memory with Mem0 (persistent agent memory)
-- **Lesson 007**: Cache Manager (vector database patterns, SurrealDB)
+- **Lesson 007**: Cache Manager with Qdrant (vector database for caching)
 - **Lesson 008**: Batch Processing with OpenAI (async batch operations)
-- **Lesson 009**: Agent Orchestrator (multi-agent coordination)
-- **Lesson 010**: Semantic Tag Normalization (taxonomy clustering)
 
 **Learning source**: Based on Cole Medin's "Learn 90% of Building AI Agents in 30 Minutes" video (https://www.youtube.com/watch?v=i5kwX7jeWL8).
 
@@ -99,9 +97,6 @@ archive.add_processing_record(
 - uv package manager (not pip)
 - Typer CLIs per lesson
 - Claude Haiku for cost-effective prototyping
-- **SurrealDB**: Unified data store with native HNSW vector search
-- **MinIO**: Object storage for binary files
-- **Infinity**: Embedding service (bge-m3, gte-large)
 
 **Virtual environment setup**:
 - **Single shared `.venv` at project root** (configured as UV workspace)
@@ -124,10 +119,8 @@ lessons/               # Progressive agent-building lessons
 ├── lesson-004/       # Observability (Logfire)
 ├── lesson-005/       # Security guardrails
 ├── lesson-006/       # Memory (Mem0)
-├── lesson-007/       # Cache Manager (SurrealDB)
-├── lesson-008/       # Batch Processing (OpenAI)
-├── lesson-009/       # Agent Orchestrator
-└── lesson-010/       # Semantic Tag Normalization
+├── lesson-007/       # Cache Manager (Qdrant)
+└── lesson-008/       # Batch Processing (OpenAI)
 .claude/STATUS.md     # Current progress, known issues, resume instructions
 ```
 
@@ -214,39 +207,25 @@ uv run python <script>.py
 uv sync --group lesson-001              # Single lesson
 uv sync --all-groups                    # All lessons
 
+# Check what's installed
+uv pip list
+
 # Run lesson CLI (if available)
 cd lessons/lesson-001
 uv run python -m youtube_agent.cli analyze "https://youtube.com/..."
 ```
 
-### Platform (API + Worker)
-
-```bash
-make up                                 # Start backend (traefik, api, worker)
-make down                               # Stop all services
-make logs                               # View all service logs
-make logs-api                           # View specific service logs
-make status                             # Show service status
-make rebuild                            # Rebuild and restart all
-make rebuild-api                        # Rebuild specific service
-```
-
-Frontend runs locally (not in container):
-```bash
-cd compose/frontend && bun run dev      # Start frontend dev server
-```
-
-### Code Quality
+### Code Quality (Less Common)
 
 ```bash
 make format                             # black + isort
 make lint                               # ruff
-make test                               # pytest (backend + frontend)
+make test                               # pytest
 ```
 
 ### GPU Server Management
 
-Remote GPU server at `192.168.16.241` runs AI services (Infinity, Ollama, Docling). Managed via Ansible in `infra/ansible/`.
+Remote GPU server at `192.168.16.241` runs AI services (Qdrant, Infinity, Ollama, Docling, n8n, Neo4j). Managed via Ansible container in `infra/ansible/`.
 
 ```bash
 make gpu-deploy                         # Deploy compose stack + secrets
@@ -254,6 +233,19 @@ make gpu-update                         # Pull latest images + restart
 make gpu-backup                         # Fetch current remote config
 make gpu-shell                          # Interactive Ansible shell
 ```
+
+See `infra/ansible/README.md` for details.
+
+### Container Builds (Rarely Needed)
+
+**Note**: Lessons run directly via `uv run python`. Container builds are for the (future) production app in `src/`.
+
+```bash
+make build-dev                          # Build devcontainer
+make build                              # Build production image
+```
+
+For full command reference, see `.devcontainer/Makefile` and root `Makefile`.
 
 ## Python Configuration
 
@@ -270,7 +262,7 @@ Code quality standards (applies to production code in `src/`):
 ## Summary for New Claude Sessions
 
 1. ✅ **This is a learning project** - Multi-agent AI spike, not production app
-2. ✅ **Work in `lessons/`** - 10 lessons total, all complete (001-010)
+2. ✅ **Work in `lessons/`** - 9 lessons total, all complete (001-009)
 3. ✅ **Check STATUS.md first** - Current state and progress
 4. ✅ **Use `uv run python`** - Handles virtual environments automatically
 5. ✅ **Install deps with `uv sync --all-groups`** - Before running anything
@@ -282,43 +274,13 @@ Code quality standards (applies to production code in `src/`):
 
 ## Background: Infrastructure & Architecture
 
-**Note**: Infrastructure is for the platform (API, worker, frontend). Lessons run directly on host with `uv run python`.
+**Note**: This infrastructure exists for potential future production deployment, not for daily lesson development. Work directly on host machine with `uv run python`.
 
-**Compose files** (in `compose/`):
-- `docker-compose.yml` - Main services (traefik, api, worker)
-- `docker-compose.override.yml` - Local dev overrides (routes frontend to localhost)
-- `docker-compose.production.yml` - Containerized frontend (NOT for local dev)
+**Container setup**: Multi-stage Dockerfile (base, build-base, production, devcontainer). Two-level Makefile system (root for builds, `.devcontainer/` for dev tasks). Uses uv for fast package management (10-100x faster than pip).
 
-**Current state**: All working code is in `lessons/`. Platform code is in `compose/`.
+**Current state**: All working code is in `lessons/`. A future `src/` directory would contain production code (doesn't exist yet).
 
-**For lesson work**: Just need API keys in `.env` and `uv sync --all-groups`.
-
-## Local Development Architecture
-
-**Starting the platform:**
-```bash
-make up                              # Start backend (traefik, api, worker)
-cd compose/frontend && bun run dev   # Start frontend locally
-```
-
-**Services:**
-- **API + Worker**: Run in containers via `make up`
-- **Frontend**: Runs LOCALLY (hot reload broken in container on Windows)
-
-**URLs (HTTPS via Traefik):**
-- `https://mentat.local.ilude.com` → Frontend (local dev server) - **ALWAYS USE THIS**
-- `https://api.local.ilude.com` → API container
-- `https://traefik.local.ilude.com` → Traefik dashboard
-- **Never use `localhost:5173`** - different origin = separate localStorage/auth state
-
-**Environment Files:**
-- **Single `.env` at project root ONLY** - git-crypt encrypted
-- **NO subdirectory `.env` files** - they cause override issues
-
-**Common Issues:**
-- **Traefik 404s**: Docker socket connection broken → Restart Docker Desktop
-- **API unhealthy after code changes**: `make rebuild-api`
-- **Mixed content errors**: Use traefik HTTPS routes, not localhost
+**For lesson work**: The only environment setup you need is API keys in `.env` files and `uv sync --all-groups`.
 
 ---
 

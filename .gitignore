@@ -57,15 +57,9 @@ compose/data/*
 !compose/data/*.csv
 !compose/data/*.py
 !compose/data/README.md
-# Archive data (YouTube transcripts, processing records) - ignore generated content
-compose/data/archive/youtube/
-compose/data/archive/webpages/
+!compose/data/archive/
 !compose/data/qdrant_storage/
 !compose/data/queues/
-# Ignore generated queue files (CSVs, processing state)
-compose/data/queues/*.csv
-compose/data/queues/pending/
-compose/data/queues/completed/
 compose/data/queues/brave_history/*.tmp.sqlite
 compose/data/queues/brave_history/brave_history.*.sqlite
 !compose/data/queues/brave_history/.sync_state
@@ -75,10 +69,6 @@ compose/data/qdrant.tmp/
 compose/data/queues/processing/
 compose/data/n8n/
 compose/data/logs/
-
-# SurrealDB backups (local disaster recovery)
-backups/
-infra/ansible/backups/
 *.db
 *.sqlite
 !compose/data/qdrant_storage/**/*.sqlite
@@ -101,7 +91,3 @@ infra/ansible/backups/
 .session/
 *.log*.sqlite-shm
 *.sqlite-wal
-
-# Development logs (frontend dev server output)
-logs/*
-!logs/.keep

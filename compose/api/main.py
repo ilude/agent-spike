@@ -3,18 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.routers import auth, settings, health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, backup, video_rec
-
-# Initialize observability (logging + tracing)
-from compose.lib.logging_config import setup_logging
-from compose.lib.telemetry import setup_telemetry
-from compose.api.middleware import CorrelationMiddleware
-
-# Setup structured logging
-correlation_filter = setup_logging("api", level="INFO")
-
-# Setup OpenTelemetry tracing
-tracer, meter = setup_telemetry("api")
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen
 
 # Create FastAPI app
 app = FastAPI(
@@ -40,12 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Add correlation ID middleware for request tracking
-app.add_middleware(CorrelationMiddleware)
-
 # Include routers
-app.include_router(auth.router)
-app.include_router(settings.router)
 app.include_router(health.router)
 app.include_router(youtube.router, prefix="/youtube", tags=["youtube"])
 app.include_router(cache.router, prefix="/cache", tags=["cache"])
@@ -60,8 +44,6 @@ app.include_router(memory.router, tags=["memory"])
 app.include_router(websearch.router, tags=["search"])
 app.include_router(sandbox.router, tags=["sandbox"])
 app.include_router(imagegen.router, tags=["imagegen"])
-app.include_router(backup.router, tags=["backup"])
-app.include_router(video_rec.router, tags=["video-recommendations"])
 
 
 @app.get("/")
@@ -73,10 +55,6 @@ async def root():
         "docs": "/docs",
         "health": "/health",
         "endpoints": {
-            "auth_check": "GET /auth/check",
-            "auth_register": "POST /auth/register",
-            "auth_login": "POST /auth/login",
-            "auth_me": "GET /auth/me",
             "youtube_analyze": "POST /youtube/analyze",
             "cache_search": "POST /cache/search",
             "chat_models": "GET /chat/models",
@@ -114,10 +92,5 @@ async def root():
             "imagegen_options": "GET /imagegen/options",
             "imagegen_generate": "POST /imagegen/generate",
             "imagegen_list": "GET /imagegen/images",
-            "backup_list": "GET /backup",
-            "backup_create": "POST /backup",
-            "backup_get": "GET /backup/{id}",
-            "backup_restore": "POST /backup/{id}/restore",
-            "backup_delete": "DELETE /backup/{id}",
         },
     }

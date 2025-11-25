@@ -53,7 +53,7 @@ VISION.md outlines preference learning but doesn't specify *how* to learn from r
 
 **Related files:**
 - `.claude/VISION.md` (section: Preference Learning)
-- `compose/services/surrealdb/` (will need preference integration)
+- `compose/services/cache/qdrant_cache.py` (will need preference integration)
 
 ---
 
@@ -81,7 +81,7 @@ This is the "killer feature" - suggesting how learned concepts apply to your act
 - Matching algorithm (techniques → project needs)
 - Feedback loop (track application success rate)
 - Example implementations (real technique extraction from video transcript)
-- Storage design (where techniques live in SurrealDB)
+- Storage design (where techniques live in Qdrant)
 
 **Related files:**
 - `.claude/VISION.md` (section: Application Suggester)

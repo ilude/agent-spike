@@ -1,39 +1,32 @@
 #!/usr/bin/env bash
-# Optimized pre-commit: Only check files being committed (not all 1,633 encrypted files)
+# Guardrail: prevent committing sensitive files unencrypted
 
 set -euo pipefail
 
-echo "[pre-commit] Checking staged files for encryption..."
+echo "[pre-commit] Verifying git-crypt encryption for sensitive paths..."
 
-# Get list of staged files under sensitive paths
-STAGED_SENSITIVE=$(git diff --cached --name-only --diff-filter=ACM | \
-  grep -E '^(\.env|secrets/|compose/data/browser_history/|compose/data/queues/brave_history/)' || true)
+# Run git-crypt status and capture output
+STATUS_OUTPUT=$(git crypt status || true)
 
-if [ -z "$STAGED_SENSITIVE" ]; then
-  echo "[pre-commit] No sensitive files staged. Skipping encryption check."
-  exit 0
+# Fail if any files under compose/data/queues/brave_history are unencrypted
+if echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+compose/data/queues/brave_history/" >/dev/null 2>&1; then
+  echo "\nError: Some files under compose/data/queues/brave_history are not encrypted by git-crypt." >&2
+  echo "Please ensure .gitattributes includes the correct patterns and rerun:" >&2
+  echo "  git crypt status -f" >&2
+  echo "Then commit again." >&2
+  echo "\nDetails:" >&2
+  echo "$STATUS_OUTPUT" | grep -E "^not encrypted:\s+compose/data/queues/brave_history/" >&2
+  exit 1
 fi
 
-# Run git-crypt status only on staged sensitive files
-echo "$STAGED_SENSITIVE" | while read -r file; do
-  if [ ! -f "$file" ]; then
-    continue  # Skip deleted files
-  fi
+# Fail if any files are marked encrypted but were previously staged/committed unencrypted
+if echo "$STATUS_OUTPUT" | grep -F "*** WARNING: staged/committed version is NOT ENCRYPTED! ***" >/dev/null 2>&1; then
+  echo "\nError: Index contains files newly marked for encryption but with prior unencrypted versions." >&2
+  echo "Run: git crypt status -f  to stage encrypted versions, then commit." >&2
+  echo "\nDetails:" >&2
+  echo "$STATUS_OUTPUT" | grep -F "*** WARNING: staged/committed version is NOT ENCRYPTED! ***" -n -B1 >&2
+  exit 1
+fi
 
-  STATUS=$(git crypt status -f "$file" 2>&1 || true)
-
-  if echo "$STATUS" | grep -q "not encrypted"; then
-    echo "Error: Staged file '$file' is not encrypted by git-crypt!" >&2
-    echo "Please ensure .gitattributes includes this path pattern." >&2
-    exit 1
-  fi
-
-  if echo "$STATUS" | grep -q "WARNING.*NOT ENCRYPTED"; then
-    echo "Error: Staged file '$file' was previously committed unencrypted!" >&2
-    echo "Run: git crypt status -f  to re-encrypt, then commit again." >&2
-    exit 1
-  fi
-done
-
-echo "[pre-commit] Encryption checks passed ($(echo "$STAGED_SENSITIVE" | wc -l) files verified)."
+echo "[pre-commit] git-crypt checks passed."
 exit 0

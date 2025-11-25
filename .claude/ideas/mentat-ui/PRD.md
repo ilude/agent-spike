@@ -4,11 +4,9 @@
 **Last Updated**: 2025-11-18
 **Original Development Period**: November 2025
 
-**IMPORTANT**: This document is archived and references Qdrant vector database. The project has since migrated to **SurrealDB with native HNSW vector indexes**. Historical references to Qdrant are preserved for context but should not be used for new development.
-
 ## Executive Summary
 
-Mentat UI was a proposed **chat-based web interface** for interacting with cached content (YouTube transcripts, webpages) stored in the agent-spike project's vector database. The project was explored during early development but was **abandoned in favor of a CLI-first, microservices architecture** and the broader "Personal AI Research Assistant" vision.
+Mentat UI was a proposed **chat-based web interface** for interacting with cached content (YouTube transcripts, webpages) stored in the agent-spike project's Qdrant vector database. The project was explored during early development but was **abandoned in favor of a CLI-first, microservices architecture** and the broader "Personal AI Research Assistant" vision.
 
 This PRD documents the original design discussions, technical architecture, and lessons learned for historical reference and potential future web UI development.
 

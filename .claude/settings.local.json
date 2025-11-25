@@ -16,12 +16,7 @@
       "Bash(docker logs:*)",
       "Bash(dir:*)",
       "Bash(sed:*)",
-      "Bash(xargs:*)",
-      "Bash(docker exec:*)",
-      "Bash(docker cp:*)",
-      "Bash(docker stop:*)",
-      "Bash(docker compose:*)",
-      "Bash(sqlite3:*)"
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": [],

@@ -1,47 +1,62 @@
 # Git Hooks
 
-This directory contains git hooks for security and workflow automation.
+This directory contains git hooks that enhance the Brave history workflow.
 
 ## Available Hooks
 
-### pre-commit (ACTIVE)
-Verifies git-crypt encryption for sensitive files being committed.
+### post-checkout
+Prompts to update Brave history after checking out a branch.
 
-**Performance**: Only checks **staged files** (fast, ~1-2 seconds)
-- Ensures .env, secrets/, browser_history/, and brave_history/ are encrypted
-- Prevents accidentally committing unencrypted sensitive data
-- **Previously**: Scanned all 1,633 encrypted files (~1 minute 15 seconds)
-- **Now**: Only scans files you're committing (typically 1-5 files)
+### post-merge
+Prompts to update Brave history after pulling changes.
 
-## Manual Operations
-
-### Sync Brave History
-```bash
-make brave-sync
-```
-
-Manually runs Brave history sync. No longer runs automatically on checkout/merge to avoid slowing down git operations.
-
-### Check Encryption Status
-```bash
-git crypt status -e           # Show all encrypted files (slow, 1min+)
-git crypt status -f <file>    # Check specific file (fast)
-```
+### pre-commit
+Verifies git-crypt encryption for sensitive brave_history files.
 
 ## Installation
 
-Hooks are automatically used via:
+### Automatic (Recommended)
 ```bash
 git config core.hooksPath .githooks
 ```
 
-This is already configured in the repository.
+This tells git to use the `.githooks` directory instead of `.git/hooks`.
 
-## Removed Hooks
+### Manual
+Copy the hooks to your `.git/hooks` directory:
 
-The following hooks were removed for performance:
+**Unix/Linux/macOS:**
+```bash
+cp .githooks/* .git/hooks/
+chmod +x .git/hooks/post-checkout .git/hooks/post-merge .git/hooks/pre-commit
+```
 
-- **post-checkout** - Previously auto-synced Brave history after branch checkout (~30 seconds)
-- **post-merge** - Previously auto-synced Brave history after git pull (~30 seconds)
+**Windows (Git Bash):**
+```bash
+cp .githooks/* .git/hooks/
+```
 
-Use `make brave-sync` to manually sync when needed.
+**Windows (PowerShell):**
+```powershell
+Copy-Item .githooks\* .git\hooks\ -Force
+```
+
+## Usage
+
+Once installed, the hooks will automatically prompt you to update the Brave history database when:
+- Checking out a branch
+- Pulling changes from remote
+
+You can choose to update (y) or skip (n) the prompt.
+
+## Manual Execution
+
+You can always run the update manually:
+```bash
+uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
+```
+
+Or use the Makefile target:
+```bash
+make brave-sync
+```

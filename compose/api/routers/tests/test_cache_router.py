@@ -219,7 +219,7 @@ class TestSearchCacheEndpoint:
         ]
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             request = CacheSearchRequest(query="python tutorials", limit=10)
             response = await search_cache(request)
@@ -246,7 +246,7 @@ class TestSearchCacheEndpoint:
         mock_cache.search.return_value = []
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             request = CacheSearchRequest(
                 query="test", limit=5, filters={"type": "video"}
@@ -268,7 +268,7 @@ class TestSearchCacheEndpoint:
         mock_cache.search.return_value = []
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             request = CacheSearchRequest(query="nonexistent")
             response = await search_cache(request)
@@ -289,7 +289,7 @@ class TestSearchCacheEndpoint:
         ]
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             request = CacheSearchRequest(query="test")
             response = await search_cache(request)
@@ -309,7 +309,7 @@ class TestSearchCacheEndpoint:
         mock_cache.search.side_effect = Exception("Connection failed")
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             request = CacheSearchRequest(query="test")
             with pytest.raises(HTTPException) as exc_info:
@@ -341,7 +341,7 @@ class TestGetCachedItemEndpoint:
         }
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             response = await get_cached_item("abc123def45")
 
@@ -363,7 +363,7 @@ class TestGetCachedItemEndpoint:
         mock_cache.exists.return_value = False
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             with pytest.raises(HTTPException) as exc_info:
                 await get_cached_item("nonexistent_key")
@@ -381,7 +381,7 @@ class TestGetCachedItemEndpoint:
         mock_cache.exists.side_effect = Exception("Database error")
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             with pytest.raises(HTTPException) as exc_info:
                 await get_cached_item("test_key")
@@ -398,7 +398,7 @@ class TestGetCachedItemEndpoint:
         mock_cache.get.side_effect = Exception("Read error")
 
         with patch(
-            "compose.api.routers.cache.create_in_memory_cache", return_value=mock_cache
+            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
         ):
             with pytest.raises(HTTPException) as exc_info:
                 await get_cached_item("test_key")

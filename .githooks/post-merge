@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Post-merge hook to automatically update Brave history after pull (no prompts)
+
+# Colors for output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo ""
+echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${YELLOW}  Brave History Sync${NC}"
+echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""
+echo -e "${YELLOW}Repository updated! Running Brave history update...${NC}"
+
+DATA_DIR="compose/data/queues/brave_history"
+SCRIPT="compose/cli/brave_history/copy_brave_history.py"
+
+# Run from repo root
+(
+    set -e
+    # Prefer uv if available to ensure the right environment
+    if command -v uv >/dev/null 2>&1; then
+        uv run python "$SCRIPT" --incremental --dest "$DATA_DIR"
+    else
+        python "$SCRIPT" --incremental --dest "$DATA_DIR"
+    fi
+)
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN}✓ History updated successfully!${NC}"
+    echo "  You can commit the updated consolidated database if desired:"
+    echo -e "  ${YELLOW}git add $DATA_DIR/brave_history.sqlite${NC}"
+    echo -e "  ${YELLOW}git commit -m 'chore: update consolidated Brave history'${NC}"
+else
+    echo -e "${YELLOW}⚠ Update failed. See errors above.${NC}"
+    echo -e "  ${YELLOW}Tip:${NC} try running manually:"
+    echo -e "  ${YELLOW}uv run python $SCRIPT --incremental --dest $DATA_DIR${NC}"
+fi
+
+echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""

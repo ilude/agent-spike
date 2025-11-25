@@ -185,7 +185,7 @@ projects/mentat/
 ├── frontend/
 │   └── src/routes/          # SvelteKit frontend
 ├── scripts/
-│   ├── index_videos.py                    # SurrealDB indexing
+│   ├── index_videos.py                    # Qdrant indexing
 │   └── update_archives_with_timestamps.py # Archive updates
 └── docker-compose.yml       # Multi-service setup
 ```

@@ -68,7 +68,7 @@ Enables intelligent recall:
 | API Framework | FastAPI |
 | Package Manager | uv |
 
-**Note**: This is a complex 4-database stack. Agent-spike uses SurrealDB alone, which handles vectors + records + hybrid search with native HNSW indexes.
+**Note**: This is a complex 4-database stack. Agent-spike uses Qdrant alone, which handles vectors + payloads + hybrid search.
 
 ---
 

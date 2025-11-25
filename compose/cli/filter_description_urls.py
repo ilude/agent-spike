@@ -20,7 +20,6 @@ Usage:
 
 import sys
 import json
-import asyncio
 from pathlib import Path
 from datetime import datetime
 
@@ -31,7 +30,7 @@ setup_script_environment()
 
 from compose.services.archive import create_archive_manager
 from compose.services.youtube.url_filter import filter_urls
-from compose.services.analytics import create_async_pattern_tracker
+from compose.services.analytics import create_pattern_tracker
 
 
 def safe_print(text: str, **kwargs) -> None:
@@ -91,7 +90,7 @@ def clear_progress() -> None:
         PROGRESS_FILE.unlink()
 
 
-async def process_video_urls(
+def process_video_urls(
     video_id: str,
     archive_manager,
     pattern_tracker,
@@ -138,7 +137,7 @@ async def process_video_urls(
     safe_print(f"Title: {video_context['video_title']}")
     safe_print(f"Channel: {video_context['channel']}")
 
-    result = await filter_urls(
+    result = filter_urls(
         description,
         video_context,
         video_id=video_id,
@@ -225,7 +224,7 @@ async def process_video_urls(
     }
 
 
-async def process_all_videos(
+def process_all_videos(
     archive_manager,
     pattern_tracker,
     dry_run: bool = False,
@@ -294,7 +293,7 @@ async def process_all_videos(
         )
 
         try:
-            result = await process_video_urls(video_id, archive_manager, pattern_tracker, dry_run, use_llm)
+            result = process_video_urls(video_id, archive_manager, pattern_tracker, dry_run, use_llm)
 
             if result["success"]:
                 total_stats["processed"] += 1
@@ -344,7 +343,7 @@ async def process_all_videos(
     return total_stats
 
 
-async def show_pattern_stats(pattern_tracker) -> None:
+def show_pattern_stats(pattern_tracker) -> None:
     """Show pattern effectiveness statistics.
 
     Args:
@@ -354,7 +353,7 @@ async def show_pattern_stats(pattern_tracker) -> None:
     print(f"Pattern Effectiveness Report")
     print(f"{'='*70}\n")
 
-    report = await pattern_tracker.get_pattern_effectiveness_report()
+    report = pattern_tracker.get_pattern_effectiveness_report()
 
     print(f"Total learned patterns: {report['total_patterns']}")
     print(f"Active patterns: {report['active_patterns']}")
@@ -382,7 +381,7 @@ async def show_pattern_stats(pattern_tracker) -> None:
     print(f"{'='*70}\n")
 
 
-async def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> None:
+def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> None:
     """Batch re-evaluate low-confidence URLs from same domains.
 
     Args:
@@ -396,7 +395,7 @@ async def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> N
     print(f"{'='*70}\n")
 
     # Get domains ready for batch re-evaluation
-    domains = await pattern_tracker.get_domains_for_batch_reeval(min_count=3)
+    domains = pattern_tracker.get_domains_for_batch_reeval(min_count=3)
 
     if not domains:
         print("No domains found with 3+ low-confidence URLs")
@@ -446,7 +445,7 @@ async def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> N
                 print(f"      Reason: {reason}")
 
                 # Mark as re-evaluated
-                await pattern_tracker.mark_reevaluated(url, classification, confidence)
+                pattern_tracker.mark_reevaluated(url, classification, confidence)
 
                 # Record new classification
                 # Note: video_id would need to be looked up from pending_reevaluation table
@@ -455,7 +454,7 @@ async def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> N
                 # If high confidence, suggest adding pattern
                 if suggested_pattern and confidence >= 0.7:
                     print(f"      Suggested pattern: {suggested_pattern.get('pattern')} ({suggested_pattern.get('type')})")
-                    await pattern_tracker.add_learned_pattern(
+                    pattern_tracker.add_learned_pattern(
                         pattern=suggested_pattern.get("pattern"),
                         pattern_type=suggested_pattern.get("type", "domain"),
                         classification=classification,
@@ -476,7 +475,7 @@ async def batch_reevaluate_low_confidence(pattern_tracker, archive_manager) -> N
     print(f"{'='*70}\n")
 
 
-async def main():
+def main():
     """Main entry point."""
     import argparse
 
@@ -528,8 +527,7 @@ async def main():
 
     # Initialize services
     archive_manager = create_archive_manager()
-    pattern_tracker = await create_async_pattern_tracker()
-    await pattern_tracker.init_schema()
+    pattern_tracker = create_pattern_tracker()
 
     # Configure LLM usage
     use_llm = not args.heuristic_only
@@ -537,10 +535,10 @@ async def main():
     try:
         if args.show_pattern_stats:
             # Show pattern statistics
-            await show_pattern_stats(pattern_tracker)
+            show_pattern_stats(pattern_tracker)
         elif args.reevaluate_low_confidence:
             # Batch re-evaluate low-confidence URLs
-            await batch_reevaluate_low_confidence(pattern_tracker, archive_manager)
+            batch_reevaluate_low_confidence(pattern_tracker, archive_manager)
         elif args.all:
             # Process all videos
             print(f"{'='*70}")
@@ -550,7 +548,7 @@ async def main():
             print(f"Dry run: {args.dry_run}")
             print(f"{'='*70}\n")
 
-            stats = await process_all_videos(archive_manager, pattern_tracker, args.dry_run, use_llm)
+            stats = process_all_videos(archive_manager, pattern_tracker, args.dry_run, use_llm)
 
             if stats["errors"] > 0:
                 sys.exit(1)
@@ -564,7 +562,7 @@ async def main():
             print(f"Dry run: {args.dry_run}")
             print(f"{'='*70}")
 
-            result = await process_video_urls(
+            result = process_video_urls(
                 args.video_id,
                 archive_manager,
                 pattern_tracker,
@@ -591,4 +589,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

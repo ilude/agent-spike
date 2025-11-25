@@ -20,6 +20,7 @@ from compose.api.routers.chat import (
     reset_clients,
     get_openrouter_client,
     get_ollama_client,
+    get_qdrant_client,
     ModelsResponse,
 )
 from compose.services.tests.conftest import (
@@ -509,6 +510,27 @@ def test_get_ollama_client_creates_client():
 
 
 @pytest.mark.unit
+def test_get_qdrant_client_creates_client():
+    """Verify get_qdrant_client creates client on first call."""
+    reset_clients()
+
+    # Mock QdrantClient to avoid actual connection
+    with patch("compose.api.routers.chat.QdrantClient") as mock_qdrant_class:
+        mock_instance = MagicMock()
+        mock_qdrant_class.return_value = mock_instance
+
+        client = get_qdrant_client()
+        assert client is mock_instance
+        mock_qdrant_class.assert_called_once()
+
+        # Second call returns same instance (no new constructor call)
+        client2 = get_qdrant_client()
+        assert client2 is mock_instance
+        assert mock_qdrant_class.call_count == 1
+
+
+@pytest.mark.unit
+def test_reset_clients_clears_all():
     """Verify reset_clients clears all client instances."""
     import compose.api.routers.chat as chat_module
 
