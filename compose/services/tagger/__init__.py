@@ -22,6 +22,7 @@ from .models import StructuredMetadata, NormalizedMetadata
 from .config import TaggerConfig
 from .vocabulary import VocabularyManager
 from .retriever import SemanticTagRetriever, create_retriever
+from .surrealdb_retriever import SurrealDBTagRetriever, create_surrealdb_retriever
 from .normalizer import TagNormalizer, create_normalizer
 
 __all__ = [
@@ -33,9 +34,11 @@ __all__ = [
     # Components
     "VocabularyManager",
     "SemanticTagRetriever",
+    "SurrealDBTagRetriever",
     "TagNormalizer",
     # Factories
     "create_retriever",
+    "create_surrealdb_retriever",
     "create_normalizer",
 ]
 

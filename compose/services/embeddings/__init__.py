@@ -99,3 +99,30 @@ def get_chunk_embedder(infinity_url: str = "http://localhost:7997") -> Embedding
             model="BAAI/bge-m3",
         )
     return _chunk_embedder
+
+def get_embedding_sync(
+    text: str,
+    infinity_url: Optional[str] = None,
+    model: str = "Alibaba-NLP/gte-large-en-v1.5",
+) -> list[float]:
+    """Synchronous helper to get embedding for text.
+
+    Args:
+        text: Text to embed
+        infinity_url: Optional Infinity service URL
+        model: Embedding model to use
+
+    Returns:
+        Embedding vector as list of floats
+    """
+    url = infinity_url or "http://localhost:7997"
+
+    if model == "Alibaba-NLP/gte-large-en-v1.5":
+        embedder = get_global_embedder(url)
+    elif model == "BAAI/bge-m3":
+        embedder = get_chunk_embedder(url)
+    else:
+        embedder = EmbeddingService(infinity_url=url, model=model)
+
+    return embedder.embed(text)
+

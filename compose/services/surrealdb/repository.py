@@ -118,9 +118,11 @@ async def init_schema() -> None:
         DEFINE FIELD name ON TABLE topic TYPE string;
         DEFINE FIELD normalized_name ON TABLE topic TYPE string;
         DEFINE FIELD video_count ON TABLE topic TYPE int DEFAULT 0;
+        DEFINE FIELD embedding ON TABLE topic TYPE option<array<float>>;
         DEFINE FIELD created_at ON TABLE topic TYPE datetime VALUE time::now();
         DEFINE FIELD updated_at ON TABLE topic TYPE datetime VALUE time::now();
         DEFINE INDEX idx_topic_name ON TABLE topic COLUMNS normalized_name UNIQUE;
+        DEFINE INDEX idx_topic_embedding ON TABLE topic FIELDS embedding HNSW DIMENSION 1024 DIST COSINE;
         """,
         # Relationship tables
         """

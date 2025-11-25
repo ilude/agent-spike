@@ -70,6 +70,7 @@ class TopicRecord(BaseModel):
     name: str
     normalized_name: str  # Lowercase, trimmed
     video_count: int = 0
+    embedding: Optional[list[float]] = None  # Vector embedding for semantic tag clustering
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
 
