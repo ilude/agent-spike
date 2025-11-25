@@ -47,7 +47,7 @@ Content → Tags → Summary → Insights → Store
 
 **Implementation**:
 - Add insight extraction step to pipeline (post-tagging)
-- Store insights as separate Qdrant points with back-reference
+- Store insights as separate SurrealDB records with back-reference
 - Enable fine-grained search: "Find insights about testing patterns"
 
 ---
@@ -71,7 +71,7 @@ Classify memories into 7 semantic categories.
 
 **Schema Extension**:
 ```python
-# Add to Qdrant payload
+# Add to SurrealDB record
 {
     "memory_type": "semantic_knowledge",  # One of 7 types
     "source_content_id": "youtube:i5kwX7jeWL8",
@@ -89,29 +89,24 @@ Classify memories into 7 semantic categories.
 Combine semantic search (vectors) + keyword search (BM25) using Reciprocal Rank Fusion.
 
 **Current State**:
-You have this planned in `embedding_pipeline_spec_for_coding_model.md`. Qdrant supports hybrid search natively.
+You have this planned in `embedding_pipeline_spec_for_coding_model.md`. SurrealDB supports hybrid search natively.
 
 **Implementation**:
 ```python
-from qdrant_client import QdrantClient
-from qdrant_client.models import models
-
-# Qdrant hybrid search (built-in RRF)
-results = client.query_points(
-    collection_name="content",
-    query=query_vector,
-    query_filter=models.Filter(...),
-    with_payload=True,
-    # Enable hybrid mode
-    search_params=models.SearchParams(
-        quantization=models.QuantizationSearchParams(
-            rescore=True  # Rerank after initial retrieval
-        )
-    )
-)
+# SurrealDB hybrid search with vector + keyword filters
+# Native HNSW indexes with full-text search
+results = await db.query("""
+    SELECT * FROM content
+    WHERE embedding <|1,1024|> $query_vector
+    AND search::analyze(text) @@ $keywords
+    LIMIT 20
+""", {
+    "query_vector": query_vector,
+    "keywords": "dependency injection"
+})
 ```
 
-**Note**: Qdrant's hybrid search is simpler than their Milvus + Elasticsearch setup.
+**Note**: SurrealDB's hybrid search is simpler than their Milvus + Elasticsearch setup.
 
 ---
 
@@ -253,7 +248,7 @@ def rerank_by_persona(results: list, persona_vec: list) -> list:
 
 | Skip This | Reason |
 |-----------|--------|
-| **MongoDB + Elasticsearch + Milvus + Redis** | Overkill for single-user. Qdrant handles it all. |
+| **MongoDB + Elasticsearch + Milvus + Redis** | Overkill for single-user. SurrealDB handles it all. |
 | **Full agentic retrieval for every query** | LLM in loop is expensive. Use only when needed. |
 | **Their evaluation framework** | LoCoMo is for conversation memory, not content recommendation. |
 | **Conversation-centric data model** | Your use case is content knowledge, not chat history. |
@@ -267,7 +262,7 @@ def rerank_by_persona(results: list, persona_vec: list) -> list:
 | 1 | MemCell/Insight extraction | Medium | High |
 | 2 | 7 memory types taxonomy | Low | Medium |
 | 3 | Living persona evolution | Low | Medium |
-| 4 | RRF hybrid search | Low | Medium (Qdrant native) |
+| 4 | RRF hybrid search | Low | Medium (SurrealDB native) |
 | 5 | LLM-guided recall | Medium | Medium |
 | 6 | Hierarchical clustering | Medium | Low |
 | 7 | Intelligent reranking | Low | Low |

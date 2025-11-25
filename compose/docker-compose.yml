@@ -110,8 +110,14 @@ services:
   # =============================================================================
   # LOCAL QDRANT/INFINITY - DEPRECATED (using remote GPU server instead)
   # Remote server: 192.168.16.241 - see .env for documentation
-  # These are kept for reference only. Modern architecture uses SurrealDB for
-  # vector storage instead of Qdrant. Do not uncomment without updating services.
+  #
+  # Modern architecture uses:
+  # - SurrealDB: Unified data store with native HNSW vector indexes
+  # - MinIO: Object storage for binary files
+  # - Infinity (remote): Embedding service (no local Qdrant needed)
+  #
+  # These services are kept for reference only. Do not uncomment without
+  # updating all dependent services to use SurrealDB instead of Qdrant.
   # =============================================================================
   # qdrant:
   #   image: qdrant/qdrant:latest

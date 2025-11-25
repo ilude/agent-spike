@@ -12,7 +12,7 @@ This roadmap describes how to integrate the best ideas from EverMemOS into the a
 
 ## Phase 1: Schema Enhancement (Low Effort)
 
-**Goal**: Add memory type taxonomy to existing Qdrant payloads.
+**Goal**: Add memory type taxonomy to existing SurrealDB records.
 
 ### Changes
 
@@ -150,44 +150,43 @@ Qdrant supports hybrid search natively via:
 ### Implementation
 
 ```python
-from qdrant_client import QdrantClient
-from qdrant_client.models import models
+# SurrealDB hybrid search example
 
 async def hybrid_search(
     query: str,
     query_vector: list[float],
-    collection: str = "content",
+    table: str = "content",
     limit: int = 10
 ) -> list:
     """
     RRF-style hybrid search combining semantic + keyword.
     """
-    client = QdrantClient(...)
+    # SurrealDB client initialization
+    db = await connect_surrealdb()
 
-    # Semantic search
-    semantic_results = client.search(
-        collection_name=collection,
-        query_vector=query_vector,
-        limit=limit * 2,  # Over-fetch for fusion
-    )
+    # Semantic search using HNSW vector index
+    semantic_results = await db.query("""
+        SELECT * FROM type::table($table)
+        WHERE embedding <|1,1024|> $query_vector
+        LIMIT $limit
+    """, {
+        "table": table,
+        "query_vector": query_vector,
+        "limit": limit * 2
+    })
 
-    # Keyword filter (using Qdrant's payload search)
-    keyword_results = client.scroll(
-        collection_name=collection,
-        scroll_filter=models.Filter(
-            should=[
-                models.FieldCondition(
-                    key="title",
-                    match=models.MatchText(text=query)
-                ),
-                models.FieldCondition(
-                    key="tags",
-                    match=models.MatchAny(any=query.lower().split())
-                ),
-            ]
-        ),
-        limit=limit * 2,
-    )
+    # Keyword filter (using SurrealDB's full-text search)
+    keyword_results = await db.query("""
+        SELECT * FROM type::table($table)
+        WHERE search::analyze(title) @@ $query
+        OR tags CONTAINSANY $keywords
+        LIMIT $limit
+    """, {
+        "table": table,
+        "query": query,
+        "keywords": query.lower().split(),
+        "limit": limit * 2
+    })
 
     # RRF fusion
     return reciprocal_rank_fusion(

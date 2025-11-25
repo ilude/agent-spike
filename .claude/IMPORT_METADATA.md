@@ -36,9 +36,9 @@ Each archive file (`projects/data/archive/youtube/YYYY-MM/{video_id}.json`) shou
 }
 ```
 
-### Qdrant Metadata Structure
+### SurrealDB Metadata Structure
 
-When caching in Qdrant, include import metadata in the point metadata:
+When storing in SurrealDB, include import metadata in the record:
 
 ```python
 metadata = {
@@ -129,7 +129,7 @@ Based on known ingestion history, existing videos can be classified:
 
 **Phase 1: Update Services** ✅ Documented
 - Add `import_metadata` parameter to `tools/services/archive.py::archive_youtube_video()`
-- Update `tools/services/cache.py` to include import metadata in Qdrant points
+- Update cache services to include import metadata in SurrealDB records
 
 **Phase 2: Update Ingestion Scripts**
 - `tools/scripts/ingest_video.py`: Pass `source_type="single_import"`
@@ -139,7 +139,7 @@ Based on known ingestion history, existing videos can be classified:
 
 **Phase 3: Retroactive Metadata**
 - Create script to update existing 467 archives with import metadata
-- Create script to update existing 470 Qdrant points with import metadata
+- Create script to update existing video records in SurrealDB with import metadata
 - Use `nate_jones_videos_12mo.csv` to identify bulk channel imports
 
 **Phase 4: Recommendation Engine** (Future)

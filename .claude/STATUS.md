@@ -133,7 +133,7 @@
 - Extracted stable patterns from lessons into reusable `tools/` structure
 - **tools/services/**: Protocol-first service layer with 3 services
   - `archive/`: LocalArchiveWriter/Reader for expensive data (JSON storage)
-  - `cache/`: QdrantCache + InMemoryCache with CacheManager protocol
+  - `cache/`: Cache with CacheManager protocol (migrated from Qdrant to SurrealDB)
   - `youtube/`: YouTubeTranscriptService with Webshare proxy support
 - **tools/scripts/**: 6 production CLI scripts
   - `ingest_youtube.py`: Queue-based batch REPL (main ingestion tool)
@@ -142,7 +142,7 @@
   - `fetch_channel_videos.py`: YouTube Data API channel scraper
 - **tools/tests/**: Pytest infrastructure with 19 tests
   - Unit tests for each service
-  - Functional tests with real Qdrant
+  - Functional tests with SurrealDB
   - Shared fixtures and conftest.py
   - Coverage reporting enabled
 - **All lessons updated**: Now import from centralized services
@@ -169,16 +169,16 @@
 - Mem0 wrapper with simplified API for memory management
 - Semantic search for relevant memories (no exact matches needed)
 - User isolation and metadata support
-- Memory persistence in ~/.mem0/ (Qdrant + SQLite)
+- Memory persistence in ~/.mem0/ (Mem0 library uses Qdrant internally + SQLite)
 - Phase 1 complete (basics), Phase 2-3 deferred (agent integration)
 - Time: ~1.5 hours (including Windows debugging)
 
 **Lesson 007: Cache Manager & Content Ingestion** ✅ COMPLETE
 - Dependency injection pattern for clean architecture
-- CacheManager protocol with QdrantCache implementation
+- CacheManager protocol (migrated from Qdrant to SurrealDB)
 - Semantic search with sentence-transformers embeddings
 - Generic CSV ingestion script with progress tracking
-- Centralized cache storage (migrated from Qdrant to SurrealDB)
+- Centralized cache storage with SurrealDB native vector search
 - Successfully cached 49+ items from video lists
 
 **Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE

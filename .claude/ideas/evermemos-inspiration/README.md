@@ -4,6 +4,8 @@
 **Source**: https://github.com/EverMind-AI/EverMemOS
 **Status**: Research complete, integration opportunities identified
 
+**IMPORTANT**: This directory contains research and comparison notes. References to Qdrant have been updated to SurrealDB (current architecture). Historical context preserved for reference.
+
 ---
 
 ## What Is EverMemOS?
