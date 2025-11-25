@@ -55,11 +55,20 @@
       register: backup_stat
       failed_when: not backup_stat.stat.exists or backup_stat.stat.size < 1
 
+    # Ensure local backup directory exists
+    - name: Create local backup directory
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../backups/surrealdb"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      become: false
+
     # Fetch to local machine
     - name: Fetch SQL dump to local machine
       ansible.builtin.fetch:
         src: "/tmp/surrealdb-backups/backup-{{ timestamp.stdout }}.sql"
-        dest: "../backups/surrealdb/"
+        dest: "{{ playbook_dir }}/../backups/surrealdb/backup-{{ timestamp.stdout }}.sql"
         flat: true
 
     # Cleanup remote temp file
@@ -71,7 +80,7 @@
     # Retention: Delete backups older than 7 days
     - name: Get list of local backups older than 7 days
       ansible.builtin.find:
-        paths: "../backups/surrealdb/"
+        paths: "{{ playbook_dir }}/../backups/surrealdb"
         patterns: "backup-*.sql"
         age: "7d"
         age_stamp: mtime
