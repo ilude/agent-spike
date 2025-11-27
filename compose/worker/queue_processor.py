@@ -56,6 +56,7 @@ from compose.services.minio import create_minio_client, ArchiveStorage
 from compose.services.archive import create_archive_manager, create_local_archive_writer, ImportMetadata, ChannelContext
 from compose.services.surrealdb.repository import get_video, upsert_video
 from compose.services.surrealdb.models import VideoRecord
+from compose.services.surrealdb.driver import execute_query
 
 
 def log(msg: str):
@@ -64,41 +65,56 @@ def log(msg: str):
     print(f"[{timestamp}] {msg}", flush=True)
 
 
-# Thread-safe progress tracking for multiple workers
-_progress_lock = asyncio.Lock()
-_active_workers = {}
+# Worker start times tracking (in-memory, for started_at)
+_worker_start_times = {}
+_start_times_lock = asyncio.Lock()
 
 
 async def update_progress(worker_id: str, filename: str, completed: int, total: int, started_at: str = None):
-    """Update progress file for dashboard monitoring (supports multiple workers)."""
-    async with _progress_lock:
-        _active_workers[worker_id] = {
+    """Update progress in SurrealDB for dashboard monitoring (supports multiple workers)."""
+    try:
+        # Track started_at timestamp (first call for this worker)
+        async with _start_times_lock:
+            if worker_id not in _worker_start_times:
+                _worker_start_times[worker_id] = started_at or datetime.now().isoformat()
+            actual_started_at = _worker_start_times[worker_id]
+
+        # UPSERT to SurrealDB worker_progress table
+        query = """
+        UPSERT type::thing('worker_progress', $worker_id) SET
+            worker_id = $worker_id,
+            filename = $filename,
+            completed = $completed,
+            total = $total,
+            started_at = $started_at,
+            updated_at = time::now();
+        """
+
+        await execute_query(query, {
             "worker_id": worker_id,
             "filename": filename,
             "completed": completed,
             "total": total,
-            "started_at": started_at or datetime.now().isoformat(),
-            "updated_at": datetime.now().isoformat(),
-        }
-        try:
-            with open(PROGRESS_FILE, "w") as f:
-                json.dump({"workers": list(_active_workers.values())}, f)
-        except IOError:
-            pass  # Non-critical, don't break processing
+            "started_at": actual_started_at,
+        })
+    except Exception as e:
+        # Non-critical, log but don't break processing
+        log(f"[{worker_id}] Failed to update progress in SurrealDB: {e}")
 
 
 async def clear_progress(worker_id: str):
-    """Clear worker from progress file when done."""
-    async with _progress_lock:
-        _active_workers.pop(worker_id, None)
-        try:
-            if _active_workers:
-                with open(PROGRESS_FILE, "w") as f:
-                    json.dump({"workers": list(_active_workers.values())}, f)
-            elif PROGRESS_FILE.exists():
-                PROGRESS_FILE.unlink()
-        except IOError:
-            pass
+    """Clear worker from SurrealDB when done."""
+    try:
+        # Delete from worker_progress table
+        query = "DELETE worker_progress WHERE worker_id = $worker_id;"
+        await execute_query(query, {"worker_id": worker_id})
+
+        # Clean up start time tracking
+        async with _start_times_lock:
+            _worker_start_times.pop(worker_id, None)
+    except Exception as e:
+        # Non-critical, log but don't break processing
+        log(f"[{worker_id}] Failed to clear progress in SurrealDB: {e}")
 
 
 async def ingest_video(
