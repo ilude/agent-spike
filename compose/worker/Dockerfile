@@ -23,7 +23,6 @@ RUN uv sync --group platform-api
 # Copy application code
 COPY compose/ ./src/compose/
 COPY tools/ ./src/tools/
-COPY lessons/lesson-001/ ./src/lessons/lesson-001/
 
 WORKDIR /app/src
 
