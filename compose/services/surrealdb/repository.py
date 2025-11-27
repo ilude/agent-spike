@@ -211,6 +211,17 @@ async def init_schema() -> None:
         DEFINE INDEX idx_artifact_conversation ON TABLE artifact COLUMNS conversation_id;
         DEFINE INDEX idx_artifact_project ON TABLE artifact COLUMNS project_id;
         """,
+        # Worker progress table (real-time dashboard progress tracking)
+        """
+        DEFINE TABLE worker_progress SCHEMAFULL;
+        DEFINE FIELD worker_id ON TABLE worker_progress TYPE string;
+        DEFINE FIELD filename ON TABLE worker_progress TYPE string;
+        DEFINE FIELD completed ON TABLE worker_progress TYPE int;
+        DEFINE FIELD total ON TABLE worker_progress TYPE int;
+        DEFINE FIELD started_at ON TABLE worker_progress TYPE datetime;
+        DEFINE FIELD updated_at ON TABLE worker_progress TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_worker_id ON TABLE worker_progress COLUMNS worker_id UNIQUE;
+        """,
     ]
 
     for query in queries:
