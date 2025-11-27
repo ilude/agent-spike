@@ -1,7 +1,13 @@
-"""Stats API router with SSE for real-time dashboard updates."""
+"""Stats API router with SSE for real-time dashboard updates.
+
+Worker progress is stored in SurrealDB worker_progress table and polled for updates.
+LIVE SELECT (push-based) is not yet available in the Python SDK (PR #200 merged Oct 2025,
+but not released to PyPI yet as of Nov 2025). Will upgrade when SDK 1.0.7+ is released.
+"""
 
 import asyncio
 import json
+import logging
 import os
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,6 +15,9 @@ from pathlib import Path
 import httpx
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["stats"])
 
@@ -22,9 +31,13 @@ INFINITY_URL = os.getenv("INFINITY_URL", "http://localhost:7997")
 QUEUE_BASE = Path(os.getenv("QUEUE_BASE", "/app/src/compose/data/queues"))
 ARCHIVE_BASE = Path(os.getenv("ARCHIVE_BASE", "/app/src/compose/data/archive"))
 
+# Polling interval (seconds) - will upgrade to LIVE SELECT when SDK supports it
+POLL_INTERVAL_ACTIVE = 1.0  # Fast polling when workers are active
+POLL_INTERVAL_IDLE = 3.0    # Slower polling when idle
 
-def get_queue_stats() -> dict:
-    """Get queue directory statistics."""
+
+async def get_queue_stats() -> dict:
+    """Get queue directory statistics with worker progress from queue."""
     pending_dir = QUEUE_BASE / "pending"
     processing_dir = QUEUE_BASE / "processing"
     completed_dir = QUEUE_BASE / "completed"
@@ -33,21 +46,27 @@ def get_queue_stats() -> dict:
     processing_files = list(processing_dir.glob("*.csv")) if processing_dir.exists() else []
     completed_files = list(completed_dir.glob("*.csv")) if completed_dir.exists() else []
 
-    # Read progress file if it exists (supports both old and new format)
-    progress_file = QUEUE_BASE / ".progress.json"
+    # Get active workers from SurrealDB worker_progress table
     active_workers = []
-    if progress_file.exists():
-        try:
-            with open(progress_file, "r") as f:
-                progress_data = json.load(f)
-                # New format: {"workers": [...]}
-                if "workers" in progress_data:
-                    active_workers = progress_data["workers"]
-                # Old format: single object with filename/completed/total
-                elif "filename" in progress_data:
-                    active_workers = [progress_data]
-        except (json.JSONDecodeError, IOError):
-            pass
+    try:
+        from compose.services.surrealdb.driver import execute_query
+
+        query = "SELECT * FROM worker_progress ORDER BY updated_at DESC;"
+        results = await execute_query(query)
+
+        # Convert SurrealDB results to expected format
+        for record in results:
+            active_workers.append({
+                "worker_id": record.get("worker_id"),
+                "filename": record.get("filename"),
+                "completed": record.get("completed"),
+                "total": record.get("total"),
+                "started_at": record.get("started_at"),
+                "updated_at": record.get("updated_at"),
+            })
+    except Exception as e:
+        # Non-critical - dashboard can still show queue stats without worker progress
+        logger.error(f"Failed to fetch worker progress from SurrealDB: {e}")
 
     return {
         "pending_count": len(pending_files),
@@ -56,7 +75,7 @@ def get_queue_stats() -> dict:
         "processing_files": [f.name for f in processing_files],
         "completed_count": len(completed_files),
         "completed_files": [f.name for f in completed_files[-5:]],  # Last 5
-        "active_workers": active_workers,  # List of worker progress objects
+        "active_workers": active_workers,  # List of worker progress objects from SurrealDB
     }
 
 
@@ -241,20 +260,21 @@ async def get_service_health() -> dict:
     except Exception:
         pass
 
-    # Check Queue Worker (via progress file or queue activity)
+    # Check Queue Worker via SurrealDB (if any workers have reported progress recently)
     try:
-        progress_file = QUEUE_BASE / ".progress.json"
-        processing_dir = QUEUE_BASE / "processing"
-        # Worker is "ok" if progress file exists (actively processing) or processing dir has files
-        if progress_file.exists():
-            queue_worker_ok = True
-        elif processing_dir.exists() and list(processing_dir.glob("*.csv")):
-            queue_worker_ok = True
+        from compose.services.surrealdb.driver import execute_query
+
+        # Check if worker_progress table has any recent entries (within last 60 seconds)
+        query = "SELECT * FROM worker_progress WHERE updated_at > time::now() - 60s;"
+        results = await execute_query(query)
+
+        if results:
+            queue_worker_ok = True  # Workers are actively reporting
         else:
-            # Check if worker is idle but healthy (no work to do)
+            # No recent progress, but check if directories exist (worker is idle but healthy)
             pending_dir = QUEUE_BASE / "pending"
             if pending_dir.exists():
-                queue_worker_ok = True  # Dirs exist = worker is set up
+                queue_worker_ok = True
     except Exception:
         pass
 
@@ -308,13 +328,23 @@ def get_recent_activity() -> list:
     return activity
 
 
-async def generate_stats():
-    """Generate stats as SSE stream."""
+async def generate_stats_stream():
+    """Generate stats as SSE stream with polling from SurrealDB.
+
+    Polls worker_progress table from SurrealDB at adaptive intervals:
+    - 1 second when workers are active (for responsive progress updates)
+    - 3 seconds when idle (to reduce load)
+
+    TODO: Upgrade to LIVE SELECT push-based updates when surrealdb SDK 1.0.7+ is released.
+    See: https://github.com/surrealdb/surrealdb.py/pull/200
+    """
+    last_worker_count = 0
+
     while True:
         try:
             stats = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
-                "queue": get_queue_stats(),
+                "queue": await get_queue_stats(),
                 "cache": await get_cache_stats(),
                 "archive": get_archive_stats(),
                 "health": await get_service_health(),
@@ -322,11 +352,21 @@ async def generate_stats():
                 "webshare": await get_webshare_stats(),
             }
             yield f"data: {json.dumps(stats)}\n\n"
+
+            # Adaptive polling: faster when workers are active
+            current_worker_count = len(stats["queue"].get("active_workers", []))
+            if current_worker_count > 0:
+                poll_interval = POLL_INTERVAL_ACTIVE
+            else:
+                poll_interval = POLL_INTERVAL_IDLE
+
+            last_worker_count = current_worker_count
+            await asyncio.sleep(poll_interval)
+
         except Exception as e:
             error_data = {"error": str(e), "timestamp": datetime.now(timezone.utc).isoformat()}
             yield f"data: {json.dumps(error_data)}\n\n"
-
-        await asyncio.sleep(3)  # Update every 3 seconds
+            await asyncio.sleep(POLL_INTERVAL_IDLE)
 
 
 @router.get("/stats")
@@ -334,7 +374,7 @@ async def get_stats():
     """Get current stats (one-time fetch)."""
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "queue": get_queue_stats(),
+        "queue": await get_queue_stats(),
         "cache": await get_cache_stats(),
         "archive": get_archive_stats(),
         "health": await get_service_health(),
@@ -345,9 +385,16 @@ async def get_stats():
 
 @router.get("/stats/stream")
 async def stats_stream():
-    """SSE endpoint for real-time stats updates."""
+    """SSE endpoint for real-time stats updates.
+
+    Uses adaptive polling from SurrealDB worker_progress table:
+    - 1 second intervals when workers are actively processing
+    - 3 second intervals when idle
+
+    Will upgrade to LIVE SELECT push-based updates when SDK supports it.
+    """
     return StreamingResponse(
-        generate_stats(),
+        generate_stats_stream(),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
