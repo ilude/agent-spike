@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen
 
+
 # Create FastAPI app
 app = FastAPI(
     title="Agent Spike API",
