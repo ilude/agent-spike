@@ -12,11 +12,12 @@ from compose.services.projects import (
     ProjectFile,
     get_project_service,
 )
-from compose.services.file_processor import (
-    process_and_index_file,
-    search_project_files,
-    delete_file_from_index,
-)
+# TEMPORARILY DISABLED: file_processor module not yet implemented
+# from compose.services.file_processor import (
+#     process_and_index_file,
+#     search_project_files,
+#     delete_file_from_index,
+# )
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
