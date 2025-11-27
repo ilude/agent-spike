@@ -51,15 +51,15 @@ compose/acme/
 # Compose: Local .env copy (root .env is git-crypt encrypted, this is a copy for docker-compose)
 compose/.env
 
-# Compose: Data files - track archives, qdrant_storage, queues
+# Compose: Data files - archives in MinIO, track qdrant_storage and queues only
 # Machine-specific files and temp files are ignored
 compose/data/*
 !compose/data/*.csv
 !compose/data/*.py
 !compose/data/README.md
-!compose/data/archive/
 !compose/data/qdrant_storage/
 !compose/data/queues/
+compose/data/archive/
 compose/data/queues/brave_history/*.tmp.sqlite
 compose/data/queues/brave_history/brave_history.*.sqlite
 !compose/data/queues/brave_history/.sync_state
@@ -67,6 +67,7 @@ compose/data/queues/brave_history/brave_history.*.sqlite
 compose/data/qdrant.*/
 compose/data/qdrant.tmp/
 compose/data/queues/processing/
+compose/data/queues/.progress.json
 compose/data/n8n/
 compose/data/logs/
 *.db
