@@ -1,9 +1,23 @@
 """FastAPI application for exposing Python agents and chat interface."""
 
+import os
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from compose.api.middleware import CorrelationMiddleware
 from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, auth, settings, backup
+from compose.lib.telemetry import setup_telemetry
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan - setup telemetry on startup."""
+    # Only enable telemetry if OTLP endpoint is configured or we're in production
+    if os.getenv("OTLP_ENDPOINT") or os.getenv("ENABLE_TELEMETRY", "").lower() == "true":
+        setup_telemetry("agent-spike-api")
+    yield
 
 
 # Create FastAPI app
@@ -11,6 +25,7 @@ app = FastAPI(
     title="Agent Spike API",
     description="FastAPI service with chat interface and agent integration",
     version="0.2.0",
+    lifespan=lifespan,
 )
 
 # CORS configuration for frontend and N8N
@@ -29,6 +44,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Correlation ID middleware for request tracking
+app.add_middleware(CorrelationMiddleware)
 
 # Include routers
 app.include_router(health.router)

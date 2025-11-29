@@ -273,7 +273,7 @@ brave-sync:
 	@uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
 
 # GPU Server Management (Ansible)
-.PHONY: gpu-deploy gpu-update gpu-backup gpu-shell
+.PHONY: gpu-deploy gpu-update gpu-backup gpu-shell gpu-deploy-observability
 
 gpu-deploy:
 	@echo "Deploying AI services to GPU server..."
@@ -290,3 +290,7 @@ gpu-backup:
 gpu-shell:
 	@echo "Opening Ansible shell for manual commands..."
 	@cd infra/ansible && docker compose run --rm ansible bash
+
+gpu-deploy-observability:
+	@echo "Deploying observability stack (LGTM) to GPU server..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy-observability.yml

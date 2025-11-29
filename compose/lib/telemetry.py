@@ -1,11 +1,11 @@
-"""OpenTelemetry tracing configuration for SigNoz."""
+"""OpenTelemetry tracing configuration for LGTM stack."""
 
 import os
 from typing import Optional
 
 from opentelemetry import trace, metrics
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk.metrics import MeterProvider
@@ -33,7 +33,7 @@ def setup_tracing(
     """
     # Get OTLP endpoint from environment or use default
     if otlp_endpoint is None:
-        otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://192.168.16.241:4317")
+        otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://192.168.16.241:4318")
 
     # Create resource with service name
     resource = Resource.create(
@@ -47,10 +47,9 @@ def setup_tracing(
     # Create trace provider
     provider = TracerProvider(resource=resource)
 
-    # Create OTLP span exporter
+    # Create OTLP span exporter (HTTP)
     span_exporter = OTLPSpanExporter(
-        endpoint=otlp_endpoint,
-        insecure=True,  # Use insecure for internal network
+        endpoint=f"{otlp_endpoint}/v1/traces",
     )
 
     # Add batch processor
@@ -92,7 +91,7 @@ def setup_metrics(
     """
     # Get OTLP endpoint from environment or use default
     if otlp_endpoint is None:
-        otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://192.168.16.241:4317")
+        otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://192.168.16.241:4318")
 
     # Create resource with service name
     resource = Resource.create(
@@ -103,10 +102,9 @@ def setup_metrics(
         }
     )
 
-    # Create metric exporter
+    # Create metric exporter (HTTP)
     metric_exporter = OTLPMetricExporter(
-        endpoint=otlp_endpoint,
-        insecure=True,  # Use insecure for internal network
+        endpoint=f"{otlp_endpoint}/v1/metrics",
     )
 
     # Create periodic metric reader
