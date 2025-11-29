@@ -149,12 +149,6 @@ def mock_openai_streaming():
 
 
 @pytest.fixture
-def mock_qdrant():
-    """Fixture providing a mock Qdrant client."""
-    return create_mock_qdrant_client()
-
-
-@pytest.fixture
 def mock_websocket():
     """Fixture providing a mock WebSocket."""
     return create_mock_websocket()
@@ -172,7 +166,7 @@ def temp_dir():
 
     Automatically cleaned up after test completes.
     Note: ignore_cleanup_errors=True handles Windows file locking issues
-    with embedded Qdrant SQLite storage.
+    with embedded SQLite storage.
     """
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmpdir:
         yield Path(tmpdir)

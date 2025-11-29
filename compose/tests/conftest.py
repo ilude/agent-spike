@@ -4,7 +4,7 @@ Pytest configuration and fixtures for compose/ tests.
 Provides:
 - Async test client for FastAPI endpoints
 - Mock LLM client fixtures
-- Mock Qdrant/vector store fixtures
+- Mock SurrealDB fixtures
 - Test data fixtures
 - Environment setup
 """
@@ -26,7 +26,7 @@ def setup_test_environment():
     # Set test-specific environment variables
     os.environ.setdefault("OPENROUTER_API_KEY", "test-key")
     os.environ.setdefault("ANTHROPIC_API_KEY", "test-anthropic-key")
-    os.environ.setdefault("QDRANT_URL", "http://localhost:6333")
+    os.environ.setdefault("SURREALDB_URL", "http://localhost:8000")
     os.environ.setdefault("INFINITY_URL", "http://localhost:7997")
     os.environ.setdefault("OLLAMA_URL", "http://localhost:11434")
     yield
@@ -120,38 +120,21 @@ def mock_anthropic_client():
     return mock
 
 
-# ============ Mock Vector Store ============
+# ============ Mock SurrealDB ============
 
 
 @pytest.fixture
-def mock_qdrant_client():
-    """Mock Qdrant client for testing."""
-    mock = MagicMock()
+def mock_surrealdb_repository():
+    """Mock SurrealDB repository operations."""
+    # Create async mock functions
+    mock_get = AsyncMock(return_value=None)  # Video doesn't exist
+    mock_upsert = AsyncMock(return_value={"video_id": "test_vid123"})
+    mock_count = AsyncMock(return_value=100)
 
-    # Mock search results
-    mock_search_result = [
-        MagicMock(
-            id="doc-1",
-            score=0.95,
-            payload={"text": "Test document content", "source": "test.md"},
-        ),
-        MagicMock(
-            id="doc-2",
-            score=0.85,
-            payload={"text": "Another document", "source": "other.md"},
-        ),
-    ]
-
-    mock.search.return_value = mock_search_result
-    mock.query_points.return_value = MagicMock(points=mock_search_result)
-
-    # Mock collection operations
-    mock.get_collections.return_value = MagicMock(
-        collections=[MagicMock(name="test_collection")]
-    )
-    mock.collection_exists.return_value = True
-
-    return mock
+    with patch("compose.services.surrealdb.get_video", mock_get), \
+         patch("compose.services.surrealdb.upsert_video", mock_upsert), \
+         patch("compose.services.surrealdb.get_video_count", mock_count):
+        yield {"get_video": mock_get, "upsert_video": mock_upsert, "get_video_count": mock_count}
 
 
 @pytest.fixture
@@ -345,18 +328,6 @@ def mock_youtube_service():
 It contains multiple sentences across several lines.
 This simulates a real YouTube transcript with meaningful content."""
         yield mock_get_transcript
-
-
-@pytest.fixture
-def mock_surrealdb_repository():
-    """Mock SurrealDB repository operations."""
-    # Create async mock functions
-    mock_get = AsyncMock(return_value=None)  # Video doesn't exist
-    mock_upsert = AsyncMock(return_value={"video_id": "test_vid123"})
-
-    with patch("compose.services.surrealdb.get_video", mock_get), \
-         patch("compose.services.surrealdb.upsert_video", mock_upsert):
-        yield {"get_video": mock_get, "upsert_video": mock_upsert}
 
 
 @pytest.fixture

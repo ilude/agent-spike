@@ -1,7 +1,7 @@
 """Fixtures for integration tests.
 
 These tests require remote services on 192.168.16.241:
-- Qdrant: port 6333
+- SurrealDB: port 8080
 - Infinity: port 7997
 - Ollama: port 11434
 """
@@ -12,8 +12,7 @@ import pytest
 # Remote service URLs (GPU server)
 REMOTE_INFINITY_URL = "http://192.168.16.241:7997"
 REMOTE_OLLAMA_URL = "http://192.168.16.241:11434"
-
-
+REMOTE_SURREALDB_URL = "ws://192.168.16.241:8080"
 
 
 @pytest.fixture
@@ -29,6 +28,6 @@ def ollama_url():
 
 
 @pytest.fixture
-def collection_name():
-    """Default Qdrant collection for cached content."""
-    return os.getenv("QDRANT_COLLECTION", "content")
+def surrealdb_url():
+    """Remote SurrealDB URL."""
+    return os.getenv("SURREALDB_URL", REMOTE_SURREALDB_URL)

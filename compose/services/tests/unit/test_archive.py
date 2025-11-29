@@ -133,7 +133,6 @@ def test_processing_history(temp_dir):
     writer.add_processing_record(
         video_id=video_id,
         version="v1_full_embed",
-        collection_name="cached_content",
         notes="Initial full-transcript embedding",
     )
 
@@ -143,13 +142,12 @@ def test_processing_history(temp_dir):
 
     record = archive.processing_history[0]
     assert record.version == "v1_full_embed"
-    assert record.collection_name == "cached_content"
+    assert record.notes == "Initial full-transcript embedding"
 
     # Add another record (simulating reprocessing)
     writer.add_processing_record(
         video_id=video_id,
         version="v2_chunked",
-        collection_name="cached_content_v2",
         notes="Chunked transcript with 500-word segments",
     )
 
@@ -248,7 +246,7 @@ def test_json_format(temp_dir):
     writer.add_processing_record(
         video_id=video_id,
         version="v1",
-        collection_name="test_collection",
+        notes="test processing",
     )
 
     # Find the JSON file

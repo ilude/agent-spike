@@ -1,11 +1,7 @@
-"""Tests for conversation storage service.
+"""Tests for conversation storage service (SurrealDB implementation).
 
-Run with: uv run pytest compose/services/tests/unit/test_conversations.py
+Run with: uv run pytest compose/services/tests/unit/test_conversations.py -v
 """
-
-import json
-import time
-from pathlib import Path
 
 import pytest
 
@@ -15,6 +11,7 @@ from compose.services.conversations import (
     ConversationService,
     Message,
 )
+from compose.services.tests.fakes import FakeDatabaseExecutor
 
 
 # =============================================================================
@@ -23,33 +20,23 @@ from compose.services.conversations import (
 
 
 @pytest.fixture
-def service(tmp_path):
-    """Create service with temp directory."""
-    return ConversationService(data_dir=str(tmp_path))
+def fake_db():
+    """Create a fresh FakeDatabaseExecutor for each test."""
+    return FakeDatabaseExecutor()
 
 
 @pytest.fixture
-def populated_service(service):
-    """Create service with some existing conversations."""
-    # Create three conversations with different timestamps
-    conv1 = service.create_conversation(title="First Chat", model="gpt-4")
-    time.sleep(0.01)  # Ensure different timestamps
-    conv2 = service.create_conversation(title="Second Chat", model="claude-3")
-    time.sleep(0.01)
-    conv3 = service.create_conversation(title="Third Chat", model="gpt-4")
-
-    # Add messages to conv2
-    service.add_message(conv2.id, "user", "Hello there!")
-    service.add_message(conv2.id, "assistant", "Hi! How can I help?")
-
-    return service, conv1, conv2, conv3
+def service(fake_db):
+    """Create ConversationService with injected fake."""
+    return ConversationService(db=fake_db)
 
 
 # =============================================================================
-# Model Tests
+# Model Tests (no mocking needed - just Pydantic models)
 # =============================================================================
 
 
+@pytest.mark.unit
 class TestMessage:
     """Tests for Message model."""
 
@@ -60,6 +47,7 @@ class TestMessage:
         assert msg.role == "user"
         assert msg.content == "Hello"
         assert msg.id  # Should have auto-generated UUID
+        assert len(msg.id) == 36  # UUID format
         assert msg.timestamp  # Should have auto-generated timestamp
         assert msg.sources == []
 
@@ -87,6 +75,7 @@ class TestMessage:
         assert msg.sources == [{"url": "test"}]
 
 
+@pytest.mark.unit
 class TestConversation:
     """Tests for Conversation model."""
 
@@ -95,6 +84,7 @@ class TestConversation:
         conv = Conversation()
 
         assert conv.id  # Should have auto-generated UUID
+        assert len(conv.id) == 36  # UUID format
         assert conv.title == "New conversation"
         assert conv.created_at  # Should have auto-generated timestamp
         assert conv.updated_at  # Should have auto-generated timestamp
@@ -141,7 +131,22 @@ class TestConversation:
         assert meta.message_count == 2
         assert meta.model == "gpt-4"
 
+    def test_conversation_to_meta_override_count(self):
+        """Test Conversation.to_meta() with override message count."""
+        conv = Conversation(
+            id="conv-123",
+            title="Test Conv",
+            created_at="2024-01-01T00:00:00Z",
+            updated_at="2024-01-02T00:00:00Z",
+            messages=[Message(role="user", content="Hi")],
+        )
 
+        meta = conv.to_meta(message_count=10)
+
+        assert meta.message_count == 10
+
+
+@pytest.mark.unit
 class TestConversationMeta:
     """Tests for ConversationMeta model."""
 
@@ -175,652 +180,350 @@ class TestConversationMeta:
 
 
 # =============================================================================
-# Service Initialization Tests
+# Service Tests (using DI with fakes)
 # =============================================================================
 
 
-class TestConversationServiceInit:
-    """Tests for ConversationService.__init__()."""
-
-    def test_creates_data_directory(self, tmp_path):
-        """Test __init__ creates data directory if not exists."""
-        data_dir = tmp_path / "conversations"
-        assert not data_dir.exists()
-
-        service = ConversationService(data_dir=str(data_dir))
-
-        assert data_dir.exists()
-        assert data_dir.is_dir()
-
-    def test_creates_index_file(self, tmp_path):
-        """Test __init__ creates index.json if not exists."""
-        service = ConversationService(data_dir=str(tmp_path))
-
-        index_path = tmp_path / "index.json"
-        assert index_path.exists()
-
-        with open(index_path) as f:
-            data = json.load(f)
-        assert data == {"conversations": []}
-
-    def test_preserves_existing_index(self, tmp_path):
-        """Test __init__ preserves existing index.json."""
-        # Create existing index
-        index_path = tmp_path / "index.json"
-        existing_data = {
-            "conversations": [
-                {
-                    "id": "existing-id",
-                    "title": "Existing",
-                    "created_at": "2024-01-01T00:00:00Z",
-                    "updated_at": "2024-01-01T00:00:00Z",
-                    "message_count": 0,
-                    "model": "",
-                }
-            ]
-        }
-        with open(index_path, "w") as f:
-            json.dump(existing_data, f)
-
-        service = ConversationService(data_dir=str(tmp_path))
-
-        with open(index_path) as f:
-            data = json.load(f)
-        assert len(data["conversations"]) == 1
-        assert data["conversations"][0]["id"] == "existing-id"
-
-    def test_nested_directory_creation(self, tmp_path):
-        """Test __init__ creates nested directory structure."""
-        nested_path = tmp_path / "deep" / "nested" / "conversations"
-        assert not nested_path.exists()
-
-        service = ConversationService(data_dir=str(nested_path))
-
-        assert nested_path.exists()
-        assert (nested_path / "index.json").exists()
-
-
-# =============================================================================
-# list_conversations Tests
-# =============================================================================
-
-
-class TestListConversations:
-    """Tests for ConversationService.list_conversations()."""
-
-    def test_list_empty(self, service):
-        """Test listing conversations when none exist."""
-        result = service.list_conversations()
-
-        assert result == []
-
-    def test_list_single_conversation(self, service):
-        """Test listing single conversation."""
-        created = service.create_conversation(title="Test", model="gpt-4")
-
-        result = service.list_conversations()
-
-        assert len(result) == 1
-        assert result[0].id == created.id
-        assert result[0].title == "Test"
-        assert result[0].model == "gpt-4"
-
-    def test_list_sorted_by_updated_at_desc(self, populated_service):
-        """Test conversations are sorted by updated_at descending."""
-        service, conv1, conv2, conv3 = populated_service
-
-        result = service.list_conversations()
-
-        # conv2 was updated most recently (messages added)
-        # Then conv3 was created after conv2
-        # conv1 was created first
-        assert len(result) == 3
-        # Most recently updated first
-        ids = [r.id for r in result]
-        assert ids[0] == conv2.id  # Had messages added, so most recent
-
-    def test_list_returns_metadata_only(self, service):
-        """Test list returns ConversationMeta instances."""
-        service.create_conversation(title="Test")
-
-        result = service.list_conversations()
-
-        assert all(isinstance(r, ConversationMeta) for r in result)
-
-
-# =============================================================================
-# create_conversation Tests
-# =============================================================================
-
-
+@pytest.mark.unit
 class TestCreateConversation:
-    """Tests for ConversationService.create_conversation()."""
+    """Tests for create_conversation method."""
 
-    def test_create_with_defaults(self, service, tmp_path):
+    async def test_creates_conversation_with_default_values(self, service, fake_db):
         """Test creating conversation with default values."""
-        conv = service.create_conversation()
+        conv = await service.create_conversation()
 
-        assert conv.id
         assert conv.title == "New conversation"
         assert conv.model == ""
-        assert conv.messages == []
+        assert conv.id is not None
+        assert len(conv.id) == 36  # UUID format
 
-        # Verify file created
-        conv_file = tmp_path / f"{conv.id}.json"
-        assert conv_file.exists()
+        # Verify database was called
+        assert len(fake_db.query_log) == 1
+        query, params = fake_db.query_log[0]
+        assert "INSERT INTO conversation" in query
+        assert params["title"] == "New conversation"
 
-    def test_create_with_custom_values(self, service):
-        """Test creating conversation with custom title and model."""
-        conv = service.create_conversation(title="My Chat", model="claude-3")
+    async def test_creates_conversation_with_title_and_model(self, service, fake_db):
+        """Test creating conversation with title and model."""
+        conv = await service.create_conversation(
+            title="My Chat",
+            model="gpt-4",
+        )
 
         assert conv.title == "My Chat"
-        assert conv.model == "claude-3"
+        assert conv.model == "gpt-4"
 
-    def test_create_updates_index(self, service, tmp_path):
-        """Test creating conversation updates index.json."""
-        conv = service.create_conversation(title="Test")
+        query, params = fake_db.query_log[0]
+        assert params["title"] == "My Chat"
+        assert params["model"] == "gpt-4"
 
-        with open(tmp_path / "index.json") as f:
-            data = json.load(f)
+    async def test_creates_conversation_with_user_id(self, service, fake_db):
+        """Test creating conversation with user_id."""
+        conv = await service.create_conversation(
+            title="My Chat",
+            user_id="user-123",
+        )
 
-        assert len(data["conversations"]) == 1
-        assert data["conversations"][0]["id"] == conv.id
-        assert data["conversations"][0]["title"] == "Test"
-
-    def test_create_multiple_conversations(self, service):
-        """Test creating multiple conversations."""
-        conv1 = service.create_conversation(title="First")
-        conv2 = service.create_conversation(title="Second")
-        conv3 = service.create_conversation(title="Third")
-
-        result = service.list_conversations()
-
-        assert len(result) == 3
-        ids = {r.id for r in result}
-        assert conv1.id in ids
-        assert conv2.id in ids
-        assert conv3.id in ids
-
-    def test_create_generates_unique_ids(self, service):
-        """Test each conversation gets unique ID."""
-        ids = set()
-        for _ in range(10):
-            conv = service.create_conversation()
-            ids.add(conv.id)
-
-        assert len(ids) == 10
+        query, params = fake_db.query_log[0]
+        assert params["user_id"] == "user-123"
 
 
-# =============================================================================
-# get_conversation Tests
-# =============================================================================
+@pytest.mark.unit
+class TestListConversations:
+    """Tests for list_conversations method."""
+
+    async def test_list_conversations_empty(self, service, fake_db):
+        """Test listing when no conversations exist."""
+        conversations = await service.list_conversations()
+
+        assert conversations == []
+
+    async def test_list_conversations_returns_meta(self, service, fake_db):
+        """Test that list returns ConversationMeta objects."""
+        # Setup: Add a conversation to the fake DB
+        fake_db.tables["conversation"] = [
+            {
+                "id": "test-id",
+                "title": "Test Conversation",
+                "model": "gpt-4",
+                "created_at": "2024-01-01T00:00:00Z",
+                "updated_at": "2024-01-02T00:00:00Z",
+            }
+        ]
+
+        conversations = await service.list_conversations()
+
+        assert len(conversations) == 1
+        assert isinstance(conversations[0], ConversationMeta)
+        assert conversations[0].title == "Test Conversation"
+        assert conversations[0].model == "gpt-4"
+
+    async def test_list_conversations_with_user_id(self, service, fake_db):
+        """Test listing conversations filtered by user_id."""
+        await service.list_conversations(user_id="user-123")
+
+        # Verify query includes user_id filter
+        query, params = fake_db.query_log[0]
+        assert "user_id" in query.lower()
+        assert params["user_id"] == "user-123"
 
 
+@pytest.mark.unit
 class TestGetConversation:
-    """Tests for ConversationService.get_conversation()."""
+    """Tests for get_conversation method."""
 
-    def test_get_existing_conversation(self, service):
-        """Test getting existing conversation by ID."""
-        created = service.create_conversation(title="Test", model="gpt-4")
+    async def test_get_conversation_not_found(self, service):
+        """Test getting a non-existent conversation returns None."""
+        conv = await service.get_conversation("non-existent-id")
 
-        result = service.get_conversation(created.id)
+        assert conv is None
 
-        assert result is not None
-        assert result.id == created.id
-        assert result.title == "Test"
-        assert result.model == "gpt-4"
+    async def test_get_conversation_success(self, service, fake_db):
+        """Test getting an existing conversation."""
+        # Setup: Add conversation to fake DB
+        fake_db.tables["conversation"] = [
+            {
+                "id": "test-id",
+                "title": "Test Conversation",
+                "model": "gpt-4",
+                "created_at": "2024-01-01T00:00:00Z",
+                "updated_at": "2024-01-02T00:00:00Z",
+            }
+        ]
 
-    def test_get_nonexistent_conversation(self, service):
-        """Test getting non-existent conversation returns None."""
-        result = service.get_conversation("nonexistent-id")
+        conv = await service.get_conversation("test-id")
 
-        assert result is None
-
-    def test_get_conversation_with_messages(self, service):
-        """Test getting conversation preserves messages."""
-        conv = service.create_conversation()
-        service.add_message(conv.id, "user", "Hello")
-        service.add_message(conv.id, "assistant", "Hi there!")
-
-        result = service.get_conversation(conv.id)
-
-        assert len(result.messages) == 2
-        assert result.messages[0].role == "user"
-        assert result.messages[0].content == "Hello"
-        assert result.messages[1].role == "assistant"
-        assert result.messages[1].content == "Hi there!"
-
-    def test_get_returns_full_conversation(self, service):
-        """Test get returns Conversation instance, not ConversationMeta."""
-        created = service.create_conversation()
-
-        result = service.get_conversation(created.id)
-
-        assert isinstance(result, Conversation)
-        assert hasattr(result, "messages")
+        assert conv is not None
+        assert conv.title == "Test Conversation"
+        assert conv.model == "gpt-4"
 
 
-# =============================================================================
-# update_conversation Tests
-# =============================================================================
+@pytest.mark.unit
+class TestGetConversationUserId:
+    """Tests for get_conversation_user_id method."""
+
+    async def test_get_user_id_not_found(self, service):
+        """Test getting user_id for non-existent conversation returns None."""
+        user_id = await service.get_conversation_user_id("non-existent-id")
+
+        assert user_id is None
+
+    async def test_get_user_id_success(self, service, fake_db):
+        """Test getting user_id for existing conversation."""
+        # Setup: Use set_next_response for record ID query
+        fake_db.set_next_response([{"user_id": "user-123"}])
+
+        user_id = await service.get_conversation_user_id("test-id")
+
+        assert user_id == "user-123"
 
 
+@pytest.mark.unit
 class TestUpdateConversation:
-    """Tests for ConversationService.update_conversation()."""
+    """Tests for update_conversation method."""
 
-    def test_update_title(self, service):
-        """Test updating conversation title."""
-        conv = service.create_conversation(title="Original")
-
-        result = service.update_conversation(conv.id, title="Updated")
-
-        assert result is not None
-        assert result.title == "Updated"
-
-        # Verify persisted
-        fetched = service.get_conversation(conv.id)
-        assert fetched.title == "Updated"
-
-    def test_update_model(self, service):
-        """Test updating conversation model."""
-        conv = service.create_conversation(model="gpt-3.5")
-
-        result = service.update_conversation(conv.id, model="gpt-4")
-
-        assert result.model == "gpt-4"
-
-        # Verify persisted
-        fetched = service.get_conversation(conv.id)
-        assert fetched.model == "gpt-4"
-
-    def test_update_both_title_and_model(self, service):
-        """Test updating both title and model."""
-        conv = service.create_conversation(title="Old", model="gpt-3.5")
-
-        result = service.update_conversation(conv.id, title="New", model="gpt-4")
-
-        assert result.title == "New"
-        assert result.model == "gpt-4"
-
-    def test_update_updates_timestamp(self, service):
-        """Test update changes updated_at timestamp."""
-        conv = service.create_conversation()
-        original_updated = conv.updated_at
-
-        time.sleep(0.01)  # Ensure different timestamp
-        result = service.update_conversation(conv.id, title="New Title")
-
-        assert result.updated_at > original_updated
-
-    def test_update_nonexistent_returns_none(self, service):
+    async def test_update_conversation_not_found(self, service):
         """Test updating non-existent conversation returns None."""
-        result = service.update_conversation("nonexistent-id", title="Test")
+        result = await service.update_conversation("non-existent", title="New Title")
 
         assert result is None
 
-    def test_update_preserves_messages(self, service):
-        """Test update preserves existing messages."""
-        conv = service.create_conversation()
-        service.add_message(conv.id, "user", "Hello")
+    async def test_update_conversation_title(self, service, fake_db):
+        """Test updating conversation title."""
+        # Setup: Add conversation to fake DB
+        fake_db.tables["conversation"] = [
+            {
+                "id": "test-id",
+                "title": "Original",
+                "model": "",
+                "created_at": "2024-01-01T00:00:00Z",
+                "updated_at": "2024-01-02T00:00:00Z",
+            }
+        ]
 
-        service.update_conversation(conv.id, title="Updated")
+        updated = await service.update_conversation("test-id", title="Updated")
 
-        fetched = service.get_conversation(conv.id)
-        assert len(fetched.messages) == 1
-        assert fetched.messages[0].content == "Hello"
+        # The fake DB should have been called with UPDATE
+        update_queries = [q for q, _ in fake_db.query_log if "UPDATE" in q]
+        assert len(update_queries) > 0
 
-    def test_update_updates_index(self, service, tmp_path):
-        """Test update modifies index.json."""
-        conv = service.create_conversation(title="Original")
+    async def test_update_conversation_model(self, service, fake_db):
+        """Test updating conversation model."""
+        # Setup: Add conversation to fake DB
+        fake_db.tables["conversation"] = [
+            {
+                "id": "test-id",
+                "title": "Test",
+                "model": "gpt-3.5",
+                "created_at": "2024-01-01T00:00:00Z",
+                "updated_at": "2024-01-02T00:00:00Z",
+            }
+        ]
 
-        service.update_conversation(conv.id, title="Updated")
+        await service.update_conversation("test-id", model="gpt-4")
 
-        with open(tmp_path / "index.json") as f:
-            data = json.load(f)
-
-        assert data["conversations"][0]["title"] == "Updated"
-
-
-# =============================================================================
-# delete_conversation Tests
-# =============================================================================
+        # Check UPDATE was called with model
+        update_queries = [
+            (q, p) for q, p in fake_db.query_log if "UPDATE" in q and p
+        ]
+        assert len(update_queries) > 0
 
 
+@pytest.mark.unit
 class TestDeleteConversation:
-    """Tests for ConversationService.delete_conversation()."""
+    """Tests for delete_conversation method."""
 
-    def test_delete_existing_conversation(self, service, tmp_path):
-        """Test deleting existing conversation."""
-        conv = service.create_conversation()
-        conv_path = tmp_path / f"{conv.id}.json"
-        assert conv_path.exists()
-
-        result = service.delete_conversation(conv.id)
-
-        assert result is True
-        assert not conv_path.exists()
-
-    def test_delete_removes_from_index(self, service, tmp_path):
-        """Test delete removes entry from index.json."""
-        conv = service.create_conversation()
-
-        service.delete_conversation(conv.id)
-
-        with open(tmp_path / "index.json") as f:
-            data = json.load(f)
-        assert len(data["conversations"]) == 0
-
-    def test_delete_nonexistent_returns_false(self, service):
+    async def test_delete_conversation_not_found(self, service):
         """Test deleting non-existent conversation returns False."""
-        result = service.delete_conversation("nonexistent-id")
+        result = await service.delete_conversation("non-existent")
 
         assert result is False
 
-    def test_delete_one_of_many(self, service):
-        """Test deleting one conversation leaves others intact."""
-        conv1 = service.create_conversation(title="Keep 1")
-        conv2 = service.create_conversation(title="Delete Me")
-        conv3 = service.create_conversation(title="Keep 2")
+    async def test_delete_conversation_success(self, service, fake_db):
+        """Test deleting an existing conversation."""
+        # Setup: Use set_next_response to indicate conversation exists
+        fake_db.set_next_response([{"id": "test-id"}])
 
-        service.delete_conversation(conv2.id)
+        result = await service.delete_conversation("test-id")
 
-        result = service.list_conversations()
-        ids = {r.id for r in result}
+        assert result is True
+        # Verify DELETE queries were issued (messages and conversation)
+        delete_queries = [q for q, _ in fake_db.query_log if "DELETE" in q]
+        assert len(delete_queries) >= 2  # One for messages, one for conversation
 
-        assert len(result) == 2
-        assert conv1.id in ids
-        assert conv2.id not in ids
-        assert conv3.id in ids
 
-    def test_get_after_delete_returns_none(self, service):
-        """Test getting deleted conversation returns None."""
-        conv = service.create_conversation()
-        service.delete_conversation(conv.id)
+@pytest.mark.unit
+class TestAddMessage:
+    """Tests for add_message method."""
 
-        result = service.get_conversation(conv.id)
+    async def test_add_message_conversation_not_found(self, service):
+        """Test adding message to non-existent conversation."""
+        result = await service.add_message("non-existent", "user", "Hello!")
 
         assert result is None
 
+    async def test_add_user_message(self, service, fake_db):
+        """Test adding a user message."""
+        # Setup: Conversation exists
+        fake_db.set_next_response([{"id": "conv-123"}])
 
-# =============================================================================
-# add_message Tests
-# =============================================================================
-
-
-class TestAddMessage:
-    """Tests for ConversationService.add_message()."""
-
-    def test_add_user_message(self, service):
-        """Test adding user message."""
-        conv = service.create_conversation()
-
-        msg = service.add_message(conv.id, "user", "Hello!")
+        msg = await service.add_message("conv-123", "user", "Hello!")
 
         assert msg is not None
         assert msg.role == "user"
         assert msg.content == "Hello!"
-        assert msg.id
-        assert msg.timestamp
+        assert msg.id is not None
+        assert msg.sources == []
 
-    def test_add_assistant_message(self, service):
-        """Test adding assistant message."""
-        conv = service.create_conversation()
+        # Verify INSERT into message table
+        insert_queries = [q for q, _ in fake_db.query_log if "INSERT INTO message" in q]
+        assert len(insert_queries) == 1
 
-        msg = service.add_message(conv.id, "assistant", "Hi there!")
+    async def test_add_assistant_message_with_sources(self, service, fake_db):
+        """Test adding assistant message with sources."""
+        # Setup: Conversation exists
+        fake_db.set_next_response([{"id": "conv-123"}])
 
+        sources = [{"url": "https://example.com", "title": "Example"}]
+        msg = await service.add_message(
+            "conv-123", "assistant", "Here's the answer", sources=sources
+        )
+
+        assert msg is not None
         assert msg.role == "assistant"
-        assert msg.content == "Hi there!"
-
-    def test_add_message_with_sources(self, service):
-        """Test adding message with sources."""
-        conv = service.create_conversation()
-        sources = [
-            {"url": "https://example.com", "title": "Example"},
-            {"url": "https://test.com", "title": "Test"},
-        ]
-
-        msg = service.add_message(conv.id, "assistant", "Response", sources=sources)
-
         assert msg.sources == sources
 
-    def test_add_message_persists(self, service):
-        """Test added message is persisted."""
-        conv = service.create_conversation()
-        service.add_message(conv.id, "user", "Hello!")
-
-        fetched = service.get_conversation(conv.id)
-
-        assert len(fetched.messages) == 1
-        assert fetched.messages[0].content == "Hello!"
-
-    def test_add_multiple_messages(self, service):
-        """Test adding multiple messages."""
-        conv = service.create_conversation()
-        service.add_message(conv.id, "user", "Hello!")
-        service.add_message(conv.id, "assistant", "Hi!")
-        service.add_message(conv.id, "user", "How are you?")
-
-        fetched = service.get_conversation(conv.id)
-
-        assert len(fetched.messages) == 3
-        assert fetched.messages[0].content == "Hello!"
-        assert fetched.messages[1].content == "Hi!"
-        assert fetched.messages[2].content == "How are you?"
-
-    def test_add_message_updates_timestamp(self, service):
+    async def test_add_message_updates_conversation_timestamp(self, service, fake_db):
         """Test adding message updates conversation updated_at."""
-        conv = service.create_conversation()
-        original_updated = conv.updated_at
+        # Setup: Conversation exists
+        fake_db.set_next_response([{"id": "conv-123"}])
 
-        time.sleep(0.01)
-        service.add_message(conv.id, "user", "Hello!")
+        await service.add_message("conv-123", "user", "Hello!")
 
-        fetched = service.get_conversation(conv.id)
-        assert fetched.updated_at > original_updated
-
-    def test_add_message_updates_index(self, service, tmp_path):
-        """Test adding message updates message_count in index."""
-        conv = service.create_conversation()
-        service.add_message(conv.id, "user", "Hello!")
-        service.add_message(conv.id, "assistant", "Hi!")
-
-        with open(tmp_path / "index.json") as f:
-            data = json.load(f)
-
-        assert data["conversations"][0]["message_count"] == 2
-
-    def test_add_message_to_nonexistent_returns_none(self, service):
-        """Test adding message to non-existent conversation returns None."""
-        result = service.add_message("nonexistent-id", "user", "Hello!")
-
-        assert result is None
+        # Verify UPDATE on conversation was called
+        update_queries = [q for q, _ in fake_db.query_log if "UPDATE" in q]
+        assert len(update_queries) >= 1
 
 
-# =============================================================================
-# search_conversations Tests
-# =============================================================================
-
-
+@pytest.mark.unit
 class TestSearchConversations:
-    """Tests for ConversationService.search_conversations()."""
+    """Tests for search_conversations method."""
 
-    def test_search_by_title(self, service):
-        """Test searching by conversation title."""
-        service.create_conversation(title="Python Programming")
-        service.create_conversation(title="JavaScript Basics")
-        service.create_conversation(title="Python Advanced")
-
-        results = service.search_conversations("Python")
-
-        assert len(results) == 2
-        titles = {r.title for r in results}
-        assert "Python Programming" in titles
-        assert "Python Advanced" in titles
-
-    def test_search_by_message_content(self, service):
-        """Test searching by message content."""
-        conv1 = service.create_conversation(title="Chat 1")
-        conv2 = service.create_conversation(title="Chat 2")
-        service.add_message(conv1.id, "user", "Tell me about machine learning")
-        service.add_message(conv2.id, "user", "What is the weather?")
-
-        results = service.search_conversations("machine learning")
-
-        assert len(results) == 1
-        assert results[0].id == conv1.id
-
-    def test_search_case_insensitive(self, service):
-        """Test search is case-insensitive."""
-        service.create_conversation(title="UPPERCASE Title")
-        service.create_conversation(title="lowercase title")
-
-        results = service.search_conversations("title")
-
-        assert len(results) == 2
-
-    def test_search_no_matches(self, service):
+    async def test_search_empty_results(self, service, fake_db):
         """Test search with no matches returns empty list."""
-        service.create_conversation(title="Hello")
-
-        results = service.search_conversations("xyz123")
+        results = await service.search_conversations("xyz123")
 
         assert results == []
 
-    def test_search_empty_conversations(self, service):
-        """Test search on empty service returns empty list."""
-        results = service.search_conversations("anything")
+    async def test_search_executes_query(self, service, fake_db):
+        """Test search executes the correct query."""
+        await service.search_conversations("python")
 
-        assert results == []
+        # Verify query was executed with search term
+        assert len(fake_db.query_log) == 1
+        query, params = fake_db.query_log[0]
+        assert params["query"] == "python"
 
-    def test_search_returns_sorted_results(self, service):
-        """Test search results are sorted by updated_at descending."""
-        conv1 = service.create_conversation(title="Python First")
-        time.sleep(0.01)
-        conv2 = service.create_conversation(title="Python Second")
-        time.sleep(0.01)
-        conv3 = service.create_conversation(title="Python Third")
+    async def test_search_with_user_id_filter(self, service, fake_db):
+        """Test search with user_id filter."""
+        await service.search_conversations("python", user_id="user-123")
 
-        results = service.search_conversations("Python")
-
-        # Most recently created/updated first
-        assert len(results) == 3
-        assert results[0].id == conv3.id
-        assert results[1].id == conv2.id
-        assert results[2].id == conv1.id
-
-    def test_search_matches_title_before_checking_content(self, service):
-        """Test title match doesn't cause duplicate results."""
-        conv = service.create_conversation(title="Python Chat")
-        service.add_message(conv.id, "user", "Tell me about Python")
-
-        results = service.search_conversations("Python")
-
-        # Should only appear once even though matches both title and content
-        assert len(results) == 1
-        assert results[0].id == conv.id
-
-    def test_search_partial_match(self, service):
-        """Test partial string matching."""
-        service.create_conversation(title="Programming Tutorial")
-
-        results = service.search_conversations("gram")
-
-        assert len(results) == 1
-        assert results[0].title == "Programming Tutorial"
+        query, params = fake_db.query_log[0]
+        assert params["query"] == "python"
+        assert params["user_id"] == "user-123"
 
 
 # =============================================================================
-# Integration/Edge Case Tests
+# Edge Cases
 # =============================================================================
 
 
+@pytest.mark.unit
 class TestEdgeCases:
-    """Tests for edge cases and error handling."""
+    """Tests for edge cases."""
 
-    def test_corrupted_index_recovery(self, tmp_path):
-        """Test service handles corrupted index.json."""
-        # Create corrupted index
-        index_path = tmp_path / "index.json"
-        with open(index_path, "w") as f:
-            f.write("not valid json{{{")
-
-        service = ConversationService(data_dir=str(tmp_path))
-
-        # Should recover with empty index
-        result = service.list_conversations()
-        assert result == []
-
-    def test_corrupted_conversation_file(self, tmp_path):
-        """Test service handles corrupted conversation file."""
-        service = ConversationService(data_dir=str(tmp_path))
-        conv = service.create_conversation()
-
-        # Corrupt the conversation file
-        conv_path = tmp_path / f"{conv.id}.json"
-        with open(conv_path, "w") as f:
-            f.write("not valid json")
-
-        result = service.get_conversation(conv.id)
-        assert result is None
-
-    def test_special_characters_in_title(self, service):
+    async def test_special_characters_in_title(self, service, fake_db):
         """Test conversation with special characters in title."""
-        title = "Test: <>&\"'!@#$%^*()"
-        conv = service.create_conversation(title=title)
+        conv = await service.create_conversation(
+            title='Test "Conversation" with <special> & chars!'
+        )
 
-        fetched = service.get_conversation(conv.id)
+        assert conv.title == 'Test "Conversation" with <special> & chars!'
 
-        assert fetched.title == title
-
-    def test_unicode_content(self, service):
-        """Test handling unicode content in messages."""
-        conv = service.create_conversation(title="Unicode Test")
-        content = "Hello! Emoji test: 🎉🚀 Chinese: 你好 Japanese: こんにちは"
-        service.add_message(conv.id, "user", content)
-
-        fetched = service.get_conversation(conv.id)
-
-        assert fetched.messages[0].content == content
-
-    def test_empty_message_content(self, service):
+    async def test_empty_message_content(self, service, fake_db):
         """Test adding message with empty content."""
-        conv = service.create_conversation()
-        msg = service.add_message(conv.id, "user", "")
+        # Setup: Conversation exists
+        fake_db.set_next_response([{"id": "conv-123"}])
+
+        msg = await service.add_message("conv-123", "user", "")
 
         assert msg is not None
         assert msg.content == ""
 
-    def test_very_long_content(self, service):
-        """Test handling very long message content."""
-        conv = service.create_conversation()
-        long_content = "x" * 100000  # 100K characters
+    async def test_unicode_content(self, service, fake_db):
+        """Test handling unicode content in messages."""
+        # Setup: Conversation exists
+        fake_db.set_next_response([{"id": "conv-123"}])
 
-        msg = service.add_message(conv.id, "user", long_content)
+        content = "Hello! Emoji test: 🎉🚀 Chinese: 你好 Japanese: こんにちは"
+        msg = await service.add_message("conv-123", "user", content)
 
-        fetched = service.get_conversation(conv.id)
-        assert len(fetched.messages[0].content) == 100000
+        assert msg.content == content
 
-    def test_concurrent_operations(self, service):
-        """Test multiple operations don't corrupt data."""
-        # Create several conversations
-        convs = [service.create_conversation(title=f"Conv {i}") for i in range(5)]
+    async def test_generate_title_fallback_no_api_key(self, service):
+        """Test generate_title uses fallback when no API key."""
+        # This should not make any external calls, just return fallback
+        title = await service.generate_title("Tell me about machine learning")
 
-        # Add messages to each
-        for conv in convs:
-            service.add_message(conv.id, "user", f"Hello from {conv.id}")
+        # Should return truncated version of the message
+        assert "machine learning" in title.lower() or len(title) <= 53
 
-        # Update some
-        for conv in convs[:3]:
-            service.update_conversation(conv.id, title=f"Updated {conv.id}")
+    async def test_generate_filename_fallback_no_api_key(self, service):
+        """Test generate_filename uses fallback when no API key."""
+        filename = await service.generate_filename(
+            content="Some test content",
+            model="openai:gpt-4",  # Will fail without API key
+        )
 
-        # Delete some
-        service.delete_conversation(convs[4].id)
-
-        # Verify state
-        result = service.list_conversations()
-        assert len(result) == 4
-
-        # Verify all have messages
-        for meta in result:
-            conv = service.get_conversation(meta.id)
-            assert len(conv.messages) == 1
+        # Should return date-based fallback
+        assert "conversation" in filename or "-" in filename
