@@ -65,6 +65,28 @@ services:
       - observability
     restart: unless-stopped
 
+  # Grafana Alloy - Log collection and shipping
+  alloy:
+    image: grafana/alloy:v1.4.2
+    container_name: alloy
+    ports:
+      - "12345:12345"   # Alloy UI
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+    volumes:
+      - ./alloy-config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - alloy-data:/var/lib/alloy/data
+    depends_on:
+      - loki
+    networks:
+      - observability
+    restart: unless-stopped
+
   # Grafana - Unified UI
   grafana:
     image: grafana/grafana:10.2.3
@@ -92,6 +114,7 @@ volumes:
   prometheus-data:
   tempo-data:
   grafana-data:
+  alloy-data:
 
 networks:
   observability:

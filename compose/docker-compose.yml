@@ -191,6 +191,23 @@ services:
   #   networks:
   #     - agent-network
 
+  # Grafana Alloy - Log collection and shipping to remote Loki
+  alloy:
+    image: grafana/alloy:v1.4.2
+    container_name: alloy
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+    volumes:
+      - ./alloy-config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    restart: unless-stopped
+    networks:
+      - agent-network
+
   queue-worker:
     build:
       context: ..

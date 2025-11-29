@@ -1,0 +1,113 @@
+// Grafana Alloy configuration for local Docker log collection
+// Ships logs to remote Loki on GPU server (192.168.16.241)
+
+// ============================================================================
+// Docker Log Discovery
+// ============================================================================
+
+discovery.docker "containers" {
+  host = "unix:///var/run/docker.sock"
+  refresh_interval = "5s"
+}
+
+// ============================================================================
+// Relabeling - Extract metadata from container labels
+// ============================================================================
+
+discovery.relabel "docker_logs" {
+  targets = discovery.docker.containers.targets
+
+  // Keep container name as a label
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+
+  // Extract service name from container name or label
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "service"
+  }
+
+  // Extract compose project
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_project"]
+    target_label  = "project"
+  }
+
+  // Add container ID
+  rule {
+    source_labels = ["__meta_docker_container_id"]
+    target_label  = "container_id"
+  }
+
+  // Set log path
+  rule {
+    source_labels = ["__meta_docker_container_id"]
+    target_label  = "__path__"
+    replacement   = "/var/lib/docker/containers/$1/$1-json.log"
+  }
+
+  // Add host identifier to distinguish from GPU server logs
+  rule {
+    target_label = "host"
+    replacement  = "local-dev"
+  }
+}
+
+// ============================================================================
+// Log Collection
+// ============================================================================
+
+loki.source.docker "docker_logs" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_logs.output
+  labels     = {
+    job = "docker",
+  }
+  forward_to = [loki.process.docker_logs.receiver]
+}
+
+// ============================================================================
+// Log Processing - Parse JSON logs
+// ============================================================================
+
+loki.process "docker_logs" {
+  forward_to = [loki.write.remote_loki.receiver]
+
+  // Parse JSON log lines (from structured logging)
+  stage.json {
+    expressions = {
+      level     = "level",
+      message   = "message",
+      service   = "service",
+      logger    = "logger",
+      timestamp = "timestamp",
+      correlation_id = "correlation_id",
+    }
+  }
+
+  // Set log level as label for filtering
+  stage.labels {
+    values = {
+      level = "",
+    }
+  }
+
+  // Use extracted timestamp if available
+  stage.timestamp {
+    source = "timestamp"
+    format = "2006-01-02T15:04:05.999999999Z07:00"
+  }
+}
+
+// ============================================================================
+// Loki Output - Remote GPU Server
+// ============================================================================
+
+loki.write "remote_loki" {
+  endpoint {
+    url = "http://192.168.16.241:3100/loki/api/v1/push"
+  }
+}
