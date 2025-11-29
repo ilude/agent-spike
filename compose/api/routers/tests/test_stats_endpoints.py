@@ -1,71 +1,19 @@
-"""Tests for stats router.
+"""Tests for stats router endpoints and stat-gathering functions.
 
-Run with: uv run pytest compose/api/routers/tests/test_stats_router.py
+Run with: uv run pytest compose/api/routers/tests/test_stats_endpoints.py
 """
 
 import pytest
-from unittest.mock import patch, MagicMock, AsyncMock
-from pathlib import Path
-import json
+from unittest.mock import patch, AsyncMock
 from datetime import datetime
 
 from compose.api.routers.stats import (
-    is_local_url,
     get_queue_stats,
     get_cache_stats,
     get_archive_stats,
     get_recent_activity,
     get_stats,
 )
-
-
-# -----------------------------------------------------------------------------
-# is_local_url Tests
-# -----------------------------------------------------------------------------
-
-
-@pytest.mark.unit
-class TestIsLocalUrl:
-    """Test is_local_url helper function."""
-
-    def test_localhost_returns_true(self):
-        """localhost URLs should be considered local."""
-        assert is_local_url("http://localhost:8080") is True
-        assert is_local_url("https://localhost/api") is True
-        assert is_local_url("http://localhost") is True
-
-    def test_127_0_0_1_returns_true(self):
-        """127.0.0.1 URLs should be considered local."""
-        assert is_local_url("http://127.0.0.1:6333") is True
-        assert is_local_url("https://127.0.0.1/health") is True
-
-    def test_0_0_0_0_returns_true(self):
-        """0.0.0.0 URLs should be considered local."""
-        assert is_local_url("http://0.0.0.0:8000") is True
-
-    def test_host_docker_internal_returns_true(self):
-        """host.docker.internal URLs should be considered local."""
-        assert is_local_url("http://host.docker.internal:5432") is True
-
-    def test_docker_service_names_return_true(self):
-        """Docker service names should be considered local."""
-        assert is_local_url("http://qdrant:6333") is True
-        assert is_local_url("http://infinity:7997") is True
-        assert is_local_url("http://api:8000") is True
-        assert is_local_url("http://frontend:3000") is True
-        assert is_local_url("http://docling:5001") is True
-
-    def test_external_urls_return_false(self):
-        """External URLs should not be considered local."""
-        assert is_local_url("http://google.com") is False
-        assert is_local_url("https://openai.com") is False
-        assert is_local_url("http://192.168.1.100:8080") is False
-        assert is_local_url("https://example.com/endpoint") is False
-
-    def test_case_insensitive(self):
-        """URL check should be case insensitive."""
-        assert is_local_url("http://LOCALHOST:8080") is True
-        assert is_local_url("http://Qdrant:6333") is True
 
 
 # -----------------------------------------------------------------------------
@@ -77,7 +25,8 @@ class TestIsLocalUrl:
 class TestGetQueueStats:
     """Test get_queue_stats helper function."""
 
-    def test_empty_directories(self, tmp_path):
+    @pytest.mark.asyncio
+    async def test_empty_directories(self, tmp_path):
         """Empty queue directories return zero counts."""
         pending_dir = tmp_path / "pending"
         processing_dir = tmp_path / "processing"
@@ -86,8 +35,15 @@ class TestGetQueueStats:
         processing_dir.mkdir()
         completed_dir.mkdir()
 
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
+        with (
+            patch("compose.api.routers.stats.QUEUE_BASE", tmp_path),
+            patch(
+                "compose.services.surrealdb.driver.execute_query",
+                new_callable=AsyncMock,
+                return_value=[],
+            ),
+        ):
+            result = await get_queue_stats()
 
         assert result["pending_count"] == 0
         assert result["pending_files"] == []
@@ -97,16 +53,25 @@ class TestGetQueueStats:
         assert result["completed_files"] == []
         assert result["active_workers"] == []
 
-    def test_nonexistent_directories(self, tmp_path):
+    @pytest.mark.asyncio
+    async def test_nonexistent_directories(self, tmp_path):
         """Non-existent directories return zero counts."""
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
+        with (
+            patch("compose.api.routers.stats.QUEUE_BASE", tmp_path),
+            patch(
+                "compose.services.surrealdb.driver.execute_query",
+                new_callable=AsyncMock,
+                return_value=[],
+            ),
+        ):
+            result = await get_queue_stats()
 
         assert result["pending_count"] == 0
         assert result["processing_count"] == 0
         assert result["completed_count"] == 0
 
-    def test_with_csv_files(self, tmp_path):
+    @pytest.mark.asyncio
+    async def test_with_csv_files(self, tmp_path):
         """CSV files in directories are counted correctly."""
         pending_dir = tmp_path / "pending"
         processing_dir = tmp_path / "processing"
@@ -123,8 +88,15 @@ class TestGetQueueStats:
         (completed_dir / "done2.csv").write_text("url\nhttp://example5.com")
         (completed_dir / "done3.csv").write_text("url\nhttp://example6.com")
 
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
+        with (
+            patch("compose.api.routers.stats.QUEUE_BASE", tmp_path),
+            patch(
+                "compose.services.surrealdb.driver.execute_query",
+                new_callable=AsyncMock,
+                return_value=[],
+            ),
+        ):
+            result = await get_queue_stats()
 
         assert result["pending_count"] == 2
         assert set(result["pending_files"]) == {"batch1.csv", "batch2.csv"}
@@ -132,56 +104,33 @@ class TestGetQueueStats:
         assert result["processing_files"] == ["current.csv"]
         assert result["completed_count"] == 3
 
-    def test_with_progress_file_new_format(self, tmp_path):
-        """Progress file with new workers format is parsed."""
+    @pytest.mark.asyncio
+    async def test_with_active_workers_from_surrealdb(self, tmp_path):
+        """Worker progress from SurrealDB is included."""
         pending_dir = tmp_path / "pending"
         pending_dir.mkdir()
 
-        progress_data = {
-            "workers": [
-                {"filename": "batch1.csv", "completed": 5, "total": 10},
-                {"filename": "batch2.csv", "completed": 3, "total": 8},
-            ]
-        }
-        progress_file = tmp_path / ".progress.json"
-        progress_file.write_text(json.dumps(progress_data))
+        mock_workers = [
+            {"worker_id": "w1", "filename": "batch1.csv", "completed": 5, "total": 10},
+            {"worker_id": "w2", "filename": "batch2.csv", "completed": 3, "total": 8},
+        ]
 
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
+        with (
+            patch("compose.api.routers.stats.QUEUE_BASE", tmp_path),
+            patch(
+                "compose.services.surrealdb.driver.execute_query",
+                new_callable=AsyncMock,
+                return_value=mock_workers,
+            ),
+        ):
+            result = await get_queue_stats()
 
         assert len(result["active_workers"]) == 2
         assert result["active_workers"][0]["filename"] == "batch1.csv"
         assert result["active_workers"][1]["completed"] == 3
 
-    def test_with_progress_file_old_format(self, tmp_path):
-        """Progress file with old single-object format is parsed."""
-        pending_dir = tmp_path / "pending"
-        pending_dir.mkdir()
-
-        progress_data = {"filename": "batch1.csv", "completed": 5, "total": 10}
-        progress_file = tmp_path / ".progress.json"
-        progress_file.write_text(json.dumps(progress_data))
-
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
-
-        assert len(result["active_workers"]) == 1
-        assert result["active_workers"][0]["filename"] == "batch1.csv"
-
-    def test_with_invalid_progress_file(self, tmp_path):
-        """Invalid progress file is handled gracefully."""
-        pending_dir = tmp_path / "pending"
-        pending_dir.mkdir()
-
-        progress_file = tmp_path / ".progress.json"
-        progress_file.write_text("invalid json{{{")
-
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
-
-        assert result["active_workers"] == []
-
-    def test_completed_files_limited_to_five(self, tmp_path):
+    @pytest.mark.asyncio
+    async def test_completed_files_limited_to_five(self, tmp_path):
         """Completed files list is limited to last 5."""
         completed_dir = tmp_path / "completed"
         completed_dir.mkdir()
@@ -190,8 +139,15 @@ class TestGetQueueStats:
         for i in range(10):
             (completed_dir / f"batch{i:02d}.csv").write_text("url\nhttp://example.com")
 
-        with patch("compose.api.routers.stats.QUEUE_BASE", tmp_path):
-            result = get_queue_stats()
+        with (
+            patch("compose.api.routers.stats.QUEUE_BASE", tmp_path),
+            patch(
+                "compose.services.surrealdb.driver.execute_query",
+                new_callable=AsyncMock,
+                return_value=[],
+            ),
+        ):
+            result = await get_queue_stats()
 
         assert result["completed_count"] == 10
         assert len(result["completed_files"]) <= 5
@@ -206,59 +162,35 @@ class TestGetQueueStats:
 class TestGetCacheStats:
     """Test get_cache_stats helper function."""
 
-    def test_success_returns_counts(self):
-        """Successful Qdrant query returns video and article counts."""
-        mock_collection = MagicMock()
-        mock_collection.points_count = 150
-
-        mock_videos_result = MagicMock()
-        mock_videos_result.count = 100
-
-        mock_articles_result = MagicMock()
-        mock_articles_result.count = 50
-
-        mock_client = MagicMock()
-        mock_client.get_collection.return_value = mock_collection
-        mock_client.count.side_effect = [mock_videos_result, mock_articles_result]
-
-        with patch("compose.api.routers.stats.QdrantClient", return_value=mock_client):
-            result = get_cache_stats()
+    @pytest.mark.asyncio
+    async def test_success_returns_counts(self):
+        """Successful SurrealDB query returns video counts."""
+        with patch(
+            "compose.services.surrealdb.get_video_count",
+            new_callable=AsyncMock,
+            return_value=150,
+        ):
+            result = await get_cache_stats()
 
         assert result["status"] == "ok"
         assert result["total"] == 150
-        assert result["videos"] == 100
-        assert result["articles"] == 50
-        assert "collection_name" in result
+        assert result["videos"] == 150
+        assert result["articles"] == 0
 
-    def test_error_returns_error_status(self):
+    @pytest.mark.asyncio
+    async def test_error_returns_error_status(self):
         """Connection error returns error status."""
         with patch(
-            "compose.api.routers.stats.QdrantClient",
+            "compose.services.surrealdb.get_video_count",
+            new_callable=AsyncMock,
             side_effect=Exception("Connection refused"),
         ):
-            result = get_cache_stats()
+            result = await get_cache_stats()
 
         assert result["status"] == "error"
         assert "Connection refused" in result["message"]
         assert result["total"] == 0
         assert result["videos"] == 0
-        assert result["articles"] == 0
-
-    def test_count_filter_failure_uses_total(self):
-        """When count filters fail, falls back to total for videos."""
-        mock_collection = MagicMock()
-        mock_collection.points_count = 100
-
-        mock_client = MagicMock()
-        mock_client.get_collection.return_value = mock_collection
-        mock_client.count.side_effect = Exception("Filter not supported")
-
-        with patch("compose.api.routers.stats.QdrantClient", return_value=mock_client):
-            result = get_cache_stats()
-
-        assert result["status"] == "ok"
-        assert result["total"] == 100
-        assert result["videos"] == 100  # Falls back to total
         assert result["articles"] == 0
 
 
@@ -403,6 +335,7 @@ class TestGetStatsEndpoint:
         with (
             patch(
                 "compose.api.routers.stats.get_queue_stats",
+                new_callable=AsyncMock,
                 return_value={
                     "pending_count": 0,
                     "pending_files": [],
@@ -415,12 +348,12 @@ class TestGetStatsEndpoint:
             ),
             patch(
                 "compose.api.routers.stats.get_cache_stats",
+                new_callable=AsyncMock,
                 return_value={
                     "status": "ok",
                     "total": 100,
                     "videos": 80,
                     "articles": 20,
-                    "collection_name": "content",
                 },
             ),
             patch(
@@ -431,7 +364,8 @@ class TestGetStatsEndpoint:
                 "compose.api.routers.stats.get_service_health",
                 new_callable=AsyncMock,
                 return_value={
-                    "qdrant": {"ok": True, "local": True},
+                    "surrealdb": {"ok": True, "local": True},
+                    "minio": {"ok": True, "local": True},
                     "infinity": {"ok": True, "local": True},
                     "ollama": {"ok": False, "local": False},
                     "queue_worker": {"ok": True, "local": True},
@@ -473,9 +407,10 @@ class TestGetStatsEndpoint:
         }
 
         with (
-            patch("compose.api.routers.stats.get_queue_stats", return_value=expected_queue),
+            patch("compose.api.routers.stats.get_queue_stats", new_callable=AsyncMock, return_value=expected_queue),
             patch(
                 "compose.api.routers.stats.get_cache_stats",
+                new_callable=AsyncMock,
                 return_value={"status": "ok", "total": 0, "videos": 0, "articles": 0},
             ),
             patch(
@@ -506,12 +441,12 @@ class TestGetStatsEndpoint:
             "total": 200,
             "videos": 150,
             "articles": 50,
-            "collection_name": "content",
         }
 
         with (
             patch(
                 "compose.api.routers.stats.get_queue_stats",
+                new_callable=AsyncMock,
                 return_value={
                     "pending_count": 0,
                     "pending_files": [],
@@ -522,7 +457,7 @@ class TestGetStatsEndpoint:
                     "active_workers": [],
                 },
             ),
-            patch("compose.api.routers.stats.get_cache_stats", return_value=expected_cache),
+            patch("compose.api.routers.stats.get_cache_stats", new_callable=AsyncMock, return_value=expected_cache),
             patch(
                 "compose.api.routers.stats.get_archive_stats",
                 return_value={"total_videos": 0, "by_month": {}},
@@ -549,6 +484,7 @@ class TestGetStatsEndpoint:
         with (
             patch(
                 "compose.api.routers.stats.get_queue_stats",
+                new_callable=AsyncMock,
                 return_value={
                     "pending_count": 0,
                     "pending_files": [],
@@ -561,6 +497,7 @@ class TestGetStatsEndpoint:
             ),
             patch(
                 "compose.api.routers.stats.get_cache_stats",
+                new_callable=AsyncMock,
                 return_value={"status": "ok", "total": 0, "videos": 0, "articles": 0},
             ),
             patch(
