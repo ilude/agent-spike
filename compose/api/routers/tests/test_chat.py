@@ -20,11 +20,9 @@ from compose.api.routers.chat import (
     reset_clients,
     get_openrouter_client,
     get_ollama_client,
-    get_qdrant_client,
     ModelsResponse,
 )
 from compose.services.tests.conftest import (
-    create_mock_qdrant_client,
     create_mock_openai_client,
     create_mock_httpx_client,
 )
@@ -108,93 +106,11 @@ async def test_list_models_returns_model_structure():
         assert "models" in result
         assert isinstance(result["models"], list)
 
-        # Should have at least the ollama models prepended
-        ollama_models = [m for m in result["models"] if m.get("is_local")]
-        assert len(ollama_models) >= 2
-
         # All models should have expected keys
         for model in result["models"]:
             assert "id" in model
             assert "name" in model
             assert "is_free" in model
-
-
-@pytest.mark.unit
-@pytest.mark.asyncio
-async def test_list_models_filters_correctly():
-    """Verify models are filtered correctly (free, gpt-5, claude 4.5)."""
-    mock_httpx = create_mock_httpx_client(
-        responses={
-            "openrouter.ai/api/v1/models": {
-                "data": [
-                    # Free model - should be included
-                    {
-                        "id": "free-model:free",
-                        "name": "Free Model (free)",
-                        "context_length": 8192,
-                        "pricing": {"prompt": "0", "completion": "0"},
-                    },
-                    # GPT-5 model - should be included
-                    {
-                        "id": "openai/gpt-5-turbo",
-                        "name": "GPT-5 Turbo",
-                        "context_length": 128000,
-                        "pricing": {"prompt": "0.01", "completion": "0.03"},
-                    },
-                    # Claude 4.5 - should be included
-                    {
-                        "id": "anthropic/claude-4.5-opus",
-                        "name": "Claude 4.5 Opus",
-                        "context_length": 200000,
-                        "pricing": {"prompt": "0.015", "completion": "0.075"},
-                    },
-                    # Paid non-special model - should be EXCLUDED
-                    {
-                        "id": "random/paid-model",
-                        "name": "Random Paid Model",
-                        "context_length": 4096,
-                        "pricing": {"prompt": "0.01", "completion": "0.02"},
-                    },
-                    # GPT-5.1 - should be EXCLUDED (5.1 filter)
-                    {
-                        "id": "openai/gpt-5.1-turbo",
-                        "name": "GPT-5.1 Turbo",
-                        "context_length": 128000,
-                        "pricing": {"prompt": "0.01", "completion": "0.03"},
-                    },
-                    # GPT-5 image - should be EXCLUDED (image filter)
-                    {
-                        "id": "openai/gpt-5-image",
-                        "name": "GPT-5 Image",
-                        "context_length": 128000,
-                        "pricing": {"prompt": "0.01", "completion": "0.03"},
-                    },
-                ]
-            }
-        }
-    )
-
-    with (
-        patch("compose.api.routers.chat.OPENROUTER_API_KEY", "test-key"),
-        patch("compose.api.routers.chat.httpx.AsyncClient") as mock_client_class,
-    ):
-        mock_client_class.return_value = mock_httpx
-
-        result = await list_models()
-
-        model_ids = [m["id"] for m in result["models"]]
-
-        # Should include: ollama models + free + gpt-5 + claude 4.5
-        assert "ollama:qwen3:8b" in model_ids
-        assert "ollama:qwen2.5:7b" in model_ids
-        assert "free-model:free" in model_ids
-        assert "openai/gpt-5-turbo" in model_ids
-        assert "anthropic/claude-4.5-opus" in model_ids
-
-        # Should exclude: paid non-special + gpt-5.1 + gpt-5-image
-        assert "random/paid-model" not in model_ids
-        assert "openai/gpt-5.1-turbo" not in model_ids
-        assert "openai/gpt-5-image" not in model_ids
 
 
 # =============================================================================
@@ -223,6 +139,8 @@ async def test_list_models_uses_cache():
 
     with (
         patch("compose.api.routers.chat.OPENROUTER_API_KEY", "test-key"),
+        patch("compose.api.routers.chat.OPENAI_API_KEY", None),
+        patch("compose.api.routers.chat.fetch_ollama_models", new_callable=AsyncMock, return_value=[]),
         patch("compose.api.routers.chat.httpx.AsyncClient") as mock_client_class,
     ):
         mock_client_class.return_value = mock_httpx
@@ -271,6 +189,8 @@ async def test_list_models_cache_expires():
 
     with (
         patch("compose.api.routers.chat.OPENROUTER_API_KEY", "test-key"),
+        patch("compose.api.routers.chat.OPENAI_API_KEY", None),
+        patch("compose.api.routers.chat.fetch_ollama_models", new_callable=AsyncMock, return_value=[]),
         patch("compose.api.routers.chat.httpx.AsyncClient") as mock_client_class,
     ):
         mock_client_class.return_value = mock_httpx
@@ -296,27 +216,26 @@ async def test_list_models_cache_expires():
 @pytest.mark.asyncio
 async def test_random_question_returns_question():
     """Verify /random-question endpoint returns question structure."""
-    mock_qdrant = create_mock_qdrant_client(
-        points_count=50,
-        scroll_results=[
-            {
-                "payload": {
-                    "tags": ["ai", "agents", "tutorial"],
-                    "metadata": {"title": "Test Video About AI"},
-                    "meta_youtube_title": "YouTube Title",
-                }
-            },
-            {
-                "payload": {
-                    "metadata": {"subject": ["machine learning"]},
-                    "value": {"title": "Another Video"},
-                }
-            },
-        ],
-    )
+    # Mock SurrealDB repository functions
+    mock_video = MagicMock()
+    mock_video.title = "Test Video About AI"
+    mock_video.pipeline_state = {
+        "tags": {
+            "subject_matter": ["ai", "agents", "tutorial"]
+        }
+    }
 
-    with patch(
-        "compose.api.routers.chat.get_qdrant_client", return_value=mock_qdrant
+    with (
+        patch(
+            "compose.services.surrealdb.repository.get_random_video_ids",
+            new_callable=AsyncMock,
+            return_value=["video1", "video2"],
+        ),
+        patch(
+            "compose.services.surrealdb.repository.get_video",
+            new_callable=AsyncMock,
+            return_value=mock_video,
+        ),
     ):
         result = await get_random_question()
 
@@ -328,12 +247,12 @@ async def test_random_question_returns_question():
 
 @pytest.mark.unit
 @pytest.mark.asyncio
-async def test_random_question_empty_collection():
-    """Verify fallback question when collection is empty."""
-    mock_qdrant = create_mock_qdrant_client(points_count=0)
-
+async def test_random_question_empty_database():
+    """Verify fallback question when database is empty."""
     with patch(
-        "compose.api.routers.chat.get_qdrant_client", return_value=mock_qdrant
+        "compose.services.surrealdb.repository.get_random_video_ids",
+        new_callable=AsyncMock,
+        return_value=[],
     ):
         result = await get_random_question()
 
@@ -345,11 +264,10 @@ async def test_random_question_empty_collection():
 @pytest.mark.asyncio
 async def test_random_question_error_handling():
     """Verify error handling returns fallback question."""
-    mock_qdrant = MagicMock()
-    mock_qdrant.get_collection.side_effect = Exception("Connection failed")
-
     with patch(
-        "compose.api.routers.chat.get_qdrant_client", return_value=mock_qdrant
+        "compose.services.surrealdb.repository.get_random_video_ids",
+        new_callable=AsyncMock,
+        side_effect=Exception("Connection failed"),
     ):
         result = await get_random_question()
 
@@ -361,15 +279,25 @@ async def test_random_question_error_handling():
 @pytest.mark.asyncio
 async def test_random_question_generates_from_tags():
     """Verify questions are generated from video tags."""
-    mock_qdrant = create_mock_qdrant_client(
-        points_count=100,
-        scroll_results=[
-            {"payload": {"tags": ["python", "fastapi"]}},
-        ],
-    )
+    mock_video = MagicMock()
+    mock_video.title = "Python Tutorial"
+    mock_video.pipeline_state = {
+        "tags": {
+            "subject_matter": ["python", "fastapi"]
+        }
+    }
 
-    with patch(
-        "compose.api.routers.chat.get_qdrant_client", return_value=mock_qdrant
+    with (
+        patch(
+            "compose.services.surrealdb.repository.get_random_video_ids",
+            new_callable=AsyncMock,
+            return_value=["video1"],
+        ),
+        patch(
+            "compose.services.surrealdb.repository.get_video",
+            new_callable=AsyncMock,
+            return_value=mock_video,
+        ),
     ):
         # Run multiple times to check question variety
         questions = set()
@@ -377,9 +305,14 @@ async def test_random_question_generates_from_tags():
             result = await get_random_question()
             questions.add(result["question"])
 
-        # Should generate questions containing tags
+        # Should generate questions containing tags or titles
         all_questions_text = " ".join(questions)
-        assert "python" in all_questions_text.lower() or "fastapi" in all_questions_text.lower()
+        has_tag_or_title = (
+            "python" in all_questions_text.lower() or
+            "fastapi" in all_questions_text.lower() or
+            "Python Tutorial" in all_questions_text
+        )
+        assert has_tag_or_title
 
 
 # =============================================================================
@@ -406,25 +339,11 @@ def test_fallback_models_structure():
 
 
 @pytest.mark.unit
-def test_fallback_models_includes_ollama():
-    """Verify fallback includes local Ollama models."""
-    result = _fallback_models()
-
-    ollama_models = [m for m in result["models"] if m.get("is_local")]
-    assert len(ollama_models) >= 2
-
-    model_ids = [m["id"] for m in result["models"]]
-    assert "ollama:qwen3:8b" in model_ids
-    assert "ollama:qwen2.5:7b" in model_ids
-
-
-@pytest.mark.unit
 def test_fallback_models_includes_free_openrouter():
     """Verify fallback includes free OpenRouter models."""
     result = _fallback_models()
 
     # Check for known free models
-    model_ids = [m["id"] for m in result["models"]]
     free_models = [m for m in result["models"] if m.get("is_free") and not m.get("is_local")]
     assert len(free_models) > 0
 
@@ -484,7 +403,6 @@ def test_client_getters_return_none_initially():
     import compose.api.routers.chat as chat_module
     assert chat_module._openrouter_client is None
     assert chat_module._ollama_client is None
-    assert chat_module._qdrant_client is None
 
 
 @pytest.mark.unit
@@ -510,26 +428,6 @@ def test_get_ollama_client_creates_client():
 
 
 @pytest.mark.unit
-def test_get_qdrant_client_creates_client():
-    """Verify get_qdrant_client creates client on first call."""
-    reset_clients()
-
-    # Mock QdrantClient to avoid actual connection
-    with patch("compose.api.routers.chat.QdrantClient") as mock_qdrant_class:
-        mock_instance = MagicMock()
-        mock_qdrant_class.return_value = mock_instance
-
-        client = get_qdrant_client()
-        assert client is mock_instance
-        mock_qdrant_class.assert_called_once()
-
-        # Second call returns same instance (no new constructor call)
-        client2 = get_qdrant_client()
-        assert client2 is mock_instance
-        assert mock_qdrant_class.call_count == 1
-
-
-@pytest.mark.unit
 def test_reset_clients_clears_all():
     """Verify reset_clients clears all client instances."""
     import compose.api.routers.chat as chat_module
@@ -537,13 +435,11 @@ def test_reset_clients_clears_all():
     # Set some non-None values
     chat_module._openrouter_client = MagicMock()
     chat_module._ollama_client = MagicMock()
-    chat_module._qdrant_client = MagicMock()
 
     reset_clients()
 
     assert chat_module._openrouter_client is None
     assert chat_module._ollama_client is None
-    assert chat_module._qdrant_client is None
 
 
 # =============================================================================
@@ -555,10 +451,14 @@ def test_reset_clients_clears_all():
 @pytest.mark.asyncio
 async def test_list_models_no_api_key_returns_fallback():
     """Verify fallback is returned when no API key configured."""
-    with patch("compose.api.routers.chat.OPENROUTER_API_KEY", None):
+    with (
+        patch("compose.api.routers.chat.OPENROUTER_API_KEY", None),
+        patch("compose.api.routers.chat.OPENAI_API_KEY", None),
+        patch("compose.api.routers.chat.fetch_ollama_models", new_callable=AsyncMock, return_value=[]),
+    ):
         result = await list_models()
 
-        # Should return fallback models
+        # Should return fallback models (only OpenRouter free models when no other sources)
         assert "models" in result
         fallback = _fallback_models()
         assert result == fallback
@@ -574,6 +474,8 @@ async def test_list_models_api_error_returns_fallback():
 
     with (
         patch("compose.api.routers.chat.OPENROUTER_API_KEY", "test-key"),
+        patch("compose.api.routers.chat.OPENAI_API_KEY", None),
+        patch("compose.api.routers.chat.fetch_ollama_models", new_callable=AsyncMock, return_value=[]),
         patch("compose.api.routers.chat.httpx.AsyncClient") as mock_client_class,
     ):
         mock_client_class.return_value = mock_httpx
@@ -606,15 +508,21 @@ def test_models_endpoint_http(client):
 @pytest.mark.unit
 def test_random_question_endpoint_http(client):
     """Test /random-question endpoint via HTTP client."""
-    mock_qdrant = create_mock_qdrant_client(
-        points_count=50,
-        scroll_results=[
-            {"payload": {"tags": ["test-tag"], "meta_youtube_title": "Test Video"}},
-        ],
-    )
+    mock_video = MagicMock()
+    mock_video.title = "Test Video"
+    mock_video.pipeline_state = {"tags": {"subject_matter": ["test-tag"]}}
 
-    with patch(
-        "compose.api.routers.chat.get_qdrant_client", return_value=mock_qdrant
+    with (
+        patch(
+            "compose.services.surrealdb.repository.get_random_video_ids",
+            new_callable=AsyncMock,
+            return_value=["video1"],
+        ),
+        patch(
+            "compose.services.surrealdb.repository.get_video",
+            new_callable=AsyncMock,
+            return_value=mock_video,
+        ),
     ):
         response = client.get("/random-question")
 

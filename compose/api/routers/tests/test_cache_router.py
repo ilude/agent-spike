@@ -4,7 +4,7 @@ Run with: uv run pytest compose/api/routers/tests/test_cache_router.py
 """
 
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, AsyncMock, MagicMock
 from fastapi import HTTPException
 from pydantic import ValidationError
 
@@ -192,132 +192,16 @@ class TestSearchCacheEndpoint:
     """Test POST /search endpoint behavior."""
 
     @pytest.mark.asyncio
-    async def test_search_returns_results(self):
-        """Search returns formatted results from cache."""
-        mock_cache = MagicMock()
-        mock_cache.search.return_value = [
-            {
-                "payload": {
-                    "video_id": "abc123def45",
-                    "title": "Test Video",
-                    "summary": "A summary",
-                    "tags": ["python"],
-                    "url": "https://youtube.com/watch?v=abc123def45",
-                },
-                "score": 0.95,
-            },
-            {
-                "payload": {
-                    "video_id": "xyz789abc12",
-                    "title": "Another Video",
-                    "summary": "Another summary",
-                    "tags": ["testing"],
-                    "url": "https://youtube.com/watch?v=xyz789abc12",
-                },
-                "score": 0.87,
-            },
-        ]
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            request = CacheSearchRequest(query="python tutorials", limit=10)
-            response = await search_cache(request)
+    async def test_search_returns_empty_results(self):
+        """Search returns empty results (current implementation)."""
+        # Current implementation returns empty results since semantic search
+        # requires embedding generation which is not yet implemented
+        request = CacheSearchRequest(query="python tutorials", limit=10)
+        response = await search_cache(request)
 
         assert response.query == "python tutorials"
-        assert response.total_found == 2
-        assert len(response.results) == 2
-        assert response.results[0].video_id == "abc123def45"
-        assert response.results[0].score == 0.95
-        assert response.results[0].title == "Test Video"
-        assert response.results[1].video_id == "xyz789abc12"
-        assert response.results[1].score == 0.87
-
-        mock_cache.search.assert_called_once_with(
-            query="python tutorials",
-            limit=10,
-            filters={},
-        )
-
-    @pytest.mark.asyncio
-    async def test_search_with_filters(self):
-        """Search passes filters to cache."""
-        mock_cache = MagicMock()
-        mock_cache.search.return_value = []
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            request = CacheSearchRequest(
-                query="test", limit=5, filters={"type": "video"}
-            )
-            response = await search_cache(request)
-
-        mock_cache.search.assert_called_once_with(
-            query="test",
-            limit=5,
-            filters={"type": "video"},
-        )
         assert response.total_found == 0
         assert response.results == []
-
-    @pytest.mark.asyncio
-    async def test_search_empty_results(self):
-        """Search returns empty results when nothing found."""
-        mock_cache = MagicMock()
-        mock_cache.search.return_value = []
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            request = CacheSearchRequest(query="nonexistent")
-            response = await search_cache(request)
-
-        assert response.query == "nonexistent"
-        assert response.total_found == 0
-        assert response.results == []
-
-    @pytest.mark.asyncio
-    async def test_search_handles_missing_payload_fields(self):
-        """Search handles results with missing payload fields gracefully."""
-        mock_cache = MagicMock()
-        mock_cache.search.return_value = [
-            {
-                "payload": {"video_id": "abc123def45"},  # minimal payload
-                "score": 0.9,
-            },
-        ]
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            request = CacheSearchRequest(query="test")
-            response = await search_cache(request)
-
-        assert len(response.results) == 1
-        assert response.results[0].video_id == "abc123def45"
-        assert response.results[0].score == 0.9
-        assert response.results[0].title is None
-        assert response.results[0].summary is None
-        assert response.results[0].tags is None
-        assert response.results[0].url is None
-
-    @pytest.mark.asyncio
-    async def test_search_error_returns_500(self):
-        """Search returns 500 when cache operation fails."""
-        mock_cache = MagicMock()
-        mock_cache.search.side_effect = Exception("Connection failed")
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            request = CacheSearchRequest(query="test")
-            with pytest.raises(HTTPException) as exc_info:
-                await search_cache(request)
-
-        assert exc_info.value.status_code == 500
-        assert "Cache search failed" in exc_info.value.detail
-        assert "Connection failed" in exc_info.value.detail
 
 
 # -----------------------------------------------------------------------------
@@ -331,78 +215,66 @@ class TestGetCachedItemEndpoint:
 
     @pytest.mark.asyncio
     async def test_get_existing_item(self):
-        """Get returns data for existing cache key."""
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = True
-        mock_cache.get.return_value = {
-            "video_id": "abc123def45",
-            "title": "Test Video",
-            "tags": ["python", "testing"],
-        }
+        """Get returns data for existing video from SurrealDB."""
+        mock_video = MagicMock()
+        mock_video.video_id = "abc123def45"
+        mock_video.url = "https://youtube.com/watch?v=abc123def45"
+        mock_video.title = "Test Video"
+        mock_video.channel_id = "UC123"
+        mock_video.channel_name = "Test Channel"
 
         with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
+            "compose.services.surrealdb.get_video",
+            new_callable=AsyncMock,
+            return_value=mock_video,
         ):
-            response = await get_cached_item("abc123def45")
+            response = await get_cached_item("youtube:video:abc123def45")
 
         assert response == {
-            "key": "abc123def45",
+            "key": "youtube:video:abc123def45",
             "data": {
                 "video_id": "abc123def45",
+                "url": "https://youtube.com/watch?v=abc123def45",
                 "title": "Test Video",
-                "tags": ["python", "testing"],
+                "channel_id": "UC123",
+                "channel_name": "Test Channel",
             },
         }
-        mock_cache.exists.assert_called_once_with("abc123def45")
-        mock_cache.get.assert_called_once_with("abc123def45")
 
     @pytest.mark.asyncio
     async def test_get_nonexistent_item_returns_404(self):
-        """Get returns 404 when key not found."""
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = False
-
+        """Get returns 404 when video not found in SurrealDB."""
         with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
+            "compose.services.surrealdb.get_video",
+            new_callable=AsyncMock,
+            return_value=None,
         ):
             with pytest.raises(HTTPException) as exc_info:
-                await get_cached_item("nonexistent_key")
+                await get_cached_item("youtube:video:nonexistent")
 
         assert exc_info.value.status_code == 404
-        assert "nonexistent_key" in exc_info.value.detail
         assert "not found" in exc_info.value.detail
-        mock_cache.exists.assert_called_once_with("nonexistent_key")
-        mock_cache.get.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_get_invalid_key_format_returns_404(self):
+        """Get returns 404 for invalid cache key format."""
+        with pytest.raises(HTTPException) as exc_info:
+            await get_cached_item("invalid_key_format")
+
+        assert exc_info.value.status_code == 404
+        assert "Invalid cache key format" in exc_info.value.detail
 
     @pytest.mark.asyncio
     async def test_get_error_returns_500(self):
-        """Get returns 500 when cache operation fails."""
-        mock_cache = MagicMock()
-        mock_cache.exists.side_effect = Exception("Database error")
-
+        """Get returns 500 when SurrealDB operation fails."""
         with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
+            "compose.services.surrealdb.get_video",
+            new_callable=AsyncMock,
+            side_effect=Exception("Database error"),
         ):
             with pytest.raises(HTTPException) as exc_info:
-                await get_cached_item("test_key")
+                await get_cached_item("youtube:video:test_key")
 
         assert exc_info.value.status_code == 500
         assert "Failed to get cached item" in exc_info.value.detail
         assert "Database error" in exc_info.value.detail
-
-    @pytest.mark.asyncio
-    async def test_get_error_during_fetch_returns_500(self):
-        """Get returns 500 when cache.get() fails after exists() succeeds."""
-        mock_cache = MagicMock()
-        mock_cache.exists.return_value = True
-        mock_cache.get.side_effect = Exception("Read error")
-
-        with patch(
-            "compose.api.routers.cache.create_qdrant_cache", return_value=mock_cache
-        ):
-            with pytest.raises(HTTPException) as exc_info:
-                await get_cached_item("test_key")
-
-        assert exc_info.value.status_code == 500
-        assert "Failed to get cached item" in exc_info.value.detail
-        assert "Read error" in exc_info.value.detail

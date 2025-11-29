@@ -228,49 +228,36 @@ def _fallback_models(ollama_models: list[dict] | None = None, openai_models: lis
 @router.get("/random-question")
 async def get_random_question():
     """Generate a random question based on indexed video content."""
+    from compose.services.surrealdb.repository import get_random_video_ids, get_video
+
     try:
-        qdrant = get_qdrant_client()
-        collection_info = qdrant.get_collection(COLLECTION_NAME)
-        points_count = collection_info.points_count
+        # Get random video IDs from SurrealDB
+        random_ids = await get_random_video_ids(limit=10)
 
-        if points_count == 0:
+        if not random_ids:
             return {"question": "What are the best practices for building AI agents?"}
 
-        random_offset = random.randint(0, max(0, points_count - 10))
-        scroll_result = qdrant.scroll(
-            collection_name=COLLECTION_NAME,
-            limit=10,
-            offset=random_offset,
-            with_payload=True,
-        )
-        points = scroll_result[0]
-
-        if not points:
-            return {"question": "What are the best practices for building AI agents?"}
-
-        # Extract tags and titles
+        # Fetch video details and extract tags/titles
         all_tags = set()
         video_titles = set()
-        for point in points:
-            payload = point.payload or {}
-            # Handle different metadata formats
-            if 'tags' in payload:
-                all_tags.update(payload['tags'])
-            if 'metadata' in payload:
-                meta = payload['metadata']
-                if 'subject' in meta:
-                    subjects = meta['subject']
-                    if isinstance(subjects, list):
-                        all_tags.update(subjects)
-                    elif isinstance(subjects, str):
-                        all_tags.add(subjects)
-                if 'title' in meta:
-                    video_titles.add(meta['title'])
-            if 'meta_youtube_title' in payload:
-                video_titles.add(payload['meta_youtube_title'])
-            # Also check value.title (fast_reingest stores here)
-            if 'value' in payload and payload['value'].get('title'):
-                video_titles.add(payload['value']['title'])
+
+        for video_id in random_ids:
+            video = await get_video(video_id)
+            if not video:
+                continue
+
+            # Get title
+            if video.title:
+                video_titles.add(video.title)
+
+            # Get tags from pipeline_state
+            pipeline_state = video.pipeline_state or {}
+            tags_data = pipeline_state.get("tags", {})
+            if isinstance(tags_data, dict):
+                # Handle structured tags format
+                subjects = tags_data.get("subject_matter", [])
+                if isinstance(subjects, list):
+                    all_tags.update(subjects)
 
         all_tags = [t for t in all_tags if t]
         video_titles = list(video_titles)
@@ -437,7 +424,7 @@ async def websocket_rag_chat(websocket: WebSocket):
     """
     WebSocket endpoint for RAG-powered streaming chat.
 
-    Searches Qdrant for relevant content, builds context, streams response.
+    Searches SurrealDB for relevant content, builds context, streams response.
     """
     await websocket.accept()
     print(f"RAG WebSocket connected: {websocket.client}")

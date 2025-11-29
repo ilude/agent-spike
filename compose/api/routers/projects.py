@@ -19,6 +19,36 @@ from compose.services.projects import (
 #     delete_file_from_index,
 # )
 
+
+# Stub implementations until file_processor module is ready
+async def process_and_index_file(
+    project_id: str,
+    file_id: str,
+    file_path,
+    filename: str,
+    content_type: str,
+) -> dict:
+    """Stub: Process and index a file for semantic search."""
+    # TODO: Implement actual file processing with text extraction and vector indexing
+    return {"success": False, "error": "File processor not yet implemented"}
+
+
+async def search_project_files(
+    project_id: str,
+    query: str,
+    limit: int = 5,
+) -> list[dict]:
+    """Stub: Search project files using semantic search."""
+    # TODO: Implement actual semantic search against indexed file chunks
+    return []
+
+
+def delete_file_from_index(project_id: str, file_id: str) -> None:
+    """Stub: Delete file chunks from vector index."""
+    # TODO: Implement actual deletion from vector store
+    pass
+
+
 router = APIRouter(prefix="/projects", tags=["projects"])
 
 
@@ -162,7 +192,7 @@ async def process_file_background(
         service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
-            qdrant_indexed=result.get("success", False),
+            vector_indexed=result.get("success", False),
             error=result.get("error"),
         )
 
@@ -176,7 +206,7 @@ async def process_file_background(
         service.mark_file_processed(
             project_id=project_id,
             file_id=file_id,
-            qdrant_indexed=False,
+            vector_indexed=False,
             error=str(e),
         )
 
@@ -267,7 +297,7 @@ async def delete_file(project_id: str, file_id: str):
     if not deleted:
         raise HTTPException(status_code=404, detail="File not found")
 
-    # Remove from Qdrant index
+    # Remove from vector index
     delete_file_from_index(project_id, file_id)
 
     return {"status": "deleted", "project_id": project_id, "file_id": file_id}

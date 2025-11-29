@@ -8,7 +8,7 @@ from unittest.mock import patch, MagicMock, AsyncMock
 
 from pydantic import ValidationError
 
-from compose.api.routers.health import check_qdrant, check_infinity, health_check
+from compose.api.routers.health import check_surrealdb, check_minio, check_infinity, health_check
 from compose.api.models import HealthCheckResponse
 
 
@@ -26,13 +26,13 @@ class TestHealthCheckResponseModel:
         response = HealthCheckResponse(
             status="ok",
             checks={
-                "qdrant": {"status": "ok", "message": "Connected"},
+                "surrealdb": {"status": "ok", "message": "Connected"},
                 "infinity": {"status": "ok", "message": "Ready"},
             },
         )
         assert response.status == "ok"
         assert len(response.checks) == 2
-        assert response.checks["qdrant"]["status"] == "ok"
+        assert response.checks["surrealdb"]["status"] == "ok"
 
     def test_required_status_field(self):
         """status is required."""
@@ -57,7 +57,7 @@ class TestHealthCheckResponseModel:
         """Status can be 'degraded'."""
         response = HealthCheckResponse(
             status="degraded",
-            checks={"qdrant": {"status": "error", "message": "Connection failed"}},
+            checks={"surrealdb": {"status": "error", "message": "Connection failed"}},
         )
         assert response.status == "degraded"
 
@@ -69,83 +69,77 @@ class TestHealthCheckResponseModel:
 
 
 # -----------------------------------------------------------------------------
-# check_qdrant Tests
+# check_surrealdb Tests
 # -----------------------------------------------------------------------------
 
 
 @pytest.mark.unit
-class TestCheckQdrant:
-    """Test Qdrant health check."""
+class TestCheckSurrealDB:
+    """Test SurrealDB health check."""
 
     @pytest.mark.asyncio
     async def test_success_returns_ok_status(self):
-        """Successful Qdrant connection returns status 'ok'."""
-        mock_collection1 = MagicMock()
-        mock_collection1.name = "collection_a"
-        mock_collection2 = MagicMock()
-        mock_collection2.name = "collection_b"
-
-        mock_collections_response = MagicMock()
-        mock_collections_response.collections = [mock_collection1, mock_collection2]
-
-        mock_client = MagicMock()
-        mock_client.get_collections.return_value = mock_collections_response
-
+        """Successful SurrealDB connection returns status 'ok'."""
         with patch(
-            "compose.api.routers.health.QdrantClient", return_value=mock_client
+            "compose.services.surrealdb.verify_connection",
+            new_callable=AsyncMock,
         ):
-            result = await check_qdrant()
+            result = await check_surrealdb()
 
         assert result["status"] == "ok"
-        assert "2 collections" in result["message"]
-        assert result["collections"] == ["collection_a", "collection_b"]
-
-    @pytest.mark.asyncio
-    async def test_success_with_no_collections(self):
-        """Successful Qdrant connection with zero collections."""
-        mock_collections_response = MagicMock()
-        mock_collections_response.collections = []
-
-        mock_client = MagicMock()
-        mock_client.get_collections.return_value = mock_collections_response
-
-        with patch(
-            "compose.api.routers.health.QdrantClient", return_value=mock_client
-        ):
-            result = await check_qdrant()
-
-        assert result["status"] == "ok"
-        assert "0 collections" in result["message"]
-        assert result["collections"] == []
+        assert "SurrealDB accessible" in result["message"]
 
     @pytest.mark.asyncio
     async def test_error_on_connection_failure(self):
         """Connection failure returns status 'error'."""
         with patch(
-            "compose.api.routers.health.QdrantClient",
+            "compose.services.surrealdb.verify_connection",
+            new_callable=AsyncMock,
             side_effect=Exception("Connection refused"),
         ):
-            result = await check_qdrant()
+            result = await check_surrealdb()
 
         assert result["status"] == "error"
-        assert "Qdrant check failed" in result["message"]
+        assert "SurrealDB check failed" in result["message"]
         assert "Connection refused" in result["message"]
-        assert "collections" not in result
+
+
+# -----------------------------------------------------------------------------
+# check_minio Tests
+# -----------------------------------------------------------------------------
+
+
+@pytest.mark.unit
+class TestCheckMinIO:
+    """Test MinIO health check."""
 
     @pytest.mark.asyncio
-    async def test_error_on_get_collections_failure(self):
-        """Failure during get_collections returns status 'error'."""
+    async def test_success_returns_ok_status(self):
+        """Successful MinIO connection returns status 'ok'."""
         mock_client = MagicMock()
-        mock_client.get_collections.side_effect = Exception("Timeout")
+        mock_client.ensure_bucket.return_value = None
 
         with patch(
-            "compose.api.routers.health.QdrantClient", return_value=mock_client
+            "compose.services.minio.create_minio_client",
+            return_value=mock_client,
         ):
-            result = await check_qdrant()
+            result = await check_minio()
+
+        assert result["status"] == "ok"
+        assert "MinIO accessible" in result["message"]
+
+    @pytest.mark.asyncio
+    async def test_error_on_connection_failure(self):
+        """Connection failure returns status 'error'."""
+        with patch(
+            "compose.services.minio.create_minio_client",
+            side_effect=Exception("Connection refused"),
+        ):
+            result = await check_minio()
 
         assert result["status"] == "error"
-        assert "Qdrant check failed" in result["message"]
-        assert "Timeout" in result["message"]
+        assert "MinIO check failed" in result["message"]
+        assert "Connection refused" in result["message"]
 
 
 # -----------------------------------------------------------------------------
@@ -254,9 +248,14 @@ class TestHealthCheckEndpoint:
         """When all services are OK, overall status is 'ok'."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
                 new_callable=AsyncMock,
-                return_value={"status": "ok", "message": "Qdrant accessible"},
+                return_value={"status": "ok", "message": "SurrealDB accessible"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
+                new_callable=AsyncMock,
+                return_value={"status": "ok", "message": "MinIO accessible"},
             ),
             patch(
                 "compose.api.routers.health.check_infinity",
@@ -267,17 +266,23 @@ class TestHealthCheckEndpoint:
             result = await health_check()
 
         assert result.status == "ok"
-        assert result.checks["qdrant"]["status"] == "ok"
+        assert result.checks["surrealdb"]["status"] == "ok"
+        assert result.checks["minio"]["status"] == "ok"
         assert result.checks["infinity"]["status"] == "ok"
 
     @pytest.mark.asyncio
-    async def test_qdrant_error_returns_status_degraded(self):
-        """When Qdrant fails, overall status is 'degraded'."""
+    async def test_surrealdb_error_returns_status_degraded(self):
+        """When SurrealDB fails, overall status is 'degraded'."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
                 new_callable=AsyncMock,
-                return_value={"status": "error", "message": "Qdrant connection failed"},
+                return_value={"status": "error", "message": "SurrealDB connection failed"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
+                new_callable=AsyncMock,
+                return_value={"status": "ok", "message": "MinIO accessible"},
             ),
             patch(
                 "compose.api.routers.health.check_infinity",
@@ -288,7 +293,8 @@ class TestHealthCheckEndpoint:
             result = await health_check()
 
         assert result.status == "degraded"
-        assert result.checks["qdrant"]["status"] == "error"
+        assert result.checks["surrealdb"]["status"] == "error"
+        assert result.checks["minio"]["status"] == "ok"
         assert result.checks["infinity"]["status"] == "ok"
 
     @pytest.mark.asyncio
@@ -296,9 +302,14 @@ class TestHealthCheckEndpoint:
         """When Infinity fails, overall status is 'degraded'."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
                 new_callable=AsyncMock,
-                return_value={"status": "ok", "message": "Qdrant accessible"},
+                return_value={"status": "ok", "message": "SurrealDB accessible"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
+                new_callable=AsyncMock,
+                return_value={"status": "ok", "message": "MinIO accessible"},
             ),
             patch(
                 "compose.api.routers.health.check_infinity",
@@ -309,7 +320,7 @@ class TestHealthCheckEndpoint:
             result = await health_check()
 
         assert result.status == "degraded"
-        assert result.checks["qdrant"]["status"] == "ok"
+        assert result.checks["surrealdb"]["status"] == "ok"
         assert result.checks["infinity"]["status"] == "error"
 
     @pytest.mark.asyncio
@@ -317,9 +328,14 @@ class TestHealthCheckEndpoint:
         """When all services fail, overall status is 'degraded'."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
                 new_callable=AsyncMock,
-                return_value={"status": "error", "message": "Qdrant failed"},
+                return_value={"status": "error", "message": "SurrealDB failed"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
+                new_callable=AsyncMock,
+                return_value={"status": "error", "message": "MinIO failed"},
             ),
             patch(
                 "compose.api.routers.health.check_infinity",
@@ -330,7 +346,8 @@ class TestHealthCheckEndpoint:
             result = await health_check()
 
         assert result.status == "degraded"
-        assert result.checks["qdrant"]["status"] == "error"
+        assert result.checks["surrealdb"]["status"] == "error"
+        assert result.checks["minio"]["status"] == "error"
         assert result.checks["infinity"]["status"] == "error"
 
     @pytest.mark.asyncio
@@ -338,7 +355,12 @@ class TestHealthCheckEndpoint:
         """Endpoint returns HealthCheckResponse instance."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
+                new_callable=AsyncMock,
+                return_value={"status": "ok", "message": "OK"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
                 new_callable=AsyncMock,
                 return_value={"status": "ok", "message": "OK"},
             ),
@@ -354,10 +376,15 @@ class TestHealthCheckEndpoint:
 
     @pytest.mark.asyncio
     async def test_checks_dict_contains_expected_keys(self):
-        """Result checks dict contains both qdrant and infinity."""
+        """Result checks dict contains surrealdb, minio, and infinity."""
         with (
             patch(
-                "compose.api.routers.health.check_qdrant",
+                "compose.api.routers.health.check_surrealdb",
+                new_callable=AsyncMock,
+                return_value={"status": "ok", "message": "OK"},
+            ),
+            patch(
+                "compose.api.routers.health.check_minio",
                 new_callable=AsyncMock,
                 return_value={"status": "ok", "message": "OK"},
             ),
@@ -369,4 +396,4 @@ class TestHealthCheckEndpoint:
         ):
             result = await health_check()
 
-        assert set(result.checks.keys()) == {"qdrant", "infinity"}
+        assert set(result.checks.keys()) == {"surrealdb", "minio", "infinity"}
