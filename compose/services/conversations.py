@@ -5,15 +5,18 @@ Stores conversations and messages in SurrealDB tables:
 - message: individual messages linked by conversation_id
 """
 
+from __future__ import annotations
+
 import os
 import uuid
 from datetime import datetime, timezone
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import httpx
 from pydantic import BaseModel, Field
 
-from .surrealdb.driver import execute_query
+if TYPE_CHECKING:
+    from .surrealdb.protocols import DatabaseExecutor
 
 # Configuration for auto-title generation
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
@@ -71,11 +74,28 @@ class Conversation(BaseModel):
 
 
 class ConversationService:
-    """Service for managing conversation storage in SurrealDB."""
+    """Service for managing conversation storage in SurrealDB.
 
-    def __init__(self):
-        """Initialize service. No configuration needed - uses SurrealDB config."""
-        pass
+    Supports dependency injection for testing. If no db is provided,
+    uses the real SurrealDB executor.
+    """
+
+    def __init__(self, db: "DatabaseExecutor | None" = None):
+        """Initialize service with optional DI.
+
+        Args:
+            db: Database executor (optional, uses real executor if not provided)
+        """
+        self._db = db
+
+    @property
+    def db(self) -> "DatabaseExecutor":
+        """Get the database executor, creating real one if needed."""
+        if self._db is None:
+            from .surrealdb.driver import RealDatabaseExecutor
+
+            self._db = RealDatabaseExecutor()
+        return self._db
 
     async def list_conversations(
         self, user_id: Optional[str] = None
@@ -102,7 +122,7 @@ class ConversationService:
             WHERE user_id = $user_id
             ORDER BY updated_at DESC;
             """
-            results = await execute_query(query, {"user_id": user_id})
+            results = await self.db.execute(query, {"user_id": user_id})
         else:
             query = """
             SELECT
@@ -115,7 +135,7 @@ class ConversationService:
             FROM conversation
             ORDER BY updated_at DESC;
             """
-            results = await execute_query(query)
+            results = await self.db.execute(query)
 
         conversations = []
         for r in results:
@@ -174,7 +194,7 @@ class ConversationService:
         };
         """
 
-        await execute_query(query, {
+        await self.db.execute(query, {
             "id": conversation_id,
             "title": title,
             "model": model,
@@ -200,7 +220,7 @@ class ConversationService:
             The conversation or None if not found
         """
         # Get conversation metadata using record ID syntax
-        conv_results = await execute_query(f"SELECT * FROM conversation:`{conversation_id}`")
+        conv_results = await self.db.execute(f"SELECT * FROM conversation:`{conversation_id}`")
         if not conv_results:
             return None
 
@@ -219,7 +239,7 @@ class ConversationService:
         SELECT * FROM message WHERE conversation_id = $conversation_id ORDER BY timestamp ASC;
         """
 
-        msg_results = await execute_query(msg_query, {"conversation_id": conversation_id})
+        msg_results = await self.db.execute(msg_query, {"conversation_id": conversation_id})
 
         messages = []
         for m in msg_results:
@@ -259,7 +279,7 @@ class ConversationService:
         Returns:
             The user_id or None if not set/not found
         """
-        results = await execute_query(
+        results = await self.db.execute(
             f"SELECT user_id FROM conversation:`{conversation_id}`"
         )
         if not results:
@@ -310,7 +330,7 @@ class ConversationService:
         set_clause = ", ".join(updates)
         # Remove id from params since we use record ID syntax
         params.pop("id", None)
-        await execute_query(f"UPDATE conversation:`{conversation_id}` SET {set_clause}", params)
+        await self.db.execute(f"UPDATE conversation:`{conversation_id}` SET {set_clause}", params)
 
         # Return updated conversation
         return await self.get_conversation(conversation_id)
@@ -325,18 +345,18 @@ class ConversationService:
             True if deleted, False if not found
         """
         # Check if conversation exists using record ID syntax
-        results = await execute_query(f"SELECT id FROM conversation:`{conversation_id}`")
+        results = await self.db.execute(f"SELECT id FROM conversation:`{conversation_id}`")
         if not results:
             return False
 
         # Delete messages first (referential integrity)
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM message WHERE conversation_id = $conversation_id",
             {"conversation_id": conversation_id}
         )
 
         # Delete conversation using record ID syntax
-        await execute_query(f"DELETE conversation:`{conversation_id}`")
+        await self.db.execute(f"DELETE conversation:`{conversation_id}`")
 
         return True
 
@@ -359,7 +379,7 @@ class ConversationService:
             The created message or None if conversation not found
         """
         # Check if conversation exists using record ID syntax
-        results = await execute_query(f"SELECT id FROM conversation:`{conversation_id}`")
+        results = await self.db.execute(f"SELECT id FROM conversation:`{conversation_id}`")
         if not results:
             return None
 
@@ -378,7 +398,7 @@ class ConversationService:
         };
         """
 
-        await execute_query(msg_query, {
+        await self.db.execute(msg_query, {
             "id": message_id,
             "conversation_id": conversation_id,
             "role": role,
@@ -387,7 +407,7 @@ class ConversationService:
         })
 
         # Update conversation updated_at using record ID syntax
-        await execute_query(f"UPDATE conversation:`{conversation_id}` SET updated_at = time::now()")
+        await self.db.execute(f"UPDATE conversation:`{conversation_id}` SET updated_at = time::now()")
 
         return Message(
             id=message_id,
@@ -430,7 +450,7 @@ class ConversationService:
                 )
             ORDER BY c.updated_at DESC;
             """
-            results = await execute_query(search_query, {"query": query, "user_id": user_id})
+            results = await self.db.execute(search_query, {"query": query, "user_id": user_id})
         else:
             search_query = """
             SELECT DISTINCT
@@ -448,7 +468,7 @@ class ConversationService:
                 )
             ORDER BY c.updated_at DESC;
             """
-            results = await execute_query(search_query, {"query": query})
+            results = await self.db.execute(search_query, {"query": query})
 
         conversations = []
         for r in results:

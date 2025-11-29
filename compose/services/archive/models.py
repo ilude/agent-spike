@@ -123,7 +123,6 @@ class YouTubeArchive(BaseModel):
     def add_processing_record(
         self,
         version: str,
-        collection_name: Optional[str] = None,
         notes: Optional[str] = None,
     ) -> None:
         """Add a processing history record."""
@@ -131,7 +130,6 @@ class YouTubeArchive(BaseModel):
             ProcessingRecord(
                 version=version,
                 processed_at=datetime.now(),
-                collection_name=collection_name,
                 notes=notes,
             )
         )

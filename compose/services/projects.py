@@ -13,12 +13,16 @@ Storage:
 import uuid
 from datetime import datetime, timezone
 from io import BytesIO
-from typing import Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from pydantic import BaseModel, Field
 
 from .minio.factory import create_minio_client
-from .surrealdb.driver import execute_query
+from .surrealdb.driver import RealDatabaseExecutor
+
+if TYPE_CHECKING:
+    from .minio.client import MinIOClient
+    from .surrealdb.protocols import DatabaseExecutor
 
 def _extract_id(record_id) -> str:
     """Extract clean ID from SurrealDB RecordID.
@@ -102,15 +106,36 @@ class ProjectService:
 
     - SurrealDB stores project metadata, file records, and conversation links
     - MinIO stores actual file content at projects/{project_id}/{file_id}_{filename}
+
+    Supports dependency injection for testability:
+    - Pass db parameter to use a custom DatabaseExecutor (e.g., FakeDatabaseExecutor)
+    - Pass minio parameter to use a custom MinIOClient (e.g., FakeMinIOClient)
     """
 
-    def __init__(self):
-        """Initialize service with MinIO client."""
-        self._minio = None
+    def __init__(
+        self,
+        db: "DatabaseExecutor | None" = None,
+        minio: "MinIOClient | None" = None,
+    ):
+        """Initialize service with optional dependencies.
+
+        Args:
+            db: Database executor for SurrealDB operations. If None, uses RealDatabaseExecutor.
+            minio: MinIO client for file storage. If None, uses create_minio_client().
+        """
+        self._db = db
+        self._minio = minio
 
     @property
-    def minio(self):
-        """Lazy-load MinIO client."""
+    def db(self) -> "DatabaseExecutor":
+        """Get database executor (lazy-loaded if not injected)."""
+        if self._db is None:
+            self._db = RealDatabaseExecutor()
+        return self._db
+
+    @property
+    def minio(self) -> "MinIOClient":
+        """Get MinIO client (lazy-loaded if not injected)."""
         if self._minio is None:
             self._minio = create_minio_client()
         return self._minio
@@ -124,19 +149,19 @@ class ProjectService:
 
         Returns projects sorted by updated_at descending.
         """
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT * FROM project ORDER BY updated_at DESC"
         )
 
         projects = []
         for row in result:
-            conv_result = await execute_query(
+            conv_result = await self.db.execute(
                 "SELECT count() FROM project_conversation WHERE project_id = $project_id GROUP ALL",
                 {"project_id": row["id"]},
             )
             conv_count = conv_result[0].get("count", 0) if conv_result else 0
 
-            file_result = await execute_query(
+            file_result = await self.db.execute(
                 "SELECT count() FROM project_file WHERE project_id = $project_id GROUP ALL",
                 {"project_id": row["id"]},
             )
@@ -163,7 +188,7 @@ class ProjectService:
         project_id = str(uuid.uuid4())
         now = datetime.now(timezone.utc).isoformat()
 
-        await execute_query(
+        await self.db.execute(
             """
             CREATE project CONTENT {
                 id: $id,
@@ -193,7 +218,7 @@ class ProjectService:
 
     async def get_project(self, project_id: str) -> Optional[Project]:
         """Get a project by ID."""
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT * FROM project WHERE id = $id",
             {"id": project_id},
         )
@@ -203,7 +228,7 @@ class ProjectService:
 
         row = result[0]
 
-        file_result = await execute_query(
+        file_result = await self.db.execute(
             "SELECT * FROM project_file WHERE project_id = $project_id ORDER BY uploaded_at DESC",
             {"project_id": project_id},
         )
@@ -224,7 +249,7 @@ class ProjectService:
                 )
             )
 
-        conv_result = await execute_query(
+        conv_result = await self.db.execute(
             "SELECT conversation_id FROM project_conversation WHERE project_id = $project_id",
             {"project_id": project_id},
         )
@@ -267,7 +292,7 @@ class ProjectService:
             updates.append("custom_instructions = $custom_instructions")
             params["custom_instructions"] = custom_instructions
 
-        await execute_query(
+        await self.db.execute(
             f"UPDATE project SET {', '.join(updates)} WHERE id = $id",
             params,
         )
@@ -287,15 +312,15 @@ class ProjectService:
             except Exception:
                 pass
 
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM project_file WHERE project_id = $project_id",
             {"project_id": project_id},
         )
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM project_conversation WHERE project_id = $project_id",
             {"project_id": project_id},
         )
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM project WHERE id = $id",
             {"id": project_id},
         )
@@ -315,7 +340,7 @@ class ProjectService:
 
         now = datetime.now(timezone.utc).isoformat()
 
-        await execute_query(
+        await self.db.execute(
             """
             CREATE project_conversation CONTENT {
                 project_id: $project_id,
@@ -330,7 +355,7 @@ class ProjectService:
             },
         )
 
-        await execute_query(
+        await self.db.execute(
             "UPDATE project SET updated_at = $updated_at WHERE id = $id",
             {"id": project_id, "updated_at": now},
         )
@@ -347,12 +372,12 @@ class ProjectService:
 
         now = datetime.now(timezone.utc).isoformat()
 
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM project_conversation WHERE project_id = $project_id AND conversation_id = $conversation_id",
             {"project_id": project_id, "conversation_id": conversation_id},
         )
 
-        await execute_query(
+        await self.db.execute(
             "UPDATE project SET updated_at = $updated_at WHERE id = $id",
             {"id": project_id, "updated_at": now},
         )
@@ -385,7 +410,7 @@ class ProjectService:
             content_type=content_type,
         )
 
-        await execute_query(
+        await self.db.execute(
             """
             CREATE project_file CONTENT {
                 id: $id,
@@ -413,7 +438,7 @@ class ProjectService:
             },
         )
 
-        await execute_query(
+        await self.db.execute(
             "UPDATE project SET updated_at = $updated_at WHERE id = $id",
             {"id": project_id, "updated_at": now},
         )
@@ -429,7 +454,7 @@ class ProjectService:
 
     async def get_file_content(self, project_id: str, file_id: str) -> Optional[bytes]:
         """Get the content of a project file from MinIO."""
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
             {"id": file_id, "project_id": project_id},
         )
@@ -452,7 +477,7 @@ class ProjectService:
 
         Note: Returns MinIO key, not filesystem path. Use get_file_content() for data.
         """
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT minio_key FROM project_file WHERE id = $id AND project_id = $project_id",
             {"id": file_id, "project_id": project_id},
         )
@@ -464,7 +489,7 @@ class ProjectService:
 
     async def delete_file(self, project_id: str, file_id: str) -> bool:
         """Delete a file from a project."""
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
             {"id": file_id, "project_id": project_id},
         )
@@ -480,13 +505,13 @@ class ProjectService:
             except Exception:
                 pass
 
-        await execute_query(
+        await self.db.execute(
             "DELETE FROM project_file WHERE id = $id",
             {"id": file_id},
         )
 
         now = datetime.now(timezone.utc).isoformat()
-        await execute_query(
+        await self.db.execute(
             "UPDATE project SET updated_at = $updated_at WHERE id = $id",
             {"id": project_id, "updated_at": now},
         )
@@ -501,7 +526,7 @@ class ProjectService:
         error: Optional[str] = None,
     ) -> Optional[ProjectFile]:
         """Mark a file as processed."""
-        result = await execute_query(
+        result = await self.db.execute(
             "SELECT * FROM project_file WHERE id = $id AND project_id = $project_id",
             {"id": file_id, "project_id": project_id},
         )
@@ -509,7 +534,7 @@ class ProjectService:
         if not result:
             return None
 
-        await execute_query(
+        await self.db.execute(
             """
             UPDATE project_file SET
                 processed = true,
@@ -521,12 +546,12 @@ class ProjectService:
         )
 
         now = datetime.now(timezone.utc).isoformat()
-        await execute_query(
+        await self.db.execute(
             "UPDATE project SET updated_at = $updated_at WHERE id = $id",
             {"id": project_id, "updated_at": now},
         )
 
-        updated = await execute_query(
+        updated = await self.db.execute(
             "SELECT * FROM project_file WHERE id = $id",
             {"id": file_id},
         )

@@ -71,7 +71,6 @@ class ArchiveWriter(Protocol):
         self,
         video_id: str,
         version: str,
-        collection_name: Optional[str] = None,
         notes: Optional[str] = None,
     ) -> Path:
         """Add processing record to existing archive.
@@ -79,7 +78,6 @@ class ArchiveWriter(Protocol):
         Args:
             video_id: YouTube video ID
             version: Processing version (e.g., "v1_full_embed", "v2_chunked")
-            collection_name: Optional cache collection name
             notes: Optional notes about processing
 
         Returns:

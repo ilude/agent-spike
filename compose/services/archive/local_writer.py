@@ -239,7 +239,6 @@ class LocalArchiveWriter:
         self,
         video_id: str,
         version: str,
-        collection_name: Optional[str] = None,
         notes: Optional[str] = None,
     ) -> Path:
         """Add processing record to existing archive.
@@ -247,7 +246,6 @@ class LocalArchiveWriter:
         Args:
             video_id: YouTube video ID
             version: Processing version (e.g., "v1_full_embed", "v2_chunked")
-            collection_name: Optional collection name (deprecated)
             notes: Optional notes about processing
 
         Returns:
@@ -262,7 +260,6 @@ class LocalArchiveWriter:
 
         archive.add_processing_record(
             version=version,
-            collection_name=collection_name,
             notes=notes,
         )
 
