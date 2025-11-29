@@ -1,4 +1,8 @@
-# Cache Service
+# Cache Service (DEPRECATED)
+
+> **⚠️ DEPRECATED**: This cache service using Qdrant has been replaced by SurrealDB.
+> Use `compose.services.surrealdb` for all video storage, search, and caching.
+> See `compose/services/surrealdb/README.md` for the new API.
 
 Content caching service with semantic search and metadata filtering.
 

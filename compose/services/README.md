@@ -47,36 +47,37 @@ archive.add_llm_output(
 - Track LLM costs and processing versions
 - Enables reprocessing without re-fetching
 
-### Cache Service (`cache/`)
+### SurrealDB Service (`surrealdb/`)
 
-Fast semantic search and metadata filtering with Qdrant.
+Video metadata storage and semantic search with SurrealDB + Infinity embeddings.
 
-**Purpose**: Cache processed content for instant retrieval
+**Purpose**: Store video records with embeddings for semantic search
 
 ```python
-from compose.services.cache import create_qdrant_cache
+from compose.services.surrealdb import get_video, upsert_video, search_videos_by_text
 
-cache = create_qdrant_cache(collection_name="content")
-
-# Store with metadata
-cache.set(
-    "youtube:video:dQw4w9WgXcQ",
-    {"transcript": "...", "tags": ["music", "80s"]},
-    metadata={"type": "youtube_video", "year": "2024"}
-)
+# Get video by ID
+video = await get_video("dQw4w9WgXcQ")
 
 # Semantic search
-results = cache.search("80s music videos", limit=5)
+results = await search_videos_by_text("80s music videos", limit=5)
 
-# Filter by metadata
-youtube_only = cache.filter({"type": "youtube_video"})
+# Get all videos
+from compose.services.surrealdb import get_all_videos
+videos = await get_all_videos(limit=100)
 ```
 
 **Key features**:
-- Semantic search with sentence-transformers
-- Metadata filtering
-- In-memory implementation for testing
-- Lazy imports (Qdrant optional)
+- Vector search with SurrealDB HNSW indexes
+- Infinity API for embedding generation
+- Pipeline state tracking for reprocessing
+- Channel and topic relationships
+
+### Cache Service (`cache/`) - DEPRECATED
+
+> **⚠️ DEPRECATED**: Replaced by SurrealDB service. See `surrealdb/` above.
+
+Legacy cache service using Qdrant. Kept for reference only.
 
 ### YouTube Service (`youtube/`)
 
@@ -109,20 +110,20 @@ Services are designed to work together:
 
 ```python
 from compose.services.youtube import extract_video_id, get_transcript
-from compose.services.cache import create_qdrant_cache
+from compose.services.surrealdb import get_video, upsert_video
+from compose.services.surrealdb.models import VideoRecord
 from compose.services.archive import create_local_archive_writer
 
 # Initialize services
-cache = create_qdrant_cache(collection_name="videos")
 archive = create_local_archive_writer()
 
-def process_video(url: str):
+async def process_video(url: str):
     video_id = extract_video_id(url)
 
-    # 1. Check cache first (fast path)
-    cache_key = f"youtube:video:{video_id}"
-    if cache.exists(cache_key):
-        return cache.get(cache_key)
+    # 1. Check SurrealDB first (fast path)
+    existing = await get_video(video_id)
+    if existing:
+        return existing
 
     # 2. Fetch transcript (expensive) and archive immediately
     transcript = get_transcript(url)
@@ -132,11 +133,16 @@ def process_video(url: str):
     tags = generate_tags(transcript)  # Your LLM agent
     archive.add_llm_output(video_id, "tags", tags, "claude-haiku", 0.001)
 
-    # 4. Cache result for fast future access
-    data = {"video_id": video_id, "transcript": transcript, "tags": tags}
-    cache.set(cache_key, data, metadata={"type": "youtube_video"})
+    # 4. Store in SurrealDB with embedding
+    video = VideoRecord(
+        video_id=video_id,
+        url=url,
+        title="...",
+        pipeline_state={"tags": tags},
+    )
+    await upsert_video(video)
 
-    return data
+    return video
 ```
 
 ## Directory Structure
@@ -190,19 +196,24 @@ uv run pytest compose/tests/unit/ --cov=compose.services
 
 Lessons now import from centralized services:
 
-**Before (lesson-007)**:
+**Before (lesson-007 with Qdrant)**:
 ```python
 from cache import QdrantCache
 cache = QdrantCache(collection_name="content")
 ```
 
-**After**:
+**After (SurrealDB)**:
 ```python
-from compose.services.cache import create_qdrant_cache
-cache = create_qdrant_cache(collection_name="content")
+from compose.services.surrealdb import get_video, upsert_video, search_videos_by_text
+
+# Get video
+video = await get_video("video_id")
+
+# Search
+results = await search_videos_by_text("query", limit=10)
 ```
 
-**Backward compatibility**: Lesson modules still work via re-exports, but new code should import directly from `compose.services.*`.
+**Note**: The Qdrant-based cache service is deprecated. All new code should use `compose.services.surrealdb`.
 
 ## Adding New Services
 

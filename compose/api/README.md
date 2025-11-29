@@ -172,13 +172,17 @@ Response:
 {
   "status": "ok",
   "checks": {
-    "archive": {
+    "surrealdb": {
       "status": "ok",
-      "message": "Archive accessible with 500 videos"
+      "message": "SurrealDB accessible"
     },
-    "cache": {
+    "minio": {
       "status": "ok",
-      "message": "Qdrant cache accessible"
+      "message": "MinIO accessible"
+    },
+    "infinity": {
+      "status": "ok",
+      "message": "Infinity embedding service accessible"
     }
   }
 }
@@ -299,5 +303,5 @@ api/
 ## See Also
 
 - Lesson 001: YouTube agent implementation
-- Lesson 007: Cache manager with Qdrant
-- Archive service: `tools/services/archive/`
+- Lesson 007: Cache manager with SurrealDB
+- Archive service: `compose/services/archive/`
