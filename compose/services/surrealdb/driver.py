@@ -160,3 +160,25 @@ async def verify_connection() -> bool:
     except Exception as e:
         logger.error(f"Connection verification failed: {e}")
         return False
+
+
+class RealDatabaseExecutor:
+    """Real SurrealDB executor using the singleton connection.
+
+    Implements the DatabaseExecutor protocol for production use.
+    Wraps the module-level execute_query function.
+    """
+
+    async def execute(
+        self, query: str, params: dict[str, Any] | None = None
+    ) -> list[dict[str, Any]]:
+        """Execute a SurrealQL query and return results.
+
+        Args:
+            query: SurrealQL query string
+            params: Query parameters
+
+        Returns:
+            List of result records as dictionaries
+        """
+        return await execute_query(query, params)

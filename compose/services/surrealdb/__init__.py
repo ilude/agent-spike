@@ -9,6 +9,7 @@ Provides:
 
 from .config import SurrealDBConfig
 from .driver import (
+    RealDatabaseExecutor,
     close_db,
     execute_query,
     get_db,
@@ -16,6 +17,7 @@ from .driver import (
     reset_db,
     verify_connection,
 )
+from .protocols import DatabaseExecutor
 from .models import (
     ChannelRecord,
     PipelineStepState,
@@ -48,6 +50,9 @@ __all__ = [
     "get_transaction",
     "execute_query",
     "verify_connection",
+    # Protocols and DI
+    "DatabaseExecutor",
+    "RealDatabaseExecutor",
     # Models
     "VideoRecord",
     "ChannelRecord",

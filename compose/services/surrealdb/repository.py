@@ -937,3 +937,76 @@ async def search_videos_by_text(
         offset=offset,
         channel_filter=channel_filter,
     )
+
+
+# =============================================================================
+# Delete Operations
+# =============================================================================
+
+
+async def delete_video(video_id: str) -> bool:
+    """Delete a video by ID.
+
+    Also deletes associated chunks.
+
+    Args:
+        video_id: YouTube video ID
+
+    Returns:
+        True if video was deleted, False if not found
+    """
+    # First delete any chunks for this video
+    await delete_chunks_for_video(video_id)
+
+    # Delete the video record
+    query = "DELETE FROM video WHERE video_id = $video_id RETURN BEFORE;"
+    results = await execute_query(query, {"video_id": video_id})
+    return len(results) > 0 if results else False
+
+
+async def get_all_videos(
+    limit: int = 1000,
+    offset: int = 0,
+) -> list[VideoRecord]:
+    """Get all videos with pagination.
+
+    Args:
+        limit: Maximum number of videos to return
+        offset: Number of videos to skip
+
+    Returns:
+        List of VideoRecord objects
+    """
+    query = """
+    SELECT * FROM video
+    ORDER BY updated_at DESC
+    LIMIT $limit
+    START $offset;
+    """
+
+    results = await execute_query(query, {"limit": limit, "offset": offset})
+
+    videos = []
+    for record in results:
+        videos.append(VideoRecord(
+            video_id=record.get("video_id"),
+            url=record.get("url"),
+            fetched_at=_parse_datetime(record.get("fetched_at")),
+            title=record.get("title"),
+            channel_id=record.get("channel_id"),
+            channel_name=record.get("channel_name"),
+            duration_seconds=record.get("duration_seconds"),
+            view_count=record.get("view_count"),
+            published_at=_parse_datetime_optional(record.get("published_at")),
+            source_type=record.get("source_type"),
+            import_method=record.get("import_method"),
+            recommendation_weight=record.get("recommendation_weight", 1.0),
+            pipeline_state=record.get("pipeline_state") or {},
+            embedding=record.get("embedding"),
+            archive_path=record.get("archive_path"),
+            last_processed_at=_parse_datetime_optional(record.get("last_processed_at")),
+            created_at=_parse_datetime(record.get("created_at")),
+            updated_at=_parse_datetime(record.get("updated_at")),
+        ))
+
+    return videos
