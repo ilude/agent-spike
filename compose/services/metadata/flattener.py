@@ -116,7 +116,7 @@ def flatten_video_metadata(tags_data: dict[str, Any]) -> dict[str, Any]:
 
 
 def _make_safe_key(prefix: str, value: str) -> str:
-    """Convert human-readable text to safe Qdrant key.
+    """Convert human-readable text to safe database key.
 
     Args:
         prefix: Key prefix (e.g., 'subject', 'person', 'company')
