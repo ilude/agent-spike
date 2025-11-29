@@ -30,7 +30,6 @@ coverage.xml
 .gitattributes
 
 # Data directories (large, not needed in container build)
-projects/data/qdrant*/
 projects/data/n8n/
 projects/data/archive/
 projects/data/brave_history/

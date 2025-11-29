@@ -1,5 +1,6 @@
 # Dynamic configuration for traefik
-# Routes frontend to local host machine for development
+# Routes frontend and API for local development
+# (Docker labels don't work when Docker provider can't connect)
 
 http:
   routers:
@@ -11,8 +12,29 @@ http:
       tls:
         certResolver: cloudflare
 
+    mentat-api:
+      rule: "Host(`api.local.ilude.com`)"
+      entrypoints:
+        - websecure
+      service: mentat-api
+      tls:
+        certResolver: cloudflare
+
+    traefik-dashboard:
+      rule: "Host(`traefik.local.ilude.com`)"
+      entrypoints:
+        - websecure
+      service: api@internal
+      tls:
+        certResolver: cloudflare
+
   services:
     mentat-local:
       loadBalancer:
         servers:
           - url: "http://host.docker.internal:5173"
+
+    mentat-api:
+      loadBalancer:
+        servers:
+          - url: "http://api:8000"

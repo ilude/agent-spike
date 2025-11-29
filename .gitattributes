@@ -4,8 +4,7 @@
 *.pem filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
 
-# Encrypt data storage (archives moved to MinIO, no longer in git)
-compose/data/qdrant/** filter=git-crypt diff=git-crypt
+# Encrypt data storage (archives in MinIO)
 compose/data/cache/** filter=git-crypt diff=git-crypt
 compose/data/browser_history/** filter=git-crypt diff=git-crypt
 compose/data/queues/** filter=git-crypt diff=git-crypt

@@ -54,6 +54,7 @@ services:
       - ./data:/app/src/compose/data  # Mount data for access
       - ./api:/app/src/compose/api  # Hot reload for API code
       - ./services:/app/src/compose/services  # Hot reload for services
+      - ./lib:/app/src/compose/lib  # Hot reload for lib code
       - ../tools:/app/src/tools  # Mount tools for imports
       - /app/.venv  # Don't mount .venv (let Docker manage it)
     environment:

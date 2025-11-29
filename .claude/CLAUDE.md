@@ -236,6 +236,34 @@ make gpu-shell                          # Interactive Ansible shell
 
 See `infra/ansible/README.md` for details.
 
+### Platform (Docker Compose)
+
+The platform runs via Docker Compose in `compose/`. **Frontend runs locally, NOT in container** (Windows hot reload issue).
+
+**Start platform:**
+```bash
+cd compose && docker compose up -d   # Start API, Traefik, queue-worker
+cd compose/frontend && bun run dev   # Start frontend (separate terminal)
+```
+
+**Stop platform:**
+```bash
+cd compose && docker compose down
+```
+
+**Key URLs (all HTTPS via Traefik):**
+- `https://mentat.local.ilude.com` → Frontend (localhost:5173)
+- `https://api.local.ilude.com` → FastAPI backend
+- `https://traefik.local.ilude.com` → Traefik dashboard
+
+**Services:**
+- **Traefik**: Reverse proxy + Let's Encrypt SSL
+- **API**: FastAPI on port 8000
+- **Queue Worker**: Processes `compose/data/queues/`
+- **Frontend**: Vite dev server on 5173 (runs locally, not containerized)
+
+**Check status:** `cd compose && docker compose ps`
+
 ### Container Builds (Rarely Needed)
 
 **Note**: Lessons run directly via `uv run python`. Container builds are for the (future) production app in `src/`.
