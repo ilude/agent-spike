@@ -4,24 +4,25 @@ Two-phase approach:
 1. Extract raw structured metadata (independent)
 2. Normalize using semantic context and vocabulary
 
+Uses SurrealDB for semantic similarity search and archive files for metadata.
+
 Example:
-    >>> from compose.services.tagger import create_normalizer, create_retriever
-    >>> from compose.services.tagger import VocabularyManager
-    >>>
-    >>> # Create components
+    >>> from compose.services.tagger import VocabularyManager, SemanticTagRetriever
     >>> vocab = VocabularyManager(Path("data/seed_vocabulary_v1.json"))
+    >>> retriever = SemanticTagRetriever()
+    >>> context = retriever.get_context_tags("AI agent development")
+
+Full pipeline example:
+    >>> from compose.services.tagger import create_normalizer, create_retriever
     >>> retriever = create_retriever()
-    >>> normalizer = create_normalizer(vocabulary=vocab, retriever=retriever)
-    >>>
-    >>> # Normalize content
+    >>> normalizer = create_normalizer(retriever=retriever, vocabulary=vocab)
     >>> result = await normalizer.normalize_from_transcript(transcript)
-    >>> print(result['normalized'].subject_matter)
 """
 
 from .models import StructuredMetadata, NormalizedMetadata
 from .config import TaggerConfig
 from .vocabulary import VocabularyManager
-from .surrealdb_retriever import SurrealDBTagRetriever, create_surrealdb_retriever
+from .surrealdb_retriever import SemanticTagRetriever, create_retriever
 from .normalizer import TagNormalizer, create_normalizer
 
 __all__ = [
@@ -32,11 +33,11 @@ __all__ = [
     "TaggerConfig",
     # Components
     "VocabularyManager",
-    "SurrealDBTagRetriever",
+    "SemanticTagRetriever",
     "TagNormalizer",
-    # Factories
-    "create_surrealdb_retriever",
+    # Factory functions
+    "create_retriever",
     "create_normalizer",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

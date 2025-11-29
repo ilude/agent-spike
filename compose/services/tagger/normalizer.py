@@ -8,7 +8,7 @@ from pydantic_ai import Agent
 
 from .config import DEFAULT_MODEL, get_ollama_url
 from .models import StructuredMetadata, NormalizedMetadata
-from .retriever import SemanticTagRetriever
+from .surrealdb_retriever import SemanticTagRetriever
 from .vocabulary import VocabularyManager
 
 

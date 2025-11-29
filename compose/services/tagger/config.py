@@ -39,8 +39,6 @@ class TaggerConfig:
         use_semantic_context: Enable semantic similarity context
         use_vocabulary: Use canonical vocabulary for normalization
         similar_videos_limit: Number of similar videos for context
-        qdrant_collection: Collection name for semantic search
-        qdrant_path: Path to Qdrant database (optional)
         ollama_url: URL for Ollama server (for ollama: models)
     """
 
