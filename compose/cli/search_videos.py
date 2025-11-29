@@ -1,98 +1,95 @@
 #!/usr/bin/env python
-"""Semantic search for cached YouTube videos.
+"""Semantic search for YouTube videos in SurrealDB.
 
 Usage:
-    # Search default collection
-    uv run python tools/scripts/search_videos.py "machine learning tutorial"
-
-    # Custom collection
-    uv run python tools/scripts/search_videos.py "AI agents" --collection my_collection
+    # Basic search
+    uv run python compose/cli/search_videos.py "machine learning tutorial"
 
     # More results
-    uv run python tools/scripts/search_videos.py "python coding" --limit 20
+    uv run python compose/cli/search_videos.py "AI agents" --limit 20
 
-    # All options
-    uv run python tools/scripts/search_videos.py "MCP protocol" --collection cached_content --limit 10
+    # Filter by channel
+    uv run python compose/cli/search_videos.py "python coding" --channel "3Blue1Brown"
 """
 
 import argparse
+import asyncio
 import sys
 from pathlib import Path
 
 # Setup script environment
 sys.path.insert(0, str(Path(__file__).parent))
 from compose.cli.base import setup_script_environment
-setup_script_environment(load_env=False)
+setup_script_environment(load_env=True)
 
-from compose.services.cache import create_qdrant_cache
+from compose.services.surrealdb.repository import search_videos_by_text
 
 
-def search_videos(
+async def search_videos(
     query: str,
-    collection_name: str = "cached_content",
-    limit: int = 10
+    limit: int = 10,
+    channel: str | None = None,
 ):
     """Search for videos using semantic similarity.
 
     Args:
         query: Search query (e.g., "machine learning tutorial")
-        collection_name: Qdrant collection name
         limit: Maximum number of results
+        channel: Filter by channel name (optional)
     """
     print(f"\n{'='*80}")
-    print(f"Semantic Video Search")
+    print(f"Semantic Video Search (SurrealDB)")
     print(f"{'='*80}")
     print(f"Query: '{query}'")
-    print(f"Collection: {collection_name}")
-    print(f"Limit: {limit}\n")
+    print(f"Limit: {limit}")
+    if channel:
+        print(f"Channel filter: {channel}")
+    print()
 
-    # Initialize cache
-    cache = create_qdrant_cache(collection_name=collection_name)
-
+    # Perform semantic search
+    print(f"Searching...")
     try:
-        # Perform semantic search
-        print(f"Searching...")
-        results = cache.search(query, limit=limit)
+        results = await search_videos_by_text(
+            query_text=query,
+            limit=limit,
+            channel_filter=channel,
+        )
+    except Exception as e:
+        print(f"\n[ERROR] Search failed: {e}")
+        print("Make sure Infinity embedding service is running.")
+        return
 
-        if not results:
-            print(f"\n[INFO] No results found for '{query}'\n")
-            return
+    if not results:
+        print(f"\n[INFO] No results found for '{query}'\n")
+        return
 
-        print(f"\nFound {len(results)} results:\n")
-        print(f"{'='*80}\n")
+    print(f"\nFound {len(results)} results:\n")
+    print(f"{'='*80}\n")
 
-        from compose.services.display import format_video_display
+    for i, result in enumerate(results, 1):
+        video_id = result.get("video_id", "unknown")
+        title = (result.get("title") or "Unknown")[:60]
+        channel_name = result.get("channel_name") or "Unknown"
+        score = result.get("score", 0.0)
 
-        for i, result in enumerate(results, 1):
-            # Show summary if available (not in format_video_display)
-            metadata = result.get('metadata', {})
-            if summary := metadata.get('summary'):
-                summary_preview = f"{summary[:100]}..." if len(summary) > 100 else summary
-                print(format_video_display(result, i, show_score=True))
-                print(f"   Summary: {summary_preview}\n")
-            else:
-                print(format_video_display(result, i, show_score=True))
+        print(f"[{i}] {title}")
+        print(f"    Score: {score:.4f}")
+        print(f"    ID: {video_id}")
+        print(f"    Channel: {channel_name}")
+        print(f"    URL: https://youtube.com/watch?v={video_id}")
+        print()
 
-        print(f"{'='*80}\n")
-
-    finally:
-        cache.close()
+    print(f"{'='*80}\n")
 
 
 def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description="Semantic search for cached YouTube videos"
+        description="Semantic search for YouTube videos in SurrealDB"
     )
     parser.add_argument(
         "query",
         help="Search query string (e.g., 'machine learning tutorial')"
-    )
-    parser.add_argument(
-        "--collection",
-        "-c",
-        default="cached_content",
-        help="Qdrant collection name (default: cached_content)"
     )
     parser.add_argument(
         "--limit",
@@ -101,10 +98,16 @@ def main():
         default=10,
         help="Maximum number of results (default: 10)"
     )
+    parser.add_argument(
+        "--channel",
+        "-c",
+        default=None,
+        help="Filter by channel name (optional)"
+    )
 
     try:
         args = parser.parse_args()
-        search_videos(args.query, args.collection, args.limit)
+        asyncio.run(search_videos(args.query, args.limit, args.channel))
 
     except KeyboardInterrupt:
         print("\n\nKeyboard Interrupt Received... Exiting!")

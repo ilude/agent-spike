@@ -80,20 +80,20 @@ class BaseTransformer(ABC):
         return value.replace("-", "_").replace(" ", "_").lower()
 
 
-class QdrantMetadataFlattener(BaseTransformer):
+class SurrealDBMetadataFlattener(BaseTransformer):
     """Flattens structured metadata into SurrealDB-compatible filter fields.
 
     Transforms nested tag structures into flat boolean fields for efficient
     SurrealDB filtering (e.g., subject_ai_agents=True, entity_claude=True).
 
-    Version tracking: Uses qdrant_flattener version
+    Version tracking: Uses surrealdb_flattener version
     """
 
     def get_version(self) -> str:
-        return get_version("qdrant_flattener")
+        return get_version("surrealdb_flattener")
 
     def get_dependencies(self) -> List[str]:
-        return ["qdrant_schema", "archive_schema"]
+        return ["surrealdb_schema", "archive_schema"]
 
     def transform(self, archive_data: Dict[str, Any]) -> Dict[str, Any]:
         """Flatten structured tags into filter fields.
@@ -269,14 +269,14 @@ class CompositeTransformer(BaseTransformer):
 
 # Factory functions for common transformer combinations
 
-def create_qdrant_transformer() -> MetadataTransformer:
-    """Create standard Qdrant metadata transformer.
+def create_surrealdb_transformer() -> MetadataTransformer:
+    """Create standard SurrealDB metadata transformer.
 
     Returns:
         CompositeTransformer with flattening + weight calculation
     """
     return CompositeTransformer([
-        QdrantMetadataFlattener(),
+        SurrealDBMetadataFlattener(),
         RecommendationWeightCalculator(),
     ])
 

@@ -20,11 +20,11 @@ VERSIONS: Dict[str, str] = {
     "vocabulary": "v1",                 # Vocabulary version (from vocabulary.json)
 
     # Metadata transformation
-    "qdrant_flattener": "v1.0",         # Metadata flattening for Qdrant filters
+    "surrealdb_flattener": "v1.0",      # Metadata flattening for SurrealDB
     "weight_calculator": "v1.0",        # Recommendation weight calculation
 
     # Data schema
-    "qdrant_schema": "v1",              # SurrealDB payload structure
+    "surrealdb_schema": "v1",           # SurrealDB payload structure
     "archive_schema": "v1",             # Archive JSON structure
 
     # Models used
