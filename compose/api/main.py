@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from compose.api.middleware import CorrelationMiddleware
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, auth, settings, backup
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, auth, settings, backup, telemetry
 from compose.lib.telemetry import setup_telemetry
 
 
@@ -66,6 +66,7 @@ app.include_router(imagegen.router, tags=["imagegen"])
 app.include_router(auth.router)
 app.include_router(settings.router)
 app.include_router(backup.router)
+app.include_router(telemetry.router)
 
 
 @app.get("/")
