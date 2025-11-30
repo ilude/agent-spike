@@ -11,6 +11,7 @@ import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
 let isSetup = false;
+let provider: WebTracerProvider | null = null;
 
 /**
  * Setup OpenTelemetry browser tracing
@@ -35,8 +36,8 @@ export function setupTelemetry() {
       [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: import.meta.env.MODE || 'production',
     });
 
-    // Create trace provider
-    const provider = new WebTracerProvider({
+    // Create trace provider (stored in module scope for createSpan)
+    provider = new WebTracerProvider({
       resource,
     });
 
@@ -102,6 +103,17 @@ export function setupTelemetry() {
  * }
  */
 export function createSpan(name: string, attributes: Record<string, string | number> = {}) {
+  if (!provider) {
+    console.warn('Telemetry not initialized, returning no-op span');
+    // Return a no-op span-like object
+    return {
+      end: () => {},
+      setAttribute: () => {},
+      setStatus: () => {},
+      recordException: () => {},
+    };
+  }
+
   const tracer = provider.getTracer('mentat-frontend');
   const span = tracer.startSpan(name);
 
