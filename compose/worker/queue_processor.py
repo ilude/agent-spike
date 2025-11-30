@@ -8,6 +8,7 @@ Environment variables:
     MINIO_URL: MinIO server URL (default: http://minio:9000)
     MINIO_BUCKET: MinIO bucket name (default: cache)
     POLL_INTERVAL: Seconds between polls (default: 10)
+    OTLP_ENDPOINT: OpenTelemetry endpoint (default: http://192.168.16.241:4318)
 """
 
 import asyncio
@@ -57,6 +58,68 @@ from compose.services.archive import create_archive_manager, create_local_archiv
 from compose.services.surrealdb.repository import get_video, upsert_video
 from compose.services.surrealdb.models import VideoRecord
 from compose.services.surrealdb.driver import execute_query
+
+# OpenTelemetry metrics
+from opentelemetry import metrics
+from compose.lib.telemetry import setup_telemetry
+
+# Initialize telemetry
+_, meter = setup_telemetry("queue-worker", enable_instrumentation=False)
+
+# Metrics instruments
+jobs_processed_counter = meter.create_counter(
+    "worker.jobs.processed",
+    description="Total CSV jobs processed successfully",
+    unit="1",
+)
+jobs_failed_counter = meter.create_counter(
+    "worker.jobs.failed",
+    description="Total CSV jobs that failed",
+    unit="1",
+)
+videos_processed_counter = meter.create_counter(
+    "worker.videos.processed",
+    description="Total videos processed successfully",
+    unit="1",
+)
+videos_skipped_counter = meter.create_counter(
+    "worker.videos.skipped",
+    description="Total videos skipped (already cached)",
+    unit="1",
+)
+videos_failed_counter = meter.create_counter(
+    "worker.videos.failed",
+    description="Total videos that failed to process",
+    unit="1",
+)
+job_duration_histogram = meter.create_histogram(
+    "worker.job.duration",
+    description="Time to process a CSV job",
+    unit="s",
+)
+video_duration_histogram = meter.create_histogram(
+    "worker.video.duration",
+    description="Time to process a single video",
+    unit="s",
+)
+
+# Queue depth as observable gauge
+def _get_queue_depth_callback(options):
+    """Callback to report current queue depth."""
+    try:
+        pending_count = len(list(PENDING_DIR.glob("*.csv"))) if PENDING_DIR.exists() else 0
+        processing_count = len(list(PROCESSING_DIR.glob("*.csv"))) if PROCESSING_DIR.exists() else 0
+        yield metrics.Observation(pending_count, {"status": "pending"})
+        yield metrics.Observation(processing_count, {"status": "processing"})
+    except Exception:
+        pass
+
+meter.create_observable_gauge(
+    "worker.queue.depth",
+    callbacks=[_get_queue_depth_callback],
+    description="Number of CSV files in queue",
+    unit="1",
+)
 
 
 def log(msg: str):
@@ -137,6 +200,7 @@ async def ingest_video(
     Args:
         source_type: Must be one of: single_import, repl_import, bulk_channel, bulk_multi_channel
     """
+    video_start_time = time.time()
     try:
         video_id = extract_video_id(url)
         cache_key = f"youtube:video:{video_id}"
@@ -144,12 +208,16 @@ async def ingest_video(
         # Check SurrealDB first (primary cache)
         existing = await get_video(video_id)
         if existing:
+            videos_skipped_counter.add(1, {"source_type": source_type})
+            video_duration_histogram.record(time.time() - video_start_time, {"result": "skipped"})
             return True, f"SKIP: Already in SurrealDB ({video_id})"
 
         log(f"  Fetching transcript for {video_id}...")
         transcript = get_transcript(url, cache=None)
 
         if "ERROR:" in transcript:
+            videos_failed_counter.add(1, {"source_type": source_type, "reason": "transcript_fetch"})
+            video_duration_histogram.record(time.time() - video_start_time, {"result": "error"})
             return False, f"ERROR: {transcript}"
 
         # Fetch YouTube metadata (title, description, etc.)
@@ -252,11 +320,17 @@ async def ingest_video(
         storage.client.put_json(cache_key, cache_data)
 
         title = youtube_metadata.get("title", video_id)[:50]
+        videos_processed_counter.add(1, {"source_type": source_type})
+        video_duration_histogram.record(time.time() - video_start_time, {"result": "success"})
         return True, f"OK: {title}... ({len(transcript)} chars)"
 
     except ValueError as e:
+        videos_failed_counter.add(1, {"source_type": source_type, "reason": "invalid_url"})
+        video_duration_histogram.record(time.time() - video_start_time, {"result": "error"})
         return False, f"ERROR: Invalid URL - {e}"
     except Exception as e:
+        videos_failed_counter.add(1, {"source_type": source_type, "reason": "exception"})
+        video_duration_histogram.record(time.time() - video_start_time, {"result": "error"})
         return False, f"ERROR: {type(e).__name__}: {e}"
 
 
@@ -266,6 +340,7 @@ async def process_csv(csv_path: Path, archive_manager, storage: ArchiveStorage, 
 
     stats = {"processed": 0, "skipped": 0, "errors": 0, "total": 0}
     started_at = datetime.now().isoformat()
+    job_start_time = time.time()
 
     try:
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -315,8 +390,14 @@ async def process_csv(csv_path: Path, archive_manager, storage: ArchiveStorage, 
 
         log(f"[{worker_id}]   Done: {stats['processed']} processed, {stats['skipped']} skipped, {stats['errors']} errors")
 
+        # Record job success metrics
+        jobs_processed_counter.add(1, {"worker_id": worker_id})
+        job_duration_histogram.record(time.time() - job_start_time, {"result": "success", "video_count": str(stats["total"])})
+
     except Exception as e:
         log(f"[{worker_id}]   CSV Error: {e}")
+        jobs_failed_counter.add(1, {"worker_id": worker_id, "reason": "exception"})
+        job_duration_histogram.record(time.time() - job_start_time, {"result": "error"})
     finally:
         # Clear this worker's progress when done
         await clear_progress(worker_id)
