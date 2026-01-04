@@ -294,3 +294,18 @@ gpu-shell:
 gpu-deploy-observability:
 	@echo "Deploying observability stack (LGTM) to GPU server..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy-observability.yml
+
+# Embedding Backfill
+.PHONY: embed-status embed-backfill embed-backfill-dry
+
+embed-status:
+	@echo "Checking embedding backfill status..."
+	@uv run python -m compose.worker.embedding_backfill status
+
+embed-backfill:
+	@echo "Running embedding backfill (chunk + embed)..."
+	@uv run python -m compose.worker.embedding_backfill run --batch 100
+
+embed-backfill-dry:
+	@echo "Dry run: Preview what would be processed..."
+	@uv run python -m compose.worker.embedding_backfill run --dry-run --batch 10

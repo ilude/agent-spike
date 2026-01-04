@@ -130,7 +130,7 @@ markers = [
 filterwarnings = [
     "ignore::DeprecationWarning:pydantic.*:",
 ]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short -m 'not integration'"
 
 [tool.coverage.run]
 source = ["compose"]
