@@ -65,6 +65,8 @@ services:
       # Legacy embedding service (DEPRECATED - may be replaced)
       - INFINITY_URL=http://192.168.16.241:7997
       - INFINITY_MODEL=Alibaba-NLP/gte-large-en-v1.5
+      # OpenTelemetry - sends metrics/traces to GPU server
+      - OTLP_ENDPOINT=http://192.168.16.241:4318
     env_file:
       - ../.env  # Loads SurrealDB, MinIO, and API keys (git-crypt encrypted)
     command: uv run uvicorn compose.api.main:app --reload --host 0.0.0.0 --port 8000
@@ -223,6 +225,8 @@ services:
       # Worker configuration
       - POLL_INTERVAL=10
       - WORKER_POOL_SIZE=3
+      # OpenTelemetry - sends metrics/traces to GPU server
+      - OTLP_ENDPOINT=http://192.168.16.241:4318
     env_file:
       - ../.env  # Loads SurrealDB, MinIO, and API keys (git-crypt encrypted)
     # depends_on removed - Qdrant/Infinity now on remote server (192.168.16.241)
