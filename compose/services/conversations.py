@@ -433,40 +433,40 @@ class ConversationService:
         if user_id:
             search_query = """
             SELECT DISTINCT
-                c.id AS id,
-                c.title AS title,
-                c.model AS model,
-                c.created_at AS created_at,
-                c.updated_at AS updated_at,
-                (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
-            FROM conversation AS c
+                id,
+                title,
+                model,
+                created_at,
+                updated_at,
+                (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
+            FROM conversation
             WHERE
-                c.user_id = $user_id
+                user_id = $user_id
                 AND (
-                    string::lowercase(c.title) CONTAINS string::lowercase($query)
-                    OR c.id IN (
+                    string::lowercase(title) CONTAINS string::lowercase($query)
+                    OR id IN (
                         SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
                     )
                 )
-            ORDER BY c.updated_at DESC;
+            ORDER BY updated_at DESC;
             """
             results = await self.db.execute(search_query, {"query": query, "user_id": user_id})
         else:
             search_query = """
             SELECT DISTINCT
-                c.id AS id,
-                c.title AS title,
-                c.model AS model,
-                c.created_at AS created_at,
-                c.updated_at AS updated_at,
-                (SELECT count() FROM message WHERE conversation_id = c.id GROUP ALL)[0].count AS message_count
-            FROM conversation AS c
+                id,
+                title,
+                model,
+                created_at,
+                updated_at,
+                (SELECT count() FROM message WHERE conversation_id = $parent.id GROUP ALL)[0].count AS message_count
+            FROM conversation
             WHERE
-                string::lowercase(c.title) CONTAINS string::lowercase($query)
-                OR c.id IN (
+                string::lowercase(title) CONTAINS string::lowercase($query)
+                OR id IN (
                     SELECT VALUE conversation_id FROM message WHERE string::lowercase(content) CONTAINS string::lowercase($query)
                 )
-            ORDER BY c.updated_at DESC;
+            ORDER BY updated_at DESC;
             """
             results = await self.db.execute(search_query, {"query": query})
 

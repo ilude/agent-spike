@@ -265,6 +265,143 @@ def update_graph(ctx: PipelineContext) -> StepResult[str]:
     return asyncio.run(_update_db())
 
 
+@pipeline_step(
+    depends_on=["archive_raw"],
+    description="Chunk transcript into semantic segments for fine-grained search",
+)
+def chunk_transcript(ctx: PipelineContext) -> StepResult[int]:
+    """Chunk a video transcript into semantic segments.
+
+    Uses time + token hybrid chunking strategy:
+    - Splits on natural pause boundaries (8+ sec gaps)
+    - Targets 2500 tokens per chunk
+    - Tracks start/end timestamps for each chunk
+
+    This enables timestamp-level search ("find where they discussed X").
+    """
+    import asyncio
+    import os
+
+    from compose.services.chunking import chunk_youtube_transcript
+    from compose.services.minio import create_minio_client
+    from compose.services.surrealdb import (
+        delete_chunks_for_video,
+        upsert_chunks,
+        VideoChunkRecord,
+    )
+
+    async def _chunk_and_store():
+        try:
+            # Get timed transcript from MinIO archive
+            minio_client = create_minio_client(
+                url=os.getenv("MINIO_URL", "http://192.168.16.241:9000"),
+                bucket=os.getenv("MINIO_BUCKET", "cache"),
+            )
+
+            archive_key = f"youtube:video:{ctx.video_id}"
+            if not minio_client.exists(archive_key):
+                return StepResult.fail(f"Archive not found: {archive_key}")
+
+            archive_data = minio_client.get_json(archive_key)
+            timed_transcript = archive_data.get("timed_transcript")
+
+            if not timed_transcript:
+                # Fall back to raw transcript - can't chunk without timestamps
+                return StepResult.fail(
+                    f"No timed_transcript for {ctx.video_id} - cannot chunk"
+                )
+
+            # Chunk the transcript
+            result = chunk_youtube_transcript(timed_transcript, video_id=ctx.video_id)
+
+            if not result.chunks:
+                return StepResult.fail(f"Chunking produced no chunks for {ctx.video_id}")
+
+            # Delete existing chunks (idempotent re-chunking)
+            await delete_chunks_for_video(ctx.video_id)
+
+            # Create chunk records (without embeddings - those come later)
+            chunk_records = [
+                VideoChunkRecord(
+                    chunk_id=f"{ctx.video_id}:{chunk.chunk_index}",
+                    video_id=ctx.video_id,
+                    chunk_index=chunk.chunk_index,
+                    text=chunk.text,
+                    start_time=chunk.start_time,
+                    end_time=chunk.end_time,
+                    token_count=chunk.token_count,
+                    embedding=None,  # Embeddings generated in embed_chunks step
+                )
+                for chunk in result.chunks
+            ]
+
+            # Store chunks in SurrealDB
+            count = await upsert_chunks(chunk_records)
+
+            return StepResult.ok(
+                count,
+                message=f"Created {count} chunks for {ctx.video_id} "
+                f"(total duration: {result.total_duration:.0f}s)",
+            )
+
+        except Exception as e:
+            return StepResult.fail(f"Chunking failed: {e}")
+
+    return asyncio.run(_chunk_and_store())
+
+
+@pipeline_step(
+    depends_on=["chunk_transcript"],
+    description="Generate embeddings for transcript chunks using bge-m3",
+)
+def embed_chunks(ctx: PipelineContext) -> StepResult[int]:
+    """Generate embeddings for all chunks of a video.
+
+    Uses BAAI/bge-m3 model via Infinity service for chunk-level embeddings.
+    These enable fine-grained semantic search with timestamp precision.
+    """
+    import asyncio
+
+    from compose.services.embeddings import get_chunk_embedder
+    from compose.services.surrealdb import get_chunks_for_video, upsert_chunk
+
+    async def _embed_chunks():
+        try:
+            # Get chunks for this video
+            chunks = await get_chunks_for_video(ctx.video_id)
+
+            if not chunks:
+                return StepResult.fail(f"No chunks found for {ctx.video_id}")
+
+            # Filter to chunks without embeddings
+            chunks_to_embed = [c for c in chunks if not c.embedding]
+
+            if not chunks_to_embed:
+                return StepResult.ok(
+                    0, message=f"All {len(chunks)} chunks already have embeddings"
+                )
+
+            # Get embedder and generate embeddings in batch
+            embedder = get_chunk_embedder()
+            texts = [c.text for c in chunks_to_embed]
+            embeddings = embedder.embed_batch(texts)
+
+            # Update each chunk with its embedding
+            for chunk, embedding in zip(chunks_to_embed, embeddings):
+                chunk.embedding = embedding
+                await upsert_chunk(chunk)
+
+            return StepResult.ok(
+                len(chunks_to_embed),
+                message=f"Embedded {len(chunks_to_embed)} chunks for {ctx.video_id}",
+            )
+
+        except Exception as e:
+            return StepResult.fail(f"Chunk embedding failed: {e}")
+
+    return asyncio.run(_embed_chunks())
+
+
 # Default step list for full ingestion
 DEFAULT_PIPELINE_STEPS = [
     "fetch_transcript",
@@ -281,4 +418,10 @@ MINIMAL_PIPELINE_STEPS = [
     "fetch_metadata",
     "archive_raw",
     "cache_to_minio",
+]
+
+# Embedding pipeline (for backfill operations)
+EMBEDDING_PIPELINE_STEPS = [
+    "chunk_transcript",
+    "embed_chunks",
 ]

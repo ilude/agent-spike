@@ -225,3 +225,104 @@ def chunk_youtube_transcript(
     """
     chunker = YouTubeChunker(config)
     return chunker.chunk_transcript(timed_segments, video_id)
+
+
+def chunk_plain_transcript(
+    text: str,
+    video_id: str = "",
+    config: Optional[ChunkingConfig] = None,
+) -> ChunkingResult:
+    """Chunk a plain text transcript (no timestamps).
+
+    Splits text at sentence boundaries based on token count targets.
+    All chunks will have start_time=0 and end_time=0 (no timestamp seeking).
+
+    Args:
+        text: Plain text transcript
+        video_id: YouTube video ID
+        config: Optional chunking configuration
+
+    Returns:
+        ChunkingResult with chunks (timestamps will be 0)
+    """
+    if not text or not text.strip():
+        return ChunkingResult(video_id=video_id)
+
+    cfg = config or ChunkingConfig()
+    chunks = []
+    chunk_index = 0
+
+    # Split into sentences
+    sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+    if not sentences:
+        return ChunkingResult(video_id=video_id)
+
+    current_text = ""
+    chars_per_token = cfg.chars_per_token
+
+    for sentence in sentences:
+        test_text = (current_text + " " + sentence).strip() if current_text else sentence
+        test_tokens = len(test_text) // chars_per_token
+
+        if test_tokens >= cfg.target_tokens and current_text:
+            # Current chunk is large enough, save it
+            chunk = TranscriptChunk(
+                text=current_text,
+                start_time=0.0,
+                end_time=0.0,
+                chunk_index=chunk_index,
+                video_id=video_id,
+                token_count=len(current_text) // chars_per_token,
+            )
+            chunks.append(chunk)
+            chunk_index += 1
+            current_text = sentence
+        elif test_tokens >= cfg.max_tokens:
+            # Combined is too large, save current and start new with this sentence
+            if current_text:
+                chunk = TranscriptChunk(
+                    text=current_text,
+                    start_time=0.0,
+                    end_time=0.0,
+                    chunk_index=chunk_index,
+                    video_id=video_id,
+                    token_count=len(current_text) // chars_per_token,
+                )
+                chunks.append(chunk)
+                chunk_index += 1
+            current_text = sentence
+        else:
+            # Add sentence to current chunk
+            current_text = test_text
+
+    # Handle remaining text
+    if current_text:
+        current_tokens = len(current_text) // chars_per_token
+        if chunks and current_tokens < cfg.min_tokens:
+            # Too small - merge with previous chunk
+            last = chunks[-1]
+            merged = last.text + " " + current_text
+            chunks[-1] = TranscriptChunk(
+                text=merged,
+                start_time=0.0,
+                end_time=0.0,
+                chunk_index=last.chunk_index,
+                video_id=video_id,
+                token_count=len(merged) // chars_per_token,
+            )
+        else:
+            chunk = TranscriptChunk(
+                text=current_text,
+                start_time=0.0,
+                end_time=0.0,
+                chunk_index=chunk_index,
+                video_id=video_id,
+                token_count=len(current_text) // chars_per_token,
+            )
+            chunks.append(chunk)
+
+    return ChunkingResult(
+        chunks=chunks,
+        video_id=video_id,
+        total_duration=0.0,  # Unknown without timestamps
+    )

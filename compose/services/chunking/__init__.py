@@ -14,7 +14,11 @@ Example:
 """
 
 from .models import TranscriptChunk, ChunkingConfig, ChunkingResult
-from .youtube_chunker import YouTubeChunker, chunk_youtube_transcript
+from .youtube_chunker import (
+    YouTubeChunker,
+    chunk_youtube_transcript,
+    chunk_plain_transcript,
+)
 
 __all__ = [
     "TranscriptChunk",
@@ -22,4 +26,5 @@ __all__ = [
     "ChunkingResult",
     "YouTubeChunker",
     "chunk_youtube_transcript",
+    "chunk_plain_transcript",
 ]
