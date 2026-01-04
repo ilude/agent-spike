@@ -34,3 +34,42 @@ scrape_configs:
   - job_name: 'grafana'
     static_configs:
       - targets: ['grafana:3000']
+
+  # Scrape NVIDIA GPU metrics
+  - job_name: 'nvidia-gpu'
+    static_configs:
+      - targets: ['nvidia-gpu-exporter:9835']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'gpu-server'
+
+  # Scrape Node Exporter (host system metrics)
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'gpu-server'
+
+  # Scrape cAdvisor (container metrics)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'gpu-server'
+
+  # Scrape MinIO metrics
+  - job_name: 'minio'
+    bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoibWluaW9hZG1pbiIsImV4cCI6NDkxODEzMzk5MH0.m_sgvr-XFGoV48WFuWeyacHzstp4OKmERSbCusM5aK-IwFE7JuPcVdgBWnFbp4rqUXZzUg6xoV3R7Bt0GPgi4w
+    metrics_path: /minio/v2/metrics/cluster
+    scheme: http
+    static_configs:
+      - targets: ['172.17.0.1:9000']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'gpu-server'

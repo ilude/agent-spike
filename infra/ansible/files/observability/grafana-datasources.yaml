@@ -3,6 +3,7 @@ apiVersion: 1
 datasources:
   - name: Loki
     type: loki
+    uid: loki
     access: proxy
     url: http://loki:3100
     isDefault: true
@@ -14,6 +15,7 @@ datasources:
 
   - name: Prometheus
     type: prometheus
+    uid: prometheus
     access: proxy
     url: http://prometheus:9090
     jsonData:
@@ -23,12 +25,13 @@ datasources:
 
   - name: Tempo
     type: tempo
+    uid: tempo
     access: proxy
     url: http://tempo:3200
     jsonData:
       httpMethod: GET
       tracesToLogs:
-        datasourceUid: 'Loki'
+        datasourceUid: loki
         tags: ['correlation_id']
         mappedTags: [{ key: 'service.name', value: 'service_name' }]
         mapTagNamesEnabled: true
@@ -37,9 +40,9 @@ datasources:
         filterByTraceID: true
         filterBySpanID: false
       serviceMap:
-        datasourceUid: 'Prometheus'
+        datasourceUid: prometheus
       nodeGraph:
         enabled: true
       lokiSearch:
-        datasourceUid: 'Loki'
+        datasourceUid: loki
     editable: false
