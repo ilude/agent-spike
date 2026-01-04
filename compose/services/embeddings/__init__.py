@@ -2,11 +2,18 @@
 
 Provides a simple interface for generating embeddings without
 coupling to any specific storage backend.
+
+Features:
+- Automatic retry with exponential backoff on transient failures
+- Support for both global (gte-large) and chunk (bge-m3) embeddings
+- Batch embedding for efficient processing
 """
 
 import os
 import httpx
 from typing import Optional
+
+from compose.lib.retry import retry_on_failure
 
 
 # Default Infinity URL - uses environment variable or GPU server
@@ -43,8 +50,13 @@ class EmbeddingService:
             Embedding vector as list of floats
 
         Raises:
-            ConnectionError: If Infinity service unavailable
+            ConnectionError: If Infinity service unavailable after retries
         """
+        return self._embed_with_retry(text)
+
+    @retry_on_failure(max_retries=3, base_delay=1.0)
+    def _embed_with_retry(self, text: str) -> list[float]:
+        """Internal method with retry logic."""
         try:
             response = httpx.post(
                 f"{self.infinity_url}/embeddings",
@@ -65,7 +77,15 @@ class EmbeddingService:
 
         Returns:
             List of embedding vectors
+
+        Raises:
+            ConnectionError: If Infinity service unavailable after retries
         """
+        return self._embed_batch_with_retry(texts)
+
+    @retry_on_failure(max_retries=3, base_delay=1.0)
+    def _embed_batch_with_retry(self, texts: list[str]) -> list[list[float]]:
+        """Internal method with retry logic."""
         try:
             response = httpx.post(
                 f"{self.infinity_url}/embeddings",
