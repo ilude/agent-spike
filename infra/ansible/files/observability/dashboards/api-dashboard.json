@@ -90,7 +90,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_count{service_name=\"agent-spike-api\"}[5m])) by (http_route)",
+          "expr": "sum(rate(agent_spike_http_server_request_duration_seconds_count{job=\"agent-spike/agent-spike-api\"}[5m])) by (http_route)",
           "legendFormat": "{{http_route}}",
           "range": true,
           "refId": "A"
@@ -181,7 +181,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.50, sum(rate(http_server_request_duration_seconds_bucket{service_name=\"agent-spike-api\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.50, sum(rate(agent_spike_http_server_request_duration_seconds_bucket{job=\"agent-spike/agent-spike-api\"}[5m])) by (le))",
           "legendFormat": "p50",
           "range": true,
           "refId": "A"
@@ -192,7 +192,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket{service_name=\"agent-spike-api\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(agent_spike_http_server_request_duration_seconds_bucket{job=\"agent-spike/agent-spike-api\"}[5m])) by (le))",
           "legendFormat": "p95",
           "range": true,
           "refId": "B"
@@ -203,7 +203,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(http_server_request_duration_seconds_bucket{service_name=\"agent-spike-api\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(agent_spike_http_server_request_duration_seconds_bucket{job=\"agent-spike/agent-spike-api\"}[5m])) by (le))",
           "legendFormat": "p99",
           "range": true,
           "refId": "C"
@@ -298,7 +298,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_count{service_name=\"agent-spike-api\", http_status_code=~\"5..\"}[5m])) / sum(rate(http_server_request_duration_seconds_count{service_name=\"agent-spike-api\"}[5m]))",
+          "expr": "sum(rate(agent_spike_http_server_request_duration_seconds_count{job=\"agent-spike/agent-spike-api\", http_status_code=~\"5..\"}[5m])) / sum(rate(agent_spike_http_server_request_duration_seconds_count{job=\"agent-spike/agent-spike-api\"}[5m]))",
           "legendFormat": "5xx Error Rate",
           "range": true,
           "refId": "A"
@@ -309,7 +309,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_count{service_name=\"agent-spike-api\", http_status_code=~\"4..\"}[5m])) / sum(rate(http_server_request_duration_seconds_count{service_name=\"agent-spike-api\"}[5m]))",
+          "expr": "sum(rate(agent_spike_http_server_request_duration_seconds_count{job=\"agent-spike/agent-spike-api\", http_status_code=~\"4..\"}[5m])) / sum(rate(agent_spike_http_server_request_duration_seconds_count{job=\"agent-spike/agent-spike-api\"}[5m]))",
           "legendFormat": "4xx Error Rate",
           "range": true,
           "refId": "B"
