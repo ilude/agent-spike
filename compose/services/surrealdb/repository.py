@@ -222,6 +222,98 @@ async def init_schema() -> None:
         DEFINE FIELD updated_at ON TABLE worker_progress TYPE datetime VALUE time::now();
         DEFINE INDEX idx_worker_id ON TABLE worker_progress COLUMNS worker_id UNIQUE;
         """,
+        # =============================================================================
+        # Mentat Studio: Vault and Notes Tables
+        # =============================================================================
+        # Vault: Container for notes (like Obsidian vaults)
+        """
+        DEFINE TABLE vault SCHEMAFULL;
+        DEFINE FIELD id ON TABLE vault TYPE string;
+        DEFINE FIELD name ON TABLE vault TYPE string;
+        DEFINE FIELD slug ON TABLE vault TYPE string;
+        DEFINE FIELD storage_type ON TABLE vault TYPE string DEFAULT 'minio';
+        DEFINE FIELD minio_bucket ON TABLE vault TYPE option<string>;
+        DEFINE FIELD settings ON TABLE vault TYPE object DEFAULT {};
+        DEFINE FIELD created_at ON TABLE vault TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE vault TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_vault_id ON TABLE vault COLUMNS id UNIQUE;
+        DEFINE INDEX idx_vault_slug ON TABLE vault COLUMNS slug UNIQUE;
+        """,
+        # Note: Markdown notes within a vault
+        """
+        DEFINE TABLE note SCHEMAFULL;
+        DEFINE FIELD id ON TABLE note TYPE string;
+        DEFINE FIELD vault_id ON TABLE note TYPE string;
+        DEFINE FIELD path ON TABLE note TYPE string;
+        DEFINE FIELD title ON TABLE note TYPE string;
+        DEFINE FIELD content ON TABLE note TYPE string;
+        DEFINE FIELD preview ON TABLE note TYPE option<string>;
+        DEFINE FIELD word_count ON TABLE note TYPE int DEFAULT 0;
+        DEFINE FIELD embedding ON TABLE note TYPE option<array<float>>;
+        DEFINE FIELD ai_processed_at ON TABLE note TYPE option<datetime>;
+        DEFINE FIELD created_at ON TABLE note TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE note TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_note_id ON TABLE note COLUMNS id UNIQUE;
+        DEFINE INDEX idx_note_vault ON TABLE note COLUMNS vault_id;
+        DEFINE INDEX idx_note_path ON TABLE note COLUMNS vault_id, path UNIQUE;
+        DEFINE INDEX idx_note_embedding ON TABLE note FIELDS embedding HNSW DIMENSION 1024 DIST COSINE;
+        """,
+        # Note Link: Tracks [[wiki-links]] between notes
+        """
+        DEFINE TABLE note_link SCHEMAFULL;
+        DEFINE FIELD id ON TABLE note_link TYPE string;
+        DEFINE FIELD source_id ON TABLE note_link TYPE string;
+        DEFINE FIELD target_id ON TABLE note_link TYPE option<string>;
+        DEFINE FIELD link_text ON TABLE note_link TYPE string;
+        DEFINE FIELD link_type ON TABLE note_link TYPE string DEFAULT 'manual';
+        DEFINE FIELD accepted ON TABLE note_link TYPE bool DEFAULT true;
+        DEFINE FIELD confidence ON TABLE note_link TYPE option<float>;
+        DEFINE FIELD created_at ON TABLE note_link TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_note_link_id ON TABLE note_link COLUMNS id UNIQUE;
+        DEFINE INDEX idx_note_link_source ON TABLE note_link COLUMNS source_id;
+        DEFINE INDEX idx_note_link_target ON TABLE note_link COLUMNS target_id;
+        """,
+        # AI Suggestion: Pending user review for links, tags, etc.
+        """
+        DEFINE TABLE ai_suggestion SCHEMAFULL;
+        DEFINE FIELD id ON TABLE ai_suggestion TYPE string;
+        DEFINE FIELD note_id ON TABLE ai_suggestion TYPE string;
+        DEFINE FIELD suggestion_type ON TABLE ai_suggestion TYPE string;
+        DEFINE FIELD suggestion_data ON TABLE ai_suggestion TYPE object;
+        DEFINE FIELD confidence ON TABLE ai_suggestion TYPE float;
+        DEFINE FIELD status ON TABLE ai_suggestion TYPE string DEFAULT 'pending';
+        DEFINE FIELD created_at ON TABLE ai_suggestion TYPE datetime VALUE time::now();
+        DEFINE FIELD resolved_at ON TABLE ai_suggestion TYPE option<datetime>;
+        DEFINE INDEX idx_ai_suggestion_id ON TABLE ai_suggestion COLUMNS id UNIQUE;
+        DEFINE INDEX idx_ai_suggestion_note ON TABLE ai_suggestion COLUMNS note_id, status;
+        """,
+        # Entity: Extracted named entities from notes for knowledge graph
+        """
+        DEFINE TABLE entity SCHEMAFULL;
+        DEFINE FIELD id ON TABLE entity TYPE string;
+        DEFINE FIELD vault_id ON TABLE entity TYPE string;
+        DEFINE FIELD name ON TABLE entity TYPE string;
+        DEFINE FIELD normalized_name ON TABLE entity TYPE string;
+        DEFINE FIELD entity_type ON TABLE entity TYPE string;
+        DEFINE FIELD description ON TABLE entity TYPE option<string>;
+        DEFINE FIELD embedding ON TABLE entity TYPE option<array<float>>;
+        DEFINE FIELD created_at ON TABLE entity TYPE datetime VALUE time::now();
+        DEFINE FIELD updated_at ON TABLE entity TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_entity_id ON TABLE entity COLUMNS id UNIQUE;
+        DEFINE INDEX idx_entity_vault ON TABLE entity COLUMNS vault_id;
+        DEFINE INDEX idx_entity_name ON TABLE entity COLUMNS vault_id, normalized_name UNIQUE;
+        DEFINE INDEX idx_entity_embedding ON TABLE entity FIELDS embedding HNSW DIMENSION 1024 DIST COSINE;
+        """,
+        # Note-Entity relationship: Links notes to entities they mention
+        """
+        DEFINE TABLE note_entity SCHEMAFULL;
+        DEFINE FIELD note_id ON TABLE note_entity TYPE string;
+        DEFINE FIELD entity_id ON TABLE note_entity TYPE string;
+        DEFINE FIELD mention_count ON TABLE note_entity TYPE int DEFAULT 1;
+        DEFINE FIELD created_at ON TABLE note_entity TYPE datetime VALUE time::now();
+        DEFINE INDEX idx_note_entity_note ON TABLE note_entity COLUMNS note_id;
+        DEFINE INDEX idx_note_entity_entity ON TABLE note_entity COLUMNS entity_id;
+        """,
     ]
 
     for query in queries:

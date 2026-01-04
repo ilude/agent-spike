@@ -36,6 +36,7 @@ from .repository import (
     link_video_to_channel,
     link_video_to_topics,
     semantic_search,
+    semantic_search_chunks,
     update_pipeline_state,
     upsert_video,
 )
@@ -69,6 +70,7 @@ __all__ = [
     "link_video_to_channel",
     "link_video_to_topics",
     "semantic_search",
+    "semantic_search_chunks",
     "get_video_count",
     "get_channel_count",
     "get_topic_count",

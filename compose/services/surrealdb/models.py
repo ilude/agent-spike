@@ -237,3 +237,120 @@ class BackupRecord(BaseModel):
     size_bytes: Optional[int] = None
     error_message: Optional[str] = None
     tables_backed_up: list[str] = Field(default_factory=list)
+
+
+# =============================================================================
+# Mentat Studio: Vault and Notes Models
+# =============================================================================
+
+
+class VaultRecord(BaseModel):
+    """Vault container for markdown notes (like Obsidian vaults)."""
+
+    id: Optional[str] = None
+    name: str
+    slug: str  # URL-safe identifier
+    storage_type: str = "minio"  # "minio" or "local"
+    minio_bucket: Optional[str] = None
+    settings: dict = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+
+
+class NoteRecord(BaseModel):
+    """Markdown note within a vault."""
+
+    id: Optional[str] = None
+    vault_id: str
+    path: str  # e.g., "inbox/quick-note.md" or "projects/ai-agents.md"
+    title: str
+    content: str
+    preview: Optional[str] = None  # First 200 chars for list views
+    word_count: int = 0
+    embedding: Optional[list[float]] = None
+    ai_processed_at: Optional[datetime] = None
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+
+
+class NoteLinkRecord(BaseModel):
+    """Wiki-link between notes [[target]]."""
+
+    id: Optional[str] = None
+    source_id: str  # Note ID where link originates
+    target_id: Optional[str] = None  # Note ID of target (null if unresolved)
+    link_text: str  # The text inside [[...]]
+    link_type: str = "manual"  # "manual", "ai_suggested", "ai_auto"
+    accepted: bool = True  # For AI suggestions
+    confidence: Optional[float] = None
+    created_at: datetime = Field(default_factory=datetime.now)
+
+
+class AISuggestionRecord(BaseModel):
+    """AI-generated suggestion pending user review."""
+
+    id: Optional[str] = None
+    note_id: str
+    suggestion_type: str  # "link", "tag", "entity", "merge"
+    suggestion_data: dict  # Type-specific data
+    confidence: float
+    status: str = "pending"  # "pending", "accepted", "rejected"
+    created_at: datetime = Field(default_factory=datetime.now)
+    resolved_at: Optional[datetime] = None
+
+
+class EntityRecord(BaseModel):
+    """Named entity extracted from notes for knowledge graph."""
+
+    id: Optional[str] = None
+    vault_id: str
+    name: str  # Original case
+    normalized_name: str  # Lowercase for matching
+    entity_type: str  # "person", "concept", "project", "tool", "organization"
+    description: Optional[str] = None
+    embedding: Optional[list[float]] = None
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+
+
+class NoteEntityRecord(BaseModel):
+    """Relationship between note and entity it mentions."""
+
+    note_id: str
+    entity_id: str
+    mention_count: int = 1
+    created_at: datetime = Field(default_factory=datetime.now)
+
+
+class FileTreeNode(BaseModel):
+    """Node in the file tree for frontend display."""
+
+    name: str
+    path: str
+    type: str  # "file" or "folder"
+    children: list["FileTreeNode"] = Field(default_factory=list)
+    note_id: Optional[str] = None  # For files, the note ID
+
+
+class GraphNode(BaseModel):
+    """Node in the knowledge graph visualization."""
+
+    id: str
+    title: str
+    type: str  # "note" or "entity"
+    size: int = 1  # Based on link count
+
+
+class GraphEdge(BaseModel):
+    """Edge in the knowledge graph visualization."""
+
+    source: str
+    target: str
+    type: str  # "wiki-link", "mention"
+
+
+class GraphData(BaseModel):
+    """Complete graph data for visualization."""
+
+    nodes: list[GraphNode]
+    edges: list[GraphEdge]
