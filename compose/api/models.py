@@ -54,6 +54,29 @@ class CacheSearchResponse(BaseModel):
     total_found: int
 
 
+class ChunkSearchResult(BaseModel):
+    """Single chunk search result with timestamp information."""
+
+    chunk_id: str
+    video_id: str
+    chunk_index: int
+    text: str
+    start_time: float
+    end_time: float
+    timestamp_range: str  # Human-readable format "MM:SS - MM:SS"
+    score: float
+    video_title: str | None = None
+    video_url: str | None = None
+
+
+class ChunkSearchResponse(BaseModel):
+    """Response from chunk-level search."""
+
+    query: str
+    results: list[ChunkSearchResult]
+    total_found: int
+
+
 class HealthCheckResponse(BaseModel):
     """Health check response."""
 
