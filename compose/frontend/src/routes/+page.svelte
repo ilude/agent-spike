@@ -178,6 +178,7 @@
     <a href="/" class="logo">Mentat</a>
     <nav>
       <a href="/chat" class="nav-link">Chat</a>
+      <a href="/studio" class="nav-link">Studio</a>
     </nav>
   </header>
 

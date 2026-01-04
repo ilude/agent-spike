@@ -1152,6 +1152,348 @@ export class MentatAPI {
 		}
 		return res.json();
 	}
+
+	// ============ Studio: Vault Methods ============
+
+	/**
+	 * List all vaults
+	 * @returns {Promise<{vaults: Array}>}
+	 */
+	async listVaults() {
+		const res = await this._fetch(`${this.baseURL}/vaults`);
+		if (!res.ok) {
+			throw new Error(`Failed to list vaults: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a new vault
+	 * @param {Object} data - Vault data
+	 * @param {string} data.name - Vault name
+	 * @param {string} [data.storage_type] - 'minio' or 'local'
+	 * @param {Object} [data.settings] - Vault settings
+	 * @returns {Promise<Object>}
+	 */
+	async createVault({ name, storage_type = 'minio', settings = {} }) {
+		const res = await this._fetch(`${this.baseURL}/vaults`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ name, storage_type, settings })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create vault: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a vault by ID
+	 * @param {string} vaultId - Vault ID
+	 * @returns {Promise<Object>}
+	 */
+	async getVault(vaultId) {
+		const res = await this._fetch(`${this.baseURL}/vaults/${vaultId}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get vault: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a vault by slug
+	 * @param {string} slug - Vault slug
+	 * @returns {Promise<Object>}
+	 */
+	async getVaultBySlug(slug) {
+		const res = await this._fetch(`${this.baseURL}/vaults/by-slug/${encodeURIComponent(slug)}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get vault: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update a vault
+	 * @param {string} vaultId - Vault ID
+	 * @param {Object} data - Update data (name, settings)
+	 * @returns {Promise<Object>}
+	 */
+	async updateVault(vaultId, data) {
+		const res = await this._fetch(`${this.baseURL}/vaults/${vaultId}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update vault: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a vault
+	 * @param {string} vaultId - Vault ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteVault(vaultId) {
+		const res = await this._fetch(`${this.baseURL}/vaults/${vaultId}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete vault: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get file tree for a vault
+	 * @param {string} vaultId - Vault ID
+	 * @returns {Promise<{tree: Array}>}
+	 */
+	async getVaultFileTree(vaultId) {
+		const res = await this._fetch(`${this.baseURL}/vaults/${vaultId}/tree`);
+		if (!res.ok) {
+			throw new Error(`Failed to get file tree: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	// ============ Studio: Note Methods ============
+
+	/**
+	 * List notes in a vault
+	 * @param {string} vaultId - Vault ID
+	 * @param {string} folderPath - Optional folder filter
+	 * @returns {Promise<{notes: Array}>}
+	 */
+	async listNotes(vaultId, folderPath = null) {
+		let url = `${this.baseURL}/notes?vault_id=${encodeURIComponent(vaultId)}`;
+		if (folderPath) url += `&folder_path=${encodeURIComponent(folderPath)}`;
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error(`Failed to list notes: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a new note
+	 * @param {string} vaultId - Vault ID
+	 * @param {string} path - Note path
+	 * @param {string} content - Note content
+	 * @param {string} title - Note title
+	 * @returns {Promise<Object>}
+	 */
+	async createNote(vaultId, path, content = '', title = null) {
+		const res = await this._fetch(`${this.baseURL}/notes`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ vault_id: vaultId, path, content, title })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create note: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a note by ID
+	 * @param {string} noteId - Note ID
+	 * @returns {Promise<Object>}
+	 */
+	async getNote(noteId) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get note: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get a note by vault and path
+	 * @param {string} vaultId - Vault ID
+	 * @param {string} path - Note path
+	 * @returns {Promise<Object>}
+	 */
+	async getNoteByPath(vaultId, path) {
+		const res = await this._fetch(`${this.baseURL}/notes/by-path/${vaultId}/${encodeURIComponent(path)}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get note: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Update a note
+	 * @param {string} noteId - Note ID
+	 * @param {Object} data - Update data (content, title, path)
+	 * @returns {Promise<Object>}
+	 */
+	async updateNote(noteId, data) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to update note: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Delete a note
+	 * @param {string} noteId - Note ID
+	 * @returns {Promise<Object>}
+	 */
+	async deleteNote(noteId) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}`, {
+			method: 'DELETE'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to delete note: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Search notes
+	 * @param {string} vaultId - Vault ID
+	 * @param {string} query - Search query
+	 * @param {number} limit - Max results
+	 * @returns {Promise<{notes: Array}>}
+	 */
+	async searchNotes(vaultId, query, limit = 20) {
+		const res = await fetch(
+			`${this.baseURL}/notes/search/${vaultId}?q=${encodeURIComponent(query)}&limit=${limit}`
+		);
+		if (!res.ok) {
+			throw new Error(`Failed to search notes: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get links for a note
+	 * @param {string} noteId - Note ID
+	 * @returns {Promise<{outlinks: Array, backlinks: Array}>}
+	 */
+	async getNoteLinks(noteId) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}/links`);
+		if (!res.ok) {
+			throw new Error(`Failed to get note links: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Create a link between notes
+	 * @param {string} sourceNoteId - Source note ID
+	 * @param {string} targetNoteId - Target note ID
+	 * @param {string} linkText - Link display text
+	 * @returns {Promise<Object>}
+	 */
+	async createNoteLink(sourceNoteId, targetNoteId, linkText) {
+		const res = await this._fetch(`${this.baseURL}/notes/${sourceNoteId}/links`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ target_id: targetNoteId, link_text: linkText })
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to create link: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get AI suggestions for a note
+	 * @param {string} noteId - Note ID
+	 * @param {string} status - Filter by status
+	 * @returns {Promise<{suggestions: Array}>}
+	 */
+	async getNoteSuggestions(noteId, status = 'pending') {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}/suggestions?status=${status}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get suggestions: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Accept an AI suggestion
+	 * @param {string} noteId - Note ID
+	 * @param {string} suggestionId - Suggestion ID
+	 * @returns {Promise<Object>}
+	 */
+	async acceptSuggestion(noteId, suggestionId) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}/suggestions/${suggestionId}/accept`, {
+			method: 'POST'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to accept suggestion: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Reject an AI suggestion
+	 * @param {string} noteId - Note ID
+	 * @param {string} suggestionId - Suggestion ID
+	 * @returns {Promise<Object>}
+	 */
+	async rejectSuggestion(noteId, suggestionId) {
+		const res = await this._fetch(`${this.baseURL}/notes/${noteId}/suggestions/${suggestionId}/reject`, {
+			method: 'POST'
+		});
+		if (!res.ok) {
+			throw new Error(`Failed to reject suggestion: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	// ============ Studio: Graph Methods ============
+
+	/**
+	 * Get graph data for a vault
+	 * @param {string} vaultId - Vault ID
+	 * @returns {Promise<{nodes: Array, edges: Array}>}
+	 */
+	async getGraphData(vaultId) {
+		const res = await this._fetch(`${this.baseURL}/graph/${vaultId}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get graph data: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get local graph centered on a note
+	 * @param {string} vaultId - Vault ID
+	 * @param {string} noteId - Note ID
+	 * @param {number} depth - Depth of graph (hops)
+	 * @returns {Promise<{nodes: Array, edges: Array}>}
+	 */
+	async getLocalGraph(vaultId, noteId, depth = 2) {
+		const res = await this._fetch(`${this.baseURL}/graph/${vaultId}/local/${noteId}?depth=${depth}`);
+		if (!res.ok) {
+			throw new Error(`Failed to get local graph: ${res.statusText}`);
+		}
+		return res.json();
+	}
+
+	/**
+	 * Get graph statistics
+	 * @param {string} vaultId - Vault ID
+	 * @returns {Promise<Object>}
+	 */
+	async getGraphStats(vaultId) {
+		const res = await this._fetch(`${this.baseURL}/graph/${vaultId}/stats`);
+		if (!res.ok) {
+			throw new Error(`Failed to get graph stats: ${res.statusText}`);
+		}
+		return res.json();
+	}
 }
 
 /**

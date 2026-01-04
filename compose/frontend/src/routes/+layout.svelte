@@ -6,7 +6,7 @@
   import { logger } from '$lib/logger';
 
   // Public routes that don't require authentication
-  const publicRoutes = ['/login', '/register'];
+  const publicRoutes = ['/login', '/register', '/studio'];
 
   let initialized = false;
 
@@ -26,8 +26,12 @@
   });
 
   // Watch for auth changes and redirect if needed
-  $: if (initialized && !$isAuthenticated && !publicRoutes.includes($page.url.pathname)) {
+  $: if (initialized && !$isAuthenticated && !isPublicRoute($page.url.pathname)) {
     goto('/login');
+  }
+
+  function isPublicRoute(pathname) {
+    return publicRoutes.some(route => pathname === route || pathname.startsWith(route + '/'));
   }
 </script>
 
