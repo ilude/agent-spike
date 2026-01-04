@@ -6,17 +6,19 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from compose.api.middleware import CorrelationMiddleware
-from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, auth, settings, backup, telemetry
+from compose.api.middleware import CorrelationMiddleware, HTTPServerMetricsMiddleware
+from compose.api.routers import health, youtube, cache, chat, stats, ingest, conversations, projects, artifacts, styles, memory, websearch, sandbox, imagegen, auth, settings, backup, telemetry, vaults, studio_notes, graph
 from compose.lib.telemetry import setup_telemetry
+
+# Setup telemetry BEFORE creating app so meter provider is available for middleware
+TELEMETRY_ENABLED = bool(os.getenv("OTLP_ENDPOINT") or os.getenv("ENABLE_TELEMETRY", "").lower() == "true")
+if TELEMETRY_ENABLED:
+    setup_telemetry("agent-spike-api")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan - setup telemetry on startup."""
-    # Only enable telemetry if OTLP endpoint is configured or we're in production
-    if os.getenv("OTLP_ENDPOINT") or os.getenv("ENABLE_TELEMETRY", "").lower() == "true":
-        setup_telemetry("agent-spike-api")
+    """Application lifespan handler."""
     yield
 
 
@@ -48,6 +50,10 @@ app.add_middleware(
 # Correlation ID middleware for request tracking
 app.add_middleware(CorrelationMiddleware)
 
+# HTTP server metrics middleware (only if telemetry enabled)
+if TELEMETRY_ENABLED:
+    app.add_middleware(HTTPServerMetricsMiddleware, service_name="agent-spike-api")
+
 # Include routers
 app.include_router(health.router)
 app.include_router(youtube.router, prefix="/youtube", tags=["youtube"])
@@ -67,6 +73,11 @@ app.include_router(auth.router)
 app.include_router(settings.router)
 app.include_router(backup.router)
 app.include_router(telemetry.router)
+
+# Mentat Studio routers
+app.include_router(vaults.router, tags=["studio"])
+app.include_router(studio_notes.router, tags=["studio"])
+app.include_router(graph.router, tags=["studio"])
 
 
 @app.get("/")
