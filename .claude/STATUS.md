@@ -1,458 +1,263 @@
 # Agent Spike - Current Status
 
-**Last Updated**: 2025-11-18
-**Current Phase**: Personal AI Research Assistant - Containerized microservices architecture
+**Last Updated**: 2025-11-29
+**Current Phase**: Personal AI Research Assistant - Production Platform with Full Observability
 
 ## Current State
 
 - ✅ **9 lessons complete**: YouTube, Webpage, Coordinator, Observability, Security, Memory, Cache Manager, Batch Processing, Orchestrator
-- ✅ **Service layer extraction**: Production-ready `tools/` structure
+- ✅ **Production platform**: Mentat Chat UI with full-stack architecture
+- ✅ **LGTM observability stack**: Loki, Grafana, Tempo, Prometheus with OpenTelemetry instrumentation
+- ✅ **SurrealDB migration**: Unified data store replacing Qdrant for primary storage
 - **Long-term goal**: Personal AI Research Assistant (see `.claude/VISION.md`)
-- **Project structure**:
-  - `lessons/`: Progressive agent-building lessons (001-009)
-  - `compose/services/`: Microservices (archive, cache, analytics, metadata, tagger, display, youtube)
-  - `compose/cli/`: Production CLI scripts (ingestion, search, verification)
-  - `compose/data/`: Git-crypt encrypted data storage (Qdrant, archives, browser history)
-- **Production features**:
-  - Containerized services (Qdrant, Infinity embeddings, N8N workflows)
-  - Archive-first strategy (all expensive data saved before processing)
-  - Queue-based ingestion (pending → processing → completed workflow)
-  - Webshare proxy integration (no YouTube API rate limiting)
-  - Protocol-first service design (dependency injection)
-  - Infinity embedding service (BAAI/bge-m3, 1024-dim, 8K context)
+
+**Project structure**:
+- `lessons/`: Progressive agent-building lessons (001-009)
+- `compose/`: Production platform
+  - `api/`: FastAPI backend with 16+ routers
+  - `frontend/`: SvelteKit chat application
+  - `services/`: Microservices layer (20+ services)
+  - `worker/`: Queue processor with metrics instrumentation
+  - `data/`: Git-crypt encrypted storage
+- `infra/ansible/`: GPU server deployment automation
+
+**Production features**:
+- Multi-model chat (OpenRouter, OpenAI, Ollama)
+- RAG-enabled chat with semantic search
+- Conversation history and project management
+- File upload with Docling extraction + RAG indexing
+- Canvas/artifacts editor
+- Queue-based video ingestion with progress tracking
+- OpenTelemetry distributed tracing
+- Grafana dashboards for API and worker metrics
+- Centralized log collection via Grafana Alloy
 
 ## Recent Completions
 
-**Mentat Chat UI - Projects & Canvas** ✅ COMPLETE (2025-11-22)
-- Built ChatGPT-replacement frontend with conversation history, projects, and canvas
-- **Phase 1 - Conversations**: Sidebar with search, rename, delete, auto-naming
-- **Phase 2 - Projects**:
-  - Project grouping for conversations
-  - File upload with Docling text extraction (PDF, DOCX, etc.)
-  - RAG indexing via Qdrant for semantic search
-  - Custom instructions injected into chat context
-- **Phase 3 - Canvas/Artifacts**:
-  - Right sidebar with document editor
-  - Artifacts browser tab
-  - Auto-save with 2-second debounce
-  - Artifacts linked to conversations/projects
+### OpenTelemetry Metrics Instrumentation ✅ COMPLETE (2025-11-29)
+- Added comprehensive metrics to queue worker:
+  - **Counters**: `worker.jobs.processed`, `worker.jobs.failed`, `worker.videos.processed/skipped/failed`
+  - **Histograms**: `worker.job.duration`, `worker.video.duration`
+  - **Observable Gauge**: `worker.queue.depth` (pending/processing)
+- Updated worker dashboard with PromQL queries instead of log parsing
 
-**New files created:**
-- `compose/services/projects.py` - Project storage with file management
-- `compose/services/artifacts.py` - Artifact storage service
-- `compose/services/file_processor.py` - Docling extraction + Qdrant indexing
-- `compose/api/routers/projects.py` - Projects REST API
-- `compose/api/routers/artifacts.py` - Artifacts REST API
-- Frontend: Canvas UI, artifact API methods, project selector
+### Grafana Dashboard Provisioning ✅ COMPLETE (2025-11-29)
+- API dashboard: request rate, latency percentiles (p50/p95/p99), error rate, logs
+- Worker dashboard: job processing, videos processed/failed/skipped, queue depth, duration histograms
+- Dashboards auto-loaded via Grafana provisioning
 
-**Required services** (must be running for full functionality):
-- Qdrant: `docker compose up qdrant` (port 6335)
-- Infinity embeddings: `docker compose up infinity` (port 7997)
-- Docling: `docker compose up docling` (port 5001) - for PDF/DOCX processing
-- FastAPI backend: `uv run uvicorn compose.api.main:app --reload`
-- Frontend: `cd compose/frontend && npm run dev`
+### Frontend Telemetry ✅ COMPLETE (2025-11-29)
+- Fixed OpenTelemetry browser tracing scope bug
+- Added OTLP proxy endpoint (`/v1/traces`, `/v1/metrics`) to solve CORS issues
+- Auto-instruments fetch API with trace context propagation
 
-**API Endpoints added:**
-- `GET/POST /projects` - List/create projects
-- `GET/PUT/DELETE /projects/{id}` - Project CRUD
-- `POST /projects/{id}/files` - File upload with background RAG processing
-- `POST /projects/{id}/search` - Semantic search project files
-- `GET/POST /artifacts` - List/create artifacts
-- `GET/PUT/DELETE /artifacts/{id}` - Artifact CRUD
+### Grafana Alloy Log Collection ✅ COMPLETE (2025-11-28)
+- Centralized log collection from all Docker containers
+- Ships logs to remote Loki on GPU server (192.168.16.241:3100)
+- Extracts metadata from container labels
 
-**Containerized Microservices Migration** ✅ COMPLETE (2025-11-18)
-- Migrated from embedded Qdrant to containerized qdrant/qdrant service (ports 6335-6336)
-- Added Infinity embedding service (michaelf34/infinity) with BAAI/bge-m3 model
-  - 1024-dimension embeddings (vs 384-dim from all-MiniLM-L6-v2)
-  - 8,192 token context window (vs 256 tokens)
-  - Eliminates 75% transcript truncation issue
-- Removed ML dependencies from Docker builds
-  - Removed docling>=2.60.0 (use docling-serve container instead)
-  - Removed sentence-transformers>=2.2.0 (use Infinity service)
-  - Reduced initial build time from 11+ minutes to ~49 seconds
-- Updated all ingestion scripts to use Infinity + containerized Qdrant HTTP APIs
-- Migrated all data paths from `projects/data/` to `compose/data/`
-- Added git-crypt encryption for `compose/data/` directories
-- Deleted obsolete `projects/` directory
-- Added comprehensive documentation (INFINITY_SETUP.md, embedding_pipeline_spec)
-- 12 commits, full test coverage
+### Mentat Chat UI ✅ COMPLETE (2025-11-22)
+- Built ChatGPT-replacement frontend with SvelteKit
+- **Conversations**: Sidebar with search, rename, delete, auto-naming
+- **Projects**: File upload with Docling extraction + RAG indexing, custom instructions
+- **Canvas/Artifacts**: Right sidebar document editor with auto-save
 
-**Service Layer Extraction** ✅ COMPLETE (2025-11-09)
-- Extracted stable patterns from lessons into reusable `tools/` structure
-- **tools/services/**: Protocol-first service layer with 3 services
-  - `archive/`: LocalArchiveWriter/Reader for expensive data (JSON storage)
-  - `cache/`: QdrantCache + InMemoryCache with CacheManager protocol
-  - `youtube/`: YouTubeTranscriptService with Webshare proxy support
-- **tools/scripts/**: 6 production CLI scripts
-  - `ingest_youtube.py`: Queue-based batch REPL (main ingestion tool)
-  - `ingest_video.py`: Single video ingestion
-  - `list_videos.py`, `verify_video.py`, `search_videos.py`: Cache management
-  - `fetch_channel_videos.py`: YouTube Data API channel scraper
-- **tools/tests/**: Pytest infrastructure with 19 tests
-  - Unit tests for each service
-  - Functional tests with real Qdrant
-  - Shared fixtures and conftest.py
-  - Coverage reporting enabled
-- **All lessons updated**: Now import from centralized services
-- **Key patterns**: Dependency injection, composition over inheritance, lazy imports
-- **Time**: ~4 hours (5-phase refactoring)
+### SurrealDB Migration ✅ COMPLETE (2025-11-25)
+- Migrated from Qdrant to SurrealDB as primary data store
+- Native HNSW vector indexes for semantic search
+- Repository layer: `compose/services/surrealdb/`
+- Tables: conversations, projects, videos, worker_progress
 
-**Lesson 009: Orchestrator Agent** ✅ COMPLETE (2025-11-08)
-- Built orchestrator that coordinates multiple sub-agents in parallel
-- **Key Learning**: Nested agent-with-tools calls cause deadlocks
-- Solution: Created simplified pattern using direct LLM calls instead of nested agents
-- Successfully processes multiple URLs in parallel with reduced token usage
-- Orchestrator provides value for multi-URL batch processing scenarios
-- Time: ~3 hours (including extensive debugging of nested agent issues)
+## Service Architecture
 
-**Lesson 005: Security & Guardrails** ✅ COMPLETE
-- Built practical security validators using Python stdlib
-- Input validation: URL safety, prompt injection detection, SQL injection patterns
-- Output validation: PII detection/redaction, XSS filtering
-- Rate limiting: In-memory request throttling with cooldowns
-- 86% URL attack detection, 75% prompt injection detection, 100% PII detection
-- Time: ~45 minutes
+### Local Services (Docker Compose)
 
-**Lesson 006: Memory with Mem0 (Phase 1)** ✅ COMPLETE
-- Mem0 wrapper with simplified API for memory management
-- Semantic search for relevant memories (no exact matches needed)
-- User isolation and metadata support
-- Memory persistence in ~/.mem0/ (Qdrant + SQLite)
-- Phase 1 complete (basics), Phase 2-3 deferred (agent integration)
-- Time: ~1.5 hours (including Windows debugging)
+| Service | Port | Description |
+|---------|------|-------------|
+| **Traefik** | 80/443 | Reverse proxy + Let's Encrypt SSL |
+| **API** | 8000 | FastAPI backend |
+| **Queue Worker** | - | Async job processor with metrics |
+| **Grafana Alloy** | 12345 | Log collection → Loki |
+| **Frontend** | 5173 | SvelteKit (runs locally, not containerized) |
 
-**Lesson 007: Cache Manager & Content Ingestion** ✅ COMPLETE
-- Dependency injection pattern for clean architecture
-- CacheManager protocol with QdrantCache implementation
-- Semantic search with sentence-transformers embeddings
-- Generic CSV ingestion script with progress tracking
-- Centralized cache storage in `compose/data/qdrant_storage/`
-- Successfully cached 49+ items from video lists
+### Remote GPU Server (192.168.16.241)
 
-**Lesson 008: Batch Processing with OpenAI** ✅ COMPLETE
-- OpenAI Batch API integration for 50% cost savings
-- JSONL batch input preparation from cache
-- Batch job submission, monitoring, and result processing
-- 4 CLI scripts (prepare, submit, check, process)
-- Ready to tag all cached content at scale
+| Service | Port | Description |
+|---------|------|-------------|
+| **Infinity** | 7997 | Embeddings (Alibaba-NLP/gte-large-en-v1.5, 1024-dim) |
+| **Qdrant** | 6335-6336 | Vector database (legacy) |
+| **SurrealDB** | 8000 | Primary database |
+| **Loki** | 3100 | Log aggregation |
+| **Prometheus** | 9090 | Metrics |
+| **Tempo** | 3200 | Distributed tracing |
+| **Grafana** | 3000 | Visualization |
+| **Ollama** | 11434 | Local LLMs |
+| **Docling** | 5001 | Document parsing |
+| **MinIO** | 9000 | Object storage |
+| **Neo4j** | 7474/7687 | Graph database |
+| **n8n** | 5678 | Workflow automation |
 
-## What's Next
+## API Endpoints
 
-### Immediate Next Steps
+**Core:**
+- `GET /health` - Service health checks (SurrealDB, MinIO, Infinity)
+- `POST /v1/traces`, `/v1/metrics` - OTLP proxy for frontend telemetry
 
-**Video Ingestion Queue Processing** (Ready to Resume)
-- **Current state**: Infrastructure ready for large-scale ingestion
-- **Queue location**: `compose/data/queues/pending/*.csv`
-- **Command**: `cd compose && docker compose up -d && cd .. && uv run python compose/cli/ingest_youtube.py`
-- **New capabilities**:
-  - Infinity embeddings eliminate transcript truncation (8K context vs 256 tokens)
-  - Containerized Qdrant for scalable vector storage
-  - All data encrypted with git-crypt for multi-machine workflows
+**Chat:**
+- `GET /chat/models` - List available models
+- `WS /chat/ws/chat` - WebSocket chat streaming
+- `WS /chat/ws/rag-chat` - RAG-enabled chat
 
-**Claude Code Integration with Existing Data** (Next Priority)
-- Give Claude Code access to Qdrant cache (transcript data from lesson-007)
-- Use Claude Code's YouTube MCP transcript tool to fetch and insert new transcripts
-- Workflow:
-  1. User asks Claude Code to analyze a YouTube video
-  2. Claude Code checks if transcript exists in Qdrant cache
-  3. If not cached: Use MCP YouTube tool to fetch transcript
-  4. Insert new transcript into Qdrant for future use
-  5. Perform analysis (tagging, summarization, etc.)
-- Benefits:
-  - Leverage existing cached data (49+ videos already cached)
-  - Reduce API calls for previously-processed videos
-  - Build up knowledge base over time
-  - Use MCP tools directly (better than lesson-001's youtube-transcript-api)
+**Content:**
+- `POST /youtube/analyze` - Video analysis with archive-first
+- `POST /cache/search` - Semantic search
+- `POST /ingest` - Content ingestion pipeline
 
-**Related files:**
-- Cache service: `compose/services/cache/`
-- Ingestion scripts: `compose/cli/ingest_*.py`
-- Qdrant data: `compose/data/qdrant_storage/` (git-crypt encrypted)
-- Archive data: `compose/data/archive/` (git-crypt encrypted)
+**Data Management:**
+- `/conversations` - CRUD + search
+- `/projects` - CRUD + file upload + RAG indexing
+- `/artifacts` - CRUD for canvas documents
 
-### Future Capabilities (As Needs Emerge)
+**Other:** `/stats`, `/settings`, `/auth`, `/backup`, `/websearch`, `/imagegen`
 
-#### Core Patterns
-- **Streaming Responses** - Real-time output for long operations
-- **Parallel Agent Execution** - Process multiple URLs concurrently
-- **Structured Output & Validation** - Type-safe responses with Pydantic
-- **RAG (Retrieval Augmented Generation)** - Knowledge base with semantic search
+## Quick Start
 
-#### Production & Resilience
-- **Error Handling & Retry Strategies** - Exponential backoff, circuit breaker
-- **Human-in-the-Loop** - Approval workflows and confidence scoring
-- **Cost Optimization** - Model selection, caching strategies
-
-#### Advanced Multi-Agent Patterns
-- **Sequential Workflows** - Multi-step agent chains
-- **Planning Agent** - Task decomposition with ReAct pattern
-- **Agent Collaboration** - Multiple agents with voting/consensus
-- **Conditional Routing** - LLM-based routing and state machines
-
-#### Evaluation & Testing
-- **Agent Evaluation Framework** - Golden datasets and metrics
-- **Prompt Engineering & Iteration** - Systematic optimization
-
-#### Deployment & Integration
-- **FastAPI Service** - REST API with async endpoints
-- **Browser Extension Integration** - Chrome extension for real-time tagging
-
-**Note**: These capabilities will be built as needs emerge, following the experiment-driven philosophy in `.claude/development-philosophy.md`. No prescriptive roadmap - focus on solving real problems.
-
-## Project Setup (Resume on New Machine)
-
-### Prerequisites
-- Python 3.14
-- Git
-- uv package manager
-
-### Quick Start
+### Start Platform
 ```bash
-# Clone repo
-git clone <repo-url>
-cd agent-spike
+# Start backend services
+cd compose && docker compose up -d
 
-# Install uv if not present
-python -m pip install uv
-
-# Sync all dependencies
-uv sync --all-groups
-
-# Copy environment variables
-# Create .env files in lesson directories with:
-# ANTHROPIC_API_KEY=sk-ant-...
-# OPENAI_API_KEY=sk-proj-...
-# DEFAULT_MODEL=claude-3-5-haiku-20241022
-
-# Test Lesson 001
-cd lessons/lesson-001
-uv run python -m youtube_agent.cli analyze "https://www.youtube.com/watch?v=i5kwX7jeWL8"
-
-# Test Lesson 002
-cd lessons/lesson-002
-uv run python -m webpage_agent.cli analyze "https://github.com/docling-project/docling"
-
-# Test Lesson 003 (Coordinator)
-cd lessons/lesson-003
-uv run python test_coordinator.py
-
-# Test Lesson 004 (Observability)
-cd lessons/lesson-004
-uv run python test_observability.py
+# Start frontend (separate terminal)
+cd compose/frontend && bun run dev
 ```
 
-## Quick Commands Reference
+### Key URLs
+- Frontend: `https://mentat.local.ilude.com`
+- API: `https://api.local.ilude.com`
+- Traefik: `https://traefik.local.ilude.com`
+- Grafana: `http://192.168.16.241:3000`
 
+### Check Status
 ```bash
-# Install lesson dependencies
-uv sync --group lesson-001
-uv sync --group lesson-002
-uv sync --group lesson-003
-uv sync --group lesson-004
-uv sync --all-groups            # All lessons at once
-
-# Run agents
-cd lessons/lesson-001 && uv run python -m youtube_agent.cli analyze "URL"
-cd lessons/lesson-002 && uv run python -m webpage_agent.cli analyze "URL"
-
-# Run coordinator (routes automatically)
-cd lessons/lesson-003 && uv run python test_coordinator.py
-
-# Test router
-cd lessons/lesson-003 && uv run python test_router.py
-
-# Test observability (all agents with tracing)
-cd lessons/lesson-004 && uv run python test_observability.py
-
-# Interactive mode
-cd lessons/lesson-001 && uv run python -m youtube_agent.cli interactive
-cd lessons/lesson-002 && uv run python -m webpage_agent.cli interactive
-
-# Check dependencies
-uv pip list | grep -E "(pydantic-ai|docling|youtube-transcript|logfire)"
+cd compose && docker compose ps
+docker compose logs api -f
+docker compose logs queue-worker -f
 ```
-
-## Known Issues
-
-- Some JavaScript-heavy websites fail with Docling (returns 404)
-  - Example: https://simonwillison.net/... (dynamic routing)
-  - Works fine with: GitHub, example.com, static sites
-- Docling includes some navigation in output (handled via prompt instructions)
-- ~~Lesson 003: Path issues~~ - **RESOLVED**: Use `uv run python` from any directory
-
-## Design Decisions Made
-
-1. **Shared .venv**: All lessons use root .venv (saves disk space)
-2. **Dependency groups**: Each lesson = separate dependency group in `pyproject.toml`
-3. **15k char limit**: Webpage content truncated for cost control
-4. **HTML only**: Lesson 002 doesn't handle PDFs yet (could add later)
-5. **Claude Haiku default**: Cheap and fast for prototyping
-6. **Pattern-based routing** (Lesson 003): Regex for URL classification (not LLM)
-7. **Direct agent import** (Lesson 003): Composition over complex orchestration
-8. **Pydantic Logfire over Langfuse** (Lesson 004): Langfuse has Python 3.14 compatibility issues, Logfire is native to Pydantic ecosystem
-9. **Archive-first strategy**: All expensive data (transcripts, LLM outputs) saved before processing
-10. **Protocol-first services**: typing.Protocol for dependency injection and testability
-11. **Queue-based ingestion**: CSV workflow (pending → processing → completed) for resumable batch processing
-12. **Webshare proxy**: YouTube Transcript API proxy to eliminate rate limiting
-13. **Lazy imports**: Qdrant optional dependency (graceful degradation to InMemoryCache)
-14. **Containerized services**: Separate embedding/vector services from application container
-15. **BAAI/bge-m3 embeddings**: 1024-dim, 8K context for better semantic search
-16. **Git-crypt data encryption**: All data in compose/data/ encrypted before push
-
-## File Locations
-
-- Lesson code: `lessons/lesson-XXX/`
-- Lesson docs: `lessons/lesson-XXX/{PLAN.md, README.md, COMPLETE.md}`
-- Services: `compose/services/{archive,cache,analytics,metadata,tagger,display,youtube}/`
-- Scripts: `compose/cli/` (production CLIs)
-- Data: `compose/data/{archive,queues,qdrant_storage}/` (git-crypt encrypted)
-- Docker: `compose/docker-compose.yml`, `compose/api/Dockerfile`
-- Documentation: `compose/INFINITY_SETUP.md`, `.claude/VISION.md`
-- This status file: `.claude/STATUS.md`
-- Main config: `pyproject.toml` (project root)
-- Shared .venv: `.venv/` (project root)
 
 ## Git State
 
-- Branch: main
-- Recent commits: Containerized services migration (12 commits on 2025-11-18)
-- Status: Clean working tree
-- All data encrypted with git-crypt before push
+- **Branch**: main
+- **Recent commits**:
+  - `b900a99` - feat: add OpenTelemetry metrics instrumentation to queue worker
+  - `aec6578` - feat: add Grafana dashboard provisioning for API and worker
+  - `543925d` - fix: frontend telemetry provider scope bug
+  - `0fd5fad` - feat: add OTLP proxy endpoint for frontend telemetry
+  - `ee1836e` - feat: add Grafana Alloy for centralized log collection
+- **Status**: Clean working tree
 
-**To Resume**: Pull latest, run `git-crypt unlock`, `uv sync --all-groups`, start containers with `cd compose && docker compose up -d`
+## What's Next
+
+### Immediate Priorities
+
+1. **Video Ingestion at Scale**
+   - Queue location: `compose/data/queues/pending/*.csv`
+   - Command: `uv run python compose/cli/ingest_youtube.py`
+   - Progress tracked in SurrealDB
+
+2. **Agent Self-Monitoring**
+   - LGTM client (`compose/services/observability/lgtm_client.py`) enables agents to query their own performance
+   - Use for calibration decisions, error pattern detection
+
+3. **Recommendation Engine**
+   - See `.claude/VISION.md` for ego prompt ideas
+   - Leverage accumulated video/content data
+
+## File Locations
+
+| Category | Location |
+|----------|----------|
+| Lessons | `lessons/lesson-XXX/` |
+| API Routers | `compose/api/routers/` |
+| Services | `compose/services/` |
+| Frontend | `compose/frontend/src/` |
+| Queue Worker | `compose/worker/` |
+| Dashboards | `infra/ansible/files/observability/dashboards/` |
+| Alloy Config | `compose/alloy-config.alloy` |
+| Telemetry | `compose/lib/telemetry.py` |
+| Docker | `compose/docker-compose.yml` |
+| Data | `compose/data/` (git-crypt encrypted) |
+
+## Design Decisions
+
+1. **SurrealDB as primary store** - Unified database with native vector indexes
+2. **Remote GPU server** - Heavy services (Infinity, Qdrant, LGTM stack) on 192.168.16.241
+3. **OTLP proxy** - Solves browser CORS issues for frontend telemetry
+4. **Grafana Alloy** - Lightweight log collector vs full Promtail
+5. **Frontend runs locally** - Windows hot reload issues with containerized Vite
+6. **Archive-first strategy** - All expensive data saved before processing
+7. **Queue-based ingestion** - CSV workflow with SurrealDB progress tracking
+8. **Protocol-first services** - typing.Protocol for dependency injection
+
+## Observability Architecture
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Frontend  │    │     API     │    │   Worker    │
+│  (Browser)  │    │  (FastAPI)  │    │  (Queue)    │
+└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+       │                  │                  │
+       │ OTLP/HTTP        │ OTLP/HTTP        │ OTLP/HTTP
+       │                  │                  │
+       ▼                  ▼                  ▼
+┌─────────────────────────────────────────────────────┐
+│              GPU Server (192.168.16.241)            │
+├─────────────┬─────────────┬─────────────┬──────────┤
+│    Tempo    │ Prometheus  │    Loki     │ Grafana  │
+│  (traces)   │  (metrics)  │   (logs)    │  (viz)   │
+└─────────────┴─────────────┴─────────────┴──────────┘
+```
+
+**Instrumentation:**
+- Backend: `opentelemetry-instrumentation-fastapi`, `-httpx`, `-logging`
+- Frontend: `@opentelemetry/sdk-trace-web`, auto-instrumented fetch
+- Worker: Custom metrics (counters, histograms, gauges)
+- Logs: Grafana Alloy collects from Docker socket
 
 ---
 
-## Completed Lessons (Detailed)
+## Completed Lessons (Reference)
 
 ### ✅ Lesson 001: YouTube Video Tagging Agent
-- **Location**: `lessons/lesson-001/`
-- **Status**: Complete and working
 - **Tech**: Pydantic AI, youtube-transcript-api, Claude Haiku
-- **What it does**: Analyzes YouTube video transcripts and generates 3-5 tags
-- **Run**: `cd lessons/lesson-001 && uv run python -m youtube_agent.cli analyze "YOUTUBE_URL"`
-- **Key files**: `youtube_agent/{agent.py, tools.py, prompts.py, cli.py}`
-- **Time**: ~55 minutes to build
+- **Run**: `cd lessons/lesson-001 && uv run python -m youtube_agent.cli analyze "URL"`
 
 ### ✅ Lesson 002: Webpage Content Tagging Agent
-- **Location**: `lessons/lesson-002/`
-- **Status**: Complete and working
 - **Tech**: Pydantic AI, Docling, Claude Haiku
-- **What it does**: Fetches webpages, converts to Markdown, generates 3-5 tags
-- **Run**: `cd lessons/lesson-002 && uv run python -m webpage_agent.cli analyze "WEBPAGE_URL"`
-- **Key files**: `webpage_agent/{agent.py, tools.py, prompts.py, cli.py}`
-- **Code reuse**: 80% from Lesson 001
-- **Time**: ~60 minutes to build
+- **Run**: `cd lessons/lesson-002 && uv run python -m webpage_agent.cli analyze "URL"`
 
 ### ✅ Lesson 003: Multi-Agent Coordinator
-- **Location**: `lessons/lesson-003/`
-- **Status**: Complete and working
 - **Tech**: Pattern-based routing, agent composition
-- **What it does**: Routes any URL to appropriate agent (YouTube or Webpage)
 - **Run**: `cd lessons/lesson-003 && uv run python test_coordinator.py`
-- **Key files**: `coordinator_agent/{router.py, agent.py, cli.py}`
-- **Pattern**: Router/Coordinator multi-agent pattern
-- **Code reuse**: 100% reuse of existing agents
-- **Time**: ~75 minutes to build
 
-### ✅ Lesson 004: Observability with Pydantic Logfire
-- **Location**: `lessons/lesson-004/`
-- **Status**: Complete and working
-- **Tech**: Pydantic Logfire, OpenTelemetry, console tracing
-- **What it does**: Adds comprehensive observability to all agents (YouTube, Webpage, Coordinator)
+### ✅ Lesson 004: Observability with Logfire
+- **Tech**: Pydantic Logfire, OpenTelemetry
 - **Run**: `cd lessons/lesson-004 && uv run python test_observability.py`
-- **Key files**: `observability/{config.py, logfire_wrapper.py}`, instrumented agents
-- **Pattern**: Global instrumentation with per-agent opt-in
-- **What's tracked**: Tool calls, LLM calls, token counts, costs, latency, parent/child traces
-- **Note**: Originally planned for Langfuse, switched to Logfire due to Python 3.14 compatibility
-- **Time**: ~80 minutes to build (including Langfuse detour)
+
+### ✅ Lesson 005: Security & Guardrails
+- **Tech**: Python stdlib validators (URL, PII, XSS)
+
+### ✅ Lesson 006: Memory with Mem0
+- **Tech**: Mem0 wrapper, semantic search
+
+### ✅ Lesson 007: Cache Manager & Ingestion
+- **Tech**: Qdrant, sentence-transformers
+
+### ✅ Lesson 008: Batch Processing
+- **Tech**: OpenAI Batch API
 
 ### ✅ Lesson 009: Orchestrator Agent
-- **Location**: `lessons/lesson-009/`
-- **Status**: Complete and working (with simplified approach)
-- **Tech**: Pydantic AI agents with tool-based delegation
-- **What it does**: Orchestrates multiple sub-agents to process multiple URLs in parallel
-- **Run**: `cd lessons/lesson-009 && uv run python test_orchestrator_simple.py`
-- **Key files**: `orchestrator_agent/{agent_simple.py, tools_simple.py}`
-- **Pattern**: Direct LLM calls instead of nested agents (avoids deadlocks)
-- **Key Learning**: Nested agent-with-tools calls create event loop conflicts
-- **Time**: ~3 hours to build (including debugging nested agent issues)
+- **Tech**: Parallel sub-agent coordination
 
-## Dependencies
+---
 
-All dependencies are in root `pyproject.toml` using dependency groups:
-
-### lesson-001 group
-- pydantic-ai
-- python-dotenv
-- rich
-- youtube-transcript-api
-
-### lesson-002 group
-- docling (+ all its deps: torch, transformers, scipy, numpy, pandas, etc.)
-- Everything from lesson-001
-
-### lesson-003 group
-- Everything from lesson-001 and lesson-002
-
-### lesson-004 group
-- Everything from lesson-003
-- logfire (for observability)
-
-### lesson-005 group
-- Everything from lesson-004
-- (No additional dependencies - uses Python stdlib)
-
-### lesson-006 group
-- Everything from lesson-005
-- mem0ai (for memory/preferences)
-
-### lesson-007 group
-- Everything from lesson-003 (router, YouTube, webpage tools)
-- qdrant-client (vector database)
-- sentence-transformers (embeddings)
-- tqdm (progress bars)
-
-### lesson-008 group
-- Everything from lesson-007 (cache manager)
-- openai (OpenAI Python SDK for Batch API)
-
-### lesson-009 group
-- Everything from lesson-003 (router, YouTube, webpage tools)
-- openai (for GPT-5 models)
-
-**Note**: `.venv` is in project root (shared across lessons to save ~7GB per lesson)
-
-## Architecture Pattern
-
-All lessons follow the same structure:
-```
-lesson-XXX/
-├── <name>_agent/          # Agent implementation package
-│   ├── __init__.py
-│   ├── agent.py           # Pydantic AI agent setup
-│   ├── tools.py           # Tool implementations
-│   ├── prompts.py         # System prompts
-│   └── cli.py             # Typer CLI interface
-├── .env                   # API keys (gitignored, never commit!)
-├── PLAN.md                # Lesson plan and learning objectives
-├── README.md              # Quick reference for the lesson
-├── COMPLETE.md            # Summary of learnings after completion
-└── test_*.py              # Test scripts and demos
-```
-
-## API Keys Required
-
-All lessons use the same API keys (configured in `.env` files):
-- `ANTHROPIC_API_KEY` - For Claude models
-- `OPENAI_API_KEY` - For GPT models
-- `DEFAULT_MODEL` - Optional, defaults to `claude-3-5-haiku-20241022`
-
-**Security**: `.env` files are gitignored, must be created manually on each machine
-
-## Learning Source
-
-All lessons based on Cole Medin's video:
-- **Video**: "Learn 90% of Building AI Agents in 30 Minutes"
-- **URL**: https://www.youtube.com/watch?v=i5kwX7jeWL8
-- **Concepts**: 4 core components (LLM, System Prompt, Tools, Memory)
+**To Resume**: `git pull && git-crypt unlock && uv sync --all-groups && cd compose && docker compose up -d`
