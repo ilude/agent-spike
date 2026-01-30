@@ -1,0 +1,39 @@
+# Undeploy all services from GPU server
+# Stops and removes containers but preserves data volumes
+#
+# Usage: ansible-playbook playbooks/undeploy.yml
+
+---
+- name: Undeploy services from GPU server
+  hosts: gpu_servers
+  gather_facts: false
+  vars:
+    observability_dir: "/apps/observability"
+
+  tasks:
+    - name: Stop AI services
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_dir }}"
+        state: absent
+      register: ai_result
+      ignore_errors: true
+
+    - name: Stop Observability stack
+      community.docker.docker_compose_v2:
+        project_src: "{{ observability_dir }}"
+        state: absent
+      register: obs_result
+      ignore_errors: true
+
+    - name: Undeploy summary
+      ansible.builtin.debug:
+        msg: |
+          Undeployment complete!
+
+          AI Services ({{ compose_dir }}):
+          {{ 'Stopped' if ai_result.changed else 'Already stopped or not found' }}
+
+          Observability ({{ observability_dir }}):
+          {{ 'Stopped' if obs_result.changed else 'Already stopped or not found' }}
+
+          Note: Data volumes are preserved. Run 'docker volume prune' on the server to remove them.

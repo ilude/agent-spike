@@ -273,7 +273,7 @@ brave-sync:
 	@uv run python compose/cli/brave_history/copy_brave_history.py --incremental --dest compose/data/queues/brave_history
 
 # GPU Server Management (Ansible)
-.PHONY: gpu-deploy gpu-update gpu-backup gpu-shell gpu-deploy-observability
+.PHONY: gpu-deploy gpu-update gpu-backup gpu-shell gpu-deploy-observability gpu-undeploy
 
 gpu-deploy:
 	@echo "Deploying AI services to GPU server..."
@@ -294,6 +294,10 @@ gpu-shell:
 gpu-deploy-observability:
 	@echo "Deploying observability stack (LGTM) to GPU server..."
 	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/deploy-observability.yml
+
+gpu-undeploy:
+	@echo "Stopping all services on GPU server..."
+	@cd infra/ansible && docker compose run --rm ansible ansible-playbook playbooks/undeploy.yml
 
 # Embedding Backfill
 .PHONY: embed-status embed-backfill embed-backfill-dry
